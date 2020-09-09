@@ -5,6 +5,11 @@
   src: url("./assets/fonts/ArchivoBlack-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Asap";
+  src: url("./assets/fonts/Asap-Regular.ttf") format("truetype");
+}
+
 
 body {
   margin: 0;

@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "../src/assets/fonts/ArchivoBlack-Regular.ttf"
+import "../src/assets/fonts/Asap-Regular.ttf"
 
 ReactDOM.render(
   <Router>

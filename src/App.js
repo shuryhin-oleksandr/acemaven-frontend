@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
+import PublicRoute from "./routes/PublicRoute";
 
 function App() {
+  const isUserLoggedIn = false;
   return (
-    <div className="App">
-     Hello
-    </div>
+    <div className="App">{isUserLoggedIn ? "Hello" : <PublicRoute />}</div>
   );
 }
 

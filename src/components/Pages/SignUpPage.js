@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import RegisterHead from "../RegisterHead";
 import RegisterFormTemplate from "../../templates/RegisterFormTemplate";
 import styled from "styled-components";
 import { ErrorMessage, Form, Formik } from "formik";
-import BaseInputGroup from "../base/BaseInputGroup";
 import BaseFormikInput from "../base/BaseFormikInput";
-import BaseButton from "../base/BaseButton";
-import BaseBackButton from "../base/BaseBackButton";
+import PartTwo from "../SignUpFormParts/PartTwo";
+import PartOne from "../SignUpFormParts/PartOne";
 
 const SignUpPage = () => {
+  const [firstPage, changePage] = useState(true);
   return (
     <RegisterFormTemplate>
       <RegisterHead
@@ -29,99 +29,39 @@ const SignUpPage = () => {
             phone: "",
             email: "",
             taxId: "",
+            employees: "",
+            website: "",
           }}
           onSubmit={(values, { setSubmitting }) => {
             console.log("values", values);
           }}
         >
-          {({ values }) => {
+          {({ values, setFieldValue, resetForm }) => {
             console.log("values", values);
             return (
               <Form>
-                <div style={{ marginBottom: "46px" }}>
-                  <BaseFormikInput
-                    name="companyType"
-                    placeholder="Company Type"
-                    component="select"
-                  >
-                    <option value="">Company Type</option>
-                    <option value="client">Client</option>
-                    <option value="agent">Agent</option>
-                  </BaseFormikInput>
-                </div>
+                {firstPage && (
+                  <div style={{ marginBottom: "46px" }}>
+                    <BaseFormikInput
+                      name="companyType"
+                      placeholder="Company Type"
+                      component="select"
+                      onChange={(e) => {
+                        resetForm();
+                        setFieldValue("companyType", e.target.value);
+                      }}
+                    >
+                      <option value="">Company Type</option>
+                      <option value="client">Client</option>
+                      <option value="agent">Agent</option>
+                    </BaseFormikInput>
+                  </div>
+                )}
                 {values.companyType ? (
-                  values.companyType === "client" ? (
-                    <>
-                      <BaseInputGroup
-                        name="companyName"
-                        placeholder="Company Name"
-                        values={values}
-                        labelText="Company Name"
-                        marginBot={46}
-                      />
-                      <BaseInputGroup
-                        name="email"
-                        placeholder="Email"
-                        values={values}
-                        labelText="Email"
-                        marginBot={46}
-                      />
-                      <BaseInputGroup
-                        name="phone"
-                        placeholder="Phone number"
-                        values={values}
-                        labelText="Phone number"
-                        marginBot={46}
-                      />
-                      <BaseInputGroup
-                        name="address1"
-                        placeholder="Address Line 1"
-                        values={values}
-                        labelText="Address"
-                        marginBot={15}
-                      />
-                      <BaseInputGroup
-                        name="address2"
-                        placeholder="Address Line 2 (optional)"
-                        values={values}
-                        marginBot={46}
-                      />
-                      <BaseInputGroup
-                        name="state"
-                        placeholder="State"
-                        values={values}
-                        labelText="State"
-                        marginBot={46}
-                      />
-                      <BaseInputGroup
-                        name="city"
-                        placeholder="City"
-                        values={values}
-                        labelText="City"
-                        marginBot={46}
-                      />
-                      <BaseInputGroup
-                        name="zipCode"
-                        placeholder="Zip Code"
-                        values={values}
-                        labelText="Zip Code"
-                        marginBot={46}
-                      />
-                      <BaseInputGroup
-                        name="taxId"
-                        placeholder="Tax id Number"
-                        values={values}
-                        labelText="Tax id Number"
-                        marginBot={46}
-                      />
-                      <ButtonWrapper>
-                        <BaseButton type="submit">
-                          Create new account
-                        </BaseButton>
-                      </ButtonWrapper>
-                    </>
+                  firstPage ? (
+                    <PartOne changePage={changePage} />
                   ) : (
-                    <h1>Agent</h1>
+                    <PartTwo changePage={changePage} />
                   )
                 ) : null}
               </Form>

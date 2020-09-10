@@ -28,15 +28,14 @@ const SignInPage = () => {
         >
           {({ values }) => (
             <Form>
-              <div style={{ marginBottom: "46px" }}>
-                <BaseInputGroup
-                  name="email"
-                  placeholder="Email"
-                  values={values}
-                  labelText="Email"
-                />
-                <ErrorMessage name="email" component="div" />
-              </div>
+              <BaseInputGroup
+                name="email"
+                placeholder="Email"
+                values={values}
+                labelText="Email"
+                marginBot={46}
+              />
+              <ErrorMessage name="email" component="div" />
               <BaseInputGroup
                 name="password"
                 placeholder="Password"

@@ -3,6 +3,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import SignInPage from "../../components/Pages/SignInPage";
 import SignUpPage from "../../components/Pages/SignUpPage";
+import CreateAccountPage from "../../components/Pages/CreateAccountPage";
 
 
 const PublicRoute = () =>{
@@ -13,6 +14,9 @@ const PublicRoute = () =>{
             </Route>
             <Route path="/sign-up">
                 <SignUpPage/>
+            </Route>
+            <Route path="/create-account">
+                <CreateAccountPage/>
             </Route>
         </Switch>
     )

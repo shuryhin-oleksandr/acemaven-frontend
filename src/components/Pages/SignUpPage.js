@@ -51,77 +51,69 @@ const SignUpPage = () => {
                 {values.companyType ? (
                   values.companyType === "client" ? (
                     <>
-                      <InputWrap>
+
                         <BaseInputGroup
                           name="companyName"
                           placeholder="Company Name"
                           values={values}
                           labelText="Company Name"
+                          marginBot={46}
                         />
-                      </InputWrap>
-                      <div style={{ marginBottom: "15px" }}>
                         <BaseInputGroup
                           name="address1"
                           placeholder="Address Line 1"
                           values={values}
                           labelText="Address"
+                          marginBot={15}
                         />
-                      </div>
-                      <InputWrap>
                         <BaseInputGroup
                           name="address2"
                           placeholder="Address Line 2 (optional)"
                           values={values}
+                          marginBot={46}
                         />
-                      </InputWrap>
-                      <InputWrap>
                         <BaseInputGroup
                           name="state"
                           placeholder="State"
                           values={values}
                           labelText="State"
+                          marginBot={46}
                         />
-                      </InputWrap>
-                      <InputWrap>
                         <BaseInputGroup
                           name="city"
                           placeholder="City"
                           values={values}
                           labelText="City"
+                          marginBot={46}
                         />
-                      </InputWrap>
-                      <InputWrap>
                         <BaseInputGroup
                           name="zipCode"
                           placeholder="Zip Code"
                           values={values}
                           labelText="Zip Code"
+                          marginBot={46}
                         />
-                      </InputWrap>
-                      <InputWrap>
                         <BaseInputGroup
                           name="phone"
                           placeholder="Phone number"
                           values={values}
                           labelText="Phone number"
+                          marginBot={46}
                         />
-                      </InputWrap>
-                      <InputWrap>
                         <BaseInputGroup
                           name="email"
                           placeholder="Email"
                           values={values}
                           labelText="Email"
+                          marginBot={46}
                         />
-                      </InputWrap>
-                      <InputWrap>
                         <BaseInputGroup
                           name="taxId"
                           placeholder="Tax id Number"
                           values={values}
                           labelText="Tax id Number"
+                          marginBot={46}
                         />
-                      </InputWrap>
                       <ButtonWrapper>
                         <BaseButton type="submit">
                           Create new account
@@ -153,6 +145,3 @@ const ButtonWrapper = styled.div`
   margin-top: 50px;
 `;
 
-const InputWrap = styled.div`
-  margin-bottom: 46px;
-`;

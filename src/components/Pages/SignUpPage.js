@@ -6,6 +6,7 @@ import { ErrorMessage, Form, Formik } from "formik";
 import BaseInputGroup from "../base/BaseInputGroup";
 import BaseFormikInput from "../base/BaseFormikInput";
 import BaseButton from "../base/BaseButton";
+import BaseBackButton from "../base/BaseBackButton";
 
 const SignUpPage = () => {
   return (
@@ -51,69 +52,68 @@ const SignUpPage = () => {
                 {values.companyType ? (
                   values.companyType === "client" ? (
                     <>
-
-                        <BaseInputGroup
-                          name="companyName"
-                          placeholder="Company Name"
-                          values={values}
-                          labelText="Company Name"
-                          marginBot={46}
-                        />
-                        <BaseInputGroup
-                          name="address1"
-                          placeholder="Address Line 1"
-                          values={values}
-                          labelText="Address"
-                          marginBot={15}
-                        />
-                        <BaseInputGroup
-                          name="address2"
-                          placeholder="Address Line 2 (optional)"
-                          values={values}
-                          marginBot={46}
-                        />
-                        <BaseInputGroup
-                          name="state"
-                          placeholder="State"
-                          values={values}
-                          labelText="State"
-                          marginBot={46}
-                        />
-                        <BaseInputGroup
-                          name="city"
-                          placeholder="City"
-                          values={values}
-                          labelText="City"
-                          marginBot={46}
-                        />
-                        <BaseInputGroup
-                          name="zipCode"
-                          placeholder="Zip Code"
-                          values={values}
-                          labelText="Zip Code"
-                          marginBot={46}
-                        />
-                        <BaseInputGroup
-                          name="phone"
-                          placeholder="Phone number"
-                          values={values}
-                          labelText="Phone number"
-                          marginBot={46}
-                        />
-                        <BaseInputGroup
-                          name="email"
-                          placeholder="Email"
-                          values={values}
-                          labelText="Email"
-                          marginBot={46}
-                        />
-                        <BaseInputGroup
-                          name="taxId"
-                          placeholder="Tax id Number"
-                          values={values}
-                          labelText="Tax id Number"
-                          marginBot={46}
-                        />
+                      <BaseInputGroup
+                        name="companyName"
+                        placeholder="Company Name"
+                        values={values}
+                        labelText="Company Name"
+                        marginBot={46}
+                      />
+                      <BaseInputGroup
+                        name="email"
+                        placeholder="Email"
+                        values={values}
+                        labelText="Email"
+                        marginBot={46}
+                      />
+                      <BaseInputGroup
+                        name="phone"
+                        placeholder="Phone number"
+                        values={values}
+                        labelText="Phone number"
+                        marginBot={46}
+                      />
+                      <BaseInputGroup
+                        name="address1"
+                        placeholder="Address Line 1"
+                        values={values}
+                        labelText="Address"
+                        marginBot={15}
+                      />
+                      <BaseInputGroup
+                        name="address2"
+                        placeholder="Address Line 2 (optional)"
+                        values={values}
+                        marginBot={46}
+                      />
+                      <BaseInputGroup
+                        name="state"
+                        placeholder="State"
+                        values={values}
+                        labelText="State"
+                        marginBot={46}
+                      />
+                      <BaseInputGroup
+                        name="city"
+                        placeholder="City"
+                        values={values}
+                        labelText="City"
+                        marginBot={46}
+                      />
+                      <BaseInputGroup
+                        name="zipCode"
+                        placeholder="Zip Code"
+                        values={values}
+                        labelText="Zip Code"
+                        marginBot={46}
+                      />
+                      <BaseInputGroup
+                        name="taxId"
+                        placeholder="Tax id Number"
+                        values={values}
+                        labelText="Tax id Number"
+                        marginBot={46}
+                      />
                       <ButtonWrapper>
                         <BaseButton type="submit">
                           Create new account
@@ -145,3 +145,4 @@ const ButtonWrapper = styled.div`
   margin-top: 50px;
 `;
 
+// <BaseBackButton onClick={() => alert(1)} />

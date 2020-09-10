@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: 600px;
+  width: 420px;
   padding: 90px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
 `;

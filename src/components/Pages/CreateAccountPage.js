@@ -1,17 +1,20 @@
 //Core
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 //Instruments
 import { Formik, Form, ErrorMessage } from "formik";
+import { fonts } from "../../theming";
 
 //Components
 import RegisterFormTemplate from "../../templates/RegisterFormTemplate";
 import BaseButton from "../base/BaseButton";
 import BaseInputGroup from "../base/BaseInputGroup";
-import { fonts } from "../../theming";
+import DropZone from "../DropZone";
+import Close from "../../assets/icons/close-icon.svg";
 
 const CreateAccountPage = () => {
+  const [img, setImg] = useState("");
   return (
     <RegisterFormTemplate>
       <Heading>Create a Master Account</Heading>
@@ -24,81 +27,98 @@ const CreateAccountPage = () => {
             password: "",
             confirmPassword: "",
             phone: "",
-            position: "",
+            position: ""
           }}
           onSubmit={(values, { setSubmitting }) => {
             console.log("values", values);
           }}
         >
-          {({ values }) => (
-            <Form>
-              <Row>
-                <RowItem>
-                  <BaseInputGroup
-                    name="name"
-                    placeholder="Name"
-                    values={values}
-                    labelText="Name"
-                    marginBot={46}
-                  />
-                  <ErrorMessage name="email" component="div" />
-                </RowItem>
-                <RowItem>
-                  <BaseInputGroup
-                    name="lastName"
-                    placeholder="Last Name"
-                    values={values}
-                    labelText="Last Name"
-                    marginBot={46}
-                  />
-                  <ErrorMessage name="password" component="div" />
-                </RowItem>
-              </Row>
-              <BaseInputGroup
-                name="email"
-                placeholder="Email"
-                values={values}
-                labelText="Email"
-                marginBot={46}
-              />
-              <BaseInputGroup
-                name="password"
-                placeholder="Password"
-                values={values}
-                labelText="Password"
-                type="password"
-                marginBot={46}
-              />
-              {values.password && (
-                <div style={{ marginTop: "-16px" }}>
-                  <BaseInputGroup
-                    name="confirmPassword"
-                    placeholder="Confirm password"
-                    values={values}
-                    type="password"
-                    marginBot={57}
-                  />
-                </div>
-              )}
-              <BaseInputGroup
-                name="phone"
-                placeholder="Phone number"
-                values={values}
-                labelText="Phone number"
-                marginBot={46}
-              />
-              <BaseInputGroup
-                name="position"
-                placeholder="Position in the company"
-                values={values}
-                labelText="Position in the company"
-                marginBot={46}
-              />
-              <ButtonWrapper>
-                <BaseButton type="submit">Create a Master account</BaseButton>
-              </ButtonWrapper>
-            </Form>
-          )}
+          {({ values }) => {
+            console.log("values", values);
+            return (
+              <Form>
+                <Row>
+                  <RowItem>
+                    <BaseInputGroup
+                      name="name"
+                      placeholder="Name"
+                      values={values}
+                      labelText="Name"
+                      marginBot={46}
+                    />
+                    <ErrorMessage name="email" component="div" />
+                  </RowItem>
+                  <RowItem>
+                    <BaseInputGroup
+                      name="lastName"
+                      placeholder="Last Name"
+                      values={values}
+                      labelText="Last Name"
+                      marginBot={46}
+                    />
+                    <ErrorMessage name="password" component="div" />
+                  </RowItem>
+                </Row>
+                <BaseInputGroup
+                  name="email"
+                  placeholder="Email"
+                  values={values}
+                  labelText="Email"
+                  marginBot={46}
+                />
+                <BaseInputGroup
+                  name="password"
+                  placeholder="Password"
+                  values={values}
+                  labelText="Password"
+                  type="password"
+                  marginBot={46}
+                />
+                {values.password && (
+                  <div style={{ marginTop: "-16px" }}>
+                    <BaseInputGroup
+                      name="confirmPassword"
+                      placeholder="Confirm password"
+                      values={values}
+                      type="password"
+                      marginBot={57}
+                    />
+                  </div>
+                )}
+                <BaseInputGroup
+                  name="phone"
+                  placeholder="Phone number"
+                  values={values}
+                  labelText="Phone number"
+                  marginBot={46}
+                />
+                <BaseInputGroup
+                  name="position"
+                  placeholder="Position in the company"
+                  values={values}
+                  labelText="Position in the company"
+                  marginBot={46}
+                />
+                {img ? (
+                  <div style={{ display: "flex", alignItems: "flex-start" }}>
+                    <Photo height="auto" src={img} />
+                    <CloseIcon
+                      src={Close}
+                      alt="Close"
+                      onClick={() => {
+                        setImg("");
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <DropZone setImg={setImg} />
+                )}
+                <ButtonWrapper>
+                  <BaseButton type="submit">Create a Master account</BaseButton>
+                </ButtonWrapper>
+              </Form>
+            );
+          }}
         </Formik>
       </FormWrapper>
     </RegisterFormTemplate>
@@ -130,4 +150,14 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 50px;
+`;
+
+const Photo = styled.img`
+  max-width: 185px;
+  height: auto;
+`;
+
+const CloseIcon = styled.img`
+  margin-left: 7px;
+  cursor: pointer;
 `;

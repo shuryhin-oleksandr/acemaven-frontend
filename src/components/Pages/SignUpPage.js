@@ -79,10 +79,3 @@ const FormWrapper = styled.div`
   padding-top: 50px;
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-`;
-
-// <BaseBackButton onClick={() => alert(1)} />

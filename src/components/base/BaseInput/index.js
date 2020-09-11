@@ -2,11 +2,14 @@
 import styled from "styled-components";
 import { fonts } from "../../../theming";
 
+
+
 const BaseInput = styled.input`
   background: #ffffff;
   border: 1px solid #bdbdbd;
   box-sizing: border-box;
   border-radius: 4px;
+  max-width: ${({max_width}) => max_width};
   width: 100%;
   height: 40px;
   padding: 0 10px;

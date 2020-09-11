@@ -1,0 +1,51 @@
+import styled from 'styled-components'
+import fonts from '../../theming/fonts'
+
+
+export const HeaderContainer = styled.div`
+  max-height: 60px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 0;
+  background-color: white;
+  box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+`
+
+export const LogoWrap = styled.div`
+${fonts.asap(18, 21, 2, 600)};
+padding-left: 50px;
+`
+
+export const InfoWrap = styled.div`
+max-width: 130px;
+width: 100%;
+display: flex;
+justify-content: space-between;
+padding-right: 80px;
+`
+
+export const ButtonWrap = styled.button`
+outline: none;
+background: none;
+border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`
+export const PhotoWrap = styled.div`
+border-radius: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+   img {
+   width: 40px;
+   height: 40px;
+   }
+   
+   &:hover {
+    cursor: pointer;
+   }
+`

@@ -45,7 +45,12 @@ const SignInPage = () => {
               />
               <ErrorMessage name="password" component="div" />
               <ButtonWrapper>
-                <BaseButton type="submit">Log in</BaseButton>
+                <BaseButton
+                  type="submit"
+                  disabled={!values.password || !values.email}
+                >
+                  Log in
+                </BaseButton>
               </ButtonWrapper>
             </Form>
           )}

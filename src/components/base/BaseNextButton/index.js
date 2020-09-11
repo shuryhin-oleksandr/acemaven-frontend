@@ -8,7 +8,7 @@ const BaseNextButton = styled.button`
     disabled ? "#7C7C89" : background ? background : "#000000"};
   color: ${({ textColor }) => (textColor ? textColor : "#FFFFFF")};
   padding: 12px 25px 12px 34px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
   outline: none;
   border: none;
   ${fonts.archivoBlack(14, 15)};

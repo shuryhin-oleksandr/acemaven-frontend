@@ -6,6 +6,15 @@ import BaseNextButton from "../base/BaseNextButton";
 
 const PartOne = ({ changePage }) => {
   const { values } = useFormikContext();
+  const isAgentButtonDisabled =
+    !values.companyName ||
+    !values.email ||
+    !values.phone ||
+    !values.employees ||
+    !values.website;
+
+  const isClientButtonDisabled =
+    !values.companyName || !values.email || !values.phone;
   return (
     <>
       <BaseInputGroup
@@ -55,7 +64,16 @@ const PartOne = ({ changePage }) => {
           paddingRight: "20px",
         }}
       >
-        <BaseNextButton onClick={() => changePage(false)}>Next</BaseNextButton>
+        <BaseNextButton
+          disabled={
+            values.companyType === "agent"
+              ? isAgentButtonDisabled
+              : isClientButtonDisabled
+          }
+          onClick={() => changePage(false)}
+        >
+          Next
+        </BaseNextButton>
       </div>
     </>
   );

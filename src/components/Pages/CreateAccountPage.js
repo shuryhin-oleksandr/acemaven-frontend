@@ -155,6 +155,8 @@ const ButtonWrapper = styled.div`
 const Photo = styled.img`
   max-width: 185px;
   height: auto;
+  border-radius: 4px;
+  border: 1px solid #B7BCD6;
 `;
 
 const CloseIcon = styled.img`

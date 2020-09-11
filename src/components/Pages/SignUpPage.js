@@ -6,6 +6,37 @@ import { ErrorMessage, Form, Formik } from "formik";
 import BaseFormikInput from "../base/BaseFormikInput";
 import PartTwo from "../SignUpFormParts/PartTwo";
 import PartOne from "../SignUpFormParts/PartOne";
+import * as Yup from "yup";
+
+const AgentValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Please, enter your company name"),
+  master_email: Yup.string()
+    .email("Invalid email")
+    .required("Please, enter your email"),
+  phone: Yup.number().required("Please, enter your phone number"),
+  employees_number: Yup.number().required(
+    "Please, enter your employees_number"
+  ),
+  website: Yup.string().required("Please, enter your Website"),
+  address_line_first: Yup.string().required("Please, enter your address"),
+  state: Yup.string().required("Please, enter your state"),
+  city: Yup.string().required("Please, enter your city"),
+  zip_code: Yup.number().required("Please, enter your Zip Code"),
+  tax_id: Yup.string().required("Please, enter your Tax id Number"),
+});
+
+const ClientValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Please, enter your company name"),
+  master_email: Yup.string()
+    .email("Invalid email")
+    .required("Please, enter your email"),
+  phone: Yup.number().required("Please, enter your phone number"),
+  address_line_first: Yup.string().required("Please, enter your address"),
+  state: Yup.string().required("Please, enter your state"),
+  city: Yup.string().required("Please, enter your city"),
+  zip_code: Yup.number().required("Please, enter your Zip Code"),
+  tax_id: Yup.string().required("Please, enter your Tax id Number"),
+});
 
 const SignUpPage = () => {
   const [firstPage, changePage] = useState(true);
@@ -18,37 +49,44 @@ const SignUpPage = () => {
       />
       <FormWrapper>
         <Formik
+          // validationSchema={ClientValidationSchema}
+          validationSchema={() =>
+            Yup.lazy((values) =>
+              values.type === "agent"
+                ? AgentValidationSchema
+                : ClientValidationSchema
+            )
+          }
           initialValues={{
-            companyType: "",
-            companyName: "",
-            address1: "",
-            address2: "",
+            type: "",
+            name: "",
+            address_line_first: "",
+            address_line_second: "",
             state: "",
             city: "",
-            zipCode: "",
+            zip_code: "",
             phone: "",
-            email: "",
-            taxId: "",
-            employees: "",
+            tax_id: "",
+            employees_number: "",
             website: "",
+            master_email: "",
           }}
           onSubmit={(values, { setSubmitting }) => {
-            console.log("values", values);
+            console.log("submit", values);
           }}
         >
           {({ values, setFieldValue, resetForm }) => {
-            console.log("values", values);
             return (
               <Form>
                 {firstPage && (
                   <div style={{ marginBottom: "46px" }}>
                     <BaseFormikInput
-                      name="companyType"
+                      name="type"
                       placeholder="Company Type"
                       component="select"
                       onChange={(e) => {
                         resetForm();
-                        setFieldValue("companyType", e.target.value);
+                        setFieldValue("type", e.target.value);
                       }}
                     >
                       <option value="">Company Type</option>
@@ -57,7 +95,7 @@ const SignUpPage = () => {
                     </BaseFormikInput>
                   </div>
                 )}
-                {values.companyType ? (
+                {values.type ? (
                   firstPage ? (
                     <PartOne changePage={changePage} />
                   ) : (
@@ -78,4 +116,3 @@ export default SignUpPage;
 const FormWrapper = styled.div`
   padding-top: 50px;
 `;
-

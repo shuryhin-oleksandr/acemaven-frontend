@@ -17,7 +17,7 @@ const Layout:React.FC<IProps> = ({children}) => {
         <LayoutContainer>
             <Header/>
             <Content>
-                {/*{isFullMenuOpen ? <NavBar setFull={setFull}/> : <NavBarSmall setFull={setFull} isFullMenuOpen={isFullMenuOpen}/>}*/}
+                {isFullMenuOpen ? <NavBar setFull={setFull}/> : <NavBarSmall setFull={setFull} isFullMenuOpen={isFullMenuOpen}/>}
                 {children}
             </Content>
         </LayoutContainer>

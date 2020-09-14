@@ -2,19 +2,23 @@
 
 @font-face {
   font-family: "ArchivoBlack";
-  src: url("./assets/fonts/ArchivoBlack-Regular.ttf") format("truetype");
+  src: url("_UI/assets/fonts/ArchivoBlack-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Asap";
-  src: url("./assets/fonts/Asap-Regular.ttf") format("truetype");
+  src: url("_UI/assets/fonts/Asap-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Raleway";
-  src: url("./assets/fonts/Raleway-VariableFont_wght.ttf") format("truetype");
+  src: url("_UI/assets/fonts/Raleway-VariableFont_wght.ttf") format("truetype");
 }
 
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;

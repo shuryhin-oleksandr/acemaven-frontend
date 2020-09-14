@@ -1,10 +1,10 @@
 // Core
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import SignInPage from "../../components/Pages/SignInPage";
-import SignUpPage from "../../components/Pages/SignUpPage";
-import CreateAccountPage from "../../components/Pages/CreateAccountPage";
-import AddNewUserContainer from "../../components/Pages/CreateNewUser/AddNewUserContainer";
+import SignInPage from "../../_UI/components/Pages/SignInPage";
+import SignUpPage from "../../_UI/components/Pages/SignUpPage";
+import CreateAccountPage from "../../_UI/components/Pages/CreateAccountPage";
+import AddNewUserContainer from "../../_UI/components/Pages/CreateNewUser/AddNewUserContainer";
 
 
 const PublicRoute = () =>{

@@ -2,7 +2,9 @@ import * as React from 'react'
 import styled from "styled-components";
 import fonts from "../../theming/fonts";
 import {useForm} from "react-hook-form";
-import { IAddNewUserData } from '../../types/addNewUserTypes';
+import { IAddNewUserData } from '../../../_BLL/types/addNewUserTypes';
+import Input from "../_commonComponents/Input/Input";
+
 
 interface IProps {
 
@@ -14,6 +16,8 @@ const AddUserForm:React.FC<IProps> = () => {
     const onSubmit = (values: IAddNewUserData) => {
         console.log(values)
     }
+
+
 
     return (
         <FormContainer>
@@ -55,19 +59,22 @@ const AddUserForm:React.FC<IProps> = () => {
                                name='companyPosition'
                                ref={register}/>
                 </InputWrap>
+
+                <Input label='Phone Number'/>
+
                 <CheckboxWrap>
                     <Check>
-                        <input type="radio"/>
+                        <input type="checkbox"/>
                         <CheckTitle>Master</CheckTitle>
                     </Check>
                     <Check>
-                        <input type="radio"/>
+                        <input type="checkbox"/>
                         <CheckTitle>
                             Agent
                         </CheckTitle>
                     </Check>
                     <Check>
-                        <input type="radio"/>
+                        <input type="checkbox"/>
                         <CheckTitle>Billing </CheckTitle>
                     </Check>
                 </CheckboxWrap>
@@ -88,6 +95,7 @@ max-width: 420px;
 width: 100%;
 display: flex;
 flex-direction: column;
+margin-right: 40px;
 `
 export const Title = styled.div`
 color: black;
@@ -142,7 +150,7 @@ const BaseInput = styled.input`
 `;
 const SubmitButton = styled.button`
 background-color: #7C7C89;
-height: 40px;
+min-height: 40px;
 max-width: 140px;
 width: 100%;
 outline: none;

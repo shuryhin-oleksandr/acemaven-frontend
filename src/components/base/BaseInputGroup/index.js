@@ -19,7 +19,9 @@ const BaseInputGroup = ({
   const [inputType, changeInputType] = useState(type);
   return (
     <Wrapper marginBot={marginBot}>
-      {values[name] && labelText && <Label>{labelText}</Label>}
+      {values[name] && labelText && (
+        <Label for={values[name]}>{labelText}</Label>
+      )}
       {withEye && (
         <EyeImage
           src={Eye}
@@ -34,6 +36,7 @@ const BaseInputGroup = ({
         type={inputType}
         placeholder={placeholder}
         name={name}
+        id={values[name]}
       />
       {withoutErrorMessage ? null : (
         <ErrorMessage name={name} component={Error} />
@@ -48,7 +51,7 @@ const Wrapper = styled.div`
   margin-bottom: ${({ marginBot }) => (marginBot ? `${marginBot}px` : 0)};
 `;
 
-const Label = styled.span`
+const Label = styled.label`
   position: absolute;
   top: -25px;
   ${fonts.archivoBlack(14, 15)};

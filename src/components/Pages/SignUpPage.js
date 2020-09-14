@@ -49,7 +49,6 @@ const SignUpPage = () => {
       />
       <FormWrapper>
         <Formik
-          // validationSchema={ClientValidationSchema}
           validationSchema={() =>
             Yup.lazy((values) =>
               values.type === "agent"

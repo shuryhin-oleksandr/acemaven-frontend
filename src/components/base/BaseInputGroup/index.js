@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import BaseFormikInput from "../BaseFormikInput";
 import fonts from "../../../theming/fonts";
 import { ErrorMessage } from "formik";
+import Eye from "../../../assets/icons/password-eye.svg";
 
 const BaseInputGroup = ({
   values,
@@ -11,12 +12,29 @@ const BaseInputGroup = ({
   labelText,
   marginBot,
   withoutErrorMessage,
+  withEye,
+  type,
   ...props
 }) => {
+  const [inputType, changeInputType] = useState(type);
   return (
     <Wrapper marginBot={marginBot}>
       {values[name] && labelText && <Label>{labelText}</Label>}
-      <BaseFormikInput {...props} placeholder={placeholder} name={name} />
+      {withEye && (
+        <EyeImage
+          src={Eye}
+          alt="eye"
+          onClick={() =>
+            changeInputType(inputType === "password" ? "text" : "password")
+          }
+        />
+      )}
+      <BaseFormikInput
+        {...props}
+        type={inputType}
+        placeholder={placeholder}
+        name={name}
+      />
       {withoutErrorMessage ? null : (
         <ErrorMessage name={name} component={Error} />
       )}
@@ -43,4 +61,11 @@ const Error = styled.div`
   margin-top: 5px;
   ${fonts.raleway(12, 14)};
   color: #e76767;
+`;
+
+const EyeImage = styled.img`
+  position: absolute;
+  right: 9px;
+  top: 15px;
+  cursor: pointer;
 `;

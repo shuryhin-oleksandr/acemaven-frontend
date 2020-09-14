@@ -6,7 +6,7 @@ import BaseNextButton from "../base/BaseNextButton";
 
 const PartOne = ({ changePage }) => {
   const { values, touched, errors } = useFormikContext();
-  const hasErrors = Object.keys(errors).length > 0;
+
   const isAgentButtonDisabled =
     !values.name ||
     !values.master_email ||

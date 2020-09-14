@@ -11,7 +11,7 @@ const BaseNextButton = styled.button`
   cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
   outline: none;
   border: none;
-  ${fonts.archivoBlack(14, 15)};
+  ${fonts.helveticaNeu(14, 17, 0, 900)};
   position: relative;
   :after {
     position: absolute;

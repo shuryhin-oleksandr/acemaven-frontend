@@ -105,6 +105,6 @@ const Error = styled.div`
   position: absolute;
   right: 0;
   margin-top: 5px;
-  ${fonts.raleway(12, 14)};
+  ${fonts.helveticaNeu(12, 14, 0, 600)};
   color: #e76767;
 `;

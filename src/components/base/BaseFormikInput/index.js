@@ -23,20 +23,20 @@ const BaseFormikInput = styled(Field)`
   height: 40px;
   padding: 0 10px;
   outline: none;
-  ${fonts.asap(14, 16)};
+  ${fonts.helveticaNeu(14, 16, 0, 400)};
   color: #bdbdbd;
   ::-webkit-input-placeholder {
     /* Edge */
-    ${fonts.asap(14, 16)};
+    ${fonts.helveticaNeu(14, 16, 0, 400)};
     color: #bdbdbd;
   }
   :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    ${fonts.asap(14, 16)};
+    ${fonts.helveticaNeu(14, 16, 0, 400)};
     color: #bdbdbd;
   }
   ::placeholder {
-    ${fonts.asap(14, 16)};
+    ${fonts.helveticaNeu(14, 16, 0, 400)};
     color: #bdbdbd;
   }
   //hiding inputs type number Arrows/Spinners

@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
 import Icon from "../../assets/icons/drop-zone-icon.svg";
+import fonts from "../../theming/fonts";
 
 const DropZone = ({ setImg }) => {
   const onDrop = useCallback((acceptedFiles) => {
@@ -26,7 +27,7 @@ const DropZone = ({ setImg }) => {
       >
         <img src={Icon} alt="Icon" />
         <input {...getInputProps()} />
-        <p>Drop photo here or select photo</p>
+        <StyledP>Drop photo here or select photo</StyledP>
       </Container>
     </div>
   );
@@ -48,4 +49,8 @@ const Container = styled.div`
   transition: border 0.24s ease-in-out;
   cursor: pointer;
   user-select: none;
+`;
+
+const StyledP = styled.p`
+  ${fonts.helveticaNeu(14, 16, 0, 400)};
 `;

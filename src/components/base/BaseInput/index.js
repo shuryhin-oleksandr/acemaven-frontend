@@ -11,22 +11,22 @@ const BaseInput = styled.input`
   height: 40px;
   padding: 0 10px;
   outline: none;
-  ${fonts.asap(14, 16)};
+  ${fonts.helveticaNeu(14, 16, 0, 300)};
   color: #bdbdbd;
   ::-webkit-input-placeholder {
     /* Edge */
-    ${fonts.asap(14, 16)};
+    ${fonts.helveticaNeu(14, 16, 0, 300)};
     color: #bdbdbd;
   }
 
   :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    ${fonts.asap(14, 16)};
+    ${fonts.helveticaNeu(14, 16, 0, 300)};
     color: #bdbdbd;
   }
 
   ::placeholder {
-    ${fonts.asap(14, 16)};
+    ${fonts.helveticaNeu(14, 16, 0, 300)};
     color: #bdbdbd;
   }
 `;

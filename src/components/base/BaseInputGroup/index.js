@@ -54,7 +54,7 @@ const Wrapper = styled.div`
 const Label = styled.label`
   position: absolute;
   top: -25px;
-  ${fonts.archivoBlack(14, 15)};
+  ${fonts.helveticaNeu(14, 17, 0, 900)};
   color: #1b1b25;
 `;
 
@@ -62,7 +62,7 @@ const Error = styled.div`
   position: absolute;
   right: 0;
   margin-top: 5px;
-  ${fonts.raleway(12, 14)};
+  ${fonts.helveticaNeu(12, 14, 0, 600)};
   color: #e76767;
 `;
 

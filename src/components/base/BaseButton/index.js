@@ -11,7 +11,7 @@ const BaseButton = styled.button`
   cursor: pointer;
   outline: none;
   border: none;
-  ${fonts.archivoBlack(14, 15)};
+  ${fonts.helveticaNeu(14, 17, 0, 900)};
 `;
 
 export default BaseButton;

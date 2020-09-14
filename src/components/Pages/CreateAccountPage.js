@@ -170,7 +170,7 @@ export default CreateAccountPage;
 
 const Heading = styled.h1`
   margin: 0;
-  ${fonts.raleway(28, 33)}
+  ${fonts.helveticaNeu(28, 33, 0, 900)}
 `;
 
 const FormWrapper = styled.div`

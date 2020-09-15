@@ -1,10 +1,14 @@
 import React from 'react'
 import {ListEmpty, Subtitle, UpperTitle} from "./empty-list-styles";
 
-const EmptyList:React.FC = () => {
+type PropsType = {
+    text?: string
+}
+
+const EmptyList:React.FC<PropsType> = ({text}) => {
     return (
         <ListEmpty>
-            <UpperTitle>Add a new user</UpperTitle>
+            <UpperTitle>Add a {text}</UpperTitle>
             <Subtitle>Fulfill the form at the left</Subtitle>
         </ListEmpty>
     )

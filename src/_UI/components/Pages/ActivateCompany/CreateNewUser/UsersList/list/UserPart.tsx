@@ -1,7 +1,7 @@
 import React from "react";
 import {ActionWrap, Container, DeleteButton, Email, InfoWrap, Inner, Name, PhotoWrap, Role} from "./user-part-styles";
-const deleteIcon = require('../../../../../assets/icons/delete.svg') as string
-const user = require('../../../../../assets/icons/user.png') as string
+const deleteIcon = require('../../../../../../assets/icons/delete.svg') as string
+const user = require('../../../../../../assets/icons/user.svg') as string
 
 type PropsType = {
     roles?: string[]

@@ -99,7 +99,8 @@ margin-right: 40px;
 `
 export const Title = styled.div`
 color: black;
-${fonts.helvetica(28, 33, 0, 900 )};
+font-family: 'Helvetica Bolder', sans-serif;
+font-size: 28px;
 margin-bottom: 58px;
 `
 export const FormWrap = styled.form`

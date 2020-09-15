@@ -1,10 +1,11 @@
 // Core
-import React from "react";
+
 import { Route, Switch } from "react-router-dom";
 import SignInPage from "../../_UI/components/Pages/SignInPage";
 import SignUpPage from "../../_UI/components/Pages/SignUpPage";
 import CreateAccountPage from "../../_UI/components/Pages/CreateAccountPage";
-import AddNewUserContainer from "../../_UI/components/Pages/CreateNewUser/AddNewUserContainer";
+import AddNewUserContainer from "../../_UI/components/Pages/ActivateCompany/CreateNewUser/AddNewUserContainer";
+import AddBankAccountContainer from "../../_UI/components/Pages/ActivateCompany/AddBankAccount/AddBankAccountContainer";
 
 
 const PublicRoute = () =>{
@@ -21,6 +22,9 @@ const PublicRoute = () =>{
             </Route>
             <Route path="/create/user">
                 <AddNewUserContainer/>
+            </Route>
+            <Route path="/create/bank">
+                <AddBankAccountContainer/>
             </Route>
         </Switch>
     )

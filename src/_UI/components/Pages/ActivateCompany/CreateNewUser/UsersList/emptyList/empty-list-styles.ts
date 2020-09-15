@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import fonts from "../../../../../theming/fonts";
+import fonts from "../../../../../../theming/fonts";
 
 export const ListEmpty = styled.div`
 border: 1px dashed #828282;

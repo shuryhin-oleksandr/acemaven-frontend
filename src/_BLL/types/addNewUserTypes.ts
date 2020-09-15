@@ -11,3 +11,10 @@ export interface IAdditionalUser {
     email: string,
     roles: string[]
 }
+
+export interface IBankAccountData {
+    taxId?: string,
+    name?: string,
+    branchNumber?: string,
+    accountNumber?: string
+}

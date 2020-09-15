@@ -15,6 +15,34 @@
   src: url("_UI/assets/fonts/Raleway-VariableFont_wght.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Helvetica Thin";
+  src: url("_UI/assets/fonts/helvetica/HelveticaNeue Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Helvetica Light";
+  src: url("_UI/assets/fonts/helvetica/HelveticaNeue Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Helvetica Reg";
+  src: url("_UI/assets/fonts/helvetica/HelveticaNeue Medium.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Helvetica Bold";
+  src: url("_UI/assets/fonts/helvetica/Helvetica Neu Bold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Helvetica Bolder";
+  src: url("_UI/assets/fonts/helvetica/HelveticaNeueBd.ttf") format("truetype");
+  font-weight: 900;
+}
+
 
 * {
   box-sizing: border-box;

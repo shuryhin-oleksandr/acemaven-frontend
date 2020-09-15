@@ -31,7 +31,7 @@ const raleway = (
 const helvetica = (
     fontSize = 30, lineHeight = 30, letterSpacing = 0, fontWeight = 400,
 ) => `
-    font-family: Helvetica Neue;
+    font-family: HelveticaNeu;
     font-size: ${fontSize}px;
     font-weight: ${fontWeight};
     line-height: ${lineHeight}px;

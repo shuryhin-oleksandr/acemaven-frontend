@@ -13,7 +13,7 @@ const BankListContainer:React.FC<PropsType> = ({banksList}) => {
     return (
         <ListWrap>
             <ListInner>
-                {banksList
+                {!banksList
                     ? <EmptyList text='bank account'/>
                     : <BankCard/>
                 }

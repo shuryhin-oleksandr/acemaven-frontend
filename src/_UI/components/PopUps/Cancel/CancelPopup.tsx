@@ -18,7 +18,7 @@ const CancelPopup:React.FC<PropsTypes> = ({setIsOpen}) => {
                 <CancelTitle>Are you sure you want to cancel company registration?</CancelTitle>
                 <ButtonsWrap>
                     <CancelButton>Cancel registration</CancelButton>
-                    <CancelButton>Continue registration</CancelButton>
+                    <CancelButton onClick={() => setIsOpen(false)}>Continue registration</CancelButton>
                 </ButtonsWrap>
             </PopupContent>
         </PopupContainer>

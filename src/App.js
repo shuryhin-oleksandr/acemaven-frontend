@@ -1,10 +1,13 @@
 import React from "react";
-import PublicRoute from "./routes/PublicRoute";
+import useRoute from './routes/useRoute'
 
 function App() {
-  const isUserLoggedIn = false;
+  const isAuth = false;
+  const route = useRoute(isAuth)
   return (
-    <div className="App">{isUserLoggedIn ? "Hello" : <PublicRoute />}</div>
+    <div className="App">
+      {route}
+    </div>
   );
 }
 

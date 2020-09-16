@@ -1,8 +1,8 @@
 import * as React from "react";
 import {ButtonWrap, HeaderContainer, InfoWrap, LogoWrap, PhotoWrap} from "./header-styles";
 const notification = require('../../../_UI/assets/icons/clarity_notification-solid-badged.svg') as string;
-const card = require('../../../_UI/assets/icons/account.svg') as string;
-const user = require('../../assets/icons/user.svg')
+const card = require('../../../_UI/assets/icons/card.svg') as string;
+const user = require('../../../_UI/assets/icons/user.png')
 
 interface IProps {
 

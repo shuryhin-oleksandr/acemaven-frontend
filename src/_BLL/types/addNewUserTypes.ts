@@ -18,3 +18,9 @@ export interface IBankAccountData {
     branchNumber?: string,
     accountNumber?: string
 }
+export interface IAddNewBank {
+    accountType?: string,
+    name?: string,
+    branchNumber?: string,
+    accountNumber?: string
+}

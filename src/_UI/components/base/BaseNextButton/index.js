@@ -7,12 +7,15 @@ const BaseNextButton = styled.button`
   background-color: ${({ background, disabled }) =>
     disabled ? "#7C7C89" : background ? background : "#000000"};
   color: ${({ textColor }) => (textColor ? textColor : "#FFFFFF")};
-  padding: 12px 25px 12px 34px;
+  font-family: "Helvetica Bold", sans-serif;
+  font-size: 14px;
+  padding: 12px 45px 12px 34px;
   cursor: pointer;
   outline: none;
   border: none;
   ${fonts.archivoBlack(14, 15)};
   position: relative;
+  margin-right: 25px;
   :after {
     position: absolute;
     right: -20px;

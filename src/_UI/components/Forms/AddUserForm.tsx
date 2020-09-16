@@ -1,9 +1,9 @@
 import * as React from 'react'
 import styled from "styled-components";
-import fonts from "../../theming/fonts";
 import {useForm} from "react-hook-form";
 import { IAddNewUserData } from '../../../_BLL/types/addNewUserTypes';
-import Input from "../_commonComponents/Input/Input";
+import FormField from "../_commonComponents/Input/FormField";
+import CustomCheckbox from "../_commonComponents/customCheckbox/customCheckbox";
 
 
 interface IProps {
@@ -25,58 +25,47 @@ const AddUserForm:React.FC<IProps> = () => {
             <FormWrap onSubmit={handleSubmit(onSubmit)}>
                 <Wrapper>
                     <InputWrap w='47%'>
-                        <BaseInput
+                        <FormField label='Name'
+                                   inputRef={register({
+                                       required: 'Field is required'
+                                   })}
                                    placeholder='Name'
                                    name='name'
-                                   ref={register({
-                                       required:true
-                                   })}
+                                   error={errors?.name?.message}
                         />
-                        {errors?.name?.type === 'required' && <ErrorMessage>Field is required</ErrorMessage>}
                     </InputWrap>
                     <InputWrap w='47%'>
-                        <BaseInput
+                        <FormField label='Last Name'
+                                   inputRef={register({
+                                       required: 'Field is required'
+                                   })}
                                    placeholder='Last Name'
                                    name='lastName'
-                                   ref={register({
-                                       required:true
-                                   })}
+                                   error={errors?.lastName?.message}
                         />
-                        {errors?.lastName?.type === 'required' && <ErrorMessage>Field is required</ErrorMessage>}
                     </InputWrap>
                 </Wrapper>
-                <InputWrap>
-                    <BaseInput placeholder='Email'
-                               name='email'
-                               ref={register({
-                                   required:true
+                    <FormField label='Email'
+                               inputRef={register({
+                                   required: 'Field is required'
                                })}
+                               placeholder='Email'
+                               name='email'
+                               error={errors?.email?.message}
                     />
-                    {errors?.email?.type === 'required' && <ErrorMessage>Field is required</ErrorMessage>}
-                </InputWrap>
-                <InputWrap>
-                    <BaseInput placeholder='Position in Company(optional)*'
+
+                    <FormField label='Position in the Company'
+                               inputRef={register({
+                                   required: 'Field is required'
+                               })}
+                               placeholder='Position in Company(optional)*'
                                name='companyPosition'
-                               ref={register}/>
-                </InputWrap>
-
-                <Input label='Phone Number'/>
-
+                               error={errors?.companyPosition?.message}
+                    />
                 <CheckboxWrap>
-                    <Check>
-                        <input type="checkbox"/>
-                        <CheckTitle>Master</CheckTitle>
-                    </Check>
-                    <Check>
-                        <input type="checkbox"/>
-                        <CheckTitle>
-                            Agent
-                        </CheckTitle>
-                    </Check>
-                    <Check>
-                        <input type="checkbox"/>
-                        <CheckTitle>Billing </CheckTitle>
-                    </Check>
+                    <CustomCheckbox role='Master'/>
+                    <CustomCheckbox role='Agent'/>
+                    <CustomCheckbox role='Billing'/>
                 </CheckboxWrap>
                      <SubmitButton type='submit'>Add user</SubmitButton>
             </FormWrap>
@@ -107,7 +96,7 @@ export const FormWrap = styled.form`
 display: flex;
 flex-direction: column;
 align-items: center;
-margin-bottom: 80px;
+width: 100%;
 `
 
 export const Wrapper = styled.div`
@@ -119,37 +108,10 @@ export const InputWrap = styled.div<StyledProps>`
 display: flex;
 flex-direction: column;
 width: ${({w}) => w ? w : '100%'};
- margin-bottom: 60px;
 `
-const BaseInput = styled.input`
-  background: #ffffff;
-  border: 1px solid #bdbdbd;
-  box-sizing: border-box;
-  border-radius: 4px;
-  width: 100%;
-  height: 40px;
-  padding: 0 10px;
-  outline: none;
-  ${fonts.asap(14, 16)};
-  color: #bdbdbd;
-  ::-webkit-input-placeholder {
-    /* Edge */
-    ${fonts.asap(14, 16)};
-    color: #bdbdbd;
-  }
 
-  :-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    ${fonts.asap(14, 16)};
-    color: #bdbdbd;
-  }
-
-  ::placeholder {
-    ${fonts.asap(14, 16)};
-    color: #bdbdbd;
-  }
-`;
-const SubmitButton = styled.button`
+export const SubmitButton = styled.button`
+font-family: "Helvetica Bold", sans-serif;
 background-color: #7C7C89;
 min-height: 40px;
 max-width: 140px;
@@ -157,15 +119,13 @@ width: 100%;
 outline: none;
 border: none;
 color: white;
+
+
+  &:hover {
+    cursor: pointer;
+  }
 `
-const ErrorMessage = styled.div`
-color: red;
-width: 100%;
-display: flex;
-text-align: end;
-font-size: 12px;
-padding-top: 5px;
-`
+
 export const CheckboxWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -175,12 +135,4 @@ export const CheckboxWrap = styled.div`
   width: 100%;
   margin-bottom: 50px;
 `
-export const Check = styled.div`
-display: flex;
-`
-export const CheckTitle = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 12px;
-`
+

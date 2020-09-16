@@ -23,10 +23,11 @@
 @font-face {
   font-family: "Helvetica Light";
   src: url("_UI/assets/fonts/helvetica/HelveticaNeue Light.ttf") format("truetype");
+  font-weight: 300;
 }
 
 @font-face {
-  font-family: "Helvetica Reg";
+    font-family: "Helvetica Reg";
   src: url("_UI/assets/fonts/helvetica/HelveticaNeue Medium.ttf") format("truetype");
   font-weight: 400;
 }

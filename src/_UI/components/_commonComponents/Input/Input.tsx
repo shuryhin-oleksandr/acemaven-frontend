@@ -40,6 +40,7 @@ type PropsType = {
     root: {
         color: '#1B1B25',
         fontSize: '14px',
+        fontFamily: 'Helvetica Reg',
         lineHeight: '17px',
         fontWeight: 900,
         marginBottom: '9px'

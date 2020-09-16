@@ -12,7 +12,7 @@ export const ContentWrap = styled.div`
 max-height: 595px;
 height: 100%;
 width: 100%;
-border-bottom: 1px solid #115B86;
+margin-bottom: 100px;
 display: flex;
 justify-content: space-between;
 

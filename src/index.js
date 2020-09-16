@@ -8,9 +8,10 @@ import "./_UI/assets/fonts/ArchivoBlack-Regular.ttf"
 import "./_UI/assets/fonts/Asap-Regular.ttf"
 import "./_UI/assets/fonts/Raleway-VariableFont_wght.ttf"
 
+
 ReactDOM.render(
   <Router>
-    <App />
+          <App />
   </Router>,
   document.getElementById("root")
 );

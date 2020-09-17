@@ -6,10 +6,12 @@ import Icon from "../../assets/icons/drop-zone-icon.svg";
 const DropZone = ({ setImg }) => {
   const onDrop = useCallback((acceptedFiles) => {
     const reader = new FileReader();
+
     reader.onload = function (e) {
       setImg(e.target.result);
     };
     reader.readAsDataURL(acceptedFiles[0]);
+
   }, []);
   const {
     getRootProps,
@@ -36,6 +38,7 @@ export default DropZone;
 
 const Container = styled.div`
   flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -7,7 +7,7 @@ import FormSelect from '../_commonComponents/select/FormSelect';
 
 
 const AddBankForm:React.FC = () => {
-   const {register, handleSubmit, errors, control} = useForm<IAddNewBank>()
+   const {register, handleSubmit, errors, control, getValues} = useForm<IAddNewBank>()
     const onSubmit = (values: IAddNewBank) => {
         console.log(values)
     }
@@ -39,6 +39,7 @@ const AddBankForm:React.FC = () => {
                         })}
                        name='branchNumber'
                        error={errors?.branchNumber?.message}
+                           getValues={getValues}
                 />
                 <FormField label='Account No.'
                        placeholder='Account No.'
@@ -47,6 +48,7 @@ const AddBankForm:React.FC = () => {
                        })}
                        name='accountNumber'
                        error={errors?.accountNumber?.message}
+                           getValues={getValues}
                 />
                 <Controller name='accountType'
                             control={control}

@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
 width: 100%;
-
-height: 100vh;
+min-height: 100vh;
+height: 100%;
 display: flex;
 justify-content: center;
 `
@@ -40,14 +40,14 @@ export const LineWrap = styled.div`
 width: 100%;
 height: 1px;
 background-color: #E0E0E0;
+margin-bottom: 30px;
 `
 export const FillOuter = styled.div`
 display: flex;
 flex-direction: column;
 align-items: flex-start;
-max-width: 190px;
+max-width: 192px;
 width: 100%;
-
 `
 export const Label = styled.div`
 margin-bottom: 10px;
@@ -59,4 +59,15 @@ export const TextWrap = styled.div`
 color: #1B1B25;
 font-family: "Helvetica Light", sans-serif;
 font-size: 16px;
+`
+export const OutlinedWrap = styled.div`
+height: 40px;
+max-width: 200px;
+width: 100%;
+padding: 10px;
+font-family: "Helvetica Light", sans-serif;
+font-size: 14px;
+color: #828282;
+border: 1px solid #BDBDBD;
+border-radius: 4px;
 `

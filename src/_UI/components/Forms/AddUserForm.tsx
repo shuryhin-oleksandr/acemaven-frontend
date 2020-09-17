@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form";
 import { IAddNewUserData } from '../../../_BLL/types/addNewUserTypes';
 import FormField from "../_commonComponents/Input/FormField";
 import CustomCheckbox from "../_commonComponents/customCheckbox/customCheckbox";
+import { useState } from 'react';
 
 
 interface IProps {
@@ -12,12 +13,11 @@ interface IProps {
 
 const AddUserForm:React.FC<IProps> = () => {
 
-    const {register, handleSubmit, errors} = useForm<IAddNewUserData>()
+    const {register, handleSubmit, errors, getValues} = useForm<IAddNewUserData>()
     const onSubmit = (values: IAddNewUserData) => {
         console.log(values)
     }
-
-
+    const [roleValue, setRole] = useState('')
 
     return (
         <FormContainer>
@@ -26,22 +26,18 @@ const AddUserForm:React.FC<IProps> = () => {
                 <Wrapper>
                     <InputWrap w='47%'>
                         <FormField label='Name'
-                                   inputRef={register({
-                                       required: 'Field is required'
-                                   })}
+                                   inputRef={register}
                                    placeholder='Name'
                                    name='name'
-                                   error={errors?.name?.message}
+                                   getValues={getValues}
                         />
                     </InputWrap>
                     <InputWrap w='47%'>
                         <FormField label='Last Name'
-                                   inputRef={register({
-                                       required: 'Field is required'
-                                   })}
+                                   inputRef={register}
                                    placeholder='Last Name'
                                    name='lastName'
-                                   error={errors?.lastName?.message}
+                                   getValues={getValues}
                         />
                     </InputWrap>
                 </Wrapper>
@@ -52,15 +48,15 @@ const AddUserForm:React.FC<IProps> = () => {
                                placeholder='Email'
                                name='email'
                                error={errors?.email?.message}
+                               getValues={getValues}
                     />
 
                     <FormField label='Position in the Company'
-                               inputRef={register({
-                                   required: 'Field is required'
-                               })}
+                               inputRef={register}
                                placeholder='Position in Company(optional)*'
                                name='companyPosition'
                                error={errors?.companyPosition?.message}
+                               getValues={getValues}
                     />
                 <CheckboxWrap>
                     <CustomCheckbox
@@ -70,6 +66,11 @@ const AddUserForm:React.FC<IProps> = () => {
                             required: 'Field is required'
                                 })}
                         role='Master'
+                        getValues={getValues}
+                        error={errors?.userRole?.message}
+                        disabled={roleValue === 'agent' || roleValue === 'billing'}
+                        setRole={setRole}
+                        roleValue={roleValue}
                     />
                     <CustomCheckbox value='agent'
                                     name='userRole'
@@ -77,13 +78,24 @@ const AddUserForm:React.FC<IProps> = () => {
                                         required: 'Field is required'
                                     })}
                                     role='Agent'
+                                    getValues={getValues}
+                                    error={errors?.userRole?.message}
+                                    disabled={roleValue === 'master'}
+                                    setRole={setRole}
+                                    roleValue={roleValue}
                     />
                     <CustomCheckbox value='billing'
                                     name='userRole'
                                     inputRef={register({
                                         required: 'Field is required'
                                     })}
-                                    role='Billing'/>
+                                    role='Billing'
+                                    getValues={getValues}
+                                    error={errors?.userRole?.message}
+                                    disabled={roleValue === 'master'}
+                                    setRole={setRole}
+                                    roleValue={roleValue}
+                    />
                 </CheckboxWrap>
                      <SubmitButton type='submit'>Add user</SubmitButton>
             </FormWrap>
@@ -137,10 +149,13 @@ width: 100%;
 outline: none;
 border: none;
 color: white;
-
+margin-top: 50px;
+transition: .3s;
 
   &:hover {
     cursor: pointer;
+    background-color: black;
+    transition: .3s;
   }
 `
 
@@ -151,6 +166,5 @@ export const CheckboxWrap = styled.div`
   max-height: 160px;
   height: 100%;
   width: 100%;
-  margin-bottom: 50px;
 `
 

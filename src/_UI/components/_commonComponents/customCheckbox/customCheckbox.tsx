@@ -8,16 +8,20 @@ type PropsType = {
     value?: string,
     onChange?: VoidFunctionType,
     inputRef?: React.Ref<HTMLInputElement>,
-    error?: string
+    error?: string,
+    getValues: (key: string) => Record<string, unknown>,
+    disabled: any,
+    setRole: VoidFunctionType,
+    roleValue: string
 }
 
 const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
     const [isCheck, setIsCheck] = useState(false)
-    let v;
-    let handleChange = (value: string) => {
+
+    let handleChange = (value : string) => {
         isCheck ? setIsCheck(false) : setIsCheck(true)
-        v = value
-        console.log(v)
+        debugger
+        props.roleValue !== value ? props.setRole(value) : props.setRole('')
     }
 
     return (
@@ -27,8 +31,9 @@ const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
                       ref={props.inputRef}
                       onChange={(e) => handleChange(e.currentTarget.value)}
                       type="checkbox"
+                      disabled={props.disabled}
             />
-            <CheckMark className='checkmark'/>
+            <CheckMark error={props.error} className='checkmark'/>
         </Check>
     )
 }
@@ -36,7 +41,8 @@ const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
 export default CustomCheckbox
 
 type PropsStyle= {
-    isCheck: boolean
+    isCheck?: boolean,
+    error?: string
 }
 
 const Check = styled.label`
@@ -48,7 +54,7 @@ const Check = styled.label`
   user-select: none;
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;
- color: #4F4F4F;
+  color: #4F4F4F;
   
   .checkmark:after {
   left: 3.5px;
@@ -86,14 +92,14 @@ const InputBox = styled.input`
     background-color: #ECECEC;
   }
 `
-const CheckMark = styled.span`
+const CheckMark = styled.span<PropsStyle>`
   position: absolute;
   top: 0;
   left: 0;
   height: 19px;
   width: 19px;
-  background-color: white;
-  border: 2px solid gray;
+  background-color: ${({error}) => error ? '#ECECEC' : 'white'} ;
+  border:${({error}) => error ? '1px solid red' : '2px solid gray'};
   &:after {
      content: "";
     position: absolute;

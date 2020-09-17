@@ -48,7 +48,7 @@ const FormSelect:React.FC<IProps> = ({ label, error, ...props}) => {
                     displayEmpty
                     className={classes.selectEmpty}
                     onFocus={() => setFocus(true)}
-                    onBlur={() => setFocus(false)}
+                    {...props}
                 >
                     <MenuItem value="">
                         <em>{label}</em>

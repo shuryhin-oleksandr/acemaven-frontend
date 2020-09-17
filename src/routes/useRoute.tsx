@@ -6,6 +6,7 @@ import CreateAccountPage from 'src/_UI/Pages/CreateAccountPage';
 import SignInPage from "../_UI/Pages/SignInPage";
 import SignUpPage from "../_UI/Pages/SignUpPage";
 import AdditionalUserContainer from "../_UI/Pages/ActivateCompany/AdditionalUser/AdditionalUserContainer";
+import ProfileContainer from "../_UI/Pages/Profile/ProfileConntainer";
 
 
 
@@ -26,6 +27,9 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={AddNewUserContainer} path='/create/user'/>
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
                 <Route component={AdditionalUserContainer} path='/additional/user'/>
+
+                <Route component={ProfileContainer} path='/profile'/>
+                <Redirect to='/sign-in'/>
             </Switch>
         )
     }

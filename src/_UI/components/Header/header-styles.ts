@@ -3,8 +3,8 @@ import fonts from '../../theming/fonts'
 
 
 export const HeaderContainer = styled.div`
-  max-height: 60px;
-  height: 100%;
+  height: 60px;
+  
   display: flex;
   align-items: center;
   justify-content: space-between;

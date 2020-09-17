@@ -1,7 +1,7 @@
 import * as React from 'react'
-import Layout from "../../../BaseLayout/Layout";
+import Layout from "../../../components/BaseLayout/Layout";
 import AddNewUser from "./AddNewUser";
-import CancelPopup from "../../../PopUps/Cancel/CancelPopup";
+import CancelPopup from "../../../components/PopUps/Cancel/CancelPopup";
 import {useState} from "react";
 import styled from "styled-components";
 

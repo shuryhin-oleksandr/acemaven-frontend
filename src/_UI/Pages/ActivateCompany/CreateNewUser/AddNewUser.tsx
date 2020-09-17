@@ -1,10 +1,10 @@
 import * as React from 'react'
 import {AddContainer, ContentWrap, NavigationWrap} from './add-new-user-styles'
-import AddUserForm from "../../../Forms/AddUserForm";
+import AddUserForm from "../../../components/Forms/AddUserForm";
 import UsersList from "./UsersList/UsersLIst";
-import BaseNextButton from "../../../base/BaseNextButton/index";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import CancelButton from "../../../_commonComponents/buttons/navFormButtons/CancelButton";
+import BaseNextButton from "../../../components/base/BaseNextButton/index";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import CancelButton from "../../../components/_commonComponents/buttons/navFormButtons/CancelButton";
 import styled from "styled-components";
 import {NavLink} from "react-router-dom";
 

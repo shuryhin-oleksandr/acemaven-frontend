@@ -18,7 +18,7 @@ export const InputOuter = styled.div`
 display: flex;
 flex-direction: column;
 width: 100%;
-margin-bottom: 20px;
+margin-bottom: 15px;
 `
 export const Field = styled.input<PropsStyle>`
   padding: 10px;

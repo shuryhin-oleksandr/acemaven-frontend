@@ -1,8 +1,8 @@
 import React from 'react'
-import {IBankAccountData} from "../../../../../../../_BLL/types/addNewUserTypes";
+import {IBankAccountData} from "../../../../../../_BLL/types/addNewUserTypes";
 import {CardContent, CardWrap, Data, DefaultIcon, DefaultText, DefaultWrap, DeleteButton, Label, LineWrap} from "../bank-list-styles";
-import deleteIcon from '../../../../../../../_UI/assets/icons/delete.svg'
-import defaultIcon from '../../../../../../../_UI/assets/icons/defaultBank.svg'
+import deleteIcon from '../../../../../assets/icons/delete.svg'
+import defaultIcon from '../../../../../assets/icons/defaultBank.svg'
 
 type PropsType = {
     b?: IBankAccountData

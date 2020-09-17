@@ -7,12 +7,17 @@ import * as serviceWorker from "./serviceWorker";
 import "./_UI/assets/fonts/ArchivoBlack-Regular.ttf"
 import "./_UI/assets/fonts/Asap-Regular.ttf"
 import "./_UI/assets/fonts/Raleway-VariableFont_wght.ttf"
+import {Provider} from "react-redux";
+import {store} from "./_BLL/store";
 
 
 ReactDOM.render(
-  <Router>
-          <App />
-  </Router>,
+    <Provider store={store}>
+        <Router>
+            <App />
+        </Router>
+    </Provider>,
+
   document.getElementById("root")
 );
 

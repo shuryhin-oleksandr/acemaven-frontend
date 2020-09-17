@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import Layout from "../../../BaseLayout/Layout";
-import CancelPopup from "../../../PopUps/Cancel/CancelPopup";
+import Layout from "../../../../_UI/components/BaseLayout/Layout";
+import CancelPopup from "../../../components/PopUps/Cancel/CancelPopup";
 import AddNewBank from "./AddNewBank";
 
 

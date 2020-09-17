@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import RegisterHead from "../RegisterHead";
-import RegisterFormTemplate from "../../templates/RegisterFormTemplate";
+import RegisterHead from "../components/RegisterHead";
+import RegisterFormTemplate from "../templates/RegisterFormTemplate";
 import styled from "styled-components";
-import { ErrorMessage, Form, Formik } from "formik";
-import BaseFormikInput from "../base/BaseFormikInput";
-import PartTwo from "../SignUpFormParts/PartTwo";
-import PartOne from "../SignUpFormParts/PartOne";
+import {Form, Formik } from "formik";
+import BaseFormikInput from "../components/base/BaseFormikInput";
+import PartTwo from "../components/SignUpFormParts/PartTwo";
+import PartOne from "../components/SignUpFormParts/PartOne";
 
 const SignUpPage = () => {
   const [firstPage, changePage] = useState(true);

@@ -6,10 +6,10 @@ import styled from "styled-components";
 import { Formik, Form, ErrorMessage } from "formik";
 
 //Components
-import RegisterHead from "../RegisterHead";
-import RegisterFormTemplate from "../../templates/RegisterFormTemplate";
-import BaseButton from "../base/BaseButton";
-import BaseInputGroup from "../base/BaseInputGroup";
+import RegisterHead from "../components/RegisterHead";
+import RegisterFormTemplate from "../templates/RegisterFormTemplate";
+import BaseButton from "../components/base/BaseButton";
+import BaseInputGroup from "../components/base/BaseInputGroup";
 
 const SignInPage = () => {
   return (

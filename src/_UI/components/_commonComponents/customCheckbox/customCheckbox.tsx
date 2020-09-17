@@ -1,20 +1,43 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 
 type PropsType = {
-    role: string
+    role: string,
+    name?: string,
+    value?: string,
+    onChange?: VoidFunctionType,
+    inputRef?: React.Ref<HTMLInputElement>,
+    error?: string
 }
 
-const CustomCheckbox:React.FC<PropsType> = ({role}) => {
+const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
+    const [isCheck, setIsCheck] = useState(false)
+    let v;
+    let handleChange = (value: string) => {
+        isCheck ? setIsCheck(false) : setIsCheck(true)
+        v = value
+        console.log(v)
+    }
+
     return (
-        <Check> {role}
-            <InputBox type="checkbox"/>
+        <Check className='label'> <SpanRole isCheck={isCheck} className='role'>{role}</SpanRole>
+            <InputBox value={props.value}
+                      name={props.name}
+                      ref={props.inputRef}
+                      onChange={(e) => handleChange(e.currentTarget.value)}
+                      type="checkbox"
+            />
             <CheckMark className='checkmark'/>
         </Check>
     )
 }
 
 export default CustomCheckbox
+
+type PropsStyle= {
+    isCheck: boolean
+}
 
 const Check = styled.label`
   display: flex;
@@ -25,7 +48,20 @@ const Check = styled.label`
   user-select: none;
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;
-  color: #4F4F4F;
+ color: #4F4F4F;
+  
+  .checkmark:after {
+  left: 3.5px;
+  top: 0;
+  width: 3px;
+  height: 9px;
+  border: solid #115B86;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  }
+  
 `
 
 const InputBox = styled.input`
@@ -36,12 +72,18 @@ const InputBox = styled.input`
   width: 0;
   &:checked ~ .checkmark {
     background-color: white;
-    color: blue;
-   
-    border: 2px solid blue
+    border: 2px solid #115B86
   }
+  
   &:checked ~ .checkmark:after {
    display: block;
+  }
+  
+   &:checked ~ .role {
+    color: #115B86;
+  }
+  &:disabled ~ .checkmark {
+    background-color: #ECECEC;
   }
 `
 const CheckMark = styled.span`
@@ -53,13 +95,12 @@ const CheckMark = styled.span`
   background-color: white;
   border: 2px solid gray;
   &:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid blue;
-    border-width: 0 3px 3px 0;
-
-    transform: rotate(45deg);
+     content: "";
+    position: absolute;
+    display: none;
   }
+`
+
+const SpanRole = styled.span<PropsStyle>`
+ color: ${({isCheck}) => !isCheck ? ' #4F4F4F' : '#115B86'}
 `

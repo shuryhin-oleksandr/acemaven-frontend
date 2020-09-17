@@ -63,9 +63,27 @@ const AddUserForm:React.FC<IProps> = () => {
                                error={errors?.companyPosition?.message}
                     />
                 <CheckboxWrap>
-                    <CustomCheckbox role='Master'/>
-                    <CustomCheckbox role='Agent'/>
-                    <CustomCheckbox role='Billing'/>
+                    <CustomCheckbox
+                        value='master'
+                        name='userRole'
+                        inputRef={register({
+                            required: 'Field is required'
+                                })}
+                        role='Master'
+                    />
+                    <CustomCheckbox value='agent'
+                                    name='userRole'
+                                    inputRef={register({
+                                        required: 'Field is required'
+                                    })}
+                                    role='Agent'
+                    />
+                    <CustomCheckbox value='billing'
+                                    name='userRole'
+                                    inputRef={register({
+                                        required: 'Field is required'
+                                    })}
+                                    role='Billing'/>
                 </CheckboxWrap>
                      <SubmitButton type='submit'>Add user</SubmitButton>
             </FormWrap>

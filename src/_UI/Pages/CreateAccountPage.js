@@ -4,14 +4,14 @@ import styled from "styled-components";
 
 //Instruments
 import { Formik, Form, ErrorMessage } from "formik";
-import { fonts } from "../../theming";
+import { fonts } from "../theming";
 
 //Components
-import RegisterFormTemplate from "../../templates/RegisterFormTemplate";
-import BaseButton from "../base/BaseButton";
-import BaseInputGroup from "../base/BaseInputGroup";
-import DropZone from "../DropZone";
-import Close from "../../assets/icons/close-icon.svg";
+import RegisterFormTemplate from "../templates/RegisterFormTemplate";
+import BaseButton from "../components/base/BaseButton";
+import BaseInputGroup from "../components/base/BaseInputGroup";
+import DropZone from "../components/DropZone";
+import Close from "../assets/icons/close-icon.svg";
 
 const CreateAccountPage = () => {
   const [img, setImg] = useState("");

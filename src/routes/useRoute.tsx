@@ -1,10 +1,11 @@
 import React from 'react'
 import {Redirect, Route, Switch } from 'react-router-dom'
-import AddBankAccountContainer from 'src/_UI/components/Pages/ActivateCompany/AddBankAccount/AddBankAccountContainer';
-import AddNewUserContainer from 'src/_UI/components/Pages/ActivateCompany/CreateNewUser/AddNewUserContainer';
-import CreateAccountPage from 'src/_UI/components/Pages/CreateAccountPage';
-import SignInPage from "../_UI/components/Pages/SignInPage";
-import SignUpPage from "../_UI/components/Pages/SignUpPage";
+import AddBankAccountContainer from 'src/_UI/Pages/ActivateCompany/AddBankAccount/AddBankAccountContainer';
+import AddNewUserContainer from 'src/_UI/Pages/ActivateCompany/CreateNewUser/AddNewUserContainer';
+import CreateAccountPage from 'src/_UI/Pages/CreateAccountPage';
+import SignInPage from "../_UI/Pages/SignInPage";
+import SignUpPage from "../_UI/Pages/SignUpPage";
+import AdditionalUserContainer from "../_UI/Pages/ActivateCompany/AdditionalUser/AdditionalUserContainer";
 
 
 
@@ -24,6 +25,7 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={CreateAccountPage} path='/create-account'/>
                 <Route component={AddNewUserContainer} path='/create/user'/>
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
+                <Route component={AdditionalUserContainer} path='/additional/user'/>
             </Switch>
         )
     }

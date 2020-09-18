@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {AddContainer, ContentWrap, NavigationWrap} from './add-new-user-styles'
-import AddUserForm from "../../../components/Forms/AddUserForm";
+import AddUserForm from "./AddUserForm";
 import UsersList from "./UsersList/UsersLIst";
 import BaseNextButton from "../../../components/base/BaseNextButton/index";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";

@@ -8,7 +8,7 @@ type PropsType = {
     value?: string,
     onChange?: VoidFunctionType,
     inputRef?: React.Ref<HTMLInputElement>,
-    error?: string,
+    error?: any,
     getValues: (key: string) => Record<string, unknown>,
     disabled: any,
     setRole: VoidFunctionType,

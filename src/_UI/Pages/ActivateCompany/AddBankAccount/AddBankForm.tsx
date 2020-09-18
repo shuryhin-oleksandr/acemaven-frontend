@@ -1,9 +1,9 @@
 import React from 'react'
 import {Controller, useForm} from 'react-hook-form'
-import {IAddNewBank} from "../../../_BLL/types/addNewUserTypes";
-import { FormWrap, SubmitButton} from "./AddUserForm";
-import FormField from "../_commonComponents/Input/FormField";
-import FormSelect from '../_commonComponents/select/FormSelect';
+import {IAddNewBank} from "../../../../_BLL/types/addNewUserTypes";
+import { FormWrap, SubmitButton} from "../CreateNewUser/AddUserForm";
+import FormField from "../../../components/_commonComponents/Input/FormField";
+import FormSelect from '../../../components/_commonComponents/select/FormSelect';
 
 
 const AddBankForm:React.FC = () => {

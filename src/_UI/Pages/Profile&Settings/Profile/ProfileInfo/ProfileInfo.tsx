@@ -7,10 +7,10 @@ import {
     ProfileInner,
     ProfileTitle
 } from "../profile-styles";
-import editIcon from "../../../assets/icons/profile/editProfile.svg";
-import photo from "../../../assets/icons/profile/Rectangle.png";
-import ProfileInfoField from "../../../components/_commonComponents/ProfileinfoBlock/ProfileInfoField";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import editIcon from "../../../../assets/icons/profile/editProfile.svg";
+import photo from "../../../../assets/icons/profile/Rectangle.png";
+import ProfileInfoField from "../../../../components/_commonComponents/ProfileinfoBlock/ProfileInfoField";
+import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 
 
 type PropsType = {

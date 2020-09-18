@@ -1,0 +1,110 @@
+import React, {useState} from 'react'
+import FormField from 'src/_UI/components/_commonComponents/Input/FormField';
+import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+import {EditCardContainer, FormContainer, PhotoWrap} from "./edit-card-styles";
+import {useForm} from "react-hook-form";
+import {EditUserInfo} from "../../../../../_BLL/types/profile&settingsTypes";
+import FinishFormButtons from "../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
+import user from '../../../../../_UI/assets/icons/profile/Rectangle.png'
+import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
+import CustomCheckbox from "../../../../components/_commonComponents/customCheckbox/customCheckbox";
+import styled from "styled-components";
+
+
+type PropsType = {
+    setEditMode?: VoidFunctionType
+}
+
+const EditUserCardForm:React.FC<PropsType> = ({setEditMode}) => {
+    const {register, errors, handleSubmit, getValues} = useForm<EditUserInfo>()
+    const onSubmit = (values:EditUserInfo) => {
+        console.log(values)
+    }
+
+    const [roleValue, setRole] = useState('')
+
+
+    return (
+        <EditCardContainer>
+            <FormContainer onSubmit={handleSubmit(onSubmit)}>
+                <FinishFormButtons closeCallback={setEditMode}/>
+                <PhotoWrap><img src={user} alt=""/></PhotoWrap>
+                <FormField name='name'
+                           placeholder='Name'
+                           label='Name'
+                           inputRef={register({
+                               required: 'Field is required'
+                           })}
+                           error={errors?.name?.message}
+                           getValues={getValues}
+                />
+                <FormField name='lastName'
+                           placeholder='Last Name'
+                           label='Last Name'
+                           inputRef={register({
+                               required: 'Field is required'
+                           })}
+                           error={errors?.lastName?.message}
+                           getValues={getValues}
+                />
+                <CheckboxWrap>
+                    <Label>Roles</Label>
+                    <CustomCheckbox
+                        value='master'
+                        name='roles'
+                        inputRef={register({
+                            required: 'Field is required'
+                        })}
+                        role='Master'
+                        getValues={getValues}
+                        disabled={roleValue === 'agent' || roleValue === 'billing'}
+                        setRole={setRole}
+                        roleValue={roleValue}
+                        error={errors?.roles}
+                    />
+                    <CustomCheckbox value='agent'
+                                    name='roles'
+                                    inputRef={register({
+                                        required: 'Field is required'
+                                    })}
+                                    role='Agent'
+                                    getValues={getValues}
+                                    disabled={roleValue === 'master'}
+                                    setRole={setRole}
+                                    roleValue={roleValue}
+                                    error={errors?.roles}
+                    />
+                    <CustomCheckbox value='billing'
+                                    name='roles'
+                                    inputRef={register({
+                                        required: 'Field is required'
+                                    })}
+                                    role='Billing'
+                                    getValues={getValues}
+                                    disabled={roleValue === 'master'}
+                                    setRole={setRole}
+                                    roleValue={roleValue}
+                                    error={errors?.roles}
+                    />
+                </CheckboxWrap>
+                <FormField name='email'
+                           placeholder='Email'
+                           label='Email'
+                           inputRef={register({
+                               required: 'Field is required'
+                           })}
+                           error={errors?.email?.message}
+                           getValues={getValues}
+                />
+            </FormContainer>
+        </EditCardContainer>
+    )
+}
+
+export default EditUserCardForm
+const Label = styled.div`
+  font-family: "Helvetica Bold", sans-serif;
+  font-size: 14px;
+  color: black;
+  margin-bottom: 10px;
+`

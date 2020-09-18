@@ -2,13 +2,13 @@ import React from 'react'
 import styled from "styled-components";
 
 type PropsType = {
-    setIsEdit: (value: boolean) => void,
+    setIsEdit?: (value: boolean) => void,
     text?: string
 }
 
 const CancelEditButton:React.FC<PropsType> = ({text, setIsEdit}) => {
     return (
-        <CancelButtonWrap type='button' onClick={() => setIsEdit(false) }>{text}</CancelButtonWrap>
+        <CancelButtonWrap type='button' onClick={() => setIsEdit && setIsEdit(false) }>{text}</CancelButtonWrap>
     )
 }
 

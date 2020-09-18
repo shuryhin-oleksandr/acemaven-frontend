@@ -6,7 +6,7 @@ import {IAdditionalUserCompleteData, IAddNewUserData} from "../../../../_BLL/typ
 import DropZone from 'src/_UI/components/DropZone';
 import Close from "../../../assets/icons/close-icon.svg";
 import styled from "styled-components";
-import {InputWrap, SubmitButton} from "../../../components/Forms/AddUserForm";
+import {InputWrap, SubmitButton} from "../CreateNewUser/AddUserForm";
 
 
 const UserCompleteForm:React.FC = () => {

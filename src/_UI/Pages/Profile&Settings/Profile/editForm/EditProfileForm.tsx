@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import {ButtonsWrap, FormContainer, FormWrap, Roles, RolesWrap} from './edit-form-styles';
 import {HeaderWrap, ProfileTitle} from "../profile-styles";
-import {InputWrap, SubmitButton} from 'src/_UI/components/Forms/AddUserForm';
+import {InputWrap, SubmitButton} from 'src/_UI/Pages/ActivateCompany/CreateNewUser/AddUserForm';
 import CancelEditButton from 'src/_UI/components/_commonComponents/buttons/editFormButtons/CancelEditButton';
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {useForm} from "react-hook-form";
-import {IAdditionalUserCompleteData} from "../../../../_BLL/types/addNewUserTypes";
+import {IAdditionalUserCompleteData} from "../../../../../_BLL/types/addNewUserTypes";
 import { Label } from 'src/_UI/components/_commonComponents/ProfileinfoBlock/profile-info-field-styles';
-import Close from "../../../assets/icons/close-icon.svg";
+import Close from "../../../../assets/icons/close-icon.svg";
 import styled from "styled-components";
-import DropZone from "../../../components/DropZone";
-import {FullfilledWrap} from "../../ActivateCompany/AdditionalUser/additional-user-styles";
-import FormField from "../../../components/_commonComponents/Input/FormField";
+import DropZone from "../../../../components/DropZone/index";
+import {FullfilledWrap} from "../../../ActivateCompany/AdditionalUser/additional-user-styles";
+import FormField from "../../../../components/_commonComponents/Input/FormField";
 
 type PropsType = {
     isEdit: boolean,

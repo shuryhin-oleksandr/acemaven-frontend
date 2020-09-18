@@ -28,7 +28,7 @@ const DropZone = ({ setImg }) => {
       >
         <img src={Icon} alt="Icon" />
         <input {...getInputProps()} />
-        <p>Drop photo here or select photo</p>
+        <p style = {{fontFamily: 'Helvetica Reg', fontSize: '14px'}}>Drop photo here or select photo</p>
       </Container>
     </div>
   );
@@ -42,7 +42,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 45px;
+  padding: 25px;
   border: 1px dashed #b7bcd6;
   border-radius: 4px;
   background-color: #ffffff;

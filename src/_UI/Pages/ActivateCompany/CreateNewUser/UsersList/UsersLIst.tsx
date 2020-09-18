@@ -9,11 +9,12 @@ type PropsType = {
 }
 
 const UsersList:React.FC<PropsType> = ({usersList}) => {
+    let cardsMode= false
     return (
         <ListContainer>
             <ListInner>
                 {usersList
-                    ? <UserPart />
+                    ? <UserPart cardsMode={cardsMode}/>
                     : <EmptyList text='new user'/>
                 }
             </ListInner>

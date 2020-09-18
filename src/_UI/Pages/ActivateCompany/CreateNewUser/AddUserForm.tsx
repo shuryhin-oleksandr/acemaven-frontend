@@ -1,9 +1,9 @@
 import * as React from 'react'
 import styled from "styled-components";
 import {useForm} from "react-hook-form";
-import { IAddNewUserData } from '../../../_BLL/types/addNewUserTypes';
-import FormField from "../_commonComponents/Input/FormField";
-import CustomCheckbox from "../_commonComponents/customCheckbox/customCheckbox";
+import { IAddNewUserData } from '../../../../_BLL/types/addNewUserTypes';
+import FormField from "../../../components/_commonComponents/Input/FormField";
+import CustomCheckbox from "../../../components/_commonComponents/customCheckbox/customCheckbox";
 import { useState } from 'react';
 
 

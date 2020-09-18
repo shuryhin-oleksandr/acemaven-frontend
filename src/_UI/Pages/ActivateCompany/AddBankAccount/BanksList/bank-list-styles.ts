@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+type PropsStyle = {
+   max_width?: string,
+   w?: string
+}
+
 export const ListWrap = styled.div`
 display: flex;
 width: 100%;
@@ -7,8 +12,9 @@ height: 100%;
 max-width: 416px;
 `
 
-export const CardWrap = styled.div`
-  max-width: 416px;
+export const CardWrap = styled.div<PropsStyle>`
+  max-width: ${({max_width}) => max_width ? max_width : '416px'};
+  width: 100%;
   max-height: 175px;
   border: 1px solid #ECECEC;
   position: relative;
@@ -20,9 +26,9 @@ flex-direction: column;
 width: 100%;
 align-items: flex-start;
 `
-export const LineWrap = styled.div`
+export const LineWrap = styled.div<PropsStyle>`
 display: flex;
-width: 90%;
+width: ${({w}) => w ? w : '90%'};
 align-items: flex-end;
 margin-bottom: 15px;
 `

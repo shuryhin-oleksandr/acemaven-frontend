@@ -1,8 +1,8 @@
 export const profileLinks = [
-    {name: 'MY PROFILE', path: '/profile'},
-    {name: 'COMPANY SETTINGS', path: '/company/settings'},
-    {name: 'USER MANAGEMENT', path: '/management'},
-    {name: 'SETTINGS', path: '/settings'}
+    {name: 'MY PROFILE', path: '/settings/profile'},
+    {name: 'COMPANY SETTINGS', path: '/settings/company'},
+    {name: 'USER MANAGEMENT', path: '/settings/user/management'},
+    {name: 'SETTINGS', path: '/settings/general'}
 ]
 
 export const operationsLinks = [

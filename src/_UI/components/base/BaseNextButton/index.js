@@ -13,7 +13,7 @@ const BaseNextButton = styled.button`
   cursor: pointer;
   outline: none;
   border: none;
-  ${fonts.archivoBlack(14, 15)};
+ 
   position: relative;
   margin-right: 25px;
   :after {

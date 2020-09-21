@@ -1,13 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import BaseFormikInput from "../BaseFormikInput";
 import fonts from "../../../theming/fonts";
+import { ErrorMessage } from "formik";
+import Eye from "../../../assets/icons/password-eye.svg";
 
-const BaseInputGroup = ({ values, name, placeholder, labelText, marginBot, ...props }) => {
+const BaseInputGroup = ({
+  values,
+  name,
+  placeholder,
+  labelText,
+  marginBot,
+  withoutErrorMessage,
+  withEye,
+  type,
+  ...props
+}) => {
+  const [inputType, changeInputType] = useState(type);
   return (
     <Wrapper marginBot={marginBot}>
-      {values[name] && labelText && <Label>{labelText}</Label>}
-      <BaseFormikInput {...props} placeholder={placeholder} name={name} />
+      {values[name] && labelText && (
+        <Label for={values[name]}>{labelText}</Label>
+      )}
+      {withEye && (
+        <EyeImage
+          src={Eye}
+          alt="eye"
+          onClick={() =>
+            changeInputType(inputType === "password" ? "text" : "password")
+          }
+        />
+      )}
+      <BaseFormikInput
+        {...props}
+        type={inputType}
+        placeholder={placeholder}
+        name={name}
+        id={values[name]}
+      />
+      {withoutErrorMessage ? null : (
+        <ErrorMessage name={name} component={Error} />
+      )}
     </Wrapper>
   );
 };
@@ -18,9 +51,24 @@ const Wrapper = styled.div`
   margin-bottom: ${({ marginBot }) => (marginBot ? `${marginBot}px` : 0)};
 `;
 
-const Label = styled.span`
+const Label = styled.label`
   position: absolute;
   top: -25px;
-  ${fonts.archivoBlack(14, 15)};
+  ${fonts.helveticaNeu(14, 17, 0, 900)};
   color: #1b1b25;
+`;
+
+const Error = styled.div`
+  position: absolute;
+  right: 0;
+  margin-top: 5px;
+  ${fonts.helveticaNeu(12, 14, 0, 600)};
+  color: #e76767;
+`;
+
+const EyeImage = styled.img`
+  position: absolute;
+  right: 9px;
+  top: 15px;
+  cursor: pointer;
 `;

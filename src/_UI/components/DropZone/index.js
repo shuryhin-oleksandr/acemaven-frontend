@@ -6,12 +6,10 @@ import Icon from "../../assets/icons/drop-zone-icon.svg";
 const DropZone = ({ setImg }) => {
   const onDrop = useCallback((acceptedFiles) => {
     const reader = new FileReader();
-
     reader.onload = function (e) {
       setImg(e.target.result);
     };
     reader.readAsDataURL(acceptedFiles[0]);
-
   }, []);
   const {
     getRootProps,

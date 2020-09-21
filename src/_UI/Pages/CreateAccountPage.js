@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 //Instruments
 import { Formik, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { fonts } from "../theming";
 
 //Components
@@ -13,6 +14,20 @@ import BaseInputGroup from "../components/base/BaseInputGroup";
 import DropZone from "../components/DropZone";
 import Close from "../assets/icons/close-icon.svg";
 
+const ValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Please, enter your name"),
+  lastName: Yup.string().required("Please, enter your last name"),
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Please, enter your email"),
+  password: Yup.string().required("Please, enter your password"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Please, confirm your password"),
+  phone: Yup.number().required("Please, enter your phone number"),
+  position: Yup.string().required("Please, enter your position"),
+});
+
 const CreateAccountPage = () => {
   const [img, setImg] = useState("");
   return (
@@ -20,6 +35,7 @@ const CreateAccountPage = () => {
       <Heading>Create a Master Account</Heading>
       <FormWrapper>
         <Formik
+          validationSchema={ValidationSchema}
           initialValues={{
             name: "",
             lastName: "",
@@ -27,14 +43,23 @@ const CreateAccountPage = () => {
             password: "",
             confirmPassword: "",
             phone: "",
-            position: ""
+            position: "",
           }}
           onSubmit={(values, { setSubmitting }) => {
             console.log("values", values);
           }}
         >
-          {({ values }) => {
-            console.log("values", values);
+          {({ values, touched, errors }) => {
+            const hasErrors = Object.keys(errors).length > 0;
+            const isButtonDisabled =
+              !values.name ||
+              !values.lastName ||
+              !values.email ||
+              !values.password ||
+              !values.confirmPassword ||
+              !values.phone ||
+              !values.position ||
+              hasErrors;
             return (
               <Form>
                 <Row>
@@ -45,8 +70,9 @@ const CreateAccountPage = () => {
                       values={values}
                       labelText="Name"
                       marginBot={46}
+                      valid={touched.name && !errors.name}
+                      error={touched.name && errors.name}
                     />
-                    <ErrorMessage name="email" component="div" />
                   </RowItem>
                   <RowItem>
                     <BaseInputGroup
@@ -55,8 +81,9 @@ const CreateAccountPage = () => {
                       values={values}
                       labelText="Last Name"
                       marginBot={46}
+                      valid={touched.lastName && !errors.lastName}
+                      error={touched.lastName && errors.lastName}
                     />
-                    <ErrorMessage name="password" component="div" />
                   </RowItem>
                 </Row>
                 <BaseInputGroup
@@ -65,6 +92,8 @@ const CreateAccountPage = () => {
                   values={values}
                   labelText="Email"
                   marginBot={46}
+                  valid={touched.email && !errors.email}
+                  error={touched.email && errors.email}
                 />
                 <BaseInputGroup
                   name="password"
@@ -73,6 +102,9 @@ const CreateAccountPage = () => {
                   labelText="Password"
                   type="password"
                   marginBot={46}
+                  valid={touched.password && !errors.password}
+                  error={touched.password && errors.password}
+                  withEye={!!values.password}
                 />
                 {values.password && (
                   <div style={{ marginTop: "-16px" }}>
@@ -82,6 +114,8 @@ const CreateAccountPage = () => {
                       values={values}
                       type="password"
                       marginBot={57}
+                      valid={touched.confirmPassword && !errors.confirmPassword}
+                      error={touched.confirmPassword && errors.confirmPassword}
                     />
                   </div>
                 )}
@@ -89,8 +123,11 @@ const CreateAccountPage = () => {
                   name="phone"
                   placeholder="Phone number"
                   values={values}
+                  type="number"
                   labelText="Phone number"
                   marginBot={46}
+                  valid={touched.phone && !errors.phone}
+                  error={touched.phone && errors.phone}
                 />
                 <BaseInputGroup
                   name="position"
@@ -98,6 +135,8 @@ const CreateAccountPage = () => {
                   values={values}
                   labelText="Position in the company"
                   marginBot={46}
+                  valid={touched.position && !errors.position}
+                  error={touched.position && errors.position}
                 />
                 {img ? (
                   <div style={{ display: "flex", alignItems: "flex-start" }}>
@@ -114,7 +153,9 @@ const CreateAccountPage = () => {
                   <DropZone setImg={setImg} />
                 )}
                 <ButtonWrapper>
-                  <BaseButton type="submit">Create a Master account</BaseButton>
+                  <BaseButton type="submit" disabled={isButtonDisabled}>
+                    Create a Master account
+                  </BaseButton>
                 </ButtonWrapper>
               </Form>
             );
@@ -129,7 +170,7 @@ export default CreateAccountPage;
 
 const Heading = styled.h1`
   margin: 0;
-  ${fonts.raleway(28, 33)}
+  ${fonts.helveticaNeu(28, 33, 0, 900)}
 `;
 
 const FormWrapper = styled.div`
@@ -155,6 +196,8 @@ const ButtonWrapper = styled.div`
 const Photo = styled.img`
   max-width: 185px;
   height: auto;
+  border-radius: 4px;
+  border: 1px solid #b7bcd6;
 `;
 
 const CloseIcon = styled.img`

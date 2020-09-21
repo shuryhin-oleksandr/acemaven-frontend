@@ -23,12 +23,12 @@ const Row = styled.div`
 `;
 
 const Title = styled.div`
-  ${fonts.archivoBlack(28, 30)};
+  ${fonts.helveticaNeu(28, 33, 0, 900)};
   color: #1b1b25;
 `;
 
 const RedirectButton = styled.div`
-  ${fonts.archivoBlack(20, 22)};
+  ${fonts.helveticaNeu(20, 24, 0, 700)};
   cursor: pointer;
   color: #828282;
 `;

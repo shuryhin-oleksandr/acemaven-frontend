@@ -19,7 +19,7 @@ interface IProps {
 const MenuLink:React.FC<IProps> = ({   name, icon, activeIcon,  nestedLinks,
                                        setChecked, checkedLink}) => {
 
-    let [currentPath, setCurrentPath] = useState('/profile')
+    let [currentPath, setCurrentPath] = useState('/settings/profile')
     let [fullMenu, setFullMenu] = useState(false)
     let clickHandler = () => {
         setChecked && setChecked(name)

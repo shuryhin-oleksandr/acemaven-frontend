@@ -43,7 +43,6 @@ const PartOne = ({ changePage }) => {
         values={values}
         labelText="Phone number"
         marginBot={46}
-        type="number"
         valid={touched.phone && !errors.phone}
         error={touched.phone && errors.phone}
       />

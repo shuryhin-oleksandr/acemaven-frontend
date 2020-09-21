@@ -1,7 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { fonts } from "../../theming";
 
 const RegisterHead = ({ title, buttonText, redirectRoute }) => {
   let history = useHistory();
@@ -23,12 +22,14 @@ const Row = styled.div`
 `;
 
 const Title = styled.div`
-  ${fonts.helveticaNeu(28, 33, 0, 900)};
+  font-family: "Helvetica Bold", sans-serif;
+  font-size: 28px;
   color: #1b1b25;
 `;
 
 const RedirectButton = styled.div`
-  ${fonts.helveticaNeu(20, 24, 0, 700)};
+   font-family: "Helvetica Reg", sans-serif;
+  font-size: 20px;
   cursor: pointer;
   color: #828282;
 `;

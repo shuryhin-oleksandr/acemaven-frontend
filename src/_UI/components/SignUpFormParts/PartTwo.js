@@ -9,7 +9,7 @@ import { ErrorMessage, useFormikContext } from "formik";
 import BaseBackButton from "../base/BaseBackButton";
 import BaseNextButton from "../base/BaseNextButton";
 import BaseInputGroup from "../base/BaseInputGroup";
-import fonts from "../../theming/fonts";
+
 
 const PartTwo = ({ changePage }) => {
   const { values, touched, errors } = useFormikContext();
@@ -105,6 +105,7 @@ const Error = styled.div`
   position: absolute;
   right: 0;
   margin-top: 5px;
-  ${fonts.helveticaNeu(12, 14, 0, 600)};
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
   color: #e76767;
 `;

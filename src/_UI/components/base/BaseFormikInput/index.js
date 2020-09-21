@@ -1,8 +1,7 @@
 // Core
 import styled, { css } from "styled-components";
-import { fonts } from "../../../theming";
 import { Field } from "formik";
-import Arrow from "../../../assets/icons/select-arrow.svg";
+import Arrow from "../../../../_UI/assets/icons/selectArrow.svg";
 
 const BaseFormikInput = styled(Field)`
   background-color: #ffffff;
@@ -23,20 +22,24 @@ const BaseFormikInput = styled(Field)`
   height: 40px;
   padding: 0 10px;
   outline: none;
-  ${fonts.helveticaNeu(14, 16, 0, 400)};
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
   color: #bdbdbd;
   ::-webkit-input-placeholder {
     /* Edge */
-    ${fonts.helveticaNeu(14, 16, 0, 400)};
+    font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
     color: #bdbdbd;
   }
   :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    ${fonts.helveticaNeu(14, 16, 0, 400)};
+   font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
     color: #bdbdbd;
   }
   ::placeholder {
-    ${fonts.helveticaNeu(14, 16, 0, 400)};
+   font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
     color: #bdbdbd;
   }
   //hiding inputs type number Arrows/Spinners

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import fonts from '../../theming/fonts'
 
 
 export const HeaderContainer = styled.div`
@@ -15,7 +14,9 @@ export const HeaderContainer = styled.div`
 `
 
 export const LogoWrap = styled.div`
-${fonts.asap(18, 21, 2, 600)};
+font-family: "Helvetica Bold", sans-serif;
+font-size: 18px;
+color: black;
 padding-left: 50px;
 `
 

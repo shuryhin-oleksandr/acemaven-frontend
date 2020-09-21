@@ -1,6 +1,5 @@
 // Core
 import styled from "styled-components";
-import { fonts } from "../../../theming";
 
 const BaseButton = styled.button`
   height: 39px;
@@ -11,7 +10,8 @@ const BaseButton = styled.button`
   cursor: pointer;
   outline: none;
   border: none;
-  ${fonts.helveticaNeu(14, 17, 0, 900)};
+ font-family: "Helvetica Bold", sans-serif;
+ font-size: 14px;
 `;
 
 export default BaseButton;

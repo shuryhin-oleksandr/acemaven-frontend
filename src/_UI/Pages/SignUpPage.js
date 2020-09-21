@@ -6,11 +6,9 @@ import {Form, Formik } from "formik";
 import BaseFormikInput from "../components/base/BaseFormikInput";
 import PartTwo from "../components/SignUpFormParts/PartTwo";
 import PartOne from "../components/SignUpFormParts/PartOne";
-import { ErrorMessage, Form, Formik } from "formik";
-import BaseFormikInput from "../base/BaseFormikInput";
-import PartTwo from "../SignUpFormParts/PartTwo";
-import PartOne from "../SignUpFormParts/PartOne";
 import * as Yup from "yup";
+import {useDispatch} from "react-redux";
+import {companySignUp} from "../../_BLL/reducers/authReducer";
 
 const AgentValidationSchema = Yup.object().shape({
   name: Yup.string().required("Please, enter your company name"),
@@ -43,6 +41,8 @@ const ClientValidationSchema = Yup.object().shape({
 });
 
 const SignUpPage = () => {
+  const dispatch = useDispatch()
+
   const [firstPage, changePage] = useState(true);
   return (
     <RegisterFormTemplate>
@@ -70,11 +70,12 @@ const SignUpPage = () => {
             zip_code: "",
             phone: "",
             tax_id: "",
-            employees_number: "",
+            employees_number: 1,
             website: "",
             master_email: "",
           }}
           onSubmit={(values, { setSubmitting }) => {
+            dispatch(companySignUp(values))
             console.log("submit", values);
           }}
         >

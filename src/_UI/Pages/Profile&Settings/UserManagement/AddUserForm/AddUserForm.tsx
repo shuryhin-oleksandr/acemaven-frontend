@@ -108,7 +108,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd}) => {
                     </div>
                 ) : (
                     <div style={{ marginTop: '30px', marginBottom: '30px', width: '100%'}}>
-                        <DropZone setImg={setImg} />
+                        <DropZone name='photo' setImg={setImg} />
                     </div>
                 )}
             </FormWrap>

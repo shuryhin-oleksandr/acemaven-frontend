@@ -59,7 +59,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                     </div>
                 ) : (
                     <div style={{ marginTop: '45px', marginBottom: '50px', width: '100%'}}>
-                        <DropZone setImg={setImg} />
+                        <DropZone name='photo' setImg={setImg} />
                     </div>
                 )}
                 <FullfilledWrap style={{marginBottom: '0'}}>

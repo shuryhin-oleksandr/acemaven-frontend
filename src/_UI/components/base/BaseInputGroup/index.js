@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import BaseFormikInput from "../BaseFormikInput";
-import fonts from "../../../theming/fonts";
 import { ErrorMessage } from "formik";
-import Eye from "../../../assets/icons/password-eye.svg";
+import Eye from "../../../../_UI/assets/icons/mdi_eye.svg";
 
 const BaseInputGroup = ({
   values,
@@ -20,7 +19,7 @@ const BaseInputGroup = ({
   return (
     <Wrapper marginBot={marginBot}>
       {values[name] && labelText && (
-        <Label for={values[name]}>{labelText}</Label>
+        <Label htmlFor={values[name]}>{labelText}</Label>
       )}
       {withEye && (
         <EyeImage
@@ -54,7 +53,8 @@ const Wrapper = styled.div`
 const Label = styled.label`
   position: absolute;
   top: -25px;
-  ${fonts.helveticaNeu(14, 17, 0, 900)};
+  font-family: "Helvetica Bold", sans-serif;
+  font-size: 14px;
   color: #1b1b25;
 `;
 
@@ -62,7 +62,8 @@ const Error = styled.div`
   position: absolute;
   right: 0;
   margin-top: 5px;
-  ${fonts.helveticaNeu(12, 14, 0, 600)};
+ font-family: "Helvetica Bold", sans-serif;
+  font-size: 14px;
   color: #e76767;
 `;
 

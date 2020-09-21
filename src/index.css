@@ -1,20 +1,5 @@
 
 
-@font-face {
-  font-family: "ArchivoBlack";
-  src: url("_UI/assets/fonts/ArchivoBlack-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Asap";
-  src: url("_UI/assets/fonts/Asap-Regular.ttf") format("truetype");
-}
-
-
-  @font-face {
-    font-family: "Raleway";
-    src: url("_UI/assets/fonts/Raleway-VariableFont_wght.ttf") format("truetype");
-  }
 
 
 @font-face {
@@ -44,6 +29,7 @@
   font-family: "Helvetica Bolder";
   src: url("_UI/assets/fonts/helvetica/HelveticaNeueBd.ttf") format("truetype");
   font-weight: 900;
+}
 
 
 * {

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
 import Icon from "../../assets/icons/drop-zone-icon.svg";
 
-const DropZone = ({ setImg }) => {
+const DropZone = ({ setImg, name }) => {
   const onDrop = useCallback((acceptedFiles) => {
     const reader = new FileReader();
     reader.onload = function (e) {
@@ -25,7 +25,7 @@ const DropZone = ({ setImg }) => {
         {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
       >
         <img src={Icon} alt="Icon" />
-        <input {...getInputProps()} />
+        <input name={name} {...getInputProps()} />
         <p style = {{fontFamily: 'Helvetica Reg', fontSize: '14px'}}>Drop photo here or select photo</p>
       </Container>
     </div>

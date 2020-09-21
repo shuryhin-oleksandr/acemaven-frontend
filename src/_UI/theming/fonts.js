@@ -33,8 +33,6 @@ const helvetica = (
 
 
 export default {
-  archivoBlack,
-  asap,
   raleway,
   helvetica
 };

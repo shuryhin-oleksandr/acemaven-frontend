@@ -1,0 +1,17 @@
+import React from "react";
+import Layout from "src/_UI/components/BaseLayout/Layout";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../_BLL/store";
+import RegistrationNewForm from "./SurchargeRegistrationForm/RegistrationNewForm";
+
+
+const SurchargesContainer:React.FC = () => {
+    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+    return (
+        <Layout isAuth={isAuth}>
+            <RegistrationNewForm />
+        </Layout>
+    )
+}
+
+export default SurchargesContainer

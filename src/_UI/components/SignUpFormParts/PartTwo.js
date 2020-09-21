@@ -1,5 +1,5 @@
 //Core
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 
 //Instruments
@@ -11,8 +11,11 @@ import BaseNextButton from "../base/BaseNextButton";
 import BaseInputGroup from "../base/BaseInputGroup";
 
 
-const PartTwo = ({ changePage }) => {
+const PartTwo = ({ changePage, error }) => {
   const { values, touched, errors } = useFormikContext();
+    useEffect(() => {
+        error && changePage(true)
+    }, [error])
 
   const isButtonDisabled =
     !values.address_line_first ||

@@ -4,7 +4,7 @@ import BaseInputGroup from "../base/BaseInputGroup";
 import { useFormikContext } from "formik";
 import BaseNextButton from "../base/BaseNextButton";
 
-const PartOne = ({ changePage }) => {
+const PartOne = ({ changePage, error }) => {
   const { values, touched, errors } = useFormikContext();
 
   const isAgentButtonDisabled =

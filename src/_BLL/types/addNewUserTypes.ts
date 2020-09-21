@@ -1,3 +1,4 @@
+//data from form
 export interface IAddNewUserData {
     name?: string,
     lastName?: string,
@@ -11,6 +12,8 @@ export interface IAdditionalUser {
     email: string,
     roles: string[]
 }
+
+//FORM FOR ADDITIONAL USER
 export interface IAdditionalUserCompleteData {
     name: string,
     lastName: string,
@@ -23,12 +26,15 @@ export interface IAdditionalUserCompleteData {
     photo?: string
 }
 
+
 export interface IBankAccountData {
     taxId?: string,
     name?: string,
     branchNumber?: string,
     accountNumber?: string
 }
+
+//data from form
 export interface IAddNewBank {
     accountType?: string,
     name?: string,

@@ -11,6 +11,12 @@ export const operationsLinks = [
     {name: 'CANCELED', path: '/operations/canceled'},
 ]
 
+
+export const ratesLinks = [
+    {name: 'RATES', path: '/services/rates'},
+    {name: 'SURCHARGES', path: '/services/surcharges'}
+]
+
 export type nestedLink = {
     name: string,
     path: string

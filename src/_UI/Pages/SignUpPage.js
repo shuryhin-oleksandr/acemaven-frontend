@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import RegisterHead from "../components/RegisterHead";
 import RegisterFormTemplate from "../templates/RegisterFormTemplate";
 import styled from "styled-components";
@@ -7,7 +7,7 @@ import BaseFormikInput from "../components/base/BaseFormikInput";
 import PartTwo from "../components/SignUpFormParts/PartTwo";
 import PartOne from "../components/SignUpFormParts/PartOne";
 import * as Yup from "yup";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {companySignUp} from "../../_BLL/reducers/authReducer";
 
 const AgentValidationSchema = Yup.object().shape({
@@ -42,6 +42,9 @@ const ClientValidationSchema = Yup.object().shape({
 
 const SignUpPage = () => {
   const dispatch = useDispatch()
+  let error = useSelector(state => state.auth.companySignUpError);
+
+
 
   const [firstPage, changePage] = useState(true);
   return (
@@ -101,9 +104,9 @@ const SignUpPage = () => {
                 )}
                 {values.type ? (
                   firstPage ? (
-                    <PartOne changePage={changePage} />
+                    <PartOne error={error} changePage={changePage} />
                   ) : (
-                    <PartTwo changePage={changePage} />
+                    <PartTwo error={error} changePage={changePage} />
                   )
                 ) : null}
               </Form>

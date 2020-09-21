@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NavContainer } from "./nav-styles";
 import MenuLink from "./MenuLink";
-import {operationsLinks, profileLinks} from "../../../_BLL/helpers/nestedMenu/menuLinnks";
+import {operationsLinks, profileLinks, ratesLinks} from "../../../_BLL/helpers/nestedMenu/menuLinnks";
 import { useState } from "react";
 const requests = require('../../assets/icons/sidebar/requests.svg') as string;
 const operations = require('../../assets/icons/sidebar/operations.svg') as string;
@@ -28,7 +28,9 @@ const NavBar:React.FC<IProps> = () => {
                       setChecked={setChecked}
                       checkedLink={checkedLink}
             />
-            <MenuLink icon={rates} path='#' name='RATES & SERVICES'/>
+            <MenuLink icon={rates}
+                      nestedLinks={ratesLinks}
+                      name='RATES & SERVICES'/>
             <MenuLink icon={billing} path='#' name='BILLING'/>
             <MenuLink icon={settings}
                       activeIcon={activeSettings}

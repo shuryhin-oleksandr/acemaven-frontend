@@ -10,6 +10,7 @@ import ProfileContainer from "../_UI/Pages/Profile&Settings/Profile/ProfileConnt
 import CompanySettingsContainer from 'src/_UI/Pages/Profile&Settings/CompanySettings/CompanySettingsContainer';
 import UserManagementContainer from "../_UI/Pages/Profile&Settings/UserManagement/UserManagementContainer";
 import GeneralSettingsContainer from 'src/_UI/Pages/Profile&Settings/GeneralSettings/GeneralSettingsContainer';
+import SurchargesContainer from 'src/_UI/Pages/Services&Rates/rates/SurchargesContainer';
 
 
 
@@ -31,6 +32,8 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
                 <Route component={AdditionalUserContainer} path='/additional/user'/>
 
+
+                <Route component={SurchargesContainer} path='/services/surcharges'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>
                 <Route component={CompanySettingsContainer} path='/settings/company'/>
                 <Route component={UserManagementContainer} path='/settings/user/management'/>

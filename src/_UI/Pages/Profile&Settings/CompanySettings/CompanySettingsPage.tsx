@@ -19,13 +19,46 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     header: {
         backgroundColor: 'white',
+        boxShadow: 'none',
         color: '#115B86',
+        borderBottom: '2px solid #7C7C89',
+        paddingLeft: '25px',
 
+
+        '& .MuiTab-textColorInherit': {
+            opacity: 1,
+            fontWeight: 'bold',
+            border: '2px solid #7C7C89',
+            borderBottom: 0,
+            margin: '0 6px'
+        },
+
+        '& .MuiTabs-fixed': {
+            overflow: 'visible!important'
+        },
+
+        '& .MuiTabs-root': {
+            overflow: 'visible!important'
+        },
+
+        '& .MuiTab-textColorInherit.Mui-selected': {
+            color: '#ffffff',
+            background: '#000000',
+            transition: '.2s',
+            fontWeight: 'bold',
+            border: 'none'
+        },
+
+        '& .PrivateTabIndicator-colorSecondary-6': {
+            backgroundColor: '#1AB8E6',
+            height: '4px',
+            bottom: '-2px'
+        }
     },
     tabButton: {
         '& .MuiTab-root' : {
             fontFamily: 'Helvetica Reg',
-            fontSize: '14px'
+            fontSize: '14px',
         }
     }
 }));

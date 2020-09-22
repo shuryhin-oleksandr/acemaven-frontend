@@ -29,8 +29,10 @@ const AddBankForm:React.FC = () => {
                            as={
                                <FormSelect label='Bank Name'
                                            options={options}
+                                           error={errors?.name?.message}
                                />
                            }
+                           rules={{ required: 'Field is required' }}
                />
                 <FormField label='Branch No.'
                        placeholder='Branch No.'

@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             border: 'none'
         },
 
-        '& .PrivateTabIndicator-colorSecondary-6': {
+        '& .MuiTabs-indicator': {
             backgroundColor: '#1AB8E6',
             height: '4px',
             bottom: '-2px'

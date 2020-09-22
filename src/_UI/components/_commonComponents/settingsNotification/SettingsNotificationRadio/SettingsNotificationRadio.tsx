@@ -19,7 +19,8 @@ let useStyles = makeStyles ({
         color: '#1B1B25',
         padding: '0',
         marginBottom: '10px',
-        '&$checked': {
+
+        '&.Mui-checked': {
             color: '#1B1B25',
         },
     },

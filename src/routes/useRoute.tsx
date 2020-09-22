@@ -31,8 +31,6 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={AddNewUserContainer} path='/create/user'/>
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
                 <Route component={AdditionalUserContainer} path='/additional/user'/>
-
-
                 <Route component={SurchargesContainer} path='/services/surcharges'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>
                 <Route component={CompanySettingsContainer} path='/settings/company'/>

@@ -32,17 +32,18 @@ const ValidationSchema = Yup.object().shape({
   position: Yup.string().required("Please, enter your position"),
 });
 
-const CreateAccountPage = () => {
+const CreateAccountPage = ({history}) => {
   const [img, setImg] = useState("");
   let dispatch = useDispatch()
     let isFetching = useSelector((state) => state.auth.isFetching)
 
     const location = useLocation()
-  useEffect(() => {
-      console.log(location.search.substr(1))
-      dispatch(checkToken(location.search.substr(1)))
-  }, [])
-  return (
+    useEffect(() => {
+      console.log(location.search.substr(7))
+      dispatch(checkToken(location.search.substr(7)))
+    }, [])
+
+    return (
       <>
           {isFetching && <Spinner /> }
           <RegisterFormTemplate>
@@ -62,7 +63,7 @@ const CreateAccountPage = () => {
                       }}
                       onSubmit={(values, { setSubmitting }) => {
                           console.log("values", values);
-                          dispatch(masterAccountSignUp(values, location.search.substr(1)))
+                          dispatch(masterAccountSignUp(values, location.search.substr(7), history))
                       }}
                   >
                       {({ values, touched, errors }) => {

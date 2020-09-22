@@ -11,6 +11,10 @@ import RegisterHead from "../components/RegisterHead";
 import RegisterFormTemplate from "../templates/RegisterFormTemplate";
 import BaseButton from "../components/base/BaseButton";
 import BaseInputGroup from "../components/base/BaseInputGroup";
+import {useDispatch, useSelector} from "react-redux";
+import {signIn} from "../../_BLL/reducers/authReducer";
+import Spinner from "../components/_commonComponents/spinner/Spinner";
+import {withRouter} from "react-router";
 
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
@@ -19,9 +23,14 @@ const ValidationSchema = Yup.object().shape({
   password: Yup.string().required("Please, enter your password"),
 });
 
-const SignInPage = () => {
+const SignInPage = ({history}) => {
+    const dispatch = useDispatch()
+    const loginFail = useSelector(state => state.auth.loginError)
+    const isFetching = useSelector(state => state.auth.isFetching)
+
   return (
     <RegisterFormTemplate>
+        {isFetching && <Spinner />}
       <RegisterHead
         title="Log in"
         buttonText="Register"
@@ -33,6 +42,7 @@ const SignInPage = () => {
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, { setSubmitting }) => {
             console.log("submit", values);
+            dispatch(signIn(values, history))
           }}
         >
           {({ values, touched, errors }) => {
@@ -57,12 +67,13 @@ const SignInPage = () => {
                   valid={touched.password && !errors.password}
                   error={touched.password && errors.password}
                 />
+                  {loginFail && <ErrorServerMessage>{loginFail}</ErrorServerMessage>}
                 <ButtonWrapper>
                   <BaseButton
                     type="submit"
                     disabled={!values.password || !values.email || hasErrors}
                   >
-                    Log in
+                    LOG IN
                   </BaseButton>
                 </ButtonWrapper>
               </Form>
@@ -74,7 +85,7 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default withRouter(SignInPage);
 
 const FormWrapper = styled.div`
   padding-top: 75px;
@@ -85,3 +96,12 @@ const ButtonWrapper = styled.div`
   justify-content: center;
   margin-top: 50px;
 `;
+
+export const ErrorServerMessage = styled.div`
+  width: 100%;
+    padding-top: 10px;
+    text-align: end;
+    color: #E76767;
+    font-family: "Helvetica Reg", sans-serif;
+    font-size: 14px;
+`

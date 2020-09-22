@@ -16,7 +16,7 @@ const CancelButton:React.FC<PropsType> = ({text, setIsOpen}) => {
 export default CancelButton
 
 const CancelButtonWrap = styled.button`
-font-family: "Helvetica Bold", sans-serif;
+font-family: "Helvetica Reg", sans-serif;
 font-size: 14px;
 background: white;
 outline: none;

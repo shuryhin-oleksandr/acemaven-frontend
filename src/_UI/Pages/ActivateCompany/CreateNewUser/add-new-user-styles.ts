@@ -5,14 +5,14 @@ display: flex;
 height: 100%;
 width: 100%;
 flex-direction: column;
-padding: 60px 50px 60px 80px;
+padding: 60px 100px 60px 30px;
 `
 
 export const ContentWrap = styled.div`
 max-height: 595px;
 height: 100%;
 width: 100%;
-margin-bottom: 100px;
+margin-bottom: 50px;
 display: flex;
 justify-content: space-between;
 

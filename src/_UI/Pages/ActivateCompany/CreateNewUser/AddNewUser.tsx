@@ -7,22 +7,30 @@ import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import CancelButton from "../../../components/_commonComponents/buttons/navFormButtons/CancelButton";
 import styled from "styled-components";
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../_BLL/store";
+import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
+
 
 type PropsType = {
-    setIsOpen: VoidFunctionType
+    setIsOpen: VoidFunctionType,
+    list?: Array<IAddNewUserData>,
+
 }
 
-const AddNewUser:React.FC<PropsType> = ({setIsOpen}) => {
+const AddNewUser:React.FC<PropsType> = ({setIsOpen, list}) => {
+    const errorEmployee = useSelector((state: AppStateType) => state.auth.addingEmployeeError)
+
     return (
         <AddContainer>
             <ContentWrap>
-                <AddUserForm />
-                <UsersList/>
+                <AddUserForm errorEmployee={errorEmployee}/>
+                <UsersList  usersList={list}/>
             </ContentWrap>
             <LineWrap />
             <NavigationWrap>
-                    <CancelButton setIsOpen={setIsOpen} text='Cancel'/>
-                    <NavLink to='/create/bank'><BaseNextButton>Next</BaseNextButton></NavLink>
+                    <CancelButton setIsOpen={setIsOpen} text='CANCEL'/>
+                    <NavLink to='/create/bank'><BaseNextButton>NEXT</BaseNextButton></NavLink>
             </NavigationWrap>
         </AddContainer>
 

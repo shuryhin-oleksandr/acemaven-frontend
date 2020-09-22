@@ -5,17 +5,22 @@ import { IAddNewUserData } from '../../../../_BLL/types/addNewUserTypes';
 import FormField from "../../../components/_commonComponents/Input/FormField";
 import CustomCheckbox from "../../../components/_commonComponents/customCheckbox/customCheckbox";
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {addEmployee} from "../../../../_BLL/reducers/authReducer";
+import {ErrorServerMessage} from "../../SignInPage";
 
 
 interface IProps {
-
+    errorEmployee?: string
 }
 
-const AddUserForm:React.FC<IProps> = () => {
+const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
 
+    const dispatch = useDispatch()
     const {register, handleSubmit, errors, getValues} = useForm<IAddNewUserData>()
     const onSubmit = (values: IAddNewUserData) => {
         console.log(values)
+        dispatch(addEmployee(values))
     }
     const [roleValue, setRole] = useState('')
 
@@ -28,7 +33,7 @@ const AddUserForm:React.FC<IProps> = () => {
                         <FormField label='Name'
                                    inputRef={register}
                                    placeholder='Name'
-                                   name='name'
+                                   name='first_name'
                                    getValues={getValues}
                         />
                     </InputWrap>
@@ -36,7 +41,7 @@ const AddUserForm:React.FC<IProps> = () => {
                         <FormField label='Last Name'
                                    inputRef={register}
                                    placeholder='Last Name'
-                                   name='lastName'
+                                   name='last_name'
                                    getValues={getValues}
                         />
                     </InputWrap>
@@ -50,54 +55,54 @@ const AddUserForm:React.FC<IProps> = () => {
                                error={errors?.email?.message}
                                getValues={getValues}
                     />
-
+                {errorEmployee && <ErrorServerMessage style={{padding: '0'}}>{errorEmployee}</ErrorServerMessage>}
                     <FormField label='Position in the Company'
                                inputRef={register}
                                placeholder='Position in Company(optional)*'
-                               name='companyPosition'
-                               error={errors?.companyPosition?.message}
+                               name='position'
+                               error={errors?.position?.message}
                                getValues={getValues}
                     />
                 <CheckboxWrap>
                     <CustomCheckbox
                         value='master'
-                        name='userRole'
+                        name='roles'
                         inputRef={register({
                             required: 'Field is required'
                                 })}
                         role='Master'
                         getValues={getValues}
-                        error={errors?.userRole?.message}
+                        error={errors?.roles}
                         disabled={roleValue === 'agent' || roleValue === 'billing'}
                         setRole={setRole}
                         roleValue={roleValue}
                     />
                     <CustomCheckbox value='agent'
-                                    name='userRole'
+                                    name='roles'
                                     inputRef={register({
                                         required: 'Field is required'
                                     })}
                                     role='Agent'
                                     getValues={getValues}
-                                    error={errors?.userRole?.message}
+                                    error={errors?.roles}
                                     disabled={roleValue === 'master'}
                                     setRole={setRole}
                                     roleValue={roleValue}
                     />
                     <CustomCheckbox value='billing'
-                                    name='userRole'
+                                    name='roles'
                                     inputRef={register({
                                         required: 'Field is required'
                                     })}
                                     role='Billing'
                                     getValues={getValues}
-                                    error={errors?.userRole?.message}
+                                    error={errors?.roles}
                                     disabled={roleValue === 'master'}
                                     setRole={setRole}
                                     roleValue={roleValue}
                     />
                 </CheckboxWrap>
-                     <SubmitButton type='submit'>Add user</SubmitButton>
+                     <SubmitButton type='submit'>ADD USER</SubmitButton>
             </FormWrap>
         </FormContainer>
     )
@@ -120,7 +125,7 @@ export const Title = styled.div`
 color: black;
 font-family: 'Helvetica Bolder', sans-serif;
 font-size: 28px;
-margin-bottom: 58px;
+margin-bottom: 40px;
 `
 export const FormWrap = styled.form`
 display: flex;
@@ -141,15 +146,16 @@ width: ${({w}) => w ? w : '100%'};
 `
 
 export const SubmitButton = styled.button`
-font-family: "Helvetica Bold", sans-serif;
+font-family: "Helvetica Reg", sans-serif;
+font-size: 14px;
 background-color: #7C7C89;
 min-height: 40px;
-max-width: 140px;
+max-width: 180px;
 width: 100%;
 outline: none;
 border: none;
 color: white;
-margin-top: 50px;
+margin-top: 30px;
 transition: .3s;
 
   &:hover {
@@ -166,5 +172,6 @@ export const CheckboxWrap = styled.div`
   max-height: 160px;
   height: 100%;
   width: 100%;
+  margin-top: 20px;
 `
 

@@ -1,10 +1,14 @@
 //data from form
 export interface IAddNewUserData {
-    name?: string,
-    lastName?: string,
+    first_name?: string,
+    last_name?: string,
     email: string,
-    companyPosition?: string,
-    userRole: string
+    id?: number,
+    phone?: string,
+    photo?: string,
+    position?: string,
+    roles: string[],
+    companies?: any
 }
 
 export interface IAdditionalUser {
@@ -36,8 +40,8 @@ export interface IBankAccountData {
 
 //data from form
 export interface IAddNewBank {
-    accountType?: string,
-    name?: string,
-    branchNumber?: string,
-    accountNumber?: string
+    account_type?: string,
+    bank_name?: string,
+    branch?: string,
+    number?: number
 }

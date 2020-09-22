@@ -26,7 +26,7 @@ export const Field = styled.input<PropsStyle>`
   font-size: 14px;
   font-family: 'Helvetica Light',sans-serif;
   line-height: 17px;
-  margin-bottom: 9px;
+  
   transition: .5s;
   height: 40px;
   border: ${({error}) => error ? '1px solid #7C7C89' : '1px solid #BDBDBD'};
@@ -62,6 +62,7 @@ export const Label = styled.div<PropsStyle>`
   animation: ${showLabel} ease-in-out .3s;
 `
 export const HelperText = styled.div`
+padding-top: 9px;
 color: red;
 font-family: "Helvetica Reg", sans-serif;
 width: 100%;

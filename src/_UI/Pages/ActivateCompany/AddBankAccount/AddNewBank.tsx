@@ -26,8 +26,8 @@ const AddNewBank:React.FC<PropsType> = ({setIsOpen}) => {
             </AddWrap>
             <LineWrap />
             <ButtonsWrap>
-                <CancelButton setIsOpen={setIsOpen} text='Cancel'/>
-                <BaseNextButton>Next</BaseNextButton>
+                <CancelButton setIsOpen={setIsOpen} text='CANCEL'/>
+                <BaseNextButton>NEXT</BaseNextButton>
             </ButtonsWrap>
         </Container>
     )

@@ -1,7 +1,10 @@
 import styled from 'styled-components'
+import {IAddNewUserData} from "../../../../../../_BLL/types/addNewUserTypes";
 
 type PropsStyle = {
-    max_width?: string
+    max_width?: string,
+    role?: string,
+    roles?: IAddNewUserData
 }
 
 export const Container = styled.div<PropsStyle>`
@@ -12,6 +15,7 @@ max-height: 105px;
 height: 100%;
 box-shadow: 0 0 10px rgba(0,0,0,0.15);
 display: flex;
+margin-bottom: 20px;
 `
 export const Inner = styled.div`
 display: flex;
@@ -21,13 +25,16 @@ width: 100%;
 height: 100%;
 padding: 20px 10px;
 `
-export const PhotoWrap = styled.div`
+export const PhotoWrap = styled.div<PropsStyle>`
 max-width: 70px;
 width: 100%;
 height: 100%;
 display: flex;
 border-radius: 50%;
-border: 5px solid black;
+/*border: ${({roles}) => (
+    roles?.roles?.map(r => (r === 'master') ? '3px solid black' : (r === 'agent') ? '3px solid #115B86' : '3px solid #1AB8E6')  
+)}
+    */
 img {
 width: 64px;
 z-index: 50;
@@ -83,10 +90,11 @@ cursor: pointer;
 }
 `
 
-export const SpanName = styled.div`
+export const SpanName = styled.div<PropsStyle>`
   font-family: "Helvetica Bold", sans-serif;
   font-size: 14px;
   margin-left: 5px;
+  color: ${({role}) => (role === 'agent') ? '#115B86' : (role === 'billing') ? '#1AB8E6' : 'black'}
 `
 export const SpanEmail = styled.div`
   font-size: 14px;

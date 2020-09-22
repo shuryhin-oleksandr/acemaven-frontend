@@ -12,7 +12,7 @@ instance.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('access_token')
         if (token) {
-            config.headers.common['authorization'] = `Bearer ${token}`
+            config.headers.common['authorization'] = `JWT ${token}`
         } else {
             delete config.headers.common['authorization']
             return config
@@ -31,7 +31,7 @@ instance.interceptors.response.use(
     (err) => {
         if (err.response.status === 401) {
             localStorage.clear()
-            window.location.href = '/sign-in'
+           /* window.location.href = '/sign-in'*/
             return Promise.reject(err)
         }
         return Promise.reject(err)

@@ -28,7 +28,7 @@ const Title = styled.div`
 `;
 
 const RedirectButton = styled.div`
-   font-family: "Helvetica Reg", sans-serif;
+   font-family: "Helvetica Bold", sans-serif;
   font-size: 20px;
   cursor: pointer;
   color: #828282;

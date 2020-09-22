@@ -103,7 +103,7 @@ const FormSelect: React.FC<IProps> = ({label, error, ...props}) => {
                         <em>{label}</em>
                     </MenuItem>
                     {
-                        props.options.map((o: any) => <MenuItem key={o.name} value={o.name}>{o.name}</MenuItem>)
+                        props.options.map((o: any) => <MenuItem key={o.name} value={o.value}>{o.name}</MenuItem>)
                     }
                 </Select>
                 <FormHelperText className={classes.helperText} error={!!error}>{error}</FormHelperText>

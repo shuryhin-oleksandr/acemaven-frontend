@@ -1,13 +1,13 @@
 // Core
 import styled from "styled-components";
-import { fonts } from "../../../theming";
+
 
 const BaseNextButton = styled.button`
   height: 40px;
   background-color: ${({ background, disabled }) =>
     disabled ? "#7C7C89" : background ? background : "#000000"};
   color: ${({ textColor }) => (textColor ? textColor : "#FFFFFF")};
-  font-family: "Helvetica Bold", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   padding: 12px 45px 12px 34px;
   cursor: pointer;

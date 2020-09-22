@@ -4,6 +4,7 @@ import BaseFormikInput from "../BaseFormikInput";
 import { ErrorMessage } from "formik";
 import Eye from "../../../../_UI/assets/icons/mdi_eye.svg";
 
+
 const BaseInputGroup = ({
   values,
   name,
@@ -38,7 +39,7 @@ const BaseInputGroup = ({
         id={values[name]}
       />
       {withoutErrorMessage ? null : (
-        <ErrorMessage name={name} component={Error} />
+          <ErrorMessage name={name} component={Error} />
       )}
     </Wrapper>
   );

@@ -37,7 +37,7 @@ const FormField:React.FC<PropsType> = ({error, label, ...props}) => {
                         ref={props.inputRef}
                         placeholder={props.placeholder}
                       />
-            <HelperText>{error}</HelperText>
+            {error && <HelperText>{error}</HelperText>}
         </InputOuter>
     )
 }

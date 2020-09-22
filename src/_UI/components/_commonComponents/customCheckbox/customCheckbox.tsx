@@ -20,7 +20,6 @@ const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
 
     let handleChange = (value : string) => {
         isCheck ? setIsCheck(false) : setIsCheck(true)
-        debugger
         props.roleValue !== value ? props.setRole(value) : props.setRole('')
     }
 

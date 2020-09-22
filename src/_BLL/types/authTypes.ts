@@ -39,6 +39,10 @@ export interface ICompanySignUpData {
     website?: string,
     master_email: string
 }
+export interface ICompanySignUpError {
+    master_email?: string[],
+    phone?: string[]
+}
 
 export interface IMasterAccountData {
     first_name: string,

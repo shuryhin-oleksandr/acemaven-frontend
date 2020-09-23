@@ -7,7 +7,7 @@ export const ProfileOuter = styled.div`
 export const ProfileInner =styled.div`
   width: 100%;
   height: 100%;
-  padding: 51px 80px 51px 30px;
+  padding: 51px 75px 51px 30px;
   display: flex;
   flex-direction: column;
 `

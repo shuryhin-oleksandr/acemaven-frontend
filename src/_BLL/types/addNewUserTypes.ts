@@ -40,8 +40,10 @@ export interface IBankAccountData {
 
 //data from form
 export interface IAddNewBank {
+    id?: number,
     account_type?: string,
     bank_name?: string,
     branch?: string,
-    number?: number
+    number?: number,
+    is_default?: boolean
 }

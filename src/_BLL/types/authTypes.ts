@@ -54,3 +54,21 @@ export interface IMasterAccountData {
     confirm_password: string,
     photo?: string
 }
+
+type userCompaniesType = {
+    id?: number
+}
+
+export interface IAuthUserInfo {
+    id?: number,
+    first_name?: string,
+    last_name?: string,
+    email?: string,
+    phone?: string,
+    position?: string,
+    photo?: null,
+    roles?: string[],
+    companies?: userCompaniesType,
+    password?: string,
+    confirm_password?: string
+}

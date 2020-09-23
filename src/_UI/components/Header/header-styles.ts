@@ -21,8 +21,7 @@ padding-left: 50px;
 `
 
 export const InfoWrap = styled.div`
-max-width: 130px;
-width: 100%;
+width: 19%;
 display: flex;
 justify-content: space-between;
 padding-right: 80px;
@@ -32,6 +31,7 @@ export const ButtonWrap = styled.button`
 outline: none;
 background: none;
 border: none;
+padding: 0;
   &:hover {
     cursor: pointer;
   }

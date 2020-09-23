@@ -4,27 +4,15 @@ import Header from "../Header/Header";
 import NavBar from "../NavBar/NavBar";
 
 
-
-interface IProps {
-    isAuth: boolean
-}
-
-const Layout:React.FC<IProps> = ({children, isAuth}) => {
-
-
+const Layout:React.FC = ({children, }) => {
 
     return(
         <LayoutContainer>
-            <Header isAuth={isAuth}/>
-            {!isAuth
-                ? <Content>
+            <Header/>
+                 <Content>
                    <NavBar />
                     {children}
                 </Content>
-                : <Content>
-                    {children}
-                </Content>
-            }
         </LayoutContainer>
     )
 }

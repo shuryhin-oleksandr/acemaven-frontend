@@ -1,21 +1,24 @@
 import React, {useState} from 'react'
-import Layout from "../../../../_UI/components/BaseLayout/Layout";
 import CancelPopup from "../../../components/PopUps/Cancel/CancelPopup";
 import AddNewBank from "./AddNewBank";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../_BLL/store";
 import styled from 'styled-components';
+import Spinner from "../../../components/_commonComponents/spinner/Spinner";
+import LayoutWithoutNav from "../../../components/BaseLayout/LayoutWithoutNav";
 
 
 const AddBankAccountContainer:React.FC = () => {
     const [isOpen, setIsOpen] = useState(false)
-    const isAuth = useSelector((state :AppStateType) => state.auth.isAuth)
+    const isFetching = useSelector((state: AppStateType) => state.company.isFetching)
+
     return (
         <Outer>
+            {isFetching && <Spinner />}
             {isOpen && <CancelPopup setIsOpen={setIsOpen}/>}
-            <Layout isAuth={isAuth}>
+            <LayoutWithoutNav >
                 <AddNewBank setIsOpen={setIsOpen}/>
-            </Layout>
+            </LayoutWithoutNav>
         </Outer>
 
     )

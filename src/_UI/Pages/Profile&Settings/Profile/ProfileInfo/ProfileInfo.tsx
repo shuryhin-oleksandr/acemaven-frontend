@@ -8,19 +8,23 @@ import {
     ProfileTitle
 } from "../profile-styles";
 import editIcon from "../../../../assets/icons/profile/editProfile.svg";
-import photo from "../../../../assets/icons/profile/Rectangle.png";
+import photo from "../../../../assets/icons/profile/border-radius.svg";
 import ProfileInfoField from "../../../../components/_commonComponents/ProfileinfoBlock/ProfileInfoField";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../../_BLL/store";
+
 
 
 type PropsType = {
-    info1: any,
-    info2: any,
     setIsEdit: VoidFunctionType,
     isEdit: boolean
 }
 
-const ProfileInfo:React.FC<PropsType> = ({info1, info2, setIsEdit, isEdit}) => {
+const ProfileInfo:React.FC<PropsType> = ({ setIsEdit, isEdit}) => {
+
+    let profilePhoto = useSelector((state: AppStateType) => state.profile.authUserInfo?.photo)
+
     return (
         <ProfileInner>
         <HeaderWrap>
@@ -30,8 +34,8 @@ const ProfileInfo:React.FC<PropsType> = ({info1, info2, setIsEdit, isEdit}) => {
             </EditButton>
         </HeaderWrap>
             <ProfileContent>
-                <PhotoWrap><img src={photo} alt=""/></PhotoWrap>
-                <ProfileInfoField info1={info1} info2={info2}/>
+                <PhotoWrap><img src={profilePhoto? profilePhoto : photo} alt=""/></PhotoWrap>
+                <ProfileInfoField />
             </ProfileContent>
         </ProfileInner>
     )

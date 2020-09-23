@@ -18,6 +18,11 @@ export const CardWrap = styled.div<PropsStyle>`
   max-height: 175px;
   border: 1px solid #ECECEC;
   position: relative;
+  margin-bottom: 20px;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `
 export const CardContent = styled.div`
 padding: 15px;
@@ -25,6 +30,13 @@ display: flex;
 flex-direction: column;
 width: 100%;
 align-items: flex-start;
+`
+export const Wrapper = styled.div`
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+margin-bottom: 20px;
 `
 export const LineWrap = styled.div<PropsStyle>`
 display: flex;
@@ -40,7 +52,7 @@ color: #1B1B25;
 margin-right: 10px;
 display: flex;
 text-align: end;
-width: 27%;
+width: 32%;
 justify-content: flex-end;
 `
 export const Data = styled.div`
@@ -64,6 +76,9 @@ export const DefaultWrap = styled.div`
   display: flex;
   width: 100%;
   justify-content: flex-end;
+   right: 10px;
+   position: absolute;
+   bottom: 10px;
 `
 export const DefaultText = styled.div`
 color: #115B86;
@@ -71,5 +86,22 @@ font-family: "Helvetica Bold", sans-serif;
 font-size: 14px;
 `
 export const DefaultIcon = styled.div`
-
+  margin-right: 5px;
+`
+export const SetDefaultButton = styled.button`
+  height: 40px;
+  max-width: 160px;
+  width: 100%;
+  outline: none;
+  background: none;
+  border: 1px solid #3B3B41;
+  color: #3B3B41;
+  font-family: "Helvetica Bold", sans-serif;
+  font-size: 14px;
+  transition: .3s;
+   &:hover {
+    cursor: pointer;
+    transition: .3s;
+    background-color: #E0E0E0;
+   }
 `

@@ -20,13 +20,13 @@ export const GeneralTitle = styled.div`
   margin-bottom: 32px;
    width: 100%;
   display: flex;
-  padding: 80px 50px 50px 30px;
+  padding: 51px 50px 32px 30px;
 `
 export const SettingsWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 30px;
+  padding: 0 200px 30px 7px;
 `
 export const SettingsTitle = styled.div`
   color: black;

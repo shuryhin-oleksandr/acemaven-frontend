@@ -16,6 +16,10 @@ height: 100%;
 box-shadow: 0 0 10px rgba(0,0,0,0.15);
 display: flex;
 margin-bottom: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 export const Inner = styled.div`
 display: flex;
@@ -92,6 +96,7 @@ cursor: pointer;
 
 export const SpanName = styled.div<PropsStyle>`
   font-family: "Helvetica Bold", sans-serif;
+  text-transform: capitalize;
   font-size: 14px;
   margin-left: 5px;
   color: ${({role}) => (role === 'agent') ? '#115B86' : (role === 'billing') ? '#1AB8E6' : 'black'}

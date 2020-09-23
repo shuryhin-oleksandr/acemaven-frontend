@@ -3,35 +3,23 @@ import styled from "styled-components";
 
 
 const BaseNextButton = styled.button`
+display: flex;
+align-items: center;
+justify-content: center;
   height: 40px;
   background-color: ${({ background, disabled }) =>
     disabled ? "#7C7C89" : background ? background : "#000000"};
   color: ${({ textColor }) => (textColor ? textColor : "#FFFFFF")};
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
-  padding: 12px 45px 12px 34px;
+  max-width: 140px;
+  min-width: 115px;
+  width: 100%;
   cursor: pointer;
   outline: none;
   border: none;
- 
   position: relative;
-  margin-right: 25px;
-  :after {
-    position: absolute;
-    right: -20px;
-    top: 0;
-    content: "";
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 20px 0 20px 20px;
-    border-color: ${({ background, disabled }) =>
-      disabled
-        ? "transparent transparent transparent #7C7C89"
-        : background
-        ? background
-        : "transparent transparent transparent #000000"};
-  }
+  
 `;
 
 export default BaseNextButton;

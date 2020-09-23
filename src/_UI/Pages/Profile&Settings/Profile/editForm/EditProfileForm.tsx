@@ -1,17 +1,21 @@
-import React, {useState} from 'react';
-import {ButtonsWrap, FormContainer, FormWrap, Roles, RolesWrap} from './edit-form-styles';
+import React, {useEffect, useState} from 'react';
+import {ButtonsWrap, FormContainer, FormWrap, Role, Roles, RolesWrap} from './edit-form-styles';
 import {HeaderWrap, ProfileTitle} from "../profile-styles";
 import {InputWrap, SubmitButton} from 'src/_UI/Pages/ActivateCompany/CreateNewUser/AddUserForm';
 import CancelEditButton from 'src/_UI/components/_commonComponents/buttons/editFormButtons/CancelEditButton';
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {useForm} from "react-hook-form";
-import {IAdditionalUserCompleteData} from "../../../../../_BLL/types/addNewUserTypes";
 import { Label } from 'src/_UI/components/_commonComponents/ProfileinfoBlock/profile-info-field-styles';
 import Close from "../../../../assets/icons/close-icon.svg";
 import styled from "styled-components";
 import DropZone from "../../../../components/DropZone/index";
 import {FullfilledWrap} from "../../../ActivateCompany/AdditionalUser/additional-user-styles";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
+import {useDispatch, useSelector} from "react-redux";
+import {editProfileInfo} from "../../../../../_BLL/reducers/profileReducer";
+import {AppStateType} from "../../../../../_BLL/store";
+import {IAuthUserInfo} from "../../../../../_BLL/types/authTypes";
+
 
 type PropsType = {
     isEdit: boolean,
@@ -19,9 +23,23 @@ type PropsType = {
 }
 
 const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
-    const {register, handleSubmit, errors, getValues} = useForm<IAdditionalUserCompleteData>()
-    const onSubmit = (values:any) => {
+    const {register, handleSubmit, errors, getValues, setValue} = useForm<IAuthUserInfo>()
+    const dispatch = useDispatch()
+    let userId = useSelector((state: AppStateType) => state.profile?.authUserInfo?.id)
+    let profile = useSelector((state: AppStateType) => state.profile.authUserInfo)
+
+    useEffect(() => {
+        if(profile) {
+            Object.keys(profile).forEach((key: string) => {
+                setValue(key, profile && profile[key])
+            })
+        }
+    }, [setValue, profile])
+
+    const onSubmit = (values:IAuthUserInfo) => {
         console.log(values)
+        dispatch(editProfileInfo(userId as number, values))
+        setIsEdit(false)
     }
 
     const [img, setImg] = useState("");
@@ -35,16 +53,16 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                         style={{backgroundColor: 'black', width: '176px', marginTop: '0',
                         height: '40px', marginRight: '25px'}}
                     >
-                        Save changes
+                        SAVE CHANGES
                     </SubmitButton>
-                    <CancelEditButton setIsEdit={setIsEdit} text='Cancel' />
+                    <CancelEditButton setIsEdit={setIsEdit} text='CANCEL' />
                 </ButtonsWrap>
 
             </HeaderWrap>
             <FormWrap>
                 <RolesWrap>
                     <Label>Roles</Label>
-                    <Roles>Agent, Billing</Roles>
+                    {profile?.roles?.map(r => <Roles><Role role={r}>{r}</Role></Roles>)}
                 </RolesWrap>
                 {img ? (
                     <div style={{ display: "flex", width: '100%', alignItems: "flex-start", marginTop: '20px',marginBottom: '50px' }}>
@@ -69,8 +87,8 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                                        required: 'Field is required'
                                    })}
                                    placeholder='Name'
-                                   name='name'
-                                   error={errors?.name?.message}
+                                   name='first_name'
+                                   error={errors?.first_name?.message}
                                    getValues={getValues}
                         />
                     </InputWrap>
@@ -80,8 +98,8 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                                        required: 'Field is required'
                                    })}
                                    placeholder='Last Name'
-                                   name='lastName'
-                                   error={errors?.lastName?.message}
+                                   name='last_name'
+                                   error={errors?.last_name?.message}
                                    getValues={getValues}
                         />
                     </InputWrap>
@@ -91,8 +109,8 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                                required: 'Field is required'
                            })}
                            placeholder='Phone Number'
-                           name='phoneNumber'
-                           error={errors?.phoneNumber?.message}
+                           name='phone'
+                           error={errors?.phone?.message}
                            getValues={getValues}
                 />
                 <FormField label='Position in the Company'
@@ -100,8 +118,8 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                                required: 'Field is required'
                            })}
                            placeholder='Position in the Company'
-                           name='companyPosition'
-                           error={errors?.companyPosition?.message}
+                           name='position'
+                           error={errors?.position?.message}
                            getValues={getValues}
                 />
                 <FormField label='Password'
@@ -113,13 +131,13 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                            error={errors?.password?.message}
                            getValues={getValues}
                 />
-                <FormField
+                <FormField label='Confirm Password'
                     inputRef={register({
                         required: 'Field is required'
                     })}
                     placeholder='Confirm password'
-                    name='repeatPassword'
-                    error={errors?.repeatPassword?.message}
+                    name='confirm_password'
+                    error={errors?.confirm_password?.message}
                     getValues={getValues}
                 />
             </FormWrap>

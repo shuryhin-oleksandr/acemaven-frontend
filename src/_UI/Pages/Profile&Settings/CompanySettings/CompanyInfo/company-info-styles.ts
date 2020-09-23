@@ -9,7 +9,7 @@ export const InfoContainer = styled.div`
 export const InfoInner = styled.div`
   width: 100%;
   height: 100%;
-  padding: 25px 80px 40px 20px;
+  padding: 25px 80px 40px 7px;
 `
 export const InfoHeader = styled.div`
 display: flex;

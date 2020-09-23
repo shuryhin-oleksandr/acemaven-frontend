@@ -16,7 +16,7 @@ import {
 import editIcon from '../../../../../../_UI/assets/icons/profile/editCard.svg'
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {IAddNewUserData} from "../../../../../../_BLL/types/addNewUserTypes";
-import {deleteEmployee} from "../../../../../../_BLL/reducers/authReducer";
+import {deleteEmployee} from "../../../../../../_BLL/reducers/employeesAndBanksReducer";
 import {useDispatch} from "react-redux";
 const deleteIcon = require('../../../../../assets/icons/delete.svg') as string
 const user = require('../../../../../assets/icons/profile/defaultUserPhoto.svg') as string

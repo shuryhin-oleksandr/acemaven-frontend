@@ -11,6 +11,7 @@ import CompanySettingsContainer from 'src/_UI/Pages/Profile&Settings/CompanySett
 import UserManagementContainer from "../_UI/Pages/Profile&Settings/UserManagement/UserManagementContainer";
 import GeneralSettingsContainer from 'src/_UI/Pages/Profile&Settings/GeneralSettings/GeneralSettingsContainer';
 import SurchargesContainer from 'src/_UI/Pages/Services&Rates/rates/SurchargesContainer';
+import ActivateEnd from "../_UI/Pages/ActivateCompany/ActivateEnd";
 
 
 
@@ -28,8 +29,11 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={SignInPage} path='/sign-in'/>
                 <Route exact component={SignUpPage} path='/sign-up'/>
                 <Route component={CreateAccountPage} path='/create-account'/>
+
                 <Route component={AddNewUserContainer} path='/create/user'/>
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
+                <Route component={ActivateEnd} path='/create/finish'/>
+
                 <Route component={AdditionalUserContainer} path='/additional/user'/>
                 <Route component={SurchargesContainer} path='/services/surcharges'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>

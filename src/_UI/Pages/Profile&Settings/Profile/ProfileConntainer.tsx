@@ -1,14 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Layout from "../../../components/BaseLayout/Layout";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../_BLL/store";
 import ProfilePage from "./ProfilePage";
+import {useDispatch} from "react-redux";
+import {getAuthUserInfo} from "../../../../_BLL/reducers/profileReducer";
+
 
 
 const ProfileContainer:React.FC = () => {
-    const isAuth = useSelector((state :AppStateType) => state.auth.isAuth)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAuthUserInfo())
+    }, [dispatch])
+
     return (
-        <Layout isAuth={isAuth}>
+        <Layout >
             <ProfilePage />
         </Layout>
     )

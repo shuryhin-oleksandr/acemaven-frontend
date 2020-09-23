@@ -6,7 +6,7 @@ import FormField from "../../../components/_commonComponents/Input/FormField";
 import CustomCheckbox from "../../../components/_commonComponents/customCheckbox/customCheckbox";
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {addEmployee} from "../../../../_BLL/reducers/authReducer";
+import {addEmployee} from "../../../../_BLL/reducers/employeesAndBanksReducer";
 import {ErrorServerMessage} from "../../SignInPage";
 
 

@@ -33,10 +33,10 @@ export const authAPI = {
     addBankAccount (bankData: any) {
         return instance.post('/bank-account/', bankData)
     },
+    setToDefaultBank (id: number, changes: any) {
+        return instance.patch(`/bank-account/${id}/`, changes)
+    },
     deleteBank (id: number) {
         return instance.delete(`/bank-account/${id}`)
-    },
-    activateCompanyAccount () {
-        return instance.post('/company-activate/', {})
     }
 }

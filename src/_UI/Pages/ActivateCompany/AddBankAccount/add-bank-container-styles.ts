@@ -5,7 +5,7 @@ display: flex;
 height: 100%;
 width: 100%;
 flex-direction: column;
-padding: 60px 50px 60px 80px;
+padding: 60px 80px 60px 80px;
 `
 
 export const AddWrap = styled.div`
@@ -18,12 +18,13 @@ margin-bottom: 100px;
 export const FormContainer = styled.div`
   max-width: 420px;
   width: 100%;
+  margin-right: 30px;
 `
 export const Title = styled.div`
 font-family: "Helvetica Bolder", sans-serif;
 font-size: 28px;
 color: black;
-margin-bottom: 64px;
+margin-bottom: 38px;
 `
 
 export const ListWrap = styled.div`

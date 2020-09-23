@@ -5,7 +5,7 @@ import { FormWrap, SubmitButton} from "../CreateNewUser/AddUserForm";
 import FormField from "../../../components/_commonComponents/Input/FormField";
 import FormSelect from '../../../components/_commonComponents/select/FormSelect';
 import { useDispatch } from 'react-redux';
-import {addBank} from "../../../../_BLL/reducers/authReducer";
+import {addBank} from "../../../../_BLL/reducers/employeesAndBanksReducer";
 
 
 const AddBankForm:React.FC = () => {

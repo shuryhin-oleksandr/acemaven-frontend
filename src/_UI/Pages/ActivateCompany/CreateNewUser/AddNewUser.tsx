@@ -19,7 +19,7 @@ type PropsType = {
 }
 
 const AddNewUser:React.FC<PropsType> = ({setIsOpen, list}) => {
-    const errorEmployee = useSelector((state: AppStateType) => state.auth.addingEmployeeError)
+    const errorEmployee = useSelector((state: AppStateType) => state.company.addingEmployeeError)
 
     return (
         <AddContainer>
@@ -30,7 +30,7 @@ const AddNewUser:React.FC<PropsType> = ({setIsOpen, list}) => {
             <LineWrap />
             <NavigationWrap>
                     <CancelButton setIsOpen={setIsOpen} text='CANCEL'/>
-                    <NavLink to='/create/bank'><BaseNextButton>NEXT</BaseNextButton></NavLink>
+                    <NavLink style={{textDecoration: "none"}} to='/create/bank'><BaseNextButton>NEXT</BaseNextButton></NavLink>
             </NavigationWrap>
         </AddContainer>
 

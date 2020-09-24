@@ -12,6 +12,7 @@ import UserManagementContainer from "../_UI/Pages/Profile&Settings/UserManagemen
 import GeneralSettingsContainer from 'src/_UI/Pages/Profile&Settings/GeneralSettings/GeneralSettingsContainer';
 import SurchargesContainer from 'src/_UI/Pages/Services&Rates/rates/SurchargesContainer';
 import ActivateEnd from "../_UI/Pages/ActivateCompany/ActivateEnd";
+import SignUpFinishPopup from "../_UI/components/PopUps/sign_up/SignUpFinishPopup";
 
 
 
@@ -28,6 +29,7 @@ const useRoute = (isAuth: boolean) => {
             <Switch>
                 <Route component={SignInPage} path='/sign-in'/>
                 <Route exact component={SignUpPage} path='/sign-up'/>
+                <Route component={SignUpFinishPopup} path='/sign-up/done'/>
                 <Route component={CreateAccountPage} path='/create-account'/>
 
                 <Route component={AddNewUserContainer} path='/create/user'/>

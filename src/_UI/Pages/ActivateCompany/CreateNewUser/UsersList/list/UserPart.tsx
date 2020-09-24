@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {
     ActionWrap,
     Container,
@@ -16,6 +16,7 @@ import {
 import editIcon from '../../../../../../_UI/assets/icons/profile/editCard.svg'
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {IAddNewUserData} from "../../../../../../_BLL/types/addNewUserTypes";
+import {getColor} from "../../../../../../_BLL/helpers/colorWrapMaker";
 const deleteIcon = require('../../../../../assets/icons/delete.svg') as string
 const user = require('../../../../../assets/icons/profile/defaultUserPhoto.svg') as string
 
@@ -32,33 +33,11 @@ type PropsType = {
 
 
 const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser,
-                                          setEditMode, u}, colorWrap: string) => {
+                                          setEditMode, u}) => {
 
-    let getColor = (array: any) => {
-        if(array && array.length > 1) {
-            return ''
-        }
-        switch(array && array[0]) {
-            case 'master': {
-                return '#000000'
-                break
-            }
-
-            case 'agent' : {
-                return '#115B86'
-                break
-            }
-
-            case 'billing' : {
-                return '#1AB8E6'
-                break
-            }
-            default: return ''
-        }
-    }
-
+    const [colorWrap, setColorWrap] = useState('')
     useEffect(() => {
-        colorWrap = getColor(u?.roles)
+        setColorWrap(getColor(u?.roles))
     }, [u])
 
 

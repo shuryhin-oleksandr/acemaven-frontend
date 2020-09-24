@@ -18,7 +18,7 @@ border-radius: 50%;
 left: 4%;
 top: 5%;
   img {
-   border-radius: 50%;
+    border-radius: 50%;
     width: 64px;
     height: 64px;
   }

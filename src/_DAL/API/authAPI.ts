@@ -1,6 +1,7 @@
 import instance from './axiosConfig'
 import {ICompanySignUpData, ILoginData, IMasterAccountData,} from "../../_BLL/types/authTypes";
 import {IAddNewUserData} from "../../_BLL/types/addNewUserTypes";
+import axios from 'axios'
 
 export const authAPI = {
     signIn (loginData: ILoginData) {
@@ -11,6 +12,9 @@ export const authAPI = {
     },
     signUpCompany (formData: ICompanySignUpData) {
         return instance.post('/company-sign-up/', formData )
+    },
+    signUp (formData: ICompanySignUpData) {
+        return axios.post('/company-sign-up/', formData )
     },
     verifyToken (token: string) {
         return instance.get(`/signup-check/?token=${token}`)

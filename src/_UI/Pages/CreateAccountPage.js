@@ -17,6 +17,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {checkToken, masterAccountSignUp} from "../../_BLL/reducers/authReducer";
 import {useLocation, withRouter} from "react-router";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
+import {authAPI} from "../../_DAL/API/authAPI";
 
 const ValidationSchema = Yup.object().shape({
   first_name: Yup.string().required("Please, enter your name"),
@@ -43,6 +44,20 @@ const CreateAccountPage = ({history}) => {
       dispatch(checkToken(location.search.substr(7)))
     }, [])
 
+
+    /*const getFilesFormData = (files, dataFromForm) => {
+        const formData = new FormData()
+        files.map((f, i) => {
+            formData.append('files', f)
+        })
+
+        Object.keys(dataFromForm).forEach(key => {
+            formData.append(key, dataFromForm[key])
+        })
+
+        return formData;
+    }*/
+
     return (
       <>
           {isFetching && <Spinner /> }
@@ -62,8 +77,22 @@ const CreateAccountPage = ({history}) => {
                           photo: null
                       }}
                       onSubmit={(values, { setSubmitting }) => {
+                          const signUpData = {
+                              "first_name" : values.first_name,
+                              "last_name": values.last_name,
+                              "email": values.email,
+                              "password": values.password,
+                              "confirm_password": values.confirm_password,
+                              "phone": values.phone,
+                              "position": values.position,
+                              "photo": img
+                          }
                           console.log("values", values);
-                          dispatch(masterAccountSignUp(values, location.search.substr(7), history))
+
+                          authAPI.signUp(signUpData).then((res) => {
+                              console.log(res)
+                          })
+                          /*dispatch(masterAccountSignUp(values, location.search.substr(7), history))*/
                       }}
                   >
                       {({ values, touched, errors }) => {

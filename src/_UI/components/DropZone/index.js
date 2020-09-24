@@ -9,7 +9,8 @@ const DropZone = ({ setImg, name }) => {
     reader.onload = function (e) {
       setImg(e.target.result);
     };
-    reader.readAsDataURL(acceptedFiles[0]);
+    console.log(acceptedFiles[0])
+    setImg(reader.readAsDataURL(acceptedFiles[0]));
   }, []);
   const {
     getRootProps,
@@ -25,7 +26,7 @@ const DropZone = ({ setImg, name }) => {
         {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
       >
         <img src={Icon} alt="Icon" />
-        <input name={name} {...getInputProps()} />
+        <input  name={name} {...getInputProps()}  type='file' accept='.jpg, .svg, .jpeg, .png'/>
         <p style = {{fontFamily: 'Helvetica Reg', fontSize: '14px'}}>Drop photo here or select photo</p>
       </Container>
     </div>

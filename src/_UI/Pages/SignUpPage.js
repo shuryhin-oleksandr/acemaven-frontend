@@ -43,7 +43,7 @@ const ClientValidationSchema = Yup.object().shape({
 const SignUpPage = () => {
   const dispatch = useDispatch()
   let error = useSelector(state => state.auth.companySignUpError);
-
+  let successfulFinish = useSelector(state => state.auth.isFinish)
 
 
   const [firstPage, changePage] = useState(true);
@@ -79,6 +79,7 @@ const SignUpPage = () => {
           }}
           onSubmit={(values, { setSubmitting }) => {
             dispatch(companySignUp(values))
+
             console.log("submit", values);
           }}
         >

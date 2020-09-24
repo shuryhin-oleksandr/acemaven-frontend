@@ -38,7 +38,7 @@ const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch}) => {
                     User Management
                 </ManagTitle>
                 {!isAdd
-                    ? <div style={{maxWidth: '447px', width: '100%'}}><AddNewButton setIsAdd={setIsAdd}/></div>
+                    ? !editMode && <div style={{maxWidth: '447px', width: '100%'}}><AddNewButton setIsAdd={setIsAdd}/></div>
                     : <AddUserForm dispatch={dispatch} setIsAdd={setIsAdd}/>
                 }
                 <CardsOuter>

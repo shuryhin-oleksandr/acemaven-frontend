@@ -17,7 +17,10 @@ export const ManagTitle = styled.div`
   margin-bottom: 35px;
 `
 export const CardsOuter = styled.div`
-  max-width: 930px;
+  max-width: 922px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   width: 100%;
   height: 100%;
 `

@@ -16,7 +16,8 @@ const initialState:InitialStateType = {
     signedCompanyData: null,
     companySignUpError: null,
     checkTokenError: '',
-    signUpMasterError: ''
+    signUpMasterError: '',
+    isFinish: false
 }
 
 type InitialStateType = {
@@ -27,6 +28,7 @@ type InitialStateType = {
     checkTokenError: string,
     companySignUpError: ICompanySignUpError | null,
     signUpMasterError: string,
+    isFinish: boolean
 
 }
 
@@ -63,7 +65,11 @@ export const authReducer = (state = initialState, action: commonAuthActions) :In
                 ...state,
                 signUpMasterError: action.error
             }
-
+        case "SET_IS_FINISH":
+            return {
+                ...state,
+                isFinish: action.value
+            }
         default: return state
     }
 }
@@ -79,7 +85,7 @@ export const authActions = {
     setCompanySignupError: (error: ICompanySignUpError) => ({type: 'SET_COMPANY_SIGNUP_ERROR', error} as const), //for phone & email check errors
     setCheckTokenError: (error: string) => ({type: 'SET_CHECK_TOKEN_ERROR', error} as const), //for check token error
     setMasterSignUpError: (error: string) => ({type: 'SET_MASTER_SIGNUP_ERROR', error} as const), //for password error
-
+    setIsFinish: (value: boolean) => ({type: 'SET_IS_FINISH', value} as const)
 }
 
 
@@ -111,8 +117,8 @@ export const companySignUp = (data: ICompanySignUpData) => {
         try {
             dispatch(authActions.setIsLoading(true))
             let res = await authAPI.signUpCompany(data)
-            console.log('1', res.data)
             dispatch(authActions.setSignedCompanyData(res.data))
+            dispatch(authActions.setIsFinish(true)) && (window.location.href = '/sign-up/done')
             dispatch(authActions.setIsLoading(false))
         } catch (e) {
             dispatch(authActions.setCompanySignupError(e.response.data))
@@ -127,7 +133,6 @@ export const checkToken = (token: string) => {
         try {
             dispatch(authActions.setIsLoading(true))
             let res = await authAPI.verifyToken(token)
-            console.log('2', res.data)
             dispatch(authActions.setSignedCompanyData(res.data))
             res.data && dispatch(authActions.setIsLoading(false))
         } catch (e) {
@@ -145,7 +150,6 @@ export const masterAccountSignUp = (data: IMasterAccountData, token: string, his
             let res = await authAPI.createMasterAccount(data, token)
             localStorage.setItem('access_token', res.data.token)
             res.data && (history.push('/create/user'))
-            console.log('M', res.data)
             dispatch(authActions.setIsLoading(false))
         } catch (e) {
             console.log('error', e.response)

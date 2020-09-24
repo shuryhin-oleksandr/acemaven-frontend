@@ -9,12 +9,13 @@ type PropsStyle = {
 export const Container = styled.div<PropsStyle>`
 background-color: white;
 max-width: ${({max_width}) => max_width ? max_width : '427px'};
+min-width: 427px;
 width: 100%;
 max-height: 105px;
 height: 100%;
 box-shadow: 0 0 10px rgba(0,0,0,0.15);
 display: flex;
-margin-bottom: 20px;
+margin-bottom: 19px;
 
   &:hover {
     cursor: pointer;

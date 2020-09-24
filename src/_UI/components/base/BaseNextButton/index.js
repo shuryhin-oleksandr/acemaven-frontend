@@ -12,7 +12,7 @@ justify-content: center;
   color: ${({ textColor }) => (textColor ? textColor : "#FFFFFF")};
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
-  max-width: 140px;
+  max-width: 160px;
   min-width: 115px;
   width: 100%;
   cursor: pointer;

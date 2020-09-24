@@ -101,7 +101,7 @@ const Row = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-right: 20px;
+ 
 `;
 
 const Error = styled.div`

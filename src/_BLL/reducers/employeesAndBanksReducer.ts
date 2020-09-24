@@ -103,6 +103,7 @@ export const addEmployee = (data: IAddNewUserData) => {
 
             dispatch(companyActions.setIsLoading(false))
         } catch (e) {
+            console.log(e.response)
             dispatch(companyActions.setAddingEmployeeError(`User with this email already exists`))
             dispatch(companyActions.setIsLoading(false))
         }
@@ -130,7 +131,6 @@ export const getBanksList = () => {
             dispatch(companyActions.setIsLoading(true))
             let res = await authAPI.getBanksAccountsList()
             dispatch(companyActions.setBankList(res.data))
-            console.log(res.data)
             dispatch(companyActions.setIsLoading(false))
         } catch (e) {
             console.log(e.response)

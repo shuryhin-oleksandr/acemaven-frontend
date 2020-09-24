@@ -18,5 +18,5 @@ export const PageTitle = styled.div`
   color: black;
   width: 100%;
   display: flex;
-  padding: 80px 50px 50px 30px;
+  padding: 51px 50px 32px 30px;
 `

@@ -5,11 +5,31 @@ import { useState } from "react";
 import UserPart from "../../ActivateCompany/CreateNewUser/UsersList/list/UserPart";
 import EditUserCardForm from "./editUserCardForm/EditUserCardForm";
 import AddUserForm from "./AddUserForm/AddUserForm";
+import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {deleteWorker} from "../../../../_BLL/reducers/profileReducer";
 
-const UserManagementPage:React.FC = () => {
+type PropsType = {
+    workersList?: Array<IAddNewUserData> | null,
+    dispatch?: VoidFunctionType
+}
+
+const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch}) => {
     const [isAdd, setIsAdd] = useState(false)
     const [editMode, setEditMode] = useState(false)
+
+    let [editedUserId, setEditedId] = useState(0)
+
+    let editHandler = (id: number, value: boolean) => {
+        setEditedId(id)
+        setEditMode(value)
+        console.log(editMode)
+    }
+
     let cardsMode = true;
+    const deleteUser = (workerId: number) => {
+        dispatch && dispatch(deleteWorker(workerId))
+    }
 
     return (
         <ManagementContainer>
@@ -19,13 +39,17 @@ const UserManagementPage:React.FC = () => {
                 </ManagTitle>
                 {!isAdd
                     ? <div style={{maxWidth: '447px', width: '100%'}}><AddNewButton setIsAdd={setIsAdd}/></div>
-                    : <AddUserForm setIsAdd={setIsAdd}/>
+                    : <AddUserForm dispatch={dispatch} setIsAdd={setIsAdd}/>
                 }
                 <CardsOuter>
-                    {!editMode
-                        ? <UserPart setEditMode={setEditMode} cardsMode={cardsMode} max_width='447px'/>
-                        : <EditUserCardForm setEditMode={setEditMode}/>
-                    }
+                    {/*{!editMode
+                        ? workersList?.map(w => <UserPart deleteUser={deleteUser} u={w} setEditMode={setEditMode} cardsMode={cardsMode} max_width='447px'/>)
+                        : <EditUserCardForm dispatch={dispatch} setEditMode={setEditMode}/>
+                    }*/}
+                    {workersList?.map(w => editedUserId !== w?.id
+                        ? <UserPart key={w.id} deleteUser={deleteUser} u={w} setEditMode={editHandler} cardsMode={cardsMode} max_width='447px'/>
+                        : <EditUserCardForm key={w.id} worker={w} dispatch={dispatch} setEditMode={editHandler}/>
+                    )}
                 </CardsOuter>
             </ManagementInner>
         </ManagementContainer>

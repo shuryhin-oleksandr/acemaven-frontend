@@ -4,21 +4,25 @@ import {FormContainer, FormWrap} from "./add-user-form-styles";
 import FinishFormButtons from "../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 import {useForm} from "react-hook-form";
-import {EditUserInfo} from "../../../../../_BLL/types/profile&settingsTypes";
 import CustomCheckbox from "../../../../components/_commonComponents/customCheckbox/customCheckbox";
 import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 import styled from "styled-components";
 import Close from "../../../../assets/icons/close-icon.svg";
 import DropZone from "src/_UI/components/DropZone";
+import {addNewWorker} from "../../../../../_BLL/reducers/profileReducer";
+import {IAddNewUserData} from "../../../../../_BLL/types/addNewUserTypes";
 
 type PropsType = {
-    setIsAdd?: VoidFunctionType
+    setIsAdd?: VoidFunctionType,
+    dispatch?: VoidFunctionType
 }
 
-const AddUserForm:React.FC<PropsType> = ({setIsAdd}) => {
-    const {register, errors, handleSubmit, getValues} = useForm<EditUserInfo>()
-    const onSubmit = (values:EditUserInfo) => {
+const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
+    const {register, errors, handleSubmit, getValues} = useForm<IAddNewUserData>()
+    const onSubmit = (values:IAddNewUserData) => {
         console.log(values)
+        dispatch && dispatch(addNewWorker(values))
+        setIsAdd && setIsAdd(false)
     }
 
     const [roleValue, setRole] = useState('')
@@ -28,22 +32,22 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd}) => {
         <FormContainer>
             <FormWrap onSubmit={handleSubmit(onSubmit)}>
                 <FinishFormButtons closeCallback={setIsAdd}/>
-                <FormField name='name'
+                <FormField name='first_name'
                            placeholder='Name'
                            label='Name'
                            inputRef={register({
                                required: 'Field is required'
                            })}
-                           error={errors?.name?.message}
+                           error={errors?.first_name?.message}
                            getValues={getValues}
                 />
-                <FormField name='lastName'
+                <FormField name='last_name'
                            placeholder='Last Name'
                            label='Last Name'
                            inputRef={register({
                                required: 'Field is required'
                            })}
-                           error={errors?.lastName?.message}
+                           error={errors?.last_name?.message}
                            getValues={getValues}
                 />
                 <CheckboxWrap>

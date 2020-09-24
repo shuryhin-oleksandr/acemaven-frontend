@@ -11,8 +11,9 @@ import {
 import Info from './Info'
 import EditCompanyInfoForm from "./EditCompanyInfoForm";
 import { useState } from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getCompanyInfo} from "../../../../../_BLL/reducers/profileReducer";
+import {AppStateType} from "../../../../../_BLL/store";
 
 
 
@@ -20,6 +21,7 @@ const CompanyInfoContainer:React.FC = () => {
     const [edit, setEdit] = useState(false)
     const dispatch = useDispatch()
     const companyId = sessionStorage.getItem('u')
+    let companyInfo = useSelector((state: AppStateType) => state.profile.companyInfo)
 
     useEffect(() => {
         dispatch(getCompanyInfo(Number(companyId)))
@@ -32,17 +34,17 @@ const CompanyInfoContainer:React.FC = () => {
                 <InfoHeader>
                     <InfoBlock>
                         <InfoLabel>Company Name</InfoLabel>
-                        <InfoText>CompanyA</InfoText>
+                        <InfoText>{companyInfo?.name}</InfoText>
                     </InfoBlock>
                     <InfoBlock>
                         <InfoLabel>Tax id Number</InfoLabel>
-                        <InfoText>000.000./00</InfoText>
+                        <InfoText>{companyInfo?.tax_id}</InfoText>
                     </InfoBlock>
                 </InfoHeader>
                 <LineWrap/>
                 {!edit
-                    ? <Info setEdit={setEdit}/>
-                    : <EditCompanyInfoForm setEdit={setEdit}/>
+                    ? <Info setEdit={setEdit} companyInfo={companyInfo}/>
+                    : <EditCompanyInfoForm companyInfo={companyInfo} setEdit={setEdit}/>
                 }
             </InfoInner>
         </InfoContainer>

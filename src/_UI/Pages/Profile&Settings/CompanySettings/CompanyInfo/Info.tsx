@@ -2,22 +2,50 @@ import React from 'react'
 import {EditIcon, Field, FieldsContent, FieldsWrap, Label, TextWrap} from "./company-info-styles";
 import editIcon from "../../../../assets/icons/profile/editProfile.svg";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+import {CompanyInfoType} from "../../../../../_BLL/types/profileSettingsType";
 
 type PropsType = {
-    setEdit: VoidFunctionType
+    setEdit: VoidFunctionType,
+    companyInfo?: CompanyInfoType | null
 }
 
-const Info:React.FC<PropsType> = ({setEdit}) => {
-    const labels = ['City', 'State', 'Phone Number', 'Address', 'Zip Code', 'Email']
+const Info:React.FC<PropsType> = ({setEdit, companyInfo}) => {
+   /* const labels = [
+        {name: 'city', label: 'City'},
+        {name: 'state', label: 'State'},
+        {name: 'phone', label:'Phone Number'},
+        {name: 'address_line_first', label: 'Address'},
+        {name: 'zip_code', label: 'Zip Code'},
+        {name: 'email', label:'Email'}
+        ]*/
 
     return (
         <FieldsWrap>
             <FieldsContent>
-                {labels.map(l => <Field key={l}>
-                        <Label>{l}</Label>
-                        <TextWrap>bla bla</TextWrap>
-                    </Field>
-                )}
+                <Field >
+                    <Label>City</Label>
+                    <TextWrap>{companyInfo?.city}</TextWrap>
+                </Field>
+                <Field>
+                    <Label>State</Label>
+                    <TextWrap>{companyInfo?.state}</TextWrap>
+                </Field>
+                <Field>
+                    <Label>Phone</Label>
+                    <TextWrap>{companyInfo?.phone}</TextWrap>
+                </Field>
+                <Field>
+                    <Label>Address</Label>
+                    <TextWrap>{companyInfo?.address_line_first + ',' + ' ' + companyInfo?.address_line_second}</TextWrap>
+                </Field>
+                <Field>
+                    <Label>Address</Label>
+                    <TextWrap>{companyInfo?.zip_code}</TextWrap>
+                </Field>
+                <Field>
+                    <Label>Website</Label>
+                    <TextWrap>{companyInfo?.website}</TextWrap>
+                </Field>
             </FieldsContent>
             <EditIcon onClick={() => setEdit(true)}><img src={editIcon} alt=""/></EditIcon>
         </FieldsWrap>

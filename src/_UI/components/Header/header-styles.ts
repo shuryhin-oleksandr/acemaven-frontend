@@ -19,8 +19,6 @@ color: black;
 `
 
 export const InfoWrap = styled.div`
-max-width: 120px;
-width: 100%;
 display: flex;
 justify-content: space-between;
 `

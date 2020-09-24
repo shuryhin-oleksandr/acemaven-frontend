@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import CancelEditButton from "src/_UI/components/_commonComponents/buttons/editFormButtons/CancelEditButton";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {ButtonsWrap, FormContainer, FormWrap} from "./company-info-styles";
@@ -6,16 +6,32 @@ import {InputWrap, SubmitButton, Wrapper} from "../../../ActivateCompany/CreateN
 import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import {EditCompanyInfo} from "../../../../../_BLL/types/profile&settingsTypes";
 import { useForm } from "react-hook-form";
+import {CompanyInfoType} from "../../../../../_BLL/types/profileSettingsType";
+import {useDispatch} from "react-redux";
+import {editCompanyInfo} from "../../../../../_BLL/reducers/profileReducer";
 
 type PropsType = {
-    setEdit?: VoidFunctionType
+    setEdit?: VoidFunctionType,
+    companyInfo?: CompanyInfoType | null
 }
 
-const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit}) => {
-    let {register, getValues, handleSubmit, errors} = useForm<EditCompanyInfo>()
+const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo}) => {
+    let {register, getValues, handleSubmit, errors, setValue} = useForm<EditCompanyInfo>()
+    const dispatch = useDispatch()
+
     let onSubmit = (values: EditCompanyInfo) => {
         console.log(values)
+        dispatch(editCompanyInfo(companyInfo?.id as number, values))
+        setEdit && setEdit(false)
     }
+
+    useEffect(() => {
+        if(companyInfo) {
+            Object.keys(companyInfo).forEach((key: string) => {
+                setValue(key, companyInfo[key])
+            })
+        }
+    }, [setValue, companyInfo])
 
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -33,7 +49,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit}) => {
                         />
                     </InputWrap>
                     <InputWrap w='48%'>
-                        <FormField name='State'
+                        <FormField name='state'
                                    placeholder='State'
                                    error={errors?.state?.message}
                                    label='State'
@@ -46,7 +62,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit}) => {
                 </Wrapper>
                 <Wrapper>
                     <InputWrap w='48%'>
-                        <FormField name='address1'
+                        <FormField name='address_line_first'
                                    getValues={getValues}
                                    error={errors?.address1?.message}
                                    placeholder='Street 27'
@@ -55,14 +71,14 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit}) => {
                                        required: 'Field is required'
                                    })}
                         />
-                        <FormField name='address2'
+                        <FormField name='address_line_second'
                                    getValues={getValues}
                                    placeholder='201'
                                    inputRef={register}
                         />
                     </InputWrap>
                     <InputWrap w='48%'>
-                        <FormField name='zipCode'
+                        <FormField name='zip_code'
                                    placeholder='000000'
                                    error={errors?.zipCode?.message}
                                    label='Zip Code'
@@ -74,7 +90,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit}) => {
                     </InputWrap>
                 </Wrapper>
                 <InputWrap w='48%'>
-                    <FormField name='phoneNumber'
+                    <FormField name='phone'
                                getValues={getValues}
                                error={errors?.phoneNumber?.message}
                                placeholder='+375296665544'
@@ -83,10 +99,10 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit}) => {
                                    required: 'Field is required'
                                })}
                     />
-                    <FormField name='email'
-                               label='Email'
+                    <FormField name='website'
+                               label='Website'
                                getValues={getValues}
-                               placeholder='email@email.com'
+                               placeholder='www.company.com'
                                error={errors?.email?.message}
                                inputRef={register({
                                    required: 'Field is required'

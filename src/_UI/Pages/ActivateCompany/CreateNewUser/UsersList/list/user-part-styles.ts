@@ -1,10 +1,9 @@
 import styled from 'styled-components'
-import {IAddNewUserData} from "../../../../../../_BLL/types/addNewUserTypes";
 
 type PropsStyle = {
     max_width?: string,
     role?: string,
-    roles?: IAddNewUserData
+    colorette?: string
 }
 
 export const Container = styled.div<PropsStyle>`
@@ -34,14 +33,16 @@ max-width: 70px;
 width: 100%;
 height: 100%;
 display: flex;
-border-radius: 50%;
-/*border: ${({roles}) => (
-    roles?.roles?.map(r => (r === 'master') ? '3px solid black' : (r === 'agent') ? '3px solid #115B86' : '3px solid #1AB8E6')  
-)}
-    */
+border-radius: 100%;
+border-top: 3px solid ${({colorette}) => colorette ? colorette : '#1AB8E6'};
+border-left: 3px solid ${({colorette}) => colorette ? colorette : '#1AB8E6'};
+border-right: 3px solid ${({colorette}) => colorette ? colorette : '#115B86'};
+border-bottom: 3px solid ${({colorette}) => colorette ? colorette : '#115B86'};
+transform: rotate(-45deg);
 img {
 width: 64px;
 z-index: 50;
+transform: rotate(45deg);
 }
 `
 export const InfoWrap = styled.div`

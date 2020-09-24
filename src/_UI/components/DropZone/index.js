@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
 import Icon from "../../assets/icons/drop-zone-icon.svg";
 
-const DropZone = ({ setImg, name }) => {
+const DropZone = ({ setImg, name, setFile }) => {
   const onDrop = useCallback((acceptedFiles) => {
     const reader = new FileReader();
     reader.onload = function (e) {
       setImg(e.target.result);
+      setFile(acceptedFiles[0])
     };
     console.log(acceptedFiles[0])
     setImg(reader.readAsDataURL(acceptedFiles[0]));

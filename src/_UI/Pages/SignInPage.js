@@ -88,7 +88,7 @@ const SignInPage = ({history}) => {
 export default withRouter(SignInPage);
 
 const FormWrapper = styled.div`
-  padding-top: 75px;
+  padding-top: 73px;
 `;
 
 const ButtonWrapper = styled.div`

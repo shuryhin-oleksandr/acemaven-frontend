@@ -14,7 +14,7 @@ import BaseInputGroup from "../components/base/BaseInputGroup";
 import DropZone from "../components/DropZone";
 import Close from "../assets/icons/close-icon.svg";
 import {useDispatch, useSelector} from "react-redux";
-import {checkToken, masterAccountSignUp} from "../../_BLL/reducers/authReducer";
+import {authActions, checkToken} from "../../_BLL/reducers/authReducer";
 import {useLocation, withRouter} from "react-router";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
 import {authAPI} from "../../_DAL/API/authAPI";
@@ -35,6 +35,8 @@ const ValidationSchema = Yup.object().shape({
 
 const CreateAccountPage = ({history}) => {
   const [img, setImg] = useState("");
+  const [file, setFile] = useState(null)
+
   let dispatch = useDispatch()
     let isFetching = useSelector((state) => state.auth.isFetching)
 
@@ -45,18 +47,15 @@ const CreateAccountPage = ({history}) => {
     }, [])
 
 
-    /*const getFilesFormData = (files, dataFromForm) => {
+    const getFilesFormData = ( dataFromForm, photo ) => {
         const formData = new FormData()
-        files.map((f, i) => {
-            formData.append('files', f)
-        })
-
+        formData.append('photo', photo)
         Object.keys(dataFromForm).forEach(key => {
             formData.append(key, dataFromForm[key])
         })
 
         return formData;
-    }*/
+    }
 
     return (
       <>
@@ -77,22 +76,19 @@ const CreateAccountPage = ({history}) => {
                           photo: null
                       }}
                       onSubmit={(values, { setSubmitting }) => {
-                          const signUpData = {
-                              "first_name" : values.first_name,
-                              "last_name": values.last_name,
-                              "email": values.email,
-                              "password": values.password,
-                              "confirm_password": values.confirm_password,
-                              "phone": values.phone,
-                              "position": values.position,
-                              "photo": img
-                          }
-                          console.log("values", values);
-
-                          authAPI.signUp(signUpData).then((res) => {
+                          let wholeData = getFilesFormData(values, file)
+                          dispatch(authActions.setIsLoading(true))
+                          authAPI.signUp(location.search.substr(7), wholeData)
+                              .then((res) => {
                               console.log(res)
+                              localStorage.setItem('access_token', res.data.token)
+                              res.data && (history.push('/create/user'))
+                              dispatch(authActions.setIsLoading(false))
                           })
-                          /*dispatch(masterAccountSignUp(values, location.search.substr(7), history))*/
+                              .catch((e) => {
+                              console.log('error', e.response)
+                              dispatch(authActions.setIsLoading(false))
+                          })
                       }}
                   >
                       {({ values, touched, errors }) => {
@@ -196,7 +192,7 @@ const CreateAccountPage = ({history}) => {
                                           />
                                       </div>
                                   ) : (
-                                      <DropZone name='photo' setImg={setImg} />
+                                      <DropZone setFile={setFile} name='photo' setImg={setImg} />
                                   )}
                                   <ButtonWrapper>
                                       <BaseButton type="submit" disabled={isButtonDisabled}>

@@ -30,18 +30,19 @@ height: 100%;
 padding: 20px 10px;
 `
 export const PhotoWrap = styled.div<PropsStyle>`
-max-width: 70px;
-width: 100%;
-height: 100%;
+width: 75px;
+height: 76px;
 display: flex;
-border-radius: 100%;
+border-radius: 50%;
 border-top: 3px solid ${({colorette}) => colorette ? colorette : '#1AB8E6'};
 border-left: 3px solid ${({colorette}) => colorette ? colorette : '#1AB8E6'};
 border-right: 3px solid ${({colorette}) => colorette ? colorette : '#115B86'};
 border-bottom: 3px solid ${({colorette}) => colorette ? colorette : '#115B86'};
 transform: rotate(-45deg);
 img {
-width: 64px;
+width: 69px;
+height: 70px;
+border-radius: 50%;
 z-index: 50;
 transform: rotate(45deg);
 }

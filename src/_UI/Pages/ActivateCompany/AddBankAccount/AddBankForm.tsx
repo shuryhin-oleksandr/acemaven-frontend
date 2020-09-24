@@ -17,10 +17,7 @@ const AddBankForm:React.FC = () => {
         console.log(values)
         dispatch(addBank(values))
     }
-     let options = [
-         {name: 'Bank1', id: 1, value: 'Bank1'},
-         {name: 'Bank2', id: 2, value: 'Bank2'}
-     ]
+
 
     let options2 = [
         {name: 'Savings', id: 1, value: 'savings'},
@@ -29,17 +26,17 @@ const AddBankForm:React.FC = () => {
 
     return (
         <FormWrap onSubmit={handleSubmit(onSubmit)}>
-               <Controller name='bank_name'
-                           control={control}
-                           defaultValue=''
-                           as={
-                               <FormSelect label='Bank Name'
-                                           options={options}
-                                           error={errors?.bank_name?.message}
-                               />
-                           }
-                           rules={{ required: 'Field is required' }}
-               />
+
+
+            <FormField label='Bank Name'
+                        name='bank_name'
+                        placeholder='Bank Name'
+                        error={errors?.bank_name?.message}
+                       inputRef={register({
+                           required: 'Field is required'
+                       })}
+                       getValues={getValues}
+            />
                 <FormField label='Branch No.'
                        placeholder='Branch No.'
                        inputRef={register({

@@ -40,6 +40,7 @@ justify-content: center;
    img {
    width: 40px;
    height: 40px;
+   border-radius: 100%;
    }
    
    &:hover {

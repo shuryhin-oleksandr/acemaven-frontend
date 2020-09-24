@@ -52,7 +52,7 @@ export interface IMasterAccountData {
     position: string,
     password: string,
     confirm_password: string,
-    photo?: string
+    photo?: any
 }
 
 type userCompaniesType = {

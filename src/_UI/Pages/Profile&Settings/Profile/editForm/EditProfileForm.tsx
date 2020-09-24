@@ -12,9 +12,11 @@ import DropZone from "../../../../components/DropZone/index";
 import {FullfilledWrap} from "../../../ActivateCompany/AdditionalUser/additional-user-styles";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 import {useDispatch, useSelector} from "react-redux";
-import {editProfileInfo} from "../../../../../_BLL/reducers/profileReducer";
+import { profileActions} from "../../../../../_BLL/reducers/profileReducer";
 import {AppStateType} from "../../../../../_BLL/store";
 import {IAuthUserInfo} from "../../../../../_BLL/types/authTypes";
+import {getFilesFormData} from "../../../../../_BLL/helpers/MultipartFormDataHelper";
+import {profileSettingsAPI} from "../../../../../_DAL/API/profileSettingsAPI";
 
 
 type PropsType = {
@@ -28,6 +30,9 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
     let userId = useSelector((state: AppStateType) => state.profile?.authUserInfo?.id)
     let profile = useSelector((state: AppStateType) => state.profile.authUserInfo)
 
+    const [fileOne, setFile] = useState(null)
+    console.log(fileOne)
+
     useEffect(() => {
         if(profile) {
             Object.keys(profile).forEach((key: string) => {
@@ -36,10 +41,23 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
         }
     }, [setValue, profile])
 
+
+
+
     const onSubmit = (values:IAuthUserInfo) => {
-        console.log(values)
-        dispatch(editProfileInfo(userId as number, values))
-        setIsEdit(false)
+        const wholeData = getFilesFormData(values, fileOne)
+
+        dispatch(profileActions.setIsFetching(true))
+        profileSettingsAPI.editProfile(userId as number, wholeData)
+            .then((res) => {
+                dispatch(profileActions.setAuthUserInfo(res.data))
+                dispatch(profileActions.setIsFetching(false))
+                setIsEdit(false)
+            })
+            .catch((e) => {
+                console.log('error', e.response)
+                dispatch(profileActions.setIsFetching(false))
+            })
     }
 
     const [img, setImg] = useState("");
@@ -62,7 +80,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
             <FormWrap>
                 <RolesWrap>
                     <Label>Roles</Label>
-                    {profile?.roles?.map(r => <Roles><Role role={r}>{r}</Role></Roles>)}
+                    {profile?.roles?.map(r => <Roles key={r}><Role role={r}>{r}</Role></Roles>)}
                 </RolesWrap>
                 {img ? (
                     <div style={{ display: "flex", width: '100%', alignItems: "flex-start", marginTop: '20px',marginBottom: '50px' }}>
@@ -77,7 +95,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                     </div>
                 ) : (
                     <div style={{ marginTop: '45px', marginBottom: '50px', width: '100%'}}>
-                        <DropZone name='photo' setImg={setImg} />
+                        <DropZone setFile={setFile} name='photo' setImg={setImg} />
                     </div>
                 )}
                 <FullfilledWrap style={{marginBottom: '0'}}>

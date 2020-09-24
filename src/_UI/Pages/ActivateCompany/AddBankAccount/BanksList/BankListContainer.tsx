@@ -26,7 +26,7 @@ const BankListContainer:React.FC<PropsType> = ({banksList}) => {
             <ListInner>
                 {!banksList
                     ? <EmptyList text='bank account'/>
-                    : banksList?.map(b => <BankCard b={b}
+                    : banksList?.map(b => <BankCard key={b?.id} b={b}
                                                         deleteBank={deleteBankCallback}
                                                         defaultBank={defaultBankCallback}
                     />

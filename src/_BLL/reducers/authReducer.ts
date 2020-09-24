@@ -95,7 +95,7 @@ export const signIn = (loginData: ILoginData, history: History) => {
             dispatch(authActions.setIsLoading(true))
             let res = await authAPI.signIn(loginData)
             localStorage.setItem('access_token', res.data.token)
-            res.data && (history.push('/create/user'))
+            res.data && (history.push('/settings/profile'))
             dispatch(authActions.setIsLoading(false))
         } catch (e) {
             if(e.response) {

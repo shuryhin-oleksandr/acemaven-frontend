@@ -13,11 +13,11 @@ export const authAPI = {
     signUpCompany (formData: ICompanySignUpData) {
         return instance.post('/company-sign-up/', formData )
     },
-    signUp (formData: ICompanySignUpData) {
-        return axios.post('/company-sign-up/', formData )
-    },
     verifyToken (token: string) {
         return instance.get(`/signup-check/?token=${token}`)
+    },
+    signUp (token: string, formData:any) {
+        return axios.post(`http://192.168.1.68:8000/api/v1/signup/?token=${token}`, formData )
     },
     createMasterAccount (masterData: IMasterAccountData, token: string) {
         return instance.post(`/signup/?token=${token}`, masterData)

@@ -5,7 +5,7 @@ display: flex;
 height: 100%;
 width: 100%;
 flex-direction: column;
-padding: 60px 80px 60px 80px;
+padding: 60px 80px 60px 130px;
 `
 
 export const AddWrap = styled.div`

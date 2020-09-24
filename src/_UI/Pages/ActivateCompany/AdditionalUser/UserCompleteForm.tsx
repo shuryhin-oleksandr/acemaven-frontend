@@ -18,6 +18,8 @@ const UserCompleteForm:React.FC = () => {
         console.log(finalObj)
     }
     const [img, setImg] = useState("");
+    const [file, setFile] = useState(null)
+    console.log(file)
 
     useEffect(() => {
         setValue('name','hanna') //должно меняться в зав от стора
@@ -111,7 +113,7 @@ const UserCompleteForm:React.FC = () => {
                 </div>
             ) : (
                 <div style={{ marginTop: '45px', marginBottom: '50px', width: '100%'}}>
-                    <DropZone name='photo' setImg={setImg} />
+                    <DropZone setFile={setFile} name='photo' setImg={setImg} />
                 </div>
             )}
             <SubmitButton type='submit'>Complete Profile</SubmitButton>

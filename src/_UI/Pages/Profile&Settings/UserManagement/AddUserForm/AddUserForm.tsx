@@ -27,6 +27,8 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
 
     const [roleValue, setRole] = useState('')
     const [img, setImg] = useState("");
+    const [file, setFile] = useState(null)
+    console.log(file)
 
     return (
         <FormContainer>
@@ -112,7 +114,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                     </div>
                 ) : (
                     <div style={{ marginTop: '30px', marginBottom: '30px', width: '100%'}}>
-                        <DropZone name='photo' setImg={setImg} />
+                        <DropZone setFile={setFile} name='photo' setImg={setImg} />
                     </div>
                 )}
             </FormWrap>

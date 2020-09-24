@@ -155,11 +155,12 @@ export const addBank = (data: IAddNewBank) => {
 }
 
 export const makeDefaultBank = (id: number, changes: any) => {
-    return async (dispatch:Dispatch<commonCompanyActions>) => {
+    return async (dispatch:Dispatch<any>) => {
         try {
             dispatch(companyActions.setIsLoading(true))
             let res = await authAPI.setToDefaultBank(id, changes)
             console.log(res)
+            res && dispatch(getBanksList())
             dispatch(companyActions.setIsLoading(false))
         } catch (e) {
             console.log('error', e.response)

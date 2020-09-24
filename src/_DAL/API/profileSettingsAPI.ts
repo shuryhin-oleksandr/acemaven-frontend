@@ -1,11 +1,15 @@
 import instance from "./axiosConfig";
-import {IAuthUserInfo} from "../../_BLL/types/authTypes";
 import {CompanyInfoType} from "../../_BLL/types/profileSettingsType";
 import {IAddNewBank, IAddNewUserData} from "../../_BLL/types/addNewUserTypes";
+import axios from 'axios'
 
 export const profileSettingsAPI = {
-    editProfile(id:number, data:IAuthUserInfo) {
-        return instance.patch(`/user/${id}/`, data)
+    editProfile(id:number, data:any) {
+        return axios.patch(`http://192.168.1.68:8000/api/v1/user/${id}/`,  data,
+            {headers: {
+                    Authorization: 'JWT ' + localStorage.getItem('access_token')
+                }}
+           )
     },
     getCompanyInfo (companyId: number) {
         return instance.get(`/company/${companyId}`)

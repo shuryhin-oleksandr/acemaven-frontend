@@ -3,12 +3,11 @@ import styled from 'styled-components'
 
 export const HeaderContainer = styled.div`
   height: 60px;
-  
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 80px 10px 50px;
   background-color: white;
   box-shadow: 0 5px 5px rgba(0,0,0,0.1);
 `
@@ -17,14 +16,13 @@ export const LogoWrap = styled.div`
 font-family: "Helvetica Bold", sans-serif;
 font-size: 18px;
 color: black;
-padding-left: 50px;
 `
 
 export const InfoWrap = styled.div`
-width: 19%;
+max-width: 120px;
+width: 100%;
 display: flex;
 justify-content: space-between;
-padding-right: 80px;
 `
 
 export const ButtonWrap = styled.button`

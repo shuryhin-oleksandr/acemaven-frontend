@@ -17,6 +17,7 @@ import {AppStateType} from "../../../../../_BLL/store";
 import {IAuthUserInfo} from "../../../../../_BLL/types/authTypes";
 import {getFilesFormData} from "../../../../../_BLL/helpers/MultipartFormDataHelper";
 import {profileSettingsAPI} from "../../../../../_DAL/API/profileSettingsAPI";
+import ChangePasswordPage from "./ChangePasswordPage";
 
 
 type PropsType = {
@@ -30,6 +31,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
     let userId = useSelector((state: AppStateType) => state.profile?.authUserInfo?.id)
     let profile = useSelector((state: AppStateType) => state.profile.authUserInfo)
 
+    const [isChangeMode, setChangeMode] = useState(false)
     const [fileOne, setFile] = useState(null)
     console.log(fileOne)
 
@@ -38,6 +40,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
             Object.keys(profile).forEach((key: string) => {
                 setValue(key, profile && profile[key])
             })
+
         }
     }, [setValue, profile])
 
@@ -66,18 +69,18 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
             <HeaderWrap>
                 <ProfileTitle>My Profile</ProfileTitle>
-                <ButtonsWrap>
+                {!isChangeMode && <ButtonsWrap>
                     <SubmitButton type='submit'
-                        style={{backgroundColor: 'black', width: '176px', marginTop: '0',
-                        height: '40px', marginRight: '25px'}}
+                                  style={{backgroundColor: 'black', width: '176px', marginTop: '0',
+                                      height: '40px', marginRight: '25px'}}
                     >
                         SAVE CHANGES
                     </SubmitButton>
                     <CancelEditButton setIsEdit={setIsEdit} text='CANCEL' />
-                </ButtonsWrap>
-
+                </ButtonsWrap>}
             </HeaderWrap>
-            <FormWrap>
+            {!isChangeMode
+                ? <FormWrap>
                 <RolesWrap>
                     <Label>Roles</Label>
                     {profile?.roles?.map(r => <Roles key={r}><Role role={r}>{r}</Role></Roles>)}
@@ -140,25 +143,10 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                            error={errors?.position?.message}
                            getValues={getValues}
                 />
-                <FormField label='Password'
-                           inputRef={register({
-                               required: 'Field is required'
-                           })}
-                           placeholder='Password'
-                           name='password'
-                           error={errors?.password?.message}
-                           getValues={getValues}
-                />
-                <FormField label='Confirm Password'
-                    inputRef={register({
-                        required: 'Field is required'
-                    })}
-                    placeholder='Confirm password'
-                    name='confirm_password'
-                    error={errors?.confirm_password?.message}
-                    getValues={getValues}
-                />
+                <ChangePasswordButton type='button' onClick={() => setChangeMode(true)}>CHANGE PASSWORD</ChangePasswordButton>
+
             </FormWrap>
+                : <ChangePasswordPage setChangeMode={setChangeMode}/> }
         </FormContainer>
     )
 }
@@ -175,3 +163,22 @@ const CloseIcon = styled.img`
   margin-left: 7px;
   cursor: pointer;
 `;
+
+export const ChangePasswordButton = styled.button`
+  background: none;
+  outline: none;
+  border: 1px solid #3B3B41;
+  height: 40px;
+  width: 210px;
+  font-family: "Helvetica Reg", sans-serif;
+  color: #3B3B41;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  
+  &:hover {
+    cursor: pointer;
+  }
+`

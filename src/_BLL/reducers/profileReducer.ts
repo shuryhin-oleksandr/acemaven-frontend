@@ -6,13 +6,20 @@ import {profileSettingsAPI} from "../../_DAL/API/profileSettingsAPI";
 import {CompanyInfoType} from "../types/profileSettingsType";
 import {IAddNewBank, IAddNewUserData} from "../types/addNewUserTypes";
 
+type Error = {
+    old_password?: string[],
+    new_password1?: string[],
+    new_password2?: string[]
+}
 
 const initialState = {
     isFetching: false,
     authUserInfo: null as IAuthUserInfo | null,
     companyInfo: null as CompanyInfoType | null,
     banksList:  null as Array<IAddNewBank> | null,
-    workersList: null as Array<IAddNewUserData> | null
+    workersList: null as Array<IAddNewUserData> | null,
+    passwordError: null as Error | null,
+    changesPass: ''
  }
 
  type InitialStateType = typeof initialState
@@ -86,6 +93,15 @@ const initialState = {
                 ...state,
                 workersList: state.workersList && state.workersList.filter(w => w.id !== action.workerId)
             }
+        case "SET_CHANGE_PASSWORD_ERROR":
+            return {
+                ...state,
+                passwordError: action.error
+            }
+        case "SET_CHANGES":
+            return {
+                ...state, changesPass: action.message
+            }
         default: return state
     }
  }
@@ -106,7 +122,9 @@ export const profileActions = {
     setNewToWorkersList: (worker: IAddNewUserData) => ({type: 'SET_NEW_TO_WORKERS_LIST', worker} as const),
     setEditedToWorkersList: (id: number, worker: IAddNewUserData) => ({type: 'SET_EDITED_WORKER', id, worker} as const),
     deleteWorker: (workerId: number) => ({type: 'SET_WORKERS_LIST_AFTER_DELETE', workerId} as const),
-    setBanksAfterDefault: (bankId: number, default_bank: IAddNewBank) => ({type: 'SET_BANKS_AFTER_DEFAULT', bankId, default_bank} as const)
+    setBanksAfterDefault: (bankId: number, default_bank: IAddNewBank) => ({type: 'SET_BANKS_AFTER_DEFAULT', bankId, default_bank} as const),
+    changePassError: (error: any) => ({type: 'SET_CHANGE_PASSWORD_ERROR', error} as const),
+    setChanges: (message: string) => ({type: 'SET_CHANGES', message} as const)
 }
 
 export const getAuthUserInfo = () => {
@@ -125,16 +143,17 @@ export const getAuthUserInfo = () => {
     }
 }
 
-export const editProfileInfo = (id: number, data: IAuthUserInfo) => {
+export const changeMyPassword = (data: any) => {
     return async (dispatch: Dispatch<commonProfileActions>) => {
         try {
             dispatch(profileActions.setIsFetching(true))
-            let res = await profileSettingsAPI.editProfile(id, data)
-            dispatch(profileActions.setAuthUserInfo(res.data))
+            let res = await profileSettingsAPI.changePassword(data)
+            dispatch(profileActions.changePassError(null))
+            dispatch(profileActions.setChanges(res.data.detail))
             dispatch(profileActions.setIsFetching(false))
         } catch (e) {
-
-            console.log('error', e.response)
+            console.log(e.response)
+            dispatch(profileActions.changePassError(e.response.data))
             dispatch(profileActions.setIsFetching(false))
         }
     }

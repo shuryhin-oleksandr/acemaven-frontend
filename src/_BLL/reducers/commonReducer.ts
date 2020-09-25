@@ -6,6 +6,13 @@ const initialState = {
 type InitialStateType = typeof initialState
 
 export const commonReducer = (state = initialState, action: commonActionsType):InitialStateType => {
+    switch (action.type) {
+        case "SET_CURRENT_PATH":
+            return {
+                ...state,
+                currentNavPath: action.path
+            }
+    }
     return state
 }
 

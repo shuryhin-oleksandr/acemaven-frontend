@@ -19,14 +19,14 @@ export interface IAdditionalUser {
 
 //FORM FOR ADDITIONAL USER
 export interface IAdditionalUserCompleteData {
-    name: string,
-    lastName: string,
-    email: string,
-    roles: string[],
-    phoneNumber: string,
-    companyPosition: string,
+    first_name?: string,
+    last_name?: string,
+    email?: string,
+    roles?: string[],
+    phone?: string,
+    position?: string,
     password?: string,
-    repeatPassword?: string,
+   confirm_password?: string,
     photo?: string
 }
 

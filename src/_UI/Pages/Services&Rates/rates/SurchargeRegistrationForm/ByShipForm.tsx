@@ -4,6 +4,7 @@ import {Controller, useForm} from "react-hook-form";
 import FormSelect from "../../../../components/_commonComponents/select/FormSelect";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 
+
 const ByShipForm:React.FC = () => {
     const {register, control, errors, handleSubmit, getValues} = useForm()
     const onSubmit = (values: any) => {
@@ -11,9 +12,10 @@ const ByShipForm:React.FC = () => {
     }
 
     let carriers = [
-        {name: '1'},
-        {nam: '2'}
+        {name: '1', value: '1'},
+        {nam: '2', value: '2'}
     ]
+
 
     return (
         <FormWrap onSubmit={handleSubmit(onSubmit)}>

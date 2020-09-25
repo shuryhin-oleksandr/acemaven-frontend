@@ -17,7 +17,8 @@ const initialState:InitialStateType = {
     companySignUpError: null,
     checkTokenError: '',
     signUpMasterError: '',
-    isFinish: false
+    isFinish: false,
+    checkedUser: null
 }
 
 type InitialStateType = {
@@ -28,7 +29,8 @@ type InitialStateType = {
     checkTokenError: string,
     companySignUpError: ICompanySignUpError | null,
     signUpMasterError: string,
-    isFinish: boolean
+    isFinish: boolean,
+    checkedUser: any
 
 }
 
@@ -70,6 +72,11 @@ export const authReducer = (state = initialState, action: commonAuthActions) :In
                 ...state,
                 isFinish: action.value
             }
+        case "SET_CHECKED_TOKEN_USER": {
+            return {
+                ...state, checkedUser: action.data
+            }
+        }
         default: return state
     }
 }
@@ -85,7 +92,8 @@ export const authActions = {
     setCompanySignupError: (error: ICompanySignUpError) => ({type: 'SET_COMPANY_SIGNUP_ERROR', error} as const), //for phone & email check errors
     setCheckTokenError: (error: string) => ({type: 'SET_CHECK_TOKEN_ERROR', error} as const), //for check token error
     setMasterSignUpError: (error: string) => ({type: 'SET_MASTER_SIGNUP_ERROR', error} as const), //for password error
-    setIsFinish: (value: boolean) => ({type: 'SET_IS_FINISH', value} as const)
+    setIsFinish: (value: boolean) => ({type: 'SET_IS_FINISH', value} as const),
+    setCheckedTokenUser: (data: any) => ({type: 'SET_CHECKED_TOKEN_USER', data} as const)
 }
 
 
@@ -133,7 +141,7 @@ export const checkToken = (token: string) => {
         try {
             dispatch(authActions.setIsLoading(true))
             let res = await authAPI.verifyToken(token)
-            dispatch(authActions.setSignedCompanyData(res.data))
+            dispatch(authActions.setCheckedTokenUser(res.data))
             res.data && dispatch(authActions.setIsLoading(false))
         } catch (e) {
             console.log('error', e.response)

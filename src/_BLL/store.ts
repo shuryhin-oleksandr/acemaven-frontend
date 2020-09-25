@@ -4,6 +4,9 @@ import {authReducer} from "./reducers/authReducer";
 import { commonReducer } from "./reducers/commonReducer";
 import {profileReducer} from "./reducers/profileReducer";
 import {employeesAndBanksReducer} from "./reducers/employeesAndBanksReducer";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+
 
 
 let reducers = combineReducers({
@@ -13,5 +16,5 @@ let reducers = combineReducers({
     company: employeesAndBanksReducer
 })
 
-export const store = createStore(reducers, applyMiddleware(thunkMiddleWare));
+export const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleWare)) );
 export type AppStateType = ReturnType<typeof reducers>;

@@ -4,12 +4,13 @@ import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {EditCardContainer, FormContainer, PhotoWrap} from "./edit-card-styles";
 import {useForm} from "react-hook-form";
 import FinishFormButtons from "../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
-import user from '../../../../../_UI/assets/icons/profile/Rectangle.png'
+import user from '../../../../../_UI/assets/icons/profile/defaultUserPhoto.svg'
 import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 import CustomCheckbox from "../../../../components/_commonComponents/customCheckbox/customCheckbox";
 import styled from "styled-components";
 import {editWorker} from "../../../../../_BLL/reducers/profileReducer";
 import {IAddNewUserData} from "../../../../../_BLL/types/addNewUserTypes";
+import {getColor} from "../../../../../_BLL/helpers/colorWrapMaker";
 
 
 type PropsType = {
@@ -20,8 +21,9 @@ type PropsType = {
 
 const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) => {
     const {register, errors, handleSubmit, getValues, setValue} = useForm<IAddNewUserData>()
+
+
     const onSubmit = (values:IAddNewUserData) => {
-        console.log(values)
         dispatch && dispatch(editWorker(Number(worker?.id), values))
         setEditMode && setEditMode(0, false)
     }
@@ -33,11 +35,16 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
         })
     }, [worker, setValue])
 
+    const [colorWrap, setColorWrap] = useState('')
+    useEffect(() => {
+        setColorWrap(getColor(worker?.roles))
+    }, [worker])
+
     return (
         <EditCardContainer>
             <FormContainer onSubmit={handleSubmit(onSubmit)}>
                 <FinishFormButtons closeCallback={setEditMode}/>
-                <PhotoWrap><img src={user} alt=""/></PhotoWrap>
+                <PhotoWrap colorette={colorWrap}><img src={worker? worker?.photo : user} alt=""/></PhotoWrap>
                 <FormField name='first_name'
                            placeholder='Name'
                            label='Name'

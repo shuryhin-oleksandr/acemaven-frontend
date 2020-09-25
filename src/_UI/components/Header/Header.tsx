@@ -1,8 +1,10 @@
 import * as React from "react";
 import {ButtonWrap, HeaderContainer,  LogoWrap, PhotoWrap} from "./header-styles";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../_BLL/store";
 import styled from "styled-components";
+import {useEffect} from "react";
+import {getAuthUserInfo} from "../../../_BLL/reducers/profileReducer";
 const notification = require('../../../_UI/assets/icons/clarity_notification-solid-badged.svg') as string;
 const card = require('../../../_UI/assets/icons/card.svg') as string;
 const user = require('../../../_UI/assets/icons/profile/defaultUserPhoto.svg')
@@ -10,6 +12,11 @@ const user = require('../../../_UI/assets/icons/profile/defaultUserPhoto.svg')
 
 
 const Header:React.FC = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+       localStorage.getItem('access_token') && dispatch(getAuthUserInfo())
+    }, [])
 
     let profilePhoto = useSelector((state: AppStateType) => state.profile.authUserInfo?.photo)
 

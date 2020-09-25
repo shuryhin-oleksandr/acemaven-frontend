@@ -4,6 +4,9 @@ import { nestedLink } from 'src/_BLL/helpers/nestedMenu/menuLinnks';
 import {NavLink} from "react-router-dom";
 import {VoidFunctionType} from "../../../_BLL/types/commonTypes";
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../../_BLL/store";
+import {commonActions} from "../../../_BLL/reducers/commonReducer";
 
 
 interface IProps {
@@ -19,10 +22,13 @@ interface IProps {
 const MenuLink:React.FC<IProps> = ({   name, icon, activeIcon,  nestedLinks,
                                        setChecked, checkedLink}) => {
 
-    let [currentPath, setCurrentPath] = useState('/settings/profile')
+    let currentPath = useSelector((state: AppStateType) => state.common.currentNavPath)
     let [fullMenu, setFullMenu] = useState(false)
+    const dispatch = useDispatch()
+
     let clickHandler = () => {
         setChecked && setChecked(name)
+        console.log(checkedLink)
         !fullMenu ? setFullMenu(true) : setFullMenu(false)
     }
 
@@ -34,7 +40,7 @@ const MenuLink:React.FC<IProps> = ({   name, icon, activeIcon,  nestedLinks,
             </Outer>
             {fullMenu && <NestedOuter>
                 {nestedLinks && nestedLinks.map(l => <NestedWrap key={l.name}>
-                    <NavLink onClick={() => setCurrentPath(l.path)} to={l.path}><NestedName active={currentPath === l.path}>{l.name}</NestedName></NavLink>
+                    <NavLink onClick={() => dispatch(commonActions.setCurrentNavPath(l.path))} to={l.path}><NestedName active={currentPath === l.path}>{l.name}</NestedName></NavLink>
                 </NestedWrap>)}
             </NestedOuter>}
 

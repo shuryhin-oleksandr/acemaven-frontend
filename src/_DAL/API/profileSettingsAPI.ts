@@ -32,7 +32,7 @@ export const profileSettingsAPI = {
     getWorkersList () {
         return instance.get(`/user/`)
     },
-    addNewWorker (workerInfo: IAddNewUserData) {
+    addNewWorker (workerInfo: any) {
         return instance.post(`/user/`, workerInfo)
     },
     editWorker (workerId: number, workerInfo: IAddNewUserData) {
@@ -41,4 +41,7 @@ export const profileSettingsAPI = {
     deleteWorker (workerId: number) {
         return instance.patch(`/user/${workerId}/`)
     },
+    changePassword (data: any) {
+        return instance.post('/password-change/', data)
+    }
 }

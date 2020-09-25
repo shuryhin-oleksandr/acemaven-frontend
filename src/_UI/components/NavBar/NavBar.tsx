@@ -4,8 +4,9 @@ import MenuLink from "./MenuLink";
 import {operationsLinks, profileLinks, ratesLinks} from "../../../_BLL/helpers/nestedMenu/menuLinnks";
 import { useState } from "react";
 const requests = require('../../assets/icons/sidebar/requests.svg') as string;
-const operations = require('../../assets/icons/sidebar/operations.svg') as string;
+const operations = require('../../assets/icons/sidebar/operations(small).svg') as string;
 const rates = require('../../assets/icons/sidebar/rates.svg') as string;
+const activeRates = require('../../assets/icons/sidebar/rates-active.svg') as string;
 const billing = require('../../assets/icons/sidebar/billing.svg') as string;
 const settings = require('../../assets/icons/sidebar/settings.svg') as string;
 const activeSettings = require('../../../_UI/assets/icons/sidebar/settingsActive.svg') as string;
@@ -30,11 +31,14 @@ const NavBar:React.FC<IProps> = () => {
             />
             <MenuLink icon={rates}
                       nestedLinks={ratesLinks}
-                      name='RATES & SERVICES'/>
+                      name='RATES & SERVICES'
+                      setChecked={setChecked}
+                      checkedLink={checkedLink}
+                      activeIcon={activeRates}
+            />
             <MenuLink icon={billing} path='#' name='BILLING'/>
             <MenuLink icon={settings}
                       activeIcon={activeSettings}
-                      path='/profile'
                       nestedLinks={profileLinks}
                       name='PROFILE & SETTINGS'
                       setChecked={setChecked}

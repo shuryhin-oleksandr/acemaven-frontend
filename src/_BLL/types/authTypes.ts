@@ -41,7 +41,8 @@ export interface ICompanySignUpData {
 }
 export interface ICompanySignUpError {
     master_email?: string[],
-    phone?: string[]
+    phone?: string[],
+    tax_id?: string[]
 }
 
 export interface IMasterAccountData {

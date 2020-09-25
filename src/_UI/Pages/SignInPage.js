@@ -101,6 +101,7 @@ export const ErrorServerMessage = styled.div`
   width: 100%;
     padding-top: 10px;
     text-align: end;
+    text-transform: capitalize;
     color: #E76767;
     font-family: "Helvetica Reg", sans-serif;
     font-size: 14px;

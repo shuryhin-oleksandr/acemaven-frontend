@@ -5,6 +5,7 @@ import UserManagementPage from './UserManagementPage';
 import {getWorkersList} from "../../../../_BLL/reducers/profileReducer";
 import {AppStateType} from "../../../../_BLL/store";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {commonActions} from "../../../../_BLL/reducers/commonReducer";
 
 
 const UserManagementContainer = () => {
@@ -17,6 +18,7 @@ const UserManagementContainer = () => {
 
     useEffect(() => {
         dispatch(getWorkersList())
+        dispatch(commonActions.setCurrentNavPath('/settings/user/management'))
     }, [])
 
     return (

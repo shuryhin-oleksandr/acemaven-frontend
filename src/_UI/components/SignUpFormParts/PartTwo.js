@@ -9,13 +9,20 @@ import { ErrorMessage, useFormikContext } from "formik";
 import BaseBackButton from "../base/BaseBackButton";
 import BaseNextButton from "../base/BaseNextButton";
 import BaseInputGroup from "../base/BaseInputGroup";
+import {ErrorServerMessage} from "../../Pages/SignInPage";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../../_BLL/reducers/authReducer";
 
 
 const PartTwo = ({ changePage, error }) => {
   const { values, touched, errors } = useFormikContext();
-    useEffect(() => {
-        error && changePage(true)
-    }, [error])
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+      setTimeout(() => {
+          dispatch(authActions.setCompanySignupError(null))
+      }, 5000)
+  }, [error])
 
   const isButtonDisabled =
     !values.address_line_first ||
@@ -80,6 +87,11 @@ const PartTwo = ({ changePage, error }) => {
         valid={touched.tax_id && !errors.tax_id}
         error={touched.tax_id && errors.tax_id}
       />
+      <div style={{width: '100%', marginTop: '-20px', marginBottom: '20px'}}>
+          {error && error.phone && <ErrorServerMessage>{error.phone[0]}</ErrorServerMessage>}
+          {error && error.tax_id && <ErrorServerMessage>{error.tax_id[0]}</ErrorServerMessage>}
+          {error && error.master_email && <ErrorServerMessage>{error.master_email[0]}</ErrorServerMessage>}
+      </div>
       <Row>
         <BaseBackButton
           onClick={() => {

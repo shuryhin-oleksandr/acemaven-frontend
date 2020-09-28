@@ -85,7 +85,7 @@ const PartOne = ({ changePage, error }) => {
           }
           onClick={() => changePage(false)}
         >
-          Next
+          NEXT
         </BaseNextButton>
       </div>
     </>

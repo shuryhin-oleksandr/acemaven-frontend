@@ -12,7 +12,8 @@ type PropsType = {
     inputRef?: React.Ref<HTMLInputElement>,
     error?: string
     label?: string,
-    getValues: (key: string) => Record<string, unknown>
+    getValues: (key: string) => Record<string, unknown>,
+    type?: string
 }
 
 
@@ -36,6 +37,7 @@ const FormField:React.FC<PropsType> = ({error, label, ...props}) => {
                         name={props.name}
                         ref={props.inputRef}
                         placeholder={props.placeholder}
+                        type={props.type ? props.type : 'text'}
                       />
             {error && <HelperText>{error}</HelperText>}
         </InputOuter>

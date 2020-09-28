@@ -1,14 +1,29 @@
 // Core
 import React from "react";
 import styled from "styled-components";
-import Back from "../../../assets/icons/back-button.svg";
+
 
 const BaseBackButton = ({ onClick }) => {
-  return <StyledImg src={Back} alt="back" onClick={onClick} />;
+  return <StyledButton onClick={onClick}>BACK</StyledButton>;
 };
 
 export default BaseBackButton;
 
-const StyledImg = styled.img`
-  cursor: pointer;
+const StyledButton = styled.button`
+  outline: none;
+  background: none;
+  border: 1px solid #3B3B41;
+  width: 130px;
+  height: 40px;
+  transition: .3s;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  color: #3B3B41;
+  
+  &:hover {
+    cursor: pointer;
+    transition: .3s;
+    background-color: #1B1B25;
+    color: black;
+  };
 `;

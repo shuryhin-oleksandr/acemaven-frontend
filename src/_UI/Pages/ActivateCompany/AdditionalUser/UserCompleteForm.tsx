@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../_BLL/store";
 import {getFilesFormData} from "../../../../_BLL/helpers/MultipartFormDataHelper";
 import {authAPI} from "../../../../_DAL/API/authAPI";
+import PasswordFormField from "../../../components/_commonComponents/Input/PasswordFormField";
 
 
 type PropsType = {
@@ -22,6 +23,7 @@ const UserCompleteForm:React.FC<PropsType> = ({token}) => {
     const {register, handleSubmit, errors, getValues, setValue} = useForm<IAdditionalUserCompleteData>()
     const dispatch = useDispatch()
     const checkedUser = useSelector((state: AppStateType) => state.auth.checkedUser)
+    const [showPassword, setShowPassword] = useState(false)
 
 
 
@@ -117,14 +119,14 @@ const UserCompleteForm:React.FC<PropsType> = ({token}) => {
                                error={errors?.position?.message}
                                getValues={getValues}
                     />
-                    <FormField label='Password'
-                               inputRef={register({
-                                   required: 'Field is required'
-                               })}
-                               placeholder='Password'
-                               name='password'
-                               error={errors?.password?.message}
-                               getValues={getValues}
+                    <PasswordFormField name='password'
+                                       label='Password'
+                                       getValues={getValues}
+                                       showPassword={showPassword}
+                                       setShowPassword={setShowPassword}
+                                       errors={errors}
+                                       placeholder='Password'
+                                       register={register}
                     />
                     <FormField
                         inputRef={register({
@@ -134,6 +136,7 @@ const UserCompleteForm:React.FC<PropsType> = ({token}) => {
                         name='confirm_password'
                         error={errors?.confirm_password?.message}
                         getValues={getValues}
+                        type='password'
                     />
                     {img ? (
                         <div style={{ display: "flex", width: '100%', alignItems: "flex-start", marginTop: '20px',marginBottom: '50px' }}>
@@ -169,3 +172,5 @@ const CloseIcon = styled.img`
   margin-left: 7px;
   cursor: pointer;
 `;
+
+

@@ -99,7 +99,7 @@ const PartTwo = ({ changePage, error }) => {
           }}
         />
         <BaseNextButton disabled={isButtonDisabled} type="submit">
-          Create new account
+          CREATE NEW ACCOUNT
         </BaseNextButton>
       </Row>
     </>

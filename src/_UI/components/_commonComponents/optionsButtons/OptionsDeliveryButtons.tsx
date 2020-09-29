@@ -4,7 +4,7 @@ import {
     OptionButton,
     OptionButtonPlane,
     OptionsButtonsWrap
-} from "../../../Pages/Services&Rates/rates/SurchargeRegistrationForm/form-styles";
+} from "../../../Pages/Services&Rates/surcharge/SurchargeRegistrationForm/form-styles";
 import shipActive from "../../../assets/icons/rates&services/Ship.svg";
 import ship from "../../../assets/icons/rates&services/ShipDefault.svg";
 import planeActive from "../../../assets/icons/rates&services/PlanActive.svg";
@@ -24,7 +24,6 @@ const OptionsDeliveryButtons:React.FC<PropsType> = ({setMode, mode}) => {
             <OptionButtonPlane onClick={() => setMode && setMode('plane')} mode={mode}>
                 <img src={mode === 'plane' ? planeActive : plane} alt=""/>
             </OptionButtonPlane>
-
         </OptionsButtonsWrap>
     )
 }

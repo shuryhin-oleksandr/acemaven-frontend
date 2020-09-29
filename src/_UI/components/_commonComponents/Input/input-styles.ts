@@ -54,11 +54,11 @@ export const Field = styled.input<PropsStyle>`
   
 `
 export const Label = styled.div<PropsStyle>`
-  font-family: "Helvetica Bold", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   color: black;
   margin-bottom: 9px;
-  opacity: ${({isFocus, error}) => (isFocus || error) ? '1' : '0'};
+  opacity: 1;
   animation: ${showLabel} ease-in-out .3s;
 `
 export const HelperText = styled.div`

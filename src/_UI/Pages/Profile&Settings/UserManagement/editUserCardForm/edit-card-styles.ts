@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
 type PropsStyle = {
-    colorette?: string
+    colorette?: string,
+    isOpenPopup?: boolean
 }
 
 export const EditCardContainer = styled.div`
@@ -9,9 +10,9 @@ export const EditCardContainer = styled.div`
   width: 100%;
   border: 2px solid #7C7C89;
 `
-export const FormContainer = styled.form`
+export const FormContainer = styled.form<PropsStyle>`
   width: 100%;
-  padding: 30px 70px 30px 100px;
+  padding:${({isOpenPopup}) => isOpenPopup ? '30px 50px 30px 50px' : '30px 70px 30px 100px'};
   position: relative;
 `
 export const PhotoWrap = styled.div<PropsStyle>`

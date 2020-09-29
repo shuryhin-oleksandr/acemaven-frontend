@@ -1,16 +1,10 @@
-import React from 'react'
-
+import React from 'react';
 import {Controller, useForm} from "react-hook-form";
+import {FormWrap, GroupWrap} from "./form-styles";
 import FormSelect from "../../../../components/_commonComponents/select/FormSelect";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
-import {FormWrap, GroupWrap} from "../../surcharge/SurchargeRegistrationForm/form-styles";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 
-type PropsType = {
-    setShippingValue: VoidFunctionType
-}
-
-const ByShipForm:React.FC<PropsType> = ({setShippingValue}) => {
+const ByPlaneForm = () => {
     const {register, control, errors, handleSubmit, getValues} = useForm()
     const onSubmit = (values: any) => {
         console.log(values)
@@ -22,12 +16,9 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue}) => {
     ]
 
     let shippingModes = [
-        {name: 'FCL (Sea Containerized Cargo)', value: 'FCL'},
-        {name: 'LCL Cargo (Sea)', value: 'LCL'},
-        {name: 'Loose/RORO Cargo (Sea)', value: 'Loose/RORO Cargo'}
+        {name: 'ULD Cargo', value: 'ULD'},
+        {name: 'Loose Cargo', value: 'Loose Cargo'}
     ]
-
-
 
 
     return (
@@ -48,7 +39,6 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue}) => {
                             as={
                                 <FormSelect label='Direction'
                                             options={carriers}
-
                                 />
                             }
                 />
@@ -58,7 +48,6 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue}) => {
                             as={
                                 <FormSelect label='Shipping Mode'
                                             options={shippingModes}
-                                            callback={setShippingValue}
                                 />
                             }
                 />
@@ -92,8 +81,9 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue}) => {
                            getValues={getValues}
                 />
             </GroupWrap>
+
         </FormWrap>
     )
 }
 
-export default ByShipForm
+export default ByPlaneForm

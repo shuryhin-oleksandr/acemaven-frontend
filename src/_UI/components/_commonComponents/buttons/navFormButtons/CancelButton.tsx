@@ -4,25 +4,29 @@ import styled from "styled-components";
 type PropsType = {
     setIsOpen?: (value: boolean) => void,
     text?: string,
-
+    w?: string
 }
 
-const CancelButton:React.FC<PropsType> = ({text, setIsOpen}) => {
+const CancelButton:React.FC<PropsType> = ({text, setIsOpen, w}) => {
     return (
-        <CancelButtonWrap onClick={() => setIsOpen && setIsOpen(true) }>{text}</CancelButtonWrap>
+        <CancelButtonWrap w={w} onClick={() => setIsOpen && setIsOpen(true) }>{text}</CancelButtonWrap>
     )
 }
 
 export default CancelButton
 
-const CancelButtonWrap = styled.button`
+type PropsStyle = {
+    w? : string
+}
+
+const CancelButtonWrap = styled.button<PropsStyle>`
 font-family: "Helvetica Reg", sans-serif;
 font-size: 14px;
 background: white;
 outline: none;
 border: 1px solid #3B3B41;
-min-height: 40px;
-max-width: 115px;
+height: 40px;
+max-width: ${({w}) => w ? w : '115px'};
 width: 100%;
 color: #3B3B41;
 transition: .3s;

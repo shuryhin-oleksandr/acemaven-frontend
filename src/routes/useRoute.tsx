@@ -10,9 +10,10 @@ import ProfileContainer from "../_UI/Pages/Profile&Settings/Profile/ProfileConnt
 import CompanySettingsContainer from 'src/_UI/Pages/Profile&Settings/CompanySettings/CompanySettingsContainer';
 import UserManagementContainer from "../_UI/Pages/Profile&Settings/UserManagement/UserManagementContainer";
 import GeneralSettingsContainer from 'src/_UI/Pages/Profile&Settings/GeneralSettings/GeneralSettingsContainer';
-import SurchargesContainer from 'src/_UI/Pages/Services&Rates/rates/SurchargesContainer';
+import SurchargesContainer from 'src/_UI/Pages/Services&Rates/surcharge/SurchargesContainer';
 import ActivateEnd from "../_UI/Pages/ActivateCompany/ActivateEnd";
 import SignUpFinishPopup from "../_UI/components/PopUps/sign_up/SignUpFinishPopup";
+import ExactSurchargeContainer from 'src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharge/ExactSurchargeContainer';
 
 
 
@@ -37,7 +38,8 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={ActivateEnd} path='/create/finish'/>
 
                 <Route component={AdditionalUserContainer} path='/additional/user'/>
-                <Route component={SurchargesContainer} path='/services/surcharges'/>
+                <Route exact component={SurchargesContainer} path='/services/surcharges'/>
+                <Route component={ExactSurchargeContainer} path='/services/surcharges/id'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>
                 <Route component={CompanySettingsContainer} path='/settings/company'/>
                 <Route component={UserManagementContainer} path='/settings/user/management'/>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {SelectContainer} from './select-styles'
 import {Label} from "../Input/input-styles";
 import Select from '@material-ui/core/Select';
@@ -6,13 +6,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {makeStyles} from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from "@material-ui/core/FormHelperText";
+import { VoidFunctionType } from 'src/_BLL/types/commonTypes';
 
 
 type IProps = {
     label?: string,
     error?: string,
     options?: any,
-    placeholder?: string
+    placeholder?: string,
+    callback?: VoidFunctionType
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -70,19 +72,18 @@ const useStyles = makeStyles((theme) => ({
 
 
 const FormSelect: React.FC<IProps> = ({label, error, ...props}) => {
-    const [isFocus, setFocus] = useState(false)
+
     const classes = useStyles();
 
     return (
         <SelectContainer>
             <FormControl className={classes.formControl}>
-                <Label isFocus={isFocus}>{label}</Label>
+                <Label >{label}</Label>
                 <Select
                     labelId={label}
                     id="demo-simple-select-placeholder-label"
                     displayEmpty
                     className={classes.selectEmpty}
-                    onFocus={() => setFocus(true)}
                     {...props}
                     MenuProps={{
                         style: {zIndex: 999999},
@@ -103,7 +104,7 @@ const FormSelect: React.FC<IProps> = ({label, error, ...props}) => {
                         <em>{label}</em>
                     </MenuItem>
                     {
-                        props.options.map((o: any) => <MenuItem key={o.name} value={o.value}>{o.name}</MenuItem>)
+                        props.options.map((o: any) => <MenuItem onClick={() => props.callback && props.callback(o.value)} key={o.name} value={o.value}>{o.name}</MenuItem>)
                     }
                 </Select>
                 <FormHelperText className={classes.helperText} error={!!error}>{error}</FormHelperText>

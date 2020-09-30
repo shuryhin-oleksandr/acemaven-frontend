@@ -9,7 +9,7 @@ import {AppStateType} from "../../../_BLL/store";
 import {commonActions} from "../../../_BLL/reducers/commonReducer";
 
 
-interface IProps {
+type IProps = {
     name?: string,
     icon: string,
     activeIcon?: string,

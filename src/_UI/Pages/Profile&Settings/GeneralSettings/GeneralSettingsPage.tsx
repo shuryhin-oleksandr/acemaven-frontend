@@ -14,6 +14,7 @@ import TabPanel from "@material-ui/lab/TabPanel";
 
 
 
+
 const GeneralSettingsPage:React.FC = () => {
     const classes = useStyles()
     const [value, setValue] = React.useState('1');
@@ -35,7 +36,7 @@ const GeneralSettingsPage:React.FC = () => {
                             </TabList>
                         </AppBar>
                         <TabPanel value="1"><EmailNotifications/></TabPanel>
-                        <TabPanel value="2"> partners table </TabPanel>
+                        {/*<TabPanel value="2"><PartnersTable /></TabPanel>*/}
                     </TabContext>
                 </div>
 

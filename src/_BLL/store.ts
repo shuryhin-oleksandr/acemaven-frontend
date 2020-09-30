@@ -7,8 +7,6 @@ import {employeesAndBanksReducer} from "./reducers/employeesAndBanksReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 
-
-
 let reducers = combineReducers({
     auth: authReducer,
     profile: profileReducer,

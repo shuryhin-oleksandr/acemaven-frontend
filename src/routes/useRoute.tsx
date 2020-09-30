@@ -14,6 +14,7 @@ import SurchargesContainer from 'src/_UI/Pages/Services&Rates/surcharge/Surcharg
 import ActivateEnd from "../_UI/Pages/ActivateCompany/ActivateEnd";
 import SignUpFinishPopup from "../_UI/components/PopUps/sign_up/SignUpFinishPopup";
 import ExactSurchargeContainer from 'src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharge/ExactSurchargeContainer';
+import LandingPage from "../_UI/Pages/landing/LandingPage";
 
 
 
@@ -28,6 +29,7 @@ const useRoute = (isAuth: boolean) => {
     } else {
         return (
             <Switch>
+                <Route component={LandingPage} path='/acemaven'/>
                 <Route component={SignInPage} path='/sign-in'/>
                 <Route exact component={SignUpPage} path='/sign-up'/>
                 <Route component={SignUpFinishPopup} path='/sign-up/done'/>
@@ -36,8 +38,9 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={AddNewUserContainer} path='/create/user'/>
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
                 <Route component={ActivateEnd} path='/create/finish'/>
-
                 <Route component={AdditionalUserContainer} path='/additional/user'/>
+
+
                 <Route exact component={SurchargesContainer} path='/services/surcharges'/>
                 <Route component={ExactSurchargeContainer} path='/services/surcharges/id'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>

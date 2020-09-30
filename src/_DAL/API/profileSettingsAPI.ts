@@ -5,7 +5,7 @@ import axios from 'axios'
 
 export const profileSettingsAPI = {
     editProfile(id:number, data:any) {
-        return axios.patch(`http://192.168.1.68:8000/api/v1/user/${id}/`,  data,
+        return axios.patch(`http://192.168.1.69:8000/api/v1/core/user/${id}/`,  data,
             {headers: {
                     Authorization: 'JWT ' + localStorage.getItem('access_token')
                 }}

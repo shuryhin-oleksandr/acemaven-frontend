@@ -1,14 +1,14 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import RegisterHead from "../components/RegisterHead";
 import RegisterFormTemplate from "../templates/RegisterFormTemplate";
 import styled from "styled-components";
-import {Form, Formik } from "formik";
-import BaseFormikInput from "../components/base/BaseFormikInput";
+import { Form, Formik } from "formik";
+import BaseFormikRadioButton from "../components/base/BaseFormikRadioButton";
 import PartTwo from "../components/SignUpFormParts/PartTwo";
 import PartOne from "../components/SignUpFormParts/PartOne";
 import * as Yup from "yup";
-import {useDispatch, useSelector} from "react-redux";
-import {companySignUp} from "../../_BLL/reducers/authReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { companySignUp } from "../../_BLL/reducers/authReducer";
 
 const AgentValidationSchema = Yup.object().shape({
   name: Yup.string().required("Please, enter your company name"),
@@ -25,6 +25,13 @@ const AgentValidationSchema = Yup.object().shape({
   city: Yup.string().required("Please, enter your city"),
   zip_code: Yup.number().required("Please, enter your Zip Code"),
   tax_id: Yup.string().required("Please, enter your Tax id Number"),
+  first_name: Yup.string().required("Please, enter your name"),
+  last_name: Yup.string().required("Please, enter your last name"),
+  master_phone: Yup.number().required("Please, enter your phone number"),
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Please, enter your email"),
+  position: Yup.string().required("Please, enter your position"),
 });
 
 const ClientValidationSchema = Yup.object().shape({
@@ -38,13 +45,18 @@ const ClientValidationSchema = Yup.object().shape({
   city: Yup.string().required("Please, enter your city"),
   zip_code: Yup.number().required("Please, enter your Zip Code"),
   tax_id: Yup.string().required("Please, enter your Tax id Number"),
+  first_name: Yup.string().required("Please, enter your name"),
+  last_name: Yup.string().required("Please, enter your last name"),
+  master_phone: Yup.number().required("Please, enter your phone number"),
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Please, enter your email"),
+  position: Yup.string().required("Please, enter your position"),
 });
 
 const SignUpPage = () => {
-  const dispatch = useDispatch()
-  let error = useSelector(state => state.auth.companySignUpError);
-
-
+  const dispatch = useDispatch();
+  let error = useSelector((state) => state.auth.companySignUpError);
 
   const [firstPage, changePage] = useState(true);
   return (
@@ -64,7 +76,7 @@ const SignUpPage = () => {
             )
           }
           initialValues={{
-            type: "",
+            type: "client",
             name: "",
             address_line_first: "",
             address_line_second: "",
@@ -76,9 +88,14 @@ const SignUpPage = () => {
             employees_number: 1,
             website: "",
             master_email: "",
+            first_name: "",
+            last_name: "",
+            email: "",
+            master_phone: "",
+            position: "",
           }}
           onSubmit={(values, { setSubmitting }) => {
-            dispatch(companySignUp(values))
+            dispatch(companySignUp(values));
 
             console.log("submit", values);
           }}
@@ -88,34 +105,34 @@ const SignUpPage = () => {
               <Form>
                 {firstPage && (
                   <div style={{ marginBottom: "46px" }}>
-                    <BaseFormikInput
-                      name="type"
-                      placeholder="Company Type"
-                      component="select"
-                      onChange={(e) => {
-                        resetForm();
-                        setFieldValue("type", e.target.value);
-                      }}
-                    >
-                      <option value="">Company Type</option>
-                      <option value="client">Client</option>
-                      <option value="agent">Agent</option>
-                    </BaseFormikInput>
+                    <div style={{ marginBottom: 10 }}>
+                      <BaseFormikRadioButton
+                        label="Client"
+                        value="client"
+                        name="type"
+                        formikValues={values}
+                      />
+                    </div>
+                    <div>
+                      <BaseFormikRadioButton
+                        label="Agent"
+                        value="agent"
+                        name="type"
+                        formikValues={values}
+                      />
+                    </div>
                   </div>
                 )}
-                {values.type ? (
-                  firstPage ? (
-                    <PartOne error={error} changePage={changePage} />
-                  ) : (
-                    <PartTwo error={error} changePage={changePage} />
-                  )
-                ) : null}
+                {firstPage ? (
+                  <PartOne error={error} changePage={changePage} />
+                ) : (
+                  <PartTwo error={error} changePage={changePage} />
+                )}
               </Form>
             );
           }}
         </Formik>
       </FormWrapper>
-
     </RegisterFormTemplate>
   );
 };
@@ -123,5 +140,5 @@ const SignUpPage = () => {
 export default SignUpPage;
 
 const FormWrapper = styled.div`
-  padding-top: 50px;
+  padding-top: 25px;
 `;

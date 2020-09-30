@@ -12,16 +12,21 @@ const RegisterFormTemplate = ({ children }) => {
 export default RegisterFormTemplate;
 
 const Container = styled.div`
+  width: 100%;
   min-height: 100vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
+  padding: 35px 0;
   justify-content: center;
-  padding: 0 30px;
-  position: relative;
+  align-items: flex-start;
+  z-index: 600;
 `;
 
 const ContentWrapper = styled.div`
-  max-width: 600px;
+  max-width: 700px;
   width: 100%;
-  padding: 90px;
+  padding: 40px 140px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  background-color: #ffffff;
 `;

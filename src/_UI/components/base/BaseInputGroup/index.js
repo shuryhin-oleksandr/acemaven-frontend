@@ -4,7 +4,6 @@ import BaseFormikInput from "../BaseFormikInput";
 import { ErrorMessage } from "formik";
 import Eye from "../../../../_UI/assets/icons/mdi_eye.svg";
 
-
 const BaseInputGroup = ({
   values,
   name,
@@ -19,9 +18,7 @@ const BaseInputGroup = ({
   const [inputType, changeInputType] = useState(type);
   return (
     <Wrapper marginBot={marginBot}>
-      {values[name] && labelText && (
-        <Label htmlFor={values[name]}>{labelText}</Label>
-      )}
+      {labelText && <Label htmlFor={values[name]}>{labelText}</Label>}
       {withEye && (
         <EyeImage
           src={Eye}
@@ -39,7 +36,7 @@ const BaseInputGroup = ({
         id={values[name]}
       />
       {withoutErrorMessage ? null : (
-          <ErrorMessage name={name} component={Error} />
+        <ErrorMessage name={name} component={Error} />
       )}
     </Wrapper>
   );
@@ -63,7 +60,7 @@ const Error = styled.div`
   position: absolute;
   right: 0;
   margin-top: 5px;
- font-family: "Helvetica Bold", sans-serif;
+  font-family: "Helvetica Bold", sans-serif;
   font-size: 14px;
   color: #e76767;
 `;

@@ -1,96 +1,98 @@
 //Core
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 //Instruments
-import { ErrorMessage, useFormikContext } from "formik";
+import { ErrorMessage, Form, useFormikContext } from "formik";
 
 //Components
 import BaseBackButton from "../base/BaseBackButton";
 import BaseNextButton from "../base/BaseNextButton";
 import BaseInputGroup from "../base/BaseInputGroup";
-import {ErrorServerMessage} from "../../Pages/SignInPage";
-import {useDispatch} from "react-redux";
-import {authActions} from "../../../_BLL/reducers/authReducer";
-
+import { ErrorServerMessage } from "../../Pages/SignInPage";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../../_BLL/reducers/authReducer";
 
 const PartTwo = ({ changePage, error }) => {
   const { values, touched, errors } = useFormikContext();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-      setTimeout(() => {
-          dispatch(authActions.setCompanySignupError(null))
-      }, 5000)
-  }, [error])
+    setTimeout(() => {
+      dispatch(authActions.setCompanySignupError(null));
+    }, 5000);
+  }, [error]);
 
   const isButtonDisabled =
-    !values.address_line_first ||
-    !values.state ||
-    !values.city ||
-    !values.zip_code ||
-    !values.tax_id;
+    !values.first_name ||
+    !values.last_name ||
+    !values.email ||
+    !values.phone ||
+    !values.position;
   return (
     <>
+      <Heading>Contact person info:</Heading>
+      <Row>
+        <RowItem>
+          <BaseInputGroup
+            name="first_name"
+            placeholder="Name"
+            values={values}
+            labelText="Name"
+            marginBot={46}
+            valid={touched.name && !errors.name}
+            error={touched.name && errors.name}
+          />
+        </RowItem>
+        <RowItem>
+          <BaseInputGroup
+            name="last_name"
+            placeholder="Last Name"
+            values={values}
+            labelText="Last Name"
+            marginBot={46}
+            valid={touched.lastName && !errors.lastName}
+            error={touched.lastName && errors.lastName}
+          />
+        </RowItem>
+      </Row>
       <BaseInputGroup
-        name="address_line_first"
-        placeholder="Address Line 1"
+        name="email"
+        placeholder="Email"
         values={values}
-        labelText="Address"
-        marginBot={15}
-        withoutErrorMessage
-        valid={touched.address_line_first && !errors.address_line_first}
-        error={touched.address_line_first && errors.address_line_first}
-      />
-      <div style={{ marginBottom: "46px", position: "relative" }}>
-        <BaseInputGroup
-          name="address_line_second"
-          placeholder="Address Line 2 (optional)"
-          values={values}
-        />
-        <ErrorMessage name="address_line_first" component={Error} />
-      </div>
-      <BaseInputGroup
-        name="state"
-        placeholder="State"
-        values={values}
-        labelText="State"
+        labelText="Email"
         marginBot={46}
-        valid={touched.state && !errors.state}
-        error={touched.state && errors.state}
+        valid={touched.email && !!errors.email}
+        error={touched.email && errors.email}
       />
       <BaseInputGroup
-        name="city"
-        placeholder="City"
+        name="master_phone"
+        placeholder="Phone number"
         values={values}
-        labelText="City"
+        labelText="Phone number"
         marginBot={46}
-        valid={touched.city && !errors.city}
-        error={touched.city && errors.city}
+        valid={touched.master_phone && !errors.master_phone}
+        error={touched.master_phone && errors.master_phone}
       />
       <BaseInputGroup
-        name="zip_code"
-        placeholder="Zip Code"
+        name="position"
+        placeholder="Position in the company"
         values={values}
-        labelText="Zip Code"
+        labelText="Position in the company"
         marginBot={46}
-        type="number"
-        valid={touched.zip_code && !errors.zip_code}
-        error={touched.zip_code && errors.zip_code}
+        valid={touched.position && !errors.position}
+        error={touched.position && errors.position}
       />
-      <BaseInputGroup
-        name="tax_id"
-        placeholder="Tax id Number"
-        values={values}
-        labelText="Tax id Number"
-        marginBot={46}
-        valid={touched.tax_id && !errors.tax_id}
-        error={touched.tax_id && errors.tax_id}
-      />
-      <div style={{width: '100%', marginTop: '-20px', marginBottom: '20px'}}>
-          {error && error.phone && <ErrorServerMessage>{error.phone[0]}</ErrorServerMessage>}
-          {error && error.tax_id && <ErrorServerMessage>{error.tax_id[0]}</ErrorServerMessage>}
-          {error && error.master_email && <ErrorServerMessage>{error.master_email[0]}</ErrorServerMessage>}
+      <div style={{ width: "100%", marginTop: "-20px", marginBottom: "20px" }}>
+        {error && error.phone && (
+          <ErrorServerMessage>{error.phone[0]}</ErrorServerMessage>
+        )}
+        {error && error.tax_id && (
+          <ErrorServerMessage>{error.tax_id[0]}</ErrorServerMessage>
+        )}
+        {error && error.master_email && (
+          <ErrorServerMessage>{error.master_email[0]}</ErrorServerMessage>
+        )}
       </div>
       <Row>
         <BaseBackButton
@@ -108,19 +110,19 @@ const PartTwo = ({ changePage, error }) => {
 
 export default PartTwo;
 
+const Heading = styled.div`
+  font-size: 16px;
+  line-height: 19px;
+  color: #7c7c89;
+  margin-bottom: 50px;
+`;
+
 const Row = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
- 
 `;
 
-const Error = styled.div`
-  position: absolute;
-  right: 0;
-  margin-top: 5px;
-  font-family: "Helvetica Reg", sans-serif;
-  font-size: 14px;
-  color: #e76767;
+const RowItem = styled.div`
+  width: 48%;
 `;

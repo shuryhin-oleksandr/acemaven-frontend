@@ -7,31 +7,31 @@ import {
   HeaderOuter,
   MainTitle,
   RegisterButton,
-} from "./surcharge-styles";
+} from "./rates-styles";
 import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
 import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/optionsButtons/OptionsDirectoryButtons";
-import RegistrationNewForm from "./SurchargeRegistrationForm/RegistrationNewForm";
-import SurchargesPage from "./surcharges_page/SurchargesPage";
+import RegistrationNewRateForm from "./RatesRegistrationForm/RegistrationNewRateForm";
+// import SurchargesPage from "./surcharges_page/SurchargesPage";
 
-const SurchargesContainer: React.FC = () => {
+const RatesContainer: React.FC = () => {
   const [mode, setMode] = useState("ship");
   const [directory, setDirectory] = useState("Import");
 
   const [isOpen, setIsOpen] = useState(false);
-  const [newSurchargeMode, setNewSurchargeMode] = useState(false);
+  const [newRateMode, setNewRateMode] = useState(false);
 
   return (
     <>
       {isOpen && <SurchargePopup setIsOpen={setIsOpen} />}
       <Layout>
-        {newSurchargeMode ? (
-          <RegistrationNewForm setNewSurchargeMode={setNewSurchargeMode} />
+        {newRateMode ? (
+          <RegistrationNewRateForm setNewRateMode={setNewRateMode} />
         ) : (
           <Container>
             <HeaderOuter>
-              <MainTitle>Surcharges</MainTitle>
+              <MainTitle>Freight rates</MainTitle>
               <ActionsWrapper>
-                <RegisterButton onClick={() => setNewSurchargeMode(true)}>
+                <RegisterButton onClick={() => setNewRateMode(true)}>
                   REGISTER NEW
                 </RegisterButton>
                 <OptionsDeliveryButtons mode={mode} setMode={setMode} />
@@ -41,7 +41,7 @@ const SurchargesContainer: React.FC = () => {
                 />
               </ActionsWrapper>
             </HeaderOuter>
-            <SurchargesPage />
+            {/*<SurchargesPage />*/}
           </Container>
         )}
       </Layout>
@@ -49,4 +49,4 @@ const SurchargesContainer: React.FC = () => {
   );
 };
 
-export default SurchargesContainer;
+export default RatesContainer;

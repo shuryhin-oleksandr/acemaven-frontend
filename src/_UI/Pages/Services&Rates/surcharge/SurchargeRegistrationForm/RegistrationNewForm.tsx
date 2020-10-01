@@ -5,7 +5,7 @@ import OptionsDeliveryButtons from "src/_UI/components/_commonComponents/options
 import ByPlaneForm from "./ByPlaneForm";
 import CancelButton from "src/_UI/components/_commonComponents/buttons/navFormButtons/CancelButton";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import ByShipForm from "../../rates/SurchargeRegistrationForm/ByShipForm";
+import ByShipForm from "./ByShipForm";
 import ULD_CargoForm from "./ULD_cargo/ULD_CargoForm";
 
 type PropsType = {

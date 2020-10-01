@@ -13,6 +13,7 @@ import ActivateEnd from "../_UI/Pages/ActivateCompany/ActivateEnd";
 import SignUpFinishPopup from "../_UI/components/PopUps/sign_up/SignUpFinishPopup";
 import ExactSurchargeContainer from 'src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharge/ExactSurchargeContainer';
 import LandingPage from "../_UI/Pages/landing/LandingPage";
+import RatesContainer from "../_UI/Pages/Services&Rates/rates/RatesContainer";
 
 
 
@@ -39,6 +40,7 @@ const useRoute = (isAuth: boolean) => {
 
                 <Route exact component={SurchargesContainer} path='/services/surcharges'/>
                 <Route component={ExactSurchargeContainer} path='/services/surcharges/id'/>
+                <Route exact component={RatesContainer} path='/services/rates'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>
                 <Route component={CompanySettingsContainer} path='/settings/company'/>
                 <Route component={UserManagementContainer} path='/settings/user/management'/>

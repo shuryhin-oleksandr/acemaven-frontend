@@ -13,7 +13,7 @@ export const operationsLinks = [
 
 
 export const ratesLinks = [
-    {name: 'RATES', path: '/services/surcharge'},
+    {name: 'RATES', path: '/services/rates'},
     {name: 'SURCHARGES', path: '/services/surcharges'}
 ]
 

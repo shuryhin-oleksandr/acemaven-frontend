@@ -3,7 +3,7 @@ import React from 'react'
 import {Controller, useForm} from "react-hook-form";
 import FormSelect from "../../../../components/_commonComponents/select/FormSelect";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
-import {FormWrap, GroupWrap} from "../../surcharge/SurchargeRegistrationForm/form-styles";
+import {FormWrap, GroupWrap} from "./form-styles";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 
 type PropsType = {

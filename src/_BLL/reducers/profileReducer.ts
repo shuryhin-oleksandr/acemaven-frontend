@@ -147,9 +147,9 @@ export const changeMyPassword = (data: any) => {
     return async (dispatch: Dispatch<commonProfileActions>) => {
         try {
             dispatch(profileActions.setIsFetching(true))
-            let res = await profileSettingsAPI.changePassword(data)
+           await profileSettingsAPI.changePassword(data)
             dispatch(profileActions.changePassError(null))
-            dispatch(profileActions.setChanges(res.data.detail))
+            dispatch(profileActions.setChanges('success'))
             dispatch(profileActions.setIsFetching(false))
         } catch (e) {
             console.log(e.response)

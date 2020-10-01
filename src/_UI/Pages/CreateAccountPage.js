@@ -39,7 +39,7 @@ const CreateAccountPage = ({ history }) => {
 
   let dispatch = useDispatch();
   let isFetching = useSelector((state) => state.auth.isFetching);
-  let user = useSelector((state) => state.auth.checkedUser);
+
 
   const location = useLocation();
   useEffect(() => {
@@ -67,17 +67,16 @@ const CreateAccountPage = ({ history }) => {
           <ContentWrapper>
             <Heading>Create a Master Account</Heading>
             <FormWrapper>
-              {user && (
                 <Formik
                   validationSchema={ValidationSchema}
                   initialValues={{
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    email: user.email,
+                    first_name: '',
+                    last_name: '',
+                    email: '',
                     password: "",
                     confirm_password: "",
                     phone: "",
-                    position: user.position,
+                    position: '',
                     photo: null,
                   }}
                   onSubmit={(values, { setSubmitting }) => {
@@ -223,7 +222,6 @@ const CreateAccountPage = ({ history }) => {
                     );
                   }}
                 </Formik>
-              )}
             </FormWrapper>
           </ContentWrapper>
         </Container>

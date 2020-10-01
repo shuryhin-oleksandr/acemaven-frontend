@@ -9,7 +9,7 @@ type PropsType = {
 
 const CancelButton:React.FC<PropsType> = ({text, setIsOpen, w}) => {
     return (
-        <CancelButtonWrap w={w} onClick={() => setIsOpen && setIsOpen(true) }>{text}</CancelButtonWrap>
+        <CancelButtonWrap type='button' w={w} onClick={() => setIsOpen && setIsOpen(true) }>{text}</CancelButtonWrap>
     )
 }
 

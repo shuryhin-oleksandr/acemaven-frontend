@@ -9,6 +9,7 @@ import PartOne from "../components/SignUpFormParts/PartOne";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { companySignUp } from "../../_BLL/reducers/authReducer";
+import SignUpFinishPopup from "../components/PopUps/sign_up/SignUpFinishPopup";
 
 const AgentValidationSchema = Yup.object().shape({
   name: Yup.string().required("Please, enter your company name"),
@@ -57,88 +58,90 @@ const ClientValidationSchema = Yup.object().shape({
 const SignUpPage = ({openSignUp, openSignIn}) => {
   const dispatch = useDispatch();
   let error = useSelector((state) => state.auth.companySignUpError);
+
   let popupCallback = () => {
     openSignUp(false)
     openSignIn(true)
   }
-
   const [firstPage, changePage] = useState(true);
-  return (
-    <RegisterFormTemplate openFlow={() => openSignUp(false)}>
-      <RegisterHead
-        title="Register"
-        buttonText="Log in"
-        popupCallback={() => popupCallback()}
-      />
-      <FormWrapper>
-        <Formik
-          validationSchema={() =>
-            Yup.lazy((values) =>
-              values.type === "agent"
-                ? AgentValidationSchema
-                : ClientValidationSchema
-            )
-          }
-          initialValues={{
-            type: "client",
-            name: "",
-            address_line_first: "",
-            address_line_second: "",
-            state: "",
-            city: "",
-            zip_code: "",
-            phone: "",
-            tax_id: "",
-            employees_number: 1,
-            website: "",
-            master_email: "",
-            first_name: "",
-            last_name: "",
-            email: "",
-            master_phone: "",
-            position: "",
-          }}
-          onSubmit={(values, { setSubmitting }) => {
-            dispatch(companySignUp(values));
 
-            console.log("submit", values);
-          }}
-        >
-          {({ values, setFieldValue, resetForm }) => {
-            return (
-              <Form>
-                {firstPage && (
-                  <div style={{ marginBottom: "46px" }}>
-                    <div style={{ marginBottom: 10 }}>
-                      <BaseFormikRadioButton
-                        label="Client"
-                        value="client"
-                        name="type"
-                        formikValues={values}
-                      />
-                    </div>
-                    <div>
-                      <BaseFormikRadioButton
-                        label="Agent"
-                        value="agent"
-                        name="type"
-                        formikValues={values}
-                      />
-                    </div>
-                  </div>
-                )}
-                {firstPage ? (
-                  <PartOne error={error} changePage={changePage} />
-                ) : (
-                  <PartTwo error={error} changePage={changePage} />
-                )}
-              </Form>
-            );
-          }}
-        </Formik>
-      </FormWrapper>
-    </RegisterFormTemplate>
-  );
+
+  return (
+      <RegisterFormTemplate openFlow={() => openSignUp(false)}>
+        <RegisterHead
+            title="Register"
+            buttonText="Log in"
+            popupCallback={() => popupCallback()}
+        />
+        <FormWrapper>
+          <Formik
+              validationSchema={() =>
+                  Yup.lazy((values) =>
+                      values.type === "agent"
+                          ? AgentValidationSchema
+                          : ClientValidationSchema
+                  )
+              }
+              initialValues={{
+                type: "client",
+                name: "",
+                address_line_first: "",
+                address_line_second: "",
+                state: "",
+                city: "",
+                zip_code: "",
+                phone: "",
+                tax_id: "",
+                employees_number: 1,
+                website: "",
+                master_email: "",
+                first_name: "",
+                last_name: "",
+                email: "",
+                master_phone: "",
+                position: "",
+              }}
+              onSubmit={(values, {setSubmitting}) => {
+                dispatch(companySignUp(values));
+                console.log("submit", values);
+
+              }}
+          >
+            {({values, setFieldValue, resetForm}) => {
+              return (
+                  <Form>
+                    {firstPage && (
+                        <div style={{marginBottom: "46px"}}>
+                          <div style={{marginBottom: 10}}>
+                            <BaseFormikRadioButton
+                                label="Client"
+                                value="client"
+                                name="type"
+                                formikValues={values}
+                            />
+                          </div>
+                          <div>
+                            <BaseFormikRadioButton
+                                label="Agent"
+                                value="agent"
+                                name="type"
+                                formikValues={values}
+                            />
+                          </div>
+                        </div>
+                    )}
+                    {firstPage ? (
+                        <PartOne error={error} changePage={changePage}/>
+                    ) : (
+                        <PartTwo error={error} changePage={changePage}/>
+                    )}
+                  </Form>
+              );
+            }}
+          </Formik>
+        </FormWrapper>
+      </RegisterFormTemplate>
+  )
 };
 
 export default SignUpPage;

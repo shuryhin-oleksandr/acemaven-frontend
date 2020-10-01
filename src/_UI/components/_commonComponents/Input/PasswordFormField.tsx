@@ -32,6 +32,7 @@ const PasswordFormField:React.FC<PropsType> = ({errors, label, ...props}) => {
                        error={errors?.password?.message}
                        getValues={props.getValues}
                        type={props.showPassword ? 'text' : 'password'}
+                       onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
             />
             <EyeButton type='button' onClick={() =>!props.showPassword ? props.setShowPassword(true) : props.setShowPassword(false)}>
                 <img src={props.showPassword ? eye : closeIcon} alt=""/>

@@ -17,7 +17,7 @@ interface IProps {
 }
 
 const NavBar:React.FC<IProps> = () => {
-    let [checkedLink, setChecked] = useState('PROFILE & SETTINGS')
+    let [checkedLink, setChecked] = useState('')
 
 
     return (

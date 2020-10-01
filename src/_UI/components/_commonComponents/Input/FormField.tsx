@@ -1,24 +1,22 @@
-import React from 'react';
-import {Field, HelperText, InputOuter, Label} from './input-styles';
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
-
-
+import React from "react";
+import { Field, HelperText, InputOuter, Label } from "./input-styles";
+import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 
 type PropsType = {
-    placeholder?: string,
-    name?: string,
-    value?: string,
-    onChange?: VoidFunctionType,
-    inputRef?: React.Ref<HTMLInputElement>,
-    error?: string
-    label?: string,
-    getValues?: (key: string) => Record<string, unknown>,
-    type?: string
-}
+  placeholder?: string;
+  name?: string;
+  value?: string;
+  onChange?: VoidFunctionType;
+  inputRef?: React.Ref<HTMLInputElement>;
+  error?: any;
+  label?: string;
+  getValues?: (key: string) => Record<string, unknown>;
+  type?: string;
+  max?: string;
+};
 
-
-const FormField:React.FC<PropsType> = ({error, label, ...props}) => {
-   /*
+const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
+  /*
     let blurHandler = () => {
         let v = props.getValues(props.name)
         if(!v) {
@@ -28,20 +26,28 @@ const FormField:React.FC<PropsType> = ({error, label, ...props}) => {
         }
     }*/
 
-    return (
-        <InputOuter>
-           <Label>{label}</Label>
-            <Field error={error}
-                        value={props.value}
-                        name={props.name}
-                        ref={props.inputRef}
-                        placeholder={props.placeholder}
-                        type={props.type ? props.type : 'text'}
-                    onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
-                      />
-            {error && <HelperText>{error}</HelperText>}
-        </InputOuter>
-    )
-}
+  return (
+    <InputOuter>
+      <Label>{label}</Label>
+      <Field
+        error={error}
+        value={props.value}
+        name={props.name}
+        ref={props.inputRef}
+        placeholder={props.placeholder}
+        type={props.type ? props.type : "text"}
+        onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
+      />
+      {error?.type === "required" && <HelperText>{error?.message}</HelperText>}
+      {error?.type === "pattern" && <HelperText>Value is not valid</HelperText>}
+      {error?.type === "minLength" && (
+        <HelperText>Minimum length is 1 symbol</HelperText>
+      )}
+      {error?.type === "maxLength" && (
+        <HelperText>Maximum length is {props.max} symbols</HelperText>
+      )}
+    </InputOuter>
+  );
+};
 
-export default FormField
+export default FormField;

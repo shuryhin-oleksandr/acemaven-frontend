@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 
 
-export const SelectContainer = styled.div`
+export const SelectContainer = styled.div<PropsStyle>`
   width: 100%;
+  max-width: ${({maxW}) => maxW ? maxW : '100%'};
 `
 
 type PropsStyle = {
     isFocus?: boolean,
-    error?: string
+    error?: string,
+    maxW?: string
 }
 
 export const Select = styled.select<PropsStyle>`

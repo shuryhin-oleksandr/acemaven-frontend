@@ -40,6 +40,7 @@ const SignInPage = ({history, openSignIn, openSignUp}) => {
         title="Log in"
         buttonText="Register"
         popupCallback={() => popupCallback()}
+
       />
       <FormWrapper>
         <Formik

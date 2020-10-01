@@ -13,6 +13,9 @@ type PropsType = {
   getValues?: (key: string) => Record<string, unknown>;
   type?: string;
   max?: string;
+  maxW?: string;
+  focusBack?: string;
+  height?: string
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
@@ -27,9 +30,11 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
     }*/
 
   return (
-    <InputOuter>
+    <InputOuter maxW={props.maxW}>
       <Label>{label}</Label>
       <Field
+          height={props.height}
+        focusBack={props.focusBack}
         error={error}
         value={props.value}
         name={props.name}

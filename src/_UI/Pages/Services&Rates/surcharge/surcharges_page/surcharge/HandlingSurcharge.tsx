@@ -11,13 +11,19 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
+import FormField from "src/_UI/components/_commonComponents/Input/FormField";
+import {CurrencyType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 
 const useStyles = makeStyles({
     container: {
-        boxShadow: 'none'
+        boxShadow: 'none',
+        height: 300
     },
     table: {
         minWidth: 479,
+
     },
     body: {
         height: '201px'
@@ -27,31 +33,39 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: '1px solid #115B86',
-        padding: '14px 0'
+        padding: ' 0'
     },
     innerCell: {
         borderBottom: 'none',
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
         color: '#1B1B25',
-        padding: '14px 0'
+        padding: '0'
     }
 });
 
+type PropsType = {
+    setFormMode?: VoidFunctionType
+}
 
-const HandlingSurcharge:React.FC = () => {
+const HandlingSurcharge:React.FC<PropsType> = ({setFormMode}) => {
     const classes = useStyles();
 
-    function createData(container_type: string, currency: string, charge: string, update_by: string, on: string) {
+    function createData(container_type: string, currency: CurrencyType[], charge: string, update_by: string, on: string) {
         return { container_type, currency, charge, update_by, on};
     }
 
     const rows = [
-        createData('Type 1', '159.0', '6.0 $', 'Hanna Yarash', '13:00 10 MAY 2020' ),
-        createData('Type2', '237.0', '9.0 $', 'Lara Croft', '13:00 10 MAY 2020'),
-        createData('Type3', '262.0', '16.0 $', 'James Bond', '13:00 10 MAY 2020' ),
-        createData('Type4', '262.0', '16.0 $', 'James Bond', '15:00 10 MAY 2020' ),
-        createData('Type4', '262.0', '16.0 $', 'James Bond', '15:00 10 MAY 2020' )
+        createData('Type 1', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
+            '6.0 $', 'Hanna Yarash', '13:00 10 MAY 2020' ),
+        createData('Type2', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
+            '9.0 $', 'Lara Croft', '13:00 10 MAY 2020'),
+        createData('Type3', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
+            '16.0 $', 'James Bond', '13:00 10 MAY 2020' ),
+        createData('Type4', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
+            '16.0 $', 'James Bond', '15:00 10 MAY 2020' ),
+        createData('Type4', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
+            '16.0 $', 'James Bond', '15:00 10 MAY 2020' )
     ];
 
     return (
@@ -74,8 +88,19 @@ const HandlingSurcharge:React.FC = () => {
                                 <TableCell className={classes.innerCell}  component="th" scope="row">
                                    {row.container_type}
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.currency}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.charge}</TableCell>
+                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
+                                    <FormSelect options={row.currency}
+                                                placeholder='Currency'
+                                                maxW='80px'
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
+                                    <FormField name='charge'
+                                               value={row.charge}
+                                               maxW='100px'
+                                    />
+
+                                </TableCell>
                                 <TableCell className={classes.innerCell} align="left">{row.update_by}</TableCell>
                                 <TableCell className={classes.innerCell} align="left">{row.on}</TableCell>
                             </TableRow>

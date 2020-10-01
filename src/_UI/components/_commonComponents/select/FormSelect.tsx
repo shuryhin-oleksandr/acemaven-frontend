@@ -14,12 +14,13 @@ type IProps = {
   options?: any;
   placeholder?: string;
   callback?: VoidFunctionType;
+  maxW?: string
 };
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     width: "100%",
-    marginBottom: "15px",
+    marginBottom: "15px"
   },
   selectEmpty: {
     width: "100%",
@@ -72,7 +73,7 @@ const FormSelect: React.FC<IProps> = ({ label, error, ...props }) => {
   const classes = useStyles();
 
   return (
-    <SelectContainer>
+    <SelectContainer maxW={props.maxW}>
       <FormControl className={classes.formControl}>
         <Label>{label}</Label>
         <Select

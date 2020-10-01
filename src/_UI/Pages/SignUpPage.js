@@ -54,17 +54,21 @@ const ClientValidationSchema = Yup.object().shape({
   position: Yup.string().required("Please, enter your position"),
 });
 
-const SignUpPage = () => {
+const SignUpPage = ({openSignUp, openSignIn}) => {
   const dispatch = useDispatch();
   let error = useSelector((state) => state.auth.companySignUpError);
+  let popupCallback = () => {
+    openSignUp(false)
+    openSignIn(true)
+  }
 
   const [firstPage, changePage] = useState(true);
   return (
-    <RegisterFormTemplate>
+    <RegisterFormTemplate openFlow={() => openSignUp(false)}>
       <RegisterHead
         title="Register"
         buttonText="Log in"
-        redirectRoute="/sign-in"
+        popupCallback={() => popupCallback()}
       />
       <FormWrapper>
         <Formik

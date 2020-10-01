@@ -23,18 +23,23 @@ const ValidationSchema = Yup.object().shape({
   password: Yup.string().required("Please, enter your password"),
 });
 
-const SignInPage = ({history}) => {
+const SignInPage = ({history, openSignIn, openSignUp}) => {
     const dispatch = useDispatch()
     const loginFail = useSelector(state => state.auth.loginError)
     const isFetching = useSelector(state => state.auth.isFetching)
 
+    let popupCallback = () => {
+        openSignUp(true)
+        openSignIn(false)
+    }
+
   return (
-    <RegisterFormTemplate>
+    <RegisterFormTemplate openFlow={() => openSignIn(false)}>
         {isFetching && <Spinner />}
       <RegisterHead
         title="Log in"
         buttonText="Register"
-        redirectRoute="/sign-up"
+        popupCallback={() => popupCallback()}
       />
       <FormWrapper>
         <Formik

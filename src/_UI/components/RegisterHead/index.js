@@ -1,13 +1,11 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-const RegisterHead = ({ title, buttonText, redirectRoute }) => {
-  let history = useHistory();
+const RegisterHead = ({ title, buttonText, popupCallback }) => {
   return (
     <Row>
       <Title>{title}</Title>
-      <RedirectButton onClick={() => history.push(redirectRoute)}>
+      <RedirectButton onClick={popupCallback}>
         {buttonText}
       </RedirectButton>
     </Row>

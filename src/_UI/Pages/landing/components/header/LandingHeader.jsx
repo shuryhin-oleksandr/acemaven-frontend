@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     ActionsWrapper,
     HeaderContent,
@@ -12,16 +12,23 @@ import {
 import logo from '../../../../assets/icons/LOGO2.svg'
 import OutlineButton from "src/_UI/components/_commonComponents/buttons/outline_button/OutlineButton";
 import RouteButton from "../../../../components/_commonComponents/buttons/route_button/RouteButton";
+import SignUpPage from "src/_UI/Pages/SignUpPage";
+import SignInPage from "src/_UI/Pages/SignInPage";
 
 
-const LandingHeader:React.FC = () => {
+const LandingHeader = () => {
+    const [isSignUp, openSignUp] = useState(false)
+    const [isSignIn, openSignIn] = useState(false)
+
     return (
         <Outer>
+            {isSignUp && <SignUpPage openSignUp={openSignUp} openSignIn={openSignIn}/>}
+            {isSignIn && <SignInPage openSignIn={openSignIn} openSignUp={openSignUp}/>}
             <UpperPart>
                 <LogoWrap><img src={logo} alt=""/></LogoWrap>
                 <ActionsWrapper>
-                    <OutlineButton text='SIGN UP' callback={() => {}}/>
-                    <LoginButton>Log in</LoginButton>
+                    <OutlineButton text='SIGN UP' callback={() => openSignUp(true)}/>
+                    <LoginButton onClick={() => openSignIn(true)}>Log in</LoginButton>
                 </ActionsWrapper>
             </UpperPart>
             <HeaderContent>

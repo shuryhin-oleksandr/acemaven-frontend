@@ -17,6 +17,7 @@ import { useLocation, withRouter } from "react-router";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
 import { authAPI } from "../../_DAL/API/authAPI";
 import CheckedTokenPopup from "../components/PopUps/checked_token/checkedTokenPopup";
+import {getFilesFormData} from "../../_BLL/helpers/MultipartFormDataHelper";
 
 const ValidationSchema = Yup.object().shape({
   first_name: Yup.string().required("Please, enter your name"),
@@ -39,7 +40,7 @@ const CreateAccountPage = ({ history }) => {
 
   let dispatch = useDispatch();
   let isFetching = useSelector((state) => state.auth.isFetching);
-  let user = useSelector((state) => state.auth.checkedUser);
+
 
   const location = useLocation();
   useEffect(() => {
@@ -47,15 +48,6 @@ const CreateAccountPage = ({ history }) => {
     dispatch(checkToken(location.search.substr(7)));
   }, []);
 
-  const getFilesFormData = (dataFromForm, photo) => {
-    const formData = new FormData();
-    formData.append("photo", photo);
-    Object.keys(dataFromForm).forEach((key) => {
-      formData.append(key, dataFromForm[key]);
-    });
-
-    return formData;
-  };
 
   return (
     <>
@@ -67,18 +59,17 @@ const CreateAccountPage = ({ history }) => {
           <ContentWrapper>
             <Heading>Create a Master Account</Heading>
             <FormWrapper>
-              {user && (
                 <Formik
                   validationSchema={ValidationSchema}
                   initialValues={{
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    email: user.email,
+                    first_name: '',
+                    last_name: '',
+                    email: '',
                     password: "",
                     confirm_password: "",
                     phone: "",
-                    position: user.position,
-                    photo: null,
+                    position: '',
+
                   }}
                   onSubmit={(values, { setSubmitting }) => {
                     let wholeData = getFilesFormData(values, file);
@@ -223,7 +214,6 @@ const CreateAccountPage = ({ history }) => {
                     );
                   }}
                 </Formik>
-              )}
             </FormWrapper>
           </ContentWrapper>
         </Container>

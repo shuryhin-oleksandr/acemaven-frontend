@@ -20,6 +20,7 @@ export const EndText = styled.div`
   font-size: 18px;
   color: black;
   margin-bottom: 30px;
+ text-align: center;
 `
 export const EndButton = styled.div`
   outline: none;

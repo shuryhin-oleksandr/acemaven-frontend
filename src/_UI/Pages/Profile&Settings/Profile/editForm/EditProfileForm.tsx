@@ -44,14 +44,11 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
         }
     }, [setValue, profile])
 
-
-
-
     const onSubmit = (values:IAuthUserInfo) => {
         const wholeData = getFilesFormData(values, fileOne)
 
         dispatch(profileActions.setIsFetching(true))
-        profileSettingsAPI.editProfile(userId as number, wholeData)
+       !isChangeMode && profileSettingsAPI.editProfile(userId as number, wholeData)
             .then((res) => {
                 dispatch(profileActions.setAuthUserInfo(res.data))
                 dispatch(profileActions.setIsFetching(false))
@@ -67,6 +64,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
 
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
+            {isChangeMode && <PopupOuter><ChangePasswordPage setChangeMode={setChangeMode}/> </PopupOuter> }
             <HeaderWrap>
                 <ProfileTitle>My Profile</ProfileTitle>
                 {!isChangeMode && <ButtonsWrap>
@@ -79,8 +77,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                     <CancelEditButton setIsEdit={setIsEdit} text='CANCEL' />
                 </ButtonsWrap>}
             </HeaderWrap>
-            {!isChangeMode
-                ? <FormWrap>
+                 <FormWrap>
                 <RolesWrap>
                     <Label>Roles</Label>
                     {profile?.roles?.map(r => <Roles key={r}><Role role={r}>{r}</Role></Roles>)}
@@ -109,7 +106,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                                    })}
                                    placeholder='Name'
                                    name='first_name'
-                                   error={errors?.first_name?.message}
+                                   error={errors?.first_name}
                                    getValues={getValues}
                         />
                     </InputWrap>
@@ -120,7 +117,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                                    })}
                                    placeholder='Last Name'
                                    name='last_name'
-                                   error={errors?.last_name?.message}
+                                   error={errors?.last_name}
                                    getValues={getValues}
                         />
                     </InputWrap>
@@ -131,7 +128,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                            })}
                            placeholder='Phone Number'
                            name='phone'
-                           error={errors?.phone?.message}
+                           error={errors?.phone}
                            getValues={getValues}
                 />
                 <FormField label='Position in the Company'
@@ -140,13 +137,12 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                            })}
                            placeholder='Position in the Company'
                            name='position'
-                           error={errors?.position?.message}
+                           error={errors?.position}
                            getValues={getValues}
                 />
                 <ChangePasswordButton type='button' onClick={() => setChangeMode(true)}>CHANGE PASSWORD</ChangePasswordButton>
 
             </FormWrap>
-                : <ChangePasswordPage setChangeMode={setChangeMode}/> }
         </FormContainer>
     )
 }
@@ -165,20 +161,35 @@ const CloseIcon = styled.img`
 `;
 
 export const ChangePasswordButton = styled.button`
-  background: none;
+  background-color: #1B1B25;
   outline: none;
   border: 1px solid #3B3B41;
   height: 40px;
   width: 210px;
   font-family: "Helvetica Reg", sans-serif;
-  color: #3B3B41;
+  color: white;
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 30px;
   
   &:hover {
     cursor: pointer;
   }
+`
+
+export const PopupOuter = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .2);
+  z-index: 29;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

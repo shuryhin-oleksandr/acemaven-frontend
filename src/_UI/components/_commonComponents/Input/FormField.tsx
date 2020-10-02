@@ -15,19 +15,11 @@ type PropsType = {
   max?: string;
   maxW?: string;
   focusBack?: string;
-  height?: string
+  height?: string;
+  onBlur?: VoidFunctionType
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
-  /*
-    let blurHandler = () => {
-        let v = props.getValues(props.name)
-        if(!v) {
-            setFocus(false)
-        } else {
-            setFocus(true)
-        }
-    }*/
 
   return (
     <InputOuter maxW={props.maxW}>
@@ -42,6 +34,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         placeholder={props.placeholder}
         type={props.type ? props.type : "text"}
         onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
+          onBlur={e => props.onBlur && props.onBlur(e.target.value)}
       />
       {error?.type === "required" && <HelperText>{error?.message}</HelperText>}
       {error?.type === "pattern" && <HelperText>Value is not valid</HelperText>}

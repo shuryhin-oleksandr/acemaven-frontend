@@ -39,7 +39,7 @@ export const profileSettingsAPI = {
         return instance.patch(`/user/${workerId}/`, workerInfo)
     },
     deleteWorker (workerId: number) {
-        return instance.patch(`/user/${workerId}/`)
+        return instance.delete(`/user/${workerId}/`)
     },
     changePassword (data: any) {
         return instance.post('/password-change/', data)

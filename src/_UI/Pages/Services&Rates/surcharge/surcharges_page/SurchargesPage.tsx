@@ -1,5 +1,5 @@
 import React from "react";
-import { Outer } from "./surcharges-style";
+import {ModeIcon, Outer, SearchButton, SortButton, SpanMode} from "./surcharges-style";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -9,14 +9,13 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import plane_surcharge from '../../../../assets/icons/rates&services/plane-surcharge.svg'
-import styled from "styled-components";
 import sort_arrows from '../../../../assets/icons/rates&services/sort_arrows.svg'
 import search_icon from '../../../../assets/icons/rates&services/search_loop.svg'
-import template_icon from '../../../../assets/icons/rates&services/template.svg'
+import HoverMessageTemplate from "../../../../components/_commonComponents/hover_message/HoverMessageTemplate";
 
 const useStyles = makeStyles({
     container: {
-        boxShadow: 'none'
+        boxShadow: 'none',
     },
     table: {
         '& .MuiTableHead-root' : {
@@ -57,7 +56,7 @@ const useStyles = makeStyles({
         fontSize: '16px',
         color: '#1B1B25',
         height: '72px',
-        padding: '0'
+        padding: '0',
     }
 });
 
@@ -134,9 +133,7 @@ const SurchargesPage:React.FC = () => {
                                 <TableCell className={classes.innerCell} align="left">
                                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                        {row.exp_date}
-                                       <TemplateIcon data-title='Use this registry as a template for a new rate, with the same values and parameters.'>
-                                           <img src={template_icon} alt=""/>
-                                       </TemplateIcon>
+                                      <HoverMessageTemplate />
                                    </div>
                                 </TableCell>
                             </TableRow>
@@ -150,33 +147,7 @@ const SurchargesPage:React.FC = () => {
 
 export default SurchargesPage
 
-const ModeIcon = styled.img`
-  position: absolute;
-  left: 0;
-  top: 22%;
-`
-const SearchButton = styled.button`
-  padding: 0;
-  outline: none;
-  border: none;
-  background: none;
-  margin: 0 5px;
-  display: flex;
-  align-items: center;
-  img {
-  
-  }
-`
-const SortButton = styled(SearchButton)`
-`
 
-const TemplateIcon = styled(SearchButton)`
-`
-const SpanMode = styled.div`
-transition: .3s;
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-    transition: .3s;
-  }
-`
+
+
+

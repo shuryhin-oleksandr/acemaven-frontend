@@ -7,7 +7,7 @@ const ActivateEnd:React.FC = () => {
     return (
         <ActivateContainer>
             <ActivateInner>
-                <EndText>New company was registered. Thank You!</EndText>
+                <EndText>You have completed all fields. <br/>Thank you!</EndText>
                 <NavLink style={{textDecoration: "none"}} to='/'><EndButton>GOT IT!</EndButton></NavLink>
             </ActivateInner>
         </ActivateContainer>

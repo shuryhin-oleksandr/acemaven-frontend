@@ -14,13 +14,13 @@ import DropZone from "src/_UI/components/DropZone";
 import Close from "../../../assets/icons/close-icon.svg";
 import styled from "styled-components";
 import { InputWrap, SubmitButton } from "../CreateNewUser/AddUserForm";
-import { authActions } from "../../../../_BLL/reducers/authReducer";
+import {completeAdditionalUser} from "../../../../_BLL/reducers/authReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../_BLL/store";
-import { getFilesFormData } from "../../../../_BLL/helpers/MultipartFormDataHelper";
-import { authAPI } from "../../../../_DAL/API/authAPI";
 import PasswordFormField from "../../../components/_commonComponents/Input/PasswordFormField";
-import { useHistory } from "react-router-dom";
+import { useHistory} from "react-router-dom";
+import {ErrorServerMessage} from "../../SignInPage";
+import {getFilesFormData} from "../../../../_BLL/helpers/MultipartFormDataHelper";
 
 
 type PropsType = {
@@ -35,6 +35,7 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
     (state: AppStateType) => state.auth.checkedUser
   );
   const [showPassword, setShowPassword] = useState(false);
+  const passwordError = useSelector((state: AppStateType) => state.auth.passwordError)
 
 
   const onSubmit = (values: IAdditionalUserCompleteData) => {
@@ -43,27 +44,11 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
     let finalObj = { ...values, email: email, roles: roles };
 
     const wholeData = getFilesFormData(finalObj, file);
-
-    dispatch(authActions.setIsLoading(true));
-    authAPI
-      .signUp(token, wholeData)
-      .then((res) => {
-        console.log(res.data);
-        res.data && localStorage.setItem("access_token", res.data.token);
-        history.push("/");
-        dispatch(authActions.setIsLoading(false));
-      })
-      .catch((e) => {
-        console.log("error", e.response);
-        dispatch(authActions.setCheckTokenError(e.response));
-        dispatch(authActions.setIsLoading(false));
-      });
-
-    console.log(finalObj);
+    dispatch(completeAdditionalUser(token, wholeData, history))
   };
   const [img, setImg] = useState("");
   const [file, setFile] = useState(null);
-  console.log(file);
+
 
   useEffect(() => {
     if (checkedUser) {
@@ -72,7 +57,19 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
     }
   }, [checkedUser]);
 
-  return (
+  const [errorMatch, setError] = useState('')
+    let matchPasswords = (value: string) => {
+        let pass = getValues('password')
+        console.log(value)
+        if(value !== pass) {
+            setError("Passwords don't match!")
+        } else {
+            setError('')
+        }
+    }
+
+
+    return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <FullfilledWrap>
         <FillOuter>
@@ -96,7 +93,7 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
             })}
             placeholder="Name"
             name="first_name"
-            error={errors?.first_name?.message}
+            error={errors?.first_name}
             getValues={getValues}
           />
         </InputWrap>
@@ -108,7 +105,7 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
             })}
             placeholder="Last Name"
             name="last_name"
-            error={errors?.last_name?.message}
+            error={errors?.last_name}
             getValues={getValues}
           />
         </InputWrap>
@@ -120,7 +117,7 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
         })}
         placeholder="Phone Number"
         name="phone"
-        error={errors?.phone?.message}
+        error={errors?.phone}
         getValues={getValues}
       />
       <FormField
@@ -130,7 +127,7 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
         })}
         placeholder="Position in the Company"
         name="position"
-        error={errors?.position?.message}
+        error={errors?.position}
         getValues={getValues}
       />
       <PasswordFormField
@@ -144,17 +141,19 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
         register={register}
 
       />
+      {passwordError && <ErrorServerMessage>{passwordError}</ErrorServerMessage>}
       <FormField
         inputRef={register({
           required: "Field is required",
         })}
         placeholder="Confirm password"
         name="confirm_password"
-        error={errors?.confirm_password?.message}
+        error={errors?.confirm_password}
         getValues={getValues}
         type="password"
-
+        onBlur={matchPasswords}
       />
+        {errorMatch && <ErrorServerMessage>{errorMatch}</ErrorServerMessage>}
       {img ? (
         <div
           style={{

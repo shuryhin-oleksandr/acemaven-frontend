@@ -5,12 +5,22 @@ import BankCard from "../../../ActivateCompany/AddBankAccount/BanksList/list/ban
 import { useState } from "react";
 import Form from "./addBankForm/Form";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteBank, getBankAccounts, makeBankDefault} from "../../../../../_BLL/reducers/profileReducer";
+import {
+    deleteBank,
+    getBankAccounts,
+    makeBankDefault,
+    profileActions
+} from "../../../../../_BLL/reducers/profileReducer";
 import {AppStateType} from "../../../../../_BLL/store";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 
 const BankAccountsContainer:React.FC = () => {
     const [isAdd, setIsAdd] = useState(false)
+
+    const openCallback = (value: boolean) => {
+        setIsAdd(value)
+        dispatch(profileActions.setOpenBankForm(value))
+    }
     const dispatch = useDispatch()
     const banksList = useSelector((state: AppStateType) => state.profile.banksList)
 
@@ -33,8 +43,8 @@ const BankAccountsContainer:React.FC = () => {
         <BanksContainer>
             <BanksInner>
                 {!isAdd
-                ?  <AddNewButton setIsAdd={setIsAdd}/>
-                : <Form dispatch={dispatchHandler} setIsAdd={setIsAdd}/>
+                ?  <AddNewButton setIsAdd={openCallback}/>
+                : <Form dispatch={dispatchHandler} setIsAdd={openCallback}/>
                 }
                 {banksList?.map(b => <BankCard b={b}
                                                         deleteBank={deleteBankCallback}

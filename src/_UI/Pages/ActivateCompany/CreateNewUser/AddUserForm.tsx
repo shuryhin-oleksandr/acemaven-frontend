@@ -61,7 +61,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                inputRef={register}
                                placeholder='Position in Company(optional)*'
                                name='position'
-                               error={errors?.position?.message}
+                               error={errors?.position}
                                getValues={getValues}
                     />
                 <CheckboxWrap>

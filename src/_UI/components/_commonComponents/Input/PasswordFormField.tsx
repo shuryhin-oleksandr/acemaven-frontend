@@ -28,8 +28,8 @@ const PasswordFormField:React.FC<PropsType> = ({errors, label, ...props}) => {
                            required: 'Field is required'
                        })}
                        placeholder='Password'
-                       name='password'
-                       error={errors?.password?.message}
+                       name={props.name}
+                       error={errors?.name?.message}
                        getValues={props.getValues}
                        type={props.showPassword ? 'text' : 'password'}
                        onChange={(e) => props.onChange && props.onChange(e.currentTarget)}

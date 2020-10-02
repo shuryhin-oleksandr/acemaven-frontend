@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import close_icon from "../../assets/icons/close-icon.svg";
 
 const RegisterHead = ({ title, buttonText, popupCallback }) => {
   return (
@@ -17,6 +18,7 @@ const Row = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
 `;
 
 const Title = styled.div`
@@ -31,5 +33,6 @@ const RedirectButton = styled.div`
   cursor: pointer;
   color: #828282;
 `;
+
 
 export default RegisterHead;

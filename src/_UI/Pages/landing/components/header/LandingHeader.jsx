@@ -14,16 +14,21 @@ import OutlineButton from "src/_UI/components/_commonComponents/buttons/outline_
 import RouteButton from "../../../../components/_commonComponents/buttons/route_button/RouteButton";
 import SignUpPage from "src/_UI/Pages/SignUpPage";
 import SignInPage from "src/_UI/Pages/SignInPage";
+import {useSelector} from "react-redux";
+import SignUpFinishPopup from "../../../../components/PopUps/sign_up/SignUpFinishPopup";
 
 
 const LandingHeader = () => {
     const [isSignUp, openSignUp] = useState(false)
     const [isSignIn, openSignIn] = useState(false)
+    let finishPopup = useSelector(state => state.auth.finishPopup)
 
     return (
         <Outer>
-            {isSignUp && <SignUpPage openSignUp={openSignUp} openSignIn={openSignIn}/>}
+            {isSignUp && !finishPopup && <SignUpPage openSignUp={openSignUp} openSignIn={openSignIn}/>}
             {isSignIn && <SignInPage openSignIn={openSignIn} openSignUp={openSignUp}/>}
+            {finishPopup && <SignUpFinishPopup openSignUp={openSignUp}/>}
+
             <UpperPart>
                 <LogoWrap><img src={logo} alt=""/></LogoWrap>
                 <ActionsWrapper>

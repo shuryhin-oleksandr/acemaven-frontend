@@ -8,7 +8,7 @@ const ActivateEnd:React.FC = () => {
         <ActivateContainer>
             <ActivateInner>
                 <EndText>New company was registered. Thank You!</EndText>
-                <NavLink style={{textDecoration: "none"}} to='/settings/profile'><EndButton>GOT IT!</EndButton></NavLink>
+                <NavLink style={{textDecoration: "none"}} to='/'><EndButton>GOT IT!</EndButton></NavLink>
             </ActivateInner>
         </ActivateContainer>
     )

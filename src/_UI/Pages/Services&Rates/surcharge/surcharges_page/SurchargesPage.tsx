@@ -125,7 +125,7 @@ const SurchargesPage:React.FC = () => {
                         {rows.map((row) => (
                             <TableRow key={row.shipping_mode}>
                                     <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
-                                        <ModeIcon src={plane_surcharge} alt=""/> {row.shipping_mode}
+                                        <ModeIcon src={plane_surcharge} alt=""/> <SpanMode>{row.shipping_mode}</SpanMode>
                                     </TableCell>
                                 <TableCell className={classes.innerCell} align="left"><span >{row.carrier}</span></TableCell>
                                 <TableCell className={classes.innerCell} align="left">{row.location}</TableCell>
@@ -171,4 +171,12 @@ const SortButton = styled(SearchButton)`
 `
 
 const TemplateIcon = styled(SearchButton)`
+`
+const SpanMode = styled.div`
+transition: .3s;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    transition: .3s;
+  }
 `

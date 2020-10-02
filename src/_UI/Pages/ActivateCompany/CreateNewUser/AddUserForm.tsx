@@ -48,11 +48,12 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                 </Wrapper>
                     <FormField label='Email'
                                inputRef={register({
-                                   required: 'Field is required'
+                                   required: 'Field is required',
+                                   pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                                })}
                                placeholder='Email'
                                name='email'
-                               error={errors?.email?.message}
+                               error={errors?.email}
                                getValues={getValues}
                     />
                 {errorEmployee && <ErrorServerMessage style={{padding: '0'}}>{errorEmployee}</ErrorServerMessage>}

@@ -1,13 +1,28 @@
-import React from "react";
-import {ButtonWrap, Container, TextWrap} from "./sign-up-finish-styles";
-import {NavLink} from "react-router-dom";
+import React, {useCallback} from "react";
+import {ButtonWrap, Container, Inner, TextWrap} from "./sign-up-finish-styles";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../../../_BLL/reducers/authReducer";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 
+type PropsType = {
+    openSignUp: VoidFunctionType
+}
 
-const SignUpFinishPopup:React.FC = () => {
+const SignUpFinishPopup:React.FC<PropsType> = ({openSignUp}) => {
+    let dispatch = useDispatch()
+
+    let closeFinishPopup = useCallback(() => {
+        openSignUp(false)
+        dispatch(authActions.openFinishSignUpPopup(false))
+    }, [])
+
     return (
         <Container>
-            <TextWrap>We will call your contact person soon.</TextWrap>
-            <NavLink to='/' style={{textDecoration: "none"}}><ButtonWrap>GOT IT!</ButtonWrap></NavLink>
+
+            <Inner>
+                <TextWrap>We will call your contact person soon.</TextWrap>
+                <ButtonWrap onClick={() => closeFinishPopup()}>GOT IT!</ButtonWrap>
+            </Inner>
         </Container>
     )
 }

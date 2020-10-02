@@ -85,7 +85,7 @@ const PartTwo = ({ changePage, error }) => {
       />
       <div style={{ width: "100%", marginTop: "-20px", marginBottom: "20px" }}>
         {error && error.phone && (
-          <ErrorServerMessage>{error.phone[0]}</ErrorServerMessage>
+          <ErrorServerMessage>This company phone number ia already exists</ErrorServerMessage>
         )}
         {error && error.tax_id && (
           <ErrorServerMessage>{error.tax_id[0]}</ErrorServerMessage>
@@ -93,6 +93,9 @@ const PartTwo = ({ changePage, error }) => {
         {error && error.master_email && (
           <ErrorServerMessage>{error.master_email[0]}</ErrorServerMessage>
         )}
+          {error && error.master_phone && (
+              <ErrorServerMessage>The contact person's phone number is not valid</ErrorServerMessage>
+          )}
       </div>
       <Row>
         <BaseBackButton

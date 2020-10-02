@@ -9,7 +9,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import { HandlingSurchargeContainer, HandlingTitle } from "../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
-import { BorderSpan } from "./surcharge-style";
+
+import {CurrencyType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
+import FormField from "../../../../../components/_commonComponents/Input/FormField";
+import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 
 
 const useStyles = makeStyles({
@@ -44,18 +48,26 @@ const useStyles = makeStyles({
 });
 
 
-const Additional = () => {
+type PropsType = {
+    setFormMode?: VoidFunctionType
+}
+
+const Additional:React.FC<PropsType> = ({setFormMode}) => {
     const classes = useStyles();
 
-    function createData(name: string, currency: string, charge: string, conditions: string, update_by: string, on: string) {
+    function createData(name: string, currency: CurrencyType[], charge: string, conditions: string, update_by: string, on: string) {
         return { name, currency, charge, conditions, update_by, on};
     }
 
     const rows = [
-        createData('DOCUMENT FEE', '159.0', '6.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020' ),
-        createData('OTHER SURCHARGES (PER CONTAINER)', '237.0', '9.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020'),
-        createData('DANGEROUS CARGO FEE', '262.0', '16.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020'),
-        createData('COLD CARGO CHARGE', '262.0', '16.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020')
+        createData('DOCUMENT FEE', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
+            '6.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020' ),
+        createData('OTHER SURCHARGES (PER CONTAINER)', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
+            '9.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020'),
+        createData('DANGEROUS CARGO FEE', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
+            '16.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020'),
+        createData('COLD CARGO CHARGE', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
+            '16.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020')
     ];
 
     return (
@@ -79,13 +91,18 @@ const Additional = () => {
                                 <TableCell className={classes.innerMainCell}  component="th" scope="row">
                                     {row.name}
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">
-                                   {row.currency}
+                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
+                                    <FormSelect options={row.currency}
+                                                placeholder='Currency'
+                                                maxW='80px'
+                                    />
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">
-                                    <BorderSpan>
-                                        {row.charge}
-                                    </BorderSpan>
+                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
+                                    <FormField name='charge'
+                                               value={row.charge}
+                                               maxW='100px'
+                                    />
+
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">{row.conditions}</TableCell>
                                 <TableCell className={classes.innerCell} align="left">{row.update_by}</TableCell>

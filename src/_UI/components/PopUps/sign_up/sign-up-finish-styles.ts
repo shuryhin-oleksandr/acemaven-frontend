@@ -5,12 +5,21 @@ export const Container = styled.div`
   height: 100%;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 260px;
-  background-color: white;
+  justify-content: center;
+  padding-top: 32px;
+  background-color: rgba(0, 0, 0, .4);
 `
-
+export const Inner = styled.div`
+max-width: 700px;
+width: 100%;
+background-color: white;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 165px 190px 256px;
+max-height: 512px;
+height: 100%;
+`
 export const TextWrap = styled.div`
   font-family: "Helvetica Reg", sans-serif;
   color: #828282;

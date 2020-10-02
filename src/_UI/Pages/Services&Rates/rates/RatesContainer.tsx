@@ -11,7 +11,7 @@ import {
 import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
 import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/optionsButtons/OptionsDirectoryButtons";
 import RegistrationNewRateForm from "./RatesRegistrationForm/RegistrationNewRateForm";
-// import SurchargesPage from "./surcharges_page/SurchargesPage";
+import RatesPage from "./rates_page/SurchargesPage";
 
 const RatesContainer: React.FC = () => {
   const [mode, setMode] = useState("ship");
@@ -41,7 +41,7 @@ const RatesContainer: React.FC = () => {
                 />
               </ActionsWrapper>
             </HeaderOuter>
-            {/*<SurchargesPage />*/}
+            <RatesPage />
           </Container>
         )}
       </Layout>

@@ -10,7 +10,6 @@ import UserManagementContainer from "../_UI/Pages/Profile&Settings/UserManagemen
 import GeneralSettingsContainer from 'src/_UI/Pages/Profile&Settings/GeneralSettings/GeneralSettingsContainer';
 import SurchargesContainer from 'src/_UI/Pages/Services&Rates/surcharge/SurchargesContainer';
 import ActivateEnd from "../_UI/Pages/ActivateCompany/ActivateEnd";
-import SignUpFinishPopup from "../_UI/components/PopUps/sign_up/SignUpFinishPopup";
 import ExactSurchargeContainer from 'src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharge/ExactSurchargeContainer';
 import LandingPage from "../_UI/Pages/landing/LandingPage";
 import RatesContainer from "../_UI/Pages/Services&Rates/rates/RatesContainer";

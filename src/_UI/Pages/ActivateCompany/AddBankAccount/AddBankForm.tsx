@@ -4,17 +4,21 @@ import { IAddNewBank } from "../../../../_BLL/types/addNewUserTypes";
 import { FormWrap, SubmitButton } from "../CreateNewUser/AddUserForm";
 import FormField from "../../../components/_commonComponents/Input/FormField";
 import FormSelect from "../../../components/_commonComponents/select/FormSelect";
-import { useDispatch } from "react-redux";
-import { addBank } from "../../../../_BLL/reducers/employeesAndBanksReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {addBank, companyActions} from "../../../../_BLL/reducers/employeesAndBanksReducer";
+import {AppStateType} from "../../../../_BLL/store";
+import {ErrorServerMessage} from "../../SignInPage";
 
 const AddBankForm: React.FC = () => {
   const { register, handleSubmit, errors, control, getValues } = useForm<
     IAddNewBank
   >();
   const dispatch = useDispatch();
+  const errorBank = useSelector((state:AppStateType) => state.company.addingBankError)
 
   const onSubmit = (values: IAddNewBank) => {
     console.log(values);
+    dispatch(companyActions.setAddingBankError(''))
     dispatch(addBank(values));
   };
 
@@ -66,6 +70,7 @@ const AddBankForm: React.FC = () => {
         getValues={getValues}
         max="50"
       />
+        {errorBank && <ErrorServerMessage>{errorBank}</ErrorServerMessage>}
       <Controller
         name="account_type"
         control={control}

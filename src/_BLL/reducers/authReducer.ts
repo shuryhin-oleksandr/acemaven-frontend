@@ -19,6 +19,7 @@ const initialState: InitialStateType = {
   isFinish: false,
   checkedUser: null,
   finishPopup: false,
+  passwordError: ''
 };
 
 type InitialStateType = {
@@ -32,6 +33,7 @@ type InitialStateType = {
   isFinish: boolean;
   checkedUser: any;
   finishPopup: boolean;
+  passwordError: string
 };
 
 export const authReducer = (
@@ -87,6 +89,12 @@ export const authReducer = (
         finishPopup: action.value,
       };
     }
+    case "SET_PASSWORD_ERROR": {
+      return {
+        ...state,
+        passwordError: action.error
+      }
+    }
     default:
       return state;
   }
@@ -116,6 +124,7 @@ export const authActions = {
     ({ type: "SET_CHECKED_TOKEN_USER", data } as const),
   openFinishSignUpPopup: (value: boolean) =>
     ({ type: "OPEN_FINISH_POPUP", value } as const),
+  setPasswordError: (error: string) => ({type: 'SET_PASSWORD_ERROR', error} as const)
 };
 
 export const signIn = (loginData: ILoginData, history: History) => {
@@ -196,3 +205,23 @@ export const masterAccountSignUp = (
     }
   };
 };
+
+
+export const completeAdditionalUser = (token: string, wholeData: any, history: History) => {
+  return async (dispatch: Dispatch<commonAuthActions>) => {
+    try {
+      debugger
+      dispatch(authActions.setIsLoading(true));
+    let res = await authAPI.signUp(token, wholeData)
+    res.data && localStorage.setItem("access_token", res.data.token);
+    res.data.token && history.push("/");
+    dispatch(authActions.setIsLoading(false));
+  } catch(e) {
+      debugger
+      console.log("error", e.response);
+      dispatch(authActions.setPasswordError(e.response.data.password[0]))
+      /*dispatch(authActions.setCheckTokenError(e.response));*/
+      dispatch(authActions.setIsLoading(false));
+    }
+  }
+}

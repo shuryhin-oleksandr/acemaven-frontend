@@ -105,7 +105,8 @@ const ButtonWrapper = styled.div`
 
 export const ErrorServerMessage = styled.div`
   width: 100%;
-    padding-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     text-align: end;
     
     color: #E76767;

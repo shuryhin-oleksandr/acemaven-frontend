@@ -8,6 +8,9 @@ import FinishFormButtons
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {IAddNewBank} from "../../../../../../_BLL/types/addNewUserTypes";
 import {addBankAccount} from "../../../../../../_BLL/reducers/profileReducer";
+import {ErrorServerMessage} from "../../../../SignInPage";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../../../_BLL/store";
 
 
 
@@ -21,8 +24,9 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
     const onSubmit = (values:IAddNewBank) => {
         console.log(values)
         dispatch && dispatch(addBankAccount( values))
-        setIsAdd && setIsAdd(false)
     }
+
+    const errorBank = useSelector((state: AppStateType) => state.profile.addingBankError)
 
     let options2 = [
         {name: 'Savings', id: 1, value: 'savings'},
@@ -36,7 +40,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        name='bank_name'
                        placeholder='Bank Name'
                        getValues={getValues}
-                       error={errors?.bank_name?.message}
+                       error={errors?.bank_name}
                        inputRef={register({
                            required: 'Field is required'
                        })}
@@ -45,20 +49,29 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        placeholder='0000-0'
                        label='Branch Number'
                        getValues={getValues}
-                       error={errors?.branch?.message}
+                       error={errors?.branch}
                        inputRef={register({
-                           required: 'Field is required'
+                           required: 'Field is required',
+                           maxLength: 6,
+                           minLength: 1,
+                           pattern: /^\d{4}-\d{1}$/,
                        })}
+                       max='6'
             />
             <FormField name='number'
                        placeholder='123990011794763'
                        label='Account Number'
                        getValues={getValues}
-                       error={errors?.number?.message}
+                       error={errors?.number}
                        inputRef={register({
-                           required: 'Field is required'
+                           required: 'Field is required',
+                           pattern: /^\d+$/,
+                           maxLength: 50,
+                           minLength: 1,
                        })}
+                       max='50'
             />
+            {errorBank && <ErrorServerMessage>{errorBank}</ErrorServerMessage>}
             <Controller name='account_type'
                         control={control}
                         defaultValue=''

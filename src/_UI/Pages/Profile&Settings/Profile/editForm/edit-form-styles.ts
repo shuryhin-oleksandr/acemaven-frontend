@@ -36,3 +36,40 @@ export const Role = styled.div<PropsStyle>`
   text-transform: capitalize;
    color: ${({role}) => (role === 'agent') ? '#115B86' : (role === 'billing') ? '#1AB8E6' : 'black'}
 `
+export const ChangeFormWrap = styled.form`
+  max-width: 500px;
+  max-height: 422px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 30;
+  padding: 45px 40px;
+  position: relative;
+`
+export const ActionsButtons = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+export const SuccessMessage = styled.div`
+color: darkgreen;
+font-family: "Helvetica Reg", sans-serif;
+font-size: 14px;
+width: 100%;
+display: flex;
+justify-content: flex-end;
+`
+export const CloseButton = styled.button`
+outline: none;
+background: none;
+border: none;
+position: absolute;
+top: 5%;
+right: 4%;
+
+&:hover {
+  cursor: pointer;
+}
+`

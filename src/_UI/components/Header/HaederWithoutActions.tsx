@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import {getAuthUserInfo} from "../../../_BLL/reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../_BLL/store";
-const user = require('../../../_UI/assets/icons/profile/miniDEfaultPhoto.svg')
+import user from '../../../_UI/assets/icons/profile/miniDEfaultPhoto.svg'
 
 
 const HeaderWithoutActions:React.FC = () => {

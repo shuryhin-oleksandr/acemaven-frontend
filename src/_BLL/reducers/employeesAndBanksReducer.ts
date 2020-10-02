@@ -148,7 +148,7 @@ export const addBank = (data: IAddNewBank) => {
             console.log('B', res.data)
             dispatch(companyActions.setIsLoading(false))
         } catch (e) {
-            console.log('error', e.response)
+            dispatch(companyActions.setAddingBankError(e.response.data.number[0]))
             dispatch(companyActions.setIsLoading(false))
         }
     }

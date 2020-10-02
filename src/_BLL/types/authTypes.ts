@@ -67,7 +67,7 @@ export interface IAuthUserInfo {
     email?: string,
     phone?: string,
     position?: string,
-    photo?: null,
+    photo?: '',
     roles?: string[],
     companies?: userCompaniesType,
     password?: string,

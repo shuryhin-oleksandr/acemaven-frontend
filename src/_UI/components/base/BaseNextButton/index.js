@@ -11,6 +11,7 @@ const BaseNextButton = styled.button`
   color: ${({ textColor }) => (textColor ? textColor : "#FFFFFF")};
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
+  width: 100%;
   max-width: 240px;
   min-width: 115px;
   cursor: pointer;

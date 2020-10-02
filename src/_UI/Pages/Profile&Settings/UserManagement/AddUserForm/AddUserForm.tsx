@@ -37,7 +37,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                            inputRef={register({
                                required: 'Field is required'
                            })}
-                           error={errors?.first_name?.message}
+                           error={errors?.first_name}
                            getValues={getValues}
                 />
                 <FormField name='last_name'
@@ -46,7 +46,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                            inputRef={register({
                                required: 'Field is required'
                            })}
-                           error={errors?.last_name?.message}
+                           error={errors?.last_name}
                            getValues={getValues}
                 />
                 <CheckboxWrap>
@@ -95,7 +95,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                            inputRef={register({
                                required: 'Field is required'
                            })}
-                           error={errors?.email?.message}
+                           error={errors?.email}
                            getValues={getValues}
                 />
             </FormWrap>

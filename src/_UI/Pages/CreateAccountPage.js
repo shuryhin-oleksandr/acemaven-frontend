@@ -17,6 +17,7 @@ import { useLocation, withRouter } from "react-router";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
 import { authAPI } from "../../_DAL/API/authAPI";
 import CheckedTokenPopup from "../components/PopUps/checked_token/checkedTokenPopup";
+import {getFilesFormData} from "../../_BLL/helpers/MultipartFormDataHelper";
 
 const ValidationSchema = Yup.object().shape({
   first_name: Yup.string().required("Please, enter your name"),
@@ -47,15 +48,6 @@ const CreateAccountPage = ({ history }) => {
     dispatch(checkToken(location.search.substr(7)));
   }, []);
 
-  const getFilesFormData = (dataFromForm, photo) => {
-    const formData = new FormData();
-    formData.append("photo", photo);
-    Object.keys(dataFromForm).forEach((key) => {
-      formData.append(key, dataFromForm[key]);
-    });
-
-    return formData;
-  };
 
   return (
     <>
@@ -77,7 +69,7 @@ const CreateAccountPage = ({ history }) => {
                     confirm_password: "",
                     phone: "",
                     position: '',
-                    photo: null,
+
                   }}
                   onSubmit={(values, { setSubmitting }) => {
                     let wholeData = getFilesFormData(values, file);

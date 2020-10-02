@@ -44,14 +44,11 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
         }
     }, [setValue, profile])
 
-
-
-
     const onSubmit = (values:IAuthUserInfo) => {
         const wholeData = getFilesFormData(values, fileOne)
 
         dispatch(profileActions.setIsFetching(true))
-        profileSettingsAPI.editProfile(userId as number, wholeData)
+       !isChangeMode && profileSettingsAPI.editProfile(userId as number, wholeData)
             .then((res) => {
                 dispatch(profileActions.setAuthUserInfo(res.data))
                 dispatch(profileActions.setIsFetching(false))
@@ -109,7 +106,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                                    })}
                                    placeholder='Name'
                                    name='first_name'
-                                   error={errors?.first_name?.message}
+                                   error={errors?.first_name}
                                    getValues={getValues}
                         />
                     </InputWrap>
@@ -120,7 +117,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                                    })}
                                    placeholder='Last Name'
                                    name='last_name'
-                                   error={errors?.last_name?.message}
+                                   error={errors?.last_name}
                                    getValues={getValues}
                         />
                     </InputWrap>
@@ -131,7 +128,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                            })}
                            placeholder='Phone Number'
                            name='phone'
-                           error={errors?.phone?.message}
+                           error={errors?.phone}
                            getValues={getValues}
                 />
                 <FormField label='Position in the Company'
@@ -140,7 +137,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                            })}
                            placeholder='Position in the Company'
                            name='position'
-                           error={errors?.position?.message}
+                           error={errors?.position}
                            getValues={getValues}
                 />
                 <ChangePasswordButton type='button' onClick={() => setChangeMode(true)}>CHANGE PASSWORD</ChangePasswordButton>

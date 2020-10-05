@@ -19,7 +19,7 @@ const initialState: InitialStateType = {
   isFinish: false,
   checkedUser: null,
   finishPopup: false,
-  passwordError: ''
+  passwordError: "",
 };
 
 type InitialStateType = {
@@ -33,7 +33,7 @@ type InitialStateType = {
   isFinish: boolean;
   checkedUser: any;
   finishPopup: boolean;
-  passwordError: string
+  passwordError: string;
 };
 
 export const authReducer = (
@@ -92,8 +92,8 @@ export const authReducer = (
     case "SET_PASSWORD_ERROR": {
       return {
         ...state,
-        passwordError: action.error
-      }
+        passwordError: action.error,
+      };
     }
     default:
       return state;
@@ -124,7 +124,8 @@ export const authActions = {
     ({ type: "SET_CHECKED_TOKEN_USER", data } as const),
   openFinishSignUpPopup: (value: boolean) =>
     ({ type: "OPEN_FINISH_POPUP", value } as const),
-  setPasswordError: (error: string) => ({type: 'SET_PASSWORD_ERROR', error} as const)
+  setPasswordError: (error: string) =>
+    ({ type: "SET_PASSWORD_ERROR", error } as const),
 };
 
 export const signIn = (loginData: ILoginData, history: History) => {
@@ -133,7 +134,7 @@ export const signIn = (loginData: ILoginData, history: History) => {
       dispatch(authActions.setIsLoading(true));
       let res = await authAPI.signIn(loginData);
       localStorage.setItem("access_token", res.data.token);
-      dispatch(authActions.setAuth(true))
+      dispatch(authActions.setAuth(true));
       res.data && history.push("/");
       dispatch(authActions.setIsLoading(false));
     } catch (e) {
@@ -198,7 +199,7 @@ export const masterAccountSignUp = (
       dispatch(authActions.setIsLoading(true));
       let res = await authAPI.createMasterAccount(data, token);
       localStorage.setItem("access_token", res.data.token);
-      dispatch(authActions.setAuth(true))
+      dispatch(authActions.setAuth(true));
       res.data && history.push("/create/user");
       dispatch(authActions.setIsLoading(false));
     } catch (e) {
@@ -208,23 +209,34 @@ export const masterAccountSignUp = (
   };
 };
 
-
-export const completeAdditionalUser = (token: string, wholeData: any, history: History) => {
+export const completeAdditionalUser = (
+  token: string,
+  wholeData: any,
+  history: History
+) => {
   return async (dispatch: Dispatch<commonAuthActions>) => {
     try {
-      debugger
+      debugger;
       dispatch(authActions.setIsLoading(true));
-    let res = await authAPI.signUp(token, wholeData)
-    res.data && localStorage.setItem("access_token", res.data.token);
-    dispatch(authActions.setAuth(true))
-    res.data.token && history.push("/");
-    dispatch(authActions.setIsLoading(false));
-  } catch(e) {
-      debugger
+      let res = await authAPI.signUp(token, wholeData);
+      res.data && localStorage.setItem("access_token", res.data.token);
+      dispatch(authActions.setAuth(true));
+      res.data.token && history.push("/");
+      dispatch(authActions.setIsLoading(false));
+    } catch (e) {
+      debugger;
       console.log("error", e.response);
-      dispatch(authActions.setPasswordError(e.response.data.password[0]))
+      dispatch(authActions.setPasswordError(e.response.data.password[0]));
       /*dispatch(authActions.setCheckTokenError(e.response));*/
       dispatch(authActions.setIsLoading(false));
     }
-  }
-}
+  };
+};
+
+export const signOut = (history: History) => {
+  return async (dispatch: Dispatch<commonAuthActions>) => {
+    localStorage.removeItem("access_token");
+    dispatch(authActions.setAuth(false));
+    history.push("/acemaven");
+  };
+};

@@ -17,10 +17,19 @@ import DashboardContainer from "../_UI/Pages/dashboard/DashboardContainer";
 
 
 
-const useRoute = (isAuth: boolean) => {
+const useRoute = () => {
+    let isAuth = localStorage.getItem('access_token')
     if (isAuth) {
         return (
             <Switch>
+                <Route exact component={DashboardContainer} path='/'/>
+                <Route exact component={SurchargesContainer} path='/services/surcharges'/>
+                <Route component={ExactSurchargeContainer} path='/services/surcharges/id'/>
+                <Route exact component={RatesContainer} path='/services/rates'/>
+                <Route component={ProfileContainer} path='/settings/profile'/>
+                <Route component={CompanySettingsContainer} path='/settings/company'/>
+                <Route component={UserManagementContainer} path='/settings/user/management'/>
+                <Route component={GeneralSettingsContainer} path='/settings/general'/>
                 <Redirect to='/'/>
             </Switch>
 
@@ -30,21 +39,11 @@ const useRoute = (isAuth: boolean) => {
             <Switch>
                 <Route component={LandingPage} path='/acemaven'/>
                 <Route component={CreateAccountPage} path='/create-account'/>
-
                 <Route component={AddNewUserContainer} path='/create/user'/>
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
                 <Route component={ActivateEnd} path='/create/finish'/>
                 <Route component={AdditionalUserContainer} path='/additional/user'/>
-
-                <Route exact component={DashboardContainer} path='/'/>
-                <Route exact component={SurchargesContainer} path='/services/surcharges'/>
-                <Route component={ExactSurchargeContainer} path='/services/surcharges/id'/>
-                <Route exact component={RatesContainer} path='/services/rates'/>
-                <Route component={ProfileContainer} path='/settings/profile'/>
-                <Route component={CompanySettingsContainer} path='/settings/company'/>
-                <Route component={UserManagementContainer} path='/settings/user/management'/>
-                <Route component={GeneralSettingsContainer} path='/settings/general'/>
-
+                <Redirect to='/acemaven'/>
             </Switch>
         )
     }

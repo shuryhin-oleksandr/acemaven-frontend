@@ -11,7 +11,9 @@ import TableBody from "@material-ui/core/TableBody";
 import plane_surcharge from '../../../../assets/icons/rates&services/plane-surcharge.svg'
 import sort_arrows from '../../../../assets/icons/rates&services/sort_arrows.svg'
 import search_icon from '../../../../assets/icons/rates&services/search_loop.svg'
-import HoverMessageTemplate from "../../../../components/_commonComponents/hover_message/HoverMessageTemplate";
+import {TemplateIcon} from "../../../../components/_commonComponents/hover_message/hover-message-styles";
+import template_icon from "../../../../assets/icons/rates&services/template.svg";
+import {Tooltip} from "@material-ui/core";
 
 const useStyles = makeStyles({
     container: {
@@ -57,7 +59,17 @@ const useStyles = makeStyles({
         color: '#1B1B25',
         height: '72px',
         padding: '0',
-    }
+    },
+    customTooltip: {
+        maxWidth: 330,
+        height: 60,
+        fontFamily: 'Helvetica Reg',
+        fontSize: '14px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '15px'
+    },
 });
 
 const SurchargesPage:React.FC = () => {
@@ -133,7 +145,14 @@ const SurchargesPage:React.FC = () => {
                                 <TableCell className={classes.innerCell} align="left">
                                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                        {row.exp_date}
-                                      <HoverMessageTemplate />
+                                       <Tooltip title='Use this registry as a template for a new rate, with the same values and parameters.'
+                                                arrow
+                                                classes={{ tooltip: classes.customTooltip }}
+                                       >
+                                           <TemplateIcon>
+                                               <img src={template_icon} alt="" />
+                                           </TemplateIcon>
+                                       </Tooltip>
                                    </div>
                                 </TableCell>
                             </TableRow>

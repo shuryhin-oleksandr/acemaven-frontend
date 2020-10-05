@@ -133,6 +133,7 @@ export const signIn = (loginData: ILoginData, history: History) => {
       dispatch(authActions.setIsLoading(true));
       let res = await authAPI.signIn(loginData);
       localStorage.setItem("access_token", res.data.token);
+      dispatch(authActions.setAuth(true))
       res.data && history.push("/");
       dispatch(authActions.setIsLoading(false));
     } catch (e) {
@@ -197,6 +198,7 @@ export const masterAccountSignUp = (
       dispatch(authActions.setIsLoading(true));
       let res = await authAPI.createMasterAccount(data, token);
       localStorage.setItem("access_token", res.data.token);
+      dispatch(authActions.setAuth(true))
       res.data && history.push("/create/user");
       dispatch(authActions.setIsLoading(false));
     } catch (e) {
@@ -214,6 +216,7 @@ export const completeAdditionalUser = (token: string, wholeData: any, history: H
       dispatch(authActions.setIsLoading(true));
     let res = await authAPI.signUp(token, wholeData)
     res.data && localStorage.setItem("access_token", res.data.token);
+    dispatch(authActions.setAuth(true))
     res.data.token && history.push("/");
     dispatch(authActions.setIsLoading(false));
   } catch(e) {

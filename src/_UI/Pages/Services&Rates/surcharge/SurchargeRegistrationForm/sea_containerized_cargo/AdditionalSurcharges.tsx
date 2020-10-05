@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+import {AdditionalSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 
 const useStyles = makeStyles({
@@ -41,20 +42,21 @@ const useStyles = makeStyles({
     }
 });
 
+type PropsType = {
+    additionals?: AdditionalSurchargeType[] | null
+}
 
-const AdditionalSurcharges = () => {
+const AdditionalSurcharges:React.FC<PropsType> = ({additionals}) => {
     const classes = useStyles();
 
-    function createData(name: string, currency: string, charge: string) {
+    function createData(name: string, currency: string, charge: number) {
         return { name, currency, charge};
     }
 
-    const rows = [
-        createData('DOCUMENT FEE', '159.0', '6.0 $' ),
-        createData('OTHER SURCHARGES (PER CONTAINER)', '237.0', '9.0 $'),
-        createData('DANGEROUS CARGO FEE', '262.0', '16.0 $' ),
-        createData('COLD CARGO CHARGE', '262.0', '16.0 $' )
-    ];
+    let rows = (additionals && additionals?.length > 0)
+        ?  additionals?.map((a) => createData(a?.title, '', 0))
+        : null
+
 
     return (
         <HandlingSurchargeContainer>
@@ -69,7 +71,7 @@ const AdditionalSurcharges = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {rows?.map((row) => (
                             <TableRow key={row.name}>
                                 <TableCell className={classes.innerMainCell}  component="th" scope="row">
                                     {row.name}

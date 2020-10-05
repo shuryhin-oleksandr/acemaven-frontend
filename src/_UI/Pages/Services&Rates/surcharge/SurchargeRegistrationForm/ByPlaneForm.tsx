@@ -1,25 +1,25 @@
 import React from 'react';
 import {Controller, useForm} from "react-hook-form";
 import {FormWrap, GroupWrap} from "./form-styles";
-import FormSelect from "../../../../components/_commonComponents/select/FormSelect";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
+import {CarrierType, ShippingModeType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
 
-const ByPlaneForm = () => {
+type PropsType = {
+    shipping_modes: ShippingModeType[] | null,
+    air_carriers: CarrierType[] | null
+}
+
+const ByPlaneForm:React.FC<PropsType> = ({shipping_modes, ...props}) => {
     const {register, control, errors, handleSubmit, getValues} = useForm()
     const onSubmit = (values: any) => {
         console.log(values)
     }
 
     let carriers = [
-        {name: '1', value: '1'},
-        {nam: '2', value: '2'}
+        {title: 'Import', id: 'Import'},
+        {title: 'Export', id: 'Export'}
     ]
-
-    let shippingModes = [
-        {name: 'ULD Cargo', value: 'ULD'},
-        {name: 'Loose Cargo', value: 'Loose Cargo'}
-    ]
-
 
     return (
         <FormWrap onSubmit={handleSubmit(onSubmit)}>
@@ -28,8 +28,8 @@ const ByPlaneForm = () => {
                             control={control}
                             defaultValue=''
                             as={
-                                <FormSelect label='Carrier'
-                                            options={carriers}
+                                <SurchargeRateSelect label='Carrier'
+                                            options={props.air_carriers}
                                 />
                             }
                 />
@@ -37,7 +37,7 @@ const ByPlaneForm = () => {
                             control={control}
                             defaultValue=''
                             as={
-                                <FormSelect label='Direction'
+                                <SurchargeRateSelect label='Direction'
                                             options={carriers}
                                 />
                             }
@@ -46,8 +46,8 @@ const ByPlaneForm = () => {
                             control={control}
                             defaultValue=''
                             as={
-                                <FormSelect label='Shipping Mode'
-                                            options={shippingModes}
+                                <SurchargeRateSelect label='Shipping Mode'
+                                            options={shipping_modes}
                                 />
                             }
                 />
@@ -57,7 +57,7 @@ const ByPlaneForm = () => {
                             control={control}
                             defaultValue=''
                             as={
-                                <FormSelect label='Location'
+                                <SurchargeRateSelect label='Location'
                                             options={carriers}
                                 />
                             }

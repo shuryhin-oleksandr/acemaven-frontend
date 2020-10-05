@@ -93,6 +93,7 @@ export const OptionButtonPlane = styled.div<PropsStyle>`
 
 export const FormWrap = styled.form`
 display: flex;
+flex-direction: column;
 margin-bottom: 20px;
 `
 export const GroupWrap = styled.div`

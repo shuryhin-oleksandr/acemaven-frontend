@@ -12,36 +12,36 @@ export const profileSettingsAPI = {
            )
     },
     getCompanyInfo (companyId: number) {
-        return instance.get(`/company/${companyId}`)
+        return instance.get(`/core/company/${companyId}`)
     },
     editCompanyInfoData (companyId: number, data: CompanyInfoType) {
-        return instance.patch(`/company/${companyId}/`, data)
+        return instance.patch(`/core/company/${companyId}/`, data)
     },
     getBanksList () {
-        return instance.get(`/bank-account/`)
+        return instance.get(`/core/bank-account/`)
     },
     addNewBank (bankData: IAddNewBank) {
-        return instance.post(`/bank-account/`, bankData)
+        return instance.post(`/core/bank-account/`, bankData)
     },
    defaultBank (bankId: number, changes: any) {
-        return instance.patch(`/bank-account/${bankId}/`, changes)
+        return instance.patch(`/core/bank-account/${bankId}/`, changes)
     },
     deleteBank (bankId: number) {
-        return instance.delete(`/bank-account/${bankId}/`)
+        return instance.delete(`/core/bank-account/${bankId}/`)
     },
     getWorkersList () {
-        return instance.get(`/user/`)
+        return instance.get(`/core/user/`)
     },
     addNewWorker (workerInfo: any) {
-        return instance.post(`/user/`, workerInfo)
+        return instance.post(`/core/user/`, workerInfo)
     },
     editWorker (workerId: number, workerInfo: IAddNewUserData) {
-        return instance.patch(`/user/${workerId}/`, workerInfo)
+        return instance.patch(`/core/user/${workerId}/`, workerInfo)
     },
     deleteWorker (workerId: number) {
-        return instance.delete(`/user/${workerId}/`)
+        return instance.delete(`/core/user/${workerId}/`)
     },
     changePassword (data: any) {
-        return instance.post('/password-change/', data)
+        return instance.post('/core/password-change/', data)
     }
 }

@@ -5,42 +5,42 @@ import axios from 'axios'
 
 export const authAPI = {
     signIn (loginData: ILoginData) {
-        return instance.post('/sign-in/', loginData)
+        return instance.post('/core/sign-in/', loginData)
     },
     getAuthUser () {
-        return instance.get(`/me/`) // is company activated, photo, email & etc.
+        return instance.get(`/core/me/`) // is company activated, photo, email & etc.
     },
     signUpCompany (formData: ICompanySignUpData) {
-        return instance.post('/company-sign-up/', formData )
+        return instance.post('/core/company-sign-up/', formData )
     },
     verifyToken (token: string) {
-        return instance.get(`/signup-check/?token=${token}`)
+        return instance.get(`/core/signup-check/?token=${token}`)
     },
     signUp (token: string, formData:any) {
         return axios.post(`http://192.168.1.69:8000/api/v1/core/signup/?token=${token}`, formData )
     },
     createMasterAccount (masterData: IMasterAccountData, token: string) {
-        return instance.post(`/signup/?token=${token}`, masterData)
+        return instance.post(`/core/signup/?token=${token}`, masterData)
     },
     getEmployeesList () {
-        return instance.get('/user')
+        return instance.get('/core/user')
     },
     addEmployee (employeeData: IAddNewUserData) {
-        return instance.post('/user/', employeeData)
+        return instance.post('/core/user/', employeeData)
     },
     deleteEmployer (id:number) {
-        return instance.delete(`/user/${id}`)
+        return instance.delete(`/core/user/${id}`)
     },
     getBanksAccountsList () {
-        return instance.get('/bank-account/')
+        return instance.get('/core/bank-account/')
     },
     addBankAccount (bankData: any) {
-        return instance.post('/bank-account/', bankData)
+        return instance.post('/core/bank-account/', bankData)
     },
     setToDefaultBank (id: number, changes: any) {
-        return instance.patch(`/bank-account/${id}/`, changes)
+        return instance.patch(`/core/bank-account/${id}/`, changes)
     },
     deleteBank (id: number) {
-        return instance.delete(`/bank-account/${id}`)
+        return instance.delete(`/core/bank-account/${id}`)
     }
 }

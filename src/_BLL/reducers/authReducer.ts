@@ -235,8 +235,8 @@ export const completeAdditionalUser = (
 
 export const signOut = (history: History) => {
   return async (dispatch: Dispatch<commonAuthActions>) => {
-    localStorage.removeItem("access_token");
-    dispatch(authActions.setAuth(false));
-    history.push("/acemaven");
+    dispatch(authActions.setAuth(false)) &&  history.push("/acemaven");
+    localStorage.removeItem("access_token")
+
   };
 };

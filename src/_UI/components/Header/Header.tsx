@@ -32,6 +32,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    
   },
 });
 
@@ -96,7 +97,7 @@ const StyledUl = styled.ul`
 `;
 
 const StyledTooltipItem = styled.li`
-  font-family: "Helvetica Bold", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   cursor: pointer;
   font-size: 18px;
   line-height: 21px;

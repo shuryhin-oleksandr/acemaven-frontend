@@ -8,13 +8,16 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 const useStyles = makeStyles({
     container: {
-        boxShadow: 'none'
+        boxShadow: 'none',
+        height: 291,
+        overflowY: 'scroll'
     },
     table: {
-        minWidth: 479,
+        minWidth: 495,
         '& .MuiTableHead-root' : {
             borderBottom: '2px solid #115B86'
         }
@@ -32,19 +35,26 @@ const useStyles = makeStyles({
     }
 });
 
+type PropsType = {
+    containers?: ContainerType[] | null
+}
 
-const Handling:React.FC = () => {
+const Handling:React.FC<PropsType> = ({containers}) => {
     const classes = useStyles();
 
-    function createData(container_type: string, currency: string, charge: string) {
+    function createData(container_type: string, currency: string, charge: number) {
         return { container_type, currency, charge};
     }
 
-    const rows = [
+   /* const rows = [
         createData('Type 1', '159.0', '6.0 $' ),
         createData('Type2', '237.0', '9.0 $'),
         createData('Type3', '262.0', '16.0 $' )
-    ];
+    ];*/
+
+    let rows = (containers && containers?.length > 0)
+        ?  containers?.map((c) => createData(c?.code, '', 0))
+        : null
 
     return (
         <HandlingSurchargeContainer>
@@ -59,7 +69,7 @@ const Handling:React.FC = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {rows?.map((row) => (
                             <TableRow key={row.container_type}>
                                 <TableCell className={classes.innerCell}  component="th" scope="row">
                                     {row.container_type}

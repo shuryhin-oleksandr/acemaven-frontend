@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {ActionsWrapper, FormTitle, HeaderWrapper, Outer, RegisterButton, UnderTitle} from "./form-styles";
 import OptionsDeliveryButtons from "src/_UI/components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
-
 import ByPlaneForm from "./ByPlaneForm";
 import CancelButton from "src/_UI/components/_commonComponents/buttons/navFormButtons/CancelButton";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import ByShipForm from "./ByShipForm";
-import ULD_CargoForm from "./ULD_cargo/ULD_CargoForm";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCarriers,
+    getShippingModes,
+    getShippingTypes
+} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {AppStateType} from "../../../../../_BLL/store";
+
 
 type PropsType = {
     setNewSurchargeMode: VoidFunctionType
@@ -14,8 +20,21 @@ type PropsType = {
 
 const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
     const [mode, setMode] = useState('ship')
-    const [shippingValue, setShippingValue] = useState('')
+    const [shippingValue, setShippingValue] = useState(0)
     console.log(shippingValue)
+    const dispatch = useDispatch()
+    const shipping_types = useSelector((state: AppStateType) => state.surcharge.shipping_type)
+    const sea_carriers = useSelector((state: AppStateType) => state.surcharge.sea_carriers)
+    const air_carriers = useSelector((state: AppStateType) => state.surcharge.air_carriers)
+
+
+
+
+    useEffect(() => {
+        dispatch(getShippingTypes())
+        dispatch(getCarriers())
+        dispatch(getShippingModes())
+    }, [dispatch])
 
     return (
         <Outer>
@@ -29,13 +48,16 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
             <OptionsDeliveryButtons mode={mode} setMode={setMode}/>
             {
                 mode === 'ship'
-                ? <ByShipForm setShippingValue={setShippingValue}/>
-                : <ByPlaneForm />
+                ? <ByShipForm shipping_modes={shipping_types && shipping_types[1]?.shipping_modes}
+                              setShippingValue={setShippingValue}
+                              shippingValue={shippingValue}
+                              sea_carriers={sea_carriers}
+                    />
+                : <ByPlaneForm shipping_modes={shipping_types && shipping_types[0]?.shipping_modes}
+                                air_carriers={air_carriers}
+                    />
             }
-            {!shippingValue
-            ? <UnderTitle>Please, complete the parameters of the surcharge for the value fields to appear</UnderTitle>
-                : <ULD_CargoForm />
-            }
+
 
             {/*<Loose_CargoForm />*/}
 

@@ -16,9 +16,8 @@ import RatesContainer from "../_UI/Pages/Services&Rates/rates/RatesContainer";
 import DashboardContainer from "../_UI/Pages/dashboard/DashboardContainer";
 
 
+const useRoute = (isAuth: boolean) => {
 
-const useRoute = () => {
-    let isAuth = localStorage.getItem('access_token')
     if (isAuth) {
         return (
             <Switch>

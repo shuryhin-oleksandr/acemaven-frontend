@@ -17,11 +17,13 @@ interface IProps {
 const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
 
     const dispatch = useDispatch()
-    const {register, handleSubmit, errors, getValues} = useForm<IAddNewUserData>()
+    const {register, handleSubmit, errors, getValues, reset} = useForm<IAddNewUserData>()
     const onSubmit = (values: IAddNewUserData) => {
         console.log(values)
         dispatch(addEmployee(values))
+       /* !errorEmployee && reset(values)*/
     }
+
     const [roleValue, setRole] = useState('')
 
     return (

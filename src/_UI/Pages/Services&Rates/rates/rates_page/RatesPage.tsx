@@ -57,6 +57,16 @@ const useStyles = makeStyles({
     height: "72px",
     padding: "0",
   },
+  customTooltip: {
+    maxWidth: 330,
+    height: 60,
+    fontFamily: 'Helvetica Reg',
+    fontSize: '14px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '15px'
+  },
 });
 
 const RatesPage: React.FC = () => {
@@ -194,6 +204,7 @@ const RatesPage: React.FC = () => {
                     <Tooltip
                       arrow
                       title="Rates can be paused or reactivated using this button."
+                      classes={{ tooltip: classes.customTooltip }}
                     >
                       <TemplateIcon>
                         <img src={pause_icon} alt="" />
@@ -202,6 +213,7 @@ const RatesPage: React.FC = () => {
                     <Tooltip
                       arrow
                       title="Use this registry as a template for a new rate, with the same values and parameters."
+                      classes={{ tooltip: classes.customTooltip }}
                     >
                       <TemplateIcon>
                         <img src={template_icon} alt="" />

@@ -19,8 +19,6 @@ max-width: 230px;
 width: 100%;
 min-width: 210px;
 background-color: black;
-height: 100%;
-min-height: 100vh;
 flex-grow: 1;
 display: flex;
 flex-direction: column;
@@ -51,7 +49,6 @@ export const LinkWrap = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 60px;
-  height: 100%;
    &:hover {
      cursor:pointer;
    }
@@ -93,7 +90,6 @@ export const NestedWrap = styled.div`
   align-items: flex-end;
   justify-content: center;
   min-height: 50px;
-  height: 100%;
 
   a {
     width: 100%;

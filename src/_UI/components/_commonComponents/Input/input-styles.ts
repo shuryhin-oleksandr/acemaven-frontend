@@ -14,7 +14,8 @@ type PropsStyle = {
   error?: string;
   maxW?: string;
   focusBack?: string;
-  height?: string
+  height?: string;
+  marginBottom?: string
 };
 
 export const InputOuter = styled.div<PropsStyle>`
@@ -22,7 +23,7 @@ export const InputOuter = styled.div<PropsStyle>`
   flex-direction: column;
   width: 100%;
   max-width: ${({ maxW }) => (maxW ? maxW : "100%")};
-  margin-bottom: 15px;
+  margin-bottom: ${({marginBottom}) => marginBottom ? marginBottom : '15px'};
 `;
 export const Field = styled.input<PropsStyle>`
   padding: 10px;

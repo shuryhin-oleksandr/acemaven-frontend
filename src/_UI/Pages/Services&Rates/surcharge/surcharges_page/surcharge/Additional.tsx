@@ -9,8 +9,6 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import { HandlingSurchargeContainer, HandlingTitle } from "../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
-
-import {CurrencyType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
@@ -55,7 +53,7 @@ type PropsType = {
 const Additional:React.FC<PropsType> = ({setFormMode}) => {
     const classes = useStyles();
 
-    function createData(name: string, currency: CurrencyType[], charge: string, conditions: string, update_by: string, on: string) {
+    function createData(name: string, currency: any, charge: string, conditions: string, update_by: string, on: string) {
         return { name, currency, charge, conditions, update_by, on};
     }
 

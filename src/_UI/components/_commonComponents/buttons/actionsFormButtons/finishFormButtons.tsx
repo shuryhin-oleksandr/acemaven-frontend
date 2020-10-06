@@ -30,6 +30,7 @@ export const DoneButton = styled.button`
 background: none;
 outline: none;
 border: none;
+
  &:hover {
   cursor: pointer
  }
@@ -38,6 +39,7 @@ export const CloseButton = styled.button`
 background: none;
 outline: none;
 border: none;
+padding-right: 0;
 
 &:hover {
   cursor: pointer

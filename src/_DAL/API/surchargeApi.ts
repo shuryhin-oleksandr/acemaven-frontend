@@ -12,5 +12,8 @@ export const surchargeAPI = {
     },
     getShippingTypesList () {
         return instance.get('/handling/shipping-type/')
+    },
+    getCurrencyList () {
+        return instance.get('/handling/currency/')
     }
 }

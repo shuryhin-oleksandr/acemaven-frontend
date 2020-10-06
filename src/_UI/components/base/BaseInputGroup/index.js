@@ -59,7 +59,7 @@ const Label = styled.label`
 const Error = styled.div`
   position: absolute;
   right: 0;
-  margin-top: 5px;
+  margin-top: 3px;
   font-family: "Helvetica Bold", sans-serif;
   font-size: 14px;
   color: #e76767;

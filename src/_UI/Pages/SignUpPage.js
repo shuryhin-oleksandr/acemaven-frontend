@@ -9,7 +9,6 @@ import PartOne from "../components/SignUpFormParts/PartOne";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { companySignUp } from "../../_BLL/reducers/authReducer";
-import SignUpFinishPopup from "../components/PopUps/sign_up/SignUpFinishPopup";
 
 const AgentValidationSchema = Yup.object().shape({
   name: Yup.string().required("Please, enter your company name"),

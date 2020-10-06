@@ -8,12 +8,15 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {ContainerType, CurrencyType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import FormField from "../../../../../components/_commonComponents/Input/FormField";
+import {Controller} from "react-hook-form";
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        height: 291,
+        height: 270,
         overflowY: 'scroll'
     },
     table: {
@@ -25,35 +28,38 @@ const useStyles = makeStyles({
     cell: {
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
-        fontSize: '16px'
+        fontSize: '16px',
+
     },
     innerCell: {
         borderBottom: 'none',
         fontFamily: 'Helvetica Thin',
         fontSize: '16px',
-        color: '#1B1B25'
+        color: '#1B1B25',
+        padding: ' 0'
     }
 });
 
 type PropsType = {
-    containers?: ContainerType[] | null
+    containers?: ContainerType[] | null,
+    control?: any,
+    register?: any,
+    currency_list: CurrencyType[] | null,
 }
 
-const Handling:React.FC<PropsType> = ({containers}) => {
+const Handling:React.FC<PropsType> = ({containers, ...props}) => {
     const classes = useStyles();
 
-    function createData(container_type: string, currency: string, charge: number) {
+
+    function createData(container_type: string, currency: CurrencyType[], charge: number) {
         return { container_type, currency, charge};
     }
 
-   /* const rows = [
-        createData('Type 1', '159.0', '6.0 $' ),
-        createData('Type2', '237.0', '9.0 $'),
-        createData('Type3', '262.0', '16.0 $' )
-    ];*/
 
     let rows = (containers && containers?.length > 0)
-        ?  containers?.map((c) => createData(c?.code, '', 0))
+        ?  containers?.map((c) => createData(c?.code,
+            [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
+            0))
         : null
 
     return (
@@ -74,8 +80,25 @@ const Handling:React.FC<PropsType> = ({containers}) => {
                                 <TableCell className={classes.innerCell}  component="th" scope="row">
                                     {row.container_type}
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.currency}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.charge}</TableCell>
+                                <TableCell className={classes.innerCell} align="left">
+                                    <Controller name='currency'
+                                                control={props.control}
+                                                defaultValue={row.currency[0].id}
+                                                as={
+                                                    <SurchargeRateSelect options={row.currency}
+                                                             placeholder='Currency'
+                                                             maxW='80px'
+                                                    />
+                                                    }
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.innerCell} align="left">
+                                   <FormField name='charge'
+                                              inputRef={props.register}
+                                              maxW='100px'
+                                              marginBottom='0'
+                                   />
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

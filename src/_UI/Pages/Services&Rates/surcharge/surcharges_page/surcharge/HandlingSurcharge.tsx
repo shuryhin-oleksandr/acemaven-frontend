@@ -13,7 +13,6 @@ import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
 import FormField from "src/_UI/components/_commonComponents/Input/FormField";
-import {CurrencyType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 
 const useStyles = makeStyles({
@@ -51,7 +50,7 @@ type PropsType = {
 const HandlingSurcharge:React.FC<PropsType> = ({setFormMode}) => {
     const classes = useStyles();
 
-    function createData(container_type: string, currency: CurrencyType[], charge: string, update_by: string, on: string) {
+    function createData(container_type: string, currency: any, charge: string, update_by: string, on: string) {
         return { container_type, currency, charge, update_by, on};
     }
 

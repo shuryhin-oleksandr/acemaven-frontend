@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import FormField from 'src/_UI/components/_commonComponents/Input/FormField';
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import {EditCardContainer, FormContainer, PhotoWrap} from "./edit-card-styles";
+import {EditCardContainer, FormContainer, Label, PhotoWrap} from "./edit-card-styles";
 import {useForm} from "react-hook-form";
 import {
     ActionsWrap,
@@ -10,7 +10,6 @@ import {
 import user from '../../../../../_UI/assets/icons/profile/defaultUserPhoto.svg'
 import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 import CustomCheckbox from "../../../../components/_commonComponents/customCheckbox/customCheckbox";
-import styled from "styled-components";
 import {editWorker} from "../../../../../_BLL/reducers/profileReducer";
 import {IAddNewUserData} from "../../../../../_BLL/types/addNewUserTypes";
 import {getColor} from "../../../../../_BLL/helpers/colorWrapMaker";
@@ -132,9 +131,3 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
 }
 
 export default EditUserCardForm
-const Label = styled.div`
-  font-family: "Helvetica Bold", sans-serif;
-  font-size: 14px;
-  color: black;
-  margin-bottom: 10px;
-`

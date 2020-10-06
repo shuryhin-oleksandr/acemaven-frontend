@@ -1,6 +1,6 @@
 // Core
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Field } from "formik";
 
 const BaseFormikRadioButton = ({ label, name, value, formikValues }) => {
@@ -23,6 +23,9 @@ const StyledLabel = styled.label`
   font-weight: ${({ formikValues, value, name }) =>
     formikValues[name] === value ? "400" : "300"};
   display: flex;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  line-height: 16px;
   align-items: center;
 `;
 
@@ -48,6 +51,6 @@ const StyledRadio = styled.div`
 const InnerCircle = styled.div`
   height: 10px;
   width: 10px;
-  border-radius: 5px;
+  border-radius: 30px;
   background-color: #115b86;
 `;

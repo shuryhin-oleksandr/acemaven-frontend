@@ -17,6 +17,7 @@ export const CardWrap = styled.div<PropsStyle>`
   width: 100%;
   max-height: 175px;
   border: 1px solid #ECECEC;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
   position: relative;
   margin-bottom: 20px;
   

@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { VoidFunctionType } from "src/_BLL/types/commonTypes";
+import {Tooltip} from "@material-ui/core";
 
 type IProps = {
     label?: string;
@@ -14,13 +15,13 @@ type IProps = {
     options?: any;
     placeholder?: string;
     callback?: VoidFunctionType;
-    maxW?: string
+    maxW?: string;
 };
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
         width: "100%",
-        marginBottom: "15px"
+        marginBottom: '10px'
     },
     selectEmpty: {
         width: "100%",
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
         fontStyle: "normal",
         transition: ".3",
 
+
         "& .MuiSelect-icon": {
             color: "rgba(0, 0, 0, 0.23)",
         },
@@ -38,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
         "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: "rgba(0, 0, 0, 0.23)",
             borderWidth: "1px",
+            zIndex: 100,
         },
 
         "&.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
@@ -67,6 +70,21 @@ const useStyles = makeStyles((theme) => ({
             color: "red",
         },
     },
+    customTooltip: {
+        "& .MuiTooltip-arrow::before": {
+            backgroundColor: "#FFFFFF",
+            border: "1px solid #828282",
+        },
+        borderRadius: "4px",
+        boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.25)",
+        backgroundColor: "rgba(0, 0, 0, 0.25)",
+        border: "1px solid #828282",
+        padding: "20px 25px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 100000
+    }
 }));
 
 const SurchargeRateSelect: React.FC<IProps> = ({ label, error, ...props }) => {
@@ -97,17 +115,28 @@ const SurchargeRateSelect: React.FC<IProps> = ({ label, error, ...props }) => {
                     variant="outlined"
                     error={!!error}
                 >
-                    <MenuItem value="">
+                    <MenuItem value="" onClick={() => props.callback && props.callback('')}>
                         <em>{label}</em>
                     </MenuItem>
                     {props.options?.map((o: any) => (
-                        <MenuItem
-                            onClick={() => props.callback && props.callback(o.id)}
-                            key={o.id}
-                            value={o.id}
-                        >
-                            {o.title}
-                        </MenuItem>
+                        (o.tooltip
+                            ? (<Tooltip title={o.tooltip} arrow classes={{ tooltip: classes.customTooltip }}>
+                            <MenuItem
+                                onClick={() => props.callback && props.callback(o.id)}
+                                key={o.id}
+                                value={o.id}
+                            >
+                                {o.title ? o.title : o.code}
+                            </MenuItem>
+                        </Tooltip>)
+                            :  <MenuItem
+                                onClick={() => props.callback && props.callback(o.id)}
+                                key={o.id}
+                                value={o.id}
+                            >
+                                {o.title ? o.title : o.code}
+                            </MenuItem>)
+
                     ))}
                 </Select>
                 <FormHelperText className={classes.helperText} error={!!error}>

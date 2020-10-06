@@ -1,9 +1,9 @@
 import React from 'react'
-import {Controller, useForm} from "react-hook-form";
+import {Controller} from "react-hook-form";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 import {FormWrap, GroupWrap, UnderTitle} from "./form-styles";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import {CarrierType, ShippingModeType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {CarrierType, CurrencyType, ShippingModeType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
 import SeaCargoForm from "./sea_containerized_cargo/SeaCargoForm";
 
@@ -11,28 +11,30 @@ type PropsType = {
     setShippingValue: VoidFunctionType,
     shipping_modes: ShippingModeType[] | null,
     sea_carriers: CarrierType[] | null,
-    shippingValue: number
+    currency_list: CurrencyType[] | null,
+    shippingValue: number,
+    control?: any,
+    register?: any,
+    errors?: any,
+    getValues?: any,
 }
 
 const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_carriers, ...props}) => {
-    const {register, control, errors, handleSubmit, getValues} = useForm()
-    const onSubmit = (values: any) => {
-        console.log(values)
-    }
+
 
     let carriers = [
         {title: 'Import', id: 'Import'},
         {title: 'Export', id: 'Export'}
     ]
     let ship_mode = shipping_modes? shipping_modes.find(s => s.id === Number(props.shippingValue)) : null
-    console.log('choise', ship_mode)
+    console.log('ship_mode', ship_mode)
 
     return (
-        <FormWrap onSubmit={handleSubmit(onSubmit)}>
+        <FormWrap >
             <div style={{display: 'flex', width: '100%'}}>
                 <GroupWrap>
                     <Controller name='carrier'
-                                control={control}
+                                control={props.control}
                                 defaultValue=''
                                 as={
                                     <SurchargeRateSelect label='Carrier'
@@ -41,7 +43,7 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
                                 }
                     />
                     <Controller name='direction'
-                                control={control}
+                                control={props.control}
                                 defaultValue=''
                                 as={
                                     <SurchargeRateSelect label='Direction'
@@ -51,7 +53,7 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
                                 }
                     />
                     <Controller name='shipping_mode'
-                                control={control}
+                                control={props.control}
                                 defaultValue=''
                                 as={
                                     <SurchargeRateSelect label='Shipping Mode'
@@ -63,7 +65,7 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
                 </GroupWrap>
                 <GroupWrap>
                     <Controller name='location'
-                                control={control}
+                                control={props.control}
                                 defaultValue=''
                                 as={
                                     <SurchargeRateSelect label='Location'
@@ -73,28 +75,33 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
                     />
                     <FormField label='Start Date'
                                placeholder='DD/MM/YYYY'
-                               inputRef={register({
+                               inputRef={props.register({
                                    required: 'Field is required'
                                })}
                                name='startDate'
-                               error={errors?.startDate?.message}
-                               getValues={getValues}
+                               error={props.errors?.startDate?.message}
+                               getValues={props.getValues}
                     />
                     <FormField label='Expiration Date'
                                placeholder='DD/MM/YYYY'
-                               inputRef={register({
+                               inputRef={props.register({
                                    required: 'Field is required'
                                })}
                                name='expirationDate'
-                               error={errors?.expirationDate?.message}
-                               getValues={getValues}
+                               error={props.errors?.expirationDate?.message}
+                               getValues={props.getValues}
                     />
                 </GroupWrap>
             </div>
             <>
                 {!props.shippingValue
                     ? <UnderTitle>Please, complete the parameters of the surcharge for the value fields to appear</UnderTitle>
-                    : <SeaCargoForm ship_mode={ship_mode}/>
+                    : <SeaCargoForm control={props.control}
+                                    register={props.register}
+                                    ship_mode={ship_mode}
+                                    currency_list={props.currency_list}
+                                    shipping_value={props.shippingValue}
+                    />
                 }
             </>
         </FormWrap>

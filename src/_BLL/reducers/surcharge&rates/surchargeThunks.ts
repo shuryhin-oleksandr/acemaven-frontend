@@ -52,3 +52,15 @@ export const getShippingTypes = () => {
         }
     }
 }
+
+export const getCurrencyList = () => {
+    return async (dispatch: Dispatch<commonSurchargeActions>) => {
+        try {
+            let res = await surchargeAPI.getCurrencyList()
+            console.log(res.data)
+            dispatch(surchargeActions.setCurrencyList(res.data))
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+}

@@ -1,6 +1,6 @@
 export type CurrencyType = {
-    name: string,
-    value: string
+    id: number,
+    code: string
 }
 export type CarrierType = {
     id: number,

@@ -33,3 +33,10 @@ top: 5%;
     transform: rotate(45deg);
   }
 `
+
+export const Label = styled.div`
+  font-family: "Helvetica Bold", sans-serif;
+  font-size: 14px;
+  color: black;
+  margin-bottom: 10px;
+`

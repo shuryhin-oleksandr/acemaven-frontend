@@ -5,7 +5,7 @@ import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 type PropsType = {
   placeholder?: string;
   name?: string;
-  value?: string;
+  value?: string | number;
   onChange?: VoidFunctionType;
   inputRef?: React.Ref<HTMLInputElement>;
   error?: any;
@@ -16,13 +16,14 @@ type PropsType = {
   maxW?: string;
   focusBack?: string;
   height?: string;
-  onBlur?: VoidFunctionType
+  onBlur?: VoidFunctionType;
+  marginBottom?: string
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
 
   return (
-    <InputOuter maxW={props.maxW}>
+    <InputOuter maxW={props.maxW} marginBottom={props.marginBottom}>
       <Label>{label}</Label>
       <Field
           height={props.height}

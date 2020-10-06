@@ -1,4 +1,10 @@
-import {CarrierType, PortType, ShippingModeType, ShippingTypeType} from "../../types/rates&surcharges/surchargesTypes";
+import {
+    CarrierType,
+    CurrencyType,
+    PortType,
+    ShippingModeType,
+    ShippingTypeType
+} from "../../types/rates&surcharges/surchargesTypes";
 
 
 const initialState = {
@@ -6,7 +12,8 @@ const initialState = {
     air_carriers: null as CarrierType[] | null,
     shipping_modes: null as ShippingModeType[] | null,
     ports: null as PortType[] | null,
-    shipping_type: null as ShippingTypeType[] | null
+    shipping_type: null as ShippingTypeType[] | null,
+    currency_list: null as CurrencyType[] | null
 }
 
 type InitialStateType = typeof initialState
@@ -38,6 +45,11 @@ export const surchargeReducer = (state = initialState, action: commonSurchargeAc
                 ...state,
                 shipping_type: action.shipping_type
             }
+        case "SET_CURRENCY_LIST":
+            return {
+                ...state,
+                currency_list: action.list
+            }
         default: return state
     }
 }
@@ -50,5 +62,6 @@ export const surchargeActions = {
     setAirCarriersList: (air_carriers: CarrierType[]) => ({type: 'SET_AIR_CARRIERS_LIST', air_carriers} as const),
     setPortsList: (ports: PortType[]) => ({type: 'SET_PORTS_LIST', ports} as const),
     setShippingModeList: (shipping_modes: ShippingModeType[]) => ({type: 'SET_SHIPPING_MODES', shipping_modes} as const),
-    setShippingType: (shipping_type: ShippingTypeType[]) => ({type: 'SET_SHIPPING_TYPE', shipping_type} as const)
+    setShippingType: (shipping_type: ShippingTypeType[]) => ({type: 'SET_SHIPPING_TYPE', shipping_type} as const),
+    setCurrencyList: (list: CurrencyType[]) => ({type: 'SET_CURRENCY_LIST', list} as const)
 }

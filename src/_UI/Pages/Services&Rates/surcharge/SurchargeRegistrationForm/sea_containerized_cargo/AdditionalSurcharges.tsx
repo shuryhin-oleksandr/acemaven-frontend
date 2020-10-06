@@ -8,15 +8,19 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import {AdditionalSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {AdditionalSurchargeType, CurrencyType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import {Controller} from "react-hook-form";
+import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
 
 
 const useStyles = makeStyles({
     container: {
-        boxShadow: 'none'
+        boxShadow: 'none',
+        width: 479
     },
     table: {
-        minWidth: 479,
+
         '& .MuiTableHead-root' : {
 
         }
@@ -25,36 +29,49 @@ const useStyles = makeStyles({
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
-        borderBottom: '1px solid #115B86'
+        borderBottom: '1px solid #115B86',
+
+
     },
     innerMainCell: {
         borderBottom: '1px solid #E0E0E0;',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         color: '#115B86',
-        width: '213px'
+        width: '213px',
+        padding: '8px 0 0'
     },
     innerCell: {
         borderBottom: '1px solid #E0E0E0;',
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
-        color: '#1B1B25'
+        color: '#1B1B25',
+        padding: '8px 0 0'
     }
 });
 
 type PropsType = {
-    additionals?: AdditionalSurchargeType[] | null
+    additionals?: AdditionalSurchargeType[] | null,
+    control?: any,
+    register?: any,
+    currency_list: CurrencyType[] | null
 }
 
-const AdditionalSurcharges:React.FC<PropsType> = ({additionals}) => {
+const AdditionalSurcharges:React.FC<PropsType> = ({additionals, ...props}) => {
     const classes = useStyles();
 
-    function createData(name: string, currency: string, charge: number) {
+    function createData(name: FeeType, currency: CurrencyType[], charge: number) {
         return { name, currency, charge};
     }
 
+    type FeeType = {
+        id: number,
+        title: string
+    }
+
     let rows = (additionals && additionals?.length > 0)
-        ?  additionals?.map((a) => createData(a?.title, '', 0))
+        ?  additionals?.map((a) => createData({id: a.id, title: a?.title},
+            [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}], 0))
         : null
 
 
@@ -72,12 +89,32 @@ const AdditionalSurcharges:React.FC<PropsType> = ({additionals}) => {
                     </TableHead>
                     <TableBody>
                         {rows?.map((row) => (
-                            <TableRow key={row.name}>
+                            <TableRow key={row.name.id}>
                                 <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                                    {row.name}
+                                    {row.name.title}
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.currency}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.charge}</TableCell>
+                                <TableCell className={classes.innerCell} align="left">
+                                    <Controller control={props.control}
+                                                name={`additional_surcharges[${row.name.id}.currency]`}
+                                                defaultValue={row.currency[0].id}
+                                                as={
+                                                    <SurchargeRateSelect options={row.currency}
+                                                                         placeholder='Currency'
+                                                                         maxW='80px'
+                                                    />
+                                                }
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.innerCell} align="left">
+                                    <Controller name={`additional_surcharges[${row.name.id}.charge]`}
+                                                control={props.control}
+                                                defaultValue={row.charge}
+                                                as={
+                                                    <Field/>
+                                                }
+                                    />
+
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

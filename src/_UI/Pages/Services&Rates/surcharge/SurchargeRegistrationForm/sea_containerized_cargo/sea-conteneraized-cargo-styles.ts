@@ -5,7 +5,7 @@ type PropsStyle = {
 }
 
 export const SeaContainer = styled.div<PropsStyle>`
-  max-width: ${({minWidth}) => minWidth ? minWidth : '479px'};
+  max-width: ${({minWidth}) => minWidth ? minWidth : '610px'};
   width: 100%;
   display: flex;
   flex-direction: column;

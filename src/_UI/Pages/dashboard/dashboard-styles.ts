@@ -1,19 +1,35 @@
 import styled from "styled-components";
 
-export const DashWrapper = styled.div`
-  flex: 1;
-  background-color: lightblue;
-`;
-export const InnerWrapper = styled.div`
-  padding: 30px 40px 30px 30px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+export const DashboardWrapper = styled.div`
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: grid;
+  grid-template-columns: 30px 2fr 1fr 30px;
+  grid-template-rows: 30px 1fr 40px 30px;
+  align-items: flex-start;
+  & > * {
+    z-index: 1;
+  }
 `;
 
-export const WidgetsContainer = styled.div`
-  display: flex;
+export const MapWrapper = styled.div`
+  grid-area: 1/1/-1/-1;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+`;
+
+export const SearchBox = styled.div`
+  grid-area: 2/2/3/3;
+  margin-right: 69px;
+`;
+export const MultiWidgetBox = styled.div`
+  grid-area: 2/3/3/-2;
+`;
+
+export const ButtonBox = styled.div`
+  grid-area: -3/2/-2/-2;
+  justify-self: flex-start;
 `;
 
 export const WidgetButton = styled.button`

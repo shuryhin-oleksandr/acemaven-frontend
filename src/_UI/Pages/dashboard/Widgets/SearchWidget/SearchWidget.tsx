@@ -8,6 +8,7 @@ const SearchWidget: React.FC = () => {
     <Container>
       <Heading>Search Rates</Heading>
       <OptionsDeliveryButtons mode={mode} setMode={setMode} />
+
     </Container>
   );
 };

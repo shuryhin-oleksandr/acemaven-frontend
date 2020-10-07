@@ -1,77 +1,50 @@
 import React, { useState } from "react";
 import {
-  DashWrapper,
-  InnerWrapper,
-  WidgetsContainer,
   WidgetButton,
+  DashboardWrapper,
+  SearchBox,
+  MultiWidgetBox,
+  ButtonBox,
+  MapWrapper,
 } from "./dashboard-styles";
 import SearchWidget from "./Widgets/SearchWidget/SearchWidget";
-import BaseWidget from "./Widgets/BaseWidgetContainer/BaseWidgetContainer";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
 import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
 import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
-
-const useStyles = makeStyles({
-  table: {
-    "& .MuiTableHead-root": {},
-  },
-  cell: {
-    color: "#115B86",
-    fontFamily: "Helvetica Bold",
-    fontSize: "14px",
-    borderBottom: "1px solid #115B86",
-    padding: "0",
-    paddingBottom: "7px",
-  },
-  innerCell: {
-    fontFamily: "Helvetica Light",
-    fontSize: "14px",
-    color: "#1B1B25",
-    padding: "5px 0",
-    border: "none",
-    maxWidth: "140px",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
-  boldCell: {
-    fontFamily: "Helvetica Bold",
-    fontSize: "14px",
-    color: "#1B1B25",
-    padding: "5px 0",
-    border: "none",
-  },
-});
+import MapComponent from "./MapComponent/MapComponent";
+import styled from "styled-components";
 
 const DashboardPage: React.FC = () => {
   const [widgetsVisible, setWidgetsVisible] = useState(true);
-  const classes = useStyles();
 
   return (
-    <DashWrapper>
-      <InnerWrapper>
-        <div>
-          {widgetsVisible && (
-            <WidgetsContainer>
-              <div style={{ width: "60%", marginRight: "5%" }}>
-                <SearchWidget />
-              </div>
-              <div style={{ flex: 1 }}>
-                <FeePaymentWidget />
-                <LatestQuotesWidget />
-                <RackingStatusWidget />
-              </div>
-            </WidgetsContainer>
-          )}
-        </div>
-        <div>
-          <WidgetButton onClick={() => setWidgetsVisible(!widgetsVisible)}>
-            {widgetsVisible ? "Hide widgets" : "Show widgets"}
-          </WidgetButton>
-        </div>
-      </InnerWrapper>
-    </DashWrapper>
+    <DashboardWrapper>
+      <MapComponent
+        isMarkerShown
+        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+        loadingElement={<div style={{ height: `100%` }} />}
+        containerElement={<MapWrapper />}
+        mapElement={<div style={{ height: `100%` }} />}
+      />
+      {widgetsVisible && (
+        <>
+          <SearchBox>
+            <SearchWidget />
+          </SearchBox>
+          <MultiWidgetBox>
+            <FeePaymentWidget />
+            <LatestQuotesWidget />
+            <RackingStatusWidget />
+          </MultiWidgetBox>
+        </>
+      )}
+
+      <ButtonBox>
+        <WidgetButton onClick={() => setWidgetsVisible(!widgetsVisible)}>
+          {widgetsVisible ? "Hide widgets" : "Show widgets"}
+        </WidgetButton>
+      </ButtonBox>
+    </DashboardWrapper>
   );
 };
 

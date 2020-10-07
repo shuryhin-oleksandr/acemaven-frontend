@@ -81,4 +81,5 @@ const FeePaymentWidget: React.FC = () => {
     </BaseWidget>
   );
 };
+
 export default FeePaymentWidget;

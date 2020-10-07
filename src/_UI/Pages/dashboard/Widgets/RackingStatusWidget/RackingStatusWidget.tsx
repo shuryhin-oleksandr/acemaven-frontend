@@ -8,7 +8,7 @@ import React from "react";
 import { useStyles } from "../WidgetTableStyles";
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 
-const FeePaymentWidget: React.FC = () => {
+const RackingStatusWidget: React.FC = () => {
   const classes = useStyles();
   function createData(
     reservation_number: string,
@@ -21,6 +21,9 @@ const FeePaymentWidget: React.FC = () => {
 
   const rows = [
     createData("AMX100097", "HOU-GJS", "25/12", "In transit"),
+    createData("AMX100097", "HOU-GJS", "25/12", "In transit"),
+    createData("AMX100097", "HOU-GJS", "25/12", "In transit"),
+    createData("AMX100097", "HOU-GJS", "25/12", "In transit"),
     createData(
       "AMX100557",
       "JOY-BRZ",
@@ -29,7 +32,7 @@ const FeePaymentWidget: React.FC = () => {
     ),
   ];
   return (
-    <BaseWidget heading="pending of Booking Fee payment">
+    <BaseWidget heading="latest racking Status update">
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -81,4 +84,5 @@ const FeePaymentWidget: React.FC = () => {
     </BaseWidget>
   );
 };
-export default FeePaymentWidget;
+
+export default RackingStatusWidget;

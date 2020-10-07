@@ -9,6 +9,8 @@ import SearchWidget from "./Widgets/SearchWidget/SearchWidget";
 import BaseWidget from "./Widgets/BaseWidgetContainer/BaseWidgetContainer";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
+import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
+import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
 
 const useStyles = makeStyles({
   table: {
@@ -57,12 +59,8 @@ const DashboardPage: React.FC = () => {
               </div>
               <div style={{ flex: 1 }}>
                 <FeePaymentWidget />
-                <BaseWidget heading="latest quotes receive">
-                  children
-                </BaseWidget>
-                <BaseWidget heading="latest racking Status update">
-                  children
-                </BaseWidget>
+                <LatestQuotesWidget />
+                <RackingStatusWidget />
               </div>
             </WidgetsContainer>
           )}

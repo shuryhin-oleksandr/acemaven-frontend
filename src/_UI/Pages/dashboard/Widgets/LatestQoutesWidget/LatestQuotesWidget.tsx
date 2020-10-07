@@ -8,49 +8,36 @@ import React from "react";
 import { useStyles } from "../WidgetTableStyles";
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 
-const FeePaymentWidget: React.FC = () => {
+const LatestQuotesWidget: React.FC = () => {
   const classes = useStyles();
-  function createData(
-    reservation_number: string,
-    route: string,
-    date: string,
-    status: string
-  ) {
-    return { reservation_number, route, date, status };
+  function createData(route: string, volume: string, departure_date: string) {
+    return { route, volume, departure_date };
   }
 
   const rows = [
-    createData("AMX100097", "HOU-GJS", "25/12", "In transit"),
-    createData(
-      "AMX100557",
-      "JOY-BRZ",
-      "09/12",
-      "Documentation Receive text text text"
-    ),
+    createData("HOU-GJS", "5x 20HC / 2x30HC", "25/12/2020"),
+    createData("MLY-MSK", "100x 20HC / 10x30RC", "25/12/2020"),
   ];
   return (
-    <BaseWidget heading="pending of Booking Fee payment">
+    <BaseWidget heading="latest quotes receive">
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell className={classes.cell} align="left" />
             <TableCell className={classes.cell} align="left">
-              Reservation No.
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
               Route
             </TableCell>
             <TableCell className={classes.cell} align="left">
-              Date
+              Volume
             </TableCell>
             <TableCell className={classes.cell} align="left">
-              Status
+              Departure Date
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.reservation_number}>
+            <TableRow key={row.route}>
               <TableCell className={classes.innerCell}>
                 <div
                   style={{
@@ -63,16 +50,13 @@ const FeePaymentWidget: React.FC = () => {
                 </div>
               </TableCell>
               <TableCell className={classes.boldCell} align="left">
-                {row.reservation_number}
-              </TableCell>
-              <TableCell className={classes.innerCell} align="left">
                 {row.route}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                {row.date}
+                {row.volume}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                {row.status}
+                {row.departure_date}
               </TableCell>
             </TableRow>
           ))}
@@ -81,4 +65,5 @@ const FeePaymentWidget: React.FC = () => {
     </BaseWidget>
   );
 };
-export default FeePaymentWidget;
+
+export default LatestQuotesWidget;

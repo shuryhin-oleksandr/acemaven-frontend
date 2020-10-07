@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Heading } from "./searchWidgett-styles";
-import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
+import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
 
 const SearchWidget: React.FC = () => {
   const [mode, setMode] = useState("ship");

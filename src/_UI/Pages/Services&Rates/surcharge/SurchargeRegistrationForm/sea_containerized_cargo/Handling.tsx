@@ -10,8 +10,9 @@ import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {ContainerType, CurrencyType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
-import FormField from "../../../../../components/_commonComponents/Input/FormField";
 import {Controller} from "react-hook-form";
+import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
+import {createDataContainer} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 
 const useStyles = makeStyles({
     container: {
@@ -51,13 +52,8 @@ const Handling:React.FC<PropsType> = ({containers, ...props}) => {
     const classes = useStyles();
 
 
-    function createData(container_type: string, currency: CurrencyType[], charge: number) {
-        return { container_type, currency, charge};
-    }
-
-
     let rows = (containers && containers?.length > 0)
-        ?  containers?.map((c) => createData(c?.code,
+        ?  containers?.map((c) => createDataContainer({id: c.id, code: c.code},
             [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
             0))
         : null
@@ -76,12 +72,18 @@ const Handling:React.FC<PropsType> = ({containers, ...props}) => {
                     </TableHead>
                     <TableBody>
                         {rows?.map((row) => (
-                            <TableRow key={row.container_type}>
-                                <TableCell className={classes.innerCell}  component="th" scope="row">
-                                    {row.container_type}
-                                </TableCell>
+                            <TableRow key={row.container_type?.id}>
+                                <Controller name={`usage_fees.${row.container_type?.id}.container_type`}
+                                            control={props.control}
+                                            defaultValue={row.container_type?.id}
+                                            as={
+                                                <TableCell className={classes.innerCell}  component="th" scope="row">
+                                                    {row.container_type.code}
+                                                </TableCell>
+                                            }
+                                />
                                 <TableCell className={classes.innerCell} align="left">
-                                    <Controller name='currency'
+                                    <Controller name={`usage_fees.${row.container_type?.id}.currency`}
                                                 control={props.control}
                                                 defaultValue={row.currency[0].id}
                                                 as={
@@ -93,11 +95,17 @@ const Handling:React.FC<PropsType> = ({containers, ...props}) => {
                                     />
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
-                                   <FormField name='charge'
-                                              inputRef={props.register}
-                                              maxW='100px'
-                                              marginBottom='0'
-                                   />
+                                    <Controller control={props.control}
+                                                name={`usage_fees.${row.container_type?.id}.charge`}
+                                                defaultValue={0}
+                                                as={
+                                                    <Field
+                                                           maxW='100px'
+                                                           marginBottom='0'
+                                                    />
+                                                }
+                                    />
+
                                 </TableCell>
                             </TableRow>
                         ))}

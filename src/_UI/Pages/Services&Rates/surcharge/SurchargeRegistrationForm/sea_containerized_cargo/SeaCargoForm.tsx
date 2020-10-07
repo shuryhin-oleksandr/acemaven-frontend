@@ -5,7 +5,7 @@ import AdditionalSurcharges from "./AdditionalSurcharges";
 import {CurrencyType, ShippingModeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {register} from "../../../../../../serviceWorker";
 import AdditionalWithConditionsSurcharges
-    from "../../../../../components/_commonComponents/tables/AdditionalSurcharges";
+    from "../../../../../components/_commonComponents/tables/AdditionalWithConditionsSurcharges";
 
 type PropsType = {
     ship_mode?: ShippingModeType | null,

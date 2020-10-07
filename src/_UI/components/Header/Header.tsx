@@ -14,9 +14,11 @@ import { signOut } from "../../../_BLL/reducers/authReducer";
 import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router";
+import logotype from '../../../_UI/assets/icons/landing/inline_logo.png'
 const notification = require("../../../_UI/assets/icons/clarity_notification-solid-badged.svg") as string;
 const card = require("../../../_UI/assets/icons/card.svg") as string;
 const user = require("../../../_UI/assets/icons/profile/defaultUserPhoto.svg");
+
 
 const useStyles = makeStyles({
   customTooltip: {
@@ -51,7 +53,7 @@ const Header: React.FC = () => {
 
   return (
     <HeaderContainer>
-      <LogoWrap>ACEMAVEN</LogoWrap>
+      <LogoWrap><img src={logotype} alt=""/></LogoWrap>
       <Info>
         <ButtonWrap>
           <img src={card} alt="" />

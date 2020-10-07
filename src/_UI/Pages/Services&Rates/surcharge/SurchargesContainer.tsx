@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "src/_UI/components/BaseLayout/Layout";
 import SurchargePopup from "src/_UI/components/PopUps/Surcharge/SurchargePopup";
 import {
@@ -12,6 +12,9 @@ import OptionsDeliveryButtons from "../../../components/_commonComponents/option
 import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/optionsButtons/OptionsDirectoryButtons";
 import RegistrationNewForm from "./SurchargeRegistrationForm/RegistrationNewForm";
 import SurchargesPage from "./surcharges_page/SurchargesPage";
+import {useDispatch, useSelector} from "react-redux";
+import {getWholeSurchargesList} from "../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {AppStateType} from "../../../../_BLL/store";
 
 const SurchargesContainer: React.FC = () => {
   const [mode, setMode] = useState("ship");
@@ -19,6 +22,13 @@ const SurchargesContainer: React.FC = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [newSurchargeMode, setNewSurchargeMode] = useState(false);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getWholeSurchargesList())
+  }, [dispatch])
+
+  let surcharges_list = useSelector((state: AppStateType) => state.surcharge.surcharges_list)
 
   return (
     <>
@@ -41,7 +51,7 @@ const SurchargesContainer: React.FC = () => {
                 />
               </ActionsWrapper>
             </HeaderOuter>
-            <SurchargesPage />
+            <SurchargesPage surcharges_list={surcharges_list}/>
           </Container>
         )}
       </Layout>

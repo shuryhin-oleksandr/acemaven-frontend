@@ -116,3 +116,36 @@ export const UnderTitle = styled.div`
   text-align: center;
   padding-top: 35px;
 `
+export const PortsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 110px;
+  overflow-y: scroll;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, .5);
+  padding: 5px 2px;
+  position: absolute;
+  top: 64px;
+`
+
+export const Port = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: "Helvetica Reg", sans-serif;
+  color: #7C7C89;
+  font-size: 14px;
+  transition: .3s;
+  min-height: 25px;
+  padding: 0 5px;
+  border-radius: 5px;
+  
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background-color: #115B86;
+    transition: .3s;
+  }
+`

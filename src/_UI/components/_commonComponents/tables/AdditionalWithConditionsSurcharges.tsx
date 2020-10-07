@@ -15,6 +15,8 @@ import {AdditionalSurchargeType, CurrencyType} from "../../../../_BLL/types/rate
 import {Controller} from "react-hook-form";
 import SurchargeRateSelect from "../select/SurchargeRateSelect";
 import {Field} from "../Input/input-styles";
+import SurchargeRateConditionsSelect from "../select/SurchargeRateConditionsSelect";
+import {createDataConditions} from "../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 
 const useStyles = makeStyles({
     container: {
@@ -56,27 +58,14 @@ type PropsType = {
 const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ...props}) => {
 
     const classes = useStyles();
-    type Conditions = {
-        id: number,
-        title: string,
-        tooltip: string
-    }
 
-    function createData(name: FeeType, conditions: Conditions[], currency: CurrencyType[], charge: number) {
-        return { name, conditions, currency, charge};
-    }
-
-    type FeeType = {
-        id: number,
-        title: string
-    }
 
     let rows = (additionals && additionals?.length > 0)
-        ?  additionals?.map((a) => createData(
+        ?  additionals?.map((a) => createDataConditions(
             {id: a.id, title: a?.title},
             [{id: 1, title: 'w/m', tooltip: 'This option will indicate that the charge will be calculated by the chargeable weight (w/m) of the cargo.'},
-                {id: 2, title: 'per weight', tooltip: 'Will be calculated by the weight of the cargo.'},
-                {id: 3, title: 'per no. of packs', tooltip: 'As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search.'},
+                {id: 2, title: 'per_weight', tooltip: 'Will be calculated by the weight of the cargo.'},
+                {id: 3, title: 'per_no_of_packs', tooltip: 'As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search.'},
                 {id: 4, title: 'fixed', tooltip: 'This means that the value indicated will be considered once in the shipment.'}],
             [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
             0))
@@ -98,16 +87,22 @@ const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ..
                     </TableHead>
                     <TableBody>
                         {rows?.map((row) => (
-                            <TableRow key={row.name.id}>
-                                <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                                    {row.name.title}
-                                </TableCell>
+                            <TableRow key={row.name?.id}>
+                                <Controller name={`charges.${row.name?.id}.additional_surcharge`}
+                                            control={props.control}
+                                            defaultValue={row.name?.id}
+                                            as={
+                                                <TableCell className={classes.innerMainCell}  component="th" scope="row">
+                                                    {row.name?.title}
+                                                </TableCell>
+                                            }
+                                />
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller control={props.control}
-                                                name={`additional_surcharges[${row.name.id}.conditions]`}
-                                                defaultValue={row.conditions[0].id}
+                                                name={`charges.${row.name?.id}.conditions`}
+                                                defaultValue={row.conditions[0]?.title}
                                                 as={
-                                                    <SurchargeRateSelect options={row.conditions}
+                                                    <SurchargeRateConditionsSelect options={row.conditions}
                                                                          placeholder='Currency'
                                                                          maxW='80px'
                                                     />
@@ -116,8 +111,8 @@ const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ..
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller control={props.control}
-                                                name={`additional_surcharges[${row.name.id}.currency]`}
-                                                defaultValue={row.currency[0].id}
+                                                name={`charges.${row.name?.id}.currency`}
+                                                defaultValue={row.currency[0]?.id}
                                                 as={
                                                     <SurchargeRateSelect options={row.currency}
                                                                          placeholder='Currency'
@@ -127,7 +122,7 @@ const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ..
                                     />
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
-                                    <Controller name={`additional_surcharges[${row.name.id}.charge]`}
+                                    <Controller name={`charges.${row.name?.id}.charge`}
                                                 control={props.control}
                                                 defaultValue={row.charge}
                                                 as={

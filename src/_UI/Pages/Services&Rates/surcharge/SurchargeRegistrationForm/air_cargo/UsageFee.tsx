@@ -1,6 +1,5 @@
 import React from "react";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import {HandlingSurchargeContainer, HandlingTitle} from "./sea-conteneraized-cargo-styles";
+import {HandlingSurchargeContainer, HandlingTitle} from "../sea_containerized_cargo/sea-conteneraized-cargo-styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -8,100 +7,82 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import {AdditionalSurchargeType, CurrencyType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import {createDataContainer} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+import {ContainerType, CurrencyType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {Controller} from "react-hook-form";
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
 
 
 const useStyles = makeStyles({
     container: {
-        boxShadow: 'none',
-        width: 479
+        boxShadow: 'none'
     },
     table: {
-
+        minWidth: 479,
         '& .MuiTableHead-root' : {
-
+            borderBottom: '2px solid #115B86'
         }
     },
     cell: {
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
-        fontSize: '16px',
-        borderBottom: '1px solid #115B86',
-
-
-    },
-    innerMainCell: {
-        borderBottom: '1px solid #E0E0E0;',
-        fontFamily: 'Helvetica Bold',
-        fontSize: '16px',
-        color: '#115B86',
-        width: '213px',
-        padding: '8px 0 0'
+        fontSize: '16px'
     },
     innerCell: {
-        borderBottom: '1px solid #E0E0E0;',
-        fontFamily: 'Helvetica Light',
+        borderBottom: 'none',
+        fontFamily: 'Helvetica Thin',
         fontSize: '16px',
-        color: '#1B1B25',
-        padding: '8px 0 0'
+        color: '#1B1B25'
     }
 });
 
 type PropsType = {
-    additionals?: AdditionalSurchargeType[] | null,
+    containers?: ContainerType[] | null,
     control?: any,
     register?: any,
-    currency_list: CurrencyType[] | null
+    currency_list: CurrencyType[] | null,
 }
 
-const AdditionalSurcharges:React.FC<PropsType> = ({additionals, ...props}) => {
+const UsageFee:React.FC<PropsType> = ({...props}) => {
+
     const classes = useStyles();
 
-    function createData(name: FeeType, currency: CurrencyType[], charge: number) {
-        return { name, currency, charge};
-    }
-
-    type FeeType = {
-        id: number,
-        title: string
-    }
-
-    let rows = (additionals && additionals?.length > 0)
-        ?  additionals?.map((a) => createData({id: a.id, title: a?.title},
-            [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}], 0))
+    let rows = (props.containers && props.containers?.length > 0)
+        ?  props.containers?.map((c) => createDataContainer({id: c.id, code: c.code},
+            [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
+            0))
         : null
 
 
     return (
         <HandlingSurchargeContainer>
-            <HandlingTitle>Additional surcharges </HandlingTitle>
+            <HandlingTitle>Usage Fee</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell className={classes.cell}>{' '}</TableCell>
+                            <TableCell className={classes.cell}>ULD TYPES</TableCell>
                             <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
                             <TableCell className={classes.cell} align="left">CHARGE</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {rows?.map((row) => (
-                            <TableRow key={row.name.id}>
-                                <Controller name={`charges.${row.name.id}.additional_surcharge`}
-                                            control={props.control}
-                                            defaultValue={row.name.id}
+                            <TableRow key={row.container_type.id}>
+                                <Controller control={props.control}
+                                            name={`usage_fees.${row.container_type?.id}.container_type`}
+                                            defaultValue={row.container_type.id}
                                             as={
-                                                <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                                                    {row.name.title}
+                                                <TableCell className={classes.innerCell}  component="th" scope="row">
+                                                    {row.container_type.code}
                                                 </TableCell>
                                             }
                                 />
                                 <TableCell className={classes.innerCell} align="left">
-                                    <Controller control={props.control}
-                                                name={`charges.${row.name.id}.currency`}
+                                    <Controller name={`usage_fees.${row.container_type?.id}.currency`}
+                                                control={props.control}
                                                 defaultValue={row.currency[0].id}
                                                 as={
                                                     <SurchargeRateSelect options={row.currency}
@@ -112,14 +93,16 @@ const AdditionalSurcharges:React.FC<PropsType> = ({additionals, ...props}) => {
                                     />
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
-                                    <Controller name={`charges.${row.name.id}.charge`}
-                                                control={props.control}
-                                                defaultValue={row.charge}
+                                    <Controller control={props.control}
+                                                name={`usage_fees.${row.container_type?.id}.charge`}
+                                                defaultValue={0}
                                                 as={
-                                                    <Field/>
+                                                    <Field
+                                                        maxW='100px'
+                                                        marginBottom='0'
+                                                    />
                                                 }
                                     />
-
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -130,4 +113,4 @@ const AdditionalSurcharges:React.FC<PropsType> = ({additionals, ...props}) => {
     )
 }
 
-export default AdditionalSurcharges
+export default UsageFee

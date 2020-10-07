@@ -9,11 +9,13 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import plane_surcharge from '../../../../assets/icons/rates&services/plane-surcharge.svg'
+import ship_surcharge from '../../../../assets/icons/rates&services/ship-surcharge.svg'
 import sort_arrows from '../../../../assets/icons/rates&services/sort_arrows.svg'
 import search_icon from '../../../../assets/icons/rates&services/search_loop.svg'
 import {TemplateIcon} from "../../../../components/_commonComponents/hover_message/hover-message-styles";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import {Tooltip} from "@material-ui/core";
+import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 const useStyles = makeStyles({
     container: {
@@ -72,19 +74,23 @@ const useStyles = makeStyles({
     },
 });
 
-const SurchargesPage:React.FC = () => {
+type PropsType = {
+    surcharges_list: SurchargeObjectType[] | null
+}
+
+const SurchargesPage:React.FC<PropsType> = ({surcharges_list}) => {
 
     const classes = useStyles();
 
-    function createData(shipping_mode: string, carrier: string, location: string,direction: string, start_date: string, exp_date: string) {
-        return { shipping_mode, carrier, location, direction, start_date, exp_date};
+    function createData(id: number, shipping_mode: string | number, carrier: string | number, location: string | number, direction: string, start_date: string, expiration_date: string) {
+        return { id, shipping_mode, carrier, location, direction, start_date, expiration_date};
     }
 
-    const rows = [
-        createData('Loose Kolistar', 'BestAmericanairlines Co.', 'New York', 'Export', '10/10/2020', '17/10/2020'),
-        createData('Cargo', 'GoodAmericanairlines Co.', 'Rio', 'Import', '20/11/2020', '20/12/2020'),
-        createData('Lina', 'PerfectAmericanairlines Co.', 'Berlin', 'Import', '21/12/2020', '28/12/2020')
-    ];
+    const rows = surcharges_list && surcharges_list.length > 0
+        ? surcharges_list.map(s => createData(s.id, s?.shipping_mode, s.carrier,
+            s.location, s.direction, s.start_date, s.expiration_date))
+        : null
+
 
     return (
         <Outer>
@@ -133,10 +139,11 @@ const SurchargesPage:React.FC = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.shipping_mode}>
+                        {rows?.map((row) => (
+                            <TableRow key={row.id}>
                                     <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
-                                        <ModeIcon src={plane_surcharge} alt=""/> <SpanMode>{row.shipping_mode}</SpanMode>
+                                        <ModeIcon src={row.shipping_mode !== 'ULD' ||  'Loose Cargo' ? ship_surcharge : plane_surcharge} alt=""/>
+                                        <SpanMode>{row.shipping_mode}</SpanMode>
                                     </TableCell>
                                 <TableCell className={classes.innerCell} align="left"><span >{row.carrier}</span></TableCell>
                                 <TableCell className={classes.innerCell} align="left">{row.location}</TableCell>
@@ -144,7 +151,7 @@ const SurchargesPage:React.FC = () => {
                                 <TableCell className={classes.innerCell} align="left">{row.start_date}</TableCell>
                                 <TableCell className={classes.innerCell} align="left">
                                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                       {row.exp_date}
+                                       {row.expiration_date}
                                        <Tooltip title='Use this registry as a template for a new rate, with the same values and parameters.'
                                                 arrow
                                                 classes={{ tooltip: classes.customTooltip }}

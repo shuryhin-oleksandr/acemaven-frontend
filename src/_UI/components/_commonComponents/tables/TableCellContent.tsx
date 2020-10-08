@@ -1,0 +1,55 @@
+import React from "react";
+import SearchInput from "../search_input/SearchInput";
+import TableSortButton from "../buttons/table_sort_button/TableSortButton";
+import TableSearchButton from "../buttons/table_search_button/TableSearchButton";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+
+
+type PropsType = {
+    setSearchValue: VoidFunctionType,
+    setSearchMode: VoidFunctionType,
+    dispatch: VoidFunctionType,
+    direction: string,
+    type: string,
+    column_name: string,
+    searchValue: string,
+    isSearchMode: boolean,
+    title: string,
+    searchColumn: string,
+    setSearchColumn: VoidFunctionType
+}
+
+const TableCellContent:React.FC<PropsType> = ({setSearchValue, ...props}) => {
+    return (
+        <>
+            {props.isSearchMode
+                ? <SearchInput setSearchValue={setSearchValue}
+                               setSearchMode={props.setSearchMode}
+                               dispatch={props.dispatch}
+                               direction={props.direction}
+                               type={props.type}
+                               column_name={props.column_name}
+                               searchValue={props.searchValue}
+                               searchColumn={props.searchColumn}
+                />
+                : <div style={{display: 'flex'}}>
+                    {props.title}
+                    <TableSortButton dispatch={props.dispatch}
+                                     column_name={props.column_name}
+                                     direction={props.direction}
+                                     mode={props.type}
+                                     searchValue={props.searchValue}
+                                     searchColumn={props.searchColumn}
+                    />
+                    <TableSearchButton setSearchMode={props.setSearchMode}
+                                       setSearchColumn={props.setSearchColumn}
+                                       column_name={props.column_name}
+                    />
+                </div>
+            }
+        </>
+
+    )
+}
+
+export default TableCellContent

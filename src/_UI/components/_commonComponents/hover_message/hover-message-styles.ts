@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { SearchButton } from "../../../Pages/Services&Rates/surcharge/surcharges_page/surcharges-style";
+import {SearchButton} from "../buttons/table_search_button/table-search-button-style";
+
 
 export const TemplateWrap = styled.div`
   .template-message {

@@ -15,7 +15,7 @@ function App() {
     } else {
       dispatch(authActions.setAuth(false))
     }
-  }, [token])
+  }, [dispatch, token])
 
   return <div className="App">{route}</div>;
 }

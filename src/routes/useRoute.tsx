@@ -23,13 +23,13 @@ const useRoute = (isAuth: boolean) => {
             <Switch>
                 <Route exact component={DashboardContainer} path='/'/>
                 <Route exact component={SurchargesContainer} path='/services/surcharges'/>
-                <Route component={ExactSurchargeContainer} path='/services/surcharges/id'/>
+                <Route component={ExactSurchargeContainer} path='/services/surcharge'/>
                 <Route exact component={RatesContainer} path='/services/rates'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>
                 <Route component={CompanySettingsContainer} path='/settings/company'/>
                 <Route component={UserManagementContainer} path='/settings/user/management'/>
                 <Route component={GeneralSettingsContainer} path='/settings/general'/>
-                <Redirect to='/'/>
+                {/*<Redirect to='/'/>*/}
             </Switch>
 
         )
@@ -42,7 +42,7 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
                 <Route component={ActivateEnd} path='/create/finish'/>
                 <Route component={AdditionalUserContainer} path='/additional/user'/>
-                <Redirect to='/acemaven'/>
+                {/*<Redirect to='/acemaven'/>*/}
             </Switch>
         )
     }

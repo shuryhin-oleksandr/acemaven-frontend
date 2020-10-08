@@ -46,7 +46,7 @@ const CreateAccountPage = ({ history }) => {
   useEffect(() => {
     console.log(location.search.substr(7));
     dispatch(checkToken(location.search.substr(7)));
-  }, []);
+  }, [dispatch]);
 
 
   return (
@@ -71,7 +71,7 @@ const CreateAccountPage = ({ history }) => {
                     position: '',
 
                   }}
-                  onSubmit={(values, { setSubmitting }) => {
+                  onSubmit={(values, { }) => {
                     let wholeData = getFilesFormData(values, file);
                     dispatch(authActions.setIsLoading(true));
                     authAPI

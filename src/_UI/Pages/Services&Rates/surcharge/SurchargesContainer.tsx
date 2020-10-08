@@ -8,27 +8,41 @@ import {
   MainTitle,
   RegisterButton,
 } from "./surcharge-styles";
-import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
-import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/optionsButtons/OptionsDirectoryButtons";
+import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/optionsButtons/directory/OptionsDirectoryButtons";
 import RegistrationNewForm from "./SurchargeRegistrationForm/RegistrationNewForm";
 import SurchargesPage from "./surcharges_page/SurchargesPage";
 import {useDispatch, useSelector} from "react-redux";
-import {getWholeSurchargesList} from "../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {
+  filterByThunk
+} from "../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import {AppStateType} from "../../../../_BLL/store";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+
+
 
 const SurchargesContainer: React.FC = () => {
-  const [mode, setMode] = useState("ship");
-  const [directory, setDirectory] = useState("Import");
+
+  const [mode, setMode] = useState("sea");
+  const [directory, setDirectory] = useState("import");
+  const [searchValue, setSearchValue] = useState('')
+  const [search_column, setSearchColumn] = useState('')
+
+  console.log(searchValue, search_column)
 
   const [isOpen, setIsOpen] = useState(false);
   const [newSurchargeMode, setNewSurchargeMode] = useState(false);
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getWholeSurchargesList())
-  }, [dispatch])
+    dispatch(filterByThunk(directory, mode, '', '', ''))
+
+  }, [dispatch, directory, mode])
 
   let surcharges_list = useSelector((state: AppStateType) => state.surcharge.surcharges_list)
+  const dispatchHandler = (someFn:VoidFunctionType) => {
+    return dispatch(someFn)
+  }
 
   return (
     <>
@@ -44,14 +58,32 @@ const SurchargesContainer: React.FC = () => {
                 <RegisterButton onClick={() => setNewSurchargeMode(true)}>
                   REGISTER NEW
                 </RegisterButton>
-                <OptionsDeliveryButtons mode={mode} setMode={setMode} />
+                <OptionsDeliveryButtons mode={mode}
+                                        directory={directory}
+                                        setMode={setMode}
+                                        dispatch={dispatchHandler}
+                                        searchColumn={search_column}
+                                        searchValue={searchValue}
+                />
                 <OptionsDirectoryButtons
                   directory={directory}
+                  mode={mode}
                   setDirectory={setDirectory}
+                  dispatch={dispatchHandler}
+                  searchColumn={search_column}
+                  searchValue={searchValue}
                 />
               </ActionsWrapper>
             </HeaderOuter>
-            <SurchargesPage surcharges_list={surcharges_list}/>
+            <SurchargesPage surcharges_list={surcharges_list}
+                            dispatch={dispatchHandler}
+                            directory={directory}
+                            mode={mode}
+                            searchValue={searchValue}
+                            searchColumn={search_column}
+                            setSearchColumn={setSearchColumn}
+                            setSearchValue={setSearchValue}
+            />
           </Container>
         )}
       </Layout>

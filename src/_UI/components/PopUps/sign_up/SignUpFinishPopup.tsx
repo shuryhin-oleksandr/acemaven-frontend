@@ -14,7 +14,7 @@ const SignUpFinishPopup:React.FC<PropsType> = ({openSignUp}) => {
     let closeFinishPopup = useCallback(() => {
         openSignUp(false)
         dispatch(authActions.openFinishSignUpPopup(false))
-    }, [])
+    }, [dispatch, openSignUp])
 
     return (
         <Container>

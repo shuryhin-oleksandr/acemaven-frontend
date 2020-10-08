@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Content,
     ContentDate,
@@ -17,11 +17,21 @@ import Additional from "./Additional";
 import { useState } from "react";
 import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import styled from "styled-components";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../../../../../_BLL/store";
 
 
 
 const Surcharge = () => {
     const [formMode, setFormMode] = useState(false)
+    const dispatch = useDispatch()
+    let id = useSelector((state: AppStateType) => state.surcharge.surchargeId)
+/*
+    useEffect(() => {
+        debugger
+        dispatch(getSurchargeInfo(id))
+    }, [dispatch])
+*/
 
     return (
         <SurchargeContainer>

@@ -14,7 +14,9 @@ const initialState = {
     ports: null as PortType[] | null,
     shipping_type: null as ShippingTypeType[] | null,
     currency_list: null as CurrencyType[] | null,
-    surcharges_list: null as SurchargeObjectType[] | null
+    surcharges_list: null as SurchargeObjectType[] | null,
+    surcharge_info: null as SurchargeObjectType | null,
+    surchargeId: 0
 }
 
 type InitialStateType = typeof initialState
@@ -61,6 +63,16 @@ export const surchargeReducer = (state = initialState, action: commonSurchargeAc
                 ...state,
                 surcharges_list: action.list
             }
+        case "SET_SURCHARGE_INFO":
+            return {
+                ...state,
+                surcharge_info: action.info
+            }
+        case "SET_SURCHARGE_ID":
+            return {
+                ...state,
+                surchargeId: action.id
+            }
         default: return state
     }
 }
@@ -76,5 +88,7 @@ export const surchargeActions = {
     setShippingType: (shipping_type: ShippingTypeType[]) => ({type: 'SET_SHIPPING_TYPE', shipping_type} as const),
     setCurrencyList: (list: CurrencyType[]) => ({type: 'SET_CURRENCY_LIST', list} as const),
     setNewSurcharge: (surcharge: SurchargeObjectType) => ({type: 'SET_NEW_SURCHARGE', surcharge} as const),
-    setSurchargesList: (list: SurchargeObjectType[]) => ({type: 'SET_SURCHARGES_LIST', list} as const)
+    setSurchargesList: (list: SurchargeObjectType[]) => ({type: 'SET_SURCHARGES_LIST', list} as const),
+    setSurchargeId: (id: number) => ({type: 'SET_SURCHARGE_ID', id} as const),
+    setSurchargeInfo: (info: SurchargeObjectType) => ({type: 'SET_SURCHARGE_INFO', info} as const)
 }

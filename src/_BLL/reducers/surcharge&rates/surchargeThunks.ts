@@ -80,9 +80,33 @@ export const getWholeSurchargesList = () => {
         try {
             let res = await surchargeAPI.getSurchargesList()
             dispatch(surchargeActions.setSurchargesList(res.data))
-            console.log('surcharge', res.data)
         } catch (e) {
             console.log(e.response)
         }
     }
 }
+
+export const getSurchargeInfo = (id: number, history:any) => {
+    return async (dispatch:Dispatch<commonSurchargeActions>) => {
+        try {
+            debugger
+            let res = await surchargeAPI.getExactSurcharge(id)
+            dispatch(surchargeActions.setSurchargeInfo(res.data))
+            history.push(`/services/surcharge/${id}`)
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+}
+
+export const filterByThunk = (direction: string, type: string, field_name: string, search_column: string, search_value: string) => {
+    return async (dispatch: Dispatch<commonSurchargeActions>) => {
+        try {
+            let res = await surchargeAPI.filterByDirectionDelivery(direction, type, field_name, search_column, search_value)
+            dispatch(surchargeActions.setSurchargesList(res.data))
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+}
+

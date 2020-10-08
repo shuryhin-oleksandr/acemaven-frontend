@@ -8,14 +8,14 @@ import {
   MainTitle,
   RegisterButton,
 } from "./rates-styles";
-import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
-import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/optionsButtons/OptionsDirectoryButtons";
+import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/optionsButtons/directory/OptionsDirectoryButtons";
 import RegistrationNewRateForm from "./RatesRegistrationForm/RegistrationNewRateForm";
 import RatesPage from "./rates_page/RatesPage";
 
 const RatesContainer: React.FC = () => {
-  const [mode, setMode] = useState("ship");
-  const [directory, setDirectory] = useState("Import");
+  const [mode, setMode] = useState("sea");
+  const [directory, setDirectory] = useState("import");
 
   const [isOpen, setIsOpen] = useState(false);
   const [newRateMode, setNewRateMode] = useState(false);
@@ -34,10 +34,18 @@ const RatesContainer: React.FC = () => {
                 <RegisterButton onClick={() => setNewRateMode(true)}>
                   REGISTER NEW
                 </RegisterButton>
-                <OptionsDeliveryButtons mode={mode} setMode={setMode} />
+                <OptionsDeliveryButtons mode={mode}
+                                        setMode={setMode}
+                                        directory={directory}
+                                        searchColumn=''
+                                        searchValue=''
+                />
                 <OptionsDirectoryButtons
+                    mode={mode}
                   directory={directory}
                   setDirectory={setDirectory}
+                    searchColumn=''
+                    searchValue=''
                 />
               </ActionsWrapper>
             </HeaderOuter>

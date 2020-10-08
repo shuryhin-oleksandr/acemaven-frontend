@@ -54,7 +54,7 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
         if(location_port !== null) {
             props.setValue('location', location_port?.display_name)
         }
-    }, [props.setValue, location_port])
+    }, [props, props.setValue, location_port])
 
     return (
         <FormWrap >

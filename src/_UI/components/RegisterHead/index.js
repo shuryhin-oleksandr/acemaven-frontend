@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import close_icon from "../../assets/icons/close-icon.svg";
+
 
 const RegisterHead = ({ title, buttonText, popupCallback }) => {
   return (

@@ -14,7 +14,7 @@ const AdditionalUserContainer:React.FC = () => {
     useEffect(() => {
         console.log(location.search.substr(7))
         dispatch(checkToken(location.search.substr(7)))
-    }, [])
+    }, [dispatch])
 
     return (
        <>

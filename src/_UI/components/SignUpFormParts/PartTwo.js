@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 //Instruments
-import { ErrorMessage, Form, useFormikContext } from "formik";
+import {useFormikContext } from "formik";
 
 //Components
 import BaseBackButton from "../base/BaseBackButton";
@@ -21,7 +21,7 @@ const PartTwo = ({ changePage, error }) => {
     setTimeout(() => {
       dispatch(authActions.setCompanySignupError(null));
     }, 5000);
-  }, [error]);
+  }, [dispatch, error]);
 
   const isButtonDisabled =
     !values.first_name ||

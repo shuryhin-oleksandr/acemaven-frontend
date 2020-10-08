@@ -7,7 +7,7 @@ import {
   RegisterButton,
   UnderTitle,
 } from "./form-styles";
-import OptionsDeliveryButtons from "src/_UI/components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
+import OptionsDeliveryButtons from "src/_UI/components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 
 import ByPlaneForm from "./ByPlaneRateForm";
 import CancelButton from "src/_UI/components/_commonComponents/buttons/navFormButtons/CancelButton";
@@ -19,7 +19,7 @@ type PropsType = {
 };
 
 const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
-  const [mode, setMode] = useState("ship");
+  const [mode, setMode] = useState("sea");
   const [shippingValue, setShippingValue] = useState("");
   console.log(shippingValue);
 
@@ -32,7 +32,12 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
           <CancelButton text="CANCEL" setIsOpen={setNewRateMode} />
         </ActionsWrapper>
       </HeaderWrapper>
-      <OptionsDeliveryButtons mode={mode} setMode={setMode} />
+      <OptionsDeliveryButtons directory='import'
+                              mode={mode}
+                              setMode={setMode}
+                              searchColumn=''
+                              searchValue=''
+      />
       {mode === "ship" ? (
         <ByShipForm setShippingValue={setShippingValue} />
       ) : (

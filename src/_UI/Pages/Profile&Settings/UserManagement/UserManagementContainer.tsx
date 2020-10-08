@@ -19,7 +19,7 @@ const UserManagementContainer = () => {
     useEffect(() => {
         dispatch(getWorkersList())
         dispatch(commonActions.setCurrentNavPath('/settings/user/management'))
-    }, [])
+    }, [dispatch])
 
     return (
         <Layout >

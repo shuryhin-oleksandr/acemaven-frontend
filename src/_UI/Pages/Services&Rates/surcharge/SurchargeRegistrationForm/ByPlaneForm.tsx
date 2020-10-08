@@ -14,7 +14,7 @@ import {getPorts} from "../../../../../_BLL/reducers/surcharge&rates/surchargeTh
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {useDispatch} from "react-redux";
 import {directions} from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
-import Air_CargoForm from "./air_cargo/air_CargoForm";
+import AirCargoForm from "./air_cargo/air_CargoForm";
 
 type PropsType = {
     setShippingValue: VoidFunctionType,
@@ -53,7 +53,7 @@ const ByPlaneForm:React.FC<PropsType> = ({shipping_modes, ...props}) => {
         if(location_port !== null) {
             props.setValue('location', location_port?.display_name)
         }
-    }, [props.setValue, location_port])
+    }, [props, props.setValue, location_port])
 
 
     return (
@@ -131,7 +131,7 @@ const ByPlaneForm:React.FC<PropsType> = ({shipping_modes, ...props}) => {
             <>
                 {!props.shippingValue
                     ? <UnderTitle>Please, complete the parameters of the surcharge for the value fields to appear</UnderTitle>
-                    : <Air_CargoForm control={props.control}
+                    : <AirCargoForm control={props.control}
                                      register={props.register}
                                      ship_mode={ship_mode}
                                      currency_list={props.currency_list}

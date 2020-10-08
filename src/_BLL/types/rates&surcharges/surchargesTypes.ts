@@ -55,6 +55,7 @@ export type SurchargeObjectType = {
     start_date: string,
     expiration_date: string,
     shipping_mode: number | string,
+    shipping_type: string,
     usage_fees?: Usage_fee[],
     charges: ChargeType[]
 }

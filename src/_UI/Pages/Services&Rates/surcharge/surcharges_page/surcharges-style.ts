@@ -17,23 +17,6 @@ export const ModeIcon = styled.img`
   top: 22%;
 `
 
-export const SearchButton = styled.button`
-  padding: 0;
-  outline: none;
-  border: none;
-  background: none;
-  margin: 0 5px;
-  display: flex;
-  align-items: center;
-  img {
-  
-  }
-`
-
-export const SortButton = styled(SearchButton)`
-`
-
-
 export const SpanMode = styled.div`
 transition: .3s;
   &:hover {

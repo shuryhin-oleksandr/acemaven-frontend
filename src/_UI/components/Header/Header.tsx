@@ -45,7 +45,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     localStorage.getItem("access_token") && dispatch(getAuthUserInfo());
-  }, []);
+  }, [dispatch]);
 
   let profilePhoto = useSelector(
     (state: AppStateType) => state.profile.authUserInfo?.photo

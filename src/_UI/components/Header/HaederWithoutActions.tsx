@@ -13,7 +13,7 @@ const HeaderWithoutActions:React.FC = () => {
 
     useEffect(() => {
        dispatch(getAuthUserInfo())
-    }, [])
+    }, [dispatch])
 
     let profilePhoto = useSelector((state: AppStateType) => state.profile.authUserInfo?.photo)
 

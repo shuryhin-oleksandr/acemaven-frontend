@@ -14,7 +14,7 @@ type PropsType = {
     shipping_value?: number
 }
 
-const Air_CargoForm:React.FC<PropsType> = ({ship_mode, ...props}) => {
+const AirCargoForm:React.FC<PropsType> = ({ship_mode, ...props}) => {
     let containers = ship_mode?.container_types
 
     return (
@@ -42,4 +42,4 @@ const Air_CargoForm:React.FC<PropsType> = ({ship_mode, ...props}) => {
     )
 }
 
-export default Air_CargoForm
+export default AirCargoForm

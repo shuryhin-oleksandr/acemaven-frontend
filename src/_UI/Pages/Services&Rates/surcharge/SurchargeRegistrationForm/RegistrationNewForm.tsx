@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {ActionsWrapper, FormTitle, HeaderWrapper, Outer, RegisterButton, UnderTitle} from "./form-styles";
-import OptionsDeliveryButtons from "src/_UI/components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
+import OptionsDeliveryButtons from "src/_UI/components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import ByPlaneForm from "./ByPlaneForm";
 import CancelButton from "src/_UI/components/_commonComponents/buttons/navFormButtons/CancelButton";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
@@ -21,7 +21,7 @@ type PropsType = {
 }
 
 const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
-    const [mode, setMode] = useState('ship')
+    const [mode, setMode] = useState('sea')
     const [shippingValue, setShippingValue] = useState(0)
 
     const dispatch = useDispatch()
@@ -58,7 +58,12 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
                     <CancelButton text='CANCEL' setIsOpen={setNewSurchargeMode}/>
                 </ActionsWrapper>
             </HeaderWrapper>
-            <OptionsDeliveryButtons mode={mode} setMode={setMode}/>
+            <OptionsDeliveryButtons searchColumn=''
+                                    searchValue=''
+                                    directory='import'
+                                    mode={mode}
+                                    setMode={setMode}
+            />
             {
                 mode === 'ship'
                 ? <ByShipForm shipping_modes={shipping_types && shipping_types[1]?.shipping_modes}

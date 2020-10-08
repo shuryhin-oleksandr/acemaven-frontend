@@ -55,7 +55,7 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
       setValue("first_name", checkedUser?.first_name); //должно меняться в зав от стора
       setValue("last_name", checkedUser?.last_name); //должно меняться в зав от стора
     }
-  }, [checkedUser]);
+  }, [checkedUser, setValue]);
 
   const [errorMatch, setError] = useState('')
     let matchPasswords = (value: string) => {

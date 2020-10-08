@@ -21,5 +21,12 @@ export const surchargeAPI = {
     },
     getSurchargesList () {
         return instance.get('/booking/surcharge/')
+    },
+    filterByDirectionDelivery (direction: string, type: string, field_name: string, search_column: string, search_value: string) {
+        return instance.get(`/booking/surcharge/?direction=${direction}&shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`)
+    },
+    getExactSurcharge (id: number) {
+        return instance.get(`/booking/surcharge/${id}`)
     }
+
 }

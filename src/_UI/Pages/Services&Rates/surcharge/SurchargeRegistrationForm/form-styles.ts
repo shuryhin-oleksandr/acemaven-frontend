@@ -65,9 +65,9 @@ export const OptionButton = styled.div<PropsStyle>`
   min-width: 68px;
   max-width: 68px;
   height: 32px;
-  background-color: ${({mode}) => mode === 'ship'  ? '#1AB8E5' : 'transparent'};
+  background-color: ${({mode}) => mode === 'sea'  ? '#1AB8E5' : 'transparent'};
   border-radius: 2px;
-  box-shadow: ${({mode}) => mode === 'ship'  && '1px 1px 4px rgba(0, 0, 0, 0.25)'};
+  box-shadow: ${({mode}) => mode === 'sea'  && '1px 1px 4px rgba(0, 0, 0, 0.25)'};
   transition: .3s;
   
   &:hover {
@@ -81,9 +81,9 @@ export const OptionButtonPlane = styled.div<PropsStyle>`
   min-width: 68px;
   max-width: 68px;
   height: 32px;
-  background-color: ${({mode}) => mode === 'plane' ?  '#1AB8E5' : 'transparent'};
+  background-color: ${({mode}) => mode === 'air' ?  '#1AB8E5' : 'transparent'};
   border-radius: 2px;
-  box-shadow: ${({mode}) => mode === 'plane' && '1px 1px 4px rgba(0, 0, 0, 0.25)'};
+  box-shadow: ${({mode}) => mode === 'air' && '1px 1px 4px rgba(0, 0, 0, 0.25)'};
   transition: .3s;
   
   &:hover {

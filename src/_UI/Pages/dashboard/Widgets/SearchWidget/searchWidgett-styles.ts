@@ -4,7 +4,8 @@ export const Container = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
-  padding: 20px 30px 25px 30px;
+  padding: 20px 30px 12px 30px;
+  position: relative;
 `;
 
 export const Heading = styled.h1`

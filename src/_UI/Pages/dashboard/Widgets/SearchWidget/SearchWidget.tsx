@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Heading } from "./searchWidgett-styles";
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import BaseFormikInput from "../../../../components/base/BaseFormikInput";
 import BaseButton from "../../../../components/base/BaseButton";
 import styled from "styled-components";
@@ -13,95 +13,133 @@ const SearchWidget: React.FC = () => {
   return (
     <Container>
       <Heading>Search Rates</Heading>
-
       <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values, { setSubmitting }) => {}}
+        initialValues={{
+          shipping_mode: "",
+          origin: "",
+          destination: "",
+          date: "",
+          cargo_groups: [{ container_type: "", volume: "", frozen: "" }],
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          console.log("values", values);
+        }}
       >
-        {({ isSubmitting }) => (
-          <Form>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: 13,
-                marginBottom: 16,
-              }}
-            >
-              <OptionsDeliveryButtons
-                mode={mode}
-                setMode={setMode}
-                withoutBottomMargin
-              />
-
-              <BaseFormikInput
-                name="email"
-                component="select"
-                searchWidget={true}
-                width="19%"
+        {({ isSubmitting, values }) => {
+          return (
+            <Form>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: 13,
+                  marginBottom: 16,
+                }}
               >
-                <option value="red">Red</option>
-                <option value="green">Green</option>
-                <option value="blue">Blue</option>
-              </BaseFormikInput>
+                <OptionsDeliveryButtons
+                  mode={mode}
+                  setMode={setMode}
+                  withoutBottomMargin
+                />
 
-              <BaseFormikInput
-                width="19%"
-                searchWidget={true}
-                name="password"
-              />
-              <BaseFormikInput
-                width="19%"
-                searchWidget={true}
-                name="password"
-              />
-              <BaseFormikInput
-                width="19%"
-                searchWidget={true}
-                name="password"
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                marginBottom: 13,
-              }}
-            >
-              <FieldWrapper>
                 <BaseFormikInput
-                  name="email"
+                  name="shipping_mode"
                   component="select"
                   searchWidget={true}
+                  width="19%"
                 >
+                  <option value="">Shipping mode</option>
                   <option value="red">Red</option>
                   <option value="green">Green</option>
                   <option value="blue">Blue</option>
                 </BaseFormikInput>
-              </FieldWrapper>
-              <FieldWrapper>
-                <BaseFormikInput searchWidget={true} name="password" />
-              </FieldWrapper>
-              <FieldWrapper>
+
                 <BaseFormikInput
-                  name="email"
-                  component="select"
+                  width="19%"
                   searchWidget={true}
-                >
-                  <option value="red">Red</option>
-                  <option value="green">Green</option>
-                  <option value="blue">Blue</option>
-                </BaseFormikInput>
-              </FieldWrapper>
-            </div>
-            <ButtonGroup>
-              <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
-                <AddImg src={AddIcon} alt="add" />
-              </BaseTooltip>
-              <BaseButton>Search</BaseButton>
-            </ButtonGroup>
-          </Form>
-        )}
+                  name="origin"
+                  placeholder="Origin"
+                />
+                <BaseFormikInput
+                  width="19%"
+                  searchWidget={true}
+                  name="destination"
+                  placeholder="Destination"
+                />
+                <BaseFormikInput
+                  width="19%"
+                  searchWidget={true}
+                  name="date"
+                  placeholder="Shipment date"
+                />
+              </div>
+              {/*FieldArray*/}
+              <FieldArray
+                name="cargo_groups"
+                render={(arrayHelpers) =>
+                  values.cargo_groups.map((group, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        marginBottom: 13,
+                      }}
+                    >
+                      <FieldWrapper>
+                        <BaseFormikInput
+                          name={`cargo_groups.${index}.container_type`}
+                          component="select"
+                          searchWidget={true}
+                        >
+                          <option value="">Container Type</option>
+                          <option value="green">Green</option>
+                          <option value="blue">Blue</option>
+                        </BaseFormikInput>
+                      </FieldWrapper>
+                      <FieldWrapper>
+                        <BaseFormikInput
+                          name={`cargo_groups.${index}.volume`}
+                          searchWidget={true}
+                          placeholder="Volume"
+                        />
+                      </FieldWrapper>
+                      <FieldWrapper>
+                        <BaseFormikInput
+                          name={`cargo_groups.${index}.frozen`}
+                          component="select"
+                          searchWidget={true}
+                        >
+                          <option value="">Frozen</option>
+                          <option value="green">Green</option>
+                          <option value="blue">Blue</option>
+                        </BaseFormikInput>
+                      </FieldWrapper>
+                      <ButtonGroup>
+                        <BaseTooltip
+                          title={"Add more cargo groups by clicking on plus"}
+                        >
+                          <AddImg
+                            src={AddIcon}
+                            alt="add"
+                            onClick={() =>
+                              arrayHelpers.push({
+                                container_type: "",
+                                volume: "",
+                                frozen: "",
+                              })
+                            }
+                          />
+                        </BaseTooltip>
+                        <BaseButton type="submit">Search</BaseButton>
+                      </ButtonGroup>
+                    </div>
+                  ))
+                }
+              />
+            </Form>
+          );
+        }}
       </Formik>
     </Container>
   );

@@ -21,7 +21,7 @@ const DashboardPage: React.FC = () => {
     <DashboardWrapper>
       <MapComponent
         isMarkerShown
-        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfyjgjCgBPurRc7zaVTJNXPOAMRtbQWmo&v=3.exp&libraries=geometry,drawing,places"
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<MapWrapper />}
         mapElement={<div style={{ height: `100%` }} />}

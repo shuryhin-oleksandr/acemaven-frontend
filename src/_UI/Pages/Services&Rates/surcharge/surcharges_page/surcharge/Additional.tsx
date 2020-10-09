@@ -12,6 +12,7 @@ import { HandlingSurchargeContainer, HandlingTitle } from "../../SurchargeRegist
 import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
+import {AdditionalSurchargeType, ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 
 const useStyles = makeStyles({
@@ -47,27 +48,22 @@ const useStyles = makeStyles({
 
 
 type PropsType = {
-    setFormMode?: VoidFunctionType
+    setFormMode?: VoidFunctionType,
+    charges?: any
 }
 
-const Additional:React.FC<PropsType> = ({setFormMode}) => {
+const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
     const classes = useStyles();
 
-    function createData(name: string, currency: any, charge: string, conditions: string, update_by: string, on: string) {
-        return { name, currency, charge, conditions, update_by, on};
+    function createData(id: number, name: AdditionalSurchargeType, currency: any, charge: string, conditions: string, updated_by: string, date_updated: string) {
+        return { id, name, currency, charge, conditions, updated_by, date_updated};
     }
 
-    const rows = [
-        createData('DOCUMENT FEE', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '6.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020' ),
-        createData('OTHER SURCHARGES (PER CONTAINER)', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '9.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020'),
-        createData('DANGEROUS CARGO FEE', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '16.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020'),
-        createData('COLD CARGO CHARGE', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '16.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020')
-    ];
-
+    /*const rows = props.charges && props.charges.length > 0
+        ? props.charges.map(c => createData(c.id, c.additional_surcharge, [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
+            c.charge, c.conditions, c.updated_by, c.date_updated ))
+        : null
+*/
     return (
         <HandlingSurchargeContainer>
             <HandlingTitle>Additional surcharges </HandlingTitle>
@@ -83,9 +79,9 @@ const Additional:React.FC<PropsType> = ({setFormMode}) => {
                             <TableCell className={classes.cell} align="left">ON</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.name}>
+                    {/*<TableBody>
+                        {rows?.map((row) => (
+                            <TableRow key={row.id}>
                                 <TableCell className={classes.innerMainCell}  component="th" scope="row">
                                     {row.name}
                                 </TableCell>
@@ -103,11 +99,11 @@ const Additional:React.FC<PropsType> = ({setFormMode}) => {
 
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">{row.conditions}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.update_by}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.on}</TableCell>
+                                <TableCell className={classes.innerCell} align="left">{row.updated_by}</TableCell>
+                                <TableCell className={classes.innerCell} align="left">{row.date_updated}</TableCell>
                             </TableRow>
                         ))}
-                    </TableBody>
+                    </TableBody>*/}
                 </Table>
             </TableContainer>
         </HandlingSurchargeContainer>

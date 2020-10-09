@@ -24,11 +24,12 @@ import {useHistory} from 'react-router-dom'
 import {AppStateType} from "../../../../../../_BLL/store";
 import {withRouter} from 'react-router'
 import {useForm} from "react-hook-form";
+import {SurchargeObjectType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 
 
 const Surcharge = ({...props}) => {
-    const {register, handleSubmit, errors, setValue} = useForm<any>()
+    const {register, handleSubmit, errors, setValue, control} = useForm<SurchargeObjectType>()
     const onSubmit = (values: any) => {
         console.log(values)
     }
@@ -45,7 +46,6 @@ const Surcharge = ({...props}) => {
     }, [dispatch])
     useEffect(() => {
         if(surcharge && formMode) {
-            debugger
             setValue('start_date', surcharge.start_date)
             setValue('expiration_date', surcharge.expiration_date)
         }
@@ -129,10 +129,13 @@ const Surcharge = ({...props}) => {
                 {surcharge && surcharge.usage_fees && surcharge.usage_fees.length > 0
                 && <HandlingSurcharge setFormMode={setFormMode}
                                       containers={surcharge?.usage_fees}
+                                      control={control}
                 />
                 }
                 <LineWrap bc='#BDBDBD'/>
-                <Additional setFormMode={setFormMode}/>
+                {/*<Additional setFormMode={setFormMode}
+                            charges={surcharge?.charges}
+                />*/}
             </SurchargeContent>
         </SurchargeContainer>
     )

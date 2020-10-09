@@ -97,8 +97,18 @@ export type LocationType = {
 export type UsageFeeType = {
     charge: string,
     container_type: ContainerType[],
-    currency: CurrencyType[],
+    currency: CurrencyType,
     date_updated: string,
     id: number,
     updated_by: string
+}
+
+export type ChargesType = {
+    charge: string,
+    additional_surcharge: AdditionalSurchargeType,
+    currency: CurrencyType,
+    date_updated: string,
+    id: number,
+    updated_by: string,
+    conditions: string
 }

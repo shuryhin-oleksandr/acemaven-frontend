@@ -11,11 +11,12 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
-import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
-import {ContainerType, CurrencyType, UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {CurrencyType, UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import {Controller} from "react-hook-form";
+import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
+
 
 const useStyles = makeStyles({
     container: {
@@ -47,7 +48,8 @@ const useStyles = makeStyles({
 
 type PropsType = {
     setFormMode?: VoidFunctionType,
-    containers?: UsageFeeType[]
+    containers?: UsageFeeType[],
+    control: any
 }
 
 const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
@@ -58,7 +60,8 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
     }
 
     const rows = props.containers && props.containers.length > 0
-        ? props.containers.map(c => createData(c.id, c.container_type, c.currency, c.charge, c.updated_by, c.date_updated ))
+        ? props.containers.map(c => createData(c.id, c.container_type, [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
+            c.charge, c.updated_by, c.date_updated ))
         : null;
 
     return (
@@ -82,15 +85,25 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                    {row.container_type.code}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                   {/* <SurchargeRateSelect options={row.currency}
-                                                placeholder='Currency'
-                                                maxW='80px'
-                                    />*/}
+                                    <Controller control={props.control}
+                                                name='currency'
+                                                defaultValue={row.currency[0].code}
+                                                as={
+                                                    <SurchargeRateSelect options={row.currency}
+                                                                         placeholder='Currency'
+                                                                         maxW='80px'
+                                                    />
+                                                }
+                                    />
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                    <FormField name='charge'
-                                               value={row.charge}
-                                               maxW='100px'
+                                    <Controller control={props.control}
+                                                name='charge'
+                                                defaultValue={row.charge}
+                                                as={
+                                                    <Field maxW='100px'
+                                                    />
+                                                }
                                     />
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">{row.updated_by}</TableCell>

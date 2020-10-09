@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 type PropsStyle = {
-    mode?: string
+    mode?: string,
+    w? : string
 }
 
 export const Outer = styled.form`
@@ -18,6 +19,25 @@ export const HeaderWrapper = styled.div`
 `
 export const ActionsWrapper = styled.div`
 display: flex;
+`
+
+export const Cancel = styled.button<PropsStyle>`
+font-family: "Helvetica Reg", sans-serif;
+font-size: 14px;
+background: white;
+outline: none;
+border: 1px solid #3B3B41;
+height: 40px;
+max-width: ${({w}) => w ? w : '115px'};
+width: 100%;
+color: #3B3B41;
+transition: .3s;
+
+&:hover {
+ transition: .3s;
+ background-color: #E0E0E0;
+cursor: pointer
+}
 `
 export const RegisterButton = styled.button`
 outline: none;
@@ -46,9 +66,7 @@ export const FormTitle = styled.div`
 `
 export const OptionsButtonsWrap = styled.div`
   min-width: 150px;
-  max-width: 150px;
   height: 40px;
-  width: 100%;
   background-color: #ECECEC;
   border-radius: 2px;
   border: 1px solid #ECECEC;
@@ -56,7 +74,7 @@ export const OptionsButtonsWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  margin-bottom: 25px;
+ 
 `
 export const OptionButton = styled.div<PropsStyle>`
   display: flex;

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    Field,
     HandlingSurchargeContainer,
     HandlingTitle
 } from "../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
@@ -15,7 +16,7 @@ import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {CurrencyType, UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Controller} from "react-hook-form";
-import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
+
 
 
 const useStyles = makeStyles({
@@ -101,8 +102,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                                 name='charge'
                                                 defaultValue={row.charge}
                                                 as={
-                                                    <Field maxW='100px'
-                                                    />
+                                                    <Field />
                                                 }
                                     />
                                 </TableCell>

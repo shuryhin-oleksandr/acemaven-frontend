@@ -109,3 +109,15 @@ export const filterByThunk = (direction: string, type: string, field_name: strin
     }
 }
 
+export const GetSurchargeForTooltip = (id: number) => {
+    return async (dispatch:Dispatch<commonSurchargeActions>) => {
+        try {
+            let res = await surchargeAPI.getExactSurcharge(id)
+            dispatch(surchargeActions.setSurchargeInfo(res.data))
+            console.log(res.data)
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+}
+

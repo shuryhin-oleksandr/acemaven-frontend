@@ -83,6 +83,7 @@ const SurchargesContainer: React.FC = () => {
                             searchColumn={search_column}
                             setSearchColumn={setSearchColumn}
                             setSearchValue={setSearchValue}
+                            setNewSurchargeMode={setNewSurchargeMode}
             />
           </Container>
         )}

@@ -53,7 +53,7 @@ const Surcharge = ({...props}) => {
 
 
     return (
-        <SurchargeContainer>
+        <SurchargeContainer onSubmit={handleSubmit(onSubmit)}>
             <SurchargeContent>
                 <Wrap>
                     <SurchargeTitle>
@@ -133,9 +133,10 @@ const Surcharge = ({...props}) => {
                 />
                 }
                 <LineWrap bc='#BDBDBD'/>
-                {/*<Additional setFormMode={setFormMode}
+                <Additional setFormMode={setFormMode}
                             charges={surcharge?.charges}
-                />*/}
+                            control={control}
+                />
             </SurchargeContent>
         </SurchargeContainer>
     )

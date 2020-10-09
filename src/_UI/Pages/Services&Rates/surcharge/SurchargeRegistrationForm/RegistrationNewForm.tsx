@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ActionsWrapper, FormTitle, HeaderWrapper, Outer, RegisterButton, UnderTitle} from "./form-styles";
+import {ActionsWrapper, Cancel, FormTitle, HeaderWrapper, Outer, RegisterButton, UnderTitle} from "./form-styles";
 import OptionsDeliveryButtons from "src/_UI/components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import ByPlaneForm from "./ByPlaneForm";
 import CancelButton from "src/_UI/components/_commonComponents/buttons/navFormButtons/CancelButton";
@@ -30,6 +30,7 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
     const air_carriers = useSelector((state: AppStateType) => state.surcharge.air_carriers)
     const ports = useSelector((state: AppStateType) => state.surcharge.ports)
     const currency_list = useSelector((state: AppStateType) => state.surcharge.currency_list)
+    let surcharge = useSelector((state: AppStateType) => state.surcharge.surcharge_info)
 
     const {register, control, errors, handleSubmit, getValues, setValue} = useForm()
     const onSubmit = (values: any) => {
@@ -49,21 +50,32 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
         dispatch(getCurrencyList())
     }, [dispatch])
 
+    useEffect(() => {
+        if(surcharge) {
+            setValue('carrier', surcharge.carrier)
+            setValue('direction', surcharge.direction)
+            setValue('shipping_mode', surcharge.shipping_mode)
+            setValue('location', surcharge.location)
+        }
+    }, [surcharge, setValue])
+
     return (
         <Outer onSubmit={handleSubmit(onSubmit)}>
             <HeaderWrapper>
                 <FormTitle>New Surcharge</FormTitle>
                 <ActionsWrapper>
                     <RegisterButton type='submit'>REGISTER</RegisterButton>
-                    <CancelButton text='CANCEL' setIsOpen={setNewSurchargeMode}/>
+                    <Cancel onClick={() => setNewSurchargeMode(false)}>CANCEL</Cancel>
                 </ActionsWrapper>
             </HeaderWrapper>
-            <OptionsDeliveryButtons searchColumn=''
-                                    searchValue=''
-                                    directory='import'
-                                    mode={mode}
-                                    setMode={setMode}
-            />
+            <div style={{marginBottom: '20px', width: '150px'}}>
+                <OptionsDeliveryButtons searchColumn=''
+                                        searchValue=''
+                                        directory='import'
+                                        mode={mode}
+                                        setMode={setMode}
+                />
+            </div>
             {
                 mode === 'ship'
                 ? <ByShipForm shipping_modes={shipping_types && shipping_types[1]?.shipping_modes}

@@ -71,7 +71,7 @@ export type SurchargeInfoType = {
     shipping_mode: ShippingModeType,
     shipping_type: string,
     usage_fees?: UsageFeeType[],
-    charges: ChargeType[]
+    charges: ChargesType[]
 }
 
 

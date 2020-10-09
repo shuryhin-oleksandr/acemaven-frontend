@@ -1,3 +1,5 @@
+import {strict} from "assert";
+
 export type CurrencyType = {
     id: number,
     code: string
@@ -5,7 +7,7 @@ export type CurrencyType = {
 export type CarrierType = {
     id: number,
     title: string,
-    shipping_type: number
+    shipping_type?: number
 }
 export type PortType = {
     id: number ,
@@ -34,19 +36,18 @@ export type ShippingTypeType = {
     shipping_modes: ShippingModeType[]
 }
 
-
 type Usage_fee = {
     container_type: number,
     currency: number,
     charge: string | number
 }
-
 type ChargeType = {
     additional_surcharge: number,
     currency: number,
     charge: string | number,
     conditions?: string
 }
+//post surcharge
 export type SurchargeObjectType = {
     id: number,
     carrier: number | string,
@@ -59,6 +60,20 @@ export type SurchargeObjectType = {
     usage_fees?: Usage_fee[],
     charges: ChargeType[]
 }
+//get surcharge
+export type SurchargeInfoType = {
+    id: number,
+    carrier: CarrierType,
+    direction: string ,
+    location: LocationType,
+    start_date: string,
+    expiration_date: string,
+    shipping_mode: ShippingModeType,
+    shipping_type: string,
+    usage_fees?: UsageFeeType[],
+    charges: ChargeType[]
+}
+
 
 //air mode
 export type Conditions = {
@@ -70,4 +85,20 @@ export type Conditions = {
 export type FeeType = {
     id: number,
     title: string
+}
+
+export type LocationType = {
+    id: number,
+    display_name: string,
+    code: string,
+    name: string
+}
+
+export type UsageFeeType = {
+    charge: string,
+    container_type: ContainerType[],
+    currency: CurrencyType[],
+    updated_on: string,
+    id: number,
+    updated_by: any
 }

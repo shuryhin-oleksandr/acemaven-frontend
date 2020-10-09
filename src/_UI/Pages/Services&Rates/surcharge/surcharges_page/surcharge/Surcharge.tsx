@@ -12,26 +12,45 @@ import {
     SurchargeTitle
 } from "./surcharge-style";
 import ship from '../../../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
+import plane from '../../../../../../_UI/assets/icons/rates&services/plane-surcharge.svg'
 import HandlingSurcharge from "./HandlingSurcharge";
 import Additional from "./Additional";
 import { useState } from "react";
 import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
+import {getSurchargeInfo} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {useHistory} from 'react-router-dom'
 import {AppStateType} from "../../../../../../_BLL/store";
+import {withRouter} from 'react-router'
+import {useForm} from "react-hook-form";
 
 
 
-const Surcharge = () => {
+const Surcharge = ({...props}) => {
+    const {register, handleSubmit, errors, setValue} = useForm<any>()
+    const onSubmit = (values: any) => {
+        console.log(values)
+    }
+
     const [formMode, setFormMode] = useState(false)
     const dispatch = useDispatch()
-    let id = useSelector((state: AppStateType) => state.surcharge.surchargeId)
-/*
+
+    let surcharge = useSelector((state:AppStateType) => state.surcharge.surcharge_info)
+    let history = useHistory()
+    let id = props.match.params.id
+
     useEffect(() => {
-        debugger
-        dispatch(getSurchargeInfo(id))
+        dispatch(getSurchargeInfo(id, history))
     }, [dispatch])
-*/
+    useEffect(() => {
+        if(surcharge && formMode) {
+            debugger
+            setValue('start_date', surcharge.start_date)
+            setValue('expiration_date', surcharge.expiration_date)
+        }
+    }, [setValue, surcharge, formMode])
+
 
     return (
         <SurchargeContainer>
@@ -48,48 +67,56 @@ const Surcharge = () => {
                 </Wrap>
                 <InfoWrap>
                     <ShippingMode>
-                        <img src={ship} alt=""/>
+                        <img src={surcharge?.shipping_type === 'sea' ? ship : plane} alt=""/>
                     </ShippingMode>
                     <FieldsWrap>
                         <FieldOuter>
                             <Label>Carrier</Label>
-                            <Content>BestAmericanairlines Co.</Content>
+                            <Content>{surcharge?.carrier.title}</Content>
                         </FieldOuter>
                         <FieldOuter>
                             <Label>Shipping mode</Label>
-                            <Content>Loose Cargo</Content>
+                            <Content>{surcharge?.shipping_mode.title}</Content>
                         </FieldOuter>
                     </FieldsWrap>
                     <FieldsWrap>
                         <FieldOuter>
-                            <Label>direction</Label>
-                            <Content c='#115B86'>Export</Content>
+                            <Label>Direction</Label>
+                            <Content c='#115B86'>{surcharge?.direction}</Content>
                         </FieldOuter>
                         <FieldOuter>
                             <Label>Location</Label>
-                            <Content c='#115B86'>Rio</Content>
+                            <Content c='#115B86'>{surcharge?.location.name}</Content>
                         </FieldOuter>
                     </FieldsWrap>
                     <FieldsWrap>
                         <FieldOuter style={{marginBottom: '8px'}}>
                             <Label>Start date</Label>
                             {!formMode
-                                ? <ContentDate onClick={() => setFormMode(true)}>12/12/2020</ContentDate>
+                                ? <ContentDate onClick={() => setFormMode(true)}>{surcharge?.start_date}</ContentDate>
                                 : <FormField name='start_date'
+                                             inputRef={register({
+                                                 required: 'Field is required'
+                                             })}
                                              maxW='110px'
                                              focusBack='#E5F7FD'
                                              height='33px'
+                                             error={errors?.start_date}
                                 />
                             }
                         </FieldOuter>
                         <FieldOuter>
                             <Label>Expiration Date</Label>
                             { !formMode
-                                ? <ContentDate onClick={() => setFormMode(true)}>20/12/2020</ContentDate>
-                                :  <FormField name='exp_date'
+                                ? <ContentDate onClick={() => setFormMode(true)}>{surcharge?.expiration_date}</ContentDate>
+                                :  <FormField name='expiration_date'
                                               maxW='110px'
                                               focusBack='#E5F7FD'
                                               height='33px'
+                                              inputRef={register({
+                                                  required: 'Field is required'
+                                              })}
+                                              error={errors?.expiration_date}
                                     />
                             }
 
@@ -99,7 +126,11 @@ const Surcharge = () => {
                     </FieldsWrap>
                 </InfoWrap>
                 <LineWrap />
-                <HandlingSurcharge setFormMode={setFormMode}/>
+                {/*{surcharge && surcharge.usage_fees && surcharge.usage_fees.length > 0
+                && <HandlingSurcharge setFormMode={setFormMode}
+                                      containers={surcharge?.usage_fees}
+                />
+                }*/}
                 <LineWrap bc='#BDBDBD'/>
                 <Additional setFormMode={setFormMode}/>
             </SurchargeContent>
@@ -107,7 +138,7 @@ const Surcharge = () => {
     )
 }
 
-export default Surcharge
+export default withRouter(Surcharge)
 
 
 type PropsStyle = {

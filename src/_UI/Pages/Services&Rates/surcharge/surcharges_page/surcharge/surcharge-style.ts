@@ -65,6 +65,7 @@ export const Content = styled.div<PropsStyle>`
   color: ${({c}) => c ? c : 'black'};
   font-family: "Helvetica Light", sans-serif;
   font-size: 18px;
+  text-transform: capitalize;
 `
 export const ContentDate = styled(Content)`
   border: 1px solid #BDBDBD;

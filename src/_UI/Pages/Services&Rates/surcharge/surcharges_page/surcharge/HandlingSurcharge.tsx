@@ -14,6 +14,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
 import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
+import {ContainerType, CurrencyType, UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 
 const useStyles = makeStyles({
     container: {
@@ -44,28 +46,20 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    setFormMode?: VoidFunctionType
+    setFormMode?: VoidFunctionType,
+    containers?: UsageFeeType[]
 }
 
-const HandlingSurcharge:React.FC<PropsType> = ({setFormMode}) => {
+const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
     const classes = useStyles();
 
-    function createData(container_type: string, currency: any, charge: string, update_by: string, on: string) {
-        return { container_type, currency, charge, update_by, on};
+    function createData(id: number, container_type: ContainerType[], currency: CurrencyType[], charge: string, update_by: string, updated_on: string) {
+        return { id, container_type, currency, charge, update_by, updated_on};
     }
 
-    const rows = [
-        createData('Type 1', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '6.0 $', 'Hanna Yarash', '13:00 10 MAY 2020' ),
-        createData('Type2', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '9.0 $', 'Lara Croft', '13:00 10 MAY 2020'),
-        createData('Type3', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '16.0 $', 'James Bond', '13:00 10 MAY 2020' ),
-        createData('Type4', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '16.0 $', 'James Bond', '15:00 10 MAY 2020' ),
-        createData('Type4', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '16.0 $', 'James Bond', '15:00 10 MAY 2020' )
-    ];
+    const rows = props.containers && props.containers.length > 0
+        ? props.containers.map(c => createData(c.id, c.container_type, c.currency, c.charge, c.updated_by.name, c.updated_on ))
+        : null;
 
     return (
         <HandlingSurchargeContainer style={{maxWidth: '834px'}}>
@@ -82,26 +76,26 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody className={classes.body}>
-                        {rows.map((row) => (
-                            <TableRow key={row.container_type}>
+                        {rows?.map((row) => (
+                            <TableRow key={row.id}>
                                 <TableCell className={classes.innerCell}  component="th" scope="row">
                                    {row.container_type}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                    <FormSelect options={row.currency}
+                                   {/* <SurchargeRateSelect options={row.currency}
                                                 placeholder='Currency'
                                                 maxW='80px'
-                                    />
+                                    />*/}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                    <FormField name='charge'
+                                   {/* <FormField name='charge'
                                                value={row.charge}
                                                maxW='100px'
                                     />
-
+*/}
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.update_by}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.on}</TableCell>
+                                {/*<TableCell className={classes.innerCell} align="left">{row.update_by}</TableCell>
+                                <TableCell className={classes.innerCell} align="left">{row.updated_on}</TableCell>*/}
                             </TableRow>
                         ))}
                     </TableBody>

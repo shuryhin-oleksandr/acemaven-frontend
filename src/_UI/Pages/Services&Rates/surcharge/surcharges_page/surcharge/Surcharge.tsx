@@ -126,11 +126,11 @@ const Surcharge = ({...props}) => {
                     </FieldsWrap>
                 </InfoWrap>
                 <LineWrap />
-                {/*{surcharge && surcharge.usage_fees && surcharge.usage_fees.length > 0
+                {surcharge && surcharge.usage_fees && surcharge.usage_fees.length > 0
                 && <HandlingSurcharge setFormMode={setFormMode}
                                       containers={surcharge?.usage_fees}
                 />
-                }*/}
+                }
                 <LineWrap bc='#BDBDBD'/>
                 <Additional setFormMode={setFormMode}/>
             </SurchargeContent>

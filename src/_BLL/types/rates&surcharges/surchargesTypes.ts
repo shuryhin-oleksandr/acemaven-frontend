@@ -98,7 +98,7 @@ export type UsageFeeType = {
     charge: string,
     container_type: ContainerType[],
     currency: CurrencyType[],
-    updated_on: string,
+    date_updated: string,
     id: number,
-    updated_by: any
+    updated_by: string
 }

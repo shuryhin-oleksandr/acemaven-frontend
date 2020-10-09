@@ -53,12 +53,12 @@ type PropsType = {
 const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
     const classes = useStyles();
 
-    function createData(id: number, container_type: ContainerType[], currency: CurrencyType[], charge: string, update_by: string, updated_on: string) {
-        return { id, container_type, currency, charge, update_by, updated_on};
+    function createData(id: number, container_type: any, currency: CurrencyType[], charge: string, updated_by: string, date_updated: string) {
+        return { id, container_type, currency, charge, updated_by, date_updated};
     }
 
     const rows = props.containers && props.containers.length > 0
-        ? props.containers.map(c => createData(c.id, c.container_type, c.currency, c.charge, c.updated_by.name, c.updated_on ))
+        ? props.containers.map(c => createData(c.id, c.container_type, c.currency, c.charge, c.updated_by, c.date_updated ))
         : null;
 
     return (
@@ -79,7 +79,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                         {rows?.map((row) => (
                             <TableRow key={row.id}>
                                 <TableCell className={classes.innerCell}  component="th" scope="row">
-                                   {row.container_type}
+                                   {row.container_type.code}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                    {/* <SurchargeRateSelect options={row.currency}
@@ -88,14 +88,13 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                     />*/}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                   {/* <FormField name='charge'
+                                    <FormField name='charge'
                                                value={row.charge}
                                                maxW='100px'
                                     />
-*/}
                                 </TableCell>
-                                {/*<TableCell className={classes.innerCell} align="left">{row.update_by}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.updated_on}</TableCell>*/}
+                                <TableCell className={classes.innerCell} align="left">{row.updated_by}</TableCell>
+                                <TableCell className={classes.innerCell} align="left">{row.date_updated}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

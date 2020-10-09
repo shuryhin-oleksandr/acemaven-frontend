@@ -50,9 +50,9 @@ export const OptionsButtonsWrap = styled.div<PropsStyle>`
   max-width: 150px;
   height: 40px;
   width: 100%;
-  background-color: #ECECEC;
+  background-color: #ececec;
   border-radius: 2px;
-  border: 1px solid #ECECEC;
+  border: 1px solid #ececec;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,10 +68,10 @@ export const OptionButton = styled.div<PropsStyle>`
   max-width: 68px;
   height: 32px;
   background-color: ${({ mode }) =>
-    mode === "ship" ? "#1AB8E5" : "transparent"};
+    mode === "sea" ? "#1AB8E5" : "transparent"};
   border-radius: 2px;
   box-shadow: ${({ mode }) =>
-    mode === "ship" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
+    mode === "sea" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
   transition: 0.3s;
 
   &:hover {
@@ -86,10 +86,10 @@ export const OptionButtonPlane = styled.div<PropsStyle>`
   max-width: 68px;
   height: 32px;
   background-color: ${({ mode }) =>
-    mode === "plane" ? "#1AB8E5" : "transparent"};
+    mode === "air" ? "#1AB8E5" : "transparent"};
   border-radius: 2px;
   box-shadow: ${({ mode }) =>
-    mode === "plane" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
+    mode === "air" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
   transition: 0.3s;
 
   &:hover {
@@ -98,10 +98,10 @@ export const OptionButtonPlane = styled.div<PropsStyle>`
 `;
 
 export const FormWrap = styled.div`
-display: flex;
-flex-direction: column;
-margin-bottom: 20px;
-`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+`;
 export const GroupWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -123,7 +123,6 @@ export const UnderTitle = styled.div`
   padding-top: 35px;
 `;
 
-`
 export const PortsList = styled.div`
   display: flex;
   flex-direction: column;
@@ -132,20 +131,20 @@ export const PortsList = styled.div`
   width: 100%;
   background-color: white;
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, .5);
+  border: 1px solid rgba(0, 0, 0, 0.5);
   padding: 5px 2px;
   position: absolute;
   top: 64px;
-`
+`;
 
 export const Port = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   font-family: "Helvetica Reg", sans-serif;
-  color: #7C7C89;
+  color: #7c7c89;
   font-size: 14px;
-  transition: .3s;
+  transition: 0.3s;
   min-height: 25px;
   padding: 0 5px;
   border-radius: 5px;
@@ -153,7 +152,7 @@ export const Port = styled.div`
   &:hover {
     cursor: pointer;
     color: white;
-    background-color: #115B86;
-    transition: .3s;
+    background-color: #115b86;
+    transition: 0.3s;
   }
-`
+`;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Heading } from "./searchWidgett-styles";
-import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/OptionsDeliveryButtons";
+import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import { Formik, Form, FieldArray } from "formik";
 import BaseFormikInput from "../../../../components/base/BaseFormikInput";
 import BaseButton from "../../../../components/base/BaseButton";
@@ -10,7 +10,7 @@ import RemoveIcon from "../../../../assets/icons/widgets/remove-icon.svg";
 import BaseTooltip from "../../../../components/_commonComponents/baseTooltip/BaseTooltip";
 
 const SearchWidget: React.FC = () => {
-  const [mode, setMode] = useState("ship");
+  const [mode, setMode] = useState("sea");
   return (
     <Container>
       <Heading>Search Rates</Heading>
@@ -40,10 +40,10 @@ const SearchWidget: React.FC = () => {
                 <OptionsDeliveryButtons
                   mode={mode}
                   setMode={setMode}
-                  withoutBottomMargin
-                  setFieldValue={setFieldValue}
+                  directory=""
+                  searchColumn=""
+                  searchValue=""
                 />
-
                 <BaseFormikInput
                   name="shipping_mode"
                   component="select"

@@ -4,21 +4,23 @@ import { Field } from "formik";
 import Arrow from "../../../../_UI/assets/icons/selectArrow.svg";
 
 const BaseFormikInput = styled(Field)`
-  background-color: #ffffff;
-  ${({ valid }) =>
-    valid &&
-    css`
-      background-color: #ffffff;
-    `};
+  background-color: ${({ searchWidget }) =>
+      searchWidget ? "#ececec" : "#ffffff"}
+    ${({ valid }) =>
+      valid &&
+      css`
+        background-color: #ffffff;
+      `};
   ${({ error }) =>
     error &&
     css`
       background-color: #ececec;
     `};
-  border: 1px solid #bdbdbd;
+  border: ${({ searchWidget }) =>
+    searchWidget ? "none" : "1px solid #bdbdbd"};
   box-sizing: border-box;
   border-radius: 4px;
-  width: 100%;
+  width: ${({ width }) => (width ? width : "100%")};
   height: 40px;
   padding: 0 10px;
   outline: none;
@@ -28,18 +30,18 @@ const BaseFormikInput = styled(Field)`
   ::-webkit-input-placeholder {
     /* Edge */
     font-family: "Helvetica Reg", sans-serif;
-  font-size: 14px;
+    font-size: 14px;
     color: #bdbdbd;
   }
   :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-   font-family: "Helvetica Reg", sans-serif;
-  font-size: 14px;
+    font-family: "Helvetica Reg", sans-serif;
+    font-size: 14px;
     color: #bdbdbd;
   }
   ::placeholder {
-   font-family: "Helvetica Reg", sans-serif;
-  font-size: 14px;
+    font-family: "Helvetica Reg", sans-serif;
+    font-size: 14px;
     color: #bdbdbd;
   }
   //hiding inputs type number Arrows/Spinners

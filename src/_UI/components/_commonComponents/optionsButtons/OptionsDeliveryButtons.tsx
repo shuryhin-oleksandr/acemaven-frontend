@@ -14,6 +14,7 @@ type PropsType = {
   setMode?: VoidFunctionType;
   mode: string;
   withoutBottomMargin?: boolean;
+  setFieldValue?: (field: string, value: any, shouldValidate?: boolean) => void;
 };
 
 const OptionsDeliveryButtons: React.FC<PropsType> = ({

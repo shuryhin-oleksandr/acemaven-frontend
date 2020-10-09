@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  position: relative;
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
   padding: 20px 30px 12px 30px;
-  position: relative;
+  max-height: 500px;
+  overflow: scroll;
 `;
 
 export const Heading = styled.h1`

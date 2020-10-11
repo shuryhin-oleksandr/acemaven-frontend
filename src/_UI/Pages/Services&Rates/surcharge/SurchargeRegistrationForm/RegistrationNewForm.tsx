@@ -32,14 +32,16 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
     const currency_list = useSelector((state: AppStateType) => state.surcharge.currency_list)
     let surcharge = useSelector((state: AppStateType) => state.surcharge.surcharge_info)
 
-    const {register, control, errors, handleSubmit, getValues, setValue} = useForm()
+    const {register, control, errors, handleSubmit, getValues, setValue} = useForm({
+        reValidateMode: "onBlur"
+    })
     const onSubmit = (values: any) => {
-        let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
-        let usageFees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
-        let data = {...values, charges: charges_array, usage_fees: usageFees_array, location: Number(sessionStorage.getItem('port_id'))}
-        let data_without_fees = {...values, charges: charges_array, location: Number(sessionStorage.getItem('port_id'))}
-        console.log(data)
-        usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
+        // let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
+        // let usageFees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+        // let data = {...values, charges: charges_array, usage_fees: usageFees_array, location: Number(sessionStorage.getItem('port_id'))}
+        // let data_without_fees = {...values, charges: charges_array, location: Number(sessionStorage.getItem('port_id'))}
+        console.log(values)
+        //usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
     }
 
 
@@ -77,7 +79,7 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
                 />
             </div>
             {
-                mode === 'ship'
+                mode === 'sea'
                 ? <ByShipForm shipping_modes={shipping_types && shipping_types[1]?.shipping_modes}
                               setShippingValue={setShippingValue}
                               shippingValue={shippingValue}

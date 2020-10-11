@@ -14,6 +14,7 @@ import SeaCargoForm from "./sea_containerized_cargo/SeaCargoForm";
 import {useDispatch} from "react-redux";
 import {getPorts} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
+import SurchargesDates from "./SurchargeDates";
 
 type PropsType = {
     setShippingValue: VoidFunctionType,
@@ -109,24 +110,7 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
                             )}
                         </PortsList>}
                     </div>
-                    <FormField label='Start Date'
-                               placeholder='DD/MM/YYYY'
-                               inputRef={props.register({
-                                   required: 'Field is required'
-                               })}
-                               name='start_date'
-                               error={props.errors?.startDate?.message}
-                               getValues={props.getValues}
-                    />
-                    <FormField label='Expiration Date'
-                               placeholder='DD/MM/YYYY'
-                               inputRef={props.register({
-                                   required: 'Field is required'
-                               })}
-                               name='expiration_date'
-                               error={props.errors?.expirationDate?.message}
-                               getValues={props.getValues}
-                    />
+                    <SurchargesDates errors={{from: props.errors.from, to: props.errors.to}} control={props.control} setValue={props.setValue} />
                 </GroupWrap>
             </div>
             <>

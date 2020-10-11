@@ -167,3 +167,9 @@ export const Port = styled.div`
     transition: .3s;
   }
 `
+
+
+export const SurchargesDatesFilter = styled.div`
+  display: flex;
+  flex-direction: column;
+`

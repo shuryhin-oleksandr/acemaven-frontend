@@ -1,4 +1,5 @@
 import {strict} from "assert";
+import { DateType } from "../commonTypes";
 
 export type CurrencyType = {
     id: number,
@@ -112,3 +113,17 @@ export type ChargesType = {
     updated_by: string,
     conditions: string
 }
+
+export type PeriodType = {
+    from: Date | string
+    to: Date | string
+}
+
+export type CheckSurchargeDatesType = {
+    carrier: CarrierType,
+    direction: string ,
+    location: LocationType,
+    shipping_mode: ShippingModeType,
+}
+
+export type SurchargeCheckDateResponseType = Array<string>

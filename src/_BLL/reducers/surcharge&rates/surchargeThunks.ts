@@ -1,7 +1,11 @@
 import {commonSurchargeActions, surchargeActions} from "./surchargeReducer";
 import {Dispatch} from "redux";
 import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
-import {CarrierType} from "../../types/rates&surcharges/surchargesTypes";
+import {CarrierType, CheckSurchargeDatesType} from "../../types/rates&surcharges/surchargesTypes";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../../store";
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, commonSurchargeActions>
 
 export const getCarriers = () => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
@@ -118,6 +122,18 @@ export const GetSurchargeForTooltip = (id: number) => {
         } catch (e) {
             console.log(e.response)
         }
+    }
+}
+
+export const checkSurchargeDates = (checkSurchargeValues: CheckSurchargeDatesType): ThunkType => async(dispatch) => {
+    try {
+
+        let bookedDates = await surchargeAPI.checkSurchargeDates(checkSurchargeValues);
+        dispatch(surchargeActions.setBookedDates(bookedDates))
+
+
+    } catch (e) {
+        console.log(e)
     }
 }
 

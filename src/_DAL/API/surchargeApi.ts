@@ -1,4 +1,9 @@
 import instance from "./axiosConfig";
+import {
+    CheckSurchargeDatesType,
+    SurchargeCheckDateResponseType,
+    SurchargeObjectType
+} from "../../_BLL/types/rates&surcharges/surchargesTypes";
 
 export const surchargeAPI = {
     getCarriersList () {
@@ -16,9 +21,7 @@ export const surchargeAPI = {
     getCurrencyList () {
         return instance.get('/handling/currency/')
     },
-    registerNewSurcharge (surcharge_data: any) {
-        return instance.post('/booking/surcharge/', surcharge_data)
-    },
+
     getSurchargesList () {
         return instance.get('/booking/surcharge/')
     },
@@ -27,6 +30,14 @@ export const surchargeAPI = {
     },
     getExactSurcharge (id: number) {
         return instance.get(`/booking/surcharge/${id}`)
+    },
+
+    checkSurchargeDates (checkSurchargeValues: CheckSurchargeDatesType) {
+        return instance.post<SurchargeCheckDateResponseType>('/booking/surcharge/surcharge/check-date/', checkSurchargeValues).then(res => res.data)
+    },
+
+    registerNewSurcharge (surcharge_data: SurchargeObjectType) {
+    return instance.post('/booking/surcharge/', surcharge_data)
     }
 
 }

@@ -32,8 +32,11 @@ export const surchargeAPI = {
         return instance.get(`/booking/surcharge/${id}`)
     },
 
-    checkSurchargeDates (checkSurchargeValues: CheckSurchargeDatesType) {
-        return instance.post<SurchargeCheckDateResponseType>('/booking/surcharge/surcharge/check-date/', checkSurchargeValues).then(res => res.data)
+    checkSurchargeDates (checkSurchargeValues: {location: number,
+        carrier: number,
+        direction: string,
+        shipping_mode: number}) {
+        return instance.post<SurchargeCheckDateResponseType>('/booking/surcharge/check-date/', checkSurchargeValues).then(res => res.data)
     },
 
     registerNewSurcharge (surcharge_data: SurchargeObjectType) {

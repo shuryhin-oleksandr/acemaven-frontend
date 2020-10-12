@@ -12,7 +12,7 @@ import {
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
 import SeaCargoForm from "./sea_containerized_cargo/SeaCargoForm";
 import {useDispatch} from "react-redux";
-import {getPorts} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {checkSurchargeDates, getPorts} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import SurchargesDates from "./SurchargeDates";
 
@@ -57,13 +57,32 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
         }
     }, [props, props.setValue, location_port])
 
+    let checkDataFields = {
+        location: 0,
+        carrier: 0,
+        direction: '',
+        shipping_mode: 0
+    }
+
+    let blurHandler = (value: any) => {
+        debugger
+        checkDataFields.carrier = props.getValues('carrier')
+        checkDataFields.direction = props.getValues('direction')
+        checkDataFields.shipping_mode = props.getValues('shipping_mode')
+        checkDataFields.location = Number(sessionStorage.getItem('port_id'))
+        dispatch(checkSurchargeDates(checkDataFields))
+    }
+
     return (
-        <FormWrap >
+        <FormWrap>
             <div style={{display: 'flex', width: '100%'}}>
                 <GroupWrap>
                     <Controller name='carrier'
                                 control={props.control}
                                 defaultValue=''
+                                rules={{
+                                    required: true
+                                }}
                                 as={
                                     <SurchargeRateSelect label='Carrier'
                                                          options={sea_carriers}
@@ -73,16 +92,21 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
                     <Controller name='direction'
                                 control={props.control}
                                 defaultValue=''
+                                rules={{
+                                    required: true
+                                }}
                                 as={
                                     <SurchargeRateSelect label='Direction'
                                                          options={carriers}
-
                                     />
                                 }
                     />
                     <Controller name='shipping_mode'
                                 control={props.control}
                                 defaultValue=''
+                                rules={{
+                                    required: true
+                                }}
                                 as={
                                     <SurchargeRateSelect label='Shipping Mode'
                                                          options={shipping_modes}
@@ -102,6 +126,7 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
                                    error={props.errors?.location?.message}
                                    getValues={props.getValues}
                                    onChange={onChangeHandler}
+                                   onBlur={blurHandler}
                         />
                         {(props.ports && props.ports?.length > 0) && <PortsList>
                             {props.ports?.map((p:PortType) => <Port onClick={() => closePortsHandler(p)} key={p?.id}>

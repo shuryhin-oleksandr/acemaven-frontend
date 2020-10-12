@@ -1,5 +1,5 @@
 import {
-    CarrierType,
+    CarrierType, CheckSurchargeDatesType,
     CurrencyType,
     PortType,
     ShippingModeType,
@@ -17,7 +17,8 @@ const initialState = {
     surcharges_list: null as SurchargeObjectType[] | null,
     surcharge_info: null as SurchargeInfoType | null,
     surchargeId: 0,
-    bookedDates: ['10/10/2020', '10/11/2020', '10/12/2020']
+    surchargeDataForCheck: null as CheckSurchargeDatesType | null,
+    bookedDates: null as any | null
 }
 
 type InitialStateType = typeof initialState
@@ -74,6 +75,7 @@ export const surchargeReducer = (state = initialState, action: commonSurchargeAc
                 ...state,
                 bookedDates: action.bookedDates
             }
+
         default: return state
     }
 }
@@ -91,5 +93,6 @@ export const surchargeActions = {
     setNewSurcharge: (surcharge: SurchargeObjectType) => ({type: 'SET_NEW_SURCHARGE', surcharge} as const),
     setSurchargesList: (list: SurchargeObjectType[]) => ({type: 'SET_SURCHARGES_LIST', list} as const),
     setSurchargeInfo: (info: SurchargeInfoType) => ({type: 'SET_SURCHARGE_INFO', info} as const),
-    setBookedDates: (bookedDates: SurchargeCheckDateResponseType) => ({type: 'SET_BOOKED_DATES', bookedDates} as const)
+    setBookedDates: (bookedDates: SurchargeCheckDateResponseType) => ({type: 'SET_BOOKED_DATES', bookedDates} as const),
+
 }

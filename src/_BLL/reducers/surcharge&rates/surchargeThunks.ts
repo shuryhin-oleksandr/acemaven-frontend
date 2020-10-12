@@ -125,10 +125,14 @@ export const GetSurchargeForTooltip = (id: number) => {
     }
 }
 
-export const checkSurchargeDates = (checkSurchargeValues: CheckSurchargeDatesType): ThunkType => async(dispatch) => {
+export const checkSurchargeDates = (checkSurchargeValues: {location: number,
+    carrier: number,
+    direction: string,
+    shipping_mode: number}): ThunkType => async(dispatch) => {
     try {
-
+        debugger
         let bookedDates = await surchargeAPI.checkSurchargeDates(checkSurchargeValues);
+        console.log(bookedDates)
         dispatch(surchargeActions.setBookedDates(bookedDates))
 
 

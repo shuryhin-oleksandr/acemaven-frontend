@@ -17,7 +17,7 @@ type PropsType = {
   focusBack?: string;
   height?: string;
   onBlur?: VoidFunctionType;
-  marginBottom?: string
+  marginBottom?: string;
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {

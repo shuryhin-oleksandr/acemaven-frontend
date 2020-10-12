@@ -24,7 +24,7 @@ type PropsType = {
     control: any
     disabled?: boolean
     error: boolean
-    disabledDates: Array<string> | null
+    disabledDates: any
 }
 
 const Calendar = forwardRef<DayPickerInput, PropsType>(
@@ -52,8 +52,8 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
                             readOnly:'readonly',
                             disabled: disabled,
                         }}
-                        format='DD/MM/YYYY'
-                        placeholder='DD/MM/YYYY'
+                        format='MM/DD/YYYY'
+                        placeholder='MM/DD/YYYY'
                         formatDate={formatDate}
                         parseDate={parseDate}
                         hideOnDayClick={false}
@@ -66,7 +66,7 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
                             numberOfMonths: 1,
                             localeUtils: MomentLocaleUtils,
                             onDayClick: onDayClick,
-                            disabledDays: disabledDates?.map(d => new Date(d))
+                            disabledDays: disabledDates
                         }}
                     />
                 }

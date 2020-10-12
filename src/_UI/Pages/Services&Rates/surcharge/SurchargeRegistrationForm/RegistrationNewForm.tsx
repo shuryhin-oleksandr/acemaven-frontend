@@ -36,12 +36,12 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
         reValidateMode: "onBlur"
     })
     const onSubmit = (values: any) => {
-        // let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
-        // let usageFees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
-        // let data = {...values, charges: charges_array, usage_fees: usageFees_array, location: Number(sessionStorage.getItem('port_id'))}
-        // let data_without_fees = {...values, charges: charges_array, location: Number(sessionStorage.getItem('port_id'))}
+        let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
+        let usageFees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+        let data = {...values, charges: charges_array, usage_fees: usageFees_array, location: Number(sessionStorage.getItem('port_id'))}
+        let data_without_fees = {...values, charges: charges_array, location: Number(sessionStorage.getItem('port_id'))}
         console.log(values)
-        //usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
+        usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
     }
 
 

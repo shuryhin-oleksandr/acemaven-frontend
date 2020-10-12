@@ -33,7 +33,7 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
 
 
     const { from, to } = selectedDay
-    const modifiers = {start: selectedDay.form, end: selectedDay.to};
+    const modifiers = {start: selectedDay.from, end: selectedDay.to};
 
     return (
 
@@ -52,8 +52,8 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
                             readOnly:'readonly',
                             disabled: disabled,
                         }}
-                        format='MM/DD/YYYY'
-                        placeholder='MM/DD/YYYY'
+                        format='DD/MM/YYYY'
+                        placeholder='DD/MM/YYYY'
                         formatDate={formatDate}
                         parseDate={parseDate}
                         hideOnDayClick={false}

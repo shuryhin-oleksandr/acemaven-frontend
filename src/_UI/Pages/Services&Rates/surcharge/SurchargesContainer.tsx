@@ -18,6 +18,7 @@ import {
 } from "../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import {AppStateType} from "../../../../_BLL/store";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {getSurcharge} from "../../../../_BLL/thunks/surchargeSelectors";
 
 
 
@@ -40,6 +41,7 @@ const SurchargesContainer: React.FC = () => {
   }, [dispatch, directory, mode])
 
   let surcharges_list = useSelector((state: AppStateType) => state.surcharge.surcharges_list)
+
   const dispatchHandler = (someFn:VoidFunctionType) => {
     return dispatch(someFn)
   }

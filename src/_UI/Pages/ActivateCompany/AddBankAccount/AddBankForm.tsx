@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Controller, useForm } from "react-hook-form";
 import { IAddNewBank } from "../../../../_BLL/types/addNewUserTypes";
 import { FormWrap, SubmitButton } from "../CreateNewUser/AddUserForm";
@@ -10,11 +10,12 @@ import {AppStateType} from "../../../../_BLL/store";
 import {ErrorServerMessage} from "../../SignInPage";
 
 const AddBankForm: React.FC = () => {
-  const { register, handleSubmit, errors, control, getValues } = useForm<
+  const { register, handleSubmit, errors, control, getValues, setValue } = useForm<
     IAddNewBank
   >();
   const dispatch = useDispatch();
   const errorBank = useSelector((state:AppStateType) => state.company.addingBankError)
+    let success_bank = useSelector((state: AppStateType) => state.company.successBank)
 
   const onSubmit = (values: IAddNewBank) => {
     console.log(values);
@@ -26,6 +27,15 @@ const AddBankForm: React.FC = () => {
     { name: "Savings", id: 1, value: "savings" },
     { name: "Checking", id: 2, value: "checking" },
   ];
+
+    useEffect(() => {
+        if(success_bank) {
+            setValue('bank_name', '')
+            setValue('branch', '')
+            setValue('number', '')
+            setValue('account_type', '')
+        }
+    }, [setValue, success_bank])
 
   return (
     <FormWrap onSubmit={handleSubmit(onSubmit)}>

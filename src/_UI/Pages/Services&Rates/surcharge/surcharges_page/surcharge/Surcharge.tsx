@@ -25,11 +25,13 @@ import {AppStateType} from "../../../../../../_BLL/store";
 import {withRouter} from 'react-router'
 import {useForm} from "react-hook-form";
 import {SurchargeObjectType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {getSurcharge} from "../../../../../../_BLL/thunks/surchargeSelectors";
+import SurchargesDates from "../../SurchargeRegistrationForm/SurchargeDates";
 
 
 
 const Surcharge = ({...props}) => {
-    const {register, handleSubmit, errors, setValue, control} = useForm<SurchargeObjectType>()
+    const {register, handleSubmit, errors, setValue, control} = useForm<any>()
     const onSubmit = (values: any) => {
         console.log(values)
     }
@@ -37,11 +39,12 @@ const Surcharge = ({...props}) => {
     const [formMode, setFormMode] = useState(false)
     const dispatch = useDispatch()
 
-    let surcharge = useSelector((state:AppStateType) => state.surcharge.surcharge_info)
+    let surcharge = useSelector(getSurcharge)
     let history = useHistory()
     let id = props.match.params.id
 
     useEffect(() => {
+        sessionStorage.removeItem('reg')
         dispatch(getSurchargeInfo(id, history))
     }, [dispatch])
     useEffect(() => {
@@ -90,39 +93,7 @@ const Surcharge = ({...props}) => {
                         </FieldOuter>
                     </FieldsWrap>
                     <FieldsWrap>
-                        <FieldOuter style={{marginBottom: '8px'}}>
-                            <Label>Start date</Label>
-                            {!formMode
-                                ? <ContentDate onClick={() => setFormMode(true)}>{surcharge?.start_date}</ContentDate>
-                                : <FormField name='start_date'
-                                             inputRef={register({
-                                                 required: 'Field is required'
-                                             })}
-                                             maxW='110px'
-                                             focusBack='#E5F7FD'
-                                             height='33px'
-                                             error={errors?.start_date}
-                                />
-                            }
-                        </FieldOuter>
-                        <FieldOuter>
-                            <Label>Expiration Date</Label>
-                            { !formMode
-                                ? <ContentDate onClick={() => setFormMode(true)}>{surcharge?.expiration_date}</ContentDate>
-                                :  <FormField name='expiration_date'
-                                              maxW='110px'
-                                              focusBack='#E5F7FD'
-                                              height='33px'
-                                              inputRef={register({
-                                                  required: 'Field is required'
-                                              })}
-                                              error={errors?.expiration_date}
-                                    />
-                            }
-
-
-
-                        </FieldOuter>
+                        <SurchargesDates errors={{from: errors.from, to: errors.to}} control={control} setValue={setValue} />
                     </FieldsWrap>
                 </InfoWrap>
                 <LineWrap />

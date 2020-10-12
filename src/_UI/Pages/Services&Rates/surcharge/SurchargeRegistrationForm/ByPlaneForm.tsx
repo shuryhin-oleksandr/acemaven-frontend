@@ -10,11 +10,12 @@ import {
 } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import {getPorts} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {checkSurchargeDates, getPorts} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {useDispatch} from "react-redux";
 import {directions} from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 import AirCargoForm from "./air_cargo/air_CargoForm";
+import SurchargesDates from "./SurchargeDates";
 
 type PropsType = {
     setShippingValue: VoidFunctionType,
@@ -55,6 +56,20 @@ const ByPlaneForm:React.FC<PropsType> = ({shipping_modes, ...props}) => {
         }
     }, [props, props.setValue, location_port])
 
+    let checkDataFields = {
+        location: 0,
+        carrier: 0,
+        direction: '',
+        shipping_mode: 0
+    }
+
+    let blurHandler = (value: any) => {
+        checkDataFields.carrier = props.getValues('carrier')
+        checkDataFields.direction = props.getValues('direction')
+        checkDataFields.shipping_mode = props.getValues('shipping_mode')
+        checkDataFields.location = Number(sessionStorage.getItem('port_id'))
+        dispatch(checkSurchargeDates(checkDataFields))
+    }
 
     return (
         <FormWrap >
@@ -100,6 +115,7 @@ const ByPlaneForm:React.FC<PropsType> = ({shipping_modes, ...props}) => {
                                error={props.errors?.location?.message}
                                getValues={props.getValues}
                                onChange={onChangeHandler}
+                               onBlur={blurHandler}
                     />
                     {(props.ports && props.ports?.length > 0) && <PortsList>
                         {props.ports?.map((p:PortType) => <Port onClick={() => closePortsHandler(p)} key={p?.id}>
@@ -108,24 +124,7 @@ const ByPlaneForm:React.FC<PropsType> = ({shipping_modes, ...props}) => {
                         )}
                     </PortsList>}
                 </div>
-                <FormField label='Start Date'
-                           placeholder='DD/MM/YYYY'
-                           inputRef={props.register({
-                               required: 'Field is required'
-                           })}
-                           name='start_date'
-                           error={props.errors?.startDate?.message}
-                           getValues={props.getValues}
-                />
-                <FormField label='Expiration Date'
-                           placeholder='DD/MM/YYYY'
-                           inputRef={props.register({
-                               required: 'Field is required'
-                           })}
-                           name='expiration_date'
-                           error={props.errors?.expirationDate?.message}
-                           getValues={props.getValues}
-                />
+                <SurchargesDates errors={{from: props.errors.from, to: props.errors.to}} control={props.control} setValue={props.setValue} />
             </GroupWrap>
             </div>
             <>

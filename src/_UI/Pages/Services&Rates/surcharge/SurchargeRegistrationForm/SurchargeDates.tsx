@@ -1,9 +1,10 @@
-import React, {MutableRefObject, useRef, useState} from 'react'
+import React, {MutableRefObject, useEffect, useRef, useState} from 'react'
 import { SurchargesDatesFilter } from "./form-styles";
 import Calendar from "../../../../components/_commonComponents/calendar/Calendar";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import {useSelector} from "react-redux";
-import {getBookedDates} from "../../../../../_BLL/thunks/surchargeSelectors";
+import {getBookedDates, getSurcharge} from "../../../../../_BLL/thunks/surchargeSelectors";
+import moment from "moment";
 
 
 type PropsType = {
@@ -11,8 +12,6 @@ type PropsType = {
     setValue: (name: string, value: any) => void
     errors: {from: any, to: any}
 }
-
-
 
 const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors}) => {
 
@@ -22,6 +21,18 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors}) => {
         from:  '',
         to:  ''
     })
+
+    let surcharge = useSelector(getSurcharge)
+
+    useEffect(() => {
+        if(surcharge && !sessionStorage.getItem('reg')) {
+            setSelectedDay({from: moment(surcharge.start_date, 'DD/MM/YYYY').toDate(),
+                to: moment(surcharge.expiration_date, 'DD/MM/YYYY').toDate()})
+            setValue('from', surcharge.start_date)
+            setValue('to', surcharge.expiration_date)
+            console.log(new Date(surcharge.start_date))
+        }
+    }, [surcharge])
 
     const handleFromChange = (from: string) => {
         setSelectedDay({
@@ -37,7 +48,6 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors}) => {
            ...selectedDay,
            to
        })
-
        setValue('to', to)
    }
 

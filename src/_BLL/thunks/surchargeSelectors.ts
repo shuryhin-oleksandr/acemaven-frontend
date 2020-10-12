@@ -1,5 +1,4 @@
 import {AppStateType} from "../store";
-import moment from "moment";
 
 
 export const getBookedDates = (state: AppStateType) => state.surcharge.bookedDates?.map((d: {start_date: string, expiration_date: string})=> (
@@ -7,3 +6,5 @@ export const getBookedDates = (state: AppStateType) => state.surcharge.bookedDat
     to: new Date(d.expiration_date)}
     )
 )
+
+export const getSurcharge = (state: AppStateType) => state.surcharge.surcharge_info

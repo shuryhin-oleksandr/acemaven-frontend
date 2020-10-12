@@ -7,7 +7,9 @@ const initialState:InitialStateType = {
     employees: [],
     banksAccounts: [],
     addingEmployeeError: '',
-    addingBankError: ''
+    addingBankError: '',
+    successUser: null,
+    successBank: false
 }
 
 type InitialStateType = {
@@ -16,6 +18,8 @@ type InitialStateType = {
     banksAccounts: Array<IAddNewBank> ,
     addingEmployeeError: string,
     addingBankError: string,
+    successUser: any,
+    successBank: boolean
 }
 
 export const employeesAndBanksReducer = (state = initialState, action: commonCompanyActions):InitialStateType => {
@@ -60,6 +64,16 @@ export const employeesAndBanksReducer = (state = initialState, action: commonCom
                 ...state,
                 addingBankError: action.error
             }
+        case "SET_SUCCESS_ADDING_USER":
+            return {
+                ...state,
+                successUser: action.value
+            }
+        case "SET_SUCCESS_ADDING_BANK":
+            return {
+                ...state,
+                successBank: action.value
+            }
         default: return state
     }
 }
@@ -76,7 +90,9 @@ export const companyActions = {
     setBank: (bankData: IAddNewBank) => ({type: 'SET_BANK', bankData} as const),
     setBanksAfterDelete: (id: number) => ({type: 'SET_BANKS_AFTER_DELETE', id} as const),
     setAddingBankError: (error: string) => ({type: 'SET_ADDING_BANK_ERROR', error} as const),
-    setAddingEmployeeError: (error: string) => ({type: 'SET_ADDING_EMPLOYEE_ERROR', error} as const)
+    setAddingEmployeeError: (error: string) => ({type: 'SET_ADDING_EMPLOYEE_ERROR', error} as const),
+    successAddingUser: (value: boolean) => ({type: 'SET_SUCCESS_ADDING_USER', value} as const),
+    successAddingBank: (value: boolean) => ({type: 'SET_SUCCESS_ADDING_BANK', value} as const)
 }
 
 
@@ -100,7 +116,7 @@ export const addEmployee = (data: IAddNewUserData) => {
             dispatch(companyActions.setIsLoading(true))
             let res = await authAPI.addEmployee(data)
             dispatch(companyActions.setEmployee(res.data))
-
+            dispatch(companyActions.successAddingUser(res.data))
             dispatch(companyActions.setIsLoading(false))
         } catch (e) {
             console.log(e.response)
@@ -145,6 +161,7 @@ export const addBank = (data: IAddNewBank) => {
             dispatch(companyActions.setIsLoading(true))
             let res = await authAPI.addBankAccount(data)
             dispatch(companyActions.setBank(res.data))
+            dispatch(companyActions.successAddingBank(true))
             console.log('B', res.data)
             dispatch(companyActions.setIsLoading(false))
         } catch (e) {

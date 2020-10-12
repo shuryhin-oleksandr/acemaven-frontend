@@ -13,7 +13,7 @@ import ship_surcharge from '../../../../assets/icons/rates&services/ship-surchar
 import {TemplateIcon} from "../../../../components/_commonComponents/hover_message/hover-message-styles";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import {Tooltip} from "@material-ui/core";
-import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {SurchargeInfoType, SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
@@ -23,6 +23,8 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
+        height: 415,
+        overflowY: 'scroll'
     },
     table: {
         '& .MuiTableHead-root' : {

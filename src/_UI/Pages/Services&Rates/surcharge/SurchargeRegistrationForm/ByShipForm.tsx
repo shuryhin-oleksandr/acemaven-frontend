@@ -37,7 +37,7 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
         {title: 'Export', id: 'export'}
     ]
     let ship_mode = shipping_modes? shipping_modes.find(s => s.id === Number(props.shippingValue)) : null
-    console.log('ship', ship_mode)
+
 
     const dispatch = useDispatch()
 
@@ -65,7 +65,6 @@ const ByShipForm:React.FC<PropsType> = ({setShippingValue, shipping_modes, sea_c
     }
 
     let blurHandler = (value: any) => {
-        debugger
         checkDataFields.carrier = props.getValues('carrier')
         checkDataFields.direction = props.getValues('direction')
         checkDataFields.shipping_mode = props.getValues('shipping_mode')

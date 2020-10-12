@@ -68,10 +68,10 @@ export const getCurrencyList = () => {
 }
 
 export const addNewSurcharge = (surcharge_data: any) => {
-    return async (dispatch:Dispatch<commonSurchargeActions>) => {
+    return async (dispatch:Dispatch<any>) => {
         try {
             let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
-            dispatch(surchargeActions.setNewSurcharge(res.data))
+            dispatch(filterByThunk('import', 'sea','', '', ''))
             console.log('surcharge', res.data)
         } catch (e) {
             console.log(e.response)

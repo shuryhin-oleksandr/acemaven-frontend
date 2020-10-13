@@ -91,7 +91,7 @@ export const OptionButtonPlane = styled.div<PropsStyle>`
   }
 `
 
-export const FormWrap = styled.form`
+export const FormWrap = styled.div`
 display: flex;
 margin-bottom: 20px;
 `

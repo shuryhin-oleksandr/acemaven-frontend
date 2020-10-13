@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ActionsWrapper,
   FormTitle,
@@ -13,6 +13,13 @@ import ByPlaneForm from "./ByPlaneRateForm";
 import CancelButton from "src/_UI/components/_commonComponents/buttons/navFormButtons/CancelButton";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import ByShipForm from "./ByShipRateForm";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCarriers,
+  getShippingTypes,
+} from "../../../../../_BLL/reducers/surcharge&rates/rateThunks";
+import { AppStateType } from "../../../../../_BLL/store";
+import { useForm } from "react-hook-form";
 
 type PropsType = {
   setNewRateMode: VoidFunctionType;
@@ -21,8 +28,34 @@ type PropsType = {
 const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
   const [mode, setMode] = useState("sea");
   const [shippingValue, setShippingValue] = useState("");
-  console.log(shippingValue);
+  const dispatch = useDispatch();
 
+  const shipping_types = useSelector(
+    (state: AppStateType) => state.rate.shipping_type
+  );
+
+  const sea_carriers = useSelector(
+    (state: AppStateType) => state.rate.sea_carriers
+  );
+  const air_carriers = useSelector(
+    (state: AppStateType) => state.rate.air_carriers
+  );
+
+  useEffect(() => {
+    dispatch(getShippingTypes());
+    dispatch(getCarriers());
+  }, [dispatch]);
+
+  const {
+    register,
+    control,
+    errors,
+    handleSubmit,
+    getValues,
+    setValue,
+  } = useForm({
+    reValidateMode: "onBlur",
+  });
   return (
     <Outer>
       <HeaderWrapper>
@@ -32,16 +65,35 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
           <CancelButton text="CANCEL" setIsOpen={setNewRateMode} />
         </ActionsWrapper>
       </HeaderWrapper>
-      <OptionsDeliveryButtons directory='import'
-                              mode={mode}
-                              setMode={setMode}
-                              searchColumn=''
-                              searchValue=''
-      />
-      {mode === "ship" ? (
-        <ByShipForm setShippingValue={setShippingValue} />
+      <div style={{ marginBottom: "20px", width: "150px" }}>
+        <OptionsDeliveryButtons
+          directory="import"
+          mode={mode}
+          setMode={setMode}
+          searchColumn=""
+          searchValue=""
+        />
+      </div>
+      {mode === "sea" ? (
+        <ByShipForm
+          shipping_modes={shipping_types && shipping_types[1]?.shipping_modes}
+          setShippingValue={setShippingValue}
+          control={control}
+          register={register}
+          errors={errors}
+          getValues={getValues}
+          sea_carriers={sea_carriers}
+        />
       ) : (
-        <ByPlaneForm />
+        <ByPlaneForm
+          shipping_modes={shipping_types && shipping_types[0]?.shipping_modes}
+          setShippingValue={setShippingValue}
+          control={control}
+          register={register}
+          errors={errors}
+          getValues={getValues}
+          air_carriers={air_carriers}
+        />
       )}
       {!shippingValue ? (
         <UnderTitle>

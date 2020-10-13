@@ -1,6 +1,6 @@
 import instance from "./axiosConfig";
 import {
-    CheckSurchargeDatesType,
+    editDatesType, editHandlingType,
     SurchargeCheckDateResponseType,
     SurchargeObjectType
 } from "../../_BLL/types/rates&surcharges/surchargesTypes";
@@ -41,6 +41,12 @@ export const surchargeAPI = {
 
     registerNewSurcharge (surcharge_data: SurchargeObjectType) {
     return instance.post('/booking/surcharge/', surcharge_data)
-    }
+    },
 
+    editSurchargeDates (id: number, edit_data: editDatesType) {
+        return instance.patch(`/booking/surcharge/${id}/`, edit_data)
+    },
+    editSurchargeHandling (id: number, edit_handling: editHandlingType) {
+        return instance.patch(`/booking/usage-fee/${id}/`, edit_handling)
+    }
 }

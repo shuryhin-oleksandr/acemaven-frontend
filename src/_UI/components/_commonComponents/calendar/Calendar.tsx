@@ -3,13 +3,13 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 import MomentLocaleUtils from 'react-day-picker/moment';
 import {CalendarLabel, CalendarWrapper} from "./calendar-styles";
 import {PeriodType} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import {DateType, VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import 'react-day-picker/lib/style.css';
 import { Controller } from 'react-hook-form'
 
 // @ts-ignore
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
-import moment from "moment";
+
 
 
 type PropsType = {
@@ -25,10 +25,13 @@ type PropsType = {
     disabled?: boolean
     error: boolean
     disabledDates: any
+    textColor?: string
+    textFont?: string
+    textTransform?: string
 }
 
 const Calendar = forwardRef<DayPickerInput, PropsType>(
-    ({name, label, value, handleDayChange, selectedDay, onDayClick = () => {}, disabled=false, control, error, disabledDates},
+    ({name, label, value, handleDayChange, selectedDay, onDayClick = () => {}, disabled=false, control, error, disabledDates, ...props},
      ref) => {
 
 
@@ -38,7 +41,9 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
     return (
 
         <CalendarWrapper error={error}>
-            <CalendarLabel>{label}</CalendarLabel>
+            <CalendarLabel textTransform={props.textTransform} textColor={props.textColor} textFont={props.textFont}>
+                {label}
+            </CalendarLabel>
             <Controller
                 name={name}
                 control={control}

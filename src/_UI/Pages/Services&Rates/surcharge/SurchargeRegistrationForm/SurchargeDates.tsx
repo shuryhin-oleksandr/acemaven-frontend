@@ -11,11 +11,15 @@ type PropsType = {
     control: any
     setValue: (name: string, value: any) => void
     errors: {from: any, to: any}
+    textColor?: string
+    textFont?: string
+    textTransform?: string
 }
 
-const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors}) => {
+const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...props}) => {
 
     const bookedDates = useSelector(getBookedDates)
+    console.log('bookes', bookedDates)
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
@@ -23,6 +27,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors}) => {
     })
 
     let surcharge = useSelector(getSurcharge)
+
 
     useEffect(() => {
         if(surcharge && !sessionStorage.getItem('reg')) {
@@ -70,6 +75,9 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors}) => {
                 control={control}
                 error={!!errors.from}
                 disabledDates={bookedDates}
+                textColor={props.textColor}
+                textFont={props.textFont}
+                textTransform={props.textTransform}
             />
             <Calendar
                 label='Expiration Date'
@@ -81,6 +89,9 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors}) => {
                 control={control}
                 error={!!errors.to}
                 disabledDates={bookedDates}
+                textColor={props.textColor}
+                textFont={props.textFont}
+                textTransform={props.textTransform}
             />
         </SurchargesDatesFilter>
     )

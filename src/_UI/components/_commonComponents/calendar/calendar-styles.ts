@@ -1,5 +1,11 @@
 import styled from 'styled-components'
 
+type PropsStyle = {
+    textColor?: string
+    textTransform?: string
+    textFont?: string
+}
+
 export const CalendarWrapper = styled.div<{error?: boolean}>`
   flex: none;
   margin-bottom: 10px;
@@ -21,30 +27,22 @@ export const CalendarWrapper = styled.div<{error?: boolean}>`
   }
   
   .DayPicker-Day {
-  
-  
     &:hover {
       background-color: rgba(26, 184, 230, .3) !important;
       color: #ffffff;
       border-radius: 0;
     }
-    
-  
   }
   
   .DayPicker-Day--disabled {
-  
     &:hover {
       background-color: #ffffff !important;
       color: #999999;
     }
-    
     color: #999999;
     opacity: .4;
-
   }
   
-   
   .DayPicker-Day--start, .DayPicker-Day--end {
     background-color: rgba(26, 184, 230, 1) !important; 
     border-radius: 0;
@@ -92,11 +90,12 @@ export const CalendarWrapper = styled.div<{error?: boolean}>`
 
 `
 
-export const CalendarLabel = styled.div`
-  font-family: Helvetica Reg, sans-serif;
+export const CalendarLabel = styled.div<PropsStyle>`
+  font-family: ${({textFont}) => textFont ? textFont : 'Helvetica Reg, sans-serif'};
   font-size: 14px;
   line-height: 17px;
-  color: #1B1B25;
+  color: ${({textColor}) => textColor ? textColor : '#1B1B25'};
+  text-transform: ${({textTransform}) => textTransform ? textTransform : 'capitalize'};
   margin-bottom: 9px;
 `
 

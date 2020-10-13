@@ -16,7 +16,6 @@ import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {AdditionalSurchargeType, ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Controller} from "react-hook-form";
-import styled from "styled-components";
 
 
 const useStyles = makeStyles({
@@ -92,6 +91,7 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
                                                 name='currency'
+                                                defaultValue={row.currency[0].id}
                                                 as={
                                                     <SurchargeRateSelect options={row.currency}
                                                                          placeholder='Currency'

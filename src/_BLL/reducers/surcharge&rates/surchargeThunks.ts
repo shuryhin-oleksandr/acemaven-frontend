@@ -1,7 +1,7 @@
 import {commonSurchargeActions, surchargeActions} from "./surchargeReducer";
 import {Dispatch} from "redux";
 import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
-import {CarrierType, CheckSurchargeDatesType} from "../../types/rates&surcharges/surchargesTypes";
+import {CarrierType, CheckSurchargeDatesType, editHandlingType} from "../../types/rates&surcharges/surchargesTypes";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../../store";
 
@@ -130,7 +130,6 @@ export const checkSurchargeDates = (checkSurchargeValues: {location: number,
     direction: string,
     shipping_mode: number}): ThunkType => async(dispatch) => {
     try {
-        debugger
         let bookedDates = await surchargeAPI.checkSurchargeDates(checkSurchargeValues);
         console.log(bookedDates)
         dispatch(surchargeActions.setBookedDates(bookedDates))
@@ -138,6 +137,26 @@ export const checkSurchargeDates = (checkSurchargeValues: {location: number,
 
     } catch (e) {
         console.log(e)
+    }
+}
+
+export const editDates = (id: number, edit_data : {start_date: string, expiration_date: string}) => {
+    return async (dispatch: Dispatch<commonSurchargeActions>) => {
+        try {
+            let res = await surchargeAPI.editSurchargeDates(id, edit_data)
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+}
+export const editUsageFees = (id: number, edit_fees : editHandlingType) => {
+    return async (dispatch: Dispatch<commonSurchargeActions>) => {
+        try {
+            let res = await surchargeAPI.editSurchargeHandling(id, edit_fees)
+
+        } catch (e) {
+            console.log(e.response)
+        }
     }
 }
 

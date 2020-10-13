@@ -1,5 +1,4 @@
-import {strict} from "assert";
-import { DateType } from "../commonTypes";
+
 
 export type CurrencyType = {
     id: number,
@@ -127,3 +126,17 @@ export type CheckSurchargeDatesType = {
 }
 
 export type SurchargeCheckDateResponseType = Array<string>
+
+export type editDatesType = {
+    start_date: string,
+    expiration_date: string
+}
+
+export type editHandlingType = {
+    id: number,
+    container_type: number,
+    currency: number,
+    charge: string | number,
+    updated_by: string,
+    date_updated: string
+}

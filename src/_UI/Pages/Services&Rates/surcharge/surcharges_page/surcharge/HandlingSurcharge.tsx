@@ -18,7 +18,6 @@ import SurchargeRateSelect from "../../../../../components/_commonComponents/sel
 import {Controller} from "react-hook-form";
 
 
-
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
@@ -82,13 +81,13 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                     <TableBody className={classes.body}>
                         {rows?.map((row) => (
                             <TableRow key={row.id}>
-                                <TableCell className={classes.innerCell}  component="th" scope="row">
-                                   {row.container_type.code}
-                                </TableCell>
+                                                <TableCell className={classes.innerCell}  component="th" scope="row">
+                                                    {row.container_type.code}
+                                                </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name='currency'
-                                                defaultValue={row.currency[0].code}
+                                                name={`usage_fees.${row.container_type?.id}`}
+                                                defaultValue={row.currency[0].id}
                                                 as={
                                                     <SurchargeRateSelect options={row.currency}
                                                                          placeholder='Currency'
@@ -99,15 +98,31 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name='charge'
+                                                name={`usage_fees.${row.container_type?.id}.currency`}
                                                 defaultValue={row.charge}
                                                 as={
                                                     <Field />
                                                 }
                                     />
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.updated_by}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.date_updated}</TableCell>
+                                <Controller control={props.control}
+                                            defaultValue={row.updated_by}
+                                            name={`usage_fees.${row.container_type?.id}.updated_by`}
+                                            as={
+                                                <TableCell className={classes.innerCell} align="left">
+                                                    {row.updated_by}
+                                                </TableCell>
+                                            }
+                                />
+                               <Controller control={props.control}
+                                           defaultValue={row.date_updated}
+                                           name={`usage_fees.${row.container_type?.id}.date_updated`}
+                                           as={
+                                               <TableCell className={classes.innerCell} align="left">
+                                                   {row.date_updated}
+                                               </TableCell>
+                                           }
+                               />
                             </TableRow>
                         ))}
                     </TableBody>

@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import {
     Content,
-    ContentDate,
     FieldOuter,
     FieldsWrap,
     InfoWrap, Label,
@@ -16,17 +15,19 @@ import plane from '../../../../../../_UI/assets/icons/rates&services/plane-surch
 import HandlingSurcharge from "./HandlingSurcharge";
 import Additional from "./Additional";
 import { useState } from "react";
-import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {getSurchargeInfo} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {
+    editDates,
+    editUsageFees,
+    getSurchargeInfo
+} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import {useHistory} from 'react-router-dom'
-import {AppStateType} from "../../../../../../_BLL/store";
 import {withRouter} from 'react-router'
 import {useForm} from "react-hook-form";
-import {SurchargeObjectType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {getSurcharge} from "../../../../../../_BLL/thunks/surchargeSelectors";
 import SurchargesDates from "../../SurchargeRegistrationForm/SurchargeDates";
+import moment from "moment";
 
 
 
@@ -34,6 +35,12 @@ const Surcharge = ({...props}) => {
     const {register, handleSubmit, errors, setValue, control} = useForm<any>()
     const onSubmit = (values: any) => {
         console.log(values)
+        let edit_dates = {start_date: moment(values.from).format('DD/MM/YYYY'),
+            expiration_date: moment(values.to).format('DD/MM/YYYY')}
+            editDates && dispatch(editDates(props.match.params.id, edit_dates))
+
+        values.usage_fees && Object.keys(values.usage_fees).map(u => (u !== null
+            && dispatch(editUsageFees(values.usage_fees[u].id, values.usage_fees[u]))))
     }
 
     const [formMode, setFormMode] = useState(false)
@@ -93,7 +100,13 @@ const Surcharge = ({...props}) => {
                         </FieldOuter>
                     </FieldsWrap>
                     <FieldsWrap>
-                        <SurchargesDates errors={{from: errors.from, to: errors.to}} control={control} setValue={setValue} />
+                        <SurchargesDates textColor='#115B86'
+                                         textTransform='uppercase'
+                                         textFont='Helvetica Bold'
+                                         errors={{from: errors.from, to: errors.to}}
+                                         control={control}
+                                         setValue={setValue}
+                        />
                     </FieldsWrap>
                 </InfoWrap>
                 <LineWrap />

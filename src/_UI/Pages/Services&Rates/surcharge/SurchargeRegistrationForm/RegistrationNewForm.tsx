@@ -13,9 +13,10 @@ import {
 } from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import {AppStateType} from "../../../../../_BLL/store";
 import {useForm} from "react-hook-form";
-import moment from "moment";
+
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {SurchargeInfoType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import moment from "moment";
 
 
 type PropsType = {

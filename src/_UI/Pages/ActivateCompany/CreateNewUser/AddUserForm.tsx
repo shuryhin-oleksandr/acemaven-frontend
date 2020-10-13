@@ -4,10 +4,11 @@ import {useForm} from "react-hook-form";
 import { IAddNewUserData } from '../../../../_BLL/types/addNewUserTypes';
 import FormField from "../../../components/_commonComponents/Input/FormField";
 import CustomCheckbox from "../../../components/_commonComponents/customCheckbox/customCheckbox";
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {addEmployee} from "../../../../_BLL/reducers/employeesAndBanksReducer";
 import {ErrorServerMessage} from "../../SignInPage";
+import {AppStateType} from "../../../../_BLL/store";
 
 
 interface IProps {
@@ -17,14 +18,24 @@ interface IProps {
 const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
 
     const dispatch = useDispatch()
-    const {register, handleSubmit, errors, getValues, reset} = useForm<IAddNewUserData>()
+    const {register, handleSubmit, errors, getValues, setValue} = useForm<IAddNewUserData>()
+    let success_user = useSelector((state: AppStateType) => state.company.successUser)
     const onSubmit = (values: IAddNewUserData) => {
         console.log(values)
         dispatch(addEmployee(values))
-       /* !errorEmployee && reset(values)*/
     }
 
     const [roleValue, setRole] = useState('')
+
+    useEffect(() => {
+        if(success_user) {
+            setValue('first_name', '')
+            setValue('last_name', '')
+            setValue('email', '')
+            setValue('position', '')
+            setValue('roles', [])
+        }
+    }, [setValue, success_user])
 
     return (
         <FormContainer>

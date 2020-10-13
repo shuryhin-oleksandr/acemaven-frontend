@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import {
     Content,
-    ContentDate,
     FieldOuter,
     FieldsWrap,
     InfoWrap, Label,
@@ -16,36 +15,47 @@ import plane from '../../../../../../_UI/assets/icons/rates&services/plane-surch
 import HandlingSurcharge from "./HandlingSurcharge";
 import Additional from "./Additional";
 import { useState } from "react";
-import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {getSurchargeInfo} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {
+    editDates,
+    editUsageFees,
+    getSurchargeInfo
+} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import {useHistory} from 'react-router-dom'
-import {AppStateType} from "../../../../../../_BLL/store";
 import {withRouter} from 'react-router'
 import {useForm} from "react-hook-form";
+import {getSurcharge} from "../../../../../../_BLL/thunks/surchargeSelectors";
+import SurchargesDates from "../../SurchargeRegistrationForm/SurchargeDates";
+import moment from "moment";
 
 
 
 const Surcharge = ({...props}) => {
-    const {register, handleSubmit, errors, setValue} = useForm<any>()
+    const {register, handleSubmit, errors, setValue, control} = useForm<any>()
     const onSubmit = (values: any) => {
         console.log(values)
+        let edit_dates = {start_date: moment(values.from).format('DD/MM/YYYY'),
+            expiration_date: moment(values.to).format('DD/MM/YYYY')}
+            editDates && dispatch(editDates(props.match.params.id, edit_dates))
+
+        values.usage_fees && Object.keys(values.usage_fees).map(u => (u !== null
+            && dispatch(editUsageFees(values.usage_fees[u].id, values.usage_fees[u]))))
     }
 
     const [formMode, setFormMode] = useState(false)
     const dispatch = useDispatch()
 
-    let surcharge = useSelector((state:AppStateType) => state.surcharge.surcharge_info)
+    let surcharge = useSelector(getSurcharge)
     let history = useHistory()
     let id = props.match.params.id
 
     useEffect(() => {
+        sessionStorage.removeItem('reg')
         dispatch(getSurchargeInfo(id, history))
     }, [dispatch])
     useEffect(() => {
         if(surcharge && formMode) {
-            debugger
             setValue('start_date', surcharge.start_date)
             setValue('expiration_date', surcharge.expiration_date)
         }
@@ -53,7 +63,7 @@ const Surcharge = ({...props}) => {
 
 
     return (
-        <SurchargeContainer>
+        <SurchargeContainer onSubmit={handleSubmit(onSubmit)}>
             <SurchargeContent>
                 <Wrap>
                     <SurchargeTitle>
@@ -90,49 +100,27 @@ const Surcharge = ({...props}) => {
                         </FieldOuter>
                     </FieldsWrap>
                     <FieldsWrap>
-                        <FieldOuter style={{marginBottom: '8px'}}>
-                            <Label>Start date</Label>
-                            {!formMode
-                                ? <ContentDate onClick={() => setFormMode(true)}>{surcharge?.start_date}</ContentDate>
-                                : <FormField name='start_date'
-                                             inputRef={register({
-                                                 required: 'Field is required'
-                                             })}
-                                             maxW='110px'
-                                             focusBack='#E5F7FD'
-                                             height='33px'
-                                             error={errors?.start_date}
-                                />
-                            }
-                        </FieldOuter>
-                        <FieldOuter>
-                            <Label>Expiration Date</Label>
-                            { !formMode
-                                ? <ContentDate onClick={() => setFormMode(true)}>{surcharge?.expiration_date}</ContentDate>
-                                :  <FormField name='expiration_date'
-                                              maxW='110px'
-                                              focusBack='#E5F7FD'
-                                              height='33px'
-                                              inputRef={register({
-                                                  required: 'Field is required'
-                                              })}
-                                              error={errors?.expiration_date}
-                                    />
-                            }
-
-
-
-                        </FieldOuter>
+                        <SurchargesDates textColor='#115B86'
+                                         textTransform='uppercase'
+                                         textFont='Helvetica Bold'
+                                         errors={{from: errors.from, to: errors.to}}
+                                         control={control}
+                                         setValue={setValue}
+                        />
                     </FieldsWrap>
                 </InfoWrap>
                 <LineWrap />
-                {/*{surcharge && surcharge.usage_fees && surcharge.usage_fees.length > 0
+                {surcharge && surcharge.usage_fees && surcharge.usage_fees.length > 0
                 && <HandlingSurcharge setFormMode={setFormMode}
                                       containers={surcharge?.usage_fees}
+                                      control={control}
                 />
-                }*/}
+                }
                 <LineWrap bc='#BDBDBD'/>
-                <Additional setFormMode={setFormMode}/>
+                <Additional setFormMode={setFormMode}
+                            charges={surcharge?.charges}
+                            control={control}
+                />
             </SurchargeContent>
         </SurchargeContainer>
     )

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    Field,
     HandlingSurchargeContainer,
     HandlingTitle
 } from "../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
@@ -11,11 +12,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
-import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
-import {ContainerType, CurrencyType, UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {CurrencyType, UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import {Controller} from "react-hook-form";
+
 
 const useStyles = makeStyles({
     container: {
@@ -47,18 +48,20 @@ const useStyles = makeStyles({
 
 type PropsType = {
     setFormMode?: VoidFunctionType,
-    containers?: UsageFeeType[]
+    containers?: UsageFeeType[],
+    control: any
 }
 
 const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
     const classes = useStyles();
 
-    function createData(id: number, container_type: ContainerType[], currency: CurrencyType[], charge: string, update_by: string, updated_on: string) {
-        return { id, container_type, currency, charge, update_by, updated_on};
+    function createData(id: number, container_type: any, currency: CurrencyType[], charge: string, updated_by: string, date_updated: string) {
+        return { id, container_type, currency, charge, updated_by, date_updated};
     }
 
     const rows = props.containers && props.containers.length > 0
-        ? props.containers.map(c => createData(c.id, c.container_type, c.currency, c.charge, c.updated_by.name, c.updated_on ))
+        ? props.containers.map(c => createData(c.id, c.container_type, [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
+            c.charge, c.updated_by, c.date_updated ))
         : null;
 
     return (
@@ -78,24 +81,48 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                     <TableBody className={classes.body}>
                         {rows?.map((row) => (
                             <TableRow key={row.id}>
-                                <TableCell className={classes.innerCell}  component="th" scope="row">
-                                   {row.container_type}
-                                </TableCell>
+                                                <TableCell className={classes.innerCell}  component="th" scope="row">
+                                                    {row.container_type.code}
+                                                </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                   {/* <SurchargeRateSelect options={row.currency}
-                                                placeholder='Currency'
-                                                maxW='80px'
-                                    />*/}
-                                </TableCell>
-                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                   {/* <FormField name='charge'
-                                               value={row.charge}
-                                               maxW='100px'
+                                    <Controller control={props.control}
+                                                name={`usage_fees.${row.container_type?.id}`}
+                                                defaultValue={row.currency[0].id}
+                                                as={
+                                                    <SurchargeRateSelect options={row.currency}
+                                                                         placeholder='Currency'
+                                                                         maxW='80px'
+                                                    />
+                                                }
                                     />
-*/}
                                 </TableCell>
-                                {/*<TableCell className={classes.innerCell} align="left">{row.update_by}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.updated_on}</TableCell>*/}
+                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
+                                    <Controller control={props.control}
+                                                name={`usage_fees.${row.container_type?.id}.currency`}
+                                                defaultValue={row.charge}
+                                                as={
+                                                    <Field />
+                                                }
+                                    />
+                                </TableCell>
+                                <Controller control={props.control}
+                                            defaultValue={row.updated_by}
+                                            name={`usage_fees.${row.container_type?.id}.updated_by`}
+                                            as={
+                                                <TableCell className={classes.innerCell} align="left">
+                                                    {row.updated_by}
+                                                </TableCell>
+                                            }
+                                />
+                               <Controller control={props.control}
+                                           defaultValue={row.date_updated}
+                                           name={`usage_fees.${row.container_type?.id}.date_updated`}
+                                           as={
+                                               <TableCell className={classes.innerCell} align="left">
+                                                   {row.date_updated}
+                                               </TableCell>
+                                           }
+                               />
                             </TableRow>
                         ))}
                     </TableBody>

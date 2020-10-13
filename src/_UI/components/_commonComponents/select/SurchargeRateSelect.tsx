@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SurchargeRateSelect: React.FC<IProps> = ({ label, error, ...props }) => {
+const SurchargeRateSelect: React.FC<IProps> = ({ label, error, callback=()=>{}, ...props }) => {
     const classes = useStyles();
 
     return (
@@ -115,14 +115,14 @@ const SurchargeRateSelect: React.FC<IProps> = ({ label, error, ...props }) => {
                     variant="outlined"
                     error={!!error}
                 >
-                    <MenuItem value="" onClick={() => props.callback && props.callback('')}>
+                    <MenuItem value="" onClick={() => callback('')}>
                         <em>{label}</em>
                     </MenuItem>
                     {props.options?.map((o: any) => (
                         (o.tooltip
                             ? (<Tooltip title={o.tooltip} arrow classes={{ tooltip: classes.customTooltip }}>
                             <MenuItem
-                                onClick={() => props.callback && props.callback(o.id)}
+                                onClick={() => callback(o.id)}
                                 key={o.id}
                                 value={o.id}
                             >
@@ -130,7 +130,7 @@ const SurchargeRateSelect: React.FC<IProps> = ({ label, error, ...props }) => {
                             </MenuItem>
                         </Tooltip>)
                             :  <MenuItem
-                                onClick={() => props.callback && props.callback(o.id)}
+                                onClick={() => callback(o.id)}
                                 key={o.id}
                                 value={o.id}
                             >

@@ -1,7 +1,11 @@
 import {commonSurchargeActions, surchargeActions} from "./surchargeReducer";
 import {Dispatch} from "redux";
 import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
-import {CarrierType} from "../../types/rates&surcharges/surchargesTypes";
+import {CarrierType, CheckSurchargeDatesType, editHandlingType} from "../../types/rates&surcharges/surchargesTypes";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../../store";
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, commonSurchargeActions>
 
 export const getCarriers = () => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
@@ -64,10 +68,10 @@ export const getCurrencyList = () => {
 }
 
 export const addNewSurcharge = (surcharge_data: any) => {
-    return async (dispatch:Dispatch<commonSurchargeActions>) => {
+    return async (dispatch:Dispatch<any>) => {
         try {
             let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
-            dispatch(surchargeActions.setNewSurcharge(res.data))
+            dispatch(filterByThunk('import', 'sea','', '', ''))
             console.log('surcharge', res.data)
         } catch (e) {
             console.log(e.response)
@@ -91,7 +95,7 @@ export const getSurchargeInfo = (id: number, history:any) => {
         try {
             let res = await surchargeAPI.getExactSurcharge(id)
             dispatch(surchargeActions.setSurchargeInfo(res.data))
-            history.push(`/services/surcharge/:${id}`)
+            history.push(`/services/surcharge/${id}`)
         } catch (e) {
             console.log(e.response)
         }
@@ -103,6 +107,53 @@ export const filterByThunk = (direction: string, type: string, field_name: strin
         try {
             let res = await surchargeAPI.filterByDirectionDelivery(direction, type, field_name, search_column, search_value)
             dispatch(surchargeActions.setSurchargesList(res.data))
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+}
+
+export const GetSurchargeForTooltip = (id: number) => {
+    return async (dispatch:Dispatch<commonSurchargeActions>) => {
+        try {
+            let res = await surchargeAPI.getExactSurcharge(id)
+            dispatch(surchargeActions.setSurchargeInfo(res.data))
+            console.log(res.data)
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+}
+
+export const checkSurchargeDates = (checkSurchargeValues: {location: number,
+    carrier: number,
+    direction: string,
+    shipping_mode: number}): ThunkType => async(dispatch) => {
+    try {
+        let bookedDates = await surchargeAPI.checkSurchargeDates(checkSurchargeValues);
+        console.log(bookedDates)
+        dispatch(surchargeActions.setBookedDates(bookedDates))
+
+
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const editDates = (id: number, edit_data : {start_date: string, expiration_date: string}) => {
+    return async (dispatch: Dispatch<commonSurchargeActions>) => {
+        try {
+            let res = await surchargeAPI.editSurchargeDates(id, edit_data)
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+}
+export const editUsageFees = (id: number, edit_fees : editHandlingType) => {
+    return async (dispatch: Dispatch<commonSurchargeActions>) => {
+        try {
+            let res = await surchargeAPI.editSurchargeHandling(id, edit_fees)
+
         } catch (e) {
             console.log(e.response)
         }

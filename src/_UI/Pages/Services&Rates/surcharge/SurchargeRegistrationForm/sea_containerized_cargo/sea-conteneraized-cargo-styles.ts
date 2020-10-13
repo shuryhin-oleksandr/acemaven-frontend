@@ -1,8 +1,14 @@
 import styled from 'styled-components'
 
 type PropsStyle = {
+    isFocus?: boolean;
+    error?: string;
+    maxW?: string;
+    focusBack?: string;
+    height?: string;
+    marginBottom?: string;
     minWidth?: string
-}
+};
 
 export const SeaContainer = styled.div<PropsStyle>`
   max-width: ${({minWidth}) => minWidth ? minWidth : '610px'};
@@ -31,3 +37,38 @@ export const HandlingTitle = styled.div`
   color: #1AB8E5;
   margin-bottom: 24px;
 `
+
+
+export const Field = styled.input<PropsStyle>`
+  padding: 10px;
+  color: #828282;
+  font-size: 14px;
+  font-family: "Helvetica Light", sans-serif;
+  line-height: 17px;
+  transition: 0.5s;
+  max-width: 100px;
+  width: 100%;
+  height: ${({height}) => height ? height : '40px'};
+  border: ${({ error }) => (error ? "1px solid #7C7C89" : "1px solid #BDBDBD")};
+  border-radius: 4px;
+  outline: none;
+  background: ${({ error }) => (error ? "#ECECEC" : "white")};
+
+  &:focus {
+    transition: 0.5s;
+    border: 1px solid #7c7c89;
+    background-color: ${({ focusBack }) => (focusBack ? focusBack : "white")};
+  }
+
+  &::placeholder {
+    transition: 0.5s;
+    color: #828282;
+    font-size: 14px;
+    font-family: "Helvetica Light", sans-serif;
+    line-height: 17px;
+  }
+  &:focus::placeholder {
+    opacity: 0;
+    transition: 0.5s;
+  }
+`;

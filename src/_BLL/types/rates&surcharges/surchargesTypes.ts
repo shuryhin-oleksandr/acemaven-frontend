@@ -1,4 +1,4 @@
-import {strict} from "assert";
+
 
 export type CurrencyType = {
     id: number,
@@ -71,7 +71,7 @@ export type SurchargeInfoType = {
     shipping_mode: ShippingModeType,
     shipping_type: string,
     usage_fees?: UsageFeeType[],
-    charges: ChargeType[]
+    charges: ChargesType[]
 }
 
 
@@ -97,8 +97,46 @@ export type LocationType = {
 export type UsageFeeType = {
     charge: string,
     container_type: ContainerType[],
-    currency: CurrencyType[],
-    updated_on: string,
+    currency: CurrencyType,
+    date_updated: string,
     id: number,
-    updated_by: any
+    updated_by: string
+}
+
+export type ChargesType = {
+    charge: string,
+    additional_surcharge: AdditionalSurchargeType,
+    currency: CurrencyType,
+    date_updated: string,
+    id: number,
+    updated_by: string,
+    conditions: string
+}
+
+export type PeriodType = {
+    from: Date | string
+    to: Date | string
+}
+
+export type CheckSurchargeDatesType = {
+    carrier: CarrierType,
+    direction: string ,
+    location: LocationType,
+    shipping_mode: ShippingModeType,
+}
+
+export type SurchargeCheckDateResponseType = Array<string>
+
+export type editDatesType = {
+    start_date: string,
+    expiration_date: string
+}
+
+export type editHandlingType = {
+    id: number,
+    container_type: number,
+    currency: number,
+    charge: string | number,
+    updated_by: string,
+    date_updated: string
 }

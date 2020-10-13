@@ -1,6 +1,5 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -8,10 +7,15 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import { HandlingSurchargeContainer, HandlingTitle } from "../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
-import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
-import FormField from "../../../../../components/_commonComponents/Input/FormField";
+import {
+    Field,
+    HandlingSurchargeContainer,
+    HandlingTitle
+} from "../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
+import {AdditionalSurchargeType, ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import {Controller} from "react-hook-form";
 
 
 const useStyles = makeStyles({
@@ -45,28 +49,23 @@ const useStyles = makeStyles({
     }
 });
 
-
 type PropsType = {
-    setFormMode?: VoidFunctionType
+    setFormMode?: VoidFunctionType,
+    charges?: ChargesType[],
+    control: any
 }
 
-const Additional:React.FC<PropsType> = ({setFormMode}) => {
+const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
     const classes = useStyles();
 
-    function createData(name: string, currency: any, charge: string, conditions: string, update_by: string, on: string) {
-        return { name, currency, charge, conditions, update_by, on};
+    function createData(id: number, additional_surcharge: AdditionalSurchargeType, currency: any, charge: string, conditions: string, updated_by: string, date_updated: string) {
+        return { id, additional_surcharge, currency, charge, conditions, updated_by, date_updated};
     }
 
-    const rows = [
-        createData('DOCUMENT FEE', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '6.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020' ),
-        createData('OTHER SURCHARGES (PER CONTAINER)', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '9.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020'),
-        createData('DANGEROUS CARGO FEE', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '16.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020'),
-        createData('COLD CARGO CHARGE', [{name: 'BRL', value: 'BRL'},{name: '$', value: "$"}, {name: 'Euro', value: 'Euro'}],
-            '16.0 $', 'fixed','Hanna Yarash', '13:00 10 MAY 2020')
-    ];
+    const rows = props.charges && props.charges.length > 0
+        ? props.charges.map(c => createData(c.id, c.additional_surcharge, [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
+            c.charge, c.conditions, c.updated_by, c.date_updated ))
+        : null
 
     return (
         <HandlingSurchargeContainer>
@@ -84,27 +83,36 @@ const Additional:React.FC<PropsType> = ({setFormMode}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.name}>
+                        {rows?.map((row) => (
+                            <TableRow key={row.id}>
                                 <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                                    {row.name}
+                                    {row.additional_surcharge.title}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                    <FormSelect options={row.currency}
-                                                placeholder='Currency'
-                                                maxW='80px'
+                                    <Controller control={props.control}
+                                                name='currency'
+                                                defaultValue={row.currency[0].id}
+                                                as={
+                                                    <SurchargeRateSelect options={row.currency}
+                                                                         placeholder='Currency'
+                                                                         maxW='80px'
+                                                    />
+                                                }
                                     />
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                    <FormField name='charge'
-                                               value={row.charge}
-                                               maxW='100px'
+                                    <Controller control={props.control}
+                                                name='charge'
+                                                defaultValue={row.charge}
+                                                as={
+                                                        <Field value={row.charge}
+                                                        />
+                                                }
                                     />
-
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">{row.conditions}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.update_by}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.on}</TableCell>
+                                <TableCell className={classes.innerCell} align="left">{row.updated_by}</TableCell>
+                                <TableCell className={classes.innerCell} align="left">{row.date_updated}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -115,3 +123,6 @@ const Additional:React.FC<PropsType> = ({setFormMode}) => {
 }
 
 export default Additional
+
+
+

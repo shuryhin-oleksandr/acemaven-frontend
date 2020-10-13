@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 type PropsStyle = {
-  mode?: string;
-  withoutBottomMargin?: boolean;
-};
+    mode?: string,
+    w? : string
+}
 
 export const Outer = styled.form`
   width: 100%;
@@ -18,22 +18,41 @@ export const HeaderWrapper = styled.div`
   justify-content: space-between;
 `;
 export const ActionsWrapper = styled.div`
-  display: flex;
-`;
+display: flex;
+`
+
+export const Cancel = styled.button<PropsStyle>`
+font-family: "Helvetica Reg", sans-serif;
+font-size: 14px;
+background: white;
+outline: none;
+border: 1px solid #3B3B41;
+height: 40px;
+max-width: ${({w}) => w ? w : '115px'};
+width: 100%;
+color: #3B3B41;
+transition: .3s;
+
+&:hover {
+ transition: .3s;
+ background-color: #E0E0E0;
+cursor: pointer
+}
+`
 export const RegisterButton = styled.button`
-  outline: none;
-  border: none;
-  background-color: black;
-  color: white;
-  font-family: "Helvetica Reg", sans-serif;
-  font-size: 14px;
-  height: 40px;
-  width: 170px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 15px;
-  padding: 0;
+outline: none;
+border: none;
+background-color: black;
+color: white;
+font-family: "Helvetica Reg", sans-serif;
+font-size: 14px;
+height: 40px;
+width: 170px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-right: 15px;
+padding: 0;
 
   &:hover {
     cursor: pointer;
@@ -47,19 +66,16 @@ export const FormTitle = styled.div`
 `;
 export const OptionsButtonsWrap = styled.div<PropsStyle>`
   min-width: 150px;
-  max-width: 150px;
   height: 40px;
-  width: 100%;
-  background-color: #ececec;
+  background-color: #ECECEC;
   border-radius: 2px;
-  border: 1px solid #ececec;
+  border: 1px solid #ECECEC;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  margin-bottom: ${({ withoutBottomMargin }) =>
-    withoutBottomMargin ? "unset" : "25px"};
-`;
+ 
+`
 export const OptionButton = styled.div<PropsStyle>`
   display: flex;
   align-items: center;
@@ -142,17 +158,22 @@ export const Port = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-family: "Helvetica Reg", sans-serif;
-  color: #7c7c89;
+  color: #7C7C89;
   font-size: 14px;
-  transition: 0.3s;
+  transition: .3s;
   min-height: 25px;
   padding: 0 5px;
   border-radius: 5px;
-
+  
   &:hover {
     cursor: pointer;
     color: white;
-    background-color: #115b86;
-    transition: 0.3s;
+    background-color: #115B86;
+    transition: .3s;
   }
-`;
+`
+
+export const SurchargesDatesFilter = styled.div`
+  display: flex;
+  flex-direction: column;
+`

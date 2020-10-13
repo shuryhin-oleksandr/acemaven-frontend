@@ -13,16 +13,18 @@ import ship_surcharge from '../../../../assets/icons/rates&services/ship-surchar
 import {TemplateIcon} from "../../../../components/_commonComponents/hover_message/hover-message-styles";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import {Tooltip} from "@material-ui/core";
-import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {SurchargeInfoType, SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
-import {getSurchargeInfo} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import { useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
+        height: 415,
+        overflowY: 'scroll'
     },
     table: {
         '& .MuiTableHead-root' : {
@@ -85,7 +87,8 @@ type PropsType = {
     setSearchValue: VoidFunctionType,
     searchValue: string,
     searchColumn: string,
-    setSearchColumn: VoidFunctionType
+    setSearchColumn: VoidFunctionType,
+    setNewSurchargeMode: VoidFunctionType
 }
 
 const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
@@ -96,7 +99,6 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
 
     let history = useHistory()
     let goToPage = (id:number) => {
-        debugger
         props.dispatch(getSurchargeInfo(id, history))
     }
 
@@ -108,6 +110,11 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
             s.location, s.direction, s.start_date, s.expiration_date))
         : null;
 
+
+    let templateDataHandler = (id: number) => {
+        props.dispatch(GetSurchargeForTooltip(id))
+        props.setNewSurchargeMode(true)
+    }
 
     return (
         <Outer>
@@ -192,8 +199,8 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                     </TableHead>
                     <TableBody>
                         {rows?.map((row) => (
-                            <TableRow key={row.id} onClick={() => goToPage(row.id)}>
-                                    <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
+                            <TableRow key={row.id}>
+                                    <TableCell onClick={() => goToPage(row.id)} className={classes.innerMainCell} align="left" component="th" scope="row">
                                         <ModeIcon src={ row.shipping_type === 'sea' ? ship_surcharge : plane_surcharge} alt=""/>
                                         <SpanMode >{row.shipping_mode}</SpanMode>
                                     </TableCell>
@@ -208,7 +215,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                                                 arrow
                                                 classes={{ tooltip: classes.customTooltip }}
                                        >
-                                           <TemplateIcon>
+                                           <TemplateIcon onClick={() => templateDataHandler(row.id)}>
                                                <img src={template_icon} alt="" />
                                            </TemplateIcon>
                                        </Tooltip>

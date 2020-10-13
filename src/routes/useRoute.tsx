@@ -22,7 +22,7 @@ const useRoute = (isAuth: boolean) => {
         return (
             <Switch>
                 <Route exact component={DashboardContainer} path='/'/>
-                <Route exact component={SurchargesContainer} path='/services/surcharges'/>
+                <Route component={SurchargesContainer} path='/services/surcharges'/>
                 <Route component={ExactSurchargeContainer} path='/services/surcharge/:id'/>
                 <Route exact component={RatesContainer} path='/services/rates'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>

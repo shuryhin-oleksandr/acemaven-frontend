@@ -32,6 +32,7 @@ export const Field = styled.input<PropsStyle>`
   font-family: "Helvetica Light", sans-serif;
   line-height: 17px;
   transition: 0.5s;
+  width: 100%;
   height: ${({height}) => height ? height : '40px'};
   border: ${({ error }) => (error ? "1px solid #7C7C89" : "1px solid #BDBDBD")};
   border-radius: 4px;
@@ -56,6 +57,7 @@ export const Field = styled.input<PropsStyle>`
     transition: 0.5s;
   }
 `;
+
 export const Label = styled.div<PropsStyle>`
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;

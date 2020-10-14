@@ -3,7 +3,7 @@ import { SurchargesDatesFilter } from "./form-styles";
 import Calendar from "../../../../components/_commonComponents/calendar/Calendar";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import {useSelector} from "react-redux";
-import {getBookedDates, getSurcharge} from "../../../../../_BLL/thunks/surchargeSelectors";
+import {getBookedDates, getSurcharge} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import moment from "moment";
 
 
@@ -18,7 +18,8 @@ type PropsType = {
 
 const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...props}) => {
 
-    const bookedDates = useSelector(getBookedDates)
+    const reservedDates = useSelector(getBookedDates)
+    const bookedDates = reservedDates?.push({before: new Date()})
     console.log('bookes', bookedDates)
 
     const [selectedDay, setSelectedDay] = useState<any>({
@@ -74,10 +75,11 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
                 onDayClick={fromDayClick}
                 control={control}
                 error={!!errors.from}
-                disabledDates={bookedDates}
+                disabledDates={reservedDates}
                 textColor={props.textColor}
                 textFont={props.textFont}
                 textTransform={props.textTransform}
+                disabled={!reservedDates}
             />
             <Calendar
                 label='Expiration Date'
@@ -88,10 +90,11 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
                 ref={toInput}
                 control={control}
                 error={!!errors.to}
-                disabledDates={bookedDates}
+                disabledDates={reservedDates}
                 textColor={props.textColor}
                 textFont={props.textFont}
                 textTransform={props.textTransform}
+                disabled={!reservedDates}
             />
         </SurchargesDatesFilter>
     )

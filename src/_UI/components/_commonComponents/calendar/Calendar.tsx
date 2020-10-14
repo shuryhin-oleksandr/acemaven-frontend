@@ -10,8 +10,6 @@ import { Controller } from 'react-hook-form'
 // @ts-ignore
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
 
-
-
 type PropsType = {
     label: string
     name: string
@@ -22,7 +20,7 @@ type PropsType = {
     onDayClick?: VoidFunctionType
     ref: MutableRefObject<DayPickerInput>
     control: any
-    disabled?: boolean
+    disabled?: any
     error: boolean
     disabledDates: any
     textColor?: string
@@ -31,15 +29,13 @@ type PropsType = {
 }
 
 const Calendar = forwardRef<DayPickerInput, PropsType>(
-    ({name, label, value, handleDayChange, selectedDay, onDayClick = () => {}, disabled=false, control, error, disabledDates, ...props},
+    ({name, label, value, handleDayChange, selectedDay, onDayClick = () => {}, disabled, control, error, disabledDates, ...props},
      ref) => {
-
 
     const { from, to } = selectedDay
     const modifiers = {start: selectedDay.from, end: selectedDay.to};
 
     return (
-
         <CalendarWrapper error={error}>
             <CalendarLabel textTransform={props.textTransform} textColor={props.textColor} textFont={props.textFont}>
                 {label}
@@ -71,7 +67,7 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
                             numberOfMonths: 1,
                             localeUtils: MomentLocaleUtils,
                             onDayClick: onDayClick,
-                            disabledDays: disabledDates
+                            disabledDays: disabledDates,
                         }}
                     />
                 }

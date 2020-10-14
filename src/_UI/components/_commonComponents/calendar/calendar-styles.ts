@@ -69,12 +69,18 @@ export const CalendarWrapper = styled.div<{error?: boolean}>`
   outline: none;
   background: ${({ error }) => (error ? "#ECECEC" : "white")};
 
+  &:hover {
+    cursor: pointer;
+  }
   &:focus {
     transition: 0.5s;
     border: 1px solid #7c7c89;
     background-color: white
   }
 
+  &:disabled {
+  background-color: rgba(0, 0, 0, .1);
+  }
   &::placeholder {
     transition: 0.5s;
     color: #828282;

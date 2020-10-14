@@ -8,6 +8,7 @@ import {
 
 
 const initialState = {
+    current_shipping_type: 'sea',
     sea_carriers: null as CarrierType[] | null,
     air_carriers: null as CarrierType[] | null,
     shipping_modes: null as ShippingModeType[] | null,
@@ -25,6 +26,11 @@ type InitialStateType = typeof initialState
 
 export const surchargeReducer = (state = initialState, action: commonSurchargeActions):InitialStateType => {
     switch (action.type) {
+        case "SET_CURRENT_SHIPPING_TYPE":
+            return {
+                ...state,
+                current_shipping_type: action.current_type
+            }
         case "SET_SEA_CARRIERS_LIST":
             return {
                 ...state,
@@ -94,5 +100,5 @@ export const surchargeActions = {
     setSurchargesList: (list: SurchargeObjectType[]) => ({type: 'SET_SURCHARGES_LIST', list} as const),
     setSurchargeInfo: (info: SurchargeInfoType | null) => ({type: 'SET_SURCHARGE_INFO', info} as const),
     setBookedDates: (bookedDates: SurchargeCheckDateResponseType) => ({type: 'SET_BOOKED_DATES', bookedDates} as const),
-
+    setCurrentShippingType: (current_type: string) => ({type: 'SET_CURRENT_SHIPPING_TYPE', current_type} as const)
 }

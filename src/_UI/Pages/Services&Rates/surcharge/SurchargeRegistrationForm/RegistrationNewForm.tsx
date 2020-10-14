@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {ActionsWrapper, Cancel, FormTitle, HeaderWrapper, Outer, RegisterButton, UnderTitle} from "./form-styles";
 import OptionsDeliveryButtons from "src/_UI/components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import ByPlaneForm from "./ByPlaneForm";
@@ -9,14 +9,13 @@ import {
     addNewSurcharge,
     getCarriers, getCurrencyList,
     getShippingModes,
-    getShippingTypes, getWholeSurchargesList
+    getShippingTypes,
 } from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import {AppStateType} from "../../../../../_BLL/store";
 import {useForm} from "react-hook-form";
-
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
-import {SurchargeInfoType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import moment from "moment";
+import {getCurrentShippingTypeSelector} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 
 
 type PropsType = {
@@ -24,12 +23,15 @@ type PropsType = {
 }
 
 const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
-    const [mode, setMode] = useState('sea')
     const [shippingValue, setShippingValue] = useState(0)
 
-
-
     const dispatch = useDispatch()
+
+    let setMode = useCallback((mode: string) => {
+        dispatch(surchargeActions.setCurrentShippingType(mode))
+    }, [])
+    const mode = useSelector(getCurrentShippingTypeSelector)
+
     const shipping_types = useSelector((state: AppStateType) => state.surcharge.shipping_type)
     const sea_carriers = useSelector((state: AppStateType) => state.surcharge.sea_carriers)
     const air_carriers = useSelector((state: AppStateType) => state.surcharge.air_carriers)
@@ -78,7 +80,6 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
     useEffect(() => {
         if(surcharge) {
             setShippingValue(surcharge.shipping_mode.id)
-            console.log('value', shippingValue)
             setValue('carrier', surcharge.carrier.id)
             setValue('direction', surcharge.direction)
             setValue('shipping_mode', surcharge.shipping_mode.id)

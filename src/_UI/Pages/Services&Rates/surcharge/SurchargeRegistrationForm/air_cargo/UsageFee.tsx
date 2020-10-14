@@ -17,7 +17,9 @@ import {Field} from "../../../../../components/_commonComponents/Input/input-sty
 
 const useStyles = makeStyles({
     container: {
-        boxShadow: 'none'
+        boxShadow: 'none',
+        height: '420px',
+        overflowY: 'scroll'
     },
     table: {
         minWidth: 479,

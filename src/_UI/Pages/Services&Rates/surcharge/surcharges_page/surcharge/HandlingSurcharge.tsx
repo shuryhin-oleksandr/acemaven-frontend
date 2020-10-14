@@ -81,12 +81,18 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                     <TableBody className={classes.body}>
                         {rows?.map((row) => (
                             <TableRow key={row.id}>
+                                <Controller control={props.control}
+                                            name={`usage_fees.${row.container_type?.id}.id`}
+                                            defaultValue={row.id}
+                                            as={
                                                 <TableCell className={classes.innerCell}  component="th" scope="row">
                                                     {row.container_type.code}
                                                 </TableCell>
+                                            }
+                                />
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name={`usage_fees.${row.container_type?.id}`}
+                                                name={`usage_fees.${row.container_type?.id}.currency`}
                                                 defaultValue={row.currency[0].id}
                                                 as={
                                                     <SurchargeRateSelect options={row.currency}
@@ -98,7 +104,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name={`usage_fees.${row.container_type?.id}.currency`}
+                                                name={`usage_fees.${row.container_type?.id}.charge`}
                                                 defaultValue={row.charge}
                                                 as={
                                                     <Field />

@@ -1,7 +1,12 @@
 import {commonSurchargeActions, surchargeActions} from "./surchargeReducer";
 import {Dispatch} from "redux";
 import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
-import {CarrierType, CheckSurchargeDatesType, editHandlingType} from "../../types/rates&surcharges/surchargesTypes";
+import {
+    CarrierType,
+    CheckSurchargeDatesType,
+    editChargesType,
+    editHandlingType
+} from "../../types/rates&surcharges/surchargesTypes";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../../store";
 
@@ -153,6 +158,17 @@ export const editUsageFees = (id: number, edit_fees : editHandlingType) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
             let res = await surchargeAPI.editSurchargeHandling(id, edit_fees)
+
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+}
+
+export const editCharges = (id: number, edit_charges : editChargesType) => {
+    return async (dispatch: Dispatch<commonSurchargeActions>) => {
+        try {
+            let res = await surchargeAPI.editSurchargeAdditional(id, edit_charges)
 
         } catch (e) {
             console.log(e.response)

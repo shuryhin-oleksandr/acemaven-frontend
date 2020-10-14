@@ -16,6 +16,9 @@ import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {AdditionalSurchargeType, ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Controller} from "react-hook-form";
+import SurchargeRateConditionsSelect
+    from "../../../../../components/_commonComponents/select/SurchargeRateConditionsSelect";
+import {conditions, currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 
 
 const useStyles = makeStyles({
@@ -52,7 +55,8 @@ const useStyles = makeStyles({
 type PropsType = {
     setFormMode?: VoidFunctionType,
     charges?: ChargesType[],
-    control: any
+    control: any,
+    errors: any
 }
 
 const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
@@ -63,9 +67,20 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
     }
 
     const rows = props.charges && props.charges.length > 0
-        ? props.charges.map(c => createData(c.id, c.additional_surcharge, [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
+        ? props.charges.map(c => createData(c.id, c.additional_surcharge, c.currency,
             c.charge, c.conditions, c.updated_by, c.date_updated ))
         : null
+
+
+    let defaultCondition = conditions?.filter(co => {
+        return props.charges?.find(c => co.title === c.conditions)
+
+    })
+
+    let defaultCurrency = currency?.filter(cu => {
+       return props.charges?.find(c => c.currency.id === cu.id)
+    })
+
 
     return (
         <HandlingSurchargeContainer>
@@ -85,15 +100,21 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                     <TableBody>
                         {rows?.map((row) => (
                             <TableRow key={row.id}>
-                                <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                                    {row.additional_surcharge.title}
-                                </TableCell>
+                                <Controller control={props.control}
+                                            defaultValue={row.id}
+                                            name={`charges.${row.id}.additional_surcharge`}
+                                            as={
+                                                <TableCell className={classes.innerMainCell}  component="th" scope="row">
+                                                    {row.additional_surcharge.title}
+                                                </TableCell>
+                                            }
+                                />
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name='currency'
-                                                defaultValue={row.currency[0].id}
+                                                name={`charges.${row.id}.currency`}
+                                                defaultValue={defaultCurrency[0].id}
                                                 as={
-                                                    <SurchargeRateSelect options={row.currency}
+                                                    <SurchargeRateSelect options={currency}
                                                                          placeholder='Currency'
                                                                          maxW='80px'
                                                     />
@@ -102,17 +123,56 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name='charge'
+                                                name={`charges.${row.id}.charge`}
                                                 defaultValue={row.charge}
+                                                rules={{
+                                                    pattern: /^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$/
+                                                }}
                                                 as={
-                                                        <Field value={row.charge}
-                                                        />
-                                                }
+                                                    <Field value={row.charge}
+                                                    />
+                                               }
                                     />
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.conditions}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.updated_by}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.date_updated}</TableCell>
+                                {row.additional_surcharge.id === 1
+                                    ? <Controller control={props.control}
+                                                  defaultValue={row.conditions}
+                                                  name={`charges.${row.id}.conditions`}
+                                                  as={
+                                                      <TableCell className={classes.innerCell} align="left">
+                                                          {row.conditions}
+                                                      </TableCell>
+                                                  }
+                                    />
+                                    :  <Controller control={props.control}
+                                                   defaultValue={defaultCondition[0].title}
+                                                   name={`charges.${row.id}.conditions`}
+                                                   as={
+                                                       <SurchargeRateConditionsSelect options={conditions}
+                                                                            placeholder='Currency'
+
+                                                       />
+                                                   }
+                                    />
+                                }
+                                <Controller control={props.control}
+                                            defaultValue={row.updated_by}
+                                            name={`charges.${row.id}.updated_by`}
+                                            as={
+                                                <TableCell className={classes.innerCell} align="left">
+                                                    {row.updated_by}
+                                                </TableCell>
+                                            }
+                                />
+                                <Controller control={props.control}
+                                            defaultValue={row.date_updated}
+                                            name={`charges.${row.id}.date_updated`}
+                                            as={
+                                                <TableCell className={classes.innerCell} align="left">
+                                                    {row.date_updated}
+                                                </TableCell>
+                                            }
+                                />
                             </TableRow>
                         ))}
                     </TableBody>

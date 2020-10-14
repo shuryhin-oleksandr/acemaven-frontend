@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 type PropsStyle = {
     c?: string,
-    bc?: string
+    bc?: string,
+    w?: string
 }
 
 export const SurchargeContainer = styled.form`
@@ -98,4 +99,49 @@ export const BorderSpan = styled.div`
   &:hover {
     cursor: pointer;
   }
+`
+
+export const Wrap = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`
+export const FormButtons = styled.div`
+display: flex;
+max-width: 325px;
+width: 100%;
+justify-content: space-between;
+`
+export const SaveButton = styled.button`
+  outline: none;
+  background-color: black;
+  color: white;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  border: none;
+  height: 40px;
+  width: 200px;
+  padding: 0;
+  &:hover {
+    cursor: pointer
+  }
+`
+
+export const CancelButtonWrap = styled.button<PropsStyle>`
+font-family: "Helvetica Reg", sans-serif;
+font-size: 14px;
+background: white;
+outline: none;
+border: 1px solid #3B3B41;
+height: 40px;
+max-width: ${({w}) => w ? w : '115px'};
+width: 100%;
+color: #3B3B41;
+transition: .3s;
+
+&:hover {
+ transition: .3s;
+ background-color: #E0E0E0;
+cursor: pointer
+}
 `

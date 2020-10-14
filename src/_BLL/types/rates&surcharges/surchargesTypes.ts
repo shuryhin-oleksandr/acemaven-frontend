@@ -140,3 +140,13 @@ export type editHandlingType = {
     updated_by: string,
     date_updated: string
 }
+
+export type editChargesType = {
+    id: number,
+    additional_surcharge: number,
+    conditions: string,
+    currency: number,
+    charge: string | number,
+    updated_by: string,
+    date_updated: string
+}

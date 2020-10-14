@@ -1,5 +1,6 @@
 import instance from "./axiosConfig";
 import {
+    editChargesType,
     editDatesType, editHandlingType,
     SurchargeCheckDateResponseType,
     SurchargeObjectType
@@ -48,5 +49,8 @@ export const surchargeAPI = {
     },
     editSurchargeHandling (id: number, edit_handling: editHandlingType) {
         return instance.patch(`/booking/usage-fee/${id}/`, edit_handling)
+    },
+    editSurchargeAdditional (id: number, edit_additional: editChargesType) {
+        return instance.patch(`/booking/usage-fee/${id}/`, edit_additional)
     }
 }

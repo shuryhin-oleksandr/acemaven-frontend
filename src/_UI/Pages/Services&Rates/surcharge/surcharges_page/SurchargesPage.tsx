@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {ModeIcon, Outer, SpanMode} from "./surcharges-style";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -13,12 +13,14 @@ import ship_surcharge from '../../../../assets/icons/rates&services/ship-surchar
 import {TemplateIcon} from "../../../../components/_commonComponents/hover_message/hover-message-styles";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import {Tooltip} from "@material-ui/core";
-import {SurchargeInfoType, SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
 import { useHistory } from "react-router-dom";
-
+import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
+import {useSelector} from "react-redux";
+import {getCurrentShippingTypeSelector} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 
 const useStyles = makeStyles({
     container: {
@@ -95,6 +97,11 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
 
     const [isSearchMode, setSearchMode] = useState(false)
 
+    let setMode = useCallback((mode: string) => {
+        props.dispatch(surchargeActions.setCurrentShippingType(mode))
+    }, [])
+    const mode = useSelector(getCurrentShippingTypeSelector)
+
     const classes = useStyles();
 
     let history = useHistory()
@@ -111,7 +118,9 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
         : null;
 
 
-    let templateDataHandler = (id: number) => {
+    let templateDataHandler = (id: number, shipping_type: string) => {
+        setMode(shipping_type)
+        console.log('type', mode)
         props.dispatch(GetSurchargeForTooltip(id))
         props.setNewSurchargeMode(true)
     }
@@ -215,7 +224,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                                                 arrow
                                                 classes={{ tooltip: classes.customTooltip }}
                                        >
-                                           <TemplateIcon onClick={() => templateDataHandler(row.id)}>
+                                           <TemplateIcon onClick={() => templateDataHandler(row.id, row.shipping_type)}>
                                                <img src={template_icon} alt="" />
                                            </TemplateIcon>
                                        </Tooltip>

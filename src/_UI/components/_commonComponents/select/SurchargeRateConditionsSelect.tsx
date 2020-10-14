@@ -21,9 +21,13 @@ type IProps = {
 const useStyles = makeStyles((theme) => ({
     formControl: {
         width: "100%",
-        marginBottom: '10px'
+        height: '95px',
+        paddingTop: '18px',
+        borderBottom: '1px solid #E0E0E0'
+        /*marginBottom: '10px'*/
     },
     selectEmpty: {
+        maxWidth: '80px',
         width: "100%",
         height: "40px",
         color: "#828282",

@@ -9,6 +9,14 @@ import {
   ShippingModeType,
 } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
+import {
+  Port,
+  PortsList,
+} from "../../surcharge/SurchargeRegistrationForm/form-styles";
+import { PortType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import { getPorts } from "../../../../../_BLL/reducers/surcharge&rates/rateThunks";
+import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import { useDispatch } from "react-redux";
 
 type PropsType = {
   setShippingValue: VoidFunctionType;
@@ -19,6 +27,8 @@ type PropsType = {
   getValues?: any;
   setValue?: any;
   air_carriers: CarrierType[] | null;
+  destination_ports?: any;
+  origin_ports?: any;
 };
 
 const ByPlaneRateForm: React.FC<PropsType> = ({
@@ -27,19 +37,19 @@ const ByPlaneRateForm: React.FC<PropsType> = ({
   air_carriers,
   ...props
 }) => {
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const dispatch = useDispatch();
+
+  let onOriginChangeHandler = (value: any) => {
+    dispatch(getPorts(value.value, "origin"));
   };
-
-  let carriers = [
-    { name: "1", value: "1" },
-    { nam: "2", value: "2" },
-  ];
-
-  let shippingModes = [
-    { name: "ULD Cargo", value: "ULD" },
-    { name: "Loose Cargo", value: "Loose Cargo" },
-  ];
+  let onDestinationChangeHandler = (value: any) => {
+    dispatch(getPorts(value.value, "destination"));
+  };
+  let closePortsHandler = (port: PortType, field: string) => {
+    props.setValue(field, port.display_name);
+    dispatch(rateActions.setDestinationPortsList([]));
+    dispatch(rateActions.setOriginPortsList([]));
+  };
 
   return (
     <FormWrap>
@@ -67,18 +77,73 @@ const ByPlaneRateForm: React.FC<PropsType> = ({
         />
       </GroupWrap>
       <GroupWrap>
-        <Controller
-          name="origin"
-          control={props.control}
-          defaultValue=""
-          as={<FormSelect label="Origin" options={carriers} />}
-        />
-        <Controller
-          name="destination"
-          control={props.control}
-          defaultValue=""
-          as={<FormSelect label="Destination" options={carriers} />}
-        />
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+          }}
+        >
+          <FormField
+            inputRef={props.register({
+              required: "Field is required",
+            })}
+            name="origin"
+            placeholder="Local port"
+            label="Origin"
+            error={props.errors?.origin?.message}
+            getValues={props.getValues}
+            onChange={onOriginChangeHandler}
+            // onBlur={blurHandler}
+          />
+          {props.origin_ports && props.origin_ports?.length > 0 && (
+            <PortsList>
+              {props.origin_ports?.map((p: PortType) => (
+                <Port
+                  onClick={() => closePortsHandler(p, "origin")}
+                  key={p?.id}
+                >
+                  {p?.display_name}
+                </Port>
+              ))}
+            </PortsList>
+          )}
+        </div>
+
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+          }}
+        >
+          <FormField
+            inputRef={props.register({
+              required: "Field is required",
+            })}
+            name="destination"
+            placeholder="Local port"
+            label="Destination"
+            error={props.errors?.destination?.message}
+            getValues={props.getValues}
+            onChange={onDestinationChangeHandler}
+            // onBlur={blurHandler}
+          />
+          {props.destination_ports && props.destination_ports?.length > 0 && (
+            <PortsList>
+              {props.destination_ports?.map((p: PortType) => (
+                <Port
+                  onClick={() => closePortsHandler(p, "destination")}
+                  key={p?.id}
+                >
+                  {p?.display_name}
+                </Port>
+              ))}
+            </PortsList>
+          )}
+        </div>
 
         <FormField
           label="Transit time"

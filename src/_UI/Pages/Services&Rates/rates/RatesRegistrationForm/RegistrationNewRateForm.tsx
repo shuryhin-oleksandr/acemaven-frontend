@@ -40,6 +40,12 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
   const air_carriers = useSelector(
     (state: AppStateType) => state.rate.air_carriers
   );
+  const origin_ports = useSelector(
+    (state: AppStateType) => state.rate.origin_ports
+  );
+  const destination_ports = useSelector(
+    (state: AppStateType) => state.rate.destination_ports
+  );
 
   useEffect(() => {
     dispatch(getShippingTypes());
@@ -83,6 +89,9 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
           errors={errors}
           getValues={getValues}
           sea_carriers={sea_carriers}
+          setValue={setValue}
+          origin_ports={origin_ports}
+          destination_ports={destination_ports}
         />
       ) : (
         <ByPlaneForm
@@ -93,6 +102,9 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
           errors={errors}
           getValues={getValues}
           air_carriers={air_carriers}
+          setValue={setValue}
+          origin_ports={origin_ports}
+          destination_ports={destination_ports}
         />
       )}
       {!shippingValue ? (

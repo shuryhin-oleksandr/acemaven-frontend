@@ -7,4 +7,7 @@ export const rateAPI = {
   getCarriersList () {
     return instance.get('/handling/carrier/')
   },
+  getPortsList (q: string) {
+    return instance.get(`/handling/port/?is_local=true&search=${q}`)
+  },
 };

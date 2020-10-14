@@ -1,16 +1,21 @@
-import { ShippingTypeType } from "../../types/rates&surcharges/ratesTypes";
-import { CarrierType } from "../../types/rates&surcharges/ratesTypes";
+import {
+  CarrierType,
+  PortType,
+  ShippingTypeType,
+} from "../../types/rates&surcharges/ratesTypes";
 
 const initialState = {
   shipping_type: null as ShippingTypeType[] | null,
   sea_carriers: null as CarrierType[] | null,
   air_carriers: null as CarrierType[] | null,
+  origin_ports: null as PortType[] | null,
+  destination_ports: null as PortType[] | null,
 };
 
 type InitialStateType = typeof initialState;
 export const rateReducer = (
-  state = initialState,
-  action: commonRateActions
+    state = initialState,
+    action: commonRateActions
 ): InitialStateType => {
   switch (action.type) {
     case "SET_SHIPPING_TYPE":
@@ -27,6 +32,16 @@ export const rateReducer = (
       return {
         ...state,
         air_carriers: action.air_carriers,
+      };
+    case "SET_ORIGIN_PORTS":
+      return {
+        ...state,
+        origin_ports: action.ports,
+      };
+    case "SET_DESTINATION_PORTS":
+      return {
+        ...state,
+        destination_ports: action.ports,
       };
     default:
       return state;
@@ -45,4 +60,8 @@ export const rateActions = {
     ({ type: "SET_SEA_CARRIERS_LIST", sea_carriers } as const),
   setAirCarriersList: (air_carriers: CarrierType[]) =>
     ({ type: "SET_AIR_CARRIERS_LIST", air_carriers } as const),
+  setOriginPortsList: (ports: PortType[]) =>
+    ({ type: "SET_ORIGIN_PORTS", ports } as const),
+  setDestinationPortsList: (ports: PortType[]) =>
+    ({ type: "SET_DESTINATION_PORTS", ports } as const),
 };

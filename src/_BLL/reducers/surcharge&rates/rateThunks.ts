@@ -36,3 +36,16 @@ export const getShippingTypes = () => {
     }
   };
 };
+
+export const getPorts = (q: string, field: string) => {
+  return async (dispatch: Dispatch<commonRateActions>) => {
+    try {
+      let res = await rateAPI.getPortsList(q);
+      field === "origin"
+        ? dispatch(rateActions.setOriginPortsList(res.data))
+        : dispatch(rateActions.setDestinationPortsList(res.data));
+    } catch (e) {
+      console.log(e.response);
+    }
+  };
+};

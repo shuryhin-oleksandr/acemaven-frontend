@@ -59,14 +59,12 @@ const Surcharge = ({...props}) => {
     let id = props.match.params.id
 
     useEffect(() => {
-        debugger
         sessionStorage.removeItem('reg')
         dispatch(getSurchargeInfo(id, props.history))
     }, [dispatch])
 
 
     useEffect(() => {
-        debugger
         surcharge && dispatch(checkSurchargeDates({location: surcharge.location.id,
             direction: surcharge.direction, shipping_mode: surcharge.shipping_mode.id, carrier: surcharge.carrier.id}))
         if(surcharge && formMode) {

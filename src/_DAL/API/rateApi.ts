@@ -10,4 +10,7 @@ export const rateAPI = {
   getPortsList (q: string) {
     return instance.get(`/handling/port/?is_local=true&search=${q}`)
   },
+  getCurrencyList () {
+    return instance.get('/handling/currency/')
+  },
 };

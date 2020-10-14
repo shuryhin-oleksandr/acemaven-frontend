@@ -1,3 +1,8 @@
+export type CurrencyType = {
+  id: number,
+  code: string
+}
+
 export type PortType = {
   id: number;
   display_name: string;

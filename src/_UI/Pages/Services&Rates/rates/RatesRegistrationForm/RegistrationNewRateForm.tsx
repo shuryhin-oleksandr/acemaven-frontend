@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getCarriers,
   getShippingTypes,
+  getCurrencyList,
 } from "../../../../../_BLL/reducers/surcharge&rates/rateThunks";
 import { AppStateType } from "../../../../../_BLL/store";
 import { useForm } from "react-hook-form";
@@ -27,7 +28,7 @@ type PropsType = {
 
 const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
   const [mode, setMode] = useState("sea");
-  const [shippingValue, setShippingValue] = useState("");
+  const [shippingValue, setShippingValue] = useState(0);
   const dispatch = useDispatch();
 
   const shipping_types = useSelector(
@@ -47,9 +48,14 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
     (state: AppStateType) => state.rate.destination_ports
   );
 
+  const currency_list = useSelector(
+    (state: AppStateType) => state.rate.currency_list
+  );
+
   useEffect(() => {
     dispatch(getShippingTypes());
     dispatch(getCarriers());
+    dispatch(getCurrencyList());
   }, [dispatch]);
 
   const {
@@ -84,6 +90,7 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
         <ByShipForm
           shipping_modes={shipping_types && shipping_types[1]?.shipping_modes}
           setShippingValue={setShippingValue}
+          shippingValue={shippingValue}
           control={control}
           register={register}
           errors={errors}
@@ -92,10 +99,12 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
           setValue={setValue}
           origin_ports={origin_ports}
           destination_ports={destination_ports}
+          currency_list={currency_list}
         />
       ) : (
         <ByPlaneForm
           shipping_modes={shipping_types && shipping_types[0]?.shipping_modes}
+          shippingValue={shippingValue}
           setShippingValue={setShippingValue}
           control={control}
           register={register}
@@ -105,16 +114,9 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
           setValue={setValue}
           origin_ports={origin_ports}
           destination_ports={destination_ports}
+          currency_list={currency_list}
         />
       )}
-      {!shippingValue ? (
-        <UnderTitle>
-          Please, complete the parameters of the surcharge for the value fields
-          to appear
-        </UnderTitle>
-      ) : null}
-
-      {/*<Loose_CargoForm />*/}
     </Outer>
   );
 };

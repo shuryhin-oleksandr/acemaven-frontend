@@ -49,3 +49,15 @@ export const getPorts = (q: string, field: string) => {
     }
   };
 };
+
+export const getCurrencyList = () => {
+  return async (dispatch: Dispatch<commonRateActions>) => {
+    try {
+      let res = await rateAPI.getCurrencyList();
+      console.log(res.data);
+      dispatch(rateActions.setCurrencyList(res.data));
+    } catch (e) {
+      console.log(e.response);
+    }
+  };
+};

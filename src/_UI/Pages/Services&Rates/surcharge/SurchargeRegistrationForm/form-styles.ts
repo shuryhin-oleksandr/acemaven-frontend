@@ -151,6 +151,7 @@ export const PortsList = styled.div`
   padding: 5px 2px;
   position: absolute;
   top: 64px;
+  z-index: 10;
 `;
 
 export const Port = styled.div`
@@ -164,6 +165,7 @@ export const Port = styled.div`
   min-height: 25px;
   padding: 0 5px;
   border-radius: 5px;
+  
   
   &:hover {
     cursor: pointer;

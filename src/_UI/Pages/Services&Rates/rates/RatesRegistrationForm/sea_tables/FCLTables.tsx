@@ -60,7 +60,6 @@ type PropsType = {
 
 const FCLTables: React.FC<PropsType> = ({ ship_mode }) => {
   let containers = ship_mode?.container_types;
-  console.log("containers", containers);
   const classes = useStyles();
 
   return (

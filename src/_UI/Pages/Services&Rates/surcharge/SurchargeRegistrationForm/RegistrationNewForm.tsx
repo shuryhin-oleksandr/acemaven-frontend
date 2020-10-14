@@ -44,7 +44,7 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
         reValidateMode: "onBlur"
     })
     const onSubmit = (values: any) => {
-
+        console.log("values.charges",values.charges);
         let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
         let usageFees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
 

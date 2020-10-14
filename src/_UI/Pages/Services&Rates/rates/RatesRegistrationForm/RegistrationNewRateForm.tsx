@@ -58,6 +58,10 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
     dispatch(getCurrencyList());
   }, [dispatch]);
 
+  const onSubmit = (values: any) => {
+    console.log("VAL", values);
+  };
+
   const {
     register,
     control,
@@ -69,7 +73,7 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
     reValidateMode: "onBlur",
   });
   return (
-    <Outer>
+    <Outer onSubmit={handleSubmit(onSubmit)}>
       <HeaderWrapper>
         <FormTitle>Freight rates</FormTitle>
         <ActionsWrapper>

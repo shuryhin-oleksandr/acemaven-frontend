@@ -12,6 +12,12 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { Controller } from "react-hook-form";
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import { Field } from "../../../../../components/_commonComponents/Input/input-styles";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import MomentLocaleUtils from "react-day-picker/moment";
+import { CalendarWrapper } from "../../../../../components/_commonComponents/calendar/calendar-styles";
 
 const useStyles = makeStyles({
   container: {
@@ -52,8 +58,9 @@ type PropsType = {
   // shipping_value?: number;
 };
 
-const CommonRateTable: React.FC<PropsType> = () => {
+const CommonRateTable: React.FC<PropsType> = ({ control }) => {
   const classes = useStyles();
+
   return (
     <div>
       <HandlingTitle>Rates</HandlingTitle>
@@ -74,7 +81,34 @@ const CommonRateTable: React.FC<PropsType> = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-
+            <TableRow>
+              <TableCell className={classes.innerCell} align="left">
+                <Controller
+                  control={control}
+                  name={`rates[0].currency`}
+                  defaultValue={37}
+                  as={
+                    <SurchargeRateSelect
+                      options={[
+                        { id: 37, code: "BRL" },
+                        { id: 43, code: "USD" },
+                        { id: 98, code: "EUR" },
+                      ]}
+                      placeholder="Currency"
+                      maxW="80px"
+                    />
+                  }
+                />
+              </TableCell>
+              <TableCell className={classes.innerCell} align="left">
+                <Controller
+                  name={`rates[0].rate`}
+                  control={control}
+                  // defaultValue={row.charge}
+                  as={<Field />}
+                />
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>

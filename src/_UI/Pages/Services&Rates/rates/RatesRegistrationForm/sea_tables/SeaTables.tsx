@@ -12,16 +12,23 @@ type PropsType = {
   control?: any;
   currency_list: CurrencyType[] | null;
   shipping_value?: number;
+  errors?: any;
+  setValue?: any
 };
 
 const SeaTables: React.FC<PropsType> = ({
   shipping_value,
   ship_mode,
-  currency_list,
+  currency_list, ...props
 }) => {
   console.log("ship_mode", ship_mode);
   return shipping_value === 3 ? (
-    <FCLTables ship_mode={ship_mode} currency_list={currency_list} />
+    <FCLTables ship_mode={ship_mode}
+               currency_list={currency_list}
+               control={props.control}
+               errors={props.errors}
+               setValue={props.setValue}
+    />
   ) : (
     <CommonRateTable/>
   );

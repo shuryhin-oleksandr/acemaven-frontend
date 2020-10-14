@@ -120,3 +120,44 @@ export const UnderTitle = styled.div`
   text-align: center;
   padding-top: 35px;
 `;
+
+
+export const SurchargeCardWrapper = styled.div`
+  max-width: 758px;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #BDBDBD;
+  margin-top: 30px;
+`
+export const CardInner = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  justify-content: center;
+  align-items: center;
+`
+export const CardTitle = styled.div`
+  font-family: "Helvetica Light", sans-serif;
+  color: black;
+  font-size: 18px;
+  line-height: 21px;
+  margin-bottom: 20px;
+  text-align: center;
+`
+export const CardButton = styled.button`
+  background-color: black;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+  border: none;
+  width: 285px;
+  height: 40px;
+  
+  &:hover {
+    cursor: pointer;
+  }
+  
+`
+

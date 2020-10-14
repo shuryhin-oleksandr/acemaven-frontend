@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Layout from "src/_UI/components/BaseLayout/Layout";
 import SurchargePopup from "src/_UI/components/PopUps/Surcharge/SurchargePopup";
 import {
@@ -15,7 +15,7 @@ import SurchargesPage from "./surcharges_page/SurchargesPage";
 import {useDispatch, useSelector} from "react-redux";
 import {
   filterByThunk
-} from "../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+} from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {AppStateType} from "../../../../_BLL/store";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 
@@ -44,6 +44,7 @@ const SurchargesContainer: React.FC = () => {
   const dispatchHandler = (someFn:VoidFunctionType) => {
     return dispatch(someFn)
   }
+
 
   return (
     <>

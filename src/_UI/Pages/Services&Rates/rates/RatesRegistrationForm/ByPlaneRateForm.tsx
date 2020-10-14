@@ -15,7 +15,7 @@ import {
   PortsList,
 } from "../../surcharge/SurchargeRegistrationForm/form-styles";
 import { PortType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import { getPorts } from "../../../../../_BLL/reducers/surcharge&rates/rateThunks";
+import { getPorts } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import { useDispatch } from "react-redux";
 import AirTables from "./air_tables/AirTables";

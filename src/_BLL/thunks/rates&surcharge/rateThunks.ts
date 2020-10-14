@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { commonRateActions, rateActions } from "./rateReducer";
+import { commonRateActions, rateActions } from "../../reducers/surcharge&rates/rateReducer";
 import { rateAPI } from "../../../_DAL/API/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
@@ -61,3 +61,14 @@ export const getCurrencyList = () => {
     }
   };
 };
+
+
+export const checkRatesDatesThunk = (check_values: {carrier: number, shipping_mode: number, origin: number, destination: number}) => {
+  return async (dispatch: Dispatch<commonRateActions>) => {
+    try {
+      let res = await rateAPI.checkRatesDates(check_values)
+    } catch (e) {
+      console.log(e.response)
+    }
+  }
+}

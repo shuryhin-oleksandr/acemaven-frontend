@@ -10,12 +10,16 @@ import {
     getCarriers, getCurrencyList,
     getShippingModes,
     getShippingTypes,
-} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {AppStateType} from "../../../../../_BLL/store";
 import {useForm} from "react-hook-form";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import moment from "moment";
-import {getCurrentShippingTypeSelector} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import {
+    getAirCarriersSelector, getCurrencyListSelector,
+    getCurrentShippingTypeSelector, getPortsSelector, getSeaCarriersSelector, getShippingModesSelector,
+    getSurcharge
+} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 
 
 type PropsType = {
@@ -32,19 +36,18 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
     }, [])
     const mode = useSelector(getCurrentShippingTypeSelector)
 
-    const shipping_types = useSelector((state: AppStateType) => state.surcharge.shipping_type)
-    const sea_carriers = useSelector((state: AppStateType) => state.surcharge.sea_carriers)
-    const air_carriers = useSelector((state: AppStateType) => state.surcharge.air_carriers)
-    const ports = useSelector((state: AppStateType) => state.surcharge.ports)
-    const currency_list = useSelector((state: AppStateType) => state.surcharge.currency_list)
-    let surcharge = useSelector((state: AppStateType) => state.surcharge.surcharge_info)
+    const shipping_types = useSelector(getShippingModesSelector)
+    const sea_carriers = useSelector(getSeaCarriersSelector)
+    const air_carriers = useSelector(getAirCarriersSelector)
+    const ports = useSelector(getPortsSelector)
+    const currency_list = useSelector(getCurrencyListSelector)
+    let surcharge = useSelector(getSurcharge)
     let surcharges_list = useSelector((state: AppStateType) => state.surcharge.surcharges_list)
 
     const {register, control, errors, handleSubmit, getValues, setValue} = useForm({
         reValidateMode: "onBlur"
     })
     const onSubmit = (values: any) => {
-
         let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
         let usageFees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
 
@@ -67,7 +70,6 @@ const RegistrationNewForm:React.FC<PropsType> = ({setNewSurchargeMode}) => {
             usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
             setNewSurchargeMode(false)
     }
-
 
     useEffect(() => {
         sessionStorage.setItem('reg', 'true')

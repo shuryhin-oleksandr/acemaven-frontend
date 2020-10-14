@@ -1,7 +1,7 @@
 import React from 'react';
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 
-import {filterByThunk} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {filterByThunk} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {OptionButtonExport, OptionButtonImport, OptionsButtonsWrap} from "./options-directory-styles";
 
 

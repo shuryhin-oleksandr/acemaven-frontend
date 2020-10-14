@@ -10,7 +10,7 @@ import {
 } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import {checkSurchargeDates, getPorts} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {checkSurchargeDates, getPorts} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {useDispatch} from "react-redux";
 import {directions} from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";

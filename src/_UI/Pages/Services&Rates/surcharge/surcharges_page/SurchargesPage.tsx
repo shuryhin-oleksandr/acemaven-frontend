@@ -16,7 +16,7 @@ import {Tooltip} from "@material-ui/core";
 import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
-import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { useHistory } from "react-router-dom";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {useSelector} from "react-redux";

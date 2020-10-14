@@ -14,13 +14,15 @@ type PropsType = {
     textColor?: string
     textFont?: string
     textTransform?: string
+    flex_direction?: string
+    display_label?: string
+    max_width?: string
+    margin_bottom?: string
 }
 
 const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...props}) => {
 
     const reservedDates = useSelector(getBookedDates)
-    const bookedDates = reservedDates?.push({before: new Date()})
-    console.log('bookes', bookedDates)
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
@@ -65,7 +67,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
 
 
     return (
-        <SurchargesDatesFilter>
+        <SurchargesDatesFilter flex_direction={props.flex_direction}>
             <Calendar
                 label='Start Date'
                 name='from'
@@ -80,6 +82,9 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
                 textFont={props.textFont}
                 textTransform={props.textTransform}
                 disabled={!reservedDates}
+                display_label={props.display_label}
+                max_width={props.max_width}
+                margin_bottom={props.margin_bottom}
             />
             <Calendar
                 label='Expiration Date'
@@ -95,6 +100,9 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
                 textFont={props.textFont}
                 textTransform={props.textTransform}
                 disabled={!reservedDates}
+                display_label={props.display_label}
+                max_width={props.max_width}
+                margin_bottom={props.margin_bottom}
             />
         </SurchargesDatesFilter>
     )

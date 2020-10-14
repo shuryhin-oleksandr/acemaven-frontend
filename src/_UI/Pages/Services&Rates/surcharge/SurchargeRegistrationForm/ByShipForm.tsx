@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 import {
   checkSurchargeDates,
   getPorts,
-} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { surchargeActions } from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import SurchargesDates from "./SurchargeDates";
 

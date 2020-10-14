@@ -19,7 +19,7 @@ const initialState = {
     surcharge_info: null as SurchargeInfoType | null,
     surchargeId: 0,
     surchargeDataForCheck: null as CheckSurchargeDatesType | null,
-    bookedDates: null as any | null
+    bookedDates: null as Array<{start_date: string, expiration_date: string}> | null
 }
 
 type InitialStateType = typeof initialState

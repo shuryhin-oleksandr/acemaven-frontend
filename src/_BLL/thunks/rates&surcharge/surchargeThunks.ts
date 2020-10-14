@@ -1,4 +1,4 @@
-import {commonSurchargeActions, surchargeActions} from "./surchargeReducer";
+import {commonSurchargeActions, surchargeActions} from "../../reducers/surcharge&rates/surchargeReducer";
 import {Dispatch} from "redux";
 import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
 import {

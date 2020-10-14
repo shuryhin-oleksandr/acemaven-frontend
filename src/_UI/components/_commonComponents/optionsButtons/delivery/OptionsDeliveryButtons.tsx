@@ -9,7 +9,7 @@ import shipActive from "../../../../assets/icons/rates&services/Ship.svg";
 import ship from "../../../../assets/icons/rates&services/ShipDefault.svg";
 import planeActive from "../../../../assets/icons/rates&services/PlanActive.svg";
 import plane from "../../../../assets/icons/rates&services/Plan.svg";
-import { filterByThunk } from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import { filterByThunk } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 
 type PropsType = {
   setMode?: VoidFunctionType;

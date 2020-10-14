@@ -125,7 +125,7 @@ export type CheckSurchargeDatesType = {
     shipping_mode: ShippingModeType,
 }
 
-export type SurchargeCheckDateResponseType = Array<string>
+export type SurchargeCheckDateResponseType = Array<editDatesType>
 
 export type editDatesType = {
     start_date: string,

@@ -18,7 +18,7 @@ import {
   getCarriers,
   getShippingTypes,
   getCurrencyList,
-} from "../../../../../_BLL/reducers/surcharge&rates/rateThunks";
+} from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { AppStateType } from "../../../../../_BLL/store";
 import { useForm } from "react-hook-form";
 
@@ -68,8 +68,13 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
   } = useForm({
     reValidateMode: "onBlur",
   });
+
+  const onSubmit = (values: any) => {
+    console.log(values)
+  }
+
   return (
-    <Outer>
+    <Outer onSubmit={handleSubmit(onSubmit)}>
       <HeaderWrapper>
         <FormTitle>Freight rates</FormTitle>
         <ActionsWrapper>

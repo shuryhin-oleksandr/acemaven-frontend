@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 type PropsStyle = {
     mode?: string,
-    w? : string
+    w? : string,
+    flex_direction?: string
 }
 
 export const Outer = styled.form`
@@ -175,7 +176,7 @@ export const Port = styled.div`
   }
 `
 
-export const SurchargesDatesFilter = styled.div`
+export const SurchargesDatesFilter = styled.div<PropsStyle>`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({flex_direction}) => flex_direction ? flex_direction : 'column'};
 `

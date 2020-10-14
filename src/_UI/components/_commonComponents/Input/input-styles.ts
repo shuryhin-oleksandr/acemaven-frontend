@@ -32,6 +32,7 @@ export const Field = styled.input<PropsStyle>`
   font-family: "Helvetica Light", sans-serif;
   line-height: 17px;
   transition: 0.5s;
+  max-width: ${({maxW}) => maxW ? maxW : '420px'};
   width: 100%;
   height: ${({height}) => height ? height : '40px'};
   border: ${({ error }) => (error ? "1px solid #7C7C89" : "1px solid #BDBDBD")};

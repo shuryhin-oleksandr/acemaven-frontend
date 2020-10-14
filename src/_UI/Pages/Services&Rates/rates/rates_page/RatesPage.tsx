@@ -144,7 +144,7 @@ const RatesPage: React.FC = () => {
               </TableCell>
               <TableCell className={classes.cell} align="left">
                 <div style={{ display: "flex" }}>
-                  Origin
+                  ORIGIN
                   <SortButton>
                     <img src={sort_arrows} alt="" />
                   </SortButton>
@@ -155,7 +155,7 @@ const RatesPage: React.FC = () => {
               </TableCell>
               <TableCell className={classes.cell} align="left">
                 <div style={{ display: "flex" }}>
-                  Destination
+                  DESTINATION
                   <SortButton>
                     <img src={sort_arrows} alt="" />
                   </SortButton>

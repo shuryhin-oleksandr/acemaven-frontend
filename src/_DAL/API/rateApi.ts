@@ -13,4 +13,7 @@ export const rateAPI = {
   getCurrencyList () {
     return instance.get('/handling/currency/')
   },
+  checkRatesDates (checkRatesValues: {carrier: number, shipping_mode: number, origin: number, destination: number}) {
+    return instance.post('/booking/freight-rate/check-date/', checkRatesValues)
+  }
 };

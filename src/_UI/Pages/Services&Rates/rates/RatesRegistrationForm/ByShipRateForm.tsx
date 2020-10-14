@@ -16,7 +16,7 @@ import {
   Port,
   PortsList,
 } from "../../surcharge/SurchargeRegistrationForm/form-styles";
-import { getPorts } from "../../../../../_BLL/reducers/surcharge&rates/rateThunks";
+import {checkRatesDatesThunk, getPorts} from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { surchargeActions } from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import { useDispatch } from "react-redux";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
@@ -55,6 +55,8 @@ const ByShipRateForm: React.FC<PropsType> = ({
   };
   let closePortsHandler = (port: PortType, field: string) => {
     props.setValue(field, port.display_name);
+    field === 'origin' && sessionStorage.setItem('origin_id', JSON.stringify(port.id))
+    field === 'destination' && sessionStorage.setItem('port_id_rate', JSON.stringify(port.id))
     dispatch(rateActions.setDestinationPortsList([]));
     dispatch(rateActions.setOriginPortsList([]));
   };
@@ -62,10 +64,20 @@ const ByShipRateForm: React.FC<PropsType> = ({
   let ship_mode = shipping_modes
     ? shipping_modes.find((s) => s.id === Number(shippingValue))
     : null;
+  console.log(ship_mode)
+
+  let blurHandler = () => {
+    debugger
+    let carrier = props.getValues('carrier')
+    let shipping_mode = props.getValues('shipping_mode')
+    let origin = Number(sessionStorage.getItem('origin_id'))
+    let destination = Number(sessionStorage.getItem('port_id_rate'))
+    dispatch(checkRatesDatesThunk({carrier: carrier, shipping_mode: shipping_mode, origin: origin, destination: destination}))
+  }
 
   return (
     <FormWrap>
-      <div style={{ display: "flex", width: "100%" }}>
+      <div style={{ display: "flex", width: "100%", borderBottom: '1px solid #115B86', paddingBottom: '35px' }}>
         <GroupWrap>
           <Controller
             name="carrier"
@@ -142,7 +154,7 @@ const ByShipRateForm: React.FC<PropsType> = ({
               error={props.errors?.destination?.message}
               getValues={props.getValues}
               onChange={onDestinationChangeHandler}
-              // onBlur={blurHandler}
+              onBlur={blurHandler}
             />
             {props.destination_ports && props.destination_ports?.length > 0 && (
               <PortsList>
@@ -172,7 +184,7 @@ const ByShipRateForm: React.FC<PropsType> = ({
       </div>
       {!shippingValue ? (
         <UnderTitle>
-          Please, complete the parameters of the surcharge for the value fields
+          Please, complete the parameters of the freight rate for the value fields
           to appear
         </UnderTitle>
       ) : (
@@ -182,6 +194,8 @@ const ByShipRateForm: React.FC<PropsType> = ({
           ship_mode={ship_mode}
           currency_list={props.currency_list}
           shipping_value={shippingValue}
+          errors={props.errors}
+          setValue={props.setValue}
         />
       )}
     </FormWrap>

@@ -58,6 +58,10 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
     dispatch(getCurrencyList());
   }, [dispatch]);
 
+  const onSubmit = (values: any) => {
+    console.log("VAL", values);
+  };
+
   const {
     register,
     control,

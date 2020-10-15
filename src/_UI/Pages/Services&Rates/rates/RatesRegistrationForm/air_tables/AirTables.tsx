@@ -19,12 +19,13 @@ const AirTables: React.FC<PropsType> = ({
   shipping_value,
   ship_mode,
   currency_list,
+  control,
 }) => {
   console.log("ship_mode", ship_mode);
   return shipping_value === 2 ? (
     <ULDTables ship_mode={ship_mode} currency_list={currency_list} />
   ) : (
-    <CommonRateTable />
+    <CommonRateTable control={control} />
   );
 };
 

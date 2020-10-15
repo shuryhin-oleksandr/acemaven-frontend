@@ -19,18 +19,18 @@ type PropsType = {
 const SeaTables: React.FC<PropsType> = ({
   shipping_value,
   ship_mode,
-  currency_list, ...props
+  currency_list,
+  control,
 }) => {
-  console.log("ship_mode", ship_mode);
   return shipping_value === 3 ? (
     <FCLTables ship_mode={ship_mode}
                currency_list={currency_list}
-               control={props.control}
+               control={control}
                errors={props.errors}
                setValue={props.setValue}
     />
   ) : (
-    <CommonRateTable/>
+    <CommonRateTable control={control} />
   );
 };
 

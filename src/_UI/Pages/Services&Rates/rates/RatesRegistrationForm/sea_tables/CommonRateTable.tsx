@@ -23,6 +23,7 @@ const useStyles = makeStyles({
   container: {
     boxShadow: "none",
     width: 760,
+    overflowX: "unset",
   },
   table: {
     "& .MuiTableHead-root": {},
@@ -46,7 +47,7 @@ const useStyles = makeStyles({
     fontFamily: "Helvetica Light",
     fontSize: "16px",
     color: "#1B1B25",
-    padding: "8px 0 0",
+    padding: "8px 16px 0",
   },
 });
 
@@ -107,6 +108,78 @@ const CommonRateTable: React.FC<PropsType> = ({ control }) => {
                   // defaultValue={row.charge}
                   as={<Field />}
                 />
+              </TableCell>
+              <TableCell className={classes.innerCell} align="left">
+                <CalendarWrapper style={{ marginBottom: 0 }}>
+                  <Controller
+                    name={"from"}
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    defaultValue=""
+                    as={
+                      <DayPickerInput
+                        inputProps={{
+                          readOnly: "readonly",
+                          // disabled: disabled,
+                        }}
+                        format="DD/MM/YYYY"
+                        placeholder="DD/MM/YYYY"
+                        // formatDate={formatDate}
+                        // parseDate={parseDate}
+                        hideOnDayClick={false}
+                        // value={value}
+                        onDayChange={(v) => console.log(v)}
+                        // ref={ref}
+                        dayPickerProps={{
+                          // selectedDays: [from, { from, to }],
+                          // modifiers,
+                          numberOfMonths: 1,
+                          localeUtils: MomentLocaleUtils,
+                          // onDayClick: onDayClick,
+                          // disabledDays: disabledDates,
+                        }}
+                      />
+                    }
+                  />
+                </CalendarWrapper>
+              </TableCell>
+              <TableCell className={classes.innerCell} align="left">
+                <CalendarWrapper style={{ marginBottom: 0 }}>
+                  <Controller
+                      name={"from"}
+                      control={control}
+                      rules={{
+                        required: true,
+                      }}
+                      defaultValue=""
+                      as={
+                        <DayPickerInput
+                            inputProps={{
+                              readOnly: "readonly",
+                              // disabled: disabled,
+                            }}
+                            format="DD/MM/YYYY"
+                            placeholder="DD/MM/YYYY"
+                            // formatDate={formatDate}
+                            // parseDate={parseDate}
+                            hideOnDayClick={false}
+                            // value={value}
+                            onDayChange={(v) => console.log(v)}
+                            // ref={ref}
+                            dayPickerProps={{
+                              // selectedDays: [from, { from, to }],
+                              // modifiers,
+                              numberOfMonths: 1,
+                              localeUtils: MomentLocaleUtils,
+                              // onDayClick: onDayClick,
+                              // disabledDays: disabledDates,
+                            }}
+                        />
+                      }
+                  />
+                </CalendarWrapper>
               </TableCell>
             </TableRow>
           </TableBody>

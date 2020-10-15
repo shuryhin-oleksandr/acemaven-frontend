@@ -11,7 +11,6 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import {
-  HandlingSurchargeContainer,
   HandlingTitle,
 } from "../../../surcharge/SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -20,9 +19,7 @@ import { Controller } from "react-hook-form";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import { Field } from "../../../../../components/_commonComponents/Input/input-styles";
 import NoSurchargeCard from "../NoSurchargeCard";
-import SurchargesDates from "../../../surcharge/SurchargeRegistrationForm/SurchargeDates";
 import Calendar from "../../../../../components/_commonComponents/calendar/Calendar";
-import {SurchargesDatesFilter} from "../../../surcharge/SurchargeRegistrationForm/form-styles";
 import {useSelector} from "react-redux";
 import {getBookedDates, getSurcharge} from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import moment from "moment";

@@ -14,8 +14,9 @@ export const getBookedDates = (state: AppStateType) => {
 export const getSurcharge = (state: AppStateType) => state.surcharge.surcharge_info
 
 export const getCurrentShippingTypeSelector = (state: AppStateType) => state.surcharge.current_shipping_type
-export const getShippingModesSelector = (state: AppStateType) => state.surcharge.shipping_type
+export const getShippingTypesSelector = (state: AppStateType) => state.surcharge.shipping_type || []
 export const getSeaCarriersSelector = (state: AppStateType) => state.surcharge.sea_carriers
 export const getAirCarriersSelector = (state: AppStateType) => state.surcharge.air_carriers
 export const getPortsSelector = (state: AppStateType) => state.surcharge.ports
 export const getCurrencyListSelector = (state: AppStateType) => state.surcharge.currency_list
+export const getShippingModesSelector = (state: AppStateType) => state.surcharge.shipping_modes

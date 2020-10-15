@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Controller, useForm } from "react-hook-form";
-import FormSelect from "../../../../components/_commonComponents/select/FormSelect";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 import { FormWrap, GroupWrap, Outer, UnderTitle } from "./form-styles";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
@@ -15,12 +14,10 @@ import {
 import {
   Port,
   PortsList,
-} from "../../surcharge/SurchargeRegistrationForm/form-styles";
+} from "../../surcharge/register_new_surcharge/form-styles";
 import {checkRatesDatesThunk, getPorts} from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import { surchargeActions } from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import { useDispatch } from "react-redux";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
-import SeaCargoForm from "../../surcharge/SurchargeRegistrationForm/sea_containerized_cargo/SeaCargoForm";
 import SeaTables from "./sea_tables/SeaTables";
 
 type PropsType = {

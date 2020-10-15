@@ -13,11 +13,18 @@ export const Outer = styled.form`
   flex-direction: column;
   padding: 50px 80px 30px 30px;
 `;
+
+export const OptionsDeliveryWrapper = styled.div`
+  margin-bottom: 20px;
+  width: 150px;
+`
+
 export const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
+
 export const ActionsWrapper = styled.div`
 display: flex;
 `
@@ -119,6 +126,11 @@ export const FormWrap = styled.div`
   flex-direction: column;
   margin-bottom: 20px;
 `;
+
+export const FormContent = styled.div`
+  display: flex;
+  width: 100%;
+`
 export const GroupWrap = styled.div`
   display: flex;
   flex-direction: column;

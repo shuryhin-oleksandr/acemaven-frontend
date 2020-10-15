@@ -13,7 +13,7 @@ import SurchargeRateSelect from "../../../../components/_commonComponents/select
 import {
   Port,
   PortsList,
-} from "../../surcharge/SurchargeRegistrationForm/form-styles";
+} from "../../surcharge/register_new_surcharge/form-styles";
 import { PortType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import { getPorts } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";

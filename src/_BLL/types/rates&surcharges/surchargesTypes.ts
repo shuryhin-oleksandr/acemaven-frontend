@@ -24,12 +24,14 @@ export type ContainerType = {
     id: number,
     code: string
 }
+
 export type ShippingModeType = {
     id: number,
     title: string,
     additional_surcharges?: AdditionalSurchargeType[],
     container_types?: ContainerType[]
 }
+
 export type ShippingTypeType = {
     id: number,
     title: string,

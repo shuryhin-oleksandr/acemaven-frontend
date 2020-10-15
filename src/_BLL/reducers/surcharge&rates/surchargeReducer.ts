@@ -5,10 +5,11 @@ import {
     ShippingModeType,
     ShippingTypeType, SurchargeCheckDateResponseType, SurchargeInfoType, SurchargeObjectType
 } from "../../types/rates&surcharges/surchargesTypes";
+import {CurrentShippingType} from "../../types/rates&surcharges/newSurchargesTypes";
 
 
 const initialState = {
-    current_shipping_type: 'sea',
+    current_shipping_type: 'sea' as CurrentShippingType | 'sea',
     sea_carriers: null as CarrierType[] | null,
     air_carriers: null as CarrierType[] | null,
     shipping_modes: null as ShippingModeType[] | null,
@@ -100,5 +101,5 @@ export const surchargeActions = {
     setSurchargesList: (list: SurchargeObjectType[]) => ({type: 'SET_SURCHARGES_LIST', list} as const),
     setSurchargeInfo: (info: SurchargeInfoType | null) => ({type: 'SET_SURCHARGE_INFO', info} as const),
     setBookedDates: (bookedDates: SurchargeCheckDateResponseType) => ({type: 'SET_BOOKED_DATES', bookedDates} as const),
-    setCurrentShippingType: (current_type: string) => ({type: 'SET_CURRENT_SHIPPING_TYPE', current_type} as const)
+    setCurrentShippingType: (current_type: CurrentShippingType) => ({type: 'SET_CURRENT_SHIPPING_TYPE', current_type} as const)
 }

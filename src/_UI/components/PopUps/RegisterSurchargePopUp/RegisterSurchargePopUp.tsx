@@ -1,0 +1,99 @@
+import React from "react";
+import CancelButton from "../../_commonComponents/buttons/navFormButtons/CancelButton";
+import {
+  CloseButton,
+  PopupContent,
+  PopupOuter,
+  ActionsWrapper,
+  FormTitle,
+  HeaderWrapper,
+  RegisterButton,
+  InfoWrap,
+  ShippingMode,
+  Content,
+  FieldOuter,
+  FieldsWrap,
+  Label,
+} from "./register-surcharge-styles";
+import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
+import closeIcon from "../../../../_UI/assets/icons/close-icon.svg";
+import ship from "../../../assets/icons/rates&services/ship-surcharge.svg";
+import plane from "../../../assets/icons/rates&services/plane-surcharge.svg";
+import { useForm } from "react-hook-form";
+import SurchargesDates from "../../../Pages/Services&Rates/surcharge/SurchargeRegistrationForm/SurchargeDates";
+
+type PropsType = {
+  setIsOpen?: VoidFunctionType;
+  getValues?: any;
+  popUpCarrier?: any;
+  popUpShippingMode?: any;
+  mode?: any;
+};
+
+const onSubmit = (values: any) => {
+  console.log("VAL", values);
+};
+
+const RegisterSurchargePopUp: React.FC<PropsType> = ({
+  setIsOpen,
+  popUpCarrier,
+  popUpShippingMode,
+  mode,
+}) => {
+  const { handleSubmit, errors, setValue, control } = useForm<any>({
+    reValidateMode: "onBlur",
+  });
+  return (
+    <PopupOuter>
+      <PopupContent onSubmit={handleSubmit(onSubmit)}>
+        <CloseButton onClick={() => setIsOpen && setIsOpen(false)}>
+          <img src={closeIcon} alt="" />
+        </CloseButton>
+        <HeaderWrapper>
+          <FormTitle>Freight rates</FormTitle>
+          <ActionsWrapper>
+            <RegisterButton type="submit">SAVE</RegisterButton>
+            <CancelButton text="CANCEL" setIsOpen={setIsOpen} />
+          </ActionsWrapper>
+        </HeaderWrapper>
+        <InfoWrap>
+          <ShippingMode>
+            <img src={mode === "sea" ? ship : plane} alt="picture" />
+          </ShippingMode>
+          <FieldsWrap>
+            <FieldOuter>
+              <Label>Carrier</Label>
+              <Content>{popUpCarrier?.title}</Content>
+            </FieldOuter>
+            <FieldOuter>
+              <Label>Shipping mode</Label>
+              <Content>{popUpShippingMode?.title}</Content>
+            </FieldOuter>
+          </FieldsWrap>
+          <FieldsWrap>
+            <FieldOuter>
+              <Label>Direction</Label>
+              <Content c="#115B86">Export</Content>
+            </FieldOuter>
+            <FieldOuter>
+              <Label>Location</Label>
+              <Content c="#115B86">Cityofairport</Content>
+            </FieldOuter>
+          </FieldsWrap>
+          <FieldsWrap>
+            <SurchargesDates
+              textColor="#115B86"
+              textTransform="uppercase"
+              textFont="Helvetica Bold"
+              errors={{ from: errors.from, to: errors.to }}
+              control={control}
+              setValue={setValue}
+            />
+          </FieldsWrap>
+        </InfoWrap>
+      </PopupContent>
+    </PopupOuter>
+  );
+};
+
+export default RegisterSurchargePopUp;

@@ -21,6 +21,7 @@ import {
 } from "../../../../../_BLL/reducers/surcharge&rates/rateThunks";
 import { AppStateType } from "../../../../../_BLL/store";
 import { useForm } from "react-hook-form";
+import RegisterSurchargePopUp from "../../../../components/PopUps/RegisterSurchargePopUp/RegisterSurchargePopUp";
 
 type PropsType = {
   setNewRateMode: VoidFunctionType;
@@ -61,6 +62,7 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
   const onSubmit = (values: any) => {
     console.log("VAL", values);
   };
+  const [isOpen, setIsOpen] = useState(false);
 
   const {
     register,
@@ -72,13 +74,39 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
   } = useForm({
     reValidateMode: "onBlur",
   });
+
+  const popUpCarrier =
+    mode === "sea"
+      ? sea_carriers?.find((carrier) => carrier.id === getValues("carrier"))
+      : air_carriers?.find((carrier) => carrier.id === getValues("carrier"));
+
+  const popUpShippingMode =
+    mode === "sea"
+      ? shipping_types &&
+        shipping_types[1].shipping_modes.find(
+          (mode) => mode.id === getValues("shipping_mode")
+        )
+      : shipping_types &&
+        shipping_types[0].shipping_modes.find(
+          (mode) => mode.id === getValues("shipping_mode")
+        );
+
   return (
     <Outer onSubmit={handleSubmit(onSubmit)}>
+      {isOpen && (
+        <RegisterSurchargePopUp
+          popUpCarrier={popUpCarrier}
+          popUpShippingMode={popUpShippingMode}
+          setIsOpen={setIsOpen}
+          mode={mode}
+        />
+      )}
       <HeaderWrapper>
         <FormTitle>Freight rates</FormTitle>
         <ActionsWrapper>
           <RegisterButton type="submit">SAVE</RegisterButton>
           <CancelButton text="CANCEL" setIsOpen={setNewRateMode} />
+          <button onClick={() => setIsOpen(true)}>op</button>
         </ActionsWrapper>
       </HeaderWrapper>
       <div style={{ marginBottom: "20px", width: "150px" }}>

@@ -19,7 +19,7 @@ import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import closeIcon from "../../../../_UI/assets/icons/close-icon.svg";
 import ship from "../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../assets/icons/rates&services/plane-surcharge.svg";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import SurchargesDates from "../../../Pages/Services&Rates/surcharge/SurchargeRegistrationForm/SurchargeDates";
 
 type PropsType = {
@@ -63,11 +63,21 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
           <FieldsWrap>
             <FieldOuter>
               <Label>Carrier</Label>
-              <Content>{popUpCarrier?.title}</Content>
+              <Controller
+                name={`carrier`}
+                control={control}
+                defaultValue={popUpCarrier?.id}
+                as={<Content>{popUpCarrier?.title}</Content>}
+              />
             </FieldOuter>
             <FieldOuter>
               <Label>Shipping mode</Label>
-              <Content>{popUpShippingMode?.title}</Content>
+              <Controller
+                name={`shipping_mode`}
+                control={control}
+                defaultValue={popUpShippingMode?.id}
+                as={<Content>{popUpShippingMode?.title}</Content>}
+              />
             </FieldOuter>
           </FieldsWrap>
           <FieldsWrap>
@@ -81,14 +91,14 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
             </FieldOuter>
           </FieldsWrap>
           <FieldsWrap>
-            <SurchargesDates
-              textColor="#115B86"
-              textTransform="uppercase"
-              textFont="Helvetica Bold"
-              errors={{ from: errors.from, to: errors.to }}
-              control={control}
-              setValue={setValue}
-            />
+            {/*<SurchargesDates*/}
+            {/*  textColor="#115B86"*/}
+            {/*  textTransform="uppercase"*/}
+            {/*  textFont="Helvetica Bold"*/}
+            {/*  errors={{ from: errors.from, to: errors.to }}*/}
+            {/*  control={control}*/}
+            {/*  setValue={setValue}*/}
+            {/*/>*/}
           </FieldsWrap>
         </InfoWrap>
       </PopupContent>

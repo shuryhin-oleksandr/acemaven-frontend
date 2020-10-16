@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outer } from "./rates-style";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -17,6 +17,8 @@ import template_icon from "../../../../assets/icons/rates&services/template.svg"
 import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import { FreightRateObjectType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
+import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
+import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 
 const useStyles = makeStyles({
   container: {
@@ -76,9 +78,17 @@ const useStyles = makeStyles({
 
 type PropsType = {
   freight_rates_list: FreightRateObjectType[] | null;
+  dispatch: VoidFunctionType;
+  directory: string;
+  mode: string;
+  setSearchValue: VoidFunctionType;
+  searchValue: string;
+  searchColumn: string;
+  setSearchColumn: VoidFunctionType;
+  setNewRateMode: VoidFunctionType;
 };
 
-const RatesPage: React.FC<PropsType> = ({ freight_rates_list }) => {
+const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
   const classes = useStyles();
 
   function createData(
@@ -118,6 +128,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list }) => {
           )
         )
       : null;
+  const [isSearchMode, setSearchMode] = useState(false);
 
   return (
     <Outer>
@@ -127,48 +138,68 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list }) => {
             <TableRow>
               <TableCell className={classes.shipping_cell} align="left" />
               <TableCell className={classes.cell} align="left">
-                <div style={{ display: "flex" }}>
-                  SHIPPING MODE
-                  <SortButton>
-                    <img src={sort_arrows} alt="" />
-                  </SortButton>
-                  <SearchButton>
-                    <img src={search_icon} alt="" />
-                  </SearchButton>
-                </div>
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={setSearchMode}
+                  dispatch={props.dispatch}
+                  direction={props.directory}
+                  type={props.mode}
+                  column_name="shipping_mode"
+                  searchValue={props.searchValue}
+                  isSearchMode={isSearchMode}
+                  title="SHIPPING MODE"
+                  searchColumn={props.searchColumn}
+                  setSearchColumn={props.setSearchColumn}
+                  thunkName="rates"
+                />
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                <div style={{ display: "flex" }}>
-                  CARRIER
-                  <SortButton>
-                    <img src={sort_arrows} alt="" />
-                  </SortButton>
-                  <SearchButton>
-                    <img src={search_icon} alt="" />
-                  </SearchButton>
-                </div>
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={setSearchMode}
+                  dispatch={props.dispatch}
+                  direction={props.directory}
+                  type={props.mode}
+                  column_name="carrier"
+                  searchValue={props.searchValue}
+                  isSearchMode={isSearchMode}
+                  title="CARRIER"
+                  searchColumn={props.searchColumn}
+                  setSearchColumn={props.setSearchColumn}
+                  thunkName="rates"
+                />
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                <div style={{ display: "flex" }}>
-                  ORIGIN
-                  <SortButton>
-                    <img src={sort_arrows} alt="" />
-                  </SortButton>
-                  <SearchButton>
-                    <img src={search_icon} alt="" />
-                  </SearchButton>
-                </div>
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={setSearchMode}
+                  dispatch={props.dispatch}
+                  direction={props.directory}
+                  type={props.mode}
+                  column_name="origin"
+                  searchValue={props.searchValue}
+                  isSearchMode={isSearchMode}
+                  title="ORIGIN"
+                  searchColumn={props.searchColumn}
+                  setSearchColumn={props.setSearchColumn}
+                  thunkName="rates"
+                />
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                <div style={{ display: "flex" }}>
-                  DESTINATION
-                  <SortButton>
-                    <img src={sort_arrows} alt="" />
-                  </SortButton>
-                  <SearchButton>
-                    <img src={search_icon} alt="" />
-                  </SearchButton>
-                </div>
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={setSearchMode}
+                  dispatch={props.dispatch}
+                  direction={props.directory}
+                  type={props.mode}
+                  column_name="destination"
+                  searchValue={props.searchValue}
+                  isSearchMode={isSearchMode}
+                  title="DESTINATION"
+                  searchColumn={props.searchColumn}
+                  setSearchColumn={props.setSearchColumn}
+                  thunkName="rates"
+                />
               </TableCell>
               <TableCell className={classes.cell} align="left">
                 <div style={{ display: "flex" }}>EXPIRATION DATE</div>

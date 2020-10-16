@@ -16,10 +16,11 @@ type PropsType = {
     isSearchMode: boolean,
     title: string,
     searchColumn: string,
-    setSearchColumn: VoidFunctionType
+    setSearchColumn: VoidFunctionType,
+    thunkName?: string
 }
 
-const TableCellContent:React.FC<PropsType> = ({setSearchValue, ...props}) => {
+const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...props}) => {
     return (
         <>
             {props.isSearchMode
@@ -31,6 +32,7 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue, ...props}) => {
                                column_name={props.column_name}
                                searchValue={props.searchValue}
                                searchColumn={props.searchColumn}
+                               thunkName={thunkName}
                 />
                 : <div style={{display: 'flex'}}>
                     {props.title}
@@ -40,6 +42,7 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue, ...props}) => {
                                      mode={props.type}
                                      searchValue={props.searchValue}
                                      searchColumn={props.searchColumn}
+                                     thunkName={thunkName}
                     />
                     <TableSearchButton setSearchMode={props.setSearchMode}
                                        setSearchColumn={props.setSearchColumn}

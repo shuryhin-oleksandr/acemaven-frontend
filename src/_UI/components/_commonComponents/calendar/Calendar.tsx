@@ -46,9 +46,9 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
             <Controller
                 name={name}
                 control={control}
-                rules={{
+                /*rules={{
                     required: true
-                }}
+                }}*/
                 defaultValue=""
                 as={
                     <DayPickerInput

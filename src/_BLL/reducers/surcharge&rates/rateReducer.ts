@@ -5,6 +5,7 @@ import {
   CurrencyType,
 } from "../../types/rates&surcharges/ratesTypes";
 
+
 const initialState = {
   shipping_type: null as ShippingTypeType[] | null,
   sea_carriers: null as CarrierType[] | null,
@@ -12,6 +13,7 @@ const initialState = {
   origin_ports: null as PortType[] | null,
   destination_ports: null as PortType[] | null,
   currency_list: null as CurrencyType[] | null,
+  freight_rates_list: null as any | null
 };
 
 type InitialStateType = typeof initialState;
@@ -50,6 +52,15 @@ export const rateReducer = (
         ...state,
         currency_list: action.list,
       };
+    case "SET_FREIGHT_RATES_LIST":
+      return {
+        ...state,
+        freight_rates_list: action.freight_rates_list
+      }
+    case "SET_NEW_FREIGHT_RATE":
+      return {
+        ...state, freight_rates_list: [...state.freight_rates_list, action.freight_rate]
+      }
     default:
       return state;
   }
@@ -73,4 +84,6 @@ export const rateActions = {
     ({ type: "SET_DESTINATION_PORTS", ports } as const),
   setCurrencyList: (list: CurrencyType[]) =>
     ({ type: "SET_CURRENCY_LIST", list } as const),
+  setFreightRatesList: (freight_rates_list: any) => ({type: 'SET_FREIGHT_RATES_LIST', freight_rates_list} as const),
+  setNewFreightRate: (freight_rate: any) => ({type: 'SET_NEW_FREIGHT_RATE', freight_rate} as const)
 };

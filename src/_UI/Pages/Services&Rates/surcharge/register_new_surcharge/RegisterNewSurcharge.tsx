@@ -23,6 +23,7 @@ import {
 import moment from "moment";
 import {addNewSurcharge} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {useDispatch} from "react-redux";
+import {UnderTitle} from "../../rates/register_new_freight_rate/form-styles";
 
 type PropsType = {
     mode: CurrentShippingType
@@ -114,8 +115,8 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 getDisabledSurchargesDates={getDisabledSurchargesDates}
             />
             {
-                !!shippingValue &&
-                <>
+                !!shippingValue
+                    ? <>
                     {
                         usageFees.length > 0 && <UsageFees
                         control={control}
@@ -134,6 +135,10 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
 
                     }
                 </>
+                    : <UnderTitle>
+                        Please, complete the parameters of the freight rate for the value fields
+                        to appear
+                    </UnderTitle>
             }
 
         </Outer>

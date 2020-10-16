@@ -38,3 +38,12 @@ export type ShippingTypeType = {
   title: string;
   shipping_modes: ShippingModeType[];
 };
+
+
+export type RateType = {
+  container_type: number
+  currency: number
+  rate: string | number
+  start_date: string
+  expiration_date: string
+}

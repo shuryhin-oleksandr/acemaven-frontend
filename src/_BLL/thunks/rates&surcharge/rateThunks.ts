@@ -3,7 +3,7 @@ import { commonRateActions, rateActions } from "../../reducers/surcharge&rates/r
 import { rateAPI } from "../../../_DAL/API/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
-import { CarrierType } from "../../types/rates&surcharges/ratesTypes";
+import { RateType} from "../../types/rates&surcharges/ratesTypes";
 
 type ThunkType = ThunkAction<
   Promise<void>,
@@ -11,31 +11,6 @@ type ThunkType = ThunkAction<
   unknown,
   commonRateActions
 >;
-
-export const getCarriers = () => {
-  return async (dispatch: Dispatch<commonRateActions>) => {
-    try {
-      let res = await rateAPI.getCarriersList();
-      let air = res.data.filter((r: CarrierType) => r.shipping_type === 1);
-      dispatch(rateActions.setAirCarriersList(air));
-      let sea = res.data.filter((r: CarrierType) => r.shipping_type === 2);
-      dispatch(rateActions.setSeaCarriersList(sea));
-    } catch (e) {
-      console.log(e.response);
-    }
-  };
-};
-
-export const getShippingTypes = () => {
-  return async (dispatch: Dispatch<commonRateActions>) => {
-    try {
-      let res = await rateAPI.getShippingTypesList();
-      dispatch(rateActions.setShippingType(res.data));
-    } catch (e) {
-      console.log(e.response);
-    }
-  };
-};
 
 export const getPorts = (q: string, field: string) => {
   return async (dispatch: Dispatch<commonRateActions>) => {
@@ -50,25 +25,34 @@ export const getPorts = (q: string, field: string) => {
   };
 };
 
-export const getCurrencyList = () => {
-  return async (dispatch: Dispatch<commonRateActions>) => {
-    try {
-      let res = await rateAPI.getCurrencyList();
-      console.log(res.data);
-      dispatch(rateActions.setCurrencyList(res.data));
-    } catch (e) {
-      console.log(e.response);
-    }
-  };
-};
-
-
 export const checkRatesDatesThunk = (check_values: {carrier: number, shipping_mode: number, origin: number, destination: number}) => {
   return async (dispatch: Dispatch<commonRateActions>) => {
     try {
       let res = await rateAPI.checkRatesDates(check_values)
     } catch (e) {
       console.log(e.response)
+    }
+  }
+}
+
+export const registerNewFreightRateThunk = (freight_data: any) => {
+  return async(dispatch: Dispatch<commonRateActions>) => {
+    try {
+      let res = await rateAPI.registerNewSurcharge(freight_data)
+      dispatch(rateActions.setNewFreightRate(res.data))
+    } catch (e) {
+      console.log(e.response)
+    }
+  }
+}
+
+export const getSurchargeForExactRateThunk = (rate_data: RateType) => {
+  return async(dispatch: Dispatch<commonRateActions>) => {
+    try {
+      let res = await rateAPI.getSurchargeToRate(rate_data)
+      console.log(res.data)
+    } catch (e) {
+        console.log(e.response)
     }
   }
 }

@@ -10,8 +10,9 @@ import {
 } from "./rates-styles";
 import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/optionsButtons/directory/OptionsDirectoryButtons";
-import RegistrationNewRateForm from "./RatesRegistrationForm/RegistrationNewRateForm";
+
 import RatesPage from "./rates_page/RatesPage";
+import RegisterNewFreightRateContainer from "./register_new_freight_rate/RegisterNewFreightRateContainer";
 
 const RatesContainer: React.FC = () => {
   const [mode, setMode] = useState("sea");
@@ -25,7 +26,8 @@ const RatesContainer: React.FC = () => {
       {isOpen && <SurchargePopup setIsOpen={setIsOpen} />}
       <Layout>
         {newRateMode ? (
-          <RegistrationNewRateForm setNewRateMode={setNewRateMode} />
+         /* <RegistrationNewRateForm setNewRateMode={setNewRateMode} />*/
+            <RegisterNewFreightRateContainer setNewRateMode={setNewRateMode} />
         ) : (
           <Container>
             <HeaderOuter>

@@ -39,7 +39,6 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
       );
   };
 
-  console.log('Options', mode)
 
   return (
     <OptionsButtonsWrap>

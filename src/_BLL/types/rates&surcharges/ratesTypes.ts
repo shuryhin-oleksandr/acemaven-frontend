@@ -47,3 +47,12 @@ export type RateType = {
   start_date: string
   expiration_date: string
 }
+
+export type FreightRateType = {
+  rates: Array<RateType>,
+  origin: number,
+  destination: number,
+  shipping_mode: number,
+  carrier: number,
+  transit_time: number
+}

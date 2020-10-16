@@ -3,7 +3,7 @@ import { commonRateActions, rateActions } from "../../reducers/surcharge&rates/r
 import { rateAPI } from "../../../_DAL/API/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
-import { RateType} from "../../types/rates&surcharges/ratesTypes";
+import {FreightRateType, RateType} from "../../types/rates&surcharges/ratesTypes";
 
 type ThunkType = ThunkAction<
   Promise<void>,
@@ -46,7 +46,7 @@ export const registerNewFreightRateThunk = (freight_data: any) => {
   }
 }
 
-export const getSurchargeForExactRateThunk = (rate_data: RateType) => {
+export const getSurchargeForExactRateThunk = (rate_data: FreightRateType) => {
   return async(dispatch: Dispatch<commonRateActions>) => {
     try {
       let res = await rateAPI.getSurchargeToRate(rate_data)

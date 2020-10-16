@@ -2,7 +2,7 @@ import React from 'react'
 import {
     HandlingSurchargeContainer,
     HandlingTitle
-} from '../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles';
+} from '../../surcharges_page/surcharge/sea-conteneraized-cargo-styles';
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";

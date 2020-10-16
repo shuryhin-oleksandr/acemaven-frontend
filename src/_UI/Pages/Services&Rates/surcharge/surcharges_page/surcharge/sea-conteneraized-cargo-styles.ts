@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {truncate} from "fs";
 
 type PropsStyle = {
     isFocus?: boolean;
@@ -8,6 +9,8 @@ type PropsStyle = {
     height?: string;
     marginBottom?: string;
     minWidth?: string
+    max_width?: string
+    max_height?: string
 };
 
 export const SeaContainer = styled.div<PropsStyle>`
@@ -24,13 +27,13 @@ export const LineWrap = styled.div`
   background-color: #E5E5E5;
   
 `
-export const HandlingSurchargeContainer = styled.div`
+export const HandlingSurchargeContainer = styled.div<PropsStyle>`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 38px;
-  max-width: 478px;
-  max-height: 420px;
+  max-width: ${({max_width}) => max_width ? max_width : '478px'};
+  max-height: ${({max_height}) => max_height ? max_height : '420px'};
 `
 export const HandlingTitle = styled.div`
   text-transform: uppercase;
@@ -39,7 +42,6 @@ export const HandlingTitle = styled.div`
   color: #1AB8E5;
   margin-bottom: 24px;
 `
-
 
 export const Field = styled.input<PropsStyle>`
   padding: 10px;

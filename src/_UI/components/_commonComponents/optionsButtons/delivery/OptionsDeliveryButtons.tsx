@@ -55,4 +55,4 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
   );
 };
 
-export default OptionsDeliveryButtons;
+export default OptionsDeliveryButtons

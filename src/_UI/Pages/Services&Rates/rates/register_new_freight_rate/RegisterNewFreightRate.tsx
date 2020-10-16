@@ -127,6 +127,7 @@ const RegisterNewFreightRate:React.FC<PropsType> = ({handleSubmit, control, regi
                            setValue={setValue}
                            usageFees={usageFees}
                            register={register}
+                           getValues={getValues}
                     />
                     <SurchargesToRate />
                     </>

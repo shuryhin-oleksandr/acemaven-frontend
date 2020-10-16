@@ -11,7 +11,7 @@ import {
     Field,
     HandlingSurchargeContainer,
     HandlingTitle
-} from "../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
+} from "./sea-conteneraized-cargo-styles";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {AdditionalSurchargeType, ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
         boxShadow: 'none'
     },
     table: {
-        minWidth: 479,
+        minWidth: 948,
         '& .MuiTableHead-root' : {
 
         }
@@ -42,13 +42,15 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         color: '#115B86',
-        width: '213px'
+        width: '213px',
+        padding: '0 16px'
     },
     innerCell: {
         borderBottom: '1px solid #E0E0E0;',
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
-        color: '#1B1B25'
+        color: '#1B1B25',
+        padding: '0 16px'
     }
 });
 
@@ -83,7 +85,7 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
 
 
     return (
-        <HandlingSurchargeContainer>
+        <HandlingSurchargeContainer max_height='440px' max_width='948px '>
             <HandlingTitle>Additional surcharges </HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">

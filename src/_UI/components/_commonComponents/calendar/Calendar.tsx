@@ -29,6 +29,7 @@ type PropsType = {
     display_label?: string
     max_width?: string
     margin_bottom?: string
+    onBlur?: any
 }
 
 const Calendar = forwardRef<DayPickerInput, PropsType>(
@@ -63,6 +64,7 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
                         hideOnDayClick={false}
                         value={value}
                         onDayChange={handleDayChange}
+                        //onBlur={props.onBlur}
                         ref={ref}
                         dayPickerProps={{
                             selectedDays: [from, {from, to}],

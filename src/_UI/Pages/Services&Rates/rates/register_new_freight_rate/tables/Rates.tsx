@@ -18,6 +18,7 @@ import {useSelector} from "react-redux";
 import {getBookedDates, getSurcharge} from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import moment from "moment";
 import DatesCells from "./DatesCells";
+import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 
 
 const useStyles = makeStyles({
@@ -60,9 +61,10 @@ type PropsType = {
     errors: any
     setValue: any
     register: any
+    setNewSurchargePopUpVisible: VoidFunctionType
 }
 
-const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue}) => {
+const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, setNewSurchargePopUpVisible}) => {
     const classes = useStyles()
 
     const reservedDates = useSelector(getBookedDates)
@@ -217,7 +219,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <NoSurchargeCard />
+            <NoSurchargeCard setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />
         </div>
     )
 }

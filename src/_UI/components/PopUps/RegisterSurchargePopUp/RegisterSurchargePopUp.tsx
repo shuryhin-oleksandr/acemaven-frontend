@@ -22,7 +22,6 @@ import plane from "../../../assets/icons/rates&services/plane-surcharge.svg";
 import { Controller, useForm } from "react-hook-form";
 import { CarrierType } from "../../../../_BLL/types/rates&surcharges/ratesTypes";
 import { ShippingModeType } from "../../../../_BLL/types/rates&surcharges/ratesTypes";
-import SurchargesDates from "../../../Pages/Services&Rates/surcharge/SurchargeRegistrationForm/SurchargeDates";
 
 type PropsType = {
   setIsOpen?: VoidFunctionType;
@@ -91,16 +90,6 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
               <Label>Location</Label>
               <Content c="#115B86">Cityofairport</Content>
             </FieldOuter>
-          </FieldsWrap>
-          <FieldsWrap>
-            <SurchargesDates
-              textColor="#115B86"
-              textTransform="uppercase"
-              textFont="Helvetica Bold"
-              errors={{ from: errors.from, to: errors.to }}
-              control={control}
-              setValue={setValue}
-            />
           </FieldsWrap>
         </InfoWrap>
       </PopupContent>

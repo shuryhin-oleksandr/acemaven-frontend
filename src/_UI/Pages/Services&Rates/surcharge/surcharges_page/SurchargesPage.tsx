@@ -16,11 +16,12 @@ import {Tooltip} from "@material-ui/core";
 import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
-import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { useHistory } from "react-router-dom";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {useSelector} from "react-redux";
 import {getCurrentShippingTypeSelector} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 const useStyles = makeStyles({
     container: {
@@ -97,7 +98,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
 
     const [isSearchMode, setSearchMode] = useState(false)
 
-    let setMode = useCallback((mode: string) => {
+    let setMode = useCallback((mode: CurrentShippingType) => {
         props.dispatch(surchargeActions.setCurrentShippingType(mode))
     }, [])
     const mode = useSelector(getCurrentShippingTypeSelector)
@@ -109,7 +110,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
         props.dispatch(getSurchargeInfo(id, history))
     }
 
-    function createData(id: number, shipping_type: string, shipping_mode: string | number, carrier: string | number, location: string | number, direction: string, start_date: string, expiration_date: string) {
+    function createData(id: number, shipping_type: any, shipping_mode: string | number, carrier: string | number, location: string | number, direction: string, start_date: string, expiration_date: string) {
         return { id, shipping_type, shipping_mode, carrier, location, direction, start_date, expiration_date};
     }
     const rows = surcharges_list && surcharges_list.length > 0
@@ -118,7 +119,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
         : null;
 
 
-    let templateDataHandler = (id: number, shipping_type: string) => {
+    let templateDataHandler = (id: number, shipping_type: CurrentShippingType) => {
         setMode(shipping_type)
         console.log('type', mode)
         props.dispatch(GetSurchargeForTooltip(id))

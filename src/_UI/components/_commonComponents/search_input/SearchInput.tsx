@@ -1,7 +1,7 @@
 import React from "react";
 import {SearchField, SearchIcon, SearchWrap} from "./search-input-styles";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
-import {filterByThunk} from "../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {filterByThunk} from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import search_icon from '../../../../_UI/assets/icons/rates&services/search_loop.svg'
 
 type PropsType = {

@@ -1,7 +1,7 @@
 import React from "react";
 import sort_arrows from "../../../../assets/icons/rates&services/sort_arrows.svg";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import {filterByThunk} from "../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+import {filterByThunk} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {SortButton} from "./table-sort-button-style";
 
 

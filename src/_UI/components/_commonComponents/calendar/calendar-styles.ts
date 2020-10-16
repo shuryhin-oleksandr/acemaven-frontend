@@ -4,11 +4,16 @@ type PropsStyle = {
     textColor?: string
     textTransform?: string
     textFont?: string
+    display_label?: string
+    max_width?: string
+    margin_bottom?: string
 }
 
-export const CalendarWrapper = styled.div<{error?: boolean}>`
+export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, margin_bottom?: string}>`
   flex: none;
-  margin-bottom: 10px;
+  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '10px'};
+  width: 100%;
+  max-width: ${({max_width}) => max_width ? max_width : '420px'};
   
   .DayPickerInput {
     width: 100%;
@@ -103,5 +108,6 @@ export const CalendarLabel = styled.div<PropsStyle>`
   color: ${({textColor}) => textColor ? textColor : '#1B1B25'};
   text-transform: ${({textTransform}) => textTransform ? textTransform : 'capitalize'};
   margin-bottom: 9px;
+  display: ${({display_label}) => display_label ? display_label : 'block'}
 `
 

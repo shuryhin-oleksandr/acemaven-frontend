@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import Layout from "src/_UI/components/BaseLayout/Layout";
 import SurchargePopup from "src/_UI/components/PopUps/Surcharge/SurchargePopup";
 import {
@@ -9,15 +9,17 @@ import {
   RegisterButton,
 } from "./surcharge-styles";
 import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
-import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/optionsButtons/directory/OptionsDirectoryButtons";
-import RegistrationNewForm from "./SurchargeRegistrationForm/RegistrationNewForm";
+
 import SurchargesPage from "./surcharges_page/SurchargesPage";
 import {useDispatch, useSelector} from "react-redux";
 import {
   filterByThunk
-} from "../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+} from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {AppStateType} from "../../../../_BLL/store";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import RegisterNewSurchargeContainer from "./register_new_surcharge/RegisterNewSurchargeContainer";
+import OptionsDirectoryButtons
+  from "../../../components/_commonComponents/optionsButtons/directory/OptionsDirectoryButtons";
 
 
 
@@ -45,12 +47,13 @@ const SurchargesContainer: React.FC = () => {
     return dispatch(someFn)
   }
 
+
   return (
     <>
       {isOpen && <SurchargePopup setIsOpen={setIsOpen} />}
       <Layout>
         {newSurchargeMode ? (
-          <RegistrationNewForm setNewSurchargeMode={setNewSurchargeMode} />
+            <RegisterNewSurchargeContainer setNewSurchargeMode={setNewSurchargeMode} />
         ) : (
           <Container>
             <HeaderOuter>

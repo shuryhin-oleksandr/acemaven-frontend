@@ -24,12 +24,14 @@ export type ContainerType = {
     id: number,
     code: string
 }
+
 export type ShippingModeType = {
     id: number,
     title: string,
     additional_surcharges?: AdditionalSurchargeType[],
     container_types?: ContainerType[]
 }
+
 export type ShippingTypeType = {
     id: number,
     title: string,
@@ -125,7 +127,7 @@ export type CheckSurchargeDatesType = {
     shipping_mode: ShippingModeType,
 }
 
-export type SurchargeCheckDateResponseType = Array<string>
+export type SurchargeCheckDateResponseType = Array<editDatesType>
 
 export type editDatesType = {
     start_date: string,

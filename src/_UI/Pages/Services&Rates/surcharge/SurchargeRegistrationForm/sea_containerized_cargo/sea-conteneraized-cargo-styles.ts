@@ -29,6 +29,8 @@ export const HandlingSurchargeContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 38px;
+  max-width: 478px;
+  max-height: 420px;
 `
 export const HandlingTitle = styled.div`
   text-transform: uppercase;

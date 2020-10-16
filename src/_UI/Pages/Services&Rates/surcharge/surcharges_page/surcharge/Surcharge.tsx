@@ -23,11 +23,11 @@ import {
     editDates,
     editUsageFees,
     getSurchargeInfo
-} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeThunks";
+} from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {withRouter} from 'react-router'
 import {useForm} from "react-hook-form";
 import {getSurcharge} from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
-import SurchargesDates from "../../SurchargeRegistrationForm/SurchargeDates";
+import SurchargesDates from "../../register_new_surcharge/SurchargeDates";
 import moment from "moment";
 
 

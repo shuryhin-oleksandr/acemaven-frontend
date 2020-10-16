@@ -13,7 +13,7 @@ type PropsType = {
 const TableSearchButton:React.FC<PropsType> = ({setSearchMode, setSearchColumn, column_name}) => {
     const handler = (name: string) => {
         setSearchMode(true)
-        setSearchColumn(name)
+        // setSearchColumn(name)
     }
 
     return (

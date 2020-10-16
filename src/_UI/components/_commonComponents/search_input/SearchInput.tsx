@@ -15,6 +15,7 @@ type PropsType = {
   searchValue: string;
   searchColumn: string;
   thunkName?: string;
+  setSearchColumn: VoidFunctionType;
 };
 
 const SearchInput: React.FC<PropsType> = ({
@@ -22,6 +23,7 @@ const SearchInput: React.FC<PropsType> = ({
   setSearchValue,
   dispatch,
   thunkName,
+  setSearchColumn,
   ...props
 }) => {
   let handleKeyPress = (event: any, value: any) => {
@@ -59,6 +61,7 @@ const SearchInput: React.FC<PropsType> = ({
         onBlur={() => setSearchMode(false)}
         placeholder="Type..."
         onKeyPress={(event) => handleKeyPress(event, event.currentTarget)}
+        onFocus={() => setSearchColumn(props.column_name)}
       />
       <SearchIcon>
         <img src={search_icon} alt="" />

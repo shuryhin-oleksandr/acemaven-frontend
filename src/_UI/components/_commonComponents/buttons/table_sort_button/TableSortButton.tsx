@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import sort_arrows from "../../../../assets/icons/rates&services/sort_arrows.svg";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { filterByThunk } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
@@ -23,6 +23,8 @@ const TableSortButton: React.FC<PropsType> = ({
   thunkName,
   ...props
 }) => {
+  const descendingOrder = useRef(false);
+
   return (
     <SortButton
       onClick={() => {
@@ -31,7 +33,7 @@ const TableSortButton: React.FC<PropsType> = ({
               getFilteredRateListThunk(
                 direction,
                 mode,
-                column_name,
+                descendingOrder.current ? `-${column_name}` : column_name,
                 props.searchColumn,
                 props.searchValue
               )
@@ -40,11 +42,12 @@ const TableSortButton: React.FC<PropsType> = ({
               filterByThunk(
                 direction,
                 mode,
-                column_name,
+                descendingOrder.current ? `-${column_name}` : column_name,
                 props.searchColumn,
                 props.searchValue
               )
             );
+        descendingOrder.current = !descendingOrder.current;
       }}
     >
       <img src={sort_arrows} alt="" />

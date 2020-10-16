@@ -33,6 +33,7 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...prop
                                searchValue={props.searchValue}
                                searchColumn={props.searchColumn}
                                thunkName={thunkName}
+                               setSearchColumn={props.setSearchColumn}
                 />
                 : <div style={{display: 'flex'}}>
                     {props.title}

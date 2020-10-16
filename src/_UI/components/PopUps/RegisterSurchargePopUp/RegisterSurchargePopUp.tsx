@@ -20,14 +20,16 @@ import closeIcon from "../../../../_UI/assets/icons/close-icon.svg";
 import ship from "../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../assets/icons/rates&services/plane-surcharge.svg";
 import { Controller, useForm } from "react-hook-form";
+import { CarrierType } from "../../../../_BLL/types/rates&surcharges/ratesTypes";
+import { ShippingModeType } from "../../../../_BLL/types/rates&surcharges/ratesTypes";
 import SurchargesDates from "../../../Pages/Services&Rates/surcharge/SurchargeRegistrationForm/SurchargeDates";
 
 type PropsType = {
   setIsOpen?: VoidFunctionType;
   getValues?: any;
-  popUpCarrier?: any;
-  popUpShippingMode?: any;
-  mode?: any;
+  popUpCarrier?: CarrierType;
+  popUpShippingMode?: ShippingModeType | null;
+  mode: string;
 };
 
 const onSubmit = (values: any) => {
@@ -91,14 +93,14 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
             </FieldOuter>
           </FieldsWrap>
           <FieldsWrap>
-            {/*<SurchargesDates*/}
-            {/*  textColor="#115B86"*/}
-            {/*  textTransform="uppercase"*/}
-            {/*  textFont="Helvetica Bold"*/}
-            {/*  errors={{ from: errors.from, to: errors.to }}*/}
-            {/*  control={control}*/}
-            {/*  setValue={setValue}*/}
-            {/*/>*/}
+            <SurchargesDates
+              textColor="#115B86"
+              textTransform="uppercase"
+              textFont="Helvetica Bold"
+              errors={{ from: errors.from, to: errors.to }}
+              control={control}
+              setValue={setValue}
+            />
           </FieldsWrap>
         </InfoWrap>
       </PopupContent>

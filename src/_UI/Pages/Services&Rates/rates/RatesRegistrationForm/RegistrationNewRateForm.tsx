@@ -106,7 +106,7 @@ const RegistrationNewRateForm: React.FC<PropsType> = ({ setNewRateMode }) => {
         <ActionsWrapper>
           <RegisterButton type="submit">SAVE</RegisterButton>
           <CancelButton text="CANCEL" setIsOpen={setNewRateMode} />
-          <button onClick={() => setIsOpen(true)}>op</button>
+          <button onClick={() => setIsOpen(true)}>open PopUp</button>
         </ActionsWrapper>
       </HeaderWrapper>
       <div style={{ marginBottom: "20px", width: "150px" }}>

@@ -47,3 +47,14 @@ export type RateType = {
   start_date: string
   expiration_date: string
 }
+
+export type FreightRateObjectType = {
+  id: number,
+  shipping_mode: string,
+  shipping_type: string,
+  carrier: string,
+  origin: string,
+  destination: string,
+  expiration_date: string,
+  is_active: boolean
+}

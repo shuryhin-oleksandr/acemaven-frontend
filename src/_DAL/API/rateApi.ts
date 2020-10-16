@@ -13,5 +13,8 @@ export const rateAPI = {
   },
   getSurchargeToRate (rate_data: RateType) {
     return instance.post('/booking/rate/', rate_data)
+  },
+  getFilteredRateList(){
+    return instance.get("/booking/freight-rate/")
   }
 };

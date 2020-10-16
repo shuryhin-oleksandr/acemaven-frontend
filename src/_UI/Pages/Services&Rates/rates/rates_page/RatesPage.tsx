@@ -15,6 +15,8 @@ import sort_arrows from "../../../../assets/icons/rates&services/sort_arrows.svg
 import search_icon from "../../../../assets/icons/rates&services/search_loop.svg";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
+import { FreightRateObjectType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 
 const useStyles = makeStyles({
   container: {
@@ -24,13 +26,12 @@ const useStyles = makeStyles({
     "& .MuiTableHead-root": {},
   },
   shipping_cell: {
-    width: "220px",
     color: "#115B86",
     fontFamily: "Helvetica Bold",
     fontSize: "16px",
     borderBottom: "1px solid #828282",
-    paddingLeft: "63px",
     padding: "0",
+    paddingBottom: "15px",
   },
   cell: {
     color: "#115B86",
@@ -39,6 +40,7 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #828282",
     padding: "0",
     paddingBottom: "15px",
+    paddingRight: "30px",
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -46,8 +48,9 @@ const useStyles = makeStyles({
     fontSize: "16px",
     color: "#1B1B25",
     position: "relative",
-    paddingLeft: "63px",
+    paddingRight: "40px",
     height: "72px",
+    width: "50px",
   },
   innerCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -56,62 +59,65 @@ const useStyles = makeStyles({
     color: "#1B1B25",
     height: "72px",
     padding: "0",
+    paddingRight: "30px",
+    width: "150px",
   },
   customTooltip: {
     maxWidth: 330,
     height: 60,
-    fontFamily: 'Helvetica Reg',
-    fontSize: '14px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '15px'
+    fontFamily: "Helvetica Reg",
+    fontSize: "14px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "15px",
   },
 });
 
-const RatesPage: React.FC = () => {
+type PropsType = {
+  freight_rates_list: FreightRateObjectType[] | null;
+};
+
+const RatesPage: React.FC<PropsType> = ({ freight_rates_list }) => {
   const classes = useStyles();
 
   function createData(
+    id: number,
     shipping_mode: string,
+    shipping_type: string,
     carrier: string,
     origin: string,
     destination: string,
-    exp_date: string
+    expiration_date: string,
+    is_active: boolean
   ) {
-    return { shipping_mode, carrier, origin, destination, exp_date };
+    return {
+      id,
+      shipping_mode,
+      shipping_type,
+      carrier,
+      origin,
+      destination,
+      expiration_date,
+      is_active,
+    };
   }
 
-  const rows = [
-    createData(
-      "Loose Cargo/RORO",
-      "BestAmericanairlines Co.",
-      "SSZ",
-      "BCN",
-      "12/10/2020 "
-    ),
-    createData(
-      "Loose Cargo/RORO",
-      "BestAmericanairlines Co.",
-      "SSZ",
-      "BCN",
-      "12/10/2020 "
-    ),
-    createData(
-      "FCL",
-      "PerfectAmericanairlines Co.",
-      "SSZ",
-      "BCN",
-      "12/10/2020"
-    ),
-    createData(
-      "Loose Cargo/RORO",
-      "BestAmericanairlines Co.",
-      "SSZ",
-      "BCN",
-      "12/10/2020 "
-    ),
-  ];
+  const rows =
+    freight_rates_list && freight_rates_list.length > 0
+      ? freight_rates_list.map((r) =>
+          createData(
+            r.id,
+            r?.shipping_mode,
+            r?.shipping_type,
+            r.carrier,
+            r.origin,
+            r.destination,
+            r.expiration_date,
+            r.is_active
+          )
+        )
+      : null;
 
   return (
     <Outer>
@@ -119,7 +125,7 @@ const RatesPage: React.FC = () => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.cell} align="left" />
+              <TableCell className={classes.shipping_cell} align="left" />
               <TableCell className={classes.cell} align="left">
                 <div style={{ display: "flex" }}>
                   SHIPPING MODE
@@ -173,7 +179,7 @@ const RatesPage: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows?.map((row) => (
               <TableRow key={row.shipping_mode}>
                 <TableCell
                   className={classes.innerMainCell}
@@ -181,10 +187,16 @@ const RatesPage: React.FC = () => {
                   component="th"
                   scope="row"
                 >
-                  <ModeIcon src={plane_surcharge} alt="" />
+                  <ModeIcon
+                    src={
+                      row.shipping_type === "sea"
+                        ? ship_surcharge
+                        : plane_surcharge
+                    }
+                    alt=""
+                  />
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                  {" "}
                   <SpanMode>{row.shipping_mode}</SpanMode>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
@@ -197,7 +209,7 @@ const RatesPage: React.FC = () => {
                   {row.destination}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                  {row.exp_date}
+                  {row.expiration_date}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                   <div style={{ display: "flex" }}>

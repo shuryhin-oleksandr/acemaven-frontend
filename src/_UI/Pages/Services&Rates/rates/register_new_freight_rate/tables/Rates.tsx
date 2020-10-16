@@ -19,6 +19,7 @@ import {getBookedDates, getSurcharge} from "../../../../../../_BLL/selectors/rat
 import moment from "moment";
 import DatesCells from "./DatesCells";
 import {getSurchargeForExactRateThunk} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 
 
 const useStyles = makeStyles({
@@ -61,10 +62,11 @@ type PropsType = {
     errors: any
     setValue: any
     register: any
+    setNewSurchargePopUpVisible: VoidFunctionType
     getValues: any
 }
 
-const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getValues}) => {
+const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getValues,  setNewSurchargePopUpVisible}) => {
     const classes = useStyles()
 
     const reservedDates = useSelector(getBookedDates)
@@ -219,7 +221,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                     </TableBody>
                 </Table>
             </TableContainer>
-            <NoSurchargeCard />
+            <NoSurchargeCard setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />
         </div>
     )
 }

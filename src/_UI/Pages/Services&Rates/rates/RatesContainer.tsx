@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "src/_UI/components/BaseLayout/Layout";
 import SurchargePopup from "src/_UI/components/PopUps/Surcharge/SurchargePopup";
+import RegisterSurchargePopUp from "../../../components/PopUps/RegisterSurchargePopUp/RegisterSurchargePopUp";
 import {
   ActionsWrapper,
   Container,
@@ -18,12 +19,10 @@ const RatesContainer: React.FC = () => {
   const [mode, setMode] = useState("sea");
   const [directory, setDirectory] = useState("import");
 
-  const [isOpen, setIsOpen] = useState(false);
   const [newRateMode, setNewRateMode] = useState(false);
 
   return (
     <>
-      {isOpen && <SurchargePopup setIsOpen={setIsOpen} />}
       <Layout>
         {newRateMode ? (
          /* <RegistrationNewRateForm setNewRateMode={setNewRateMode} />*/
@@ -36,18 +35,19 @@ const RatesContainer: React.FC = () => {
                 <RegisterButton onClick={() => setNewRateMode(true)}>
                   REGISTER NEW
                 </RegisterButton>
-                <OptionsDeliveryButtons mode={mode}
-                                        setMode={setMode}
-                                        directory={directory}
-                                        searchColumn=''
-                                        searchValue=''
+                <OptionsDeliveryButtons
+                  mode={mode}
+                  setMode={setMode}
+                  directory={directory}
+                  searchColumn=""
+                  searchValue=""
                 />
                 <OptionsDirectoryButtons
-                    mode={mode}
+                  mode={mode}
                   directory={directory}
                   setDirectory={setDirectory}
-                    searchColumn=''
-                    searchValue=''
+                  searchColumn=""
+                  searchValue=""
                 />
               </ActionsWrapper>
             </HeaderOuter>

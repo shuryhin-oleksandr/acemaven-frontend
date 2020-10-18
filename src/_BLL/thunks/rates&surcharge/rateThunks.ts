@@ -1,11 +1,9 @@
 import { Dispatch } from "redux";
-import {
-  commonRateActions,
-  rateActions,
-} from "../../reducers/surcharge&rates/rateReducer";
+import { commonRateActions, rateActions } from "../../reducers/surcharge&rates/rateReducer";
 import { rateAPI } from "../../../_DAL/API/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
+
 import { RateType } from "../../types/rates&surcharges/ratesTypes";
 import {
   commonSurchargeActions,
@@ -20,10 +18,10 @@ type ThunkType = ThunkAction<
   commonRateActions
 >;
 
-export const getPorts = (q: string, field: string) => {
+export const getPorts = (q: string, field: string, type: string) => {
   return async (dispatch: Dispatch<commonRateActions>) => {
     try {
-      let res = await rateAPI.getPortsList(q);
+      let res = await rateAPI.getPortsList(q, type);
       field === "origin"
         ? dispatch(rateActions.setOriginPortsList(res.data))
         : dispatch(rateActions.setDestinationPortsList(res.data));
@@ -33,12 +31,7 @@ export const getPorts = (q: string, field: string) => {
   };
 };
 
-export const checkRatesDatesThunk = (check_values: {
-  carrier: number;
-  shipping_mode: number;
-  origin: number;
-  destination: number;
-}) => {
+export const checkRatesDatesThunk = (check_values: {carrier: number, shipping_mode: number, origin: number, destination: number}) => {
   return async (dispatch: Dispatch<commonRateActions>) => {
     try {
       let res = await rateAPI.checkRatesDates(check_values);
@@ -59,11 +52,17 @@ export const registerNewFreightRateThunk = (freight_data: any) => {
   };
 };
 
-export const getSurchargeForExactRateThunk = (rate_data: RateType) => {
-  return async (dispatch: Dispatch<commonRateActions>) => {
+export const getSurchargeForExactRateThunk = (rate_data: any) => {
+  return async(dispatch: Dispatch<commonRateActions>) => {
     try {
-      let res = await rateAPI.getSurchargeToRate(rate_data);
-      console.log(res.data);
+      debugger
+      dispatch(rateActions.setRateStartDate(rate_data.start_date))
+      let res = await rateAPI.getSurchargeToRate(rate_data)
+      if(Object.keys(res.data).length === 0){
+        dispatch(rateActions.setEmptyExistingSurcharge('empty'))
+      } else {
+        dispatch(rateActions.setExistingSurchargeByRate(res.data))
+      }
     } catch (e) {
       console.log(e.response);
     }

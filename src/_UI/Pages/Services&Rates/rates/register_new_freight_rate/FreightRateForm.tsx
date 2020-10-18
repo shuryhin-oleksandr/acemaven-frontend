@@ -22,12 +22,13 @@ type PropsType = {
     onOriginChangeHandler: (value: any) => void
     onDestinationChangeHandler: (value: any) => void
     closePortsHandler: any
-    getBookedRatesDates: (portName: string, portId: number) => void
+    getBookedRatesDates: any  /*(portName: string, portId: number) => void*/
+
 }
 
 const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValues, carrierOptions, shippingModeOptions,
-                                             shippingValue, setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
-                                             onDestinationChangeHandler, closePortsHandler, getBookedRatesDates}) => {
+                                            setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
+                                             onDestinationChangeHandler, closePortsHandler, getBookedRatesDates,}) => {
     return (
         <FormWrap>
             <div style={{ display: "flex", width: "100%", borderBottom: '1px solid #115B86', paddingBottom: '35px' }}>
@@ -73,6 +74,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             error={errors?.origin?.message}
                             getValues={getValues}
                             onChange={onOriginChangeHandler}
+
                             // onBlur={blurHandler}
                         />
                         {origin_ports && origin_ports?.length > 0 && (
@@ -113,7 +115,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             <PortsList>
                                 {destination_ports?.map((p: PortType) => (
                                     <Port
-                                        onClick={() => getBookedRatesDates(p.display_name, p.id)}
+                                        onClick={() => getBookedRatesDates(p)}
                                         key={p?.id}
                                     >
                                         {p?.display_name}

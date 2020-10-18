@@ -4,16 +4,19 @@ import Calendar from "../../../../../components/_commonComponents/calendar/Calen
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import moment from "moment";
 
+
 type PropsType = {
     setValue: (name: string, value: string) => void
+    getValues: any
     control: any
     errors: any
     classes: any
     reservedDates: Array<{from: Date, to: Date} | {before: Date}>
     id: number
+    getSurchargeToRateHandle?: any
 }
 
-const DatesCells: React.FC<PropsType> = ({setValue, control, errors, classes, reservedDates, id}) => {
+const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, classes, reservedDates, id, getSurchargeToRateHandle}) => {
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
@@ -35,6 +38,9 @@ const DatesCells: React.FC<PropsType> = ({setValue, control, errors, classes, re
             to
         })
         setValue(`rates.${id}.to`, moment(to).format('DD/MM/YYYY'))
+
+        //запрос за существующими сюрчарджами для этого контейнера
+        getSurchargeToRateHandle(id, selectedDay.from, to)
     }
 
     const toInput = useRef<DayPickerInput>(null)
@@ -82,6 +88,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, control, errors, classes, re
                     display_label='none'
                     max_width='107px'
                     margin_bottom='0'
+
                 />
             </TableCell>
         </>

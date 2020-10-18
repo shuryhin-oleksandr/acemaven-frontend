@@ -2,7 +2,7 @@ import React from 'react'
 import {
     HandlingSurchargeContainer,
     HandlingTitle
-} from '../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles';
+} from '../../surcharges_page/surcharge/sea-conteneraized-cargo-styles';
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -45,7 +45,8 @@ const useStyles = makeStyles({
         borderBottom: 'border: 1px solid #E0E0E0;',
         fontFamily: 'Helvetica Thin',
         fontSize: '16px',
-        color: '#1B1B25'
+        color: '#1B1B25',
+        padding: '0 16px'
     }
 });
 
@@ -116,7 +117,7 @@ const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => 
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller name={`charges.${charge.id}.charge`}
                                                 control={control}
-                                                defaultValue={0}
+                                                defaultValue=''
                                                 as={
                                                     <Field/>
                                                 }

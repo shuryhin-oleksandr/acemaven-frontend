@@ -3,7 +3,6 @@ import {Dispatch} from "redux";
 import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
 import {
     CarrierType,
-    CheckSurchargeDatesType,
     editChargesType,
     editHandlingType
 } from "../../types/rates&surcharges/surchargesTypes";
@@ -77,6 +76,7 @@ export const addNewSurcharge = (surcharge_data: any) => {
         try {
             let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
             dispatch(filterByThunk('import', 'sea','', '', ''))
+            dispatch(surchargeActions.setSurchargeInfo(res.data))
             console.log('surcharge', res.data)
         } catch (e) {
             console.log(e.response)

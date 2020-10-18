@@ -1,5 +1,5 @@
-import React, { useEffect, useState} from "react";
-import {HandlingTitle} from "../../../surcharge/SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
+import React, {useEffect} from "react";
+import {HandlingTitle} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -10,16 +10,17 @@ import TableBody from "@material-ui/core/TableBody";
 import {Controller} from "react-hook-form";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
-import NoSurchargeCard from "../NoSurchargeCard";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {ContainerType, SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
-import {useSelector} from "react-redux";
-import {getBookedDates, getSurcharge} from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import {useDispatch, useSelector} from "react-redux";
+import {getBookedDates} from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import moment from "moment";
 import DatesCells from "./DatesCells";
+import {getSurchargeForExactRateThunk} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
-
+import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import {RateForSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 const useStyles = makeStyles({
     container: {
@@ -62,24 +63,23 @@ type PropsType = {
     setValue: any
     register: any
     setNewSurchargePopUpVisible: VoidFunctionType
+    getValues: any
+    existing_surcharge: any
+    surcharge: SurchargeInfoType | null
+    rate_data_for_surcharge: RateForSurchargeType | null
 }
 
-const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, setNewSurchargePopUpVisible}) => {
+const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getValues,
+                                       rate_data_for_surcharge, surcharge}) => {
     const classes = useStyles()
 
     const reservedDates = useSelector(getBookedDates)
     const bookedDates = reservedDates?.push({before: new Date()})
     console.log('bookes', bookedDates)
 
-    const [selectedDay, setSelectedDay] = useState<any>({
-        from:  '',
-        to:  ''
-    })
-
-    let surcharge = useSelector(getSurcharge)
 
     //CALENDAR
-    useEffect(() => {
+    /*useEffect(() => {
         if(surcharge && !sessionStorage.getItem('reg')) {
             setSelectedDay({from: moment(surcharge.start_date, 'DD/MM/YYYY').toDate(),
                 to: moment(surcharge.expiration_date, 'DD/MM/YYYY').toDate()})
@@ -87,26 +87,29 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, setNew
             setValue('to', surcharge.expiration_date)
             console.log(new Date(surcharge.start_date))
         }
+    }, [surcharge])*/
+
+    const dispatch = useDispatch()
+    const getSurchargeToRateHandle = (id: number, from: string, to: string) => {
+        let surcharge_to_rate = {
+            start_date: moment(from).format('DD/MM/YYYY'),
+            expiration_date: moment(to).format('DD/MM/YYYY'),
+            carrier: getValues('carrier'),
+            shipping_mode: getValues('shipping_mode'),
+            origin: Number(sessionStorage.getItem('origin_id')),
+            destination: Number(sessionStorage.getItem('destination_id')),
+            transit_time: Number(getValues('transit_time'))
+        }
+        dispatch(rateActions.setRateDataForSurcharge(surcharge_to_rate))
+        dispatch(getSurchargeForExactRateThunk(surcharge_to_rate))
+    }
+
+    useEffect(() => {
+        debugger
+        if(surcharge) {
+            dispatch(getSurchargeForExactRateThunk(rate_data_for_surcharge))
+        }
     }, [surcharge])
-
-
-    const handleFromChange = (from: string, id: number) => {
-        setSelectedDay({
-            ...selectedDay,
-            from
-        })
-
-        setValue(`rates.${id}.from`, from)
-    }
-
-    const handleToChange = (to: string, id: number) => {
-        setSelectedDay({
-            ...selectedDay,
-            to
-        })
-        setValue(`rates.${id}.to`, to)
-    }
-
 
 
     return (
@@ -167,9 +170,9 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, setNew
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller control={control}
                                                 name={`rates.${fee.id}.rate`}
-                                                defaultValue={0}
+                                                defaultValue=''
                                                 as={
-                                                    <Field maxW='100px'/>
+                                                    <Field placeholder='0.00$' maxW='100px'/>
                                                 }
 
                                     />
@@ -181,6 +184,8 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, setNew
                                     reservedDates={reservedDates}
                                     errors={errors}
                                     classes={classes}
+                                    getValues={getValues}
+                                    getSurchargeToRateHandle={getSurchargeToRateHandle}
                                 />
                             </TableRow>
                         ))
@@ -213,13 +218,13 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, setNew
                                     reservedDates={reservedDates}
                                     errors={errors}
                                     classes={classes}
+                                    getValues={getValues}
                                 />
                             </TableRow>
                         }
                     </TableBody>
                 </Table>
             </TableContainer>
-            <NoSurchargeCard setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />
         </div>
     )
 }

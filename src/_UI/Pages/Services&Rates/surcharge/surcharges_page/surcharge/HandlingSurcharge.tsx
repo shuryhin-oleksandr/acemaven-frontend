@@ -3,7 +3,7 @@ import {
     Field,
     HandlingSurchargeContainer,
     HandlingTitle
-} from "../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
+} from "./sea-conteneraized-cargo-styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";

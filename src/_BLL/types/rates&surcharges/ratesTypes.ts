@@ -8,6 +8,7 @@ export type PortType = {
   display_name: string;
   name: string;
   code: string;
+  is_local?: boolean
 };
 
 export type CarrierType = {
@@ -57,4 +58,22 @@ export type FreightRateObjectType = {
   destination: string,
   expiration_date: string,
   is_active: boolean
+}
+
+export type FreightRateType = {
+  rates: Array<RateType>,
+  origin: number,
+  destination: number,
+  shipping_mode: number,
+  carrier: number,
+  transit_time: number
+}
+export type RateForSurchargeType = {
+  start_date: string,
+  expiration_date: string,
+  carrier: number,
+  shipping_mode: number,
+  origin: number,
+  destination: number,
+  transit_time: number
 }

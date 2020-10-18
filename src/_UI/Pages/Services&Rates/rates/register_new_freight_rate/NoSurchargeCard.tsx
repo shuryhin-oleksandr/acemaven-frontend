@@ -22,7 +22,7 @@ const NoSurchargeCard: React.FC<PropsType> = ({
           The rate won’t be posted until a matching surcharge agreement is
           created
         </CardTitle>
-        <CardButton onClick={() => setNewSurchargePopUpVisible(true)}>
+        <CardButton type='button' onClick={() => setNewSurchargePopUpVisible(true)}>
           Register new surcharges
         </CardButton>
       </CardInner>

@@ -10,9 +10,10 @@ import {
 import { surchargeActions } from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {
   getCurrentShippingTypeSelector,
-  getShippingTypesSelector,
+  getShippingTypesSelector, getSurcharge,
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
+  addNewSurcharge,
   getCarriers,
   getCurrencyList,
   getShippingTypes,
@@ -22,8 +23,8 @@ import {
   getSeaCarriersSelector,
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
-  getDestinationPorts,
-  getOriginPorts,
+  getDestinationPorts, getDestinationPortValue, getEmptyExistingSurcharge, getExistingSurcharge, getIsLocalPort,
+  getOriginPorts, getRateDataForSurcharge, getRateStartDate,
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {
   checkRatesDatesThunk,
@@ -32,6 +33,8 @@ import {
 import { PortType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import RegisterSurchargePopUp from "../../../../components/PopUps/RegisterSurchargePopUp/RegisterSurchargePopUp";
+import styled from "styled-components";
+import NoSurchargeCard from "./NoSurchargeCard";
 
 type PropsType = {
   setNewRateMode: VoidFunctionType;
@@ -41,17 +44,10 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   setNewRateMode,
 }) => {
   const dispatch = useDispatch();
-  const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(
-    false
-  );
-  const {
-    handleSubmit,
-    register,
-    control,
-    errors,
-    getValues,
-    setValue,
-  } = useForm();
+  //попап для нового сюрчарджа
+  const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(false);
+//useForm
+  const {handleSubmit, register, control, errors, getValues, setValue,} = useForm();
 
   //запрос за опшионсами для селектов
   useEffect(() => {
@@ -67,19 +63,21 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   const shippingTypes = useSelector(getShippingTypesSelector);
   const origin_ports = useSelector(getOriginPorts);
   const destination_ports = useSelector(getDestinationPorts);
+  const existing_surcharge = useSelector(getExistingSurcharge);
+  const empty_surcharge = useSelector(getEmptyExistingSurcharge)
+  const is_local_port = useSelector(getIsLocalPort);
+  const destination_port_value = useSelector(getDestinationPortValue);
+  const rate_start_date = useSelector(getRateStartDate)
+  let surcharge = useSelector(getSurcharge)
+  let rate_data_for_surcharge = useSelector(getRateDataForSurcharge)
 
   //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
   const [shippingValue, setShippingValue] = useState(0);
 
-  const carrierOptions =
-    currentShippingType === ShippingTypesEnum.AIR ? air_carriers : sea_carriers;
-  const shippingModeOptions =
-    currentShippingType === ShippingTypesEnum.AIR
-      ? shippingTypes[0]?.shipping_modes
-      : shippingTypes[1]?.shipping_modes;
-  const usageFees =
-    shippingModeOptions?.find((m) => m.id === shippingValue)?.container_types ||
-    [];
+  const carrierOptions = currentShippingType === ShippingTypesEnum.AIR ? air_carriers : sea_carriers;
+  const shippingModeOptions = currentShippingType === ShippingTypesEnum.AIR ? shippingTypes[0]?.shipping_modes : shippingTypes[1]?.shipping_modes;
+  const usageFees = shippingModeOptions?.find((m) => m.id === shippingValue)?.container_types || [];
+  const additional = shippingModeOptions?.find(m => m.id === shippingValue)?.additional_surcharges || []
 
   //закрывает форму регистрации рейта
   const closeRateRegistration = () => {
@@ -92,6 +90,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   //закрывает выборку портов
   let closePortsHandler = (port: PortType, field: string) => {
     setValue(field, port.display_name);
+   dispatch(rateActions.setOriginPortValue(port))
     field === "origin" &&
       sessionStorage.setItem("origin_id", JSON.stringify(port.id));
     field === "destination" &&
@@ -101,8 +100,9 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   };
 
   //достаем занятые даты
-  let getRatesBookedDates = useCallback((portName: string, portId: number) => {
-    sessionStorage.setItem("destination_id", JSON.stringify(portId));
+  let getRatesBookedDates = useCallback((p: PortType) => {
+    sessionStorage.setItem("destination_id", JSON.stringify(p.id));
+    dispatch(rateActions.setDestinationPortValue(p))
     let carrier = getValues("carrier");
     let shipping_mode = getValues("shipping_mode");
     let origin = Number(sessionStorage.getItem("origin_id"));
@@ -111,10 +111,10 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         carrier: carrier,
         shipping_mode: shipping_mode,
         origin: origin,
-        destination: portId,
+        destination: p.id,
       })
     );
-    setValue("destination", portName);
+    setValue("destination", p.display_name);
     dispatch(rateActions.setDestinationPortsList([]));
   }, []);
 
@@ -128,28 +128,46 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
 
   //посимвольный поиск портов
   let onOriginChangeHandler = (value: any) => {
-    dispatch(getPorts(value.value, "origin"));
+    dispatch(getPorts(value.value, "origin", currentShippingType));
   };
   let onDestinationChangeHandler = (value: any) => {
-    dispatch(getPorts(value.value, "destination"));
+    dispatch(getPorts(value.value, "destination", currentShippingType));
   };
+
 
   const popUpCarrier = carrierOptions?.find(
     (carrier) => carrier.id === getValues("carrier")
   );
-
   const popUpShippingMode = shippingModeOptions?.find(
     (mode) => mode.id === getValues("shipping_mode")
   );
 
+  //dispatch rate start_date to state for surcharge popup + register surcharge from popup
+  let setRateStartDate = (start_date: string) => {
+    dispatch(setRateStartDate(start_date))
+  }
+  const createNewSurcharge = (surcharge_data: any) => {
+    dispatch(addNewSurcharge(surcharge_data))
+  }
+
+
+
   return (
-    <>
+    <RatesWrapper>
       {newSurchargePopUpVisible && (
         <RegisterSurchargePopUp
           mode={currentShippingType}
           setIsOpen={setNewSurchargePopUpVisible}
           popUpCarrier={popUpCarrier}
           popUpShippingMode={popUpShippingMode}
+          usageFees={usageFees}
+          additional={additional}
+          shippingValue={shippingValue}
+          is_local_port={is_local_port}
+          destination_port_value={destination_port_value}
+          rate_start_date={rate_start_date}
+          createNewSurcharge={createNewSurcharge}
+          existing_surcharge={existing_surcharge}
         />
       )}
       <RegisterNewFreightRate
@@ -174,9 +192,19 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         getBookedRatesDates={getRatesBookedDates}
         usageFees={usageFees}
         setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}
+        existing_surcharge={existing_surcharge}
+        surcharge={surcharge}
+        rate_data_for_surcharge={rate_data_for_surcharge}
       />
-    </>
+      {empty_surcharge === 'empty' && <NoSurchargeCard setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
+    </RatesWrapper>
   );
 };
 
 export default RegisterNewFreightRateContainer;
+
+export const RatesWrapper = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+`

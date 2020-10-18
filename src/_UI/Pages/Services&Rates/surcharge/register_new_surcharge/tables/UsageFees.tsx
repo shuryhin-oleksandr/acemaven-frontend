@@ -1,5 +1,5 @@
 import React from 'react'
-import {HandlingSurchargeContainer, HandlingTitle} from "../../SurchargeRegistrationForm/sea_containerized_cargo/sea-conteneraized-cargo-styles";
+import {HandlingSurchargeContainer, HandlingTitle} from "../../surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";

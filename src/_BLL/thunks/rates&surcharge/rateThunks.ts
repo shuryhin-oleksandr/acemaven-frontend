@@ -47,6 +47,7 @@ export const registerNewFreightRateThunk = (freight_data: any) => {
     try {
       let res = await rateAPI.registerNewSurcharge(freight_data);
       dispatch(rateActions.setNewFreightRate(res.data));
+      dispatch(rateActions.setRegistrationSuccess('success'))
     } catch (e) {
       console.log(e.response);
     }

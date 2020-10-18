@@ -25,6 +25,7 @@ import { useDispatch } from "react-redux";
 import { Outer } from "../../surcharge/register_new_surcharge/form-styles";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {RateForSurchargeType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {rateActions} from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 
 type PropsType = {
   handleSubmit: any;
@@ -51,6 +52,7 @@ type PropsType = {
   existing_surcharge: any
   surcharge: SurchargeInfoType | null
   rate_data_for_surcharge: RateForSurchargeType | null
+  registration_success: string
 };
 
 const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, register, errors,
@@ -58,7 +60,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
   mode, carrierOptions, shippingModeOptions, shippingValue,
   setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
   onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, usageFees,
-  setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge
+  setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge, registration_success
 }) => {
 
   const dispatch = useDispatch();
@@ -99,7 +101,12 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if(registration_success) {
+      closeRateRegistration()
+      dispatch(rateActions.setRegistrationSuccess(''))
+    }
+  }, [registration_success]);
 
     return (
         <Outer onSubmit={handleSubmit(onSubmit)}>
@@ -148,7 +155,8 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
                            surcharge={surcharge}
                            rate_data_for_surcharge={rate_data_for_surcharge}
                     />
-                    {existing_surcharge  && <SurchargesToRate existing_surcharge={existing_surcharge}/>}
+                    {/*{existing_surcharge  && <SurchargesToRate existing_surcharge={existing_surcharge}/>}*/}
+                  <SurchargesToRate existing_surcharge={existing_surcharge}/>
                     </>
                 : <UnderTitle>
                     Please, complete the parameters of the freight rate for the value fields

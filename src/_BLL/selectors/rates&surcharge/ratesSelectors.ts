@@ -8,3 +8,4 @@ export const getIsLocalPort = ((state: AppStateType) => state.rate.origin_port_v
 export const getDestinationPortValue = ((state: AppStateType) => state.rate.destination_port_value)
 export const getRateStartDate = ((state: AppStateType) => state.rate.rate_start_date)
 export const getRateDataForSurcharge = ((state: AppStateType) => state.rate.rate_data_for_surcharge)
+export const getRegistrationSuccess = ((state: AppStateType) => state.rate.registration_success)

@@ -20,8 +20,9 @@ const initialState = {
   empty_existing_surcharge: "",
   origin_port_value: null as PortType | null,
   destination_port_value: null as PortType | null,
-  rate_start_date: "",
+  rate_start_date: '',
   rate_data_for_surcharge: null as RateForSurchargeType | null,
+  registration_success: '',
   rate_info: null as RateInfoType | null,
 };
 
@@ -80,7 +81,12 @@ export const rateReducer = (
     case "SET_RATE_DATA_FOR_SURCHARGE":
       return {
         ...state,
-        rate_data_for_surcharge: action.rate_data,
+        rate_data_for_surcharge: action.rate_data
+      };
+    case "SET_REGISTRATION_SUCCESS":
+      return {
+        ...state,
+        registration_success: action.success
       };
     case "SET_RATE_INFO":
       return {
@@ -106,6 +112,7 @@ export const rateActions = {
     ({ type: "SET_FREIGHT_RATES_LIST", freight_rates_list } as const),
   setNewFreightRate: (freight_rate: any) =>
     ({ type: "SET_NEW_FREIGHT_RATE", freight_rate } as const),
+  setRegistrationSuccess: (success: string) => ({type: 'SET_REGISTRATION_SUCCESS', success} as const),
   setExistingSurchargeByRate: (surcharge: any) =>
     ({ type: "SET_EXISTING_SURCHARGE_BY_RATE", surcharge } as const),
   setEmptyExistingSurcharge: (empty: string) =>

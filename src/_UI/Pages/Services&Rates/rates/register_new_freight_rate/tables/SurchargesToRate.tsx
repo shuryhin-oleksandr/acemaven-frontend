@@ -1,30 +1,41 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {
+    Arrow,
     SurchargeForRateContainer,
     SurchargeTitle,
     SurchargeToRateInner,
-    TableWrapper
+    TableWrapper, TextWrap
 } from "./surcharges-to-rate-styles";
 import SurchargeAdditionalTable from "./surcharge_tables/SurchargeAdditionalTable";
 import HandlingSurchargeTable from "./surcharge_tables/HandlingSurchargeTable";
+import show_arrow from '../../../../../../_UI/assets/icons/rates&services/show_arrow.svg';
+import hide_arrow from '../../../../../../_UI/assets/icons/rates&services/hide_arrow.svg';
 
 type PropsType = {
     existing_surcharge: SurchargeInfoType | null
 }
 
 const SurchargesToRate:React.FC<PropsType> = ({ existing_surcharge}) => {
+    const [isFullView, setFullView] = useState(false)
+
     return (
         <SurchargeForRateContainer>
             <SurchargeToRateInner>
                 <SurchargeTitle>
-                    SURCHARGES
+                    <TextWrap>SURCHARGES</TextWrap>
+                    <Arrow type='button' onClick={() => isFullView ? setFullView(false) : setFullView(true)}>
+                        <img src={!isFullView ? show_arrow : hide_arrow} alt=""/>
+                    </Arrow>
                 </SurchargeTitle>
+                {
+                    isFullView &&
                 <TableWrapper>
                     {existing_surcharge?.usage_fees && existing_surcharge.usage_fees.length > 0
                     && <HandlingSurchargeTable containers={existing_surcharge?.usage_fees}/>}
-                     <SurchargeAdditionalTable charges={existing_surcharge?.charges}/>
+                    {existing_surcharge && <SurchargeAdditionalTable charges={existing_surcharge?.charges}/>}
                 </TableWrapper>
+                }
             </SurchargeToRateInner>
         </SurchargeForRateContainer>
     )

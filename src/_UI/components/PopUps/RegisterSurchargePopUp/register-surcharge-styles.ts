@@ -22,20 +22,23 @@ export const PopupOuter = styled.div`
   right: 0;
   bottom: 0;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 50;
   animation: ${openPopup} ease-in-out 0.3s;
+  padding: 130px;
 `;
 
 export const PopupContent = styled.form`
   max-width: 1180px;
   width: 100%;
+ 
   background-color: white;
   position: relative;
-  padding: 50px 30px;
+  padding: 50px 50px;
 `;
 
 export const HeaderWrapper = styled.div`
@@ -89,8 +92,8 @@ export const CloseButton = styled.div`
   background: none;
   border: none;
   position: absolute;
-  top: 5%;
-  right: 3%;
+  top: 26px;
+  right: 24px;
 
   &:hover {
     cursor: pointer;

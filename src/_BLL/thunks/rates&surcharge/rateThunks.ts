@@ -3,7 +3,7 @@ import { commonRateActions, rateActions } from "../../reducers/surcharge&rates/r
 import { rateAPI } from "../../../_DAL/API/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
-import {FreightRateType, RateType} from "../../types/rates&surcharges/ratesTypes";
+
 
 type ThunkType = ThunkAction<
   Promise<void>,
@@ -12,10 +12,10 @@ type ThunkType = ThunkAction<
   commonRateActions
 >;
 
-export const getPorts = (q: string, field: string) => {
+export const getPorts = (q: string, field: string, type: string) => {
   return async (dispatch: Dispatch<commonRateActions>) => {
     try {
-      let res = await rateAPI.getPortsList(q);
+      let res = await rateAPI.getPortsList(q, type);
       field === "origin"
         ? dispatch(rateActions.setOriginPortsList(res.data))
         : dispatch(rateActions.setDestinationPortsList(res.data));
@@ -46,11 +46,17 @@ export const registerNewFreightRateThunk = (freight_data: any) => {
   }
 }
 
-export const getSurchargeForExactRateThunk = (rate_data: FreightRateType) => {
+export const getSurchargeForExactRateThunk = (rate_data: any) => {
   return async(dispatch: Dispatch<commonRateActions>) => {
     try {
+      debugger
+      dispatch(rateActions.setRateStartDate(rate_data.start_date))
       let res = await rateAPI.getSurchargeToRate(rate_data)
-      console.log(res.data)
+      if(Object.keys(res.data).length === 0){
+        dispatch(rateActions.setEmptyExistingSurcharge('empty'))
+      } else {
+        dispatch(rateActions.setExistingSurchargeByRate(res.data))
+      }
     } catch (e) {
         console.log(e.response)
     }

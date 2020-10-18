@@ -7,16 +7,18 @@ type PropsStyle = {
     display_label?: string
     max_width?: string
     margin_bottom?: string
+    input_height?: string
 }
 
-export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, margin_bottom?: string}>`
+export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, margin_bottom?: string, input_height?: string}>`
   flex: none;
   margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '10px'};
   width: 100%;
-  max-width: ${({max_width}) => max_width ? max_width : '420px'};
   
   .DayPickerInput {
     width: 100%;
+    max-width: ${({max_width}) => max_width ? max_width : '420px'};
+    height:${({input_height}) => input_height ? input_height : '40px'};
   }
    
    .DayPickerInput-Overlay {
@@ -67,8 +69,8 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
   font-family: "Helvetica Light", sans-serif;
   line-height: 17px;
   transition: 0.5s;
+  height: 100%;
   width: 100%;
-  height: 40px;
   border: ${({ error }) => (error ? "1px solid #7C7C89" : "1px solid #BDBDBD")};
   border-radius: 4px;
   outline: none;

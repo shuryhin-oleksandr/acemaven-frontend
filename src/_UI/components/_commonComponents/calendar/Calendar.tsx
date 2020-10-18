@@ -10,6 +10,7 @@ import { Controller } from 'react-hook-form'
 // @ts-ignore
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
 
+
 type PropsType = {
     label: string
     name: string
@@ -30,6 +31,8 @@ type PropsType = {
     max_width?: string
     margin_bottom?: string
     onBlur?: any
+    input_height?: string
+
 }
 
 const Calendar = forwardRef<DayPickerInput, PropsType>(
@@ -40,7 +43,7 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
     const modifiers = {start: selectedDay.from, end: selectedDay.to};
 
     return (
-        <CalendarWrapper margin_bottom={props.margin_bottom} error={error} max_width={props.max_width}>
+        <CalendarWrapper margin_bottom={props.margin_bottom} error={error} max_width={props.max_width} input_height={props.input_height}>
             <CalendarLabel display_label={props.display_label} textTransform={props.textTransform} textColor={props.textColor} textFont={props.textFont}>
                 {label}
             </CalendarLabel>

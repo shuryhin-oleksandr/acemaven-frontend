@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import CancelButton from "../../_commonComponents/buttons/navFormButtons/CancelButton";
 import {
   CloseButton,
@@ -20,30 +20,85 @@ import closeIcon from "../../../../_UI/assets/icons/close-icon.svg";
 import ship from "../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../assets/icons/rates&services/plane-surcharge.svg";
 import { Controller, useForm } from "react-hook-form";
-import { CarrierType } from "../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {CarrierType, PortType } from "../../../../_BLL/types/rates&surcharges/ratesTypes";
 import { ShippingModeType } from "../../../../_BLL/types/rates&surcharges/ratesTypes";
+import UsageFees from "../../../Pages/Services&Rates/surcharge/register_new_surcharge/tables/UsageFees";
+import Additional from "../../../Pages/Services&Rates/surcharge/register_new_surcharge/tables/Additional";
+import {
+  AdditionalSurchargeType,
+  ContainerType,
+  SurchargeInfoType
+} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import SurchargesDates from "../../../Pages/Services&Rates/surcharge/register_new_surcharge/SurchargeDates";
+import moment from "moment";
+import {surchargeActions} from "../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
+import {useDispatch} from "react-redux";
+import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
 
 type PropsType = {
-  setIsOpen?: VoidFunctionType;
+  setIsOpen: VoidFunctionType;
   getValues?: any;
   popUpCarrier?: CarrierType;
   popUpShippingMode?: ShippingModeType | null;
   mode: string;
-};
-
-const onSubmit = (values: any) => {
-  console.log("VAL", values);
+  usageFees: ContainerType[];
+  additional: AdditionalSurchargeType[]
+  shippingValue: number
+  is_local_port: PortType | null
+  destination_port_value: PortType | null
+  rate_start_date: string
+  createNewSurcharge: (surcharge_data: any) => void
+  existing_surcharge: SurchargeInfoType | null
 };
 
 const RegisterSurchargePopUp: React.FC<PropsType> = ({
   setIsOpen,
   popUpCarrier,
-  popUpShippingMode,
-  mode,
+  popUpShippingMode, rate_start_date, createNewSurcharge, existing_surcharge,
+  mode, usageFees, additional, shippingValue, is_local_port, destination_port_value
 }) => {
   const { handleSubmit, errors, setValue, control } = useForm<any>({
     reValidateMode: "onBlur",
   });
+
+  const dispatch = useDispatch()
+
+  const onSubmit = (values: any) => {
+
+    debugger
+    let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
+    let usageFees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+
+    let data = {
+      carrier: values.carrier,
+      direction: is_local_port?.is_local === true ? 'export' : 'import',
+      shipping_mode: values.shipping_mode,
+      start_date: values.from,
+      expiration_date: moment(values.to).format('DD/MM/YYYY'),
+      charges: charges_array, usage_fees: usageFees_array,
+      location: is_local_port?.is_local === true ? is_local_port?.id : destination_port_value?.id
+    }
+
+    let data_without_fees = {
+      start_date:values.from,
+      expiration_date: moment(values.to).format('DD/MM/YYYY'),
+      carrier: values.carrier,
+      direction: is_local_port?.is_local === true ? 'export' : 'import',
+      shipping_mode: values.shipping_mode,
+      charges: charges_array,
+      location: is_local_port?.is_local === true ? is_local_port?.id : destination_port_value?.id
+    }
+    usageFees_array !== null ? createNewSurcharge(data) : createNewSurcharge(data_without_fees)
+  };
+
+  useEffect(() => {
+    if(existing_surcharge) {
+      setIsOpen(false)
+      dispatch(rateActions.setEmptyExistingSurcharge(''))
+      dispatch(surchargeActions.setSurchargeInfo(null))
+    }
+  }, [existing_surcharge])
+
   return (
     <PopupOuter>
       <PopupContent onSubmit={handleSubmit(onSubmit)}>
@@ -51,7 +106,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
           <img src={closeIcon} alt="" />
         </CloseButton>
         <HeaderWrapper>
-          <FormTitle>Freight rates</FormTitle>
+          <FormTitle>Register Surcharge</FormTitle>
           <ActionsWrapper>
             <RegisterButton type="submit">SAVE</RegisterButton>
             <CancelButton text="CANCEL" setIsOpen={setIsOpen} />
@@ -65,7 +120,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
             <FieldOuter>
               <Label>Carrier</Label>
               <Controller
-                name={`carrier`}
+                name='carrier'
                 control={control}
                 defaultValue={popUpCarrier?.id}
                 as={<Content>{popUpCarrier?.title}</Content>}
@@ -74,7 +129,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
             <FieldOuter>
               <Label>Shipping mode</Label>
               <Controller
-                name={`shipping_mode`}
+                name='shipping_mode'
                 control={control}
                 defaultValue={popUpShippingMode?.id}
                 as={<Content>{popUpShippingMode?.title}</Content>}
@@ -84,14 +139,36 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
           <FieldsWrap>
             <FieldOuter>
               <Label>Direction</Label>
-              <Content c="#115B86">Export</Content>
+              <Content c="#115B86">{is_local_port?.is_local === true ? 'Export' : 'Import'}</Content>
             </FieldOuter>
             <FieldOuter>
               <Label>Location</Label>
-              <Content c="#115B86">Cityofairport</Content>
+              <Content c="#115B86">{is_local_port?.is_local === true ? is_local_port.name : destination_port_value?.name}</Content>
             </FieldOuter>
           </FieldsWrap>
+          <FieldsWrap>
+            <SurchargesDates control={control}
+                             setValue={setValue}
+                             errors={{ from: errors.from, to: errors.to }}
+                             textTransform='uppercase'
+                             textColor='#115B86'
+                             textFont='Helvetica Bold'
+                             max_width='110px'
+                             margin_bottom='0'
+                             input_height='33px'
+                             rate_start_date={rate_start_date}
+            />
+          </FieldsWrap>
         </InfoWrap>
+        {usageFees.length > 0 && <UsageFees control={control}
+                   tableName={mode === 'sea' ? 'HANDLING' : 'USAGE FEE'}
+                   type={mode === 'sea' ? 'CONTAINER TYPE' : 'ULD TYPES'}
+                   usageFees={usageFees}
+        />}
+        <Additional control={control}
+                    charges={additional}
+                    shippingMode={shippingValue}
+        />
       </PopupContent>
     </PopupOuter>
   );

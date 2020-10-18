@@ -37,6 +37,7 @@ const Surcharge = ({...props}) => {
     })
     const onSubmit = (values: any) => {
        //edit surcharge dates
+        debugger
         if(values.from !== surcharge?.start_date) {
             let edit_dates = {start_date: moment(values.from).format('DD/MM/YYYY'),
                 expiration_date: moment(values.to).format('DD/MM/YYYY')}
@@ -44,6 +45,8 @@ const Surcharge = ({...props}) => {
         } else {
             dispatch(editDates(props.match.params.id, {start_date: values.from, expiration_date: values.to}))
         }
+
+
         //edit containers
         values.usage_fees && Object.keys(values.usage_fees).map(u => (u !== null
             && dispatch(editUsageFees(values.usage_fees[u].id, values.usage_fees[u]))))

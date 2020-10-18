@@ -3,8 +3,7 @@ import TableCell from "@material-ui/core/TableCell";
 import Calendar from "../../../../../components/_commonComponents/calendar/Calendar";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import moment from "moment";
-import {useDispatch} from "react-redux";
-import {getSurchargeForExactRateThunk} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+
 
 type PropsType = {
     setValue: (name: string, value: string) => void
@@ -25,7 +24,6 @@ const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, 
     })
 
     const handleFromChange = (from: string, id: number) => {
-        debugger
         setSelectedDay({
             ...selectedDay,
             from
@@ -35,7 +33,6 @@ const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, 
     }
 
     const handleToChange = (to: string, id: number) => {
-        debugger
         setSelectedDay({
             ...selectedDay,
             to

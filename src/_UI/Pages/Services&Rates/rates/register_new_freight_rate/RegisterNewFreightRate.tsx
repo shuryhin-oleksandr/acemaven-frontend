@@ -18,12 +18,13 @@ import SurchargesToRate from "./tables/SurchargesToRate";
 import {
   CarrierType,
   ContainerType,
-  PortType,
+  PortType, SurchargeInfoType,
 } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import { registerNewFreightRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { useDispatch } from "react-redux";
 import { Outer } from "../../surcharge/register_new_surcharge/form-styles";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+import {RateForSurchargeType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 type PropsType = {
   handleSubmit: any;
@@ -40,59 +41,34 @@ type PropsType = {
   shippingValue: number;
   setShippingValue: (shippingModeId: number) => void;
   origin_ports: Array<PortType> | null;
-  destination_ports: Array<PortType> | null;
+  destination_ports: any;
   onOriginChangeHandler: (value: any) => void;
   onDestinationChangeHandler: (value: any) => void;
   closePortsHandler: any;
-  getBookedRatesDates: (portName: string, portId: number) => void;
+  getBookedRatesDates: (p:PortType) => void;
   usageFees: ContainerType[];
   setNewSurchargePopUpVisible: VoidFunctionType;
+  existing_surcharge: any
+  surcharge: SurchargeInfoType | null
+  rate_data_for_surcharge: RateForSurchargeType | null
 };
 
-const RegisterNewFreightRate: React.FC<PropsType> = ({
-  handleSubmit,
-  control,
-  register,
-  errors,
-  getValues,
-  setValue,
-  closeRateRegistration,
-  setMode,
-  mode,
-  carrierOptions,
-  shippingModeOptions,
-  shippingValue,
-  setShippingValue,
-  origin_ports,
-  destination_ports,
-  onOriginChangeHandler,
-  onDestinationChangeHandler,
-  closePortsHandler,
-  getBookedRatesDates,
-  usageFees,
-  setNewSurchargePopUpVisible,
+const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, register, errors,
+  getValues, setValue, closeRateRegistration, setMode,
+  mode, carrierOptions, shippingModeOptions, shippingValue,
+  setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
+  onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, usageFees,
+  setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge
 }) => {
+
   const dispatch = useDispatch();
   const onSubmit = (values: any) => {
     let rates_array;
     if (values.rates.length > 1) {
       let full_rates = values.rates.filter((r: any) => r !== null);
-      rates_array = full_rates.map(
-        (r: any) =>
-          (r !== null &&
-            r.start_date && {
-              container_type: r.container_type,
-              currency: r.currency,
-              rate: r.rate,
-              start_date: r.from,
-              expiration_date: r.to,
-            }) ||
-          (r !== null &&
-            !r.start_date && {
-              container_type: r.container_type,
-              currency: r.currency,
-              rate: r.rate,
-            })
+      rates_array = full_rates.map((r: any) => (r !== null && r.start_date
+              && {container_type: r.container_type, currency: r.currency, rate: r.rate, start_date: r.from, expiration_date: r.to})
+              || (r !== null && !r.start_date && {container_type: r.container_type, currency: r.currency, rate: r.rate})
       );
       let data = {
         carrier: values.carrier,
@@ -157,6 +133,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({
                              onDestinationChangeHandler={onDestinationChangeHandler}
                              closePortsHandler={closePortsHandler}
                              getBookedRatesDates={getBookedRatesDates}
+
             />
             {!!shippingValue
                 ? <>
@@ -167,8 +144,11 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({
                            register={register}
                            getValues={getValues}
                            setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}
+                           existing_surcharge={existing_surcharge}
+                           surcharge={surcharge}
+                           rate_data_for_surcharge={rate_data_for_surcharge}
                     />
-                    <SurchargesToRate />
+                    {existing_surcharge  && <SurchargesToRate existing_surcharge={existing_surcharge}/>}
                     </>
                 : <UnderTitle>
                     Please, complete the parameters of the freight rate for the value fields

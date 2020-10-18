@@ -2,8 +2,9 @@ import {
   CarrierType,
   PortType,
   ShippingTypeType,
-  CurrencyType,
+  CurrencyType, RateForSurchargeType,
 } from "../../types/rates&surcharges/ratesTypes";
+import {SurchargeInfoType} from "../../types/rates&surcharges/surchargesTypes";
 
 
 const initialState = {
@@ -13,7 +14,13 @@ const initialState = {
   origin_ports: null as PortType[] | null,
   destination_ports: null as PortType[] | null,
   currency_list: null as CurrencyType[] | null,
-  freight_rates_list: null as any | null
+  freight_rates_list: null as any | null,
+  existing_surcharge: null as SurchargeInfoType |  null,
+  empty_existing_surcharge: '',
+  origin_port_value: null as PortType | null,
+  destination_port_value: null as PortType | null,
+  rate_start_date: '',
+  rate_data_for_surcharge: null as RateForSurchargeType | null
 };
 
 type InitialStateType = typeof initialState;
@@ -61,6 +68,34 @@ export const rateReducer = (
       return {
         ...state, freight_rates_list: [...state.freight_rates_list, action.freight_rate]
       }
+    case "SET_EXISTING_SURCHARGE_BY_RATE":
+      return {
+        ...state, existing_surcharge: action.surcharge
+      }
+    case "SET_EMPTY_EXISTING_SURCHARGE":
+      return {
+        ...state, empty_existing_surcharge: action.empty
+      }
+    case "SET_ORIGIN_PORT_VALUE":
+      return {
+        ...state,
+        origin_port_value: action.port_value
+      }
+    case "SET_DESTINATION_PORT_VALUE":
+      return {
+        ...state,
+        destination_port_value: action.port_value
+      }
+    case "SET_RATE_START_DATE":
+      return {
+        ...state,
+        rate_start_date: action.start_date
+      }
+    case "SET_RATE_DATA_FOR_SURCHARGE":
+      return {
+        ...state,
+        rate_data_for_surcharge: action.rate_data
+      }
     default:
       return state;
   }
@@ -85,5 +120,11 @@ export const rateActions = {
   setCurrencyList: (list: CurrencyType[]) =>
     ({ type: "SET_CURRENCY_LIST", list } as const),
   setFreightRatesList: (freight_rates_list: any) => ({type: 'SET_FREIGHT_RATES_LIST', freight_rates_list} as const),
-  setNewFreightRate: (freight_rate: any) => ({type: 'SET_NEW_FREIGHT_RATE', freight_rate} as const)
+  setNewFreightRate: (freight_rate: any) => ({type: 'SET_NEW_FREIGHT_RATE', freight_rate} as const),
+  setExistingSurchargeByRate: (surcharge: any) => ({type: 'SET_EXISTING_SURCHARGE_BY_RATE', surcharge} as const),
+  setEmptyExistingSurcharge: (empty: string) => ({type: 'SET_EMPTY_EXISTING_SURCHARGE', empty} as const),
+  setOriginPortValue: (port_value: PortType) => ({type: 'SET_ORIGIN_PORT_VALUE', port_value} as const),
+  setDestinationPortValue: (port_value: PortType) => ({type: 'SET_DESTINATION_PORT_VALUE', port_value} as const),
+  setRateStartDate: (start_date: string) => ({type: 'SET_RATE_START_DATE', start_date} as const),
+  setRateDataForSurcharge: (rate_data: RateForSurchargeType) => ({type: 'SET_RATE_DATA_FOR_SURCHARGE', rate_data} as const )
 };

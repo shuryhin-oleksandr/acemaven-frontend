@@ -45,7 +45,8 @@ const useStyles = makeStyles({
         borderBottom: 'border: 1px solid #E0E0E0;',
         fontFamily: 'Helvetica Thin',
         fontSize: '16px',
-        color: '#1B1B25'
+        color: '#1B1B25',
+        padding: '0 16px'
     }
 });
 
@@ -116,7 +117,7 @@ const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => 
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller name={`charges.${charge.id}.charge`}
                                                 control={control}
-                                                defaultValue={0}
+                                                defaultValue=''
                                                 as={
                                                     <Field/>
                                                 }

@@ -2,7 +2,7 @@ import React, {MutableRefObject, useEffect, useRef, useState} from 'react'
 import { SurchargesDatesFilter } from "./form-styles";
 import Calendar from "../../../../components/_commonComponents/calendar/Calendar";
 import DayPickerInput from "react-day-picker/DayPickerInput";
-import {useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import {getBookedDates, getSurcharge} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import moment from "moment";
 
@@ -18,6 +18,8 @@ type PropsType = {
     display_label?: string
     max_width?: string
     margin_bottom?: string
+    input_height?: string
+    rate_start_date?: string
 }
 
 const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...props}) => {
@@ -40,14 +42,18 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
             setValue('to', surcharge.expiration_date)
             console.log(new Date(surcharge.start_date))
         }
-    }, [surcharge])
+        if(props.rate_start_date) {
+            debugger
+            setSelectedDay({from: moment(props.rate_start_date, 'DD/MM/YYYY').toDate()})
+            setValue('from', props.rate_start_date)
+        }
+    }, [surcharge, props.rate_start_date])
 
     const handleFromChange = (from: string) => {
         setSelectedDay({
             ...selectedDay,
             from
         })
-
         setValue('from', from)
     }
 
@@ -85,6 +91,8 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
                 display_label={props.display_label}
                 max_width={props.max_width}
                 margin_bottom={props.margin_bottom}
+                input_height={props.input_height}
+
             />
             <Calendar
                 label='Expiration Date'
@@ -103,6 +111,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
                 display_label={props.display_label}
                 max_width={props.max_width}
                 margin_bottom={props.margin_bottom}
+                input_height={props.input_height}
             />
         </SurchargesDatesFilter>
     )

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Layout from "src/_UI/components/BaseLayout/Layout";
-import SurchargePopup from "src/_UI/components/PopUps/Surcharge/SurchargePopup";
-import RegisterSurchargePopUp from "../../../components/PopUps/RegisterSurchargePopUp/RegisterSurchargePopUp";
 import {
   ActionsWrapper,
   Container,
@@ -22,7 +20,6 @@ const RatesContainer: React.FC = () => {
   const [newRateMode, setNewRateMode] = useState(false);
 
   return (
-    <>
       <Layout>
         {newRateMode ? (
          /* <RegistrationNewRateForm setNewRateMode={setNewRateMode} />*/
@@ -55,7 +52,6 @@ const RatesContainer: React.FC = () => {
           </Container>
         )}
       </Layout>
-    </>
   );
 };
 

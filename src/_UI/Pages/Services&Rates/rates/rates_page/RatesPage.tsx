@@ -11,14 +11,14 @@ import TableBody from "@material-ui/core/TableBody";
 import Tooltip from "@material-ui/core/Tooltip";
 import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
 import styled from "styled-components";
-import sort_arrows from "../../../../assets/icons/rates&services/sort_arrows.svg";
-import search_icon from "../../../../assets/icons/rates&services/search_loop.svg";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import { FreightRateObjectType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
+
+
 
 const useStyles = makeStyles({
   container: {
@@ -86,49 +86,25 @@ type PropsType = {
   searchColumn: string;
   setSearchColumn: VoidFunctionType;
   setNewRateMode: VoidFunctionType;
+  setCheckedFreightRate: (freight_rate: any) => void
 };
 
 const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
   const classes = useStyles();
 
-  function createData(
-    id: number,
-    shipping_mode: string,
-    shipping_type: string,
-    carrier: string,
-    origin: string,
-    destination: string,
-    expiration_date: string,
-    is_active: boolean
-  ) {
+
+  function createData(id: number, shipping_mode: string, shipping_type: string, carrier: string, origin: string, destination: string, expiration_date: string, is_active: boolean) {
     return {
-      id,
-      shipping_mode,
-      shipping_type,
-      carrier,
-      origin,
-      destination,
-      expiration_date,
-      is_active,
-    };
+      id, shipping_mode, shipping_type, carrier, origin, destination, expiration_date, is_active
+    }
   }
 
   const rows =
     freight_rates_list && freight_rates_list.length > 0
-      ? freight_rates_list.map((r) =>
-          createData(
-            r.id,
-            r?.shipping_mode,
-            r?.shipping_type,
-            r.carrier,
-            r.origin,
-            r.destination,
-            r.expiration_date,
-            r.is_active
-          )
-        )
-      : null;
+        ? freight_rates_list.map((r) => createData(r.id, r?.shipping_mode, r?.shipping_type, r.carrier, r.origin, r.destination, r.expiration_date, r.is_active))
+        : null;
   const [isSearchMode, setSearchMode] = useState(false);
+
 
   return (
     <Outer>
@@ -211,7 +187,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
           </TableHead>
           <TableBody>
             {rows?.map((row) => (
-              <TableRow key={row.shipping_mode}>
+              <TableRow key={row.id}>
                 <TableCell
                   className={classes.innerMainCell}
                   align="left"
@@ -258,7 +234,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                       title="Use this registry as a template for a new rate, with the same values and parameters."
                       classes={{ tooltip: classes.customTooltip }}
                     >
-                      <TemplateIcon>
+                      <TemplateIcon onClick={() => props.setCheckedFreightRate(row)}>
                         <img src={template_icon} alt="" />
                       </TemplateIcon>
                     </Tooltip>
@@ -290,10 +266,17 @@ const SearchButton = styled.button`
   align-items: center;
   img {
   }
+   &:hover {
+    cursor: pointer;
+  }
 `;
-const SortButton = styled(SearchButton)``;
 
-const TemplateIcon = styled(SearchButton)``;
+
+const TemplateIcon = styled(SearchButton)`
+  &:hover {
+    cursor: pointer;
+  }
+`;
 const SpanMode = styled.div`
   transition: 0.3s;
   &:hover {

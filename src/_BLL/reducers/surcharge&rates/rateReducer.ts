@@ -133,5 +133,6 @@ export const rateActions = {
   setOriginPortValue: (port_value: PortType) => ({type: 'SET_ORIGIN_PORT_VALUE', port_value} as const),
   setDestinationPortValue: (port_value: PortType) => ({type: 'SET_DESTINATION_PORT_VALUE', port_value} as const),
   setRateStartDate: (start_date: string) => ({type: 'SET_RATE_START_DATE', start_date} as const),
-  setRateDataForSurcharge: (rate_data: RateForSurchargeType) => ({type: 'SET_RATE_DATA_FOR_SURCHARGE', rate_data} as const )
+  setRateDataForSurcharge: (rate_data: RateForSurchargeType) => ({type: 'SET_RATE_DATA_FOR_SURCHARGE', rate_data} as const ),
+  setCheckedFreight: (freight_rate: any) => ({type: 'SET_CHECKED_FREIGHT_RATE', freight_rate} as const)
 };

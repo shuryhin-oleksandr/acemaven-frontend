@@ -16,13 +16,17 @@ import { getFilteredRateListThunk } from "../../../../_BLL/thunks/rates&surcharg
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../_BLL/store";
 import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
+import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
 
 const RatesContainer: React.FC = () => {
   const [mode, setMode] = useState("sea");
   const [directory, setDirectory] = useState("import");
   const [searchValue, setSearchValue] = useState("");
   const [search_column, setSearchColumn] = useState("");
+
   const dispatch = useDispatch();
+
+  //set registration mode on/off
   const [newRateMode, setNewRateMode] = useState(false);
 
   useEffect(() => {
@@ -37,10 +41,16 @@ const RatesContainer: React.FC = () => {
     return dispatch(someFn);
   };
 
+  //use existing FR as template for the new one
+  const setCheckedFreightRate = (freight_rate: any) => {
+    dispatch(rateActions.setCheckedFreight(freight_rate))
+    setNewRateMode(true)
+  }
+
+
   return (
       <Layout>
         {newRateMode ? (
-          /* <RegistrationNewRateForm setNewRateMode={setNewRateMode} />*/
           <RegisterNewFreightRateContainer setNewRateMode={setNewRateMode} />
         ) : (
           <Container>
@@ -76,6 +86,7 @@ const RatesContainer: React.FC = () => {
               setSearchColumn={setSearchColumn}
               setSearchValue={setSearchValue}
               setNewRateMode={setNewRateMode}
+              setCheckedFreightRate={setCheckedFreightRate}
             />
           </Container>
         )}

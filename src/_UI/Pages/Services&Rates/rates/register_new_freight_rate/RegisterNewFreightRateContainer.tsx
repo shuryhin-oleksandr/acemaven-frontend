@@ -24,7 +24,7 @@ import {
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
   getDestinationPorts, getDestinationPortValue, getEmptyExistingSurcharge, getExistingSurcharge, getIsLocalPort,
-  getOriginPorts, getRateDataForSurcharge, getRateStartDate,
+  getOriginPorts, getRateDataForSurcharge, getRateStartDate, getRegistrationSuccess,
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {
   checkRatesDatesThunk,
@@ -70,6 +70,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   const rate_start_date = useSelector(getRateStartDate)
   let surcharge = useSelector(getSurcharge)
   let rate_data_for_surcharge = useSelector(getRateDataForSurcharge)
+  let registration_success = useSelector(getRegistrationSuccess)
 
   //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
   const [shippingValue, setShippingValue] = useState(0);
@@ -195,6 +196,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         existing_surcharge={existing_surcharge}
         surcharge={surcharge}
         rate_data_for_surcharge={rate_data_for_surcharge}
+        registration_success={registration_success}
       />
       {empty_surcharge === 'empty' && <NoSurchargeCard setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
     </RatesWrapper>

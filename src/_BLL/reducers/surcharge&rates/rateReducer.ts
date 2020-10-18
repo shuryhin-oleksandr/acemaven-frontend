@@ -20,7 +20,8 @@ const initialState = {
   origin_port_value: null as PortType | null,
   destination_port_value: null as PortType | null,
   rate_start_date: '',
-  rate_data_for_surcharge: null as RateForSurchargeType | null
+  rate_data_for_surcharge: null as RateForSurchargeType | null,
+  registration_success: ''
 };
 
 type InitialStateType = typeof initialState;
@@ -96,6 +97,11 @@ export const rateReducer = (
         ...state,
         rate_data_for_surcharge: action.rate_data
       }
+    case "SET_REGISTRATION_SUCCESS":
+      return {
+        ...state,
+        registration_success: action.success
+      }
     default:
       return state;
   }
@@ -121,6 +127,7 @@ export const rateActions = {
     ({ type: "SET_CURRENCY_LIST", list } as const),
   setFreightRatesList: (freight_rates_list: any) => ({type: 'SET_FREIGHT_RATES_LIST', freight_rates_list} as const),
   setNewFreightRate: (freight_rate: any) => ({type: 'SET_NEW_FREIGHT_RATE', freight_rate} as const),
+  setRegistrationSuccess: (success: string) => ({type: 'SET_REGISTRATION_SUCCESS', success} as const),
   setExistingSurchargeByRate: (surcharge: any) => ({type: 'SET_EXISTING_SURCHARGE_BY_RATE', surcharge} as const),
   setEmptyExistingSurcharge: (empty: string) => ({type: 'SET_EMPTY_EXISTING_SURCHARGE', empty} as const),
   setOriginPortValue: (port_value: PortType) => ({type: 'SET_ORIGIN_PORT_VALUE', port_value} as const),

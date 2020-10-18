@@ -170,7 +170,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller control={control}
                                                 name={`rates.${fee.id}.rate`}
-                                                defaultValue=''
+                                                defaultValue={0}
                                                 as={
                                                     <Field placeholder='0.00$' maxW='100px'/>
                                                 }

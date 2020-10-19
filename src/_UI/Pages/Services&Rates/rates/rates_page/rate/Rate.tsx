@@ -112,7 +112,7 @@ const Rate:React.FC<PropsType> = ({is_active, rate, id, handleSubmit, errors, se
             <ShippingMode>
               <img
                 src={rate?.shipping_type === "sea" ? ship : plane}
-                alt="picture"
+                alt=""
               />
             </ShippingMode>
             <FieldsWrap>

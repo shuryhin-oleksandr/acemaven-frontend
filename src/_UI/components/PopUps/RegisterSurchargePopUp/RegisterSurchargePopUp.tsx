@@ -101,7 +101,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
       dispatch(rateActions.setEmptyExistingSurcharge(''))
       dispatch(surchargeActions.setSurchargeInfo(null))
     }
-  }, [existing_surcharge])
+  }, [existing_surcharge, dispatch])
 
   return (
     <PopupOuter>
@@ -118,7 +118,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
         </HeaderWrapper>
         <InfoWrap>
           <ShippingMode>
-            <img src={mode === "sea" ? ship : plane} alt="picture" />
+            <img src={mode === "sea" ? ship : plane} alt="" />
           </ShippingMode>
           <FieldsWrap>
             <FieldOuter>

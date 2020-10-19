@@ -53,12 +53,12 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     const closeRegisterForm = useCallback(() => {
         dispatch(surchargeActions.setSurchargeInfo(null))
         setNewSurchargeMode(false)
-    }, [])
+    }, [dispatch])
 
     //Посимвольно поиск по портам
     const locationChangeHandler = useCallback(({ value }) => {
         dispatch(getPorts(value))
-    }, [])
+    }, [dispatch])
 
     //Запрос на наличие забронированных дат по первым 4 полям
     const getDisabledSurchargesDates = useCallback((portName: string, portId: number) => {
@@ -71,14 +71,14 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
             direction: getValues("direction"),
             shipping_mode: getValues("shipping_mode")
         }))
-    }, [])
+    }, [dispatch])
 
     const setMode = useCallback((mode: CurrentShippingType) => {
         setValue('carrier', '')
         setValue('direction', '')
         setValue('shipping_mode', '')
         dispatch(surchargeActions.setCurrentShippingType(mode))
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         sessionStorage.setItem('reg', 'true')

@@ -30,7 +30,7 @@ const ExactSurchargeContainer = ({...props}) => {
     useEffect(() => {
         sessionStorage.removeItem('reg')
         dispatch(getSurchargeInfo(id, props.history))
-    }, [dispatch])
+    }, [dispatch, id])
 
     //ASYNC: check available dates
     useEffect(() => {
@@ -40,7 +40,7 @@ const ExactSurchargeContainer = ({...props}) => {
             setValue('start_date', surcharge.start_date)
             setValue('expiration_date', surcharge.expiration_date)
         }
-    }, [setValue, surcharge])
+    }, [setValue, surcharge, dispatch])
 
     //close edit from if success
     useEffect(() => {
@@ -48,7 +48,7 @@ const ExactSurchargeContainer = ({...props}) => {
             setFormMode(false)
             dispatch(surchargeActions.setEditSurchargeSuccess(''))
         }
-    }, [edit_success])
+    }, [edit_success, dispatch])
 
 
     return (

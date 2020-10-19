@@ -17,6 +17,9 @@ import { FreightRateObjectType } from "../../../../../_BLL/types/rates&surcharge
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
+import { getSurchargeInfo } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import { useHistory } from "react-router-dom";
+import { getRateInfoThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 
 
 
@@ -104,6 +107,10 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
         ? freight_rates_list.map((r) => createData(r.id, r?.shipping_mode, r?.shipping_type, r.carrier, r.origin, r.destination, r.expiration_date, r.is_active))
         : null;
   const [isSearchMode, setSearchMode] = useState(false);
+  let history = useHistory();
+  let goToPage = (id: number) => {
+    history.push(`/services/rate/${id}`);
+  };
 
 
   return (
@@ -203,7 +210,11 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                     alt=""
                   />
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left">
+                <TableCell
+                  onClick={() => goToPage(row.id)}
+                  className={classes.innerCell}
+                  align="left"
+                >
                   <SpanMode>{row.shipping_mode}</SpanMode>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

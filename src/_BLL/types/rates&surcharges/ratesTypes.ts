@@ -1,14 +1,16 @@
+import { ChargesType, LocationType, UsageFeeType } from "./surchargesTypes";
+
 export type CurrencyType = {
-  id: number,
-  code: string
-}
+  id: number;
+  code: string;
+};
 
 export type PortType = {
   id: number;
   display_name: string;
   name: string;
   code: string;
-  is_local?: boolean
+  is_local?: boolean;
 };
 
 export type CarrierType = {
@@ -40,40 +42,52 @@ export type ShippingTypeType = {
   shipping_modes: ShippingModeType[];
 };
 
-
 export type RateType = {
-  container_type: number
-  currency: number
-  rate: string | number
-  start_date: string
-  expiration_date: string
-}
+  container_type: number;
+  currency: number;
+  rate: string | number;
+  start_date: string;
+  expiration_date: string;
+};
 
 export type FreightRateObjectType = {
-  id: number,
-  shipping_mode: string,
-  shipping_type: string,
-  carrier: string,
-  origin: string,
-  destination: string,
-  expiration_date: string,
-  is_active: boolean
-}
+  id: number;
+  shipping_mode: string;
+  shipping_type: string;
+  carrier: string;
+  origin: string;
+  destination: string;
+  expiration_date: string;
+  is_active: boolean;
+};
 
 export type FreightRateType = {
-  rates: Array<RateType>,
-  origin: number,
-  destination: number,
-  shipping_mode: number,
-  carrier: number,
-  transit_time: number
-}
+  rates: Array<RateType>;
+  origin: number;
+  destination: number;
+  shipping_mode: number;
+  carrier: number;
+  transit_time: number;
+};
 export type RateForSurchargeType = {
-  start_date: string,
-  expiration_date: string,
-  carrier: number,
-  shipping_mode: number,
-  origin: number,
-  destination: number,
-  transit_time: number
-}
+  start_date: string;
+  expiration_date: string;
+  carrier: number;
+  shipping_mode: number;
+  origin: number;
+  destination: number;
+  transit_time: number;
+};
+
+export type RateInfoType = {
+  id: number;
+  carrier: CarrierType;
+  is_active: boolean;
+  carrier_disclosure: boolean;
+  destination: PortType;
+  origin: PortType;
+  rates: RateType[];
+  shipping_mode: ShippingModeType;
+  shipping_type: string;
+  transit_time: number;
+};

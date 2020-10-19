@@ -89,7 +89,7 @@ type PropsType = {
   searchColumn: string;
   setSearchColumn: VoidFunctionType;
   setNewRateMode: VoidFunctionType;
-  setCheckedFreightRate: (freight_rate: any) => void
+  setCheckedFreightRate: (id: number) => void
 };
 
 const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
@@ -245,7 +245,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                       title="Use this registry as a template for a new rate, with the same values and parameters."
                       classes={{ tooltip: classes.customTooltip }}
                     >
-                      <TemplateIcon onClick={() => props.setCheckedFreightRate(row)}>
+                      <TemplateIcon onClick={() => props.setCheckedFreightRate(row.id)}>
                         <img src={template_icon} alt="" />
                       </TemplateIcon>
                     </Tooltip>

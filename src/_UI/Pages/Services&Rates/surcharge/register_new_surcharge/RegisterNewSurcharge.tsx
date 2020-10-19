@@ -60,15 +60,21 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
     const dispatch = useDispatch()
 
     const onSubmit = (values: any) => {
+        debugger
         let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
-        let usageFees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+
+        let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+        let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
+        || !f.charge && {container_type: f.container_type, currency: f.currency}
+        )
 
         let data = {carrier: values.carrier,
             direction: values.direction,
             shipping_mode: values.shipping_mode,
             start_date: moment(values.from).format('DD/MM/YYYY'),
             expiration_date: moment(values.to).format('DD/MM/YYYY'),
-            charges: charges_array, usage_fees: usageFees_array,
+            charges: charges_array,
+            usage_fees: usageFees_array,
             location: Number(sessionStorage.getItem('port_id'))}
 
         let data_without_fees = {start_date: moment(values.from).format('DD/MM/YYYY'),
@@ -123,6 +129,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                         usageFees={usageFees}
                         tableName={additionalTableName}
                         type={additionalType}
+                        setValue={setValue}
                     />
                     }
                     {

@@ -12,7 +12,7 @@ import OptionsDirectoryButtons from "src/_UI/components/_commonComponents/option
 
 import RatesPage from "./rates_page/RatesPage";
 import RegisterNewFreightRateContainer from "./register_new_freight_rate/RegisterNewFreightRateContainer";
-import { getFilteredRateListThunk } from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {getFilteredRateListThunk, getRateInfoThunk} from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../_BLL/store";
 import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
@@ -42,8 +42,8 @@ const RatesContainer: React.FC = () => {
   };
 
   //use existing FR as template for the new one
-  const setCheckedFreightRate = (freight_rate: any) => {
-    dispatch(rateActions.setCheckedFreight(freight_rate))
+  const setCheckedFreightRate = (id: number) => {
+    dispatch(getRateInfoThunk(id))
     setNewRateMode(true)
   }
 

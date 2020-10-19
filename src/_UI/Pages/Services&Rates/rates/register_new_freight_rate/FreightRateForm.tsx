@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {FormWrap, GroupWrap} from "./form-styles";
 import {Controller} from "react-hook-form";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 import {Port, PortsList} from "../../surcharge/register_new_surcharge/form-styles";
-import {PortType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {PortType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import {CarrierType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {ShippingModeType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
@@ -13,6 +13,7 @@ type PropsType = {
     errors: any
     register: any
     getValues: any,
+    setValue: (name: string, value: string | number) => void
     carrierOptions:  CarrierType[] | null
     shippingModeOptions:  ShippingModeType[]
     shippingValue: number
@@ -23,12 +24,14 @@ type PropsType = {
     onDestinationChangeHandler: (value: any) => void
     closePortsHandler: any
     getBookedRatesDates: any  /*(portName: string, portId: number) => void*/
+    rate_info: RateInfoType | null,
 
 }
 
 const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValues, carrierOptions, shippingModeOptions,
-                                            setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
-                                             onDestinationChangeHandler, closePortsHandler, getBookedRatesDates,}) => {
+                                            setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, setValue,
+                                             onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, rate_info}) => {
+
     return (
         <FormWrap>
             <div style={{ display: "flex", width: "100%", borderBottom: '1px solid #115B86', paddingBottom: '35px' }}>

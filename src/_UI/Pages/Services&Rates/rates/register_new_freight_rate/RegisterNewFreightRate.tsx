@@ -24,7 +24,7 @@ import { registerNewFreightRateThunk } from "../../../../../_BLL/thunks/rates&su
 import { useDispatch } from "react-redux";
 import { Outer } from "../../surcharge/register_new_surcharge/form-styles";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import {RateForSurchargeType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {RateForSurchargeType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import {rateActions} from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 
 type PropsType = {
@@ -53,6 +53,7 @@ type PropsType = {
   surcharge: SurchargeInfoType | null
   rate_data_for_surcharge: RateForSurchargeType | null
   registration_success: string
+  rate_info: RateInfoType | null,
 };
 
 const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, register, errors,
@@ -60,17 +61,19 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
   mode, carrierOptions, shippingModeOptions, shippingValue,
   setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
   onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, usageFees,
-  setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge, registration_success
+  setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge, registration_success, rate_info
 }) => {
 
   const dispatch = useDispatch();
   const onSubmit = (values: any) => {
+    debugger
     let rates_array;
     if (values.rates.length > 1) {
       let full_rates = values.rates.filter((r: any) => r !== null);
-      rates_array = full_rates.map((r: any) => (r !== null && r.start_date
+      rates_array = full_rates.map((r: any) => (r !== null && r.from
               && {container_type: r.container_type, currency: r.currency, rate: r.rate, start_date: r.from, expiration_date: r.to})
-              || (r !== null && !r.start_date && {container_type: r.container_type, currency: r.currency, rate: r.rate})
+              || (r !== null && !r.from && {container_type: r.container_type, currency: r.currency})
+              || (r !== null && !r.from && !r.rate && {container_type: r.container_type, currency: r.currency})
       );
       let data = {
         carrier: values.carrier,
@@ -140,7 +143,8 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
                              onDestinationChangeHandler={onDestinationChangeHandler}
                              closePortsHandler={closePortsHandler}
                              getBookedRatesDates={getBookedRatesDates}
-
+                              rate_info={rate_info}
+                             setValue={setValue}
             />
             {!!shippingValue
                 ? <>

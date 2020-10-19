@@ -117,9 +117,11 @@ const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => 
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller name={`charges.${charge.id}.charge`}
                                                 control={control}
-                                                defaultValue=''
+                                                defaultValue={0}
                                                 as={
-                                                    <Field/>
+                                                    <Field maxW='100px'
+                                                    placeholder='0.00$'
+                                                    />
                                                 }
                                     />
                                 </TableCell>

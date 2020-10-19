@@ -104,15 +104,3 @@ export const getRateInfoThunk = (id: number) => {
     }
   };
 };
-
-
-export const getRateForTooltip = () => {
-  return async (dispatch: Dispatch<commonRateActions>) => {
-    try {
-
-    }
-    catch (e) {
-      console.log(e.response)
-    }
-  }
-}

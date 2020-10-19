@@ -49,6 +49,7 @@ type PropsType = {
   rate_start_date: string
   createNewSurcharge: (surcharge_data: any) => void
   existing_surcharge: SurchargeInfoType | null
+  setValue: any
 };
 
 const RegisterSurchargePopUp: React.FC<PropsType> = ({

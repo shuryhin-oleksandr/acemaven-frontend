@@ -23,6 +23,7 @@ import {
   getSeaCarriersSelector,
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
+  getCheckedRateInfo,
   getDestinationPorts, getDestinationPortValue, getEmptyExistingSurcharge, getExistingSurcharge, getIsLocalPort,
   getOriginPorts, getRateDataForSurcharge, getRateStartDate, getRegistrationSuccess,
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
@@ -71,6 +72,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   let surcharge = useSelector(getSurcharge)
   let rate_data_for_surcharge = useSelector(getRateDataForSurcharge)
   let registration_success = useSelector(getRegistrationSuccess)
+  let rate_info = useSelector(getCheckedRateInfo)
 
   //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
   const [shippingValue, setShippingValue] = useState(0);
@@ -83,6 +85,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   //закрывает форму регистрации рейта
   const closeRateRegistration = () => {
     //!!фрэйт рейт на нулл, если используем его как шаблон
+    dispatch(rateActions.setRateInfo(null))
     setNewRateMode(false);
     sessionStorage.removeItem("origin_id");
     sessionStorage.removeItem("destination_id");
@@ -151,7 +154,15 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     dispatch(addNewSurcharge(surcharge_data))
   }
 
+  //сетаем значения, когда используем как шаблон
+  useEffect(() => {
+    if(rate_info) {
+      setShippingValue(rate_info.shipping_mode.id)
+      setValue('carrier', rate_info.carrier.id)
+      setValue('shipping_mode', rate_info.shipping_mode.id)
 
+    }
+  }, [rate_info])
 
   return (
     <RatesWrapper>
@@ -169,6 +180,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
           rate_start_date={rate_start_date}
           createNewSurcharge={createNewSurcharge}
           existing_surcharge={existing_surcharge}
+          setValue={setValue}
         />
       )}
       <RegisterNewFreightRate
@@ -197,6 +209,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         surcharge={surcharge}
         rate_data_for_surcharge={rate_data_for_surcharge}
         registration_success={registration_success}
+        rate_info={rate_info}
       />
       {empty_surcharge === 'empty' && <NoSurchargeCard setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
     </RatesWrapper>

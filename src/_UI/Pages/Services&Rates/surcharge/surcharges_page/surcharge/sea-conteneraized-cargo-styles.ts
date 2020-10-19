@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import {truncate} from "fs";
 
 type PropsStyle = {
     isFocus?: boolean;
@@ -57,6 +56,12 @@ export const Field = styled.input<PropsStyle>`
   border-radius: 4px;
   outline: none;
   background: ${({ error }) => (error ? "#ECECEC" : "white")};
+  
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
   &:focus {
     transition: 0.5s;

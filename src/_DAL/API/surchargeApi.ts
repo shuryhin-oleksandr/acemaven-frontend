@@ -40,13 +40,13 @@ export const surchargeAPI = {
     registerNewSurcharge (surcharge_data: SurchargeObjectType) {
     return instance.post('/booking/surcharge/', surcharge_data)
     },
-    editSurchargeDates (id: number, edit_data: editDatesType) {
+    editSurchargeDates (id: number | undefined, edit_data: editDatesType) {
         return instance.patch(`/booking/surcharge/${id}/`, edit_data)
     },
-    editSurchargeHandling (id: number, edit_handling: editHandlingType) {
+    editSurchargeHandling (id: number | undefined, edit_handling: editHandlingType) {
         return instance.patch(`/booking/usage-fee/${id}/`, edit_handling)
     },
-    editSurchargeAdditional (id: number, edit_additional: editChargesType) {
+    editSurchargeAdditional (id: number | undefined, edit_additional: editChargesType) {
         return instance.patch(`/booking/usage-fee/${id}/`, edit_additional)
     }
 }

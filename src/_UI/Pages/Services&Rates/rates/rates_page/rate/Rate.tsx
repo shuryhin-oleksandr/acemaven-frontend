@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   RateContainer,
   Wrap,
@@ -83,15 +83,16 @@ const Rate:React.FC<PropsType> = ({is_active, rate, id, handleSubmit, errors, se
 
   const classes = useStyles();
 
- /* useEffect(() => {
+  useEffect(() => {
     if(rate) {
       rate.rates.map((r: any) => {
         setValue(`rates.${r.id}.rate`)
-        setValue(`rates.${r.id}.from`, rate.start_date)
+        setValue(`rates.${r.id}.from`, r.start_date)
+        setValue(`rates.${r.id}.to`, r.expiration_date)
       })
     }
-  }, [rate, setValue])*/
-  // useEffect(() => {
+  }, [rate, setValue])
+
 
 
   return (
@@ -235,10 +236,16 @@ const Rate:React.FC<PropsType> = ({is_active, rate, id, handleSubmit, errors, se
                             control={control}
                             name={`rates.${r.id}.rate`}
                             defaultValue={r.rate}
-                            as={<Field placeholder="0.00$" maxW="100px" />}
+                            as={
+                              <Field placeholder="0.00$"
+                                     maxW="100px"
+                                     type='number'
+                              />
+                            }
                           />
                         </TableCell>
                         <DatesCells
+                            currentDates={{from: r.start_date, to: r.expiration_date}}
                             setValue={setValue}
                             control={control}
                             id={r.id}

@@ -143,20 +143,20 @@ export const checkSurchargeDates = (checkSurchargeValues: {location: number,
     }
 }
 
-export const editDates = (id: number, edit_data : {start_date: string, expiration_date: string}) => {
+export const editDates = (id: number | undefined, edit_data : {start_date: string, expiration_date: string}) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
-            let res = await surchargeAPI.editSurchargeDates(id, edit_data)
+            await surchargeAPI.editSurchargeDates(id, edit_data)
             dispatch(surchargeActions.setEditSurchargeSuccess('success'))
         } catch (e) {
             console.log(e.response)
         }
     }
 }
-export const editUsageFees = (id: number, edit_fees : editHandlingType) => {
+export const editUsageFees = (id: number | undefined, edit_fees : editHandlingType) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
-            let res = await surchargeAPI.editSurchargeHandling(id, edit_fees)
+            await surchargeAPI.editSurchargeHandling(id, edit_fees)
             dispatch(surchargeActions.setEditSurchargeSuccess('success'))
         } catch (e) {
             console.log(e.response)
@@ -164,10 +164,10 @@ export const editUsageFees = (id: number, edit_fees : editHandlingType) => {
     }
 }
 
-export const editCharges = (id: number, edit_charges : editChargesType) => {
+export const editCharges = (id: number | undefined, edit_charges : editChargesType) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
-            let res = await surchargeAPI.editSurchargeAdditional(id, edit_charges)
+            await surchargeAPI.editSurchargeAdditional(id, edit_charges)
             dispatch(surchargeActions.setEditSurchargeSuccess('success'))
         } catch (e) {
             console.log(e.response)

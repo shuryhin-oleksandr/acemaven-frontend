@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import TableCell from "@material-ui/core/TableCell";
 import Calendar from "../../../../../components/_commonComponents/calendar/Calendar";
 import DayPickerInput from "react-day-picker/DayPickerInput";
@@ -14,14 +14,23 @@ type PropsType = {
     reservedDates?: Array<{from: Date, to: Date} | {before: Date}>
     id: number
     getSurchargeToRateHandle: (id: number, from: string, to: string) => void
+    currentDates?: {from: Date, to: Date}
 }
 
-const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, classes, reservedDates, id, getSurchargeToRateHandle}) => {
+const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, errors, classes, reservedDates, id, getSurchargeToRateHandle}) => {
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
         to:  ''
     })
+
+    useEffect(() => {
+        currentDates &&
+        setSelectedDay({
+            from: moment(currentDates?.from, 'DD/MM/YYYY').toDate(),
+            to: moment(currentDates?.to, 'DD/MM/YYYY').toDate()
+        })
+    }, [currentDates])
 
     const handleFromChange = (from: string, id: number) => {
         setSelectedDay({

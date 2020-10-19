@@ -83,7 +83,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                         {rows?.map((row) => (
                             <TableRow key={row.id}>
                                 <Controller control={props.control}
-                                            name={`usage_fees.${row.id}.id`}
+                                            name={`usage_fees.${row.id}.container_type`}
                                             defaultValue={row.id}
                                             as={
                                                 <TableCell className={classes.innerCell}  component="th" scope="row">
@@ -95,7 +95,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                     <Controller control={props.control}
                                                 name={`usage_fees.${row.id}.currency`}
                                                 defaultValue={row.currency[0].id}
-                                                as={
+                                               as={
                                                     <SurchargeRateSelect options={row.currency}
                                                                          placeholder='Currency'
                                                                          maxW='80px'

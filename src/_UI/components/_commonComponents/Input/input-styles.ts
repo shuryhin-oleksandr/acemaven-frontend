@@ -40,6 +40,11 @@ export const Field = styled.input<PropsStyle>`
   outline: none;
   background: ${({ error }) => (error ? "#ECECEC" : "white")};
 
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   &:focus {
     transition: 0.5s;
     border: 1px solid #7c7c89;

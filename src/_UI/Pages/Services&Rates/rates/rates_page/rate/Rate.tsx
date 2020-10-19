@@ -17,6 +17,7 @@ import {
   Label,
 } from "./exact-rate-styles";
 import pause from "../../../../../assets/icons/rates&services/pause.svg";
+import play from "../../../../../assets/icons/rates&services/play_icon.svg";
 import { SaveButton } from "../../../surcharge/surcharges_page/surcharge/surcharge-style";
 import { Controller, useForm } from "react-hook-form";
 import ship from "../../../../../assets/icons/rates&services/ship-surcharge.svg";
@@ -90,7 +91,7 @@ const Rate = ({ ...props }) => {
         <RateTitle>Freight Rate</RateTitle>
         <ButtonsWrap>
           {formMode && <SaveButton type="submit">SAVE CHANGES</SaveButton>}
-          <PauseImg src={pause} alt="pause" />
+          <PauseImg src={rate?.is_active ? pause : play} alt="" />
         </ButtonsWrap>
       </Wrap>
       {rate && (

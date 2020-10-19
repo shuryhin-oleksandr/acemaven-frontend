@@ -35,4 +35,7 @@ export const rateAPI = {
   getExactRate(id: number) {
     return instance.get(`/booking/freight-rate/${id}/`);
   },
+  setActiveOrPausedRate(id: number, value: boolean) {
+    return instance.patch(`/booking/freight-rate/${id}/`, { is_active: value });
+  },
 };

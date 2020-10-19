@@ -1,5 +1,4 @@
-import React from "react";
-import { SelectContainer } from "./select-styles";
+import React, {useEffect, useState} from "react";
 import { Label } from "../Input/input-styles";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -8,6 +7,8 @@ import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { VoidFunctionType } from "src/_BLL/types/commonTypes";
 import {Tooltip} from "@material-ui/core";
+import TableCell from "@material-ui/core/TableCell";
+import styled from "styled-components";
 
 type IProps = {
     label?: string;
@@ -21,9 +22,6 @@ type IProps = {
 const useStyles = makeStyles((theme) => ({
     formControl: {
         width: "100%",
-        height: '95px',
-        paddingTop: '18px',
-        borderBottom: '1px solid #E0E0E0'
         /*marginBottom: '10px'*/
     },
     selectEmpty: {
@@ -88,14 +86,24 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         justifyContent: "center",
         zIndex: 100000
+    },
+    menu_item: {
+        display: 'flex',
+        position: 'relative'
     }
 }));
 
 const SurchargeRateConditionsSelect: React.FC<IProps> = ({ label, error, ...props }) => {
     const classes = useStyles();
 
+    const [isTooltipShown, showTooltip] = useState(false)
+    const setTooltip = (tooltip: string) => {
+        showTooltip(true)
+
+    }
+
     return (
-        <SelectContainer maxW={props.maxW}>
+        <TableCell >
             <FormControl className={classes.formControl}>
                 <Label>{label}</Label>
                 <Select
@@ -145,8 +153,10 @@ const SurchargeRateConditionsSelect: React.FC<IProps> = ({ label, error, ...prop
                             onClick={() => props.callback && props.callback(o.title)}
                             key={o.id}
                             value={o.title}
+                            className={classes.menu_item}
                         >
-                            {o.title}
+                            <span onMouseEnter={() => setTooltip(o.tooltip)}>{o.title}</span>
+                            {isTooltipShown && <TooltipMessage>{o.tooltip}</TooltipMessage>}
                         </MenuItem>
 
                     ))}
@@ -155,8 +165,16 @@ const SurchargeRateConditionsSelect: React.FC<IProps> = ({ label, error, ...prop
                     {error}
                 </FormHelperText>
             </FormControl>
-        </SelectContainer>
+        </TableCell>
     );
 };
 
 export default SurchargeRateConditionsSelect;
+
+export const TooltipMessage = styled.div`
+  background-color: rgba(0, 0, 0, .2);
+  color: white;
+  font-family: "Helvetica Reg", sans-serif;
+  position: absolute;
+  top: 10px;
+`

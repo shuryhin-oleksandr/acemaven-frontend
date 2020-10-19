@@ -80,3 +80,14 @@ export const getFilteredRateListThunk = (direction: string, type: string,field_n
     }
   };
 };
+
+export const getRateForTooltip = () => {
+  return async (dispatch: Dispatch<commonRateActions>) => {
+    try {
+
+    }
+    catch (e) {
+      console.log(e.response)
+    }
+  }
+}

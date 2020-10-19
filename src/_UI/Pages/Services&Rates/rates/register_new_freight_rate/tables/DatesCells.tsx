@@ -13,7 +13,7 @@ type PropsType = {
     classes: any
     reservedDates: Array<{from: Date, to: Date} | {before: Date}>
     id: number
-    getSurchargeToRateHandle?: any
+    getSurchargeToRateHandle: (id: number, from: string, to: string) => void
 }
 
 const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, classes, reservedDates, id, getSurchargeToRateHandle}) => {
@@ -33,6 +33,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, 
     }
 
     const handleToChange = (to: string, id: number) => {
+        debugger
         setSelectedDay({
             ...selectedDay,
             to
@@ -40,7 +41,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, 
         setValue(`rates.${id}.to`, moment(to).format('DD/MM/YYYY'))
 
         //запрос за существующими сюрчарджами для этого контейнера
-        getSurchargeToRateHandle(id, selectedDay.from, to)
+        getSurchargeToRateHandle(0, selectedDay.from, to)
     }
 
     const toInput = useRef<DayPickerInput>(null)
@@ -49,10 +50,9 @@ const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, 
         toInput?.current?.getInput().focus()
     }
 
-
     return (
         <>
-            <TableCell className={classes.innerCell} align="center">
+            <TableCell className={classes.innerCell} >
                 <Calendar
                     label='Start Date'
                     name={`rates.${id}.from`}
@@ -71,7 +71,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, 
                     margin_bottom='0'
                 />
             </TableCell>
-            <TableCell className={classes.innerCell} align="center">
+            <TableCell className={classes.innerCell} >
                 <Calendar
                     label='Expiration Date'
                     name={`rates.${id}.to`}

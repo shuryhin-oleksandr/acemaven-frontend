@@ -26,9 +26,13 @@ import {
 } from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {withRouter} from 'react-router'
 import {useForm} from "react-hook-form";
-import {getSurcharge} from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import {
+    getEditSurchargeSelector,
+    getSurcharge
+} from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import SurchargesDates from "../../register_new_surcharge/SurchargeDates";
 import moment from "moment";
+import {surchargeActions} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 
 
 const Surcharge = ({...props}) => {
@@ -45,8 +49,6 @@ const Surcharge = ({...props}) => {
         } else {
             dispatch(editDates(props.match.params.id, {start_date: values.from, expiration_date: values.to}))
         }
-
-
         //edit containers
         values.usage_fees && Object.keys(values.usage_fees).map(u => (u !== null
             && dispatch(editUsageFees(values.usage_fees[u].id, values.usage_fees[u]))))
@@ -59,6 +61,7 @@ const Surcharge = ({...props}) => {
     const dispatch = useDispatch()
 
     let surcharge = useSelector(getSurcharge)
+    let edit_success = useSelector(getEditSurchargeSelector)
     let id = props.match.params.id
 
     useEffect(() => {
@@ -76,6 +79,12 @@ const Surcharge = ({...props}) => {
         }
     }, [setValue, surcharge, formMode])
 
+    useEffect(() => {
+        if(edit_success) {
+            setFormMode(false)
+            dispatch(surchargeActions.setEditSurchargeSuccess(''))
+        }
+    }, [edit_success])
 
     return (
         <SurchargeContainer onSubmit={handleSubmit(onSubmit)}>

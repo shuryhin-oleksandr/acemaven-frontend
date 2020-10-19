@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {HandlingTitle} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -21,6 +21,7 @@ import {getSurchargeForExactRateThunk} from "../../../../../../_BLL/thunks/rates
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import {RateForSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import styled from "styled-components";
 
 const useStyles = makeStyles({
     container: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
     table: {
         "& .MuiTableHead-root": {},
     },
+
     cell: {
         color: "#115B86",
         fontFamily: "Helvetica Bold",
@@ -91,6 +93,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
 
     const dispatch = useDispatch()
     const getSurchargeToRateHandle = (id: number, from: string, to: string) => {
+        debugger
         let surcharge_to_rate = {
             start_date: moment(from).format('DD/MM/YYYY'),
             expiration_date: moment(to).format('DD/MM/YYYY'),
@@ -105,12 +108,21 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
     }
 
     useEffect(() => {
-        debugger
         if(surcharge) {
             dispatch(getSurchargeForExactRateThunk(rate_data_for_surcharge))
         }
     }, [surcharge])
 
+    const [awareMessage, setAware] = useState(false)
+    const [rate_value, setRateValue] = useState('')
+    let onChange = (e: any, id: string) => {
+        if(e.currentTarget.value === '0') {
+            setRateValue(id)
+            setAware(true)
+        } else {
+            setValue(`rates.${id}.rate`, e.currentTarget.value)
+        }
+    }
 
     return (
         <div>
@@ -142,7 +154,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                     <TableBody>
                         {usageFees.length > 0
                             ? usageFees?.map((fee) => (
-                            <TableRow key={fee.id}>
+                            <TableRow key={fee.id} >
                                 <Controller control={control}
                                             defaultValue={fee.id}
                                             name={`rates.${fee.id}.container_type`}
@@ -170,9 +182,17 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller control={control}
                                                 name={`rates.${fee.id}.rate`}
-                                                defaultValue={0}
-                                                as={
-                                                    <Field placeholder='0.00$' maxW='100px'/>
+                                                defaultValue=''
+                                                render={({onBlur}) => (
+                                                   <div style={{position: 'relative'}}>
+                                                       <Field placeholder='0.00$' maxW='100px'
+                                                              onChange={(e) => onChange(e, String(fee.id))}
+                                                              onBlur={() => setAware(false)}
+                                                       />
+                                                       {awareMessage && String(fee.id) === rate_value
+                                                       && <SpanAware><Title>Rate will be register as 0. Are you sure?</Title></SpanAware>}
+                                                   </div>
+                                                    )
                                                 }
 
                                     />
@@ -206,7 +226,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                                 name={`rates.rate`}
                                                 defaultValue={0}
                                                 as={
-                                                    <Field maxW='100px'/>
+                                                    <Field placeholder='0.00$' maxW='100px'/>
                                                 }
 
                                     />
@@ -219,6 +239,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                     errors={errors}
                                     classes={classes}
                                     getValues={getValues}
+                                    getSurchargeToRateHandle={getSurchargeToRateHandle}
                                 />
                             </TableRow>
                         }
@@ -230,3 +251,24 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
 }
 
 export default Rates
+
+
+const SpanAware = styled.div`
+  width: 180px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, .6);
+  color: white;
+  font-family: "Helvetica Reg", sans-serif;
+  position: absolute;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 5px;
+  z-index: 150;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 58% 75%, 51% 93%, 43% 75%, 0% 75%);
+  transform: rotate(180deg);
+`
+const Title = styled.div`
+   transform: rotate(180deg);
+`

@@ -20,7 +20,8 @@ const initialState = {
     surcharge_info: null as SurchargeInfoType | null,
     surchargeId: 0,
     surchargeDataForCheck: null as CheckSurchargeDatesType | null,
-    bookedDates: null as Array<{start_date: string, expiration_date: string}> | null
+    bookedDates: null as Array<{start_date: string, expiration_date: string}> | null,
+    edit_surcharge_success: ''
 }
 
 type InitialStateType = typeof initialState
@@ -77,6 +78,11 @@ export const surchargeReducer = (state = initialState, action: commonSurchargeAc
                 ...state,
                 surcharge_info: action.info
             }
+        case "SET_EDIT_SURCHARGE_SUCCESS":
+            return {
+                ...state,
+                edit_surcharge_success: action.success
+            }
         case "SET_BOOKED_DATES":
             return {
                 ...state,
@@ -100,6 +106,7 @@ export const surchargeActions = {
     setNewSurcharge: (surcharge: SurchargeObjectType) => ({type: 'SET_NEW_SURCHARGE', surcharge} as const),
     setSurchargesList: (list: SurchargeObjectType[]) => ({type: 'SET_SURCHARGES_LIST', list} as const),
     setSurchargeInfo: (info: SurchargeInfoType | null) => ({type: 'SET_SURCHARGE_INFO', info} as const),
+    setEditSurchargeSuccess: (success: string) => ({type: 'SET_EDIT_SURCHARGE_SUCCESS', success} as const),
     setBookedDates: (bookedDates: SurchargeCheckDateResponseType) => ({type: 'SET_BOOKED_DATES', bookedDates} as const),
     setCurrentShippingType: (current_type: CurrentShippingType) => ({type: 'SET_CURRENT_SHIPPING_TYPE', current_type} as const)
 }

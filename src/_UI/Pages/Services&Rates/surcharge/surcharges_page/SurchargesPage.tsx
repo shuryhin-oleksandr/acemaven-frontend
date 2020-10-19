@@ -26,7 +26,7 @@ import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/ne
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        height: 415,
+        height: 400,
         overflowY: 'scroll'
     },
     table: {
@@ -121,7 +121,6 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
 
     let templateDataHandler = (id: number, shipping_type: CurrentShippingType) => {
         setMode(shipping_type)
-        console.log('type', mode)
         props.dispatch(GetSurchargeForTooltip(id))
         props.setNewSurchargeMode(true)
     }

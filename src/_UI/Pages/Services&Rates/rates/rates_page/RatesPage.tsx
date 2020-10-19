@@ -21,6 +21,8 @@ import { getSurchargeInfo } from "../../../../../_BLL/thunks/rates&surcharge/sur
 import { useHistory } from "react-router-dom";
 import { getRateInfoThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 
+
+
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
@@ -87,53 +89,29 @@ type PropsType = {
   searchColumn: string;
   setSearchColumn: VoidFunctionType;
   setNewRateMode: VoidFunctionType;
+  setCheckedFreightRate: (id: number) => void
 };
 
 const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
   const classes = useStyles();
 
-  function createData(
-    id: number,
-    shipping_mode: string,
-    shipping_type: string,
-    carrier: string,
-    origin: string,
-    destination: string,
-    expiration_date: string,
-    is_active: boolean
-  ) {
+
+  function createData(id: number, shipping_mode: string, shipping_type: string, carrier: string, origin: string, destination: string, expiration_date: string, is_active: boolean) {
     return {
-      id,
-      shipping_mode,
-      shipping_type,
-      carrier,
-      origin,
-      destination,
-      expiration_date,
-      is_active,
-    };
+      id, shipping_mode, shipping_type, carrier, origin, destination, expiration_date, is_active
+    }
   }
 
   const rows =
     freight_rates_list && freight_rates_list.length > 0
-      ? freight_rates_list.map((r) =>
-          createData(
-            r.id,
-            r?.shipping_mode,
-            r?.shipping_type,
-            r.carrier,
-            r.origin,
-            r.destination,
-            r.expiration_date,
-            r.is_active
-          )
-        )
-      : null;
+        ? freight_rates_list.map((r) => createData(r.id, r?.shipping_mode, r?.shipping_type, r.carrier, r.origin, r.destination, r.expiration_date, r.is_active))
+        : null;
   const [isSearchMode, setSearchMode] = useState(false);
   let history = useHistory();
   let goToPage = (id: number) => {
     history.push(`/services/rate/${id}`);
   };
+
 
   return (
     <Outer>
@@ -267,7 +245,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                       title="Use this registry as a template for a new rate, with the same values and parameters."
                       classes={{ tooltip: classes.customTooltip }}
                     >
-                      <TemplateIcon>
+                      <TemplateIcon onClick={() => props.setCheckedFreightRate(row.id)}>
                         <img src={template_icon} alt="" />
                       </TemplateIcon>
                     </Tooltip>
@@ -299,10 +277,17 @@ const SearchButton = styled.button`
   align-items: center;
   img {
   }
+   &:hover {
+    cursor: pointer;
+  }
 `;
-const SortButton = styled(SearchButton)``;
 
-const TemplateIcon = styled(SearchButton)``;
+
+const TemplateIcon = styled(SearchButton)`
+  &:hover {
+    cursor: pointer;
+  }
+`;
 const SpanMode = styled.div`
   transition: 0.3s;
   &:hover {

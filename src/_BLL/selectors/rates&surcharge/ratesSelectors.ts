@@ -9,3 +9,4 @@ export const getDestinationPortValue = ((state: AppStateType) => state.rate.dest
 export const getRateStartDate = ((state: AppStateType) => state.rate.rate_start_date)
 export const getRateDataForSurcharge = ((state: AppStateType) => state.rate.rate_data_for_surcharge)
 export const getRegistrationSuccess = ((state: AppStateType) => state.rate.registration_success)
+export const getCheckedRateInfo = ((state: AppStateType) => state.rate.rate_info)

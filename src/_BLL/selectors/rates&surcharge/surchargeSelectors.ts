@@ -20,3 +20,4 @@ export const getAirCarriersSelector = (state: AppStateType) => state.surcharge.a
 export const getPortsSelector = (state: AppStateType) => state.surcharge.ports
 export const getCurrencyListSelector = (state: AppStateType) => state.surcharge.currency_list
 export const getShippingModesSelector = (state: AppStateType) => state.surcharge.shipping_modes
+export const getEditSurchargeSelector = (state: AppStateType) => state.surcharge.edit_surcharge_success

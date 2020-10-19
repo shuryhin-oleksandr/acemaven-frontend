@@ -35,14 +35,13 @@ const useStyles = makeStyles({
         fontSize: '16px'
     },
     innerMainCell: {
-        borderBottom: 'border: 1px solid #E0E0E0;',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         color: '#115B86',
-        width: '213px'
+        width: '213px',
+        padding: '0 16px'
     },
     innerCell: {
-        borderBottom: 'border: 1px solid #E0E0E0;',
         fontFamily: 'Helvetica Thin',
         fontSize: '16px',
         color: '#1B1B25',
@@ -62,8 +61,7 @@ const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => 
     const noConditions = ShippingModeEnum.FCL === shippingMode
 
     return (
-
-        <HandlingSurchargeContainer>
+        <HandlingSurchargeContainer max_width='662px' max_height='490px'>
             <HandlingTitle>Additional surcharges</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
@@ -73,7 +71,6 @@ const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => 
                             {!noConditions && <TableCell className={classes.cell} align="left">CONDITIONS</TableCell>}
                             <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
                             <TableCell className={classes.cell} align="left">CHARGE</TableCell>
-
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -88,19 +85,22 @@ const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => 
                                                 </TableCell>
                                             }
                                 />
-                                {
-                                    !noConditions && <TableCell className={classes.innerCell} align="left">
+
+                                {!noConditions &&
                                         <Controller control={control}
                                                     name={`charges.${charge.id}.conditions`}
                                                     defaultValue={conditions[0]?.title}
-                                                    as={
-                                                        <SurchargeRateConditionsSelect options={conditions}
-                                                                                       placeholder='Currency'
-                                                                                       maxW='80px'
+                                                    as={ charge.id === 1
+                                                        ? <TableCell className={classes.innerCell} >
+                                                            {'fixed'}
+                                                            </TableCell>
+                                                        : <SurchargeRateConditionsSelect options={conditions}
+                                                                                        placeholder='Currency'
+                                                                                        maxW='80px'
                                                         />
                                                     }
                                         />
-                                    </TableCell>
+
                                 }
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller control={control}
@@ -117,9 +117,11 @@ const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => 
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller name={`charges.${charge.id}.charge`}
                                                 control={control}
-                                                defaultValue=''
+                                                defaultValue={0}
                                                 as={
-                                                    <Field/>
+                                                    <Field maxW='100px'
+                                                    placeholder='0.00$'
+                                                    />
                                                 }
                                     />
                                 </TableCell>

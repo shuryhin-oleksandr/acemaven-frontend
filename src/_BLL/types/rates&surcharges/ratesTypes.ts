@@ -1,4 +1,4 @@
-import { ChargesType, LocationType, UsageFeeType } from "./surchargesTypes";
+import { SurchargeInfoType } from "./surchargesTypes";
 
 export type CurrencyType = {
   id: number;
@@ -79,6 +79,18 @@ export type RateForSurchargeType = {
   transit_time: number;
 };
 
+export type FreightRateRateType = {
+  id: number;
+  container_type: ContainerType;
+  currency: CurrencyType;
+  rate: string;
+  start_date: string;
+  expiration_date: string;
+  updated_by: string;
+  date_updated: string;
+  surcharges: SurchargeInfoType[];
+};
+
 export type RateInfoType = {
   id: number;
   carrier: CarrierType;
@@ -86,7 +98,7 @@ export type RateInfoType = {
   carrier_disclosure: boolean;
   destination: PortType;
   origin: PortType;
-  rates: RateType[];
+  rates: FreightRateRateType[];
   shipping_mode: ShippingModeType;
   shipping_type: string;
   transit_time: number;

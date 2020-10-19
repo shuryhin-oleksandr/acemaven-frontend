@@ -42,6 +42,7 @@ export const InfoWrap = styled.div`
   align-items: flex-start;
   padding-bottom: 30px;
   border-bottom: 1px solid #115b86;
+  margin-bottom: 28px;
 `;
 
 export const ShippingMode = styled.div`

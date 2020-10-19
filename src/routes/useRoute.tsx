@@ -14,6 +14,7 @@ import ExactSurchargeContainer from 'src/_UI/Pages/Services&Rates/surcharge/surc
 import LandingPage from "../_UI/Pages/landing/LandingPage";
 import RatesContainer from "../_UI/Pages/Services&Rates/rates/RatesContainer";
 import DashboardContainer from "../_UI/Pages/dashboard/DashboardContainer";
+import ExactRateContainer from "../_UI/Pages/Services&Rates/rates/rates_page/rate/ExactRateContainer";
 
 
 const useRoute = (isAuth: boolean) => {
@@ -25,6 +26,7 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={SurchargesContainer} path='/services/surcharges'/>
                 <Route component={ExactSurchargeContainer} path='/services/surcharge/:id'/>
                 <Route exact component={RatesContainer} path='/services/rates'/>
+                <Route component={ExactRateContainer} path='/services/rate/:id'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>
                 <Route component={CompanySettingsContainer} path='/settings/company'/>
                 <Route component={UserManagementContainer} path='/settings/user/management'/>

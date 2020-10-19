@@ -11,14 +11,15 @@ import TableBody from "@material-ui/core/TableBody";
 import Tooltip from "@material-ui/core/Tooltip";
 import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
 import styled from "styled-components";
-import sort_arrows from "../../../../assets/icons/rates&services/sort_arrows.svg";
-import search_icon from "../../../../assets/icons/rates&services/search_loop.svg";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import { FreightRateObjectType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
+import { getSurchargeInfo } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import { useHistory } from "react-router-dom";
+import { getRateInfoThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 
 const useStyles = makeStyles({
   container: {
@@ -129,6 +130,10 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
         )
       : null;
   const [isSearchMode, setSearchMode] = useState(false);
+  let history = useHistory();
+  let goToPage = (id: number) => {
+    history.push(`/services/rate/${id}`);
+  };
 
   return (
     <Outer>
@@ -211,7 +216,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
           </TableHead>
           <TableBody>
             {rows?.map((row) => (
-              <TableRow key={row.shipping_mode}>
+              <TableRow key={row.id}>
                 <TableCell
                   className={classes.innerMainCell}
                   align="left"
@@ -227,7 +232,11 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                     alt=""
                   />
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left">
+                <TableCell
+                  onClick={() => goToPage(row.id)}
+                  className={classes.innerCell}
+                  align="left"
+                >
                   <SpanMode>{row.shipping_mode}</SpanMode>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

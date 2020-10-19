@@ -35,6 +35,7 @@ import {surchargeActions} from "../../../../_BLL/reducers/surcharge&rates/surcha
 import {useDispatch} from "react-redux";
 import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
 
+
 type PropsType = {
   setIsOpen: VoidFunctionType;
   getValues?: any;
@@ -65,9 +66,12 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
   const dispatch = useDispatch()
 
   const onSubmit = (values: any) => {
-
     let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
-    let usageFees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+    let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+
+    let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
+        || !f.charge && {container_type: f.container_type, currency: f.currency}
+    )
 
     let data = {
       carrier: values.carrier,
@@ -160,7 +164,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
             />
           </FieldsWrap>
         </InfoWrap>
-        {usageFees.length > 0 && <UsageFees control={control}
+        {usageFees.length > 0 && <UsageFees control={control} setValue={setValue}
                    tableName={mode === 'sea' ? 'HANDLING' : 'USAGE FEE'}
                    type={mode === 'sea' ? 'CONTAINER TYPE' : 'ULD TYPES'}
                    usageFees={usageFees}

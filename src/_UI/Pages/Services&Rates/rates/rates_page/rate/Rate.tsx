@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { getRateInfoThunk } from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import React, {  useState } from "react";
 import {
   RateContainer,
   Wrap,
@@ -14,15 +11,14 @@ import {
   Content,
   FieldOuter,
   FieldsWrap,
-  Label,
+  Label, PauseButton,
 } from "./exact-rate-styles";
 import pause from "../../../../../assets/icons/rates&services/pause.svg";
 import play from "../../../../../assets/icons/rates&services/play_icon.svg";
 import { SaveButton } from "../../../surcharge/surcharges_page/surcharge/surcharge-style";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import ship from "../../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../../assets/icons/rates&services/plane-surcharge.svg";
-import { AppStateType } from "../../../../../../_BLL/store";
 import { HandlingTitle } from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -36,6 +32,7 @@ import { currency } from "../../../../../../_BLL/helpers/surcharge_helpers_metho
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import { Field } from "../../../../../components/_commonComponents/Input/input-styles";
 import DatesCells from "../../register_new_freight_rate/tables/DatesCells";
+import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 const useStyles = makeStyles({
   container: {
@@ -69,28 +66,33 @@ const useStyles = makeStyles({
   },
 });
 
-const Rate = ({ ...props }) => {
+type PropsType = {
+  is_active: boolean,
+  rate: RateInfoType | null,
+  id: number,
+  handleSubmit: any,
+  errors: any,
+  setValue: any,
+  control: any,
+  getValues: any,
+  activateRateHandler: (id: any, value: boolean) => void
+}
+
+const Rate:React.FC<PropsType> = ({is_active, rate, id, handleSubmit, errors, setValue, control, getValues, activateRateHandler}) => {
   const [formMode, setFormMode] = useState(false);
-  const dispatch = useDispatch();
+
   const classes = useStyles();
-  let id = props.match.params.id;
-  useEffect(() => {
-    dispatch(getRateInfoThunk(id));
-  }, []);
 
-  const { handleSubmit, errors, setValue, control, getValues } = useForm<any>({
-    reValidateMode: "onBlur",
-  });
-
-  const rate = useSelector((state: AppStateType) => state.rate.rate_info);
-  console.log("rate", rate);
-  useEffect(() => {
+ /* useEffect(() => {
     if(rate) {
       rate.rates.map((r: any) => {
-        setValue(`rates.${r.container_type.id}.start_date`, rate.start_date)
+        setValue(`rates.${r.id}.rate`)
+        setValue(`rates.${r.id}.from`, rate.start_date)
       })
     }
-  }, [rate, setValue])
+  }, [rate, setValue])*/
+  // useEffect(() => {
+
 
   return (
     <RateContainer>
@@ -98,7 +100,9 @@ const Rate = ({ ...props }) => {
         <RateTitle>Freight Rate</RateTitle>
         <ButtonsWrap>
           {formMode && <SaveButton type="submit">SAVE CHANGES</SaveButton>}
-          <PauseImg src={rate?.is_active ? pause : play} alt="" />
+          <PauseButton type='button' onClick={() => activateRateHandler(rate?.id, !rate?.is_active)}>
+            <PauseImg src={is_active ? pause : play} alt="" />
+          </PauseButton>
         </ButtonsWrap>
       </Wrap>
       {rate && (
@@ -283,4 +287,4 @@ const Rate = ({ ...props }) => {
   );
 };
 
-export default withRouter(Rate);
+export default Rate;

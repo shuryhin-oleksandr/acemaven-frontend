@@ -33,7 +33,6 @@ const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, 
     }
 
     const handleToChange = (to: string, id: number) => {
-        debugger
         setSelectedDay({
             ...selectedDay,
             to

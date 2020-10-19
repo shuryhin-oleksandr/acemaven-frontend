@@ -20,6 +20,7 @@ type PropsType = {
     margin_bottom?: string
     input_height?: string
     rate_start_date?: string
+    setFormMode?: (value: boolean) => void
 }
 
 const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...props}) => {
@@ -50,6 +51,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
     }, [surcharge, props.rate_start_date])
 
     const handleFromChange = (from: string) => {
+        props.setFormMode && props.setFormMode(true)
         setSelectedDay({
             ...selectedDay,
             from
@@ -58,6 +60,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
     }
 
    const handleToChange = (to: string) => {
+       props.setFormMode && props.setFormMode(true)
        setSelectedDay({
            ...selectedDay,
            to

@@ -47,7 +47,7 @@ type PropsType = {
     usageFees: ContainerType[]
     tableName: string
     type: string
-    setValue?: any
+    setValue: any
 }
 
 const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, setValue }) => {
@@ -59,13 +59,12 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
     let onChange = (e: any, id: string) => {
         if(e.currentTarget.value === '0') {
             setChargeValue(id)
-            setValue(`usage_fees.${id}.charge`, e.currentTarget.value)
             setAware(true)
+            setValue(`usage_fees.${id}.charge`, e.currentTarget.value)
         } else {
             setValue(`usage_fees.${id}.charge`, e.currentTarget.value)
         }
     }
-
 
     return (
         <HandlingSurchargeContainer>

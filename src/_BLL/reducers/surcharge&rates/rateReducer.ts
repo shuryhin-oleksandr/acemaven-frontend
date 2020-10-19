@@ -24,6 +24,7 @@ const initialState = {
   rate_data_for_surcharge: null as RateForSurchargeType | null,
   registration_success: "",
   rate_info: null as any | null,
+
 };
 
 type InitialStateType = typeof initialState;
@@ -93,6 +94,11 @@ export const rateReducer = (
         ...state,
         rate_info: action.info,
       };
+    case "EDIT_RATE_IS_ACTIVE":
+      return {
+        ...state,
+        rate_info: {...state.rate_info, is_active: action.is_active}
+      }
     case "SET_ACTIVE_OR_PAUSED":
       return {
         ...state,
@@ -142,6 +148,7 @@ export const rateActions = {
     ({ type: "SET_RATE_DATA_FOR_SURCHARGE", rate_data } as const),
   setRateInfo: (info: RateInfoType | null) =>
     ({ type: "SET_RATE_INFO", info } as const),
+  setRateIsActive: (is_active: boolean) => ({type: 'EDIT_RATE_IS_ACTIVE', is_active} as const),
   setCheckedFreight: (freight_rate: any) =>
     ({ type: "SET_CHECKED_FREIGHT_RATE", freight_rate } as const),
   setActiveOrPaused: (rate: any) =>

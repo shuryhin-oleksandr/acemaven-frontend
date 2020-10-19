@@ -119,6 +119,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
         if(e.currentTarget.value === '0') {
             setRateValue(id)
             setAware(true)
+            setValue(`rates.${id}.rate`, e.currentTarget.value)
         } else {
             setValue(`rates.${id}.rate`, e.currentTarget.value)
         }

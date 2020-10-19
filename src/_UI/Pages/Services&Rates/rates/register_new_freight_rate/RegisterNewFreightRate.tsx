@@ -74,6 +74,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
               && {container_type: r.container_type, currency: r.currency, rate: r.rate, start_date: r.from, expiration_date: r.to})
               || (r !== null && !r.from && {container_type: r.container_type, currency: r.currency})
               || (r !== null && !r.from && !r.rate && {container_type: r.container_type, currency: r.currency})
+              || (r !== null && r.from && !r.rate && {container_type: r.container_type, currency: r.currency})
       );
       let data = {
         carrier: values.carrier,

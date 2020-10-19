@@ -130,6 +130,7 @@ const Surcharge = ({...props}) => {
                                          errors={{from: errors.from, to: errors.to}}
                                          control={control}
                                          setValue={setValue}
+                                         setFormMode={setFormMode}
                         />
                     </FieldsWrap>
                 </InfoWrap>
@@ -138,6 +139,7 @@ const Surcharge = ({...props}) => {
                 && <HandlingSurcharge setFormMode={setFormMode}
                                       containers={surcharge?.usage_fees}
                                       control={control}
+                                      errors={errors}
                 />
                 }
                 {surcharge && surcharge.usage_fees && surcharge.usage_fees.length > 0 && <LineWrap bc='#BDBDBD'/>}

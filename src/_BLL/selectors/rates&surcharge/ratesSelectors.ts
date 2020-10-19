@@ -1,5 +1,6 @@
 import {AppStateType} from "../../store";
 
+export const getFreightRatesList = ((state: AppStateType) => state.rate.freight_rates_list)
 export const getOriginPorts = ((state: AppStateType) => state.rate.origin_ports)
 export const getDestinationPorts = ((state: AppStateType) => state.rate.destination_ports?.filter(p => p.is_local !== state.rate.origin_port_value?.is_local))
 export const getExistingSurcharge = ((state: AppStateType) => state.rate.existing_surcharge)
@@ -10,3 +11,4 @@ export const getRateStartDate = ((state: AppStateType) => state.rate.rate_start_
 export const getRateDataForSurcharge = ((state: AppStateType) => state.rate.rate_data_for_surcharge)
 export const getRegistrationSuccess = ((state: AppStateType) => state.rate.registration_success)
 export const getCheckedRateInfo = ((state: AppStateType) => state.rate.rate_info)
+export const getRateIsActive = ((state: AppStateType) => state.rate.rate_info?.is_active)

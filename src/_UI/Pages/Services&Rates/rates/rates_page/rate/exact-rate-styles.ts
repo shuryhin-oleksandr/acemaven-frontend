@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 type PropsStyle = {
   c?: string;
   bc?: string;
@@ -56,6 +57,14 @@ export const ShippingMode = styled.div`
     height: 100%;
   }
 `;
+export const PauseButton = styled.button`
+ outline: none;
+ background: none;
+ border: none;
+ &:hover {
+  cursor: pointer;
+ }
+`
 
 export const FieldsWrap = styled.div`
   display: flex;

@@ -49,7 +49,8 @@ const useStyles = makeStyles({
 type PropsType = {
     setFormMode?: VoidFunctionType,
     containers?: UsageFeeType[],
-    control: any
+    control: any,
+    errors: any
 }
 
 const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
@@ -82,7 +83,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                         {rows?.map((row) => (
                             <TableRow key={row.id}>
                                 <Controller control={props.control}
-                                            name={`usage_fees.${row.container_type?.id}.id`}
+                                            name={`usage_fees.${row.id}.id`}
                                             defaultValue={row.id}
                                             as={
                                                 <TableCell className={classes.innerCell}  component="th" scope="row">
@@ -92,7 +93,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 />
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name={`usage_fees.${row.container_type?.id}.currency`}
+                                                name={`usage_fees.${row.id}.currency`}
                                                 defaultValue={row.currency[0].id}
                                                 as={
                                                     <SurchargeRateSelect options={row.currency}
@@ -104,7 +105,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name={`usage_fees.${row.container_type?.id}.charge`}
+                                                name={`usage_fees.${row.id}.charge`}
                                                 defaultValue={row.charge}
                                                 as={
                                                     <Field />
@@ -113,7 +114,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 </TableCell>
                                 <Controller control={props.control}
                                             defaultValue={row.updated_by}
-                                            name={`usage_fees.${row.container_type?.id}.updated_by`}
+                                            name={`usage_fees.${row.id}.updated_by`}
                                             as={
                                                 <TableCell className={classes.innerCell} align="left">
                                                     {row.updated_by}
@@ -122,7 +123,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 />
                                <Controller control={props.control}
                                            defaultValue={row.date_updated}
-                                           name={`usage_fees.${row.container_type?.id}.date_updated`}
+                                           name={`usage_fees.${row.id}.date_updated`}
                                            as={
                                                <TableCell className={classes.innerCell} align="left">
                                                    {row.date_updated}

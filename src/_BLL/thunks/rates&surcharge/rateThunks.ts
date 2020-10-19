@@ -109,9 +109,22 @@ export const setActiveOrPausedRateThunk = (id: number, value: boolean) => {
   return async (dispatch: Dispatch<commonRateActions>) => {
     try {
       let res = await rateAPI.setActiveOrPausedRate(id, value);
+      console.log(res.data)
       dispatch(rateActions.setActiveOrPaused(res.data));
     } catch (e) {
       console.log(e.response);
     }
   };
 };
+
+export const ActivateRateThunk = (id: number, value: boolean) => {
+  return async (dispatch: Dispatch<commonRateActions>) => {
+    try {
+      let res = await rateAPI.setActiveOrPausedRate(id, value)
+      dispatch(rateActions.setRateIsActive(res.data.is_active))
+    } catch (e) {
+      console.log(e.response)
+    }
+  }
+}
+

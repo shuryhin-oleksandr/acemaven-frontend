@@ -100,7 +100,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
 
     let setMode = useCallback((mode: CurrentShippingType) => {
         props.dispatch(surchargeActions.setCurrentShippingType(mode))
-    }, [])
+    }, [props])
     const mode = useSelector(getCurrentShippingTypeSelector)
 
     const classes = useStyles();

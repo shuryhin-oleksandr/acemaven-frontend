@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 type PropsStyle = {
   mode?: string;
+  length?: any
 };
+
+
 
 export const Outer = styled.form`
   width: 100%;
@@ -122,11 +125,11 @@ export const UnderTitle = styled.div`
 `;
 
 
-export const SurchargeCardWrapper = styled.div`
+export const SurchargeCardWrapper = styled.div<PropsStyle>`
   max-width: 758px;
   width: 100%;
   background: #FFFFFF;
-  border: 1px solid #BDBDBD;
+  //border: 1px solid #BDBDBD;
   margin-top: 30px;
 `
 export const CardInner = styled.div`

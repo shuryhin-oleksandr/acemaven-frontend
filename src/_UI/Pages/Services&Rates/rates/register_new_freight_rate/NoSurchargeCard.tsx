@@ -6,16 +6,24 @@ import {
   SurchargeCardWrapper,
 } from "./form-styles";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
+import {useSelector} from "react-redux";
+import {getExistingSurcharge} from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+import {getCurrentShippingTypeSelector} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import {ShippingModeEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 type PropsType = {
   setNewSurchargePopUpVisible: VoidFunctionType;
+  shippingValue: any
 };
 
 const NoSurchargeCard: React.FC<PropsType> = ({
   setNewSurchargePopUpVisible,
+    shippingValue
 }) => {
+
+
   return (
-    <SurchargeCardWrapper>
+    <SurchargeCardWrapper length={shippingValue !== ShippingModeEnum.FCL || ShippingModeEnum.ULD  ? '-250px' : '30px'}>
       <CardInner>
         <CardTitle>
           There are no surcharges. <br />

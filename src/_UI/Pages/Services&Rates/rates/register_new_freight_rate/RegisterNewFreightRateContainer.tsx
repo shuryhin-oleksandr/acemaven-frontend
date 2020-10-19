@@ -160,7 +160,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
       setShippingValue(rate_info.shipping_mode.id)
       setValue('carrier', rate_info.carrier.id)
       setValue('shipping_mode', rate_info.shipping_mode.id)
-
+      //rate_info?.rates?.map((r: any) => setValue(`rates.${r?.container_type?.id}.rate`, r.rate))
     }
   }, [rate_info])
 
@@ -211,7 +211,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         registration_success={registration_success}
         rate_info={rate_info}
       />
-      {empty_surcharge === 'empty' && <NoSurchargeCard setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
+      {empty_surcharge === 'empty' && <NoSurchargeCard shippingValue={shippingValue} setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
     </RatesWrapper>
   );
 };

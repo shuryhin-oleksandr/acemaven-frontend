@@ -11,7 +11,7 @@ type PropsType = {
     control: any
     errors: any
     classes: any
-    reservedDates: Array<{from: Date, to: Date} | {before: Date}>
+    reservedDates?: Array<{from: Date, to: Date} | {before: Date}>
     id: number
     getSurchargeToRateHandle: (id: number, from: string, to: string) => void
 }
@@ -65,7 +65,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, 
                     control={control}
                     error={!!errors.from}
                     disabledDates={reservedDates}
-                    disabled={!reservedDates}
+                    //disabled={!reservedDates}
                     display_label='none'
                     max_width='107px'
                     margin_bottom='0'
@@ -84,7 +84,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, getValues, control, errors, 
                     control={control}
                     error={!!errors.to}
                     disabledDates={reservedDates}
-                    disabled={!reservedDates}
+                    //disabled={!reservedDates}
                     display_label='none'
                     max_width='107px'
                     margin_bottom='0'

@@ -23,7 +23,7 @@ const initialState = {
   rate_start_date: "",
   rate_data_for_surcharge: null as RateForSurchargeType | null,
   registration_success: "",
-  rate_info: null as RateInfoType | null,
+  rate_info: null as any | null,
 };
 
 type InitialStateType = typeof initialState;

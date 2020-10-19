@@ -39,7 +39,6 @@ import DatesCells from "../../register_new_freight_rate/tables/DatesCells";
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
-    width: 760,
     height: "420px",
     overflowY: "scroll",
   },
@@ -78,12 +77,20 @@ const Rate = ({ ...props }) => {
     dispatch(getRateInfoThunk(id));
   }, []);
 
-  const { handleSubmit, errors, setValue, control } = useForm<any>({
+  const { handleSubmit, errors, setValue, control, getValues } = useForm<any>({
     reValidateMode: "onBlur",
   });
 
   const rate = useSelector((state: AppStateType) => state.rate.rate_info);
   console.log("rate", rate);
+  useEffect(() => {
+    if(rate) {
+      rate.rates.map((r: any) => {
+        setValue(`rates.${r.container_type.id}.start_date`, rate.start_date)
+      })
+    }
+  }, [rate, setValue])
+
   return (
     <RateContainer>
       <Wrap>
@@ -153,7 +160,7 @@ const Rate = ({ ...props }) => {
             </FieldsWrap>
           </InfoWrap>
           {rate.rates?.length > 0 && (
-            <div>
+            <div style={{width: '100%'}}>
               <HandlingTitle>RATES</HandlingTitle>
               <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
@@ -169,14 +176,14 @@ const Rate = ({ ...props }) => {
                         CURRENCY
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                        Freight Rate
+                       RATE
                       </TableCell>
-                      {/*<TableCell className={classes.cell} align="left">*/}
-                      {/*  START DATE*/}
-                      {/*</TableCell>*/}
-                      {/*<TableCell className={classes.cell} align="left">*/}
-                      {/*  EXPIRATION DATE*/}
-                      {/*</TableCell>*/}
+                      <TableCell className={classes.cell} align="left">
+                        START DATE
+                      </TableCell>
+                      <TableCell className={classes.cell} align="left">
+                        EXPIRATION DATE
+                      </TableCell>
                       <TableCell className={classes.cell} align="left">
                         UPDATE BY
                       </TableCell>
@@ -186,7 +193,7 @@ const Rate = ({ ...props }) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rate.rates.map((r) => (
+                    {rate.rates.map((r: any) => (
                       <TableRow key={r.id}>
                         {rate.shipping_mode.id === 2 ||
                           (rate.shipping_mode.id === 3 && (
@@ -226,16 +233,16 @@ const Rate = ({ ...props }) => {
                             as={<Field placeholder="0.00$" maxW="100px" />}
                           />
                         </TableCell>
-                        {/*<DatesCells*/}
-                        {/*    setValue={setValue}*/}
-                        {/*    control={control}*/}
-                        {/*    id={fee.id}*/}
-                        {/*    reservedDates={reservedDates}*/}
-                        {/*    errors={errors}*/}
-                        {/*    classes={classes}*/}
-                        {/*    getValues={getValues}*/}
-                        {/*    getSurchargeToRateHandle={getSurchargeToRateHandle}*/}
-                        {/*/>*/}
+                        <DatesCells
+                            setValue={setValue}
+                            control={control}
+                            id={r.id}
+                            //reservedDates={reservedDates}
+                            errors={errors}
+                            classes={classes}
+                            getValues={getValues}
+                            getSurchargeToRateHandle={() => {}}
+                        />
                         <Controller
                           control={control}
                           defaultValue={r.updated_by}

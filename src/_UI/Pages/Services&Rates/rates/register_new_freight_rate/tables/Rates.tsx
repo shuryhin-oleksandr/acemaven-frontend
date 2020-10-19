@@ -225,8 +225,16 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                     <Controller control={control}
                                                 name={`rates.rate`}
                                                 defaultValue={0}
-                                                as={
-                                                    <Field placeholder='0.00$' maxW='100px'/>
+                                                render={({onBlur}) => (
+                                                    <div style={{position: 'relative'}}>
+                                                        <Field placeholder='0.00$' maxW='100px'
+                                                               onChange={(e) => onChange(e, String(0))}
+                                                               onBlur={() => setAware(false)}
+                                                        />
+                                                        {awareMessage && String(0) === rate_value
+                                                        && <SpanAware><Title>Rate will be register as 0. Are you sure?</Title></SpanAware>}
+                                                    </div>
+                                                )
                                                 }
 
                                     />

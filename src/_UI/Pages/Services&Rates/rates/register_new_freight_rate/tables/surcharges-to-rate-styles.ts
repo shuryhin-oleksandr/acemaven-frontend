@@ -9,11 +9,15 @@ const openTable = keyframes`
   }
 `
 
+type PropsStyle = {
+    length?: any
+}
 
-export const SurchargeForRateContainer = styled.div`
+export const SurchargeForRateContainer = styled.div<PropsStyle>`
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-top:${({length}) => length ? length : 0 };
 `
 export const SurchargeToRateInner = styled.div`
   display: flex;

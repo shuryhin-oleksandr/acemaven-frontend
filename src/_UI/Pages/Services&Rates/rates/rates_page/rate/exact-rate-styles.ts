@@ -33,6 +33,8 @@ export const ButtonsWrap = styled.div`
 `;
 
 export const PauseImg = styled.img`
+  height: 33px;
+  width: 33px;
   margin-left: 20px;
   cursor: pointer;
 `;

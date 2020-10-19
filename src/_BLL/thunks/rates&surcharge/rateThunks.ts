@@ -47,7 +47,7 @@ export const registerNewFreightRateThunk = (freight_data: any) => {
     try {
       let res = await rateAPI.registerNewSurcharge(freight_data);
       dispatch(rateActions.setNewFreightRate(res.data));
-      dispatch(rateActions.setRegistrationSuccess('success'))
+      dispatch(rateActions.setRegistrationSuccess("success"));
     } catch (e) {
       console.log(e.response);
     }
@@ -99,6 +99,17 @@ export const getRateInfoThunk = (id: number) => {
     try {
       let res = await rateAPI.getExactRate(id);
       dispatch(rateActions.setRateInfo(res.data));
+    } catch (e) {
+      console.log(e.response);
+    }
+  };
+};
+
+export const setActiveOrPausedRateThunk = (id: number, value: boolean) => {
+  return async (dispatch: Dispatch<commonRateActions>) => {
+    try {
+      let res = await rateAPI.setActiveOrPausedRate(id, value);
+      dispatch(rateActions.setActiveOrPaused(res.data));
     } catch (e) {
       console.log(e.response);
     }

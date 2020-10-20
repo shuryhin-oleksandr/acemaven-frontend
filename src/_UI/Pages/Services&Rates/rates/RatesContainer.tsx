@@ -13,11 +13,9 @@ import RatesPage from "./rates_page/RatesPage";
 import RegisterNewFreightRateContainer from "./register_new_freight_rate/RegisterNewFreightRateContainer";
 import {getFilteredRateListThunk, getRateInfoThunk} from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { useDispatch, useSelector } from "react-redux";
-import { AppStateType } from "../../../../_BLL/store";
 import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import {getFreightRatesList, getRegistrationSuccess} from "../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
-
 
 const RatesContainer: React.FC = () => {
   const [mode, setMode] = useState("sea");
@@ -55,7 +53,6 @@ const RatesContainer: React.FC = () => {
     dispatch(getRateInfoThunk(id))
     setNewRateMode(true)
   }
-
 
   return (
       <Layout>

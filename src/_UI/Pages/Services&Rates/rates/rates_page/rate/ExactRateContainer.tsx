@@ -10,6 +10,8 @@ import {
     getSurchargeForExactRateThunk
 } from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {useForm} from "react-hook-form";
+import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
+
 
 const ExactRateContainer = ({...props}) => {
     //useForm
@@ -23,11 +25,33 @@ const ExactRateContainer = ({...props}) => {
     const is_active = rate?.is_active
     let id = props.match.params.id;
 
+    //unmount ---> set rate_info to null
+    let unmountHandler = () => {
+        dispatch(rateActions.setRateInfo(null))
+    }
+
     //get freight rate info by id
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getRateInfoThunk(id));
+        dispatch(getRateInfoThunk(id))
+        return () => unmountHandler()
     }, [dispatch]);
+
+    //get surcharges for rate with 0 containers
+    useEffect(() => {
+        if(rate?.rates?.length === 1 && rate.rates[0].container_type === null) {
+            let rate_data = {
+                carrier: rate.carrier.id,
+                shipping_mode: rate.shipping_mode.id,
+                transit_time: rate.transit_time,
+                origin: rate.origin.id,
+                destination: rate.destination.id,
+                start_date: rate.rates[0].start_date,
+                expiration_date: rate.rates[0].expiration_date
+            }
+            dispatch(getSurchargeForExactRateThunk(rate_data))
+        }
+    }, [rate, dispatch])
 
     //thunk for activate or inactivate freight rate
     let activateRateHandler = (id: number, value: boolean) => {
@@ -43,10 +67,12 @@ const ExactRateContainer = ({...props}) => {
             destination: rate.destination.id,
             start_date: start_date,
             expiration_date: expiration_date
-
         }
         dispatch(getSurchargeForExactRateThunk(rate_data))
     }
+    useEffect(() => {
+
+    }, [dispatch])
 
     return (
     <Layout>

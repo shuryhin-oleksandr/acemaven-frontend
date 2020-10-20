@@ -11,8 +11,8 @@ export const getBookedDates = (state: AppStateType) => {
     return bookedDates ? [...bookedDates, {before: new Date()}] : [{before: new Date()}]
 }
 
+export const getIsFetchingSelector = (state: AppStateType) => state.surcharge.isFetching
 export const getSurcharge = (state: AppStateType) => state.surcharge.surcharge_info
-
 export const getCurrentShippingTypeSelector = (state: AppStateType) => state.surcharge.current_shipping_type
 export const getShippingTypesSelector = (state: AppStateType) => state.surcharge.shipping_type || []
 export const getSeaCarriersSelector = (state: AppStateType) => state.surcharge.sea_carriers

@@ -23,6 +23,7 @@ import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesT
 import ExistingRatesTable from "./ExistingRatesTable";
 import {SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargesToRate from "../../register_new_freight_rate/tables/SurchargesToRate";
+import RateEditPopUp from "../../../../../components/PopUps/RateEditPopUp/RateEditPopUp";
 
 
 
@@ -45,6 +46,7 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, id, handleSubmit, errors, s
                                     existing_surcharge
                                   }) => {
   const [formMode, setFormMode] = useState(false);
+  const [rateEditPopUpVisible, setRateEditPopUpVisible] =useState(false);
 
   useEffect(() => {
     if(rate) {
@@ -59,10 +61,11 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, id, handleSubmit, errors, s
 
   return (
     <RateContainer>
+      {rateEditPopUpVisible &&<RateEditPopUp setRateEditPopUpVisible={setRateEditPopUpVisible}/>}
       <Wrap>
         <RateTitle>Freight Rate</RateTitle>
         <ButtonsWrap>
-          {formMode && <SaveButton type="submit">SAVE CHANGES</SaveButton>}
+          {formMode && <SaveButton type="button" onClick={()=>{setRateEditPopUpVisible(true)}}>SAVE CHANGES</SaveButton>}
           <PauseButton type='button' onClick={() => activateRateHandler(rate?.id, !rate?.is_active)}>
             <PauseImg src={is_active ? pause : play} alt="" />
           </PauseButton>

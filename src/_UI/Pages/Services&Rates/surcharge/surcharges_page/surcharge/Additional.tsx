@@ -19,6 +19,7 @@ import {Controller} from "react-hook-form";
 import SurchargeRateConditionsSelect
     from "../../../../../components/_commonComponents/select/SurchargeRateConditionsSelect";
 import {conditions, currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+import ConditionSelect from "../../../../../components/ConditionSelect/ConditionSelect";
 
 
 const useStyles = makeStyles({
@@ -58,10 +59,11 @@ type PropsType = {
     setFormMode?: VoidFunctionType,
     charges?: ChargesType[],
     control: any,
-    errors: any
+    errors: any,
+    setValue: (name: string, value: any) => void
 }
 
-const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
+const Additional:React.FC<PropsType> = ({setFormMode,setValue, ...props}) => {
     const classes = useStyles();
 
     function createData(id: number, additional_surcharge: AdditionalSurchargeType, currency: any, charge: string, conditions: string, updated_by: string, date_updated: string) {
@@ -150,10 +152,13 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                                    defaultValue={defaultCondition[0].title}
                                                    name={`charges.${row.id}.conditions`}
                                                    as={
-                                                       <SurchargeRateConditionsSelect options={conditions}
-                                                                            placeholder='Currency'
-
-                                                       />
+                                                       // <SurchargeRateConditionsSelect options={conditions}
+                                                       //                      placeholder='Currency'
+                                                       //
+                                                       // />
+                                                       <TableCell className={classes.innerCell} align="left">
+                                                         <ConditionSelect options={conditions} name={`charges.${row.id}.conditions`} setValue={setValue}/>
+                                                       </TableCell>
                                                    }
                                     />
                                 }

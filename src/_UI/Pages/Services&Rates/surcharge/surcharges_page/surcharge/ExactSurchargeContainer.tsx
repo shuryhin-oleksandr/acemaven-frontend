@@ -11,6 +11,7 @@ import {
 import {checkSurchargeDates, getSurchargeInfo} from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {surchargeActions} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 
+
 const ExactSurchargeContainer = ({...props}) => {
     //useForm
     const {handleSubmit, errors, setValue, control} = useForm<any>({
@@ -25,11 +26,16 @@ const ExactSurchargeContainer = ({...props}) => {
     let edit_success = useSelector(getEditSurchargeSelector)
     let id = props.match.params.id
 
+    //unmount ---> set surcharge_info to null
+    let unmountHandler = () => {
+        dispatch(surchargeActions.setSurchargeInfo(null))
+    }
+
     //ASYNC: get info about surcharge
     const dispatch = useDispatch()
     useEffect(() => {
-        sessionStorage.removeItem('reg')
         dispatch(getSurchargeInfo(id, props.history))
+        return () => unmountHandler()
     }, [dispatch, id])
 
     //ASYNC: check available dates

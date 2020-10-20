@@ -81,7 +81,6 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     }, [dispatch])
 
     useEffect(() => {
-        sessionStorage.setItem('reg', 'true')
         dispatch(getShippingTypes())
         dispatch(getCarriers())
         dispatch(getShippingModes())

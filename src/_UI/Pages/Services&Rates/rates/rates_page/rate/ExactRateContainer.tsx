@@ -4,7 +4,11 @@ import Rate from "./Rate";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../../../_BLL/store";
 import { withRouter } from "react-router";
-import {ActivateRateThunk, getRateInfoThunk} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {
+    ActivateRateThunk,
+    getRateInfoThunk,
+    getSurchargeForExactRateThunk
+} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {useForm} from "react-hook-form";
 
 const ExactRateContainer = ({...props}) => {
@@ -15,6 +19,7 @@ const ExactRateContainer = ({...props}) => {
 
     //data from store
     const rate = useSelector((state: AppStateType) => state.rate.rate_info);
+    let existing_surcharge = useSelector((state: AppStateType) => state.rate.existing_surcharge)
     const is_active = rate?.is_active
     let id = props.match.params.id;
 
@@ -28,6 +33,20 @@ const ExactRateContainer = ({...props}) => {
     let activateRateHandler = (id: number, value: boolean) => {
         dispatch(ActivateRateThunk(id, value))
     }
+    //ASYNC get surcharges for current rate by click on it
+    let getSurchargeForRate = (start_date: Date, expiration_date: Date) => {
+        let rate_data = {
+            carrier: rate.carrier.id,
+            shipping_mode: rate.shipping_mode.id,
+            transit_time: rate.transit_time,
+            origin: rate.origin.id,
+            destination: rate.destination.id,
+            start_date: start_date,
+            expiration_date: expiration_date
+
+        }
+        dispatch(getSurchargeForExactRateThunk(rate_data))
+    }
 
     return (
     <Layout>
@@ -40,6 +59,8 @@ const ExactRateContainer = ({...props}) => {
             control={control}
             getValues={getValues}
             activateRateHandler={activateRateHandler}
+            getSurchargeForRate={getSurchargeForRate}
+            existing_surcharge={existing_surcharge}
       />
     </Layout>
   );

@@ -21,7 +21,7 @@ const useStyles = makeStyles({
         boxShadow: 'none'
     },
     table: {
-        minWidth: 948,
+        width: 730,
         '& .MuiTableHead-root' : {
 
         }
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         color: '#115B86',
-        width: '213px',
+        width: '100px',
         padding: '16px'
     },
     innerCell: {
@@ -45,7 +45,8 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
         color: '#1B1B25',
-        padding: '16px'
+        padding: '16px',
+        width: '102px'
     }
 });
 
@@ -72,13 +73,13 @@ const SurchargeAdditionalTable:React.FC<PropsType> = ({charges}) => {
                                     {c.additional_surcharge.title}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" >
-                                    {c.conditions}
-                                </TableCell>
-                                <TableCell className={classes.innerCell} align="left" >
                                     {c.currency.code}
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">
+                                <TableCell className={classes.innerCell} align="left" >
                                     {c.charge}
+                                </TableCell>
+                                <TableCell className={classes.innerCell} align="left">
+                                    {c.conditions}
                                 </TableCell>
                             </TableRow>
                         ))}

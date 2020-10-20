@@ -81,3 +81,12 @@ export const Field = styled.input<PropsStyle>`
     transition: 0.5s;
   }
 `;
+export const SpanType = styled.div`
+  transition: .3s;
+  font-family: "Helvetica Light", sans-serif;
+  &:hover {
+    cursor: pointer;
+    transition: .3s;
+    font-family: "Helvetica Reg", sans-serif;
+  }
+`

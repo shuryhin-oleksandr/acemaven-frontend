@@ -19,10 +19,10 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        height: 300
+        height: 320
     },
     table: {
-        minWidth: 479,
+        minWidth: 430,
 
     },
     body: {

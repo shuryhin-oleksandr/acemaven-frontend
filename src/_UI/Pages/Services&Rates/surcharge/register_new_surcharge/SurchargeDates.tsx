@@ -36,7 +36,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
 
 
     useEffect(() => {
-        if(surcharge && !sessionStorage.getItem('reg')) {
+        if(surcharge) {
             setSelectedDay({from: moment(surcharge.start_date, 'DD/MM/YYYY').toDate(),
                 to: moment(surcharge.expiration_date, 'DD/MM/YYYY').toDate()})
             setValue('from', surcharge.start_date)

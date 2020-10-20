@@ -64,19 +64,9 @@ type PropsType = {
 const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
     const classes = useStyles();
 
-    function createData(id: number, additional_surcharge: AdditionalSurchargeType, currency: any, charge: string, conditions: string, updated_by: string, date_updated: string) {
-        return { id, additional_surcharge, currency, charge, conditions, updated_by, date_updated};
-    }
-
-    const rows = props.charges && props.charges.length > 0
-        ? props.charges.map(c => createData(c.id, c.additional_surcharge, c.currency,
-            c.charge, c.conditions, c.updated_by, c.date_updated ))
-        : null
-
 
     let defaultCondition = conditions?.filter(co => {
         return props.charges?.find(c => co.title === c.conditions)
-
     })
 
     let defaultCurrency = currency?.filter(cu => {
@@ -100,20 +90,20 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows?.map((row) => (
-                            <TableRow key={row.id}>
+                        {props.charges?.map((charge) => (
+                            <TableRow key={charge.id}>
                                 <Controller control={props.control}
-                                            defaultValue={row.id}
-                                            name={`charges.${row.id}.additional_surcharge`}
+                                            defaultValue={charge.additional_surcharge.id}
+                                            name={`charges.${charge.id}.additional_surcharge`}
                                             as={
                                                 <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                                                    {row.additional_surcharge.title}
+                                                    {charge.additional_surcharge.title}
                                                 </TableCell>
                                             }
                                 />
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name={`charges.${row.id}.currency`}
+                                                name={`charges.${charge.id}.currency`}
                                                 defaultValue={defaultCurrency[0].id}
                                                 as={
                                                     <SurchargeRateSelect options={currency}
@@ -125,30 +115,30 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
-                                                name={`charges.${row.id}.charge`}
-                                                defaultValue={row.charge}
+                                                name={`charges.${charge.id}.charge`}
+                                                defaultValue={charge.charge}
                                                 // rules={{
                                                 //     pattern: /^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$/
                                                 // }}
                                                 as={
-                                                    <Field type='number' value={row.charge}
+                                                    <Field type='number' value={charge.charge}
                                                     />
                                                }
                                     />
                                 </TableCell>
-                                {row.additional_surcharge.id === 1
+                                {charge.additional_surcharge.id === 1
                                     ? <Controller control={props.control}
-                                                  defaultValue={row.conditions}
-                                                  name={`charges.${row.id}.conditions`}
+                                                  defaultValue={charge.conditions}
+                                                  name={`charges.${charge.id}.conditions`}
                                                   as={
                                                       <TableCell className={classes.innerCell} align="left">
-                                                          {row.conditions}
+                                                          fixed
                                                       </TableCell>
                                                   }
                                     />
                                     :  <Controller control={props.control}
                                                    defaultValue={defaultCondition[0].title}
-                                                   name={`charges.${row.id}.conditions`}
+                                                   name={`charges.${charge.id}.conditions`}
                                                    as={
                                                        <SurchargeRateConditionsSelect options={conditions}
                                                                             placeholder='Currency'
@@ -158,20 +148,20 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                     />
                                 }
                                 <Controller control={props.control}
-                                            defaultValue={row.updated_by}
-                                            name={`charges.${row.id}.updated_by`}
+                                            defaultValue={charge.updated_by}
+                                            name={`charges.${charge.id}.updated_by`}
                                             as={
                                                 <TableCell className={classes.innerCell} align="left">
-                                                    {row.updated_by}
+                                                    {charge.updated_by}
                                                 </TableCell>
                                             }
                                 />
                                 <Controller control={props.control}
-                                            defaultValue={row.date_updated}
-                                            name={`charges.${row.id}.date_updated`}
+                                            defaultValue={charge.date_updated}
+                                            name={`charges.${charge.id}.date_updated`}
                                             as={
                                                 <TableCell className={classes.innerCell} align="left">
-                                                    {row.date_updated}
+                                                    {charge.date_updated}
                                                 </TableCell>
                                             }
                                 />

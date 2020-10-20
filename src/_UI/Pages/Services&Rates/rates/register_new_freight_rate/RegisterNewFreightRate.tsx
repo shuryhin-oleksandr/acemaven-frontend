@@ -54,6 +54,7 @@ type PropsType = {
   rate_data_for_surcharge: RateForSurchargeType | null
   registration_success: string
   rate_info: RateInfoType | null,
+  //booked_dates: Array<{from: Date, to: Date}>
 };
 
 const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, register, errors,
@@ -66,7 +67,6 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
 
   const dispatch = useDispatch();
   const onSubmit = (values: any) => {
-    debugger
     let rates_array;
     if (values.rates.length > 1) {
       let full_rates = values.rates.filter((r: any) => r !== null);

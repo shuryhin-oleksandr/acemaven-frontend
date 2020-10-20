@@ -1,4 +1,5 @@
 import {AppStateType} from "../../store";
+import moment from "moment";
 
 export const getFreightRatesList = ((state: AppStateType) => state.rate.freight_rates_list)
 export const getOriginPorts = ((state: AppStateType) => state.rate.origin_ports)
@@ -12,3 +13,14 @@ export const getRateDataForSurcharge = ((state: AppStateType) => state.rate.rate
 export const getRegistrationSuccess = ((state: AppStateType) => state.rate.registration_success)
 export const getCheckedRateInfo = ((state: AppStateType) => state.rate.rate_info)
 export const getRateIsActive = ((state: AppStateType) => state.rate.rate_info?.is_active)
+export const getCurrentShippingTypeSelector = (state: AppStateType) => state.rate.current_shipping_type
+
+export const getRateBookedDatesSelector = (state: AppStateType) => {
+
+    // @ts-ignore
+    let bookedDates = state.rate.booked_dates && state.rate.booked_dates[0] && state.rate.booked_dates[0].map(b =>
+        ({container_type: b.container_type, disabledDates: [{from: new Date(b.start_date), to: new Date(b.expiration_date)}]})
+    )
+    console.log(bookedDates)
+    return bookedDates ? [...bookedDates] : null
+}

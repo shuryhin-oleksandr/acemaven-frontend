@@ -7,8 +7,10 @@ import {
   RateInfoType,
 } from "../../types/rates&surcharges/ratesTypes";
 import { SurchargeInfoType } from "../../types/rates&surcharges/surchargesTypes";
+import {CurrentShippingType} from "../../types/rates&surcharges/newSurchargesTypes";
 
 const initialState = {
+  current_shipping_type: 'sea' as CurrentShippingType | 'sea',
   shipping_type: null as ShippingTypeType[] | null,
   sea_carriers: null as CarrierType[] | null,
   air_carriers: null as CarrierType[] | null,
@@ -24,7 +26,7 @@ const initialState = {
   rate_data_for_surcharge: null as RateForSurchargeType | null,
   registration_success: "",
   rate_info: null as any | null,
-
+  booked_dates: null as Array<{container_type: number | null, start_date: string, expiration_date: string}> | null
 };
 
 type InitialStateType = typeof initialState;
@@ -33,6 +35,11 @@ export const rateReducer = (
   action: commonRateActions
 ): InitialStateType => {
   switch (action.type) {
+    case "SET_CURRENT_SHIPPING_TYPE":
+      return {
+        ...state,
+        current_shipping_type: action.current_type
+      };
     case "SET_ORIGIN_PORTS":
       return {
         ...state,
@@ -111,6 +118,12 @@ export const rateReducer = (
           }
         }),
       };
+    case "SET_BOOKED_DATES": {
+      return {
+        ...state,
+        booked_dates: action.booked_dates
+      }
+    }
     default:
       return state;
   }
@@ -122,6 +135,7 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U }
 export type commonRateActions = AC<typeof rateActions>;
 
 export const rateActions = {
+  setCurrentShippingType: (current_type: CurrentShippingType) => ({type: 'SET_CURRENT_SHIPPING_TYPE', current_type} as const),
   setOriginPortsList: (ports: PortType[]) =>
     ({ type: "SET_ORIGIN_PORTS", ports } as const),
   setDestinationPortsList: (ports: PortType[]) =>
@@ -153,4 +167,6 @@ export const rateActions = {
     ({ type: "SET_CHECKED_FREIGHT_RATE", freight_rate } as const),
   setActiveOrPaused: (rate: any) =>
     ({ type: "SET_ACTIVE_OR_PAUSED", rate } as const),
+  setBookedDates: (booked_dates: Array<{container_type: number, start_date: string, expiration_date: string}>) =>
+      ({type: 'SET_BOOKED_DATES', booked_dates} as const)
 };

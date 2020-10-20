@@ -42,8 +42,8 @@ const ExactSurchargeContainer = ({...props}) => {
 
     //ASYNC: check available dates
     useEffect(() => {
-        surcharge && dispatch(checkSurchargeDates({location: surcharge.location.id,
-            direction: surcharge.direction, shipping_mode: surcharge.shipping_mode.id, carrier: surcharge.carrier.id}))
+        //surcharge && dispatch(checkSurchargeDates({location: surcharge.location.id,
+            //direction: surcharge.direction, shipping_mode: surcharge.shipping_mode.id, carrier: surcharge.carrier.id}))
         if(surcharge) {
             setValue('start_date', surcharge.start_date)
             setValue('expiration_date', surcharge.expiration_date)

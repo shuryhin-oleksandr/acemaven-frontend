@@ -12,7 +12,7 @@ type PropsType = {
     errors: any
     classes: any
     reservedDates?: Array<{from: Date, to: Date} | {before: Date}>
-    id: number
+    id: any
     getSurchargeToRateHandle: (id: number, from: string, to: string) => void
     currentDates?: {from: Date, to: Date}
 }

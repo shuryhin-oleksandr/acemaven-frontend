@@ -75,7 +75,7 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
                             numberOfMonths: 1,
                             localeUtils: MomentLocaleUtils,
                             onDayClick: onDayClick,
-                            disabledDays: disabledDates,
+                            disabledDays: [...disabledDates, {before: new Date()}],
                         }}
                     />
                 }

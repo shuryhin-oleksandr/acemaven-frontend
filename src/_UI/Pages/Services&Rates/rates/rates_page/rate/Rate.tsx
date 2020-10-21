@@ -24,6 +24,11 @@ import ExistingRatesTable from "./ExistingRatesTable";
 import {SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargesToRate from "../../register_new_freight_rate/tables/SurchargesToRate";
 import RateEditPopUp from "../../../../../components/PopUps/RateEditPopUp/RateEditPopUp";
+import {editUsageFees} from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import {useDispatch, useSelector} from "react-redux";
+import {editRates} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {getEditSuccess} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 
 
 
@@ -46,21 +51,47 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, id, handleSubmit, errors, s
                                     existing_surcharge
                                   }) => {
   const [formMode, setFormMode] = useState(false);
-  const [rateEditPopUpVisible, setRateEditPopUpVisible] =useState(false);
+  const [rateEditPopUpVisible, setRateEditPopUpVisible] = useState(false);
+  let edit_success = useSelector(getEditSuccess)
 
   useEffect(() => {
-    if(rate) {
+    if(rate && rate.rates.length > 1) {
       rate.rates.map((r) => {
         setValue(`rates.${r.id}.rate`)
         setValue(`rates.${r.id}.from`, r.start_date)
         setValue(`rates.${r.id}.to`, r.expiration_date)
       })
     }
+    else {
+      rate && setValue(`rates.from`, rate.rates[0].start_date) && setValue(`rates.to`, rate.rates[0].expiration_date)
+    }
   }, [rate, setValue])
 
+const dispatch = useDispatch()
+  const onSubmit = (values: any) => {
+    debugger
+    values.rates && Object.keys(values.rates).forEach((key : any) => (values.rates[key] !== null && values.rates[key].from !== null
+        && dispatch(editRates(key, {
+          // @ts-ignore
+          container_type: values.rates[key].container_type,
+          rate: values.rates[key].rate,
+          currency: values.rates[key].currency,
+          start_date: values.rates[key].from,
+          expiration_date: values.rates[key].to
+        }))))
+      console.log('values', values)
+  }
+
+  useEffect(() => {
+    if(edit_success) {
+      setRateEditPopUpVisible(false)
+      setFormMode(false)
+      dispatch(rateActions.setEditSuccess(''))
+    }
+  }, [edit_success])
 
   return (
-    <RateContainer>
+    <RateContainer onSubmit={handleSubmit(onSubmit)}>
       {rateEditPopUpVisible &&<RateEditPopUp setRateEditPopUpVisible={setRateEditPopUpVisible}/>}
       <Wrap>
         <RateTitle>Freight Rate</RateTitle>
@@ -137,6 +168,7 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, id, handleSubmit, errors, s
                                 getValues={getValues}
                                 errors={errors}
                                 getSurchargeForRate={getSurchargeForRate}
+                                setFormMode={setFormMode}
             />
           )}
           {existing_surcharge && <SurchargesToRate existing_surcharge={existing_surcharge}/>}

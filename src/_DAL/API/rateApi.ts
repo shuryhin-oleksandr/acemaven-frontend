@@ -38,4 +38,7 @@ export const rateAPI = {
   setActiveOrPausedRate(id: number, value: boolean) {
     return instance.patch(`/booking/freight-rate/${id}/`, { is_active: value });
   },
+  editRates (id: number | undefined, rates: Array<{container_type: number, currency: number, rate: string, updated_by: string, date_updated: string}>) {
+    return instance.patch(`/booking/rate/${id}/`, rates)
+  }
 };

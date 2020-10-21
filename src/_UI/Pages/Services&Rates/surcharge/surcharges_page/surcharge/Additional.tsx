@@ -117,9 +117,6 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                     <Controller control={props.control}
                                                 name={`charges.${charge.id}.charge`}
                                                 defaultValue={charge.charge}
-                                                // rules={{
-                                                //     pattern: /^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$/
-                                                // }}
                                                 as={
                                                     <Field type='number' value={charge.charge}
                                                     />

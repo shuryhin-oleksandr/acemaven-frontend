@@ -105,7 +105,7 @@ const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => 
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller control={control}
                                                 name={`charges.${charge.id}.currency`}
-                                                defaultValue={currency[0]?.id}
+                                                defaultValue={currency[0].id}
                                                 as={
                                                     <SurchargeRateSelect options={currency}
                                                                          placeholder='Currency'

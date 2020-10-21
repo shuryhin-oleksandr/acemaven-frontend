@@ -125,12 +125,14 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
             setValue(`rates.${id}.rate`, e.currentTarget.value)
         }
     }
+/*
 
 let disables;
     if (reservedDates) {
         disables = reservedDates[0]
         console.log('disables', disables.disabledDates)
     }
+*/
 
 
     return (
@@ -266,7 +268,7 @@ let disables;
                                     classes={classes}
                                     getValues={getValues}
                                     getSurchargeToRateHandle={getSurchargeToRateHandle}
-                                    reservedDates={disables?.disabledDates || []}
+                                    reservedDates={reservedDates? reservedDates[0].disabledDates : []}
                                 />
                             </TableRow>
                         }

@@ -18,12 +18,13 @@ import {useSelector} from "react-redux";
 import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 
 type PropsType = {
-    rate: RateInfoType | null,
+    rate: any//RateInfoType | null,
     control: any,
     setValue: (value: string | number) => void,
     getValues: any
     errors: any
     getSurchargeForRate: any
+    setFormMode: (value: boolean) => void
 }
 
 const useStyles = makeStyles({
@@ -63,11 +64,19 @@ const useStyles = makeStyles({
     }
 });
 
-const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setValue,errors, getSurchargeForRate}) => {
+const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setValue,errors, getSurchargeForRate, setFormMode}) => {
     const classes = useStyles();
 
     let reservedDates = useSelector(getRateBookedDatesSelector)
 
+    /*let a =  rate?.rates.map((fee: any) => {
+        if (reservedDates) {
+            return {...fee, ...reservedDates.find(d => d.container_type === fee.container_type.id)}
+        } else {
+            return fee
+        }
+    })
+    console.log('a', a)*/
 
     return (
         <div style={{width: '100%', maxWidth: '1002px'}}>
@@ -103,13 +112,13 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rate?.rates.map((r: any) => (
+                        {   rate.rates.map((r: any ) => (
                             <TableRow key={r.id} className={classes.info_row}>
                                 {rate?.shipping_mode.id === 2 ||
                                 (rate?.shipping_mode.id === 3 && (
                                     <Controller
                                         control={control}
-                                        defaultValue={r.id}
+                                        defaultValue={r.container_type.id}
                                         name={`rates.${r.id}.container_type`}
                                         as={
                                             <TableCell
@@ -117,12 +126,14 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                                 component="th"
                                                 scope="row"
                                             >
-                                                <SpanType onClick={() => getSurchargeForRate(r.start_date, r.expiration_date)}>{r.container_type.code}</SpanType>
+                                                <SpanType onClick={() => getSurchargeForRate(r.start_date, r.expiration_date)}>
+                                                    {r.container_type.code}
+                                                </SpanType>
                                             </TableCell>
                                         }
                                     />
                                 ))}
-                                <TableCell className={classes.innerCell} align="left">
+                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
                                     <Controller
                                         control={control}
                                         name={`rates.${r.id}.currency`}
@@ -135,7 +146,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                         }
                                     />
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">
+                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
                                     <Controller
                                         control={control}
                                         name={`rates.${r.id}.rate`}
@@ -153,16 +164,17 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                     setValue={setValue}
                                     control={control}
                                     id={r.id}
-                                    reservedDates={[{from: new Date(), to: new Date()}]}
+                                    reservedDates={r.disabledDates || []}
                                     errors={errors}
                                     classes={classes}
                                     getValues={getValues}
                                     getSurchargeToRateHandle={() => {}}
+                                    setFormMode={setFormMode}
                                 />
                                 <Controller
                                     control={control}
                                     defaultValue={r.updated_by}
-                                    name={`rates.${r.container_type?.id}.updated_by`}
+                                    name={`rates.${r.id}.updated_by`}
                                     as={
                                         <TableCell
                                             className={classes.innerCell}
@@ -175,7 +187,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                 <Controller
                                     control={control}
                                     defaultValue={r.date_updated}
-                                    name={`rates.${r.container_type?.id}.date_updated`}
+                                    name={`rates.${r.id}.date_updated`}
                                     as={
                                         <TableCell
                                             className={classes.innerCell}
@@ -186,7 +198,8 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                     }
                                 />
                             </TableRow>
-                        ))}
+                        ))
+                        }
                     </TableBody>
                 </Table>
             </TableContainer>

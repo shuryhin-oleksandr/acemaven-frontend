@@ -8,6 +8,7 @@ import {
 } from "../../types/rates&surcharges/ratesTypes";
 import { SurchargeInfoType } from "../../types/rates&surcharges/surchargesTypes";
 import {CurrentShippingType} from "../../types/rates&surcharges/newSurchargesTypes";
+import {strict} from "assert";
 
 const initialState = {
   current_shipping_type: 'sea' as CurrentShippingType | 'sea',
@@ -26,7 +27,8 @@ const initialState = {
   rate_data_for_surcharge: null as RateForSurchargeType | null,
   registration_success: "",
   rate_info: null as any | null,
-  booked_dates: null as Array<Array<{container_type: number | null, start_date: string, expiration_date: string}>> | null
+  booked_dates: null as Array<Array<{container_type: number | null, start_date: string, expiration_date: string}>> | null,
+  edit_success: ''
 };
 
 type InitialStateType = typeof initialState;
@@ -124,6 +126,12 @@ export const rateReducer = (
         booked_dates: action.booked_dates
       }
     }
+    case "SET_EDIT_RATE_SUCCESS": {
+      return {
+        ...state,
+        edit_success: action.success
+      }
+    }
     default:
       return state;
   }
@@ -168,5 +176,6 @@ export const rateActions = {
   setActiveOrPaused: (rate: any) =>
     ({ type: "SET_ACTIVE_OR_PAUSED", rate } as const),
   setBookedDates: (booked_dates: Array<Array<{container_type: number, start_date: string, expiration_date: string}>>) =>
-      ({type: 'SET_BOOKED_DATES', booked_dates} as const)
+      ({type: 'SET_BOOKED_DATES', booked_dates} as const),
+  setEditSuccess: (success: string) => ({type: 'SET_EDIT_RATE_SUCCESS', success} as const)
 };

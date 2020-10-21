@@ -14,10 +14,11 @@ type PropsType = {
     reservedDates?: Array<{from: Date, to: Date} | {before: Date}>
     id: any
     getSurchargeToRateHandle: (id: number, from: string, to: string) => void
-    currentDates?: {from: Date, to: Date}
+    currentDates?: {from: string, to: string}
+    setFormMode?: (value: boolean) => void
 }
 
-const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, errors, classes, reservedDates, id, getSurchargeToRateHandle}) => {
+const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, errors, classes, reservedDates, id, getSurchargeToRateHandle, setFormMode}) => {
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
@@ -25,6 +26,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
     })
 
     useEffect(() => {
+        console.log('current', currentDates)
         currentDates &&
         setSelectedDay({
             from: moment(currentDates?.from, 'DD/MM/YYYY').toDate(),
@@ -60,7 +62,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
 
     return (
         <>
-            <TableCell className={classes.innerCell} >
+            <TableCell className={classes.innerCell} onClick={() => setFormMode && setFormMode(true)}>
                 <Calendar
                     label='Start Date'
                     name={`rates.${id}.from`}
@@ -79,7 +81,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
                     margin_bottom='0'
                 />
             </TableCell>
-            <TableCell className={classes.innerCell} >
+            <TableCell className={classes.innerCell} onClick={() => setFormMode && setFormMode(true)}>
                 <Calendar
                     label='Expiration Date'
                     name={`rates.${id}.to`}

@@ -6,6 +6,9 @@ import {
 import { rateAPI } from "../../../_DAL/API/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
+import {editHandlingType} from "../../types/rates&surcharges/surchargesTypes";
+import {commonSurchargeActions, surchargeActions} from "../../reducers/surcharge&rates/surchargeReducer";
+import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
 
 type ThunkType = ThunkAction<
   Promise<void>,
@@ -49,6 +52,7 @@ export const registerNewFreightRateThunk = (freight_data: any) => {
       let res = await rateAPI.registerNewSurcharge(freight_data);
       dispatch(rateActions.setNewFreightRate(res.data));
       dispatch(rateActions.setRegistrationSuccess("success"));
+      dispatch(rateActions.setExistingSurchargeByRate(null));
     } catch (e) {
       console.log(e.response);
     }
@@ -128,3 +132,14 @@ export const ActivateRateThunk = (id: number, value: boolean) => {
   }
 }
 
+
+export const editRates = (id: number | undefined, rates : Array<{container_type: number, currency: number, rate: string, updated_by: string, date_updated: string}>) => {
+  return async (dispatch: Dispatch<commonRateActions>) => {
+    try {
+      let res = await rateAPI.editRates(id, rates)
+      res.data && dispatch(rateActions.setEditSuccess('success'))
+    } catch (e) {
+      console.log(e.response)
+    }
+  }
+}

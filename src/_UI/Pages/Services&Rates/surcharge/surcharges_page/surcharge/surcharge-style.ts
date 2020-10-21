@@ -7,7 +7,7 @@ type PropsStyle = {
 }
 
 export const SurchargeContainer = styled.form`
-padding: 50px 80px 30px 30px;
+padding: 50px 80px 80px 30px;
 height: 100% ;
 min-height: 100vh;
 width: 100%;

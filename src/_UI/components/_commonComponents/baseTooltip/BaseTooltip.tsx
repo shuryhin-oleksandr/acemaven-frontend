@@ -8,7 +8,6 @@ const useStyles = makeStyles({
       backgroundColor: "rgba(59, 59, 65, 0.9)",
     },
     maxWidth: 330,
-
     fontFamily: "Helvetica Reg",
     fontSize: "14px",
     display: "flex",

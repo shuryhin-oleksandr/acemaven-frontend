@@ -19,6 +19,7 @@ import {Controller} from "react-hook-form";
 import SurchargeRateConditionsSelect
     from "../../../../../components/_commonComponents/select/SurchargeRateConditionsSelect";
 import {conditions, currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+import ConditionSelect from "../../../../../components/ConditionSelect/ConditionSelect";
 
 
 const useStyles = makeStyles({
@@ -58,20 +59,18 @@ type PropsType = {
     setFormMode?: VoidFunctionType,
     charges?: ChargesType[],
     control: any,
-    errors: any
+    errors: any,
+    setValue: (name: string, value: any) => void
 }
 
-const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
+const Additional:React.FC<PropsType> = ({setFormMode,setValue, ...props}) => {
     const classes = useStyles();
 
 
-    let defaultCondition = conditions?.filter(co => {
-        return props.charges?.find(c => co.title === c.conditions)
-    })
-
-    let defaultCurrency = currency?.filter(cu => {
-       return props.charges?.find(c => c.currency.id === cu.id)
-    })
+    let findConditionDefaultValue = (name:string) =>{
+        const filtered = conditions.filter(condition=>condition.title===name);
+        return filtered[0].title;
+    };
 
 
     return (
@@ -104,7 +103,7 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
                                                 name={`charges.${charge.id}.currency`}
-                                                defaultValue={defaultCurrency[0].id}
+                                                defaultValue={charge.currency.id}
                                                 as={
                                                     <SurchargeRateSelect options={currency}
                                                                          placeholder='Currency'
@@ -129,18 +128,27 @@ const Additional:React.FC<PropsType> = ({setFormMode, ...props}) => {
                                                   name={`charges.${charge.id}.conditions`}
                                                   as={
                                                       <TableCell className={classes.innerCell} align="left">
-                                                          fixed
+                                                          {charge.conditions}
                                                       </TableCell>
                                                   }
                                     />
                                     :  <Controller control={props.control}
-                                                   defaultValue={defaultCondition[0].title}
+                                                   defaultValue={findConditionDefaultValue(charge.conditions)}
                                                    name={`charges.${charge.id}.conditions`}
                                                    as={
-                                                       <SurchargeRateConditionsSelect options={conditions}
-                                                                            placeholder='Currency'
-
-                                                       />
+                                                       // <SurchargeRateConditionsSelect options={conditions}
+                                                       //                      placeholder='Currency'
+                                                       //
+                                                       // />
+                                                       <TableCell className={classes.innerCell} align="left">
+                                                         <ConditionSelect
+                                                             options={conditions}
+                                                             name={`charges.${charge.id}.conditions`}
+                                                             setValue={setValue}
+                                                             defaultV={findConditionDefaultValue(charge.conditions)}
+                                                             setFormMode={setFormMode}
+                                                         />
+                                                       </TableCell>
                                                    }
                                     />
                                 }

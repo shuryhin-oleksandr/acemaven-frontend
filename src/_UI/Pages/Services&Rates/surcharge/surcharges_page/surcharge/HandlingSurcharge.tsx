@@ -86,7 +86,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
                                 <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
                                     <Controller control={props.control}
                                                 name={`usage_fees.${fee.id}.currency`}
-                                                defaultValue={currency[0].id}
+                                                defaultValue={fee.currency.id}
                                                as={
                                                     <SurchargeRateSelect options={currency}
                                                                          placeholder='Currency'

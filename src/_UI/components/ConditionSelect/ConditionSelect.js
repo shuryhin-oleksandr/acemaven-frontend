@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Tooltip } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Arrow from "../../assets/icons/selectArrow.svg";
+import ArrowOpened from "../../assets/icons/selectArrowOpened.svg";
 const useStyles = makeStyles({
   customTooltip: {
     "& .MuiTooltip-arrow::before": {
@@ -26,7 +27,6 @@ const ConditionSelect = ({
   defaultV,
   setFormMode,
 }) => {
-  console.log("defaultV", defaultV);
   const [boxVisible, setBoxVisible] = useState(false);
   const [displayValue, setDisplayValue] = useState(defaultV);
   const classes = useStyles();
@@ -46,18 +46,11 @@ const ConditionSelect = ({
       onClick={(e) => {
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
+        setFormMode(true);
+        setBoxVisible(!boxVisible);
       }}
     >
-      <Main
-        onClick={(e) => {
-          e.stopPropagation();
-          e.nativeEvent.stopImmediatePropagation();
-          setFormMode(true);
-          setBoxVisible(!boxVisible);
-        }}
-      >
-        {displayValue}
-      </Main>
+      <Main>{displayValue}</Main>
       {boxVisible && (
         <Box>
           {options.map((o) => (
@@ -81,7 +74,7 @@ const ConditionSelect = ({
           ))}
         </Box>
       )}
-      <ArrowImg src={Arrow} alt="" />
+      <ArrowImg src={boxVisible ? ArrowOpened : Arrow} alt="" />
     </Wrapper>
   );
 };
@@ -128,7 +121,7 @@ const StyledOption = styled.div`
 
 const ArrowImg = styled.img`
   position: absolute;
-  top: 20px;
+  top: 18px;
   right: 20px;
   width: 10px;
 `;

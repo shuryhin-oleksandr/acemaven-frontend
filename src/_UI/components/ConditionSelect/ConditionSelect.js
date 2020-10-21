@@ -19,7 +19,13 @@ const useStyles = makeStyles({
   },
 });
 
-const ConditionSelect = ({ options, name, setValue, defaultV }) => {
+const ConditionSelect = ({
+  options,
+  name,
+  setValue,
+  defaultV,
+  setFormMode,
+}) => {
   console.log("defaultV", defaultV);
   const [boxVisible, setBoxVisible] = useState(false);
   const [displayValue, setDisplayValue] = useState(defaultV);
@@ -46,6 +52,7 @@ const ConditionSelect = ({ options, name, setValue, defaultV }) => {
         onClick={(e) => {
           e.stopPropagation();
           e.nativeEvent.stopImmediatePropagation();
+          setFormMode(true);
           setBoxVisible(!boxVisible);
         }}
       >

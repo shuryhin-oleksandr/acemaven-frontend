@@ -26,7 +26,7 @@ const initialState = {
   rate_data_for_surcharge: null as RateForSurchargeType | null,
   registration_success: "",
   rate_info: null as any | null,
-  booked_dates: null as Array<{container_type: number | null, start_date: string, expiration_date: string}> | null
+  booked_dates: null as Array<Array<{container_type: number | null, start_date: string, expiration_date: string}>> | null
 };
 
 type InitialStateType = typeof initialState;
@@ -167,6 +167,6 @@ export const rateActions = {
     ({ type: "SET_CHECKED_FREIGHT_RATE", freight_rate } as const),
   setActiveOrPaused: (rate: any) =>
     ({ type: "SET_ACTIVE_OR_PAUSED", rate } as const),
-  setBookedDates: (booked_dates: Array<{container_type: number, start_date: string, expiration_date: string}>) =>
+  setBookedDates: (booked_dates: Array<Array<{container_type: number, start_date: string, expiration_date: string}>>) =>
       ({type: 'SET_BOOKED_DATES', booked_dates} as const)
 };

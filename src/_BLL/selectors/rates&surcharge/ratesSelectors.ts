@@ -23,4 +23,21 @@ export const getRateBookedDatesSelector = (state: AppStateType) => {
     )
     console.log(bookedDates)
     return bookedDates ? [...bookedDates] : null
+
+
+   /* if(state.rate.booked_dates && state.rate.booked_dates.length > 1 ) {
+        return state.rate.booked_dates.map(rate => rate.map(container => (
+            {...container, disabledDates: [{from: container.start_date, to: container.expiration_date}]}
+            // @ts-ignore
+        ))).reduce((current, next) => {
+            return current.map(container => {
+                let sameNextContainer = next.find(n => n.container_type === container.container_type)
+                return {container_type: container.container_type, disabledDates: [...container.disabledDates, ...sameNextContainer?.disabledDates]}
+            })
+        })
+    } else {
+        return state.rate.booked_dates?.map(rate => rate.map(container => (
+            {...container, disabledDates: [{from: container.start_date, to: container.expiration_date}]}
+        )))
+    }*/
 }

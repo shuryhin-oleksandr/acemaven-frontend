@@ -46,7 +46,7 @@ const ConditionSelect = ({
       onClick={(e) => {
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
-        setFormMode(true);
+        !!setFormMode && setFormMode(true);
         setBoxVisible(!boxVisible);
       }}
     >

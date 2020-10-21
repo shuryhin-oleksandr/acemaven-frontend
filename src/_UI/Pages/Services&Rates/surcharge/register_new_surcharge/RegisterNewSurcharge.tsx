@@ -138,6 +138,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                             control={control}
                             shippingMode={shippingValue}
                             charges={additional}
+                            setValue={setValue}
                         />
 
                     }

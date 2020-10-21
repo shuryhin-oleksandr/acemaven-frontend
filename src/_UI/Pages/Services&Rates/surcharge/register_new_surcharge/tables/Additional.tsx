@@ -18,6 +18,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {ShippingModeEnum} from "../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {AdditionalSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {conditions, currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+import ConditionSelect from "../../../../../components/ConditionSelect/ConditionSelect";
 
 const useStyles = makeStyles({
     container: {
@@ -53,12 +54,14 @@ type PropsType = {
     control: any
     shippingMode: number
     charges: AdditionalSurchargeType[]
+    setValue?:(name: string, value: string | number) => void
 }
 
-const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => {
+const Additional: React.FC<PropsType> = ({ control, setValue, shippingMode, charges }) => {
 
     const classes = useStyles()
     const noConditions = ShippingModeEnum.FCL === shippingMode
+
 
     return (
         <HandlingSurchargeContainer max_width='662px' max_height='490px'>
@@ -94,10 +97,20 @@ const Additional: React.FC<PropsType> = ({ control, shippingMode, charges }) => 
                                                         ? <TableCell className={classes.innerCell} >
                                                             {'fixed'}
                                                             </TableCell>
-                                                        : <SurchargeRateConditionsSelect options={conditions}
-                                                                                        placeholder='Currency'
-                                                                                        maxW='80px'
-                                                        />
+                                                        :
+                                                        // : <SurchargeRateConditionsSelect options={conditions}
+                                                        //                                 placeholder='Currency'
+                                                        //                                 maxW='80px'
+                                                        // />
+                                                        <TableCell className={classes.innerCell} align="left">
+                                                            <ConditionSelect
+                                                            options={conditions}
+                                                            name={`charges.${charge.id}.conditions`}
+                                                            setValue={setValue}
+                                                            defaultV={conditions[0]?.title}
+                                                            setFormMode=""
+                                                            />
+                                                        </TableCell>
                                                     }
                                         />
 

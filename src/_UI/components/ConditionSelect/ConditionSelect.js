@@ -101,21 +101,25 @@ const Main = styled.div`
 
 const Box = styled.div`
   position: absolute;
-  top: 50px;
+  top: 45px;
   min-width: 100%;
   background-color: white;
   z-index: 100;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
     0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
-  padding: 8px 0;
+  padding: 8px 2px;
 `;
 
 const StyledOption = styled.div`
   padding: 6px 16px;
   cursor: pointer;
+  border-radius: 4px;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #7c7c89;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: #115b86;
+    color: white;
   }
 `;
 

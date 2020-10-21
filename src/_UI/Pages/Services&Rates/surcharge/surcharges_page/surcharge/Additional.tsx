@@ -157,7 +157,7 @@ const Additional:React.FC<PropsType> = ({setFormMode,setValue, ...props}) => {
                                                        //
                                                        // />
                                                        <TableCell className={classes.innerCell} align="left">
-                                                         <ConditionSelect options={conditions} name={`charges.${row.id}.conditions`} setValue={setValue}/>
+                                                         <ConditionSelect options={conditions} name={`charges.${row.id}.conditions`} setValue={setValue} defaultV={defaultCondition[0].title}/>
                                                        </TableCell>
                                                    }
                                     />

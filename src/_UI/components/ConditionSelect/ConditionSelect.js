@@ -19,16 +19,17 @@ const useStyles = makeStyles({
   },
 });
 
-const ConditionSelect = ({ options, name, setValue }) => {
+const ConditionSelect = ({ options, name, setValue, defaultV }) => {
+  console.log("defaultV", defaultV);
   const [boxVisible, setBoxVisible] = useState(false);
-  const [displayValue, setDisplayValue] = useState(options[0].title);
+  const [displayValue, setDisplayValue] = useState(defaultV);
   const classes = useStyles();
   const Listener = () => {
     setBoxVisible(false);
   };
   useEffect(() => {
     document.addEventListener("click", Listener);
-    setValue(name, options[0].id);
+    setValue(name, defaultV);
 
     return () => {
       document.removeEventListener("click", Listener);
@@ -64,7 +65,7 @@ const ConditionSelect = ({ options, name, setValue }) => {
                 onClick={() => {
                   setDisplayValue(o.title);
                   setBoxVisible(false);
-                  setValue(name, o.id);
+                  setValue(name, o.title);
                 }}
               >
                 {o.title}

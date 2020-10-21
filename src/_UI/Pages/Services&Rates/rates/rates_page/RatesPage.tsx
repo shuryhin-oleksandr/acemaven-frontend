@@ -14,7 +14,7 @@ import styled from "styled-components";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
-import { FreightRateObjectType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {FreightRateObjectType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
@@ -88,7 +88,7 @@ type PropsType = {
   searchColumn: string;
   setSearchColumn: VoidFunctionType;
   setNewRateMode: VoidFunctionType;
-  setCheckedFreightRate: (id: number) => void;
+  setCheckedFreightRate: (rate: any) => void;
 };
 
 const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
@@ -279,7 +279,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                       classes={{ tooltip: classes.customTooltip }}
                     >
                       <TemplateIcon
-                        onClick={() => props.setCheckedFreightRate(row.id)}
+                        onClick={() => props.setCheckedFreightRate(row)}
                       >
                         <img src={template_icon} alt="" />
                       </TemplateIcon>

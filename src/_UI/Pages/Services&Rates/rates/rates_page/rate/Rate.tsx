@@ -146,4 +146,4 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, id, handleSubmit, errors, s
   );
 };
 
-export default Rate;
+export default Rate

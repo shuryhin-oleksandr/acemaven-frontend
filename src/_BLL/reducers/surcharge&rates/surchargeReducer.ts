@@ -9,6 +9,7 @@ import {CurrentShippingType} from "../../types/rates&surcharges/newSurchargesTyp
 
 
 const initialState = {
+    isFetching: false,
     current_shipping_type: 'sea' as CurrentShippingType | 'sea',
     sea_carriers: null as CarrierType[] | null,
     air_carriers: null as CarrierType[] | null,
@@ -28,6 +29,11 @@ type InitialStateType = typeof initialState
 
 export const surchargeReducer = (state = initialState, action: commonSurchargeActions):InitialStateType => {
     switch (action.type) {
+        case "SET_IS_FETCHING":
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
         case "SET_CURRENT_SHIPPING_TYPE":
             return {
                 ...state,
@@ -108,5 +114,6 @@ export const surchargeActions = {
     setSurchargeInfo: (info: SurchargeInfoType | null) => ({type: 'SET_SURCHARGE_INFO', info} as const),
     setEditSurchargeSuccess: (success: string) => ({type: 'SET_EDIT_SURCHARGE_SUCCESS', success} as const),
     setBookedDates: (bookedDates: SurchargeCheckDateResponseType) => ({type: 'SET_BOOKED_DATES', bookedDates} as const),
-    setCurrentShippingType: (current_type: CurrentShippingType) => ({type: 'SET_CURRENT_SHIPPING_TYPE', current_type} as const)
+    setCurrentShippingType: (current_type: CurrentShippingType) => ({type: 'SET_CURRENT_SHIPPING_TYPE', current_type} as const),
+    setIsFetching: (isFetching: boolean) => ({type: 'SET_IS_FETCHING', isFetching} as const)
 }

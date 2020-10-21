@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import {getFreightRatesList, getRegistrationSuccess} from "../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import {RateInfoType} from "../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 const RatesContainer: React.FC = () => {
   const [mode, setMode] = useState("sea");
@@ -49,8 +50,9 @@ const RatesContainer: React.FC = () => {
   };
 
   //use existing FR as template for the new one
-  const setCheckedFreightRate = (id: number) => {
-    dispatch(getRateInfoThunk(id))
+  const setCheckedFreightRate = (rate: RateInfoType) => {
+    dispatch(rateActions.setCurrentShippingType(rate.shipping_type))
+    dispatch(getRateInfoThunk(rate.id))
     setNewRateMode(true)
   }
 

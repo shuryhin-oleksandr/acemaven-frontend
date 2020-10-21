@@ -1,4 +1,5 @@
 import { SurchargeInfoType } from "./surchargesTypes";
+import {CurrentShippingType} from "./newSurchargesTypes";
 
 export type CurrencyType = {
   id: number;
@@ -100,6 +101,6 @@ export type RateInfoType = {
   origin: PortType;
   rates: FreightRateRateType[];
   shipping_mode: ShippingModeType;
-  shipping_type: string;
+  shipping_type: CurrentShippingType;
   transit_time: number;
 };

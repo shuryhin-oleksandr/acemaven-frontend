@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../../../_BLL/store";
 import { withRouter } from "react-router";
 import {
-    ActivateRateThunk,
+    ActivateRateThunk, checkRatesDatesThunk,
     getRateInfoThunk,
     getSurchargeForExactRateThunk
 } from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
@@ -39,6 +39,13 @@ const ExactRateContainer = ({...props}) => {
 
     //get surcharges for rate with 0 containers
     useEffect(() => {
+        rate && dispatch(checkRatesDatesThunk(
+            {
+                carrier: rate?.carrier.id, shipping_mode: rate?.shipping_mode.id,
+                origin: rate?.origin.id, destination: rate?.destination.id
+            }
+            )
+        )
         if(rate?.rates?.length === 1 && rate.rates[0].container_type === null) {
             let rate_data = {
                 carrier: rate.carrier.id,

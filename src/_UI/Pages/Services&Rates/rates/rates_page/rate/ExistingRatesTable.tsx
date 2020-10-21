@@ -14,6 +14,8 @@ import {Field} from "../../../../../components/_commonComponents/Input/input-sty
 import DatesCells from "../../register_new_freight_rate/tables/DatesCells";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {useSelector} from "react-redux";
+import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 
 type PropsType = {
     rate: RateInfoType | null,
@@ -63,6 +65,9 @@ const useStyles = makeStyles({
 
 const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setValue,errors, getSurchargeForRate}) => {
     const classes = useStyles();
+
+    let reservedDates = useSelector(getRateBookedDatesSelector)
+
 
     return (
         <div style={{width: '100%', maxWidth: '1002px'}}>
@@ -148,7 +153,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                     setValue={setValue}
                                     control={control}
                                     id={r.id}
-                                    //reservedDates={reservedDates}
+                                    reservedDates={[{from: new Date(), to: new Date()}]}
                                     errors={errors}
                                     classes={classes}
                                     getValues={getValues}

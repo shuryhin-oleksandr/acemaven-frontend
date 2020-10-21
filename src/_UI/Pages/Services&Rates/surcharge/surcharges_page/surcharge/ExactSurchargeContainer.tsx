@@ -5,11 +5,12 @@ import {useForm} from "react-hook-form";
 import {withRouter} from 'react-router';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    getEditSurchargeSelector,
+    getEditSurchargeSelector, getIsFetchingSelector,
     getSurcharge
 } from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {checkSurchargeDates, getSurchargeInfo} from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {surchargeActions} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
+import SurchargeDetailsSkeleton from "../../../../../skeleton/rates&surcharges/rates/SurchargeDetailsSkeleton";
 
 
 const ExactSurchargeContainer = ({...props}) => {
@@ -22,6 +23,7 @@ const ExactSurchargeContainer = ({...props}) => {
     const [formMode, setFormMode] = useState(false)
 
     //data from store
+    let isFetching = useSelector(getIsFetchingSelector)
     let surcharge = useSelector(getSurcharge)
     let edit_success = useSelector(getEditSurchargeSelector)
     let id = props.match.params.id
@@ -40,8 +42,8 @@ const ExactSurchargeContainer = ({...props}) => {
 
     //ASYNC: check available dates
     useEffect(() => {
-        surcharge && dispatch(checkSurchargeDates({location: surcharge.location.id,
-            direction: surcharge.direction, shipping_mode: surcharge.shipping_mode.id, carrier: surcharge.carrier.id}))
+        //surcharge && dispatch(checkSurchargeDates({location: surcharge.location.id,
+            //direction: surcharge.direction, shipping_mode: surcharge.shipping_mode.id, carrier: surcharge.carrier.id}))
         if(surcharge) {
             setValue('start_date', surcharge.start_date)
             setValue('expiration_date', surcharge.expiration_date)
@@ -58,8 +60,10 @@ const ExactSurchargeContainer = ({...props}) => {
 
 
     return (
-        <Layout>;
-            <Surcharge handleSubmit={handleSubmit}
+        <Layout>
+            {isFetching && !surcharge
+                ? <SurchargeDetailsSkeleton />
+                : <Surcharge handleSubmit={handleSubmit}
                        setValue={setValue}
                        surcharge={surcharge}
                        control={control}
@@ -67,6 +71,9 @@ const ExactSurchargeContainer = ({...props}) => {
                        formMode={formMode}
                        setFormMode={setFormMode}
             />
+            }
+
+
         </Layout>
     )
 }

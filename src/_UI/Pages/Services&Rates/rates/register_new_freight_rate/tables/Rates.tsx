@@ -22,6 +22,7 @@ import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import {RateForSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import styled from "styled-components";
+import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 
 const useStyles = makeStyles({
     container: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    usageFees: ContainerType[]
+    usageFees:ContainerType[]
     control: any
     errors: any
     setValue: any
@@ -75,9 +76,9 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                        rate_data_for_surcharge, surcharge}) => {
     const classes = useStyles()
 
-    const reservedDates = useSelector(getBookedDates)
-    const bookedDates = reservedDates?.push({before: new Date()})
-    console.log('bookes', bookedDates)
+    const reservedDates = useSelector(getRateBookedDatesSelector)
+
+    console.log('reservedDates', reservedDates)
 
 
     //CALENDAR
@@ -125,6 +126,13 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
         }
     }
 
+let disables;
+    if (reservedDates) {
+        disables = reservedDates[0]
+        console.log('disables', disables.disabledDates)
+    }
+
+
     return (
         <div>
             <HandlingTitle>RATES</HandlingTitle>
@@ -154,7 +162,13 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                     </TableHead>
                     <TableBody>
                         {usageFees.length > 0
-                            ? usageFees?.map((fee) => (
+                            ? usageFees.map(fee => {
+                                if(reservedDates) {
+                                    return {...fee, ...reservedDates.find(d => d.container_type === fee.id)}
+                                } else {
+                                    return fee
+                                }
+                            }).map(fee => (
                             <TableRow key={fee.id} >
                                 <Controller control={control}
                                             defaultValue={fee.id}
@@ -189,9 +203,11 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                                        <Field placeholder='0.00$' maxW='100px'
                                                               onChange={(e) => onChange(e, String(fee.id))}
                                                               onBlur={() => setAware(false)}
+                                                              type='number'
                                                        />
                                                        {awareMessage && String(fee.id) === rate_value
-                                                       && <SpanAware><Title>Rate will be register as 0. Are you sure?</Title></SpanAware>}
+                                                       && <SpanAware><Title>You are setting this freight rate as $0 and only surcharges will apply,
+                                                           please double check before saving.</Title></SpanAware>}
                                                    </div>
                                                     )
                                                 }
@@ -202,7 +218,8 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                     setValue={setValue}
                                     control={control}
                                     id={fee.id}
-                                    reservedDates={reservedDates}
+                                    // @ts-ignore
+                                    reservedDates={fee.disabledDates || []}
                                     errors={errors}
                                     classes={classes}
                                     getValues={getValues}
@@ -210,7 +227,8 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                 />
                             </TableRow>
                         ))
-                            : <TableRow >
+                            :
+                            <TableRow >
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller control={control}
                                                 name={`rates.currency`}
@@ -244,11 +262,11 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                     setValue={setValue}
                                     control={control}
                                     id={0}
-                                    reservedDates={reservedDates}
                                     errors={errors}
                                     classes={classes}
                                     getValues={getValues}
                                     getSurchargeToRateHandle={getSurchargeToRateHandle}
+                                    reservedDates={disables?.disabledDates || []}
                                 />
                             </TableRow>
                         }
@@ -263,7 +281,7 @@ export default Rates
 
 
 const SpanAware = styled.div`
-  width: 180px;
+  width: 400px;
   height: 60px;
   background-color: rgba(0, 0, 0, .6);
   color: white;
@@ -275,7 +293,8 @@ const SpanAware = styled.div`
   z-index: 150;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 58% 75%, 51% 93%, 43% 75%, 0% 75%);
+ clip-path: polygon(0% 0%, 100% 0%, 100% 73%, 88% 73%, 86% 90%, 84% 73%, 0 73%);
+
   transform: rotate(180deg);
 `
 const Title = styled.div`

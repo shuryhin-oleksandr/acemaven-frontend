@@ -47,6 +47,6 @@ export const surchargeAPI = {
         return instance.patch(`/booking/usage-fee/${id}/`, edit_handling)
     },
     editSurchargeAdditional (id: number | undefined, edit_additional: editChargesType) {
-        return instance.patch(`/booking/usage-fee/${id}/`, edit_additional)
+        return instance.patch(`/booking/charge/${id}/`, edit_additional)
     }
 }

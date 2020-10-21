@@ -98,11 +98,14 @@ export const getWholeSurchargesList = () => {
 export const getSurchargeInfo = (id: number, history:any) => {
     return async (dispatch:Dispatch<commonSurchargeActions>) => {
         try {
+            dispatch(surchargeActions.setIsFetching(true))
             let res = await surchargeAPI.getExactSurcharge(id)
             dispatch(surchargeActions.setSurchargeInfo(res.data))
             history.push(`/services/surcharge/${id}`)
+            dispatch(surchargeActions.setIsFetching(false))
         } catch (e) {
             console.log(e.response)
+            dispatch(surchargeActions.setIsFetching(false))
         }
     }
 }

@@ -36,6 +36,7 @@ export const checkRatesDatesThunk = (check_values: {
   return async (dispatch: Dispatch<commonRateActions>) => {
     try {
       let res = await rateAPI.checkRatesDates(check_values);
+      dispatch(rateActions.setBookedDates(res.data))
     } catch (e) {
       console.log(e.response);
     }

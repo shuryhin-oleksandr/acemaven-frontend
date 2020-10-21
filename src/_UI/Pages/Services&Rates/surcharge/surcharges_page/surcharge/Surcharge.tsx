@@ -48,11 +48,13 @@ const Surcharge:React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFor
             dispatch(editDates(surcharge?.id, {start_date: values.from, expiration_date: values.to}))
         }
         //edit containers
-        values.usage_fees && Object.keys(values.usage_fees).map(u => (u !== null
-            && dispatch(editUsageFees(surcharge?.id, values.usage_fees[u]))))
+       /*let b = values.usage_fees.map((u: any, key: string) => (typeof u[key] === 'object' && !Array.isArray(u[key])) && u[key]
+         )*/
+        values.usage_fees && Object.keys(values.usage_fees).forEach((key : any) => (values.usage_fees[key] !== null
+            && dispatch(editUsageFees(key, values.usage_fees[key]))))
 
         //edit additionals
-        Object.keys(values.charges).map(o => (o !== null && dispatch(editCharges(surcharge?.id, values.charges[o]))))
+        Object.keys(values.charges).forEach((key:any) => ( values.charges[key] !== null && dispatch(editCharges(key, values.charges[key]))))
     }
 
     return (
@@ -109,6 +111,7 @@ const Surcharge:React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFor
                                       containers={surcharge?.usage_fees}
                                       control={control}
                                       errors={errors}
+
                 />
                 }
                 {surcharge && surcharge.usage_fees && surcharge.usage_fees.length > 0 && <LineWrap bc='#BDBDBD'/>}

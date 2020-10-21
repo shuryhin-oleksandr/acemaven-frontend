@@ -9,9 +9,11 @@ import {
 } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { surchargeActions } from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {
-  getCurrentShippingTypeSelector,
   getShippingTypesSelector, getSurcharge,
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import {
+  getCurrentShippingTypeSelector, getRateBookedDatesSelector
+} from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {
   addNewSurcharge,
   getCarriers,
@@ -73,6 +75,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   let rate_data_for_surcharge = useSelector(getRateDataForSurcharge)
   let registration_success = useSelector(getRegistrationSuccess)
   let rate_info = useSelector(getCheckedRateInfo)
+  let booked_dates = useSelector(getRateBookedDatesSelector)
 
   //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
   const [shippingValue, setShippingValue] = useState(0);
@@ -94,12 +97,11 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   //закрывает выборку портов
   let closePortsHandler = (port: PortType, field: string) => {
     setValue(field, port.display_name);
-   dispatch(rateActions.setOriginPortValue(port))
-    field === "origin" &&
+    dispatch(rateActions.setOriginPortValue(port))
       sessionStorage.setItem("origin_id", JSON.stringify(port.id));
-    field === "destination" &&
-      sessionStorage.setItem("port_id_rate", JSON.stringify(port.id));
-    dispatch(rateActions.setDestinationPortsList([]));
+    /*field === "destination" &&
+      sessionStorage.setItem("port_id_rate", JSON.stringify(port.id));*/
+    /*dispatch(rateActions.setDestinationPortsList([]));*/
     dispatch(rateActions.setOriginPortsList([]));
   };
 
@@ -110,6 +112,8 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     let carrier = getValues("carrier");
     let shipping_mode = getValues("shipping_mode");
     let origin = Number(sessionStorage.getItem("origin_id"));
+    setValue("destination", p.display_name);
+    dispatch(rateActions.setDestinationPortsList([]));
     dispatch(
       checkRatesDatesThunk({
         carrier: carrier,
@@ -118,9 +122,8 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         destination: p.id,
       })
     );
-    setValue("destination", p.display_name);
-    dispatch(rateActions.setDestinationPortsList([]));
-  }, []);
+
+  }, [dispatch]);
 
   //меняет шиппинг тайп с air на sea
   const setMode = useCallback((mode: CurrentShippingType) => {
@@ -154,15 +157,20 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     dispatch(addNewSurcharge(surcharge_data))
   }
 
+
+  useEffect(() => {
+    console.log('DATA',new Date('10/31/2020'))
+  }, [])
   //сетаем значения, когда используем как шаблон
   useEffect(() => {
     if(rate_info) {
       setShippingValue(rate_info.shipping_mode.id)
       setValue('carrier', rate_info.carrier.id)
       setValue('shipping_mode', rate_info.shipping_mode.id)
-      //rate_info?.rates?.map((r: any) => setValue(`rates.${r?.container_type?.id}.rate`, r.rate))
+      //setValue('transit_time', rate_info.transit_time)
+      rate_info?.rates?.map((r: any) => setValue(`rates.${r?.id}.rate`, r.rate))
     }
-  }, [rate_info])
+  }, [rate_info, setValue])
 
   return (
     <RatesWrapper>
@@ -210,6 +218,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         rate_data_for_surcharge={rate_data_for_surcharge}
         registration_success={registration_success}
         rate_info={rate_info}
+
       />
       {empty_surcharge === 'empty' && <NoSurchargeCard shippingValue={shippingValue} setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
     </RatesWrapper>

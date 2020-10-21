@@ -9,6 +9,7 @@ import { VoidFunctionType } from "src/_BLL/types/commonTypes";
 import {Tooltip} from "@material-ui/core";
 import TableCell from "@material-ui/core/TableCell";
 import styled from "styled-components";
+import Item from "./Item";
 
 type IProps = {
     label?: string;
@@ -96,12 +97,6 @@ const useStyles = makeStyles((theme) => ({
 const SurchargeRateConditionsSelect: React.FC<IProps> = ({ label, error, ...props }) => {
     const classes = useStyles();
 
-    const [isTooltipShown, showTooltip] = useState(false)
-    const setTooltip = (tooltip: string) => {
-        showTooltip(true)
-
-    }
-
     return (
         <TableCell >
             <FormControl className={classes.formControl}>
@@ -149,15 +144,9 @@ const SurchargeRateConditionsSelect: React.FC<IProps> = ({ label, error, ...prop
                                 {o.title}
                             </MenuItem>)*/
 
-                        <MenuItem
-                            onClick={() => props.callback && props.callback(o.title)}
-                            key={o.id}
-                            value={o.title}
-                            className={classes.menu_item}
-                        >
-                            <span onMouseEnter={() => setTooltip(o.tooltip)}>{o.title}</span>
-                            {isTooltipShown && <TooltipMessage>{o.tooltip}</TooltipMessage>}
-                        </MenuItem>
+                       <Item callback={props.callback}
+                             option={o}
+                       />
 
                     ))}
                 </Select>

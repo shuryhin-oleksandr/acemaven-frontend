@@ -54,7 +54,7 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
 
     const classes = useStyles()
 
-    const [awareMessage, setAware] = useState(false)
+    const [awareMessage, setAware] = useState(true)
     const [charge_value, setChargeValue] = useState('')
     let onChange = (e: any, id: string) => {
         if(e.currentTarget.value === '0') {
@@ -121,16 +121,18 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
                                         control={control}
                                         name={`usage_fees.${fees.id}.charge`}
                                         defaultValue=''
-                                        render={({onBlur}) => (
+                                        render={({}) => (
                                             <div style={{position: 'relative'}}>
                                             <Field maxW="100px"
                                                    marginBottom="0"
                                                    onChange={(e) => onChange(e, String(fees.id))}
                                                    onBlur={() => setAware(false)}
                                                    placeholder='0.00$'
+                                                   type='number'
                                             />
                                                 {awareMessage && String(fees.id) === charge_value
-                                                && <SpanAware><Title>Surcharge will be register as 0. Are you sure?</Title></SpanAware>}
+                                                && <SpanAware><Title>You are setting this surcharge as $0,
+                                                    please double check before saving.</Title></SpanAware>}
                                             </div>
                                             )
                                         }
@@ -150,8 +152,9 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
 export default UsageFees
 
 const SpanAware = styled.div`
-  width: 180px;
-  height: 60px;
+  width: 270px;
+  height: 70px;
+  justify-content: center;
   background-color: rgba(0, 0, 0, .6);
   color: white;
   font-family: "Helvetica Reg", sans-serif;
@@ -162,7 +165,9 @@ const SpanAware = styled.div`
   z-index: 150;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 58% 75%, 51% 93%, 43% 75%, 0% 75%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 34% 75%, 26% 89%, 18% 75%, 0 75%);
+
+
   transform: rotate(180deg);
   right: 0;
 `

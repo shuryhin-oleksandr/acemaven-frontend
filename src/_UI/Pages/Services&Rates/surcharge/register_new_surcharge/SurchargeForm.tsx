@@ -38,10 +38,13 @@ const SurchargeForm: React.FC<PropsType> = (
                         control={control}
                         defaultValue=""
                         rules={{
-                            required: true,
+                            required: 'Field is required',
                         }}
                         as={
-                            <SurchargeRateSelect label="Carrier" options={carrierOptions} />
+                            <SurchargeRateSelect label="Carrier"
+                                                 options={carrierOptions}
+                                                 error={errors?.carrier?.message}
+                            />
                         }
                     />
                     <Controller
@@ -49,10 +52,13 @@ const SurchargeForm: React.FC<PropsType> = (
                         control={control}
                         defaultValue=""
                         rules={{
-                            required: true,
+                            required: 'Field is required',
                         }}
                         as={
-                            <SurchargeRateSelect label="Direction" options={directions} />
+                            <SurchargeRateSelect label="Direction"
+                                                 options={directions}
+                                                 error={errors?.direction?.message}
+                            />
                         }
                     />
                     <Controller
@@ -60,13 +66,14 @@ const SurchargeForm: React.FC<PropsType> = (
                         control={control}
                         defaultValue=""
                         rules={{
-                            required: true,
+                            required: 'Field is required',
                         }}
                         as={
                             <SurchargeRateSelect
                                 label="Shipping Mode"
                                 options={shippingModeOptions}
                                 callback={setShippingValue}
+                                error={errors?.shipping_mode?.message}
                             />
                         }
                     />
@@ -87,7 +94,7 @@ const SurchargeForm: React.FC<PropsType> = (
                         name="location"
                         placeholder="Local port"
                         label="Location"
-                        error={errors?.location?.message}
+                        error={errors?.location}
                         getValues={getValues}
                         onChange={locationChangeHandler}
                     />

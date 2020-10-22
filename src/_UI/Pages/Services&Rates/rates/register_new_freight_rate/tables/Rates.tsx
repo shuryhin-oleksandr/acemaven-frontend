@@ -94,7 +94,6 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
 
     const dispatch = useDispatch()
     const getSurchargeToRateHandle = (id: number, from: string, to: string) => {
-        debugger
         let surcharge_to_rate = {
             start_date: moment(from).format('DD/MM/YYYY'),
             expiration_date: moment(to).format('DD/MM/YYYY'),
@@ -200,7 +199,7 @@ let disables;
                                     <Controller control={control}
                                                 name={`rates.${fee.id}.rate`}
                                                 defaultValue=''
-                                                render={({onBlur}) => (
+                                                render={({}) => (
                                                    <div style={{position: 'relative'}}>
                                                        <Field placeholder='0.00$' maxW='100px'
                                                               onChange={(e) => onChange(e, String(fee.id))}
@@ -246,11 +245,12 @@ let disables;
                                     <Controller control={control}
                                                 name={`rates.rate`}
                                                 defaultValue={0}
-                                                render={({onBlur}) => (
+                                                render={({}) => (
                                                     <div style={{position: 'relative'}}>
                                                         <Field placeholder='0.00$' maxW='100px'
                                                                onChange={(e) => onChange(e, String(0))}
                                                                onBlur={() => setAware(false)}
+                                                               type='number'
                                                         />
                                                         {awareMessage && String(0) === rate_value
                                                         && <SpanAware><Title>Rate will be register as 0. Are you sure?</Title></SpanAware>}
@@ -282,7 +282,7 @@ let disables;
 export default Rates
 
 
-const SpanAware = styled.div`
+export const SpanAware = styled.div`
   width: 400px;
   height: 60px;
   background-color: rgba(0, 0, 0, .6);
@@ -299,6 +299,6 @@ const SpanAware = styled.div`
 
   transform: rotate(180deg);
 `
-const Title = styled.div`
+export const Title = styled.div`
    transform: rotate(180deg);
 `

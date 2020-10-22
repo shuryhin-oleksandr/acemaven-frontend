@@ -10,7 +10,6 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import {Controller} from "react-hook-form";
-import SurchargeRateConditionsSelect from "../../../../../components/_commonComponents/select/SurchargeRateConditionsSelect";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -133,7 +132,8 @@ const Additional: React.FC<PropsType> = ({ control, setValue, shippingMode, char
                                                 defaultValue={0}
                                                 as={
                                                     <Field maxW='100px'
-                                                    placeholder='0.00$'
+                                                            placeholder='0.00$'
+                                                           type='number'
                                                     />
                                                 }
                                     />

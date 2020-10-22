@@ -144,7 +144,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                     }
                 </>
                     : <UnderTitle>
-                        Please, complete the parameters of the freight rate for the value fields
+                        Please, complete the parameters of the surcharge for the value fields
                         to appear
                     </UnderTitle>
             }

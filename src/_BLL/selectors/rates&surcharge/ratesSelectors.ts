@@ -1,6 +1,4 @@
 import {AppStateType} from "../../store";
-import moment from "moment";
-import {strict} from "assert";
 
 export const getFreightRatesList = ((state: AppStateType) => state.rate.freight_rates_list)
 export const getOriginPorts = ((state: AppStateType) => state.rate.origin_ports)
@@ -51,7 +49,7 @@ export const getRateBookedDatesSelector = (state: AppStateType)
             })
         })
     } else {
-        return state.rate.booked_dates? state.rate.booked_dates[0].map(container => (
+        return state.rate.booked_dates? state.rate.booked_dates[0] && state.rate.booked_dates[0].map(container => (
             {...container, disabledDates: [{from: new Date(container.start_date), to: new Date(container.expiration_date)}]}
         )) : undefined
     }

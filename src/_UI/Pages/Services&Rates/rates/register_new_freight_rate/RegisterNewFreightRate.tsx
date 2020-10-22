@@ -109,6 +109,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
     if(registration_success) {
       closeRateRegistration()
       dispatch(rateActions.setRegistrationSuccess(''))
+      dispatch(rateActions.setExistingSurchargeByRate(null))
     }
   }, [registration_success]);
 
@@ -117,7 +118,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
             <HeaderWrapper>
                 <FormTitle>Freight rates</FormTitle>
                 <ActionsWrapper>
-                    <RegisterButton type="submit">SAVE</RegisterButton>
+                    <RegisterButton disabled={!existing_surcharge} type="submit">SAVE</RegisterButton>
                     <CancelButton text="CANCEL" setIsOpen={closeRateRegistration} />
                 </ActionsWrapper>
             </HeaderWrapper>

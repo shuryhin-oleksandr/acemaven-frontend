@@ -121,7 +121,7 @@ export const UnderTitle = styled.div`
   font-size: 24px;
   width: 100%;
   text-align: center;
-  padding-top: 35px;
+  padding-top: 25px;
 `;
 
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {HandlingTitle, SpanType} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -13,9 +13,9 @@ import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods
 import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
 import DatesCells from "../../register_new_freight_rate/tables/DatesCells";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import {useSelector} from "react-redux";
 import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+import {SpanAware, Title} from "../../register_new_freight_rate/tables/Rates";
 
 type PropsType = {
     rate: any//RateInfoType | null,
@@ -69,15 +69,20 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
 
     let reservedDates = useSelector(getRateBookedDatesSelector)
 
-    /*let a =  rate?.rates.map((fee: any) => {
-        if (reservedDates) {
-            return {...fee, ...reservedDates.find(d => d.container_type === fee.container_type.id)}
+    /*const [awareMessage, setAware] = useState(false)
+    const [rate_value, setRateValue] = useState('')
+    let onChange = (e: any, id: string) => {
+        if(e.currentTarget.value === '0') {
+            setRateValue(id)
+            setAware(true)
+            // @ts-ignore
+            setValue(`rates.${id}.rate`, e.currentTarget.value)
         } else {
-            return fee
+            // @ts-ignore
+            setValue(`rates.${id}.rate`, e.currentTarget.value)
         }
-    })
-    console.log('a', a)*/
-
+    }
+*/
     return (
         <div style={{width: '100%', maxWidth: '1002px'}}>
             <HandlingTitle>RATES</HandlingTitle>

@@ -74,7 +74,7 @@ export const Label = styled.div<PropsStyle>`
 `;
 export const HelperText = styled.div`
   padding-top: 9px;
-  color: red;
+  color: #E76767;
   font-family: "Helvetica Reg", sans-serif;
   width: 100%;
   text-align: end;

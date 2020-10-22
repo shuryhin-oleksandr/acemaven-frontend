@@ -13,7 +13,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
-import {CurrencyType, UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import { UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Controller} from "react-hook-form";
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
@@ -100,7 +100,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
                                                 name={`usage_fees.${fee.id}.charge`}
                                                 defaultValue={fee.charge}
                                                 as={
-                                                    <Field />
+                                                    <Field type='number'/>
                                                 }
                                     />
                                 </TableCell>

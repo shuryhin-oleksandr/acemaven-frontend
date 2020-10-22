@@ -28,6 +28,7 @@ const ExactRateContainer = ({...props}) => {
     //unmount ---> set rate_info to null
     let unmountHandler = () => {
         dispatch(rateActions.setRateInfo(null))
+        dispatch(rateActions.setExistingSurchargeByRate(null))
     }
 
     //get freight rate info by id

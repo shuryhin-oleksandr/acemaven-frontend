@@ -41,19 +41,27 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                         control={control}
                         defaultValue=""
                         rules={{
-                            required: true,
+                            required: 'Field is required'
                         }}
-                        as={<SurchargeRateSelect label="Carrier" options={carrierOptions} />}
+                        as={
+                            <SurchargeRateSelect label="Carrier"
+                                                 options={carrierOptions}
+                                                 error={errors?.carrier?.message}
+                            />}
                     />
                     <Controller
                         name="shipping_mode"
                         control={control}
                         defaultValue=""
+                        rules={{
+                            required: 'Field is required'
+                        }}
                         as={
                             <SurchargeRateSelect
                                 label="Shipping Mode"
                                 options={shippingModeOptions}
                                 callback={setShippingValue}
+                                error={errors?.shipping_mode?.message}
                             />
                         }
                     />
@@ -74,7 +82,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             name="origin"
                             placeholder="Local port"
                             label="Origin"
-                            error={errors?.origin?.message}
+                            error={errors?.origin}
                             getValues={getValues}
                             onChange={onOriginChangeHandler}
 
@@ -109,7 +117,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             name="destination"
                             placeholder="Local port"
                             label="Destination"
-                            error={errors?.destination?.message}
+                            error={errors?.destination}
                             getValues={getValues}
                             onChange={onDestinationChangeHandler}
                             //onBlur={blurHandler}
@@ -129,13 +137,14 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                     </div>
 
                     <FormField
+                        type='number'
                         label="Transit time"
                         placeholder="days"
                         inputRef={register({
                             required: "Field is required",
                         })}
                         name="transit_time"
-                        error={errors?.transit_time?.message}
+                        error={errors?.transit_time}
                         getValues={getValues}
                     />
                 </GroupWrap>

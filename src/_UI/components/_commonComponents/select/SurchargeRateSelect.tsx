@@ -18,7 +18,7 @@ type IProps = {
     maxW?: string;
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     formControl: {
         width: "100%",
         marginBottom: '10px'
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: "Helvetica Reg, sans-serif",
 
         "&.Mui-error": {
-            color: "red",
+            color: "#E76767",
         },
     },
     customTooltip: {

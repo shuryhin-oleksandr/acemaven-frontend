@@ -24,7 +24,6 @@ import ExistingRatesTable from "./ExistingRatesTable";
 import {SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargesToRate from "../../register_new_freight_rate/tables/SurchargesToRate";
 import RateEditPopUp from "../../../../../components/PopUps/RateEditPopUp/RateEditPopUp";
-import {editUsageFees} from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {useDispatch, useSelector} from "react-redux";
 import {editRates} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {getEditSuccess} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
@@ -57,7 +56,7 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, id, handleSubmit, errors, s
   useEffect(() => {
     if(rate && rate.rates.length > 1) {
       rate.rates.map((r) => {
-        setValue(`rates.${r.id}.rate`)
+        //setValue(`rates.${r.id}.rate`)
         setValue(`rates.${r.id}.from`, r.start_date)
         setValue(`rates.${r.id}.to`, r.expiration_date)
       })
@@ -69,7 +68,6 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, id, handleSubmit, errors, s
 
 const dispatch = useDispatch()
   const onSubmit = (values: any) => {
-    debugger
     values.rates && Object.keys(values.rates).forEach((key : any) => (values.rates[key] !== null && values.rates[key].from !== null
         && dispatch(editRates(key, {
           // @ts-ignore

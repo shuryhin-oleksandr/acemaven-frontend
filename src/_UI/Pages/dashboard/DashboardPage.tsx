@@ -12,7 +12,7 @@ import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
 import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
 import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
 import MapComponent from "./MapComponent/MapComponent";
-import styled from "styled-components";
+
 
 const DashboardPage: React.FC = () => {
   const [widgetsVisible, setWidgetsVisible] = useState(true);

@@ -15,12 +15,15 @@ import blue_part_fill_star from "../../../../assets/icons/search/part_filled_sta
 import blue_empty_star from "../../../../assets/icons/search/empty_star.svg";
 
 type PropsType = {
-    button_display: boolean
+    button_display: boolean,
+    showTable?: (value: boolean) => void,
+    isTableShown?: boolean
+    showRatingPopup: (value: boolean) => void
 }
 
-const BookingCard:React.FC<PropsType> = ({button_display}) => {
+const BookingCard:React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup}) => {
     return (
-        <UpperWrapper>
+        <UpperWrapper onClick={() => isTableShown ? showTable && showTable(false) : showTable && showTable(true)}>
             <InfoPart>
                 <GeneralPart>
                     <GeneralWrap>
@@ -43,7 +46,7 @@ const BookingCard:React.FC<PropsType> = ({button_display}) => {
                         </DateLine>
                     </AdditionalWrap>
                 </GeneralPart>
-                <RatingPart>
+                <RatingPart onClick={() => showRatingPopup(true)}>
                     <CompanyName>TransferCo.</CompanyName>
                     <RatingWrap>
                         <img src={blue_fill_star} alt=""/>

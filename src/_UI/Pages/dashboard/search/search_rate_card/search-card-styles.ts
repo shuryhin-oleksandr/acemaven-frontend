@@ -1,9 +1,26 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 
 type PropsStyle = {
     marginBottom?: string,
     button_display: boolean
 }
+const show_table = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
+export const SearchWrapper = styled.div`
+    width: 100%;
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   padding: 50px 80px 50px 30px;
+`
 
 export const CardContainer = styled.div`
   max-width: 800px;
@@ -25,6 +42,10 @@ export const UpperWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 22px;
+  
+  &:hover {
+    cursor:pointer;
+  }
 `
 export const InfoPart = styled.div`
   display: flex;
@@ -144,6 +165,7 @@ export const HiddenWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  animation: ${show_table} ease-in-out .3s;
 `
 export const HiddenTitle = styled.div`
   color: #1ab8e5;
@@ -155,7 +177,36 @@ export const HiddenTitle = styled.div`
 `
 export const HiddenTable = styled.div`
   width: 100%
-
+`
+export const TableTotal = styled.div`
+  width: 100%;
+  padding-top: 8px;
+`
+export const TotalLine = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 7px;
+`
+export const TotalName = styled.div`
+  color: #333333;
+  font-family: "Helvetica Light", sans-serif;
+  font-size: 14px;
+  line-height: 16.5px;
+  margin-right: 120px;
+  text-align: right;
+  width: 90%;
+  display: flex;
+    justify-content: flex-end;
+`
+export const TotalValue = styled.div`
+  color: #333333;
+  font-family: "Helvetica Light", sans-serif;
+  font-size: 14px;
+  line-height: 16.5px;
+  width: 10%;
+  display: flex;
+    justify-content: flex-end;
 `
 
 

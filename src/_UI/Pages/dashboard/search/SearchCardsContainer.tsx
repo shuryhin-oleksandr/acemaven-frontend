@@ -1,14 +1,19 @@
 import React from 'react'
 import SearchCard from "./search_rate_card/SearchCard";
+import {SearchWrapper} from "./search_rate_card/search-card-styles";
 
+type PropsType = {
+    showRatingPopup: (value: boolean) => void
+}
 
-const SearchCardsContainer:React.FC = () => {
+const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup}) => {
+
     return (
-        <div style={{width: '100%', height: '100vh', display: 'flex', justifyContent: 'center',
-        alignItems: 'center'}}>
-            <SearchCard />
-        </div>
+        <SearchWrapper >
+            <SearchCard showRatingPopup={showRatingPopup}/>
+        </SearchWrapper>
     )
 }
 
 export default SearchCardsContainer
+

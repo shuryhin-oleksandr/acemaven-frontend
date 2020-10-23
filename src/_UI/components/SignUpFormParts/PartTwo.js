@@ -88,7 +88,7 @@ const PartTwo = ({ changePage, error }) => {
           <ErrorServerMessage>The company's phone number is not valid</ErrorServerMessage>
         )}
         {error && error.tax_id && (
-          <ErrorServerMessage>{error.tax_id[0]}</ErrorServerMessage>
+          <ErrorServerMessage>{'Tax Id number has' + ' ' + error.tax_id[0]}</ErrorServerMessage>
         )}
         {error && error.master_email && (
           <ErrorServerMessage>{error.master_email[0]}</ErrorServerMessage>

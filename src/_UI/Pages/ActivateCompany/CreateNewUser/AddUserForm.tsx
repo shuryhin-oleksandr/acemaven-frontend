@@ -44,7 +44,10 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                 <Wrapper>
                     <InputWrap w='47%'>
                         <FormField label='Name'
-                                   inputRef={register}
+                                   inputRef={register({
+                                       required: 'Field is required'
+                                   })}
+                                   error={errors?.first_name}
                                    placeholder='Name'
                                    name='first_name'
                                    getValues={getValues}
@@ -52,10 +55,13 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                     </InputWrap>
                     <InputWrap w='47%'>
                         <FormField label='Last Name'
-                                   inputRef={register}
                                    placeholder='Last Name'
                                    name='last_name'
                                    getValues={getValues}
+                                   inputRef={register({
+                                       required: 'Field is required'
+                                   })}
+                                   error={errors?.last_name}
                         />
                     </InputWrap>
                 </Wrapper>
@@ -71,11 +77,13 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                     />
                 {errorEmployee && <ErrorServerMessage style={{padding: '0'}}>{errorEmployee}</ErrorServerMessage>}
                     <FormField label='Position in the Company'
-                               inputRef={register}
                                placeholder='Position in Company(optional)*'
                                name='position'
                                error={errors?.position}
                                getValues={getValues}
+                               inputRef={register({
+                                   required: 'Field is required'
+                               })}
                     />
                 <CheckboxWrap>
                     <CustomCheckbox

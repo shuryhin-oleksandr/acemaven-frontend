@@ -1,18 +1,16 @@
-import React, {useState} from "react";
+import React from "react";
 import Layout from "../../components/BaseLayout/Layout";
 import DashboardPage from "./DashboardPage";
-import SearchCardsContainer from "./search/SearchCardsContainer";
-import RatingInfoPopup from "../../components/PopUps/rating_info_popup/RatingInfoPopup";
+import SearchContainer from "./search/SearchContainer";
 
 
 const DashboardContainer:React.FC = () => {
     const search_result = true
-    const [isRatingPopup, showRatingPopup] = useState(false)
 
     return (
         <Layout>
             {search_result
-                ? (isRatingPopup ? <RatingInfoPopup showRatingPopup={showRatingPopup} /> : <SearchCardsContainer showRatingPopup={showRatingPopup}/> )
+                ? <SearchContainer />
                 :  <DashboardPage />}
         </Layout>
     )

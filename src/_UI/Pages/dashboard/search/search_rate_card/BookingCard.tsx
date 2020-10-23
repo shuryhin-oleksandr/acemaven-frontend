@@ -18,7 +18,7 @@ type PropsType = {
     button_display: boolean,
     showTable?: (value: boolean) => void,
     isTableShown?: boolean
-    showRatingPopup: (value: boolean) => void
+    showRatingPopup?: (value: boolean) => void
 }
 
 const BookingCard:React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup}) => {
@@ -46,7 +46,7 @@ const BookingCard:React.FC<PropsType> = ({button_display, showTable, isTableShow
                         </DateLine>
                     </AdditionalWrap>
                 </GeneralPart>
-                <RatingPart onClick={() => showRatingPopup(true)}>
+                <RatingPart onClick={() => showRatingPopup && showRatingPopup(true)}>
                     <CompanyName>TransferCo.</CompanyName>
                     <RatingWrap>
                         <img src={blue_fill_star} alt=""/>

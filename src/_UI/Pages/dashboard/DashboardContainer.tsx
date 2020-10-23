@@ -6,7 +6,7 @@ import RatingInfoPopup from "../../components/PopUps/rating_info_popup/RatingInf
 
 
 const DashboardContainer:React.FC = () => {
-    const search_result = false
+    const search_result = true
     const [isRatingPopup, showRatingPopup] = useState(false)
 
     return (

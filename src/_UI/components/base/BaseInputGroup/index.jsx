@@ -34,6 +34,7 @@ const BaseInputGroup = ({
         placeholder={placeholder}
         name={name}
         id={values[name]}
+        autocomplete='off'
       />
       {withoutErrorMessage ? null : (
         <ErrorMessage name={name} component={Error} />

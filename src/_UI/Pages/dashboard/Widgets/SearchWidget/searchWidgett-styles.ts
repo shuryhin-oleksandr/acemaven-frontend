@@ -6,11 +6,14 @@ export const RelativeWrapper = styled.div`
 
 export const Container = styled.div`
   background: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
   padding: 20px 30px 12px 30px;
   max-height: 500px;
   overflow: scroll;
+  max-width: 800px;
+  width: 100%;
+  margin-bottom: 15px;
 `;
 
 export const Heading = styled.h1`

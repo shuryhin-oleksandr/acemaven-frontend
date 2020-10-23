@@ -1,0 +1,188 @@
+import React, {useState} from 'react'
+import {
+    HeaderTitle,
+    QuotesTableContainer,
+    QuotesTableHeader,
+} from "./client-quotes-table-styles";
+import OptionsDeliveryButtons
+    from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
+import TableBody from "@material-ui/core/TableBody";
+import TableContainer from "@material-ui/core/TableContainer";
+import {useDispatch} from "react-redux";
+import QuoteRow from "./QuoteRow";
+
+type PropsType = {
+
+}
+
+const useStyles = makeStyles({
+    container: {
+        boxShadow: 'none',
+        height: 400,
+        overflowY: 'scroll',
+
+    },
+    table: {
+        '& .MuiTableHead-root' : {
+
+        }
+    },
+    shipping_cell: {
+        width: '220px',
+        color: '#115B86',
+        fontFamily: 'Helvetica Bold',
+        fontSize: '16px',
+        borderBottom: '1px solid #828282',
+        paddingLeft: '63px',
+        padding: '0'
+
+    },
+    cell: {
+        color: '#115B86',
+        fontFamily: 'Helvetica Bold',
+        fontSize: '16px',
+        borderBottom: '1px solid #828282',
+        width: '150px',
+        padding: '0'
+    },
+    innerMainCell: {
+        borderBottom: '1px solid #BDBDBD',
+        fontFamily: 'Helvetica Light',
+        fontSize: '16px',
+        width: '220px',
+        color: '#1B1B25',
+        position: 'relative',
+        paddingLeft: '63px',
+        height: '72px'
+    },
+    innerCell: {
+        borderBottom: '1px solid #BDBDBD',
+        fontFamily: 'Helvetica Light',
+        fontSize: '16px',
+        color: '#1B1B25',
+        height: '72px',
+        padding: '0',
+    },
+    customTooltip: {
+        maxWidth: 330,
+        height: 60,
+        fontFamily: 'Helvetica Reg',
+        fontSize: '14px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '15px'
+    },
+});
+
+const ClientQuotesTable:React.FC<PropsType> = () => {
+
+    const classes = useStyles();
+
+    const dispatch = useDispatch()
+
+    const [isSearchMode, setSearchMode] = useState(false)
+    const [mode, setMode] = useState("sea");
+    const [directory, setDirectory] = useState("import");
+    const [searchValue, setSearchValue] = useState('')
+    const [search_column, setSearchColumn] = useState('')
+
+    return (
+        <QuotesTableContainer>
+            <QuotesTableHeader>
+                <HeaderTitle>Quotes</HeaderTitle>
+                <OptionsDeliveryButtons directory=''
+                                        searchColumn=''
+                                        searchValue=''
+                                        mode={mode}
+                                        setMode={setMode}
+                />
+            </QuotesTableHeader>
+            <TableContainer className={classes.container} component={Paper}>
+                <Table className={classes.table} aria-label="collapsible table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell className={classes.shipping_cell} align="left">
+                                <TableCellContent setSearchValue={setSearchValue}
+                                                  setSearchMode={setSearchMode}
+                                                  dispatch={dispatch}
+                                                  direction={directory}
+                                                  type={mode}
+                                                  column_name='shipping_mode'
+                                                  searchValue={searchValue}
+                                                  isSearchMode={isSearchMode}
+                                                  title='SHIPPING MODE'
+                                                  searchColumn={search_column}
+                                                  setSearchColumn={setSearchColumn}
+                                />
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                <TableCellContent setSearchValue={setSearchValue}
+                                                  setSearchMode={setSearchMode}
+                                                  dispatch={dispatch}
+                                                  direction={directory}
+                                                  type={mode}
+                                                  column_name='route'
+                                                  searchValue={searchValue}
+                                                  isSearchMode={isSearchMode}
+                                                  title='ROUTE'
+                                                  searchColumn={search_column}
+                                                  setSearchColumn={setSearchColumn}
+                                />
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                VOLUME
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                <TableCellContent setSearchValue={setSearchValue}
+                                                  setSearchMode={setSearchMode}
+                                                  dispatch={dispatch}
+                                                  direction={directory}
+                                                  type={mode}
+                                                  column_name='shipment_date'
+                                                  searchValue={searchValue}
+                                                  isSearchMode={isSearchMode}
+                                                  title='SHIPMENT DATE'
+                                                  searchColumn={search_column}
+                                                  setSearchColumn={setSearchColumn}
+                                />
+                            </TableCell>
+                            <TableCell className={classes.cell} align="center">
+                                OFFERS
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                <TableCellContent setSearchValue={setSearchValue}
+                                                  setSearchMode={setSearchMode}
+                                                  dispatch={dispatch}
+                                                  direction={directory}
+                                                  type={mode}
+                                                  column_name='status'
+                                                  searchValue={searchValue}
+                                                  isSearchMode={isSearchMode}
+                                                  title='STATUS'
+                                                  searchColumn={search_column}
+                                                  setSearchColumn={setSearchColumn}
+                                />
+                            </TableCell>
+                            <TableCell className={classes.cell} align="right">
+                               ACTIONS
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                            <QuoteRow />
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </QuotesTableContainer>
+    )
+}
+
+export default ClientQuotesTable

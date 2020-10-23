@@ -103,6 +103,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
     }, [props])
     const mode = useSelector(getCurrentShippingTypeSelector)
 
+    //material ui table
     const classes = useStyles();
 
     let history = useHistory()
@@ -125,10 +126,13 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
         props.setNewSurchargeMode(true)
     }
 
+
+
+
     return (
         <Outer>
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table  className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.shipping_cell} align="left">

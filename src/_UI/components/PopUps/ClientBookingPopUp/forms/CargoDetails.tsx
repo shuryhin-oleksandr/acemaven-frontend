@@ -10,7 +10,7 @@ import {
 } from "../client-popup-styles";
 import { Controller } from "react-hook-form";
 import { Field } from "../../../_commonComponents/Input/input-styles";
-import React from "react";
+import React, { useEffect } from "react";
 import BaseButton from "../../../base/BaseButton";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useDispatch } from "react-redux";
@@ -26,7 +26,7 @@ type PropsType = {
 const arr = [
   { id: 1, type: "2 x 40HC" },
   { id: 2, type: "2 x 40HC" },
-  { id: 3, type: "1 Pallets x 2w/m " },
+  { id: 3, type: "1 Pallets x 2w/m" },
 ];
 const CargoDetails: React.FC<PropsType> = ({
   control,
@@ -66,7 +66,7 @@ const CargoDetails: React.FC<PropsType> = ({
         </div>
       </FlexWrapper>
       <InputsWrapper>
-        {arr.map((item, idx) => (
+        {arr.map((item) => (
           <RowWrapper key={item.id}>
             <div style={{ width: 205 }}>
               <ContainerInfo>{item.type}</ContainerInfo>

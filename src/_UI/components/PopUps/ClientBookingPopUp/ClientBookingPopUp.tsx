@@ -12,6 +12,8 @@ import BookingCard from "../../../Pages/dashboard/search/search_rate_card/Bookin
 import { useForm } from "react-hook-form";
 import CargoDetails from "./forms/CargoDetails";
 import ShipperInfoContainer from "./forms/ShipperInfoContainer";
+import { useSelector } from "react-redux";
+import { AppStateType } from "../../../../_BLL/store";
 
 const ClientBookingPopUp: React.FC = () => {
   const {
@@ -23,9 +25,14 @@ const ClientBookingPopUp: React.FC = () => {
     setValue,
   } = useForm();
 
+  let details = useSelector(
+    (state: AppStateType) => state.booking.cargo_details
+  );
+
   const [formStep, setFormStep] = useState(1);
   const onSubmit = (values: any) => {
-    console.log(values);
+    const finalValues = { ...values, details: details };
+    console.log("finalValues", finalValues);
   };
   return (
     <PopupContainer>

@@ -21,7 +21,6 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
 
     const onSubmit = (values:IAddNewUserData) => {
         dispatch && dispatch(addNewWorker(values))
-        setIsAdd && setIsAdd(false)
     }
 
     const [roleValue, setRole] = useState('')

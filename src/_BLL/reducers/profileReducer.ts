@@ -10,6 +10,11 @@ type Error = {
   new_password1?: string[];
   new_password2?: string[];
 };
+type AddUserError = {
+  first_name?: string[];
+  last_name?: string[];
+  email?: string[];
+}
 
 const initialState = {
   isFetching: false,
@@ -17,6 +22,7 @@ const initialState = {
   companyInfo: null as CompanyInfoType | null,
   banksList: null as Array<IAddNewBank> | null,
   workersList: null as Array<IAddNewUserData> | null,
+  setAddingUserError: null as AddUserError | null,
   passwordError: null as Error | null,
   changesPass: "",
   addedBankSuccess: '',
@@ -140,6 +146,8 @@ export const profileActions = {
   setBanksAfterDelete: (id: number) => ({ type: "SET_BANKS_AFTER_DELETE", id } as const),
   setWorkersList: (workersList: Array<IAddNewUserData>) => ({ type: "SET_WORKERS_LIST", workersList } as const),
   setNewToWorkersList: (worker: IAddNewUserData) => ({ type: "SET_NEW_TO_WORKERS_LIST", worker } as const),
+  setAddingUserSuccess: (value: boolean) => ({type: 'SET_ADDING_USER_SUCCESS', value} as const),
+  setAddingUserError: (error: any) => ({type: 'SET_ADDING_USER_ERROR', error} as const),
   setEditedToWorkersList: (id: number, worker: IAddNewUserData) => ({ type: "SET_EDITED_WORKER", id, worker } as const),
   deleteWorker: (workerId: number) => ({ type: "SET_WORKERS_LIST_AFTER_DELETE", workerId } as const),
   setBanksAfterDefault: (bankId: number, default_bank: IAddNewBank) => ({ type: "SET_BANKS_AFTER_DEFAULT", bankId, default_bank } as const),
@@ -286,6 +294,7 @@ export const addNewWorker = (workerData: IAddNewUserData) => {
       dispatch(profileActions.setIsFetching(false));
     } catch (e) {
       console.log("error", e.response);
+
       dispatch(profileActions.setIsFetching(false));
     }
   };

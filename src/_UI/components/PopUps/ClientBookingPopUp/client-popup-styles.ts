@@ -10,9 +10,13 @@ const shownPopup = keyframes`
 `;
 
 export const PopupContainer = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
@@ -26,7 +30,6 @@ export const PopupContent = styled.div`
   max-width: 750px;
   max-height: 800px;
   width: 100%;
-  height: 100%;
   padding: 35px 25px;
   position: relative;
   overflow: auto;
@@ -107,4 +110,18 @@ export const ContainerInfo = styled.div`
 
 export const InputsWrapper = styled.div`
   padding-right: 30px;
+`;
+
+export const BackButton = styled.button`
+  height: 40px;
+  padding: 0 39px;
+  background: #7c7c89;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-family: "Helvetica Reg", sans-serif;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  margin-right: 15px;
+  cursor: pointer;
 `;

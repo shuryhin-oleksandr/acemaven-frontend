@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 const BaseButton = styled.button`
-  height: 39px;
+  height: 40px;
   background-color: ${({ background, disabled }) =>
     disabled ? "#7C7C89" : background ? background : "#000000"};
   color: ${({ textColor }) => (textColor ? textColor : "#FFFFFF")};

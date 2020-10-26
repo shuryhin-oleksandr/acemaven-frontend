@@ -11,7 +11,7 @@ import {
 } from "../../../../../_BLL/reducers/employeesAndBanksReducer";
 
 type PropsType = {
-  banksList?: Array<IAddNewBank>;
+  banksList?: Array<IAddNewBank> | null;
 };
 
 const BankListContainer: React.FC<PropsType> = ({ banksList }) => {

@@ -17,11 +17,11 @@ const PartTwo = ({ changePage, error }) => {
   const { values, touched, errors } = useFormikContext();
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  /*useEffect(() => {
     setTimeout(() => {
       dispatch(authActions.setCompanySignupError(null));
     }, 5000);
-  }, [dispatch, error]);
+  }, [dispatch, error]);*/
 
   const isButtonDisabled =
     !values.first_name ||

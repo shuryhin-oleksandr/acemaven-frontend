@@ -18,6 +18,7 @@ type PropsType = {
   height?: string;
   onBlur?: VoidFunctionType;
   marginBottom?: string;
+  server_error?: string
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
@@ -45,6 +46,9 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
       )}
       {error?.type === "maxLength" && (
         <HelperText>Maximum length is {props.max} symbols</HelperText>
+      )}
+      {props.server_error && (
+          <HelperText>{props.server_error}</HelperText>
       )}
     </InputOuter>
   );

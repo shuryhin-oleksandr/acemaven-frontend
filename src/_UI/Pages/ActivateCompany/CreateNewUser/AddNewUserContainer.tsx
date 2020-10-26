@@ -17,10 +17,18 @@ const AddNewUserContainer:React.FC<IProps> = () => {
     const [isOpen, setIsOpen] = useState(false)
     const employeesList = useSelector((state: AppStateType) => state.company.employees)
     const isFetching = useSelector((state: AppStateType) => state.company.isFetching)
+    const server_error = useSelector((state: AppStateType) => state.company.addingEmployeeError)
+
     const dispatch = useDispatch()
 
+    const clearToken = () => {
+        localStorage.removeItem('access_token')
+    }
     useEffect(() => {
         dispatch(getEmployees())
+        return () => {
+            clearToken()
+        }
     }, [dispatch])
 
     return (
@@ -28,7 +36,7 @@ const AddNewUserContainer:React.FC<IProps> = () => {
             {isFetching && <Spinner />}
             {isOpen && <CancelPopup setIsOpen={setIsOpen}/>}
             <LayoutWithoutNav>
-                <AddNewUser list={employeesList} setIsOpen={setIsOpen}/>
+                <AddNewUser server_error={server_error} list={employeesList} setIsOpen={setIsOpen}/>
             </LayoutWithoutNav>
         </Outer>
 

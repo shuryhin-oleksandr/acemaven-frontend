@@ -1,26 +1,20 @@
 import {IAddNewBank, IAddNewUserData} from "../types/addNewUserTypes";
 import {Dispatch} from "redux";
 import {authAPI} from "../../_DAL/API/authAPI";
+import {AddUserError} from "./profileReducer";
 
-const initialState:InitialStateType = {
+const initialState = {
     isFetching: false,
-    employees: [],
-    banksAccounts: [],
-    addingEmployeeError: '',
+    employees: null as Array<IAddNewUserData> | null,
+    banksAccounts: null as Array<IAddNewBank> | null,
+    addingEmployeeError: null as AddUserError | null,
     addingBankError: '',
-    successUser: null,
+    successUser: false,
     successBank: false
 }
 
-type InitialStateType = {
-    isFetching: boolean,
-    employees: Array<IAddNewUserData>,
-    banksAccounts: Array<IAddNewBank> ,
-    addingEmployeeError: string,
-    addingBankError: string,
-    successUser: any,
-    successBank: boolean
-}
+
+type InitialStateType = typeof initialState
 
 export const employeesAndBanksReducer = (state = initialState, action: commonCompanyActions):InitialStateType => {
     switch (action.type) {
@@ -32,7 +26,7 @@ export const employeesAndBanksReducer = (state = initialState, action: commonCom
         case "SET_EMPLOYEES_AFTER_DELETE":
             return {
                 ...state,
-                employees: state.employees.filter(emp => emp.id !== action.id)
+                employees: state.employees && state.employees.filter(emp => emp.id !== action.id)
             }
         case "SET_EMPLOYEE":
             return {
@@ -57,7 +51,7 @@ export const employeesAndBanksReducer = (state = initialState, action: commonCom
         case "SET_BANKS_AFTER_DELETE":
             return {
                 ...state,
-                banksAccounts: state.banksAccounts.filter(b => b.id !== action.id)
+                banksAccounts: state.banksAccounts && state.banksAccounts.filter(b => b.id !== action.id)
             }
         case "SET_ADDING_BANK_ERROR":
             return {
@@ -90,7 +84,7 @@ export const companyActions = {
     setBank: (bankData: IAddNewBank) => ({type: 'SET_BANK', bankData} as const),
     setBanksAfterDelete: (id: number) => ({type: 'SET_BANKS_AFTER_DELETE', id} as const),
     setAddingBankError: (error: string) => ({type: 'SET_ADDING_BANK_ERROR', error} as const),
-    setAddingEmployeeError: (error: string) => ({type: 'SET_ADDING_EMPLOYEE_ERROR', error} as const),
+    setAddingEmployeeError: (error: any) => ({type: 'SET_ADDING_EMPLOYEE_ERROR', error} as const),
     successAddingUser: (value: boolean) => ({type: 'SET_SUCCESS_ADDING_USER', value} as const),
     successAddingBank: (value: boolean) => ({type: 'SET_SUCCESS_ADDING_BANK', value} as const)
 }
@@ -120,7 +114,7 @@ export const addEmployee = (data: IAddNewUserData) => {
             dispatch(companyActions.setIsLoading(false))
         } catch (e) {
             console.log(e.response)
-            dispatch(companyActions.setAddingEmployeeError(`User with this email already exists`))
+            dispatch(companyActions.setAddingEmployeeError(e.response.data))
             dispatch(companyActions.setIsLoading(false))
         }
     }

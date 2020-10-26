@@ -10,27 +10,28 @@ import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../_BLL/store";
 import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
+import {AddUserError} from "../../../../_BLL/reducers/profileReducer";
 
 
 type PropsType = {
     setIsOpen: VoidFunctionType,
-    list?: Array<IAddNewUserData>,
-
+    list?: Array<IAddNewUserData> | null,
+    server_error?: AddUserError | null
 }
 
-const AddNewUser:React.FC<PropsType> = ({setIsOpen, list}) => {
-    const errorEmployee = useSelector((state: AppStateType) => state.company.addingEmployeeError)
+const AddNewUser:React.FC<PropsType> = ({setIsOpen, list, server_error}) => {
+
 
     return (
         <AddContainer>
             <ContentWrap>
-                <AddUserForm errorEmployee={errorEmployee}/>
-                <UsersList  usersList={list}/>
+                <AddUserForm errorEmployee={server_error}/>
+                <UsersList usersList={list}/>
             </ContentWrap>
             <LineWrap />
             <NavigationWrap>
-                    <CancelButton setIsOpen={setIsOpen} text='CANCEL'/>
-                    <NavLink style={{textDecoration: "none"}} to='/create/bank'><BaseNextButton>NEXT</BaseNextButton></NavLink>
+                <CancelButton setIsOpen={setIsOpen} text='CANCEL'/>
+                <NavLink style={{textDecoration: "none"}} to='/create/bank'><BaseNextButton>NEXT</BaseNextButton></NavLink>
             </NavigationWrap>
         </AddContainer>
 

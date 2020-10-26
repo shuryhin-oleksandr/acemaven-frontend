@@ -10,10 +10,11 @@ type Error = {
   new_password1?: string[];
   new_password2?: string[];
 };
-type AddUserError = {
+export type AddUserError = {
   first_name?: string[];
   last_name?: string[];
   email?: string[];
+  position?: string[];
 }
 
 const initialState = {
@@ -22,7 +23,8 @@ const initialState = {
   companyInfo: null as CompanyInfoType | null,
   banksList: null as Array<IAddNewBank> | null,
   workersList: null as Array<IAddNewUserData> | null,
-  setAddingUserError: null as AddUserError | null,
+  addUserError: null as AddUserError | null,
+  addUserSuccess: false,
   passwordError: null as Error | null,
   changesPass: "",
   addedBankSuccess: '',
@@ -88,6 +90,16 @@ export const profileReducer = (state = initialState, action: commonProfileAction
         ...state,
         workersList: [...state.workersList, action.worker],
       };
+    case "SET_ADDING_USER_ERROR":
+          return {
+            ...state,
+            addUserError: action.error
+          }
+    case "SET_ADDING_USER_SUCCESS":
+      return {
+        ...state,
+        addUserSuccess: action.value
+      }
     case "SET_EDITED_WORKER":
       return {
         ...state,
@@ -147,7 +159,7 @@ export const profileActions = {
   setWorkersList: (workersList: Array<IAddNewUserData>) => ({ type: "SET_WORKERS_LIST", workersList } as const),
   setNewToWorkersList: (worker: IAddNewUserData) => ({ type: "SET_NEW_TO_WORKERS_LIST", worker } as const),
   setAddingUserSuccess: (value: boolean) => ({type: 'SET_ADDING_USER_SUCCESS', value} as const),
-  setAddingUserError: (error: any) => ({type: 'SET_ADDING_USER_ERROR', error} as const),
+  setAddingUserError: (error: AddUserError | null) => ({type: 'SET_ADDING_USER_ERROR', error} as const),
   setEditedToWorkersList: (id: number, worker: IAddNewUserData) => ({ type: "SET_EDITED_WORKER", id, worker } as const),
   deleteWorker: (workerId: number) => ({ type: "SET_WORKERS_LIST_AFTER_DELETE", workerId } as const),
   setBanksAfterDefault: (bankId: number, default_bank: IAddNewBank) => ({ type: "SET_BANKS_AFTER_DEFAULT", bankId, default_bank } as const),
@@ -156,6 +168,7 @@ export const profileActions = {
   setAddedBankSuccess: (value: string) => ({type: 'SET_ADDED_BANK_SUCCESS', value} as const)
 };
 
+//profile
 export const getAuthUserInfo = () => {
   return async (dispatch: Dispatch<commonProfileActions>) => {
     try {
@@ -170,7 +183,6 @@ export const getAuthUserInfo = () => {
     }
   };
 };
-
 export const changeMyPassword = (data: any) => {
   return async (dispatch: Dispatch<commonProfileActions>) => {
     try {
@@ -187,6 +199,7 @@ export const changeMyPassword = (data: any) => {
   };
 };
 
+//company
 export const getCompanyInfo = (id: number) => {
   return async (dispatch: Dispatch<commonProfileActions>) => {
     try {
@@ -200,7 +213,6 @@ export const getCompanyInfo = (id: number) => {
     }
   };
 };
-
 export const editCompanyInfo = (id: number, editData: CompanyInfoType) => {
   return async (dispatch: Dispatch<commonProfileActions>) => {
     try {
@@ -243,7 +255,6 @@ export const addBankAccount = (bankData: IAddNewBank) => {
     }
   };
 };
-
 export const deleteBank = (bankId: number) => {
   return async (dispatch: Dispatch<any>) => {
     try {
@@ -291,10 +302,11 @@ export const addNewWorker = (workerData: IAddNewUserData) => {
       dispatch(profileActions.setIsFetching(true));
       let res = await profileSettingsAPI.addNewWorker(workerData);
       dispatch(profileActions.setNewToWorkersList(res.data));
+      dispatch(profileActions.setAddingUserSuccess(true))
       dispatch(profileActions.setIsFetching(false));
     } catch (e) {
       console.log("error", e.response);
-
+      dispatch(profileActions.setAddingUserError(e.response.data))
       dispatch(profileActions.setIsFetching(false));
     }
   };

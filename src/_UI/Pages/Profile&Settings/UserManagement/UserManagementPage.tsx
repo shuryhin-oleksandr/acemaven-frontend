@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {CardsOuter, ManagementContainer, ManagementInner, ManagTitle } from "./user-management-styles";
 import AddNewButton from "../../../components/_commonComponents/buttons/addNewItemButton/addNewButton";
 import { useState } from "react";
@@ -7,11 +7,13 @@ import EditUserCardForm from "./editUserCardForm/EditUserCardForm";
 import AddUserForm from "./AddUserForm/AddUserForm";
 import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
-import {deleteWorker} from "../../../../_BLL/reducers/profileReducer";
+import {deleteWorker, profileActions} from "../../../../_BLL/reducers/profileReducer";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../_BLL/store";
 
 type PropsType = {
     workersList?: Array<IAddNewUserData> | null,
-    dispatch?: VoidFunctionType,
+    dispatch: VoidFunctionType,
     my_id?: number
 }
 
@@ -20,17 +22,26 @@ const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch, my_id}) 
     const [editMode, setEditMode] = useState(false)
 
     let [editedUserId, setEditedId] = useState(0)
+    let success = useSelector((state: AppStateType) => state.profile.addUserSuccess)
+    let error = useSelector((state: AppStateType) => state.profile.addUserError)
 
     let editHandler = (id: number, value: boolean) => {
         setEditedId(id)
         setEditMode(value)
-        console.log(editMode)
     }
 
     let cardsMode = true;
     const deleteUser = (workerId: number) => {
         dispatch && dispatch(deleteWorker(workerId))
     }
+
+    useEffect(() => {
+        if(success) {
+            setIsAdd((false))
+            dispatch(profileActions.setAddingUserSuccess(false))
+            dispatch(profileActions.setAddingUserError(null))
+        }
+    }, [success])
 
     return (
         <ManagementContainer>
@@ -40,7 +51,7 @@ const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch, my_id}) 
                 </ManagTitle>
                 {!isAdd
                     ? !editMode && <div style={{maxWidth: '447px', width: '100%'}}><AddNewButton setIsAdd={setIsAdd}/></div>
-                    : <AddUserForm dispatch={dispatch} setIsAdd={setIsAdd}/>
+                    : <AddUserForm server_error={error} dispatch={dispatch} setIsAdd={setIsAdd}/>
                 }
                 <CardsOuter>
                     {/*{!editMode

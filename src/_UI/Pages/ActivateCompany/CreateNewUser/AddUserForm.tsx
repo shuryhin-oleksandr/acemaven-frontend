@@ -6,13 +6,14 @@ import FormField from "../../../components/_commonComponents/Input/FormField";
 import CustomCheckbox from "../../../components/_commonComponents/customCheckbox/customCheckbox";
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addEmployee} from "../../../../_BLL/reducers/employeesAndBanksReducer";
+import {addEmployee, companyActions} from "../../../../_BLL/reducers/employeesAndBanksReducer";
 import {ErrorServerMessage} from "../../SignInPage";
 import {AppStateType} from "../../../../_BLL/store";
+import {AddUserError} from "../../../../_BLL/reducers/profileReducer";
 
 
 interface IProps {
-    errorEmployee?: string
+    errorEmployee?: AddUserError | null
 }
 
 const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
@@ -21,7 +22,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
     const {register, handleSubmit, errors, getValues, setValue} = useForm<IAddNewUserData>()
     let success_user = useSelector((state: AppStateType) => state.company.successUser)
     const onSubmit = (values: IAddNewUserData) => {
-        console.log(values)
+        dispatch(companyActions.setAddingEmployeeError(null))
         dispatch(addEmployee(values))
     }
 
@@ -51,6 +52,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                    placeholder='Name'
                                    name='first_name'
                                    getValues={getValues}
+                                   server_error={errorEmployee?.first_name ? errorEmployee.first_name[0] : ''}
                         />
                     </InputWrap>
                     <InputWrap w='47%'>
@@ -62,6 +64,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                        required: 'Field is required'
                                    })}
                                    error={errors?.last_name}
+                                   server_error={errorEmployee?.last_name ? errorEmployee.last_name[0] : ''}
                         />
                     </InputWrap>
                 </Wrapper>
@@ -74,8 +77,8 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                name='email'
                                error={errors?.email}
                                getValues={getValues}
+                               server_error={errorEmployee?.email ? errorEmployee?.email[0] : ''}
                     />
-                {errorEmployee && <ErrorServerMessage style={{padding: '0'}}>{errorEmployee}</ErrorServerMessage>}
                     <FormField label='Position in the Company'
                                placeholder='Position in Company(optional)*'
                                name='position'
@@ -84,6 +87,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
+                               server_error={errorEmployee?.position ? errorEmployee.position[0] : ''}
                     />
                 <CheckboxWrap>
                     <CustomCheckbox

@@ -149,9 +149,7 @@ export const signIn = (loginData: ILoginData, history: History) => {
             "Something has went wrong. Please try again later!"
           )
         );
-        console.log(e);
       }
-
       dispatch(authActions.setIsLoading(false));
     }
   };
@@ -183,7 +181,7 @@ export const checkToken = (token: string) => {
       res.data && dispatch(authActions.setIsLoading(false));
     } catch (e) {
       console.log("error", e.response);
-      dispatch(authActions.setCheckTokenError(e.response));
+      dispatch(authActions.setCheckTokenError(e.response.data.detail));
       dispatch(authActions.setIsLoading(false));
     }
   };

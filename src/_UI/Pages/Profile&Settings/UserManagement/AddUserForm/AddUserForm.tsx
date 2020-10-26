@@ -7,16 +7,17 @@ import {useForm} from "react-hook-form";
 import CustomCheckbox from "../../../../components/_commonComponents/customCheckbox/customCheckbox";
 import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 import styled from "styled-components";
-import {addNewWorker} from "../../../../../_BLL/reducers/profileReducer";
+import {addNewWorker, AddUserError} from "../../../../../_BLL/reducers/profileReducer";
 import {IAddNewUserData} from "../../../../../_BLL/types/addNewUserTypes";
 
 
 type PropsType = {
     setIsAdd?: VoidFunctionType,
-    dispatch?: VoidFunctionType
+    dispatch?: VoidFunctionType,
+    server_error?: any
 }
 
-const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
+const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => {
     const {register, errors, handleSubmit, getValues} = useForm<IAddNewUserData>()
 
     const onSubmit = (values:IAddNewUserData) => {
@@ -38,6 +39,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                            })}
                            error={errors?.first_name}
                            getValues={getValues}
+                           server_error={server_error?.first_name ? server_error.first_name[0] : ''}
                 />
                 <FormField name='last_name'
                            placeholder='Last Name'
@@ -47,6 +49,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                            })}
                            error={errors?.last_name}
                            getValues={getValues}
+                           server_error={server_error?.last_name ? server_error.last_name[0] : ''}
                 />
                 <CheckboxWrap>
                    <Label>Roles</Label>
@@ -96,6 +99,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                            })}
                            error={errors?.email}
                            getValues={getValues}
+                           server_error={server_error?.email ? server_error.email[0] : ''}
                 />
             </FormWrap>
         </FormContainer>

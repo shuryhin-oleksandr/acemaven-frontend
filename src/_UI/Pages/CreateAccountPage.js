@@ -18,6 +18,8 @@ import Spinner from "../components/_commonComponents/spinner/Spinner";
 import { authAPI } from "../../_DAL/API/authAPI";
 import CheckedTokenPopup from "../components/PopUps/checked_token/checkedTokenPopup";
 import {getFilesFormData} from "../../_BLL/helpers/MultipartFormDataHelper";
+import {HelperText} from "../components/_commonComponents/Input/input-styles";
+import {ErrorServerMessage} from "./SignInPage";
 
 const ValidationSchema = Yup.object().shape({
   first_name: Yup.string().required("Please, enter your name"),
@@ -40,7 +42,7 @@ const CreateAccountPage = ({ history }) => {
 
   let dispatch = useDispatch();
   let isFetching = useSelector((state) => state.auth.isFetching);
-
+  let server_error = useSelector(state => state.auth.signUpMasterError)
 
   const location = useLocation();
   useEffect(() => {
@@ -77,7 +79,6 @@ const CreateAccountPage = ({ history }) => {
                     authAPI
                       .signUp(location.search.substr(7), wholeData)
                       .then((res) => {
-                        console.log(res);
                         localStorage.setItem("access_token", res.data.token);
                         res.data && history.push("/create/user");
                         dispatch(authActions.setIsLoading(false));
@@ -85,6 +86,9 @@ const CreateAccountPage = ({ history }) => {
                       .catch((e) => {
                         console.log("error", e.response);
                         dispatch(authActions.setIsLoading(false));
+                        if(!e.response) {
+                            dispatch(authActions.setMasterSignUpError('Sorry! Something went wrong, please try again later!'))
+                        }
                       });
                   }}
                 >
@@ -182,6 +186,7 @@ const CreateAccountPage = ({ history }) => {
                           valid={touched.position && !errors.position}
                           error={touched.position && errors.position}
                         />
+                        {server_error && <ErrorServerMessage>{server_error}</ErrorServerMessage>}
                         {img ? (
                           <div
                             style={{

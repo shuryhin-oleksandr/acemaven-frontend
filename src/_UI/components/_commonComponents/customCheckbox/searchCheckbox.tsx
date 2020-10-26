@@ -4,7 +4,7 @@ import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 
 type PropsType = {
   name?: string;
-  inputRef?: React.Ref<HTMLInputElement>;
+  inputref?: React.Ref<HTMLInputElement>;
 };
 
 const SearchCheckbox: React.FC<PropsType> = ({ ...props }) => {
@@ -20,6 +20,7 @@ const SearchCheckbox: React.FC<PropsType> = ({ ...props }) => {
         type="checkbox"
         checked={isCheck}
         onChange={() => handleChange()}
+        ref={props.inputref}
       />
       <span className="checkmark" />
       My company will be the shipper

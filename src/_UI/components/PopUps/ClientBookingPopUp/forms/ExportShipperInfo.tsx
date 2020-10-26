@@ -43,7 +43,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
         </div>
       </HeadingFormWrapper>
       <IsShipperWrapper>
-        <SearchCheckbox inputRef={register} name="is_shipper" />
+        <SearchCheckbox inputref={register} name="is_shipper" />
       </IsShipperWrapper>
       <InputGroupName>Shipper</InputGroupName>
       <InputsWrapper>

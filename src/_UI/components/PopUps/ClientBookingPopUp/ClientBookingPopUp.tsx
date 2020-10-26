@@ -41,6 +41,7 @@ const ClientBookingPopUp: React.FC = () => {
               control={control}
               setFormStep={setFormStep}
               formStep={formStep}
+              getValues={getValues}
             />
           ) : (
             <ShipperInfoContainer

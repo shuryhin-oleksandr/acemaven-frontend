@@ -7,6 +7,7 @@ import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
 import TableRow from "@material-ui/core/TableRow";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import OfferDescription from "./OfferDescription";
+import IconButton from '@material-ui/core/IconButton';
 
 
 const useStyles = makeStyles({
@@ -81,7 +82,8 @@ const QuoteRow = () => {
                 <TableCell className={classes.innerCell} align="center"><OffersSpan new_offer={true}>3</OffersSpan></TableCell>
                 <TableCell className={classes.innerCell} align="center"><StatusSpan status='active'>Active</StatusSpan></TableCell>
                 <TableCell className={classes.innerCell} align="right">
-                    <div><img src={play_icon} alt=""/></div>
+
+                    <IconButton><img src={play_icon} alt=""/></IconButton>
                 </TableCell>
             </TableRow>
            <OfferDescription isOpen={isOpen}/>

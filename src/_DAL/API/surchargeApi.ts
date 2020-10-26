@@ -16,8 +16,8 @@ export const surchargeAPI = {
     getShippingModesList () {
         return instance.get('/handling/shipping-mode/')
     },
-    getShippingTypesList () {
-        return instance.get('/handling/shipping-type/')
+    getShippingTypesList (is_freight_rate?: boolean | string) {
+        return instance.get(`/handling/shipping-type/?is_freight_rate=${is_freight_rate}`)
     },
     getCurrencyList () {
         return instance.get('/handling/currency/')

@@ -54,7 +54,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
 
   //запрос за опшионсами для селектов
   useEffect(() => {
-    dispatch(getShippingTypes());
+    dispatch(getShippingTypes(true));
     dispatch(getCarriers());
     dispatch(getCurrencyList());
   }, [dispatch]);

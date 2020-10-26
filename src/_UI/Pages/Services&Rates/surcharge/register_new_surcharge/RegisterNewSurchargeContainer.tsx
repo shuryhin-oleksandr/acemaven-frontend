@@ -81,9 +81,8 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     }, [dispatch])
 
     useEffect(() => {
-        dispatch(getShippingTypes())
+        dispatch(getShippingTypes(''))
         dispatch(getCarriers())
-        dispatch(getShippingModes())
         dispatch(getCurrencyList())
     }, [dispatch])
 

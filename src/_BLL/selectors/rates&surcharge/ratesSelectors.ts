@@ -18,14 +18,7 @@ export const getEditSuccess = ((state: AppStateType) => state.rate.edit_success)
 export const getRateBookedDatesSelector = (state: AppStateType)
     :Array<{container_type: number | null, disabledDates: Array<{from: Date, to: Date}>}> | undefined  => {
 
-   /* // @ts-ignore
-    let bookedDates = state.rate.booked_dates && state.rate.booked_dates[0] && state.rate.booked_dates[0].map(b =>
-        ({container_type: b.container_type, disabledDates: [{from: new Date(b.start_date), to: new Date(b.expiration_date)}]})
-    )
-    console.log(bookedDates)
-    return bookedDates ? [...bookedDates] : null
-*/
-    if(state.rate.booked_dates && state.rate.booked_dates[0] && state.rate.booked_dates[0][0].container_type == null) {
+    if(state.rate.booked_dates && state.rate.booked_dates[0] && state.rate.booked_dates[0][0]?.container_type == null) {
         // @ts-ignore
         const flatRates = state.rate.booked_dates.flat().map(c => (
             {type: null, disabledDates: {from: new Date(c.start_date), to: new Date(c.expiration_date)}}))
@@ -40,7 +33,7 @@ export const getRateBookedDatesSelector = (state: AppStateType)
 
     if(state.rate.booked_dates && state.rate.booked_dates.length > 1 ) {
         return state.rate.booked_dates.map(rate => rate.map(container => (
-            {container_type: container.container_type, disabledDates: [{from: new Date(container.start_date), to: new Date(container.expiration_date)}]}
+            {container_type: container?.container_type, disabledDates: [{from: new Date(container.start_date), to: new Date(container.expiration_date)}]}
             // @ts-ignore
         ))).reduce((current, next) => {
             return current.map(container => {

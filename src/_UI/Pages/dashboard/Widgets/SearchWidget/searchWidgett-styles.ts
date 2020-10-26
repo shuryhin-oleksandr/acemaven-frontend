@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+type PropsStyle = {
+    right?: string,
+    bottom?: string
+}
+
 export const RelativeWrapper = styled.div`
   position: relative;
 `;
@@ -30,13 +35,13 @@ export const FieldWrapper = styled.div`
   width: 18%;
 `;
 
-export const ButtonGroup = styled.div`
+export const ButtonGroup = styled.div<PropsStyle>`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   position: absolute;
-  bottom: 25px;
-  right: 30px;
+  bottom: ${({bottom}) => bottom ? bottom : '22px'};
+  right: ${({right}) => right ? right : '30px'};
 `;
 
 export const AddImg = styled.img`

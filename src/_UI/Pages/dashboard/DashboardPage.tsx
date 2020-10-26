@@ -12,6 +12,7 @@ import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
 import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
 import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
 import MapComponent from "./MapComponent/MapComponent";
+import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/ChargeableWeightPopup";
 
 
 const DashboardPage: React.FC = () => {
@@ -29,7 +30,7 @@ const DashboardPage: React.FC = () => {
       {widgetsVisible && (
         <>
           <SearchBox>
-            <SearchWidget />
+            <SearchWidget right='162px'/>
           </SearchBox>
           <MultiWidgetBox>
             <FeePaymentWidget />
@@ -38,7 +39,6 @@ const DashboardPage: React.FC = () => {
           </MultiWidgetBox>
         </>
       )}
-
       <ButtonBox>
         <WidgetButton onClick={() => setWidgetsVisible(!widgetsVisible)}>
           {widgetsVisible ? "Hide widgets" : "Show widgets"}

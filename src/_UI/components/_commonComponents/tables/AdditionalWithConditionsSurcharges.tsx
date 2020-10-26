@@ -63,7 +63,7 @@ const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ..
     let rows = (additionals && additionals?.length > 0)
         ?  additionals?.map((a) => createDataConditions(
             {id: a.id, title: a?.title},
-            [{id: 1, title: 'w/m', tooltip: 'This option will indicate that the charge will be calculated by the chargeable weight (w/m) of the cargo.'},
+            [{id: 1, title: 'chargable_weight/m', tooltip: 'This option will indicate that the charge will be calculated by the chargeable weight (chargable_weight/m) of the cargo.'},
                 {id: 2, title: 'per_weight', tooltip: 'Will be calculated by the weight of the cargo.'},
                 {id: 3, title: 'per_no_of_packs', tooltip: 'As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search.'},
                 {id: 4, title: 'fixed', tooltip: 'This means that the value indicated will be considered once in the shipment.'}],

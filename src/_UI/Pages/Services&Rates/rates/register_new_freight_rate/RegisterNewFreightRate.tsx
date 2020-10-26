@@ -129,6 +129,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
                     setMode={setMode}
                     searchColumn=""
                     searchValue=""
+                    setShippingValue={setShippingValue}
                 />
             </div>
             <FreightRateForm control={control}

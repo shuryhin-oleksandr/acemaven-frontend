@@ -12,6 +12,7 @@ export const rateAPI = {
     shipping_mode: number;
     origin: number;
     destination: number;
+    freight_rate?: number;
   }) {
     return instance.post("/booking/freight-rate/check-date/", checkRatesValues);
   },

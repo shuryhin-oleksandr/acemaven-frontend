@@ -48,10 +48,10 @@ export const getShippingModes = () => {
     }
 }
 
-export const getShippingTypes = () => {
+export const getShippingTypes = (is_freight_rate?: boolean | string) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
-            let res = await surchargeAPI.getShippingTypesList()
+            let res = await surchargeAPI.getShippingTypesList(is_freight_rate)
             dispatch(surchargeActions.setShippingType(res.data))
         } catch (e) {
             console.log(e.response)

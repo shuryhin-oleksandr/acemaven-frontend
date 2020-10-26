@@ -35,6 +35,7 @@ export const checkRatesDatesThunk = (check_values: {
   shipping_mode: number;
   origin: number;
   destination: number;
+  freight_rate?: number;
 }) => {
   return async (dispatch: Dispatch<commonRateActions>) => {
     try {

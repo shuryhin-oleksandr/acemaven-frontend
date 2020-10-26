@@ -18,6 +18,7 @@ type PropsType = {
   directory: string;
   searchColumn: string;
   searchValue: string;
+  setShippingValue?: (shippingModeId: number) => void;
 };
 
 const OptionsDeliveryButtons: React.FC<PropsType> = ({
@@ -27,6 +28,7 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
 }) => {
   let dispatchDeliveryHandler = (type: string) => {
     setMode && setMode(type);
+    props.setShippingValue && props.setShippingValue(0)
     props.dispatch &&
       props.dispatch(
         filterByThunk(

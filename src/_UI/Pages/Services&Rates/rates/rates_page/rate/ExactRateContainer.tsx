@@ -43,7 +43,7 @@ const ExactRateContainer = ({...props}) => {
         rate && dispatch(checkRatesDatesThunk(
             {
                 carrier: rate?.carrier.id, shipping_mode: rate?.shipping_mode.id,
-                origin: rate?.origin.id, destination: rate?.destination.id
+                origin: rate?.origin.id, destination: rate?.destination.id, freight_rate: rate?.id
             }
             )
         )

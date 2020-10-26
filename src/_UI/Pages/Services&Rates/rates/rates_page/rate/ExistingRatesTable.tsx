@@ -16,9 +16,10 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useSelector} from "react-redux";
 import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {SpanAware, Title} from "../../register_new_freight_rate/tables/Rates";
+import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 type PropsType = {
-    rate: any//RateInfoType | null,
+    rate: RateInfoType | null,
     control: any,
     setValue: (value: string | number) => void,
     getValues: any
@@ -83,6 +84,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
         }
     }
 */
+
     return (
         <div style={{width: '100%', maxWidth: '1002px'}}>
             <HandlingTitle>RATES</HandlingTitle>
@@ -117,13 +119,25 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {   rate.rates.map((r: any ) => (
+                        {  rate?.rates.map((r) => {
+                            if(reservedDates) {
+                                if(r.container_type) {
+                                    const disabledDates = reservedDates.find(d => d.container_type === r.container_type.id)?.disabledDates || [];
+                                    return {...r, disabledDates: [...disabledDates]}
+                                }
+                                else {
+                                    return {...r, disabledDates: [...reservedDates[0].disabledDates]}
+                                }
+                            } else {
+                                return r
+                            }
+                        }).map((r) => (
                             <TableRow key={r.id} className={classes.info_row}>
                                 {rate?.shipping_mode.id === 2 ||
                                 (rate?.shipping_mode.id === 3 && (
                                     <Controller
                                         control={control}
-                                        defaultValue={r.container_type.id}
+                                        defaultValue={r?.container_type.id}
                                         name={`rates.${r.id}.container_type`}
                                         as={
                                             <TableCell
@@ -132,7 +146,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                                 scope="row"
                                             >
                                                 <SpanType onClick={() => getSurchargeForRate(r.start_date, r.expiration_date)}>
-                                                    {r.container_type.code}
+                                                    {r?.container_type.code}
                                                 </SpanType>
                                             </TableCell>
                                         }
@@ -169,6 +183,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                     setValue={setValue}
                                     control={control}
                                     id={r.id}
+                                    // @ts-ignore
                                     reservedDates={r.disabledDates || []}
                                     errors={errors}
                                     classes={classes}

@@ -26,12 +26,16 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
     })
 
     useEffect(() => {
-        console.log('current', currentDates)
+
         currentDates &&
         setSelectedDay({
             from: moment(currentDates?.from, 'DD/MM/YYYY').toDate(),
             to: moment(currentDates?.to, 'DD/MM/YYYY').toDate()
         })
+
+        setValue(`rates.${id}.to`, currentDates?.to || '')
+        setValue(`rates.${id}.from`, currentDates?.from || '')
+
     }, [currentDates])
 
     const handleFromChange = (from: string, id: number) => {

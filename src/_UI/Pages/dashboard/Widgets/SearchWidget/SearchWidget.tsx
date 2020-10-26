@@ -16,11 +16,16 @@ import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
 import RemoveIcon from "../../../../assets/icons/widgets/remove-icon.svg";
 import BaseTooltip from "../../../../components/_commonComponents/baseTooltip/BaseTooltip";
 
-const SearchWidget: React.FC = () => {
+type PropsType = {
+    right?: string,
+    bottom?: string
+}
+
+const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
   const [mode, setMode] = useState("sea");
   return (
-    <RelativeWrapper>
-      <Container>
+    <RelativeWrapper >
+      <Container >
         <Heading>Search Rates</Heading>
         <Formik
           initialValues={{
@@ -51,6 +56,7 @@ const SearchWidget: React.FC = () => {
                     directory=""
                     searchColumn=""
                     searchValue=""
+
                   />
                   <BaseFormikInput
                     name="shipping_mode"
@@ -140,7 +146,7 @@ const SearchWidget: React.FC = () => {
                           )}
                         </div>
                       ))}
-                      <ButtonGroup>
+                      <ButtonGroup bottom={bottom} right={right}>
                         <BaseTooltip
                           title={"Add more cargo groups by clicking on plus"}
                         >

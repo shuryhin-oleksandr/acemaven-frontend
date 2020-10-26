@@ -36,6 +36,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
         onBlur={(e) => props.onBlur && props.onBlur(e.target.value)}
         autoComplete='off'
+        maxW={props.maxW}
       />
       {error?.type === "required" && <HelperText>{error?.message}</HelperText>}
       {error?.type === "pattern" && <HelperText>Value is not valid</HelperText>}

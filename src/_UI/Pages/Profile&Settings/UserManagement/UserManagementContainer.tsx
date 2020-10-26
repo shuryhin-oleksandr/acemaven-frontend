@@ -15,6 +15,7 @@ const UserManagementContainer = () => {
         dispatch(someFn)
     }
     const workersList = useSelector((state: AppStateType) => state.profile.workersList)
+    let my_id = useSelector((state: AppStateType) => state.profile.authUserInfo?.id)
 
     useEffect(() => {
         dispatch(getWorkersList())
@@ -23,7 +24,10 @@ const UserManagementContainer = () => {
 
     return (
         <Layout >
-            <UserManagementPage dispatch={dispatchHandler} workersList={workersList}/>
+            <UserManagementPage dispatch={dispatchHandler}
+                                workersList={workersList}
+                                my_id={my_id}
+            />
         </Layout>
     )
 }

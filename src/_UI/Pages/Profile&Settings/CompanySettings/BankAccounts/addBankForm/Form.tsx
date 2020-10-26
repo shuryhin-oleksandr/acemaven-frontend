@@ -22,7 +22,6 @@ type PropsType = {
 const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
     const {register, errors, handleSubmit, getValues, control} = useForm<IAddNewBank>()
     const onSubmit = (values:IAddNewBank) => {
-        console.log(values)
         dispatch && dispatch(addBankAccount( values))
     }
 
@@ -44,6 +43,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        inputRef={register({
                            required: 'Field is required'
                        })}
+                       maxW='447px'
             />
             <FormField name='branch'
                        placeholder='0000-0'
@@ -57,12 +57,14 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                            pattern: /^\d{4}-\d{1}$/,
                        })}
                        max='6'
+                       maxW='447px'
             />
             <FormField name='number'
                        placeholder='123990011794763'
                        label='Account Number'
                        getValues={getValues}
                        error={errors?.number}
+                       type='number'
                        inputRef={register({
                            required: 'Field is required',
                            pattern: /^\d+$/,
@@ -70,11 +72,12 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                            minLength: 1,
                        })}
                        max='50'
+                       maxW='447px'
             />
             {errorBank && <ErrorServerMessage>{errorBank}</ErrorServerMessage>}
             <Controller name='account_type'
                         control={control}
-                        defaultValue=''
+                        defaultValue='savings'
                         as={
                             <FormSelect label='Account Type'
                                         options={options2}

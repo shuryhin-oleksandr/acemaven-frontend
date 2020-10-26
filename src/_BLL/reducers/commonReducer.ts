@@ -22,5 +22,6 @@ type commonActionsType = AC<typeof commonActions>
 
 
 export const commonActions = {
-    setCurrentNavPath: (path: string) => ({type: 'SET_CURRENT_PATH', path}) as const
+    setCurrentNavPath: (path: string) => ({type: 'SET_CURRENT_PATH', path} as const),
+    saveFirstData: (values: Array<string>) => ({type: 'SAVE_FIRST_DATA', values} as const)
 }

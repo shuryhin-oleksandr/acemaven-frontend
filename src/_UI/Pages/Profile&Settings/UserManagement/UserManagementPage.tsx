@@ -11,10 +11,11 @@ import {deleteWorker} from "../../../../_BLL/reducers/profileReducer";
 
 type PropsType = {
     workersList?: Array<IAddNewUserData> | null,
-    dispatch?: VoidFunctionType
+    dispatch?: VoidFunctionType,
+    my_id?: number
 }
 
-const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch}) => {
+const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch, my_id}) => {
     const [isAdd, setIsAdd] = useState(false)
     const [editMode, setEditMode] = useState(false)
 
@@ -47,7 +48,7 @@ const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch}) => {
                         : <EditUserCardForm dispatch={dispatch} setEditMode={setEditMode}/>
                     }*/}
                     {workersList?.map(w => editedUserId !== w?.id
-                        ? <UserPart key={w.id} deleteUser={deleteUser} u={w} setEditMode={editHandler} cardsMode={cardsMode} max_width='447px'/>
+                        ? <UserPart my_id={my_id} key={w.id} deleteUser={deleteUser} u={w} setEditMode={editHandler} cardsMode={cardsMode} max_width='447px'/>
                         : <EditUserCardForm key={w.id} worker={w} dispatch={dispatch} setEditMode={editHandler}/>
                     )}
                 </CardsOuter>

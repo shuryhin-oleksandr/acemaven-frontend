@@ -28,12 +28,12 @@ type PropsType = {
     setEditMode? : (id: number, value: boolean) => void
     u?: IAddNewUserData,
     deleteUser?: VoidFunctionType,
-
+    my_id?: number
 }
 
 
 const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser,
-                                          setEditMode, u}) => {
+                                          setEditMode, u, my_id}) => {
 
     const [colorWrap, setColorWrap] = useState('')
     useEffect(() => {
@@ -49,7 +49,11 @@ const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser,
                     <ActionWrap>
                         <Name>{u?.first_name + ' ' + u?.last_name}</Name>
                         <div>
-                            <DeleteButton onClick={() => deleteUser && deleteUser(u?.id as number)}><img src={deleteIcon} alt=""/></DeleteButton>
+                            {my_id !== u?.id &&
+                            <DeleteButton onClick={() => deleteUser && deleteUser(u?.id as number)}>
+                                <img src={deleteIcon} alt=""/>
+                            </DeleteButton>
+                            }
                             {cardsMode && <EditButton onClick={() => setEditMode && setEditMode(Number(u?.id), true)}><img src={editIcon} alt=""/></EditButton>}
                         </div>
                     </ActionWrap>

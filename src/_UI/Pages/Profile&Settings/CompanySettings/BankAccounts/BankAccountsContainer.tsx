@@ -17,12 +17,9 @@ import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 const BankAccountsContainer:React.FC = () => {
     const [isAdd, setIsAdd] = useState(false)
 
-    const openCallback = (value: boolean) => {
-        setIsAdd(value)
-        dispatch(profileActions.setOpenBankForm(value))
-    }
     const dispatch = useDispatch()
     const banksList = useSelector((state: AppStateType) => state.profile.banksList)
+    const addedBankSuccess = useSelector((state: AppStateType) => state.profile.addedBankSuccess)
 
     const dispatchHandler = (someFn: VoidFunctionType) => {
         dispatch(someFn)
@@ -39,14 +36,22 @@ const BankAccountsContainer:React.FC = () => {
         dispatch(makeBankDefault(bankId, {is_default: true}))
     }
 
+    useEffect(() => {
+        if(addedBankSuccess) {
+            setIsAdd(false)
+            dispatch(profileActions.setAddedBankSuccess(''))
+        }
+    }, [addedBankSuccess])
+
     return (
         <BanksContainer>
             <BanksInner>
                 {!isAdd
-                ?  <AddNewButton setIsAdd={openCallback}/>
-                : <Form dispatch={dispatchHandler} setIsAdd={openCallback}/>
+                ?  <AddNewButton setIsAdd={setIsAdd}/>
+                : <Form dispatch={dispatchHandler} setIsAdd={setIsAdd}/>
                 }
                 {banksList?.map(b => <BankCard b={b}
+                                                        key={b.id}
                                                         deleteBank={deleteBankCallback}
                                                         defaultBank={defaultBankCallback}
                                                         max_width='611px'

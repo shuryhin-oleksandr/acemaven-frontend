@@ -19,6 +19,7 @@ const initialState = {
   workersList: null as Array<IAddNewUserData> | null,
   passwordError: null as Error | null,
   changesPass: "",
+  addedBankSuccess: '',
   addingBankError: '',
   openBankForm: false
 };
@@ -116,6 +117,11 @@ export const profileReducer = (state = initialState, action: commonProfileAction
         ...state,
         addingBankError: action.error
       }
+    case "SET_ADDED_BANK_SUCCESS":
+      return {
+        ...state,
+        addedBankSuccess: action.value
+      }
     default:
       return state;
   }
@@ -139,7 +145,7 @@ export const profileActions = {
   setBanksAfterDefault: (bankId: number, default_bank: IAddNewBank) => ({ type: "SET_BANKS_AFTER_DEFAULT", bankId, default_bank } as const),
   changePassError: (error: any) => ({ type: "SET_CHANGE_PASSWORD_ERROR", error } as const),
   setChanges: (message: string) => ({ type: "SET_CHANGES", message } as const),
-  setOpenBankForm: (value: boolean) => ({type: 'SET_OPEN_BANK_FORM', value} as const)
+  setAddedBankSuccess: (value: string) => ({type: 'SET_ADDED_BANK_SUCCESS', value} as const)
 };
 
 export const getAuthUserInfo = () => {
@@ -221,10 +227,9 @@ export const addBankAccount = (bankData: IAddNewBank) => {
       dispatch(profileActions.setIsFetching(true));
       let res = await profileSettingsAPI.addNewBank(bankData);
       dispatch(profileActions.setNewToBanksList(res.data));
-      res.data && dispatch(profileActions.setOpenBankForm(false))
+      res.data && dispatch(profileActions.setAddedBankSuccess('success'))
       dispatch(profileActions.setIsFetching(false));
     } catch (e) {
-      console.log("error", e.response);
       dispatch(profileActions.setAddingBankError(e.response.data.number[0]))
       dispatch(profileActions.setIsFetching(false));
     }

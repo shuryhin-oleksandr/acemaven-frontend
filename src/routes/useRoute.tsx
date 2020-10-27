@@ -15,7 +15,7 @@ import LandingPage from "../_UI/Pages/landing/LandingPage";
 import RatesContainer from "../_UI/Pages/Services&Rates/rates/RatesContainer";
 import DashboardContainer from "../_UI/Pages/dashboard/DashboardContainer";
 import ExactRateContainer from "../_UI/Pages/Services&Rates/rates/rates_page/rate/ExactRateContainer";
-import QuotesContainer from "../_UI/Pages/quotes/client/QuotesContainer";
+import QuotesContainer from "../_UI/Pages/quotes/QuotesContainer";
 
 
 

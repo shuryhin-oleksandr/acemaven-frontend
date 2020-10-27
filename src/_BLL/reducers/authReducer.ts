@@ -5,6 +5,7 @@ import {
   ICompanySignUpError,
   ILoginData,
   IMasterAccountData,
+  IMasterSignUpError
 } from "../types/authTypes";
 import { History } from "history";
 
@@ -15,7 +16,7 @@ const initialState: InitialStateType = {
   signedCompanyData: null,
   companySignUpError: null,
   checkTokenError: "",
-  signUpMasterError: "",
+  signUpMasterError: null,
   isFinish: false,
   checkedUser: null,
   finishPopup: false,
@@ -29,7 +30,7 @@ type InitialStateType = {
   signedCompanyData: ICompanySignUpData | null;
   checkTokenError: string;
   companySignUpError: ICompanySignUpError | null;
-  signUpMasterError: string;
+  signUpMasterError: IMasterSignUpError | null;
   isFinish: boolean;
   checkedUser: any;
   finishPopup: boolean;
@@ -117,7 +118,7 @@ export const authActions = {
     ({ type: "SET_COMPANY_SIGNUP_ERROR", error } as const), //for phone & email check errors
   setCheckTokenError: (error: string) =>
     ({ type: "SET_CHECK_TOKEN_ERROR", error } as const), //for check token error
-  setMasterSignUpError: (error: string) =>
+  setMasterSignUpError: (error: IMasterSignUpError) =>
     ({ type: "SET_MASTER_SIGNUP_ERROR", error } as const), //for password error
   setIsFinish: (value: boolean) => ({ type: "SET_IS_FINISH", value } as const),
   setCheckedTokenUser: (data: any) =>

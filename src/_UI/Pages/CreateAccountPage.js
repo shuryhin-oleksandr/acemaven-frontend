@@ -17,9 +17,10 @@ import { useLocation, withRouter } from "react-router";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
 import { authAPI } from "../../_DAL/API/authAPI";
 import CheckedTokenPopup from "../components/PopUps/checked_token/checkedTokenPopup";
-import {getFilesFormData} from "../../_BLL/helpers/MultipartFormDataHelper";
-import {HelperText} from "../components/_commonComponents/Input/input-styles";
-import {ErrorServerMessage} from "./SignInPage";
+import { getFilesFormData } from "../../_BLL/helpers/MultipartFormDataHelper";
+import { HelperText } from "../components/_commonComponents/Input/input-styles";
+import { ErrorServerMessage } from "./SignInPage";
+const phoneRegex = /^(\+)?([0-9]){10,13}$/;
 
 const ValidationSchema = Yup.object().shape({
   first_name: Yup.string().required("Please, enter your name"),
@@ -27,11 +28,16 @@ const ValidationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email")
     .required("Please, enter your email"),
-  password: Yup.string().required("Please, enter your password"),
+  password: Yup.string()
+    .min(8, "Password must contain at least 8 characters")
+    .max(25, "Password must contain maximum 25 characters")
+    .required("Please, enter your password"),
   confirm_password: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("Please, confirm your password"),
-  phone: Yup.number().required("Please, enter your phone number"),
+  phone: Yup.string()
+    .matches(phoneRegex, "Phone number is not valid")
+    .required("Please, enter your phone number"),
   position: Yup.string().required("Please, enter your position"),
 });
 
@@ -42,14 +48,13 @@ const CreateAccountPage = ({ history }) => {
 
   let dispatch = useDispatch();
   let isFetching = useSelector((state) => state.auth.isFetching);
-  let server_error = useSelector(state => state.auth.signUpMasterError)
+  let server_error = useSelector((state) => state.auth.signUpMasterError);
 
   const location = useLocation();
   useEffect(() => {
     console.log(location.search.substr(7));
     dispatch(checkToken(location.search.substr(7)));
   }, [dispatch]);
-
 
   return (
     <>
@@ -61,164 +66,178 @@ const CreateAccountPage = ({ history }) => {
           <ContentWrapper>
             <Heading>Create a Master Account</Heading>
             <FormWrapper>
-                <Formik
-                  validationSchema={ValidationSchema}
-                  initialValues={{
-                    first_name: '',
-                    last_name: '',
-                    email: '',
-                    password: "",
-                    confirm_password: "",
-                    phone: "",
-                    position: '',
-
-                  }}
-                  onSubmit={(values, { }) => {
-                    let wholeData = getFilesFormData(values, file);
-                    dispatch(authActions.setIsLoading(true));
-                    authAPI
-                      .signUp(location.search.substr(7), wholeData)
-                      .then((res) => {
-                        localStorage.setItem("access_token", res.data.token);
-                        res.data && history.push("/create/user");
-                        dispatch(authActions.setIsLoading(false));
-                      })
-                      .catch((e) => {
-                        console.log("error", e.response);
-                        dispatch(authActions.setIsLoading(false));
-                        if(!e.response) {
-                            dispatch(authActions.setMasterSignUpError('Sorry! Something went wrong, please try again later!'))
-                        }
-                      });
-                  }}
-                >
-                  {({ values, touched, errors }) => {
-                    const hasErrors = Object.keys(errors).length > 0;
-                    const isButtonDisabled =
-                      !values.first_name ||
-                      !values.last_name ||
-                      !values.email ||
-                      !values.password ||
-                      !values.confirm_password ||
-                      !values.phone ||
-                      !values.position ||
-                      hasErrors;
-                    return (
-                      <Form>
-                        <Row>
-                          <RowItem>
-                            <BaseInputGroup
-                              name="first_name"
-                              placeholder="Name"
-                              values={values}
-                              labelText="Name"
-                              marginBot={46}
-                              valid={touched.name && !errors.name}
-                              error={touched.name && errors.name}
-                            />
-                          </RowItem>
-                          <RowItem>
-                            <BaseInputGroup
-                              name="last_name"
-                              placeholder="Last Name"
-                              values={values}
-                              labelText="Last Name"
-                              marginBot={46}
-                              valid={touched.lastName && !errors.lastName}
-                              error={touched.lastName && errors.lastName}
-                            />
-                          </RowItem>
-                        </Row>
-                        <BaseInputGroup
-                          name="email"
-                          placeholder="Email"
-                          values={values}
-                          labelText="Email"
-                          marginBot={46}
-                          valid={touched.email && !!errors.email}
-                          error={touched.email && errors.email}
-                        />
-                        <BaseInputGroup
-                          name="password"
-                          placeholder="Password"
-                          values={values}
-                          labelText="Password"
-                          type="password"
-                          marginBot={46}
-                          valid={touched.password && !errors.password}
-                          error={touched.password && errors.password}
-                          withEye={!!values.password}
-                        />
-                        {values.password && (
-                          <div style={{ marginTop: "-16px" }}>
-                            <BaseInputGroup
-                              name="confirm_password"
-                              placeholder="Confirm password"
-                              values={values}
-                              type="password"
-                              marginBot={57}
-                              valid={
-                                touched.confirmPassword &&
-                                !errors.confirmPassword
-                              }
-                              error={
-                                touched.confirmPassword &&
-                                errors.confirmPassword
-                              }
-                            />
-                          </div>
-                        )}
-                        <BaseInputGroup
-                          name="phone"
-                          placeholder="Phone number"
-                          values={values}
-                          labelText="Phone number"
-                          marginBot={46}
-                          valid={touched.phone && !errors.phone}
-                          error={touched.phone && errors.phone}
-                        />
-                        <BaseInputGroup
-                          name="position"
-                          placeholder="Position in the company"
-                          values={values}
-                          labelText="Position in the company"
-                          marginBot={46}
-                          valid={touched.position && !errors.position}
-                          error={touched.position && errors.position}
-                        />
-                        {server_error && <ErrorServerMessage>{server_error}</ErrorServerMessage>}
-                        {img ? (
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "flex-start",
-                            }}
-                          >
-                            <Photo height="auto" src={img} />
-                            <CloseIcon
-                              src={Close}
-                              alt="Close"
-                              onClick={() => {
-                                setImg("");
-                              }}
-                            />
-                          </div>
-                        ) : (
-                          <DropZone
-                            setFile={setFile}
-                            name="photo"
-                            setImg={setImg}
+              <Formik
+                validationSchema={ValidationSchema}
+                initialValues={{
+                  first_name: "",
+                  last_name: "",
+                  email: "",
+                  password: "",
+                  confirm_password: "",
+                  phone: "",
+                  position: "",
+                }}
+                onSubmit={(values, {}) => {
+                  let wholeData = getFilesFormData(values, file);
+                  dispatch(authActions.setIsLoading(true));
+                  authAPI
+                    .signUp(location.search.substr(7), wholeData)
+                    .then((res) => {
+                      localStorage.setItem("access_token", res.data.token);
+                      res.data && history.push("/create/user");
+                      dispatch(authActions.setIsLoading(false));
+                    })
+                    .catch((e) => {
+                      dispatch(authActions.setIsLoading(false));
+                      dispatch(
+                        authActions.setMasterSignUpError(e.response.data)
+                      );
+                    });
+                }}
+              >
+                {({ values, touched, errors }) => {
+                  const hasErrors = Object.keys(errors).length > 0;
+                  const isButtonDisabled =
+                    !values.first_name ||
+                    !values.last_name ||
+                    !values.email ||
+                    !values.password ||
+                    !values.confirm_password ||
+                    !values.phone ||
+                    !values.position ||
+                    hasErrors;
+                  return (
+                    <Form>
+                      <Row>
+                        <RowItem>
+                          <BaseInputGroup
+                            name="first_name"
+                            placeholder="Name"
+                            values={values}
+                            labelText="Name"
+                            marginBot={46}
+                            valid={touched.name && !errors.name}
+                            error={touched.name && errors.name}
                           />
-                        )}
-                        <ButtonWrapper>
-                          <BaseButton type="submit" disabled={isButtonDisabled}>
-                            Create a Master account
-                          </BaseButton>
-                        </ButtonWrapper>
-                      </Form>
-                    );
-                  }}
-                </Formik>
+                        </RowItem>
+                        <RowItem>
+                          <BaseInputGroup
+                            name="last_name"
+                            placeholder="Last Name"
+                            values={values}
+                            labelText="Last Name"
+                            marginBot={46}
+                            valid={touched.lastName && !errors.lastName}
+                            error={touched.lastName && errors.lastName}
+                          />
+                        </RowItem>
+                      </Row>
+                      <BaseInputGroup
+                        name="email"
+                        placeholder="Email"
+                        values={values}
+                        labelText="Email"
+                        marginBot={46}
+                        valid={touched.email && !!errors.email}
+                        error={touched.email && errors.email}
+                      />
+                      <BaseInputGroup
+                        name="password"
+                        placeholder="Password"
+                        values={values}
+                        labelText="Password"
+                        type="password"
+                        marginBot={46}
+                        valid={touched.password && !errors.password}
+                        error={touched.password && errors.password}
+                        withEye={!!values.password}
+                      />
+                      {values.password && (
+                        <div style={{ marginTop: "-16px" }}>
+                          <BaseInputGroup
+                            name="confirm_password"
+                            placeholder="Confirm password"
+                            values={values}
+                            type="password"
+                            marginBot={57}
+                            valid={
+                              touched.confirmPassword && !errors.confirmPassword
+                            }
+                            error={
+                              touched.confirmPassword && errors.confirmPassword
+                            }
+                          />
+                        </div>
+                      )}
+
+                      <BaseInputGroup
+                        name="phone"
+                        placeholder="Phone number"
+                        values={values}
+                        labelText="Phone number"
+                        marginBot={46}
+                        valid={touched.phone && !errors.phone}
+                        error={touched.phone && errors.phone}
+                      />
+
+                      <BaseInputGroup
+                        name="position"
+                        placeholder="Position in the company"
+                        values={values}
+                        labelText="Position in the company"
+                        marginBot={46}
+                        valid={touched.position && !errors.position}
+                        error={touched.position && errors.position}
+                      />
+                      {server_error && (
+                        <div style={{ margin: "-20px 0 20px" }}>
+                          {server_error?.password?.length > 0 &&
+                            server_error.password.map((er, idx) => (
+                              <ErrorServerMessage key={idx}>
+                                {er}
+                              </ErrorServerMessage>
+                            ))}
+                          {server_error?.phone?.length > 0 &&
+                            server_error.phone.map((er, idx) => (
+                              <ErrorServerMessage key={idx}>
+                                {er}
+                              </ErrorServerMessage>
+                            ))}
+                        </div>
+                      )}
+
+                      {img ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <Photo height="auto" src={img} />
+                          <CloseIcon
+                            src={Close}
+                            alt="Close"
+                            onClick={() => {
+                              setImg("");
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <DropZone
+                          setFile={setFile}
+                          name="photo"
+                          setImg={setImg}
+                        />
+                      )}
+                      <ButtonWrapper>
+                        <BaseButton type="submit" disabled={isButtonDisabled}>
+                          Create a Master account
+                        </BaseButton>
+                      </ButtonWrapper>
+                    </Form>
+                  );
+                }}
+              </Formik>
             </FormWrapper>
           </ContentWrapper>
         </Container>

@@ -61,9 +61,9 @@ const Error = styled.div`
   position: absolute;
   right: 0;
   margin-top: 3px;
-  font-family: "Helvetica Bold", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
-  color: #e76767;
+  color: #E76767;
 `;
 
 const EyeImage = styled.img`

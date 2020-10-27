@@ -15,7 +15,13 @@ import ShipperInfoContainer from "./forms/ShipperInfoContainer";
 import { useSelector } from "react-redux";
 import { AppStateType } from "../../../../_BLL/store";
 
-const ClientBookingPopUp: React.FC = () => {
+type PropsType = {
+  setBookingPopupVisible: (value: boolean) => void;
+};
+
+const ClientBookingPopUp: React.FC<PropsType> = ({
+  setBookingPopupVisible,
+}) => {
   const {
     register,
     handleSubmit,
@@ -38,7 +44,7 @@ const ClientBookingPopUp: React.FC = () => {
     <PopupContainer>
       <PopupContent>
         <Heading>Booking process</Heading>
-        <CloseBtn>
+        <CloseBtn onClick={() => setBookingPopupVisible(false)}>
           <img src={close} alt="" />
         </CloseBtn>
         <BookingCard button_display={false} />

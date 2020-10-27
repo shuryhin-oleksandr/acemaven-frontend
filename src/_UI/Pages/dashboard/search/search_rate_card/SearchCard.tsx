@@ -49,9 +49,10 @@ const useStyles = makeStyles({
 
 type PropsType = {
     showRatingPopup: (value: boolean) => void
+    setBookingPopupVisible:(value: boolean) => void
 }
 
-const SearchCard:React.FC<PropsType> = ({showRatingPopup}) => {
+const SearchCard:React.FC<PropsType> = ({showRatingPopup,setBookingPopupVisible}) => {
     const classes = useStyles();
 
     const [isShown, setShow] = useState(false)
@@ -59,7 +60,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup}) => {
     return (
         <CardContainer>
             <CardInner>
-                <BookingCard showRatingPopup={showRatingPopup} showTable={setShow} isTableShown={isShown} button_display={true}/>
+                <BookingCard showRatingPopup={showRatingPopup} showTable={setShow} isTableShown={isShown} button_display={true} setBookingPopupVisible={setBookingPopupVisible}/>
                 {isShown && <HiddenWrapper>
                     <HiddenTitle>
                         CHARGES

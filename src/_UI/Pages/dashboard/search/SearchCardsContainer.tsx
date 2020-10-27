@@ -6,14 +6,15 @@ import NoSearchResultCard from "./search_rate_card/no_search_card/NoSearchResult
 
 
 type PropsType = {
-    showRatingPopup: (value: boolean) => void
+    showRatingPopup: (value: boolean) => void,
+    setBookingPopupVisible:(value: boolean) => void,
 }
 
-const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup}) => {
+const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup, setBookingPopupVisible}) => {
     return (
         <SearchWrapper >
             <SearchWidget bottom='35px'/>
-            <SearchCard showRatingPopup={showRatingPopup}/>
+            <SearchCard showRatingPopup={showRatingPopup} setBookingPopupVisible={setBookingPopupVisible}/>
             {/*<NoSearchResultCard />*/}
         </SearchWrapper>
     )

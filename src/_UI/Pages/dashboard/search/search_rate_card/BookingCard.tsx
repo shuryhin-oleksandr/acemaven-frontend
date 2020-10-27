@@ -19,9 +19,10 @@ type PropsType = {
     showTable?: (value: boolean) => void,
     isTableShown?: boolean
     showRatingPopup?: (value: boolean) => void
+    setBookingPopupVisible?: (value: boolean) => void
 }
 
-const BookingCard:React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup}) => {
+const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible}) => {
     return (
         <UpperWrapper onClick={() => isTableShown ? showTable && showTable(false) : showTable && showTable(true)}>
             <InfoPart>
@@ -84,7 +85,10 @@ const BookingCard:React.FC<PropsType> = ({button_display, showTable, isTableShow
                         <CalcValue>BRL 50</CalcValue>
                     </CalculationLine>
                 </CalculationWrap>
-                <BookButton button_display={button_display}>
+                <BookButton onClick={(e) => {
+                    e.stopPropagation();
+                    setBookingPopupVisible && setBookingPopupVisible(true)
+                }} button_display={button_display}>
                     BOOK
                 </BookButton>
             </TotalPart>

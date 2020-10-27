@@ -80,7 +80,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                server_error={errorEmployee?.email ? errorEmployee?.email[0] : ''}
                     />
                     <FormField label='Position in the Company'
-                               placeholder='Position in Company(optional)*'
+                               placeholder='Position in the Company'
                                name='position'
                                error={errors?.position}
                                getValues={getValues}

@@ -6,9 +6,7 @@ import {
 import { rateAPI } from "../../../_DAL/API/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
-import {editHandlingType} from "../../types/rates&surcharges/surchargesTypes";
-import {commonSurchargeActions, surchargeActions} from "../../reducers/surcharge&rates/surchargeReducer";
-import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
+
 
 type ThunkType = ThunkAction<
   Promise<void>,
@@ -54,6 +52,7 @@ export const registerNewFreightRateThunk = (freight_data: any) => {
       dispatch(rateActions.setNewFreightRate(res.data));
       dispatch(rateActions.setRegistrationSuccess("success"));
       dispatch(rateActions.setExistingSurchargeByRate(null));
+      dispatch(rateActions.setEmptyExistingSurcharge(''));
     } catch (e) {
       console.log(e.response);
     }

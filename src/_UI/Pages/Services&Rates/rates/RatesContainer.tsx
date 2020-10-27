@@ -81,6 +81,7 @@ const RatesContainer: React.FC = () => {
                   setDirectory={setDirectory}
                   searchColumn=""
                   searchValue=""
+                  margin_bottom='0'
                 />
               </ActionsWrapper>
             </HeaderOuter>

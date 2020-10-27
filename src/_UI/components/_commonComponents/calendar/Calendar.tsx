@@ -32,7 +32,7 @@ type PropsType = {
     margin_bottom?: string
     onBlur?: any
     input_height?: string
-
+    required_dates: boolean
 }
 
 const Calendar = forwardRef<DayPickerInput, PropsType>(
@@ -50,9 +50,9 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
             <Controller
                 name={name}
                 control={control}
-                /*rules={{
-                    required: true
-                }}*/
+                rules={{
+                    required: props.required_dates
+                }}
                 defaultValue=""
                 as={
                     <DayPickerInput

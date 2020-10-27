@@ -1,4 +1,4 @@
-import React, {MutableRefObject, useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import { SurchargesDatesFilter } from "./form-styles";
 import Calendar from "../../../../components/_commonComponents/calendar/Calendar";
 import DayPickerInput from "react-day-picker/DayPickerInput";
@@ -21,9 +21,10 @@ type PropsType = {
     input_height?: string
     rate_start_date?: string
     setFormMode?: (value: boolean) => void
+    required_dates: boolean
 }
 
-const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...props}) => {
+const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, required_dates, ...props}) => {
 
     const reservedDates = useSelector(getBookedDates)
 
@@ -95,7 +96,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
                 max_width={props.max_width}
                 margin_bottom={props.margin_bottom}
                 input_height={props.input_height}
-
+                required_dates={required_dates}
             />
             <Calendar
                 label='Expiration Date'
@@ -115,6 +116,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, ...pro
                 max_width={props.max_width}
                 margin_bottom={props.margin_bottom}
                 input_height={props.input_height}
+                required_dates={required_dates}
             />
         </SurchargesDatesFilter>
     )

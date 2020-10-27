@@ -16,9 +16,11 @@ type PropsType = {
     getSurchargeToRateHandle: (id: number, from: string, to: string) => void
     currentDates?: {from: string, to: string}
     setFormMode?: (value: boolean) => void
+    required_dates: boolean
 }
 
-const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, errors, classes, reservedDates, id, getSurchargeToRateHandle, setFormMode}) => {
+const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, errors, classes, reservedDates,
+                                             id, getSurchargeToRateHandle, setFormMode, required_dates}) => {
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
@@ -83,6 +85,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
                     display_label='none'
                     max_width='107px'
                     margin_bottom='0'
+                    required_dates={required_dates}
                 />
             </TableCell>
             <TableCell className={classes.innerCell} onClick={() => setFormMode && setFormMode(true)}>
@@ -102,7 +105,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
                     display_label='none'
                     max_width='107px'
                     margin_bottom='0'
-
+                    required_dates={required_dates}
                 />
             </TableCell>
         </>

@@ -90,5 +90,5 @@ height: 100%;
 `
 
 export const ButtonsWrap = styled.div`
-
+  padding-left: 15px;
 `

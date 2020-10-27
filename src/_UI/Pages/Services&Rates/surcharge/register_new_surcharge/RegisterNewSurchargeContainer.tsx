@@ -14,8 +14,7 @@ import {
 import {
     checkSurchargeDates,
     getCarriers, getCurrencyList,
-    getPorts, getShippingModes,
-    getShippingTypes
+    getPorts, getShippingTypes
 } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 
 

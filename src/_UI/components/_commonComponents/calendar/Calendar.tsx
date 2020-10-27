@@ -32,7 +32,7 @@ type PropsType = {
     margin_bottom?: string
     onBlur?: any
     input_height?: string
-    required_dates: boolean
+    required_dates?: boolean
 }
 
 const Calendar = forwardRef<DayPickerInput, PropsType>(

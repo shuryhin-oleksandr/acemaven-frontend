@@ -65,6 +65,7 @@ const AddBankForm: React.FC = () => {
         error={errors?.branch}
         getValues={getValues}
         max="6"
+        pattern_message='Branch No. has to be in 0000-0 format'
       />
       <FormField
         label="Account No."
@@ -79,6 +80,8 @@ const AddBankForm: React.FC = () => {
         error={errors?.number}
         getValues={getValues}
         max="50"
+        type='number'
+        pattern_message='Account No. must contain only numbers'
       />
         {errorBank && <ErrorServerMessage>{errorBank}</ErrorServerMessage>}
       <Controller

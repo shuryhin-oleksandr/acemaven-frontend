@@ -8,14 +8,14 @@ import {
   PopupContent,
 } from "./cancel-popup-styles";
 import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
-import { NavLink } from "react-router-dom";
 const close = require("../../../../_UI/assets/icons/close-icon.svg") as string;
 
 type PropsTypes = {
   setIsOpen: VoidFunctionType;
+  things: string
 };
 
-const CancelPopup: React.FC<PropsTypes> = ({ setIsOpen }) => {
+const CancelPopup: React.FC<PropsTypes> = ({ setIsOpen, things}) => {
   return (
     <PopupContainer>
       <PopupContent>
@@ -23,12 +23,12 @@ const CancelPopup: React.FC<PropsTypes> = ({ setIsOpen }) => {
           <img src={close} alt="" />
         </CloseBtn>
         <CancelTitle>
-          Are you sure you want to cancel users adding?
+          Are you sure you want to cancel {things} adding?
         </CancelTitle>
         <ButtonsWrap>
-          <NavLink style={{ textDecoration: "none" }} to="/">
+          <a style={{ textDecoration: "none" }} href="/">
             <CancelButton>Cancel registration</CancelButton>
-          </NavLink>
+          </a>
           <CancelButton onClick={() => setIsOpen(false)}>
             Continue registration
           </CancelButton>

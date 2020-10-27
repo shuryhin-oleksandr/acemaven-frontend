@@ -10,7 +10,6 @@ import {
 import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import BankListContainer from "./BanksList/BankListContainer";
 import AddBankForm from "./AddBankForm";
-import CancelButton from "../../../components/_commonComponents/buttons/navFormButtons/CancelButton";
 import BaseNextButton from "../../../components/base/BaseNextButton/index";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +17,7 @@ import { getBanksList } from "../../../../_BLL/reducers/employeesAndBanksReducer
 import { AppStateType } from "../../../../_BLL/store";
 import { NavLink } from "react-router-dom";
 import RouteButton from "src/_UI/components/_commonComponents/buttons/route_button/RouteButton";
+import {CancelButton} from "../CreateNewUser/add-new-user-styles";
 
 type PropsType = {
   setIsOpen: VoidFunctionType;
@@ -57,7 +57,7 @@ const AddNewBank: React.FC<PropsType> = ({ setIsOpen }) => {
                        fontSize='14px'
                        hover_color='rgba(0, 0, 0, .15)'
           />
-          <CancelButton setIsOpen={setIsOpen} text="CANCEL" />
+          <CancelButton onClick={() => setIsOpen(true)}>CANCEL</CancelButton>
         </NavWrap>
           <NavLink style={{ textDecoration: "none" }} to="/create/finish">
             <BaseNextButton>NEXT</BaseNextButton>

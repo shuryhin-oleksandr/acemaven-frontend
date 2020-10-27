@@ -5,7 +5,6 @@ import {useEffect, useState} from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../_BLL/store";
-import Spinner from "../../../components/_commonComponents/spinner/Spinner";
 import { getEmployees} from "../../../../_BLL/reducers/employeesAndBanksReducer";
 import LayoutWithoutNav from "../../../components/BaseLayout/LayoutWithoutNav";
 
@@ -16,25 +15,23 @@ interface IProps {
 const AddNewUserContainer:React.FC<IProps> = () => {
     const [isOpen, setIsOpen] = useState(false)
     const employeesList = useSelector((state: AppStateType) => state.company.employees)
-    const isFetching = useSelector((state: AppStateType) => state.company.isFetching)
     const server_error = useSelector((state: AppStateType) => state.company.addingEmployeeError)
 
     const dispatch = useDispatch()
 
-    const clearToken = () => {
+   /* const clearToken = () => {
         localStorage.removeItem('access_token')
-    }
+    }*/
     useEffect(() => {
         dispatch(getEmployees())
-        return () => {
+        /*return () => {
             clearToken()
-        }
+        }*/
     }, [dispatch])
 
     return (
         <Outer>
-            {isFetching && <Spinner />}
-            {isOpen && <CancelPopup setIsOpen={setIsOpen}/>}
+            {isOpen && <CancelPopup things={'users'} setIsOpen={setIsOpen}/>}
             <LayoutWithoutNav>
                 <AddNewUser server_error={server_error} list={employeesList} setIsOpen={setIsOpen}/>
             </LayoutWithoutNav>

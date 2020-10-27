@@ -36,7 +36,6 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     const ports = useSelector(getPortsSelector)
     const surcharge = useSelector(getSurcharge)
 
-
     //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
     const [shippingValue, setShippingValue] = useState(0)
 

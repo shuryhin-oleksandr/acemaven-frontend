@@ -58,6 +58,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        })}
                        max='6'
                        maxW='447px'
+                       pattern_message='Wrong format. Ex.: 0000-0'
             />
             <FormField name='number'
                        placeholder='123990011794763'

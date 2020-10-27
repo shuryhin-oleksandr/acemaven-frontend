@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {HandlingTitle, SpanType} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -15,7 +15,7 @@ import DatesCells from "../../register_new_freight_rate/tables/DatesCells";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useSelector} from "react-redux";
 import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
-import {SpanAware, Title} from "../../register_new_freight_rate/tables/Rates";
+
 import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 type PropsType = {
@@ -190,6 +190,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                     getValues={getValues}
                                     getSurchargeToRateHandle={() => {}}
                                     setFormMode={setFormMode}
+                                    required_dates={false}
                                 />
                                 <Controller
                                     control={control}

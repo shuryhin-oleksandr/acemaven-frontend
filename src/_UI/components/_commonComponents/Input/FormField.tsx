@@ -18,7 +18,8 @@ type PropsType = {
   height?: string;
   onBlur?: VoidFunctionType;
   marginBottom?: string;
-  server_error?: string
+  server_error?: string;
+  pattern_message?: string
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
@@ -40,7 +41,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         maxW={props.maxW}
       />
       {error?.type === "required" && <HelperText>{error?.message}</HelperText>}
-      {error?.type === "pattern" && <HelperText>Value is not valid</HelperText>}
+      {error?.type === "pattern" && <HelperText>{props.pattern_message ? props.pattern_message : 'Value is not valid'}</HelperText>}
       {error?.type === "minLength" && (
         <HelperText>Minimum length is 1 symbol</HelperText>
       )}

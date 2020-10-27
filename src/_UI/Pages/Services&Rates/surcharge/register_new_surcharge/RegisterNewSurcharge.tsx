@@ -88,7 +88,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
         usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
         closeRegisterForm()
     }
-
+    
 
     return (
         <Outer onSubmit={handleSubmit(onSubmit)}>
@@ -120,6 +120,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 ports={ports}
                 locationChangeHandler={locationChangeHandler}
                 getDisabledSurchargesDates={getDisabledSurchargesDates}
+                required_dates={true}
             />
             {
                 !!shippingValue

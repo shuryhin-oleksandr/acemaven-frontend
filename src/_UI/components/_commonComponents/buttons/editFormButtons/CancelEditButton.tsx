@@ -15,7 +15,7 @@ const CancelEditButton:React.FC<PropsType> = ({text, setIsEdit}) => {
 export default CancelEditButton
 
 const CancelButtonWrap = styled.button`
-font-family: "Helvetica Bold", sans-serif;
+font-family: "Helvetica Reg", sans-serif;
 font-size: 14px;
 background: white;
 outline: none;

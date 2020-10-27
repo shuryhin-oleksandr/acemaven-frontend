@@ -27,7 +27,7 @@ export const InputOuter = styled.div<PropsStyle>`
 `;
 export const Field = styled.input<PropsStyle>`
   padding: 10px;
-  color: #828282;
+  color: rgba(0, 0, 0, .8);
   font-size: 14px;
   font-family: "Helvetica Light", sans-serif;
   line-height: 17px;

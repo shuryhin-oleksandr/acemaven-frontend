@@ -14,7 +14,6 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {ContainerType, SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 import {useDispatch, useSelector} from "react-redux";
-import {getBookedDates} from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import moment from "moment";
 import DatesCells from "./DatesCells";
 import {getSurchargeForExactRateThunk} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
@@ -70,10 +69,11 @@ type PropsType = {
     existing_surcharge: any
     surcharge: SurchargeInfoType | null
     rate_data_for_surcharge: RateForSurchargeType | null
+    required_dates: boolean
 }
 
 const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getValues,
-                                       rate_data_for_surcharge, surcharge}) => {
+                                       rate_data_for_surcharge, surcharge, required_dates}) => {
     const classes = useStyles()
 
     const reservedDates = useSelector(getRateBookedDatesSelector)
@@ -225,6 +225,7 @@ let disables;
                                     classes={classes}
                                     getValues={getValues}
                                     getSurchargeToRateHandle={getSurchargeToRateHandle}
+                                    required_dates={required_dates}
                                 />
                             </TableRow>
                         ))
@@ -269,6 +270,7 @@ let disables;
                                     getValues={getValues}
                                     getSurchargeToRateHandle={getSurchargeToRateHandle}
                                     reservedDates={reservedDates? reservedDates[0].disabledDates : []}
+                                    required_dates={required_dates}
                                 />
                             </TableRow>
                         }

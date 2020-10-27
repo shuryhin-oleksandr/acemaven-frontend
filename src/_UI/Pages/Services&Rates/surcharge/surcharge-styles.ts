@@ -11,18 +11,20 @@ export const MainTitle  = styled.div`
   font-family: "Helvetica Bold", sans-serif;
   font-size: 48px;
   color: black;
-  margin-bottom: 40px;
 `
 export const HeaderOuter = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  margin-bottom: 34px;
+  align-items: center;
 `
 export const ActionsWrapper = styled.div`
   display: flex;
   max-width: 569px;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
 `
 export const RegisterButton = styled.button`
   height: 40px;

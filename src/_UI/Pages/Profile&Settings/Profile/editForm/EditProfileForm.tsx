@@ -45,7 +45,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
     }, [setValue, profile])
 
     const onSubmit = (values:IAuthUserInfo) => {
-        const wholeData = getFilesFormData(values, fileOne)
+        const wholeData = getFilesFormData( values, fileOne)
 
         dispatch(profileActions.setIsFetching(true))
        !isChangeMode && profileSettingsAPI.editProfile(userId as number, wholeData)
@@ -124,12 +124,16 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
                 </FullfilledWrap>
                 <FormField label='Phone Number'
                            inputRef={register({
-                               required: 'Field is required'
+                               required: 'Field is required',
+                               maxLength: 13,
+                               pattern: /^(\+)?([0-9]){10,13}$/
                            })}
                            placeholder='Phone Number'
                            name='phone'
                            error={errors?.phone}
                            getValues={getValues}
+                           max='13'
+                           pattern_message='Phone number has to include only + and numbers'
                 />
                 <FormField label='Position in the Company'
                            inputRef={register({

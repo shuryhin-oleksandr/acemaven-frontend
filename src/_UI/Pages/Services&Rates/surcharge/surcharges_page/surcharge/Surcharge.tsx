@@ -102,6 +102,7 @@ const Surcharge:React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFor
                                          control={control}
                                          setValue={setValue}
                                          setFormMode={setFormMode}
+                                         required_dates={true}
                         />
                     </FieldsWrap>
                 </InfoWrap>

@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
 type PropsStyle = {
-    directory?: string
+    directory?: string,
+    margin_bottom?: string
 }
 
-export const OptionsButtonsWrap = styled.div`
+export const OptionsButtonsWrap = styled.div<PropsStyle>`
   min-width: 199px;
   max-width: 199px;
   height: 40px;
@@ -16,7 +17,7 @@ export const OptionsButtonsWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  margin-bottom: 25px;
+  margin-bottom: ${({margin_bottom}) =>  margin_bottom ? margin_bottom : '25px'};
 `
 export const OptionButtonImport = styled.div<PropsStyle>`
   display: flex;

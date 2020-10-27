@@ -10,14 +10,6 @@ type PropsType = {
 }
 
 const Info:React.FC<PropsType> = ({setEdit, companyInfo}) => {
-   /* const labels = [
-        {name: 'city', label: 'City'},
-        {name: 'state', label: 'State'},
-        {name: 'phone', label:'Phone Number'},
-        {name: 'address_line_first', label: 'Address'},
-        {name: 'zip_code', label: 'Zip Code'},
-        {name: 'email', label:'Email'}
-        ]*/
 
     return (
         <FieldsWrap>
@@ -39,7 +31,7 @@ const Info:React.FC<PropsType> = ({setEdit, companyInfo}) => {
                     <TextWrap>{companyInfo?.address_line_first + ',' + ' ' + companyInfo?.address_line_second}</TextWrap>
                 </Field>
                 <Field>
-                    <Label>Address</Label>
+                    <Label>Zip Code</Label>
                     <TextWrap>{companyInfo?.zip_code}</TextWrap>
                 </Field>
                 <Field>

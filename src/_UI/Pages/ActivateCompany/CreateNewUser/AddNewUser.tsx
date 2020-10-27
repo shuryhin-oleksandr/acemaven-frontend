@@ -7,8 +7,6 @@ import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import CancelButton from "../../../components/_commonComponents/buttons/navFormButtons/CancelButton";
 import styled from "styled-components";
 import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../_BLL/store";
 import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
 import {AddUserError} from "../../../../_BLL/reducers/profileReducer";
 
@@ -20,7 +18,6 @@ type PropsType = {
 }
 
 const AddNewUser:React.FC<PropsType> = ({setIsOpen, list, server_error}) => {
-
 
     return (
         <AddContainer>

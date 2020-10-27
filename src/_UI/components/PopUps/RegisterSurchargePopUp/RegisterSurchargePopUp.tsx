@@ -161,6 +161,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
                              margin_bottom='0'
                              input_height='33px'
                              rate_start_date={rate_start_date}
+                             required_dates={true}
             />
           </FieldsWrap>
         </InfoWrap>

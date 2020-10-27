@@ -76,6 +76,7 @@ const SurchargesContainer: React.FC = () => {
                   dispatch={dispatchHandler}
                   searchColumn={search_column}
                   searchValue={searchValue}
+                  margin_bottom='0'
                 />
               </ActionsWrapper>
             </HeaderOuter>

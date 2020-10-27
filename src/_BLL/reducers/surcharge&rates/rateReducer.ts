@@ -8,7 +8,7 @@ import {
 } from "../../types/rates&surcharges/ratesTypes";
 import { SurchargeInfoType } from "../../types/rates&surcharges/surchargesTypes";
 import {CurrentShippingType} from "../../types/rates&surcharges/newSurchargesTypes";
-import {strict} from "assert";
+
 
 const initialState = {
   current_shipping_type: 'sea' as CurrentShippingType | 'sea',

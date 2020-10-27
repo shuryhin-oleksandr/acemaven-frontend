@@ -161,6 +161,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
                            existing_surcharge={existing_surcharge}
                            surcharge={surcharge}
                            rate_data_for_surcharge={rate_data_for_surcharge}
+                           required_dates={false}
                     />
                     {existing_surcharge  && <SurchargesToRate existing_surcharge={existing_surcharge}/>}
                     </>

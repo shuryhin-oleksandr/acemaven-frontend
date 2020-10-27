@@ -57,7 +57,8 @@ export interface IMasterAccountData {
 }
 
 type userCompaniesType = {
-    id?: number
+    id: number,
+    type: string
 }
 
 export interface IAuthUserInfo {
@@ -69,7 +70,7 @@ export interface IAuthUserInfo {
     position?: string,
     photo?: '',
     roles?: string[],
-    companies?: userCompaniesType,
+    companies?: userCompaniesType[],
     password?: string,
     confirm_password?: string
 }

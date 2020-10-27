@@ -11,7 +11,8 @@ type PropsType = {
     dispatch?: VoidFunctionType,
     mode: string,
     searchColumn: string,
-    searchValue: string
+    searchValue: string,
+    margin_bottom?: string
 }
 
 const OptionsDirectoryButtons:React.FC<PropsType> = ({directory, setDirectory, ...props}) => {
@@ -22,7 +23,7 @@ const OptionsDirectoryButtons:React.FC<PropsType> = ({directory, setDirectory, .
     }
 
     return (
-        <OptionsButtonsWrap>
+        <OptionsButtonsWrap margin_bottom={props.margin_bottom}>
             <OptionButtonImport onClick={() => dispatchDirectoryHandler('import')} directory={directory}>
                 Import
             </OptionButtonImport>

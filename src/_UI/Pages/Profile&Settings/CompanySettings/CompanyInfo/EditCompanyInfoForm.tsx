@@ -65,7 +65,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo}) => {
                         <FormField name='address_line_first'
                                    getValues={getValues}
                                    error={errors?.address1?.message}
-                                   placeholder='Street 27'
+                                   placeholder='str. 27'
                                    label='Address'
                                    inputRef={register({
                                        required: 'Field is required'
@@ -73,7 +73,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo}) => {
                         />
                         <FormField name='address_line_second'
                                    getValues={getValues}
-                                   placeholder='201'
+                                   placeholder='apt.1'
                                    inputRef={register}
                         />
                     </InputWrap>
@@ -113,11 +113,11 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo}) => {
             <ButtonsWrap>
                 <SubmitButton type='submit'
                               style={{backgroundColor: 'black', width: '176px', marginTop: '0',
-                                  height: '40px', marginRight: '25px'}}
+                                  height: '40px', marginRight: '25px', marginBottom: '10px'}}
                 >
                     Save changes
                 </SubmitButton>
-                <CancelEditButton text='Cancel' setIsEdit={setEdit}/>
+                <CancelEditButton text='CANCEL' setIsEdit={setEdit}/>
             </ButtonsWrap>
         </FormContainer>
     )

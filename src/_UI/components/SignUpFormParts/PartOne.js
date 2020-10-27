@@ -101,7 +101,6 @@ const PartOne = ({ changePage, error }) => {
         values={values}
         labelText="Zip Code"
         marginBot={46}
-        type="number"
         valid={touched.zip_code && !errors.zip_code}
         error={touched.zip_code && errors.zip_code}
       />

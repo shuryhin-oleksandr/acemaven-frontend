@@ -21,6 +21,7 @@ const deleteIcon = require('../../../../../assets/icons/delete.svg') as string
 const user = require('../../../../../assets/icons/profile/defaultUserPhoto.svg') as string
 
 
+
 type PropsType = {
     roles?: string[],
     max_width?: string,
@@ -44,7 +45,10 @@ const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser,
     return (
         <Container max_width={max_width}>
             <Inner>
-                <PhotoWrap colorette={colorWrap}><img src={u && u.photo ? u?.photo : user} alt=""/></PhotoWrap>
+                <PhotoWrap colorette={colorWrap}>
+                    {/*<MyImageComponent img_url={u && u.photo}/>*/}
+                    <img src={u && u.photo ? u?.photo : user} alt={user}/>
+                </PhotoWrap>
                 <InfoWrap>
                     <ActionWrap>
                         <Name>{u?.first_name + ' ' + u?.last_name}</Name>

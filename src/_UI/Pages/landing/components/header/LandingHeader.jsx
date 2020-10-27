@@ -18,12 +18,14 @@ import {useSelector} from "react-redux";
 import SignUpFinishPopup from "../../../../components/PopUps/sign_up/SignUpFinishPopup";
 
 
+
 const LandingHeader = () => {
     const [isSignUp, openSignUp] = useState(false)
     const [isSignIn, openSignIn] = useState(false)
     let finishPopup = useSelector(state => state.auth.finishPopup)
 
     return (
+        /*<Slider />*/
         <Outer>
             {isSignUp && !finishPopup && <SignUpPage openSignUp={openSignUp} openSignIn={openSignIn}/>}
             {isSignIn && <SignInPage openSignIn={openSignIn} openSignUp={openSignUp}/>}

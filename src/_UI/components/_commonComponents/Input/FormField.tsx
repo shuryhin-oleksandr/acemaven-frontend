@@ -19,6 +19,7 @@ type PropsType = {
   onBlur?: VoidFunctionType;
   marginBottom?: string;
   server_error?: string
+  defaultValue?: any;
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
@@ -38,6 +39,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         onBlur={(e) => props.onBlur && props.onBlur(e.target.value)}
         autoComplete='off'
         maxW={props.maxW}
+        {...props}
       />
       {error?.type === "required" && <HelperText>{error?.message}</HelperText>}
       {error?.type === "pattern" && <HelperText>Value is not valid</HelperText>}

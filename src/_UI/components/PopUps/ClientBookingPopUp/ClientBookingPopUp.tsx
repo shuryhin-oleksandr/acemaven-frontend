@@ -1,23 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+
 import {
   PopupContainer,
   PopupContent,
   Heading,
   CloseBtn,
   Form,
-  HeadingFormWrapper,
-  HeadingFormText,
-  InputGroupName,
-  ColName,
-  FlexWrapper,
-  RowWrapper,
-  ContainerInfo,
-  InputsWrapper,
 } from "./client-popup-styles";
 import close from "../../../assets/icons/close-icon.svg";
 import BookingCard from "../../../Pages/dashboard/search/search_rate_card/BookingCard";
 import { useForm } from "react-hook-form";
 import CargoDetails from "./forms/CargoDetails";
+import ShipperInfoContainer from "./forms/ShipperInfoContainer";
+import { useSelector } from "react-redux";
+import { AppStateType } from "../../../../_BLL/store";
 
 const ClientBookingPopUp: React.FC = () => {
   const {
@@ -28,6 +24,16 @@ const ClientBookingPopUp: React.FC = () => {
     getValues,
     setValue,
   } = useForm();
+
+  let details = useSelector(
+    (state: AppStateType) => state.booking.cargo_details
+  );
+
+  const [formStep, setFormStep] = useState(1);
+  const onSubmit = (values: any) => {
+    const finalValues = { ...values, details: details };
+    console.log("finalValues", finalValues);
+  };
   return (
     <PopupContainer>
       <PopupContent>
@@ -36,8 +42,24 @@ const ClientBookingPopUp: React.FC = () => {
           <img src={close} alt="" />
         </CloseBtn>
         <BookingCard button_display={false} />
-        <Form>
-          <CargoDetails control={control} />
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          {formStep === 1 ? (
+            <CargoDetails
+              control={control}
+              setFormStep={setFormStep}
+              formStep={formStep}
+              getValues={getValues}
+            />
+          ) : (
+            <ShipperInfoContainer
+              direction="export"
+              control={control}
+              setFormStep={setFormStep}
+              formStep={formStep}
+              register={register}
+              getValues={getValues}
+            />
+          )}
         </Form>
       </PopupContent>
     </PopupContainer>

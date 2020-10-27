@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 
 type PropsType = {
     setFormMode?: VoidFunctionType,
-    containers: UsageFeeType[],
+    containers: UsageFeeType[] | null,
     control: any,
     errors: any
 }

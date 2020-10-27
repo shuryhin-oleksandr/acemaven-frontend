@@ -61,8 +61,9 @@ export interface IMasterSignUpError {
 }
 
 type userCompaniesType = {
-  id?: number;
-};
+    id: number,
+    type: string
+}
 
 export interface IAuthUserInfo {
   id?: number;

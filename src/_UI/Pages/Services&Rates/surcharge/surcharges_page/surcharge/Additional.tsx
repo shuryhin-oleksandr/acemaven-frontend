@@ -13,11 +13,10 @@ import {
     HandlingTitle
 } from "./sea-conteneraized-cargo-styles";
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
-import {AdditionalSurchargeType, ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import { ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Controller} from "react-hook-form";
-import SurchargeRateConditionsSelect
-    from "../../../../../components/_commonComponents/select/SurchargeRateConditionsSelect";
+
 import {conditions, currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 import ConditionSelect from "../../../../../components/ConditionSelect/ConditionSelect";
 
@@ -27,7 +26,7 @@ const useStyles = makeStyles({
         boxShadow: 'none'
     },
     table: {
-        minWidth: 948,
+
         '& .MuiTableHead-root' : {
 
         }

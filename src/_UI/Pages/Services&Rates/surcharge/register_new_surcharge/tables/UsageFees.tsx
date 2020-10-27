@@ -32,6 +32,8 @@ const useStyles = makeStyles({
         color: "#115B86",
         fontFamily: "Helvetica Bold",
         fontSize: "16px",
+        borderBottom: '1px solid #115B86',
+        padding: '14px 0'
     },
     innerCell: {
         borderBottom: "none",
@@ -44,7 +46,7 @@ const useStyles = makeStyles({
 
 type PropsType = {
     control: any
-    usageFees: ContainerType[]
+    usageFees: ContainerType[] | null
     tableName: string
     type: string
     setValue: any

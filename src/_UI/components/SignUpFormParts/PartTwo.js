@@ -83,20 +83,25 @@ const PartTwo = ({ changePage, error }) => {
         valid={touched.position && !errors.position}
         error={touched.position && errors.position}
       />
+
       <div style={{ width: "100%", marginTop: "-20px", marginBottom: "20px" }}>
         {error && error.phone && (
           <ErrorServerMessage>The company's phone number is not valid</ErrorServerMessage>
         )}
         {error && error.tax_id && (
-          <ErrorServerMessage>{'Tax Id number has' + ' ' + error.tax_id[0]}</ErrorServerMessage>
+          <ErrorServerMessage>{'Tax Id number has ' + error.tax_id[0]}</ErrorServerMessage>
         )}
         {error && error.master_email && (
           <ErrorServerMessage>{error.master_email[0]}</ErrorServerMessage>
         )}
-          {error && error.master_phone && (
-              <ErrorServerMessage>The contact person's phone number is not valid</ErrorServerMessage>
-          )}
+        {error && error.zip_code && (
+          <ErrorServerMessage>{error.zip_code[0].replace('Invalid format.', 'Zip code has invalid format.')}</ErrorServerMessage>
+        )}
+        {error && error.master_phone && (
+            <ErrorServerMessage>The contact person's phone number is not valid</ErrorServerMessage>
+        )}
       </div>
+
       <Row>
         <BaseBackButton
           onClick={() => {

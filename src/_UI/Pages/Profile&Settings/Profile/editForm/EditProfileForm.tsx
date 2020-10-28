@@ -129,7 +129,7 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit, isChangeMode, s
                                maxLength: 13,
                                pattern: /^(\+)?([0-9]){10,13}$/
                            })}
-                           placeholder='Phone Number'
+                           placeholder='+000000000000'
                            name='phone'
                            error={errors?.phone}
                            getValues={getValues}

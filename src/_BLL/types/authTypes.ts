@@ -58,6 +58,7 @@ export interface IMasterAccountData {
 export interface IMasterSignUpError {
   phone?: string[];
   password?: string[];
+  email?: string[];
 }
 
 type userCompaniesType = {

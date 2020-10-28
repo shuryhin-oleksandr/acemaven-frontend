@@ -9,6 +9,7 @@ import { Controller } from 'react-hook-form'
 
 // @ts-ignore
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
+import {HelperText} from "../Input/input-styles";
 
 
 type PropsType = {
@@ -80,6 +81,9 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
                     />
                 }
             />
+            {error && (
+                <HelperText>Field is required</HelperText>
+            )}
         </CalendarWrapper>
     )
 })

@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import {ContainerType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 type PropsStyle = {
   mode?: string;
-  length?: any
+  length?: any,
+  usageFees: ContainerType[] | null
 };
-
 
 
 export const Outer = styled.form`
@@ -130,7 +131,7 @@ export const SurchargeCardWrapper = styled.div<PropsStyle>`
   width: 100%;
   background: #FFFFFF;
   //border: 1px solid #BDBDBD;
-  margin-top: 30px;
+  margin-top: ${({usageFees}) => usageFees?.length === 0 ? '-300px' : '0'};
 `
 export const CardInner = styled.div`
   display: flex;

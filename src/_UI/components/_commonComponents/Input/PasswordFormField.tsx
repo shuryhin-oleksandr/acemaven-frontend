@@ -25,7 +25,8 @@ const PasswordFormField:React.FC<PropsType> = ({errors, label, ...props}) => {
         <PasswordWrapper>
             <FormField label='Password'
                        inputRef={props.register({
-                           required: 'Field is required'
+                           required: 'Field is required',
+                           //pattern: /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,25}$/
                        })}
                        placeholder='Password'
                        name={props.name}
@@ -33,6 +34,7 @@ const PasswordFormField:React.FC<PropsType> = ({errors, label, ...props}) => {
                        getValues={props.getValues}
                        type={props.showPassword ? 'text' : 'password'}
                        onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
+                       pattern_message='Password must contain only alphanumeric characters. Min 8, Max 25 symbols'
             />
             <EyeButton type='button' onClick={() =>!props.showPassword ? props.setShowPassword(true) : props.setShowPassword(false)}>
                 <img src={props.showPassword ? eye : closeIcon} alt=""/>

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { ChangePasswordButton } from "./EditProfileForm";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMyPassword } from "../../../../../_BLL/reducers/profileReducer";
+import {changeMyPassword, profileActions} from "../../../../../_BLL/reducers/profileReducer";
 import { AppStateType } from "../../../../../_BLL/store";
 import { ErrorServerMessage } from "src/_UI/Pages/SignInPage";
 import PasswordFormField from "../../../../components/_commonComponents/Input/PasswordFormField";
@@ -21,7 +21,7 @@ type PropsType = {
 };
 
 const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {
-  const { register, handleSubmit, errors, getValues } = useForm();
+  const { register, handleSubmit, errors, getValues } = useForm({reValidateMode: "onSubmit"});
   const error = useSelector(
     (state: AppStateType) => state.profile.passwordError
   );
@@ -33,22 +33,27 @@ const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const onSubmit = (values: any) => {
+      debugger
     dispatch(changeMyPassword(values));
   };
 
   let matchPasswords = (value: string) => {
     let pass = getValues("new_password1");
-    console.log(value);
     if (value !== pass) {
       setError("Passwords don't match!");
     } else {
       setError("");
     }
   };
+   let closeHandler = () => {
+       setChangeMode(false)
+       dispatch(profileActions.setChanges(''))
+       dispatch(profileActions.changePassError(null))
+   }
 
   return (
     <ChangeFormWrap onSubmit={handleSubmit(onSubmit)}>
-      <CloseButton onClick={() => setChangeMode(false)}>
+      <CloseButton onClick={() => closeHandler()}>
         <img src={closeIcon} alt="" />
       </CloseButton>
       <FormField
@@ -81,6 +86,7 @@ const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {
         label="Confirm Password"
         inputRef={register({
           required: "Confirm Password is required",
+            //pattern: /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,25}$/
         })}
         placeholder="Confirm password"
         name="new_password2"
@@ -88,6 +94,7 @@ const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {
         getValues={getValues}
         type="password"
         onBlur={matchPasswords}
+        pattern_message='Password must contain only alphanumeric characters. Min 8, Max 25 symbols'
       />
       {error?.new_password2 && (
         <ErrorServerMessage style={{ padding: "0", marginBottom: "5px" }}>

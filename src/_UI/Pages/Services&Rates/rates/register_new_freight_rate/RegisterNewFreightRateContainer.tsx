@@ -220,7 +220,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         rate_info={rate_info}
 
       />
-      {empty_surcharge === 'empty' && <NoSurchargeCard shippingValue={shippingValue} setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
+      {empty_surcharge === 'empty' && <NoSurchargeCard usageFees={usageFees} shippingValue={shippingValue} setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
     </RatesWrapper>
   );
 };

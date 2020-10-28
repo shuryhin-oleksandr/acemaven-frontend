@@ -17,23 +17,25 @@ import {AppStateType} from "../../../../../_BLL/store";
 import {IAuthUserInfo} from "../../../../../_BLL/types/authTypes";
 import {getFilesFormData} from "../../../../../_BLL/helpers/MultipartFormDataHelper";
 import {profileSettingsAPI} from "../../../../../_DAL/API/profileSettingsAPI";
-import ChangePasswordPage from "./ChangePasswordPage";
+
 
 
 type PropsType = {
     isEdit: boolean,
-    setIsEdit: VoidFunctionType
+    setIsEdit: VoidFunctionType,
+    isChangeMode: boolean,
+    setChangeMode: (value: boolean) => void
 }
 
-const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
+const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit, isChangeMode, setChangeMode}) => {
     const {register, handleSubmit, errors, getValues, setValue} = useForm<IAuthUserInfo>()
     const dispatch = useDispatch()
     let userId = useSelector((state: AppStateType) => state.profile?.authUserInfo?.id)
     let profile = useSelector((state: AppStateType) => state.profile.authUserInfo)
 
-    const [isChangeMode, setChangeMode] = useState(false)
+
     const [fileOne, setFile] = useState(null)
-    console.log(fileOne)
+
 
     useEffect(() => {
         if(profile) {
@@ -64,7 +66,6 @@ const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit}) => {
 
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
-            {isChangeMode && <PopupOuter><ChangePasswordPage setChangeMode={setChangeMode}/> </PopupOuter> }
             <HeaderWrap>
                 <ProfileTitle>My Profile</ProfileTitle>
                 {!isChangeMode && <ButtonsWrap>

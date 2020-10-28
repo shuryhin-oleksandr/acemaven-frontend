@@ -6,21 +6,23 @@ import {
   SurchargeCardWrapper,
 } from "./form-styles";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
-import {ShippingModeEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+
+import {ContainerType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 type PropsType = {
   setNewSurchargePopUpVisible: VoidFunctionType;
-  shippingValue: any
+  shippingValue: any,
+  usageFees: ContainerType[] | null
 };
 
 const NoSurchargeCard: React.FC<PropsType> = ({
   setNewSurchargePopUpVisible,
-    shippingValue
+    usageFees
 }) => {
 
 
   return (
-    <SurchargeCardWrapper length={shippingValue !== ShippingModeEnum.FCL || ShippingModeEnum.ULD  ? '-250px' : '30px'}>
+    <SurchargeCardWrapper usageFees={usageFees} >
       <CardInner>
         <CardTitle>
           There are no surcharges. <br />

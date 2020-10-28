@@ -5,30 +5,48 @@ import { ErrorMessage, useFormikContext } from "formik";
 import BaseNextButton from "../base/BaseNextButton";
 import styled from "styled-components";
 
-const PartOne = ({ changePage, error }) => {
+const PartOne = ({ changePage, formikErrors }) => {
   const { values, touched, errors } = useFormikContext();
 
   const isAgentButtonDisabled =
     !values.name ||
+    errors.name ||
     !values.master_email ||
+    errors.master_email ||
     !values.phone ||
+    errors.phone ||
     !values.address_line_first ||
+    errors.address_line_first ||
     !values.state ||
+    errors.state ||
     !values.city ||
+    errors.city ||
     !values.zip_code ||
+    errors.zip_code ||
     !values.tax_id ||
+    errors.tax_id ||
     !values.employees_number ||
-    !values.website;
+    errors.employees_number ||
+    !values.website ||
+    errors.website;
 
   const isClientButtonDisabled =
     !values.name ||
+    errors.name ||
     !values.master_email ||
+    errors.master_email ||
     !values.phone ||
+    errors.phone ||
     !values.address_line_first ||
+    errors.address_line_first ||
     !values.state ||
+    errors.state ||
     !values.city ||
+    errors.city ||
     !values.zip_code ||
-    !values.tax_id;
+    errors.zip_code ||
+    !values.tax_id ||
+    errors.tax_id;
 
   return (
     <>
@@ -52,7 +70,7 @@ const PartOne = ({ changePage, error }) => {
       />
       <BaseInputGroup
         name="phone"
-        placeholder="Phone number"
+        placeholder="+000000000000"
         values={values}
         labelText="Phone number"
         marginBot={46}

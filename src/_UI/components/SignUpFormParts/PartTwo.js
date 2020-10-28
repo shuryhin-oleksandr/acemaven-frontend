@@ -67,7 +67,7 @@ const PartTwo = ({ changePage, error }) => {
       />
       <BaseInputGroup
         name="master_phone"
-        placeholder="Phone number"
+        placeholder="+000000000000"
         values={values}
         labelText="Phone number"
         marginBot={46}

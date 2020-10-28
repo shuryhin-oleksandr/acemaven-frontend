@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { companySignUp } from "../../_BLL/reducers/authReducer";
 
-const phoneRegex = /^(\+)?([0-9]){10,13}$/;
+const phoneRegex = /^(\+)([0-9]){10,13}$/;
 const taxIdRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
 
 const AgentValidationSchema = Yup.object().shape({
@@ -114,12 +114,12 @@ const SignUpPage = ({ openSignUp, openSignIn }) => {
             master_phone: "",
             position: "",
           }}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(values) => {
             dispatch(companySignUp(values));
             console.log("submit", values);
           }}
         >
-          {({ values, setFieldValue, resetForm }) => {
+          {({ values }) => {
             return (
               <Form>
                 {firstPage && (

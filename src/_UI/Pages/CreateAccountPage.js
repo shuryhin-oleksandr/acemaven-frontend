@@ -20,7 +20,7 @@ import CheckedTokenPopup from "../components/PopUps/checked_token/checkedTokenPo
 import { getFilesFormData } from "../../_BLL/helpers/MultipartFormDataHelper";
 import { HelperText } from "../components/_commonComponents/Input/input-styles";
 import { ErrorServerMessage } from "./SignInPage";
-const phoneRegex = /^(\+)?([0-9]){10,13}$/;
+const phoneRegex = /^(\+)([0-9]){10,13}$/;
 
 const ValidationSchema = Yup.object().shape({
   first_name: Yup.string().required("Please, enter your name"),
@@ -172,7 +172,7 @@ const CreateAccountPage = ({ history }) => {
 
                       <BaseInputGroup
                         name="phone"
-                        placeholder="Phone number"
+                        placeholder="+000000000000"
                         values={values}
                         labelText="Phone number"
                         marginBot={46}
@@ -203,6 +203,12 @@ const CreateAccountPage = ({ history }) => {
                                 {er}
                               </ErrorServerMessage>
                             ))}
+                          {server_error?.email?.length > 0 &&
+                          server_error.email.map((er, idx) => (
+                              <ErrorServerMessage key={idx}>
+                                {er}
+                              </ErrorServerMessage>
+                          ))}
                         </div>
                       )}
 

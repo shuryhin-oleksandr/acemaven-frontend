@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   PopupContainer,
@@ -12,8 +12,9 @@ import BookingCard from "../../../Pages/dashboard/search/search_rate_card/Bookin
 import { useForm } from "react-hook-form";
 import CargoDetails from "./forms/CargoDetails";
 import ShipperInfoContainer from "./forms/ShipperInfoContainer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../_BLL/store";
+import { getCompanyInfo } from "../../../../_BLL/reducers/profileReducer";
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
@@ -22,6 +23,19 @@ type PropsType = {
 const ClientBookingPopUp: React.FC<PropsType> = ({
   setBookingPopupVisible,
 }) => {
+  const dispatch = useDispatch();
+  const companyId = sessionStorage.getItem("u");
+  let companyInfo = useSelector(
+    (state: AppStateType) => state.profile.companyInfo
+  );
+  let currentUser = useSelector(
+    (state: AppStateType) => state.profile.authUserInfo
+  );
+
+  useEffect(() => {
+    dispatch(getCompanyInfo(Number(companyId)));
+  }, [dispatch]);
+
   const {
     register,
     handleSubmit,
@@ -29,6 +43,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
     control,
     getValues,
     setValue,
+    watch,
   } = useForm();
 
   let details = useSelector(
@@ -55,6 +70,8 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               setFormStep={setFormStep}
               formStep={formStep}
               getValues={getValues}
+              register={register}
+              setValue={setValue}
             />
           ) : (
             <ShipperInfoContainer
@@ -64,6 +81,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               formStep={formStep}
               register={register}
               getValues={getValues}
+              companyInfo={companyInfo}
+              watch={watch}
+              currentUser={currentUser}
             />
           )}
         </Form>

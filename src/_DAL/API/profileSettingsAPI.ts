@@ -12,7 +12,7 @@ export const profileSettingsAPI = {
            )
     },
     getCompanyInfo (companyId: number) {
-        return instance.get(`/core/company/${companyId}`)
+        return instance.get(`/core/company/${companyId}/`)
     },
     editCompanyInfoData (companyId: number, data: CompanyInfoType) {
         return instance.patch(`/core/company/${companyId}/`, data)

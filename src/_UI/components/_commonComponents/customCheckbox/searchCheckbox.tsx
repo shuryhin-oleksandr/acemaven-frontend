@@ -5,11 +5,15 @@ import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 type PropsType = {
   name?: string;
   inputref?: React.Ref<HTMLInputElement>;
+  setIsCheck: (value: boolean) => void;
+  isCheck: boolean;
 };
 
-const SearchCheckbox: React.FC<PropsType> = ({ ...props }) => {
-  const [isCheck, setIsCheck] = useState(true);
-
+const SearchCheckbox: React.FC<PropsType> = ({
+  isCheck,
+  setIsCheck,
+  ...props
+}) => {
   let handleChange = () => {
     isCheck ? setIsCheck(false) : setIsCheck(true);
   };

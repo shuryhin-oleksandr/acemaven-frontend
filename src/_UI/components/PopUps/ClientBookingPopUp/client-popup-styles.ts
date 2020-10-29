@@ -125,3 +125,19 @@ export const BackButton = styled.button`
   margin-right: 15px;
   cursor: pointer;
 `;
+
+export const DocumentationSection = styled.div`
+  padding-top: 20px;
+  border-top: 1px solid #bdbdbd;
+  margin-top: 25px;
+`;
+
+export const DocumentationRow = styled.div`
+  padding-right: 140px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const DocumentationCol = styled.div`
+  width: 48%;
+`;

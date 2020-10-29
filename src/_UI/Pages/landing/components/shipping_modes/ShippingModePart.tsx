@@ -13,7 +13,6 @@ const ShippingModePart = () => {
                             There would be text about marine shipping.
                             There would be text about marine shipping
                         </Description>
-                        <RouteButton text='GET STARTED' textColor='white' back='#00C5FF' path='#' w='203px'/>
                     </Block>
                     <MarineTitle>Marine shipping mode</MarineTitle>
                 </Mode>
@@ -24,10 +23,10 @@ const ShippingModePart = () => {
                             There would be text about marine shipping.
                             There would be text about marine shipping
                         </Description>
-                        <RouteButton text='GET STARTED' textColor='white' back='#1B1B25' path='#' w='203px'/>
                     </Block>
                     <AirTitle>Air <br/> shipping mode</AirTitle>
                 </Mode>
+                <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: '76px'}}><RouteButton text='GET STARTED' textColor='white' back='#1B1B25' path='#' w='203px'/></div>
             </ModesInner>
         </ModesWrapper>
     )

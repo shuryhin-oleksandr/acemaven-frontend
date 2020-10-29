@@ -1,13 +1,23 @@
 import styled from 'styled-components'
-import back from "../../../../../_UI/assets/icons/3620.png";
 
+type PropsStyle = {
+    background_img?: string,
+    background_repeat?: string,
+    login_color?: string,
+    subtitle_max_width?: string
+}
 
-export const Outer = styled.div`
+export const Outer = styled.div<PropsStyle>`
   width: 100%;
-  min-width: 100vw;
-  background-image: url(${back});
+ 
+  background-image: url(${props => props.background_img});
   background-repeat: round;
-  height: 100vh;
+  height: 100%;
+  
+  @media (max-width: 1440px) {
+    background-repeat: ${({background_repeat}) => background_repeat ? background_repeat : 'round'};
+  }
+  
 `
 
 export const UpperPart = styled.div`
@@ -15,7 +25,7 @@ export const UpperPart = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 165px 40px 100px;
+  padding: 40px 120px 40px 100px;
   
 `
 export const LogoWrap = styled.div`
@@ -24,11 +34,11 @@ export const LogoWrap = styled.div`
 export const ActionsWrapper = styled.div`
 display: flex;
 `
-export const LoginButton = styled.div`
+export const LoginButton = styled.div<PropsStyle>`
   outline: none;
   background: none;
   border: none;
-  color: white;
+  color: ${({login_color}) => login_color ? login_color : 'white'};
   font-family: "Helvetica Reg", sans-serif;
   font-size: 16px;
   height: 40px;
@@ -47,7 +57,7 @@ export const HeaderContent = styled.div`
   flex-direction: column;
   align-items: flex-end;
   width: 100%;
-  padding-right: 160px;
+  padding-right: 120px;
 `
 export const Title = styled.div`
   font-family: "Helvetica Reg", sans-serif;
@@ -56,19 +66,19 @@ export const Title = styled.div`
   color: white;
   margin-top: 60px;
   margin-bottom: 20px;
-  max-width: 385px;
-  min-width: 385px;
-  width: 100%;
+  width: 395px;
   text-align: end;
+  display: flex;
+  flex-direction: column;
 `
-export const SubTitle = styled.div`
+export const SubTitle = styled.div<PropsStyle>`
   font-family: "Helvetica Light", sans-serif;
   font-size: 20px;
   line-height: 23.65px;
   color: white;
   margin-bottom: 70px;
-  max-width: 264px;
-  min-width: 264px;
+  max-width: ${({subtitle_max_width}) => subtitle_max_width ? subtitle_max_width : '407px'};
+  min-width: 326px;
   width: 100%;
   text-align: end;
 `

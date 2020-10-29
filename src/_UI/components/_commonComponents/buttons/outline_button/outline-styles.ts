@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 type PropsStyle = {
     borderColor?: string,
-    w?: string
+    w?: string,
+    button_background?: string,
 }
 
 export const Button = styled.button<PropsStyle>`
@@ -12,7 +13,7 @@ export const Button = styled.button<PropsStyle>`
   color: white;
   font-family: "Helvetica Reg", sans-serif;
   font-size: 16px;
-  background: none;
+  background: ${({button_background}) => button_background ? button_background : 'none'};
   height: 40px;
   width: ${({w}) => w ? w : '180px'};
   

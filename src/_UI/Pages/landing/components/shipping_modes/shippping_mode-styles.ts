@@ -9,7 +9,7 @@ type PropsStyle = {
 
 export const ModesWrapper = styled.div`
   width: 100%;
-  background-color: transparent;
+  background-color: #e8e8e8;
 `
 export const ModesInner = styled.div`
 width: 100%;

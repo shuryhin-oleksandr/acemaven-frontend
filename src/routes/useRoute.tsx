@@ -16,6 +16,7 @@ import RatesContainer from "../_UI/Pages/Services&Rates/rates/RatesContainer";
 import DashboardContainer from "../_UI/Pages/dashboard/DashboardContainer";
 import ExactRateContainer from "../_UI/Pages/Services&Rates/rates/rates_page/rate/ExactRateContainer";
 import QuotesContainer from "../_UI/Pages/quotes/QuotesContainer";
+import QuoteCard from "../_UI/Pages/quotes/agent/QuoteCard";
 
 
 
@@ -33,7 +34,8 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={CompanySettingsContainer} path='/settings/company'/>
                 <Route component={UserManagementContainer} path='/settings/user/management'/>
                 <Route component={GeneralSettingsContainer} path='/settings/general'/>
-                <Route component={QuotesContainer} path='/quotes'/>
+                <Route exact component={QuotesContainer} path='/quotes'/>
+                <Route component={QuoteCard} path='/quotes/:id'/>
                 {/*<Redirect to='/'/>*/}
             </Switch>
 

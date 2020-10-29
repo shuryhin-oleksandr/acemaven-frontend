@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import add_new_icon from '../../../../_UI/assets/icons/search/add_new_package.svg';
+
 
 export const ChargeableWeightOuter = styled.form`
   position: absolute;
@@ -29,6 +29,7 @@ export const CloseIcon = styled.button`
   outline: none;
   border: none;
   background: none;
+  
   top: 20px;
   right: 20px;
   img {
@@ -58,6 +59,7 @@ export const FormRow = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid #e0e0e0;
   padding: 10px 0 0;
 `
@@ -67,6 +69,7 @@ export const ButtonsCalcWrapper = styled.div`
 export const WeightWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-right: 15px;
 `
 export const WeightIcon = styled.div`
   margin-right: 9px;
@@ -133,8 +136,8 @@ export const AddNewPackageButton = styled.button`
   border: none;
   height: 25px;
   width: 25px;
-  background: url(${add_new_icon});
-  background-repeat: no-repeat;
+  background:none;
+  
   margin-bottom: 25px;
   
   &:hover {

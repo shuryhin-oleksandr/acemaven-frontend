@@ -10,7 +10,7 @@ const DashboardContainer:React.FC = () => {
 
     return (
         <Layout>
-           {/* <ChargeableWeightPopup />*/}
+            <ChargeableWeightPopup />
             {search_result
                 ? <SearchContainer />
                 :  <DashboardPage />}

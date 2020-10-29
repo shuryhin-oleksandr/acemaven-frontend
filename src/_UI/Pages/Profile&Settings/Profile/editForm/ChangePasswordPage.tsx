@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 import { useForm } from "react-hook-form";
 import { ChangePasswordButton } from "./EditProfileForm";
@@ -21,7 +21,7 @@ type PropsType = {
 };
 
 const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {
-  const { register, handleSubmit, errors, getValues } = useForm({reValidateMode: "onSubmit"});
+  const { register, handleSubmit, errors, getValues, reset } = useForm({reValidateMode: "onSubmit"});
   const error = useSelector(
     (state: AppStateType) => state.profile.passwordError
   );
@@ -33,7 +33,6 @@ const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const onSubmit = (values: any) => {
-      debugger
     dispatch(changeMyPassword(values));
   };
 
@@ -50,6 +49,12 @@ const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {
        dispatch(profileActions.setChanges(''))
        dispatch(profileActions.changePassError(null))
    }
+
+   useEffect(() => {
+       if(success) {
+           reset()
+       }
+   }, [success])
 
   return (
     <ChangeFormWrap onSubmit={handleSubmit(onSubmit)}>

@@ -20,7 +20,8 @@ type PropsType = {
   marginBottom?: string;
   server_error?: string
   defaultValue?: any;
-  pattern_message?: string
+  pattern_message?: string;
+  disabled?: boolean
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
@@ -41,6 +42,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         autoComplete='off'
         maxW={props.maxW}
         defaultValue={props.defaultValue}
+        disabled={props.disabled}
       />
       {error?.type === "required" && <HelperText>{error?.message}</HelperText>}
       {error?.type === "pattern" && <HelperText>{props.pattern_message ? props.pattern_message : 'Value is not valid'}</HelperText>}

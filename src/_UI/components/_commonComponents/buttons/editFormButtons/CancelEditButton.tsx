@@ -25,8 +25,11 @@ max-width: 115px;
 min-width: 115px;
 width: 100%;
 color: #3B3B41;
+transition: .3s;
 
 &:hover {
-cursor: pointer
+cursor: pointer;
+transition: .3s;
+background-color: rgba(0, 0,0, .07);
 }
 `

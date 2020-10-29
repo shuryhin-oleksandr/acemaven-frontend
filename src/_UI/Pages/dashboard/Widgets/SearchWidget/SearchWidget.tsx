@@ -69,7 +69,6 @@ const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
                     <option value="green">Green</option>
                     <option value="blue">Blue</option>
                   </BaseFormikInput>
-
                   <BaseFormikInput
                     width="19%"
                     searchWidget={true}

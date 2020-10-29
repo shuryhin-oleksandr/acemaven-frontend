@@ -63,12 +63,12 @@ const ConditionSelect = ({
             >
               <StyledOption
                 onClick={() => {
-                  setDisplayValue(o.title);
+                  setDisplayValue(o.displayName);
                   setBoxVisible(false);
                   setValue(name, o.title);
                 }}
               >
-                {o.title}
+                {o.displayName}
               </StyledOption>
             </Tooltip>
           ))}

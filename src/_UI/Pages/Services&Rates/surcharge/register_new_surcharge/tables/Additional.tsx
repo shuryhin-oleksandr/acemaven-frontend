@@ -117,7 +117,7 @@ const Additional: React.FC<PropsType> = ({
                     as={
                       charge.id === 1 ? (
                         <TableCell className={classes.innerCell}>
-                          {"fixed"}
+                          {"Fixed"}
                         </TableCell>
                       ) : (
                         // : <SurchargeRateConditionsSelect options={conditions}
@@ -129,7 +129,7 @@ const Additional: React.FC<PropsType> = ({
                             options={conditions}
                             name={`charges.${charge.id}.conditions`}
                             setValue={setValue}
-                            defaultV={conditions[0]?.title}
+                            defaultV={conditions[0]?.displayName}
                             setFormMode=""
                           />
                         </TableCell>

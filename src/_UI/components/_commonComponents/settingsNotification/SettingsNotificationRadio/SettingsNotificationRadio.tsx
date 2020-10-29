@@ -44,7 +44,7 @@ const SettingsNotificationRadio:React.FC<PropsType> = ({title, subtitle, name}) 
                    <Radio
                        checked={selectedValue === 'yes'}
                        onChange={handleChange}
-                       value="b"
+                       value="yes"
                        name="radio-button-demo"
                        inputProps={{ 'aria-label': 'Yes' }}
                        className={classes.root}
@@ -56,7 +56,7 @@ const SettingsNotificationRadio:React.FC<PropsType> = ({title, subtitle, name}) 
                    <Radio
                        checked={selectedValue === 'no'}
                        onChange={handleChange}
-                       value="b"
+                       value="no"
                        name="radio-button-demo"
                        inputProps={{ 'aria-label': 'No' }}
                        className={classes.root}

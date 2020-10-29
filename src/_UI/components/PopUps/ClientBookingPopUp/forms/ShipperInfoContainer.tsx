@@ -13,8 +13,8 @@ type PropsType = {
   getValues: any;
   register: any;
   companyInfo: CompanyInfoType | null;
-  watch: any;
   currentUser: IAuthUserInfo | null;
+  setValue: any;
 };
 
 const ShipperInfoContainer: React.FC<PropsType> = ({
@@ -25,8 +25,8 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
   getValues,
   register,
   companyInfo,
-  watch,
   currentUser,
+  setValue,
 }) => {
   // return direction === "export" ? (
 
@@ -38,8 +38,8 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
       register={register}
       getValues={getValues}
       companyInfo={companyInfo}
-      watch={watch}
       currentUser={currentUser}
+      setValue={setValue}
     />
   ) : (
     <ImportShipperInfo

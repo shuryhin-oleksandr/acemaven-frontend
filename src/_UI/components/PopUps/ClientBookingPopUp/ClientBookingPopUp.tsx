@@ -43,7 +43,6 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
     control,
     getValues,
     setValue,
-    watch,
   } = useForm();
 
   let details = useSelector(
@@ -82,8 +81,8 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               register={register}
               getValues={getValues}
               companyInfo={companyInfo}
-              watch={watch}
               currentUser={currentUser}
+              setValue={setValue}
             />
           )}
         </Form>

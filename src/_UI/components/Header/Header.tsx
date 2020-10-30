@@ -15,10 +15,11 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router";
 import logotype from '../../../_UI/assets/icons/landing/inline_logo.png'
+import notification from "../../../_UI/assets/icons/clarity_notification-solid-badged.svg";
+import card from "../../../_UI/assets/icons/card.svg";
+import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
 import {NavLink} from "react-router-dom";
-const notification = require("../../../_UI/assets/icons/clarity_notification-solid-badged.svg") as string;
-const card = require("../../../_UI/assets/icons/card.svg") as string;
-const user = require("../../../_UI/assets/icons/profile/defaultUserPhoto.svg");
+
 
 
 const useStyles = makeStyles({

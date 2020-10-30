@@ -1,5 +1,4 @@
 import React from 'react'
-import {NoQuotesContent, NoQuotesOuter} from "../client/quotes-client-styles";
 import styled from "styled-components";
 
 type PropsType = {

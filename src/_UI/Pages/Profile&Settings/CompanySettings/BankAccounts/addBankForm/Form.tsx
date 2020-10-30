@@ -22,7 +22,7 @@ type PropsType = {
 const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
     const {register, errors, handleSubmit, getValues, control} = useForm<IAddNewBank>()
     const onSubmit = (values:IAddNewBank) => {
-        dispatch && dispatch(addBankAccount( values))
+            dispatch && dispatch(addBankAccount( values))
     }
 
     const errorBank = useSelector((state: AppStateType) => state.profile.addingBankError)
@@ -79,10 +79,14 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
             <Controller name='account_type'
                         control={control}
                         defaultValue='savings'
+                        rules={{
+                            required: 'Field is required'
+                        }}
                         as={
                             <FormSelect label='Account Type'
                                         options={options2}
                                         placeholder='Savings'
+                                        error={errors?.account_type?.message}
                             />
                         }
             />

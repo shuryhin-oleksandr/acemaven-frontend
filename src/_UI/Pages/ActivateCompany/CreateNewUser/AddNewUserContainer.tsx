@@ -22,21 +22,21 @@ const AddNewUserContainer:React.FC<IProps> = () => {
    /* const clearToken = () => {
         localStorage.removeItem('access_token')
     }*/
-    useEffect(() => {
+   /* useEffect(() => {
+        debugger
         dispatch(getEmployees())
-        /*return () => {
+        /!*return () => {
             clearToken()
-        }*/
-    }, [dispatch])
+        }*!/
+    }, [dispatch])*/
 
     return (
         <Outer>
             {isOpen && <CancelPopup things={'users'} setIsOpen={setIsOpen}/>}
             <LayoutWithoutNav>
-                <AddNewUser server_error={server_error} list={employeesList} setIsOpen={setIsOpen}/>
+                <AddNewUser server_error={server_error} list={employeesList ? employeesList : null} setIsOpen={setIsOpen}/>
             </LayoutWithoutNav>
         </Outer>
-
     )
 }
 

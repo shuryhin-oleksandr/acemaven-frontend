@@ -31,6 +31,11 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
     transition: ".3",
 
+    "&.Mui-error": {
+      border: '1px solid rgba(0, 0, 0, .5)',
+      backgroundColor: 'rgba(0, 0, 0, .07)',
+    },
+
     "& .MuiSelect-icon": {
       color: "rgba(0, 0, 0, 0.23)",
     },
@@ -64,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Helvetica Reg, sans-serif",
 
     "&.Mui-error": {
-      color: "red",
+      color: "#e76767",
     },
   },
 }));

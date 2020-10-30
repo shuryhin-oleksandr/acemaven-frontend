@@ -21,6 +21,7 @@ import BookingAgentContainer from "../_UI/Pages/Requests/Booking_agent/BookingAg
 import {PrivateRoute} from "./PrivateRoute";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../_BLL/store";
+import BookingCardContainer from "../_UI/Pages/Requests/Booking_agent/booking_card/BookingCardContainer";
 
 
 
@@ -48,8 +49,9 @@ const useRoute = (isAuth: boolean) => {
                 <Route exact component={QuotesContainer} path='/quotes'/>
                 {/*<PrivateRoute currentUserCompany={currentUserCompany} roles={[Role.User]} component={QuotesContainer} />*/}
                 <Route component={QuoteCard} path='/quotes/:id'/>
-                <Route component={BookingAgentContainer} path='/requests/booking'/>
-                {/*<Redirect to='/'/>*/}
+                <Route exact component={BookingAgentContainer} path='/requests/booking'/>
+                <Route component={BookingCardContainer} path='/requests/booking/:id'/>
+                <Redirect to='/'/>
             </Switch>
         )
     } else {

@@ -12,6 +12,7 @@ import ship_surcharge from "../../../../assets/icons/rates&services/ship-surchar
 import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
 import {useDispatch} from "react-redux";
 import { ModeIcon } from 'src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharges-style';
+import {useHistory} from "react-router-dom";
 
 type PropsType = {
     searchValue: string,
@@ -91,6 +92,11 @@ const AgentBookingListTable:React.FC<PropsType> = ({setSearchValue, directory, s
                                                        mode, searchValue, searchColumn, setSearchColumn}) => {
     const classes = useStyles();
     const dispatch = useDispatch()
+
+    const history = useHistory()
+    let setCardOpen = (booking_id: number) => {
+        history.push(`/requests/booking/:${booking_id}`)
+    }
 
     return (
         <TableContainer className={classes.container} component={Paper}>
@@ -197,7 +203,7 @@ const AgentBookingListTable:React.FC<PropsType> = ({setSearchValue, directory, s
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                        <TableRow className={classes.row}>
+                        <TableRow className={classes.row} onClick={() => setCardOpen(1)}>
                             <TableCell
                                 className={classes.innerMainCell}
                                 align="left"
@@ -231,40 +237,6 @@ const AgentBookingListTable:React.FC<PropsType> = ({setSearchValue, directory, s
                                 </span>
                             </TableCell>
                         </TableRow>
-                        <TableRow className={classes.row}>
-                        <TableCell
-                            className={classes.innerMainCell}
-                            align="left"
-                            component="th"
-                            scope="row"
-                        >
-                            <ModeIcon src={plane_surcharge} alt=""/>
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            <span style={{color: 'black', fontFamily: 'Helvetica Bold', fontSize: '18px'}}>CAAE0081</span>
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                                <span style={{color: 'black', fontFamily: 'Helvetica Light', fontSize: '18px'}}>
-                                    LCL
-                                </span>
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            <div style={{color: 'black', fontFamily: 'Helvetica Light', fontSize: '24px'}}>SSZ</div>
-                            <div style={{color: 'black', fontFamily: 'Helvetica Light', fontSize: '24px'}}>BCN</div>
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            Coca Cola Inc.
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            <div>1-7 March 2020</div>
-                            <div>WEEK 5</div>
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                                 <span style={{color: 'black', fontFamily: 'Helvetica Light', fontSize: '18px', textTransform: 'uppercase'}}>
-                                   Booking Request Received
-                                </span>
-                        </TableCell>
-                    </TableRow>
                 </TableBody>
             </Table>
         </TableContainer>

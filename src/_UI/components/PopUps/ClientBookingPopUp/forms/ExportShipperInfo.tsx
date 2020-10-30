@@ -19,6 +19,8 @@ import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import FormField from "../../../_commonComponents/Input/FormField";
 import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
+import { useDispatch } from "react-redux";
+import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 
 type PropsType = {
   control: any;
@@ -41,6 +43,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
   currentUser,
   setValue,
 }) => {
+  const dispatch = useDispatch();
   const [isCheck, setIsCheck] = useState(true);
 
   useEffect(() => {
@@ -74,7 +77,14 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <BackButton onClick={() => setFormStep(formStep - 1)} type="button">
             Back
           </BackButton>
-          <BaseButton type="submit">Next</BaseButton>
+          <BaseButton
+            onClick={() => {
+              dispatch(bookingActions.changeBookingStep("fee-table"));
+            }}
+            type="submit"
+          >
+            Next
+          </BaseButton>
         </div>
       </HeadingFormWrapper>
       <IsShipperWrapper>

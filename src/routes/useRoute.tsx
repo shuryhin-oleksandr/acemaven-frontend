@@ -18,10 +18,21 @@ import ExactRateContainer from "../_UI/Pages/Services&Rates/rates/rates_page/rat
 import QuotesContainer from "../_UI/Pages/quotes/QuotesContainer";
 import QuoteCard from "../_UI/Pages/quotes/agent/QuoteCard";
 import BookingAgentContainer from "../_UI/Pages/Requests/Booking_agent/BookingAgentContainer";
+import {PrivateRoute} from "./PrivateRoute";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../_BLL/store";
 
 
 
 const useRoute = (isAuth: boolean) => {
+   enum Role {
+        Admin = 'Admin',
+        User = 'Client'
+    }
+
+    const currentUserCompany = useSelector((state:AppStateType) => state.profile.authUserInfo?.companies);
+
+
     if (isAuth) {
         return (
             <Switch>
@@ -35,6 +46,7 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={UserManagementContainer} path='/settings/user/management'/>
                 <Route component={GeneralSettingsContainer} path='/settings/general'/>
                 <Route exact component={QuotesContainer} path='/quotes'/>
+                {/*<PrivateRoute currentUserCompany={currentUserCompany} roles={[Role.User]} component={QuotesContainer} />*/}
                 <Route component={QuoteCard} path='/quotes/:id'/>
                 <Route component={BookingAgentContainer} path='/requests/booking'/>
                 {/*<Redirect to='/'/>*/}

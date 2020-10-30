@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import done_icon from '../../../../../_UI/assets/icons/ant-design_check-circle-outlined.svg'
 
+type PropsStyle = {
+    no_rates?: boolean
+}
 
 export const SubmittedWrapper = styled.div`
   display: flex;
@@ -32,6 +35,7 @@ export const SubmitQuoteButton = styled.button`
 export const QuoteCardContainer = styled.div`
   width: 100%;
   height: 100%;
+  padding: 50px 80px 50px 30px;
 `
 export const QuoteCardInner = styled.div`
   width: 100%;
@@ -191,7 +195,8 @@ export const CarrierWrap = styled.div`
   width: 50%;
 `
 
-export const SurchargesInfo = styled.div`
+export const SurchargesInfo = styled.div<PropsStyle>`
   display: flex;
-  justify-content: space-between;
+  padding-top: ${({no_rates}) => no_rates ? '30px' : '0'};
+  justify-content: ${({no_rates}) => no_rates ? 'center' : 'space-between'};
 `

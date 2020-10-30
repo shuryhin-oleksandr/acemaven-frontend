@@ -11,9 +11,8 @@ const BaseButton = styled.button`
   outline: none;
   border: none;
   text-transform: uppercase;
- font-family: "Helvetica Reg", sans-serif;
- font-size: 14px;
-
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
 `;
 
 export default BaseButton;

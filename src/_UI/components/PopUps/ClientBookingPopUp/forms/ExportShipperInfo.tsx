@@ -3,6 +3,7 @@ import {
   HeadingFormWrapper,
   InputGroupName,
   BackButton,
+  DocumentationSection,
 } from "../client-popup-styles";
 
 import {
@@ -12,10 +13,14 @@ import {
 } from "./shipper-styles";
 import SearchCheckbox from "../../../_commonComponents/customCheckbox/searchCheckbox";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BaseButton from "../../../base/BaseButton";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import FormField from "../../../_commonComponents/Input/FormField";
+import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
+import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
+import { useDispatch } from "react-redux";
+import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 
 type PropsType = {
   control: any;
@@ -23,6 +28,10 @@ type PropsType = {
   formStep: number;
   getValues: any;
   register: any;
+  companyInfo: CompanyInfoType | null;
+  watch?: any;
+  currentUser: IAuthUserInfo | null;
+  setValue: any;
 };
 const ExportShipperInfo: React.FC<PropsType> = ({
   control,
@@ -30,8 +39,36 @@ const ExportShipperInfo: React.FC<PropsType> = ({
   formStep,
   register,
   getValues,
+  companyInfo,
+  currentUser,
+  setValue,
 }) => {
+  const dispatch = useDispatch();
+  const [isCheck, setIsCheck] = useState(true);
 
+  useEffect(() => {
+    if (isCheck) {
+      setValue("company_name", companyInfo?.name);
+      setValue("address_line_first", companyInfo?.address_line_first);
+      setValue("address_line_second", companyInfo?.address_line_second);
+      setValue("state", companyInfo?.state);
+      setValue("city", companyInfo?.city);
+      setValue("zip_code", companyInfo?.zip_code);
+      setValue("contact_name", currentUser?.first_name);
+      setValue("phone_number", currentUser?.phone);
+      setValue("email", currentUser?.email);
+    } else {
+      setValue("company_name", "");
+      setValue("address_line_first", "");
+      setValue("address_line_second", "");
+      setValue("state", "");
+      setValue("city", "");
+      setValue("zip_code", "");
+      setValue("contact_name", "");
+      setValue("phone_number", "");
+      setValue("email", "");
+    }
+  }, [setValue, isCheck]);
   return (
     <>
       <HeadingFormWrapper>
@@ -40,11 +77,24 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <BackButton onClick={() => setFormStep(formStep - 1)} type="button">
             Back
           </BackButton>
-          <BaseButton type="submit">Next</BaseButton>
+          <BaseButton
+            onClick={() => {
+              dispatch(bookingActions.changeBookingStep("fee-table"));
+            }}
+            type="submit"
+          >
+            Next
+          </BaseButton>
         </div>
       </HeadingFormWrapper>
       <IsShipperWrapper>
-        <SearchCheckbox inputref={register} name="is_shipper" />
+        <SearchCheckbox
+          isCheck={isCheck}
+          setIsCheck={setIsCheck}
+          inputref={register}
+          name="is_shipper"
+          labelText="My company will be the shipper"
+        />
       </IsShipperWrapper>
       <InputGroupName>Shipper</InputGroupName>
       <InputsWrapper>
@@ -60,14 +110,14 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             label="Address"
             inputRef={register}
             placeholder="Address"
-            name="address"
+            name="address_line_first"
             getValues={getValues}
           />
           <div style={{ marginTop: -15 }}>
             <FormField
               inputRef={register}
               placeholder="Address"
-              name="address"
+              name="address_line_second"
               getValues={getValues}
             />
           </div>

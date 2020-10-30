@@ -27,7 +27,7 @@ export const PopupContainer = styled.div`
 
 export const PopupContent = styled.div`
   background-color: white;
-  max-width: 750px;
+  max-width: 800px;
   max-height: 800px;
   width: 100%;
   padding: 35px 25px;
@@ -124,4 +124,20 @@ export const BackButton = styled.button`
   outline: none;
   margin-right: 15px;
   cursor: pointer;
+`;
+
+export const DocumentationSection = styled.div`
+  padding-top: 20px;
+  border-top: 1px solid #bdbdbd;
+  margin-top: 25px;
+`;
+
+export const DocumentationRow = styled.div`
+  padding-right: 140px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const DocumentationCol = styled.div`
+  width: 48%;
 `;

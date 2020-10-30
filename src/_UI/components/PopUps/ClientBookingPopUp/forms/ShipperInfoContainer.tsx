@@ -2,6 +2,8 @@ import React from "react";
 import ExportShipperInfo from "./ExportShipperInfo";
 import ImportShipperInfo from "./ImportShipperInfo";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
+import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
+import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
 
 type PropsType = {
   direction: string;
@@ -10,6 +12,9 @@ type PropsType = {
   formStep: number;
   getValues: any;
   register: any;
+  companyInfo: CompanyInfoType | null;
+  currentUser: IAuthUserInfo | null;
+  setValue: any;
 };
 
 const ShipperInfoContainer: React.FC<PropsType> = ({
@@ -19,6 +24,9 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
   formStep,
   getValues,
   register,
+  companyInfo,
+  currentUser,
+  setValue,
 }) => {
   // return direction === "export" ? (
 
@@ -29,6 +37,9 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
       formStep={formStep}
       register={register}
       getValues={getValues}
+      companyInfo={companyInfo}
+      currentUser={currentUser}
+      setValue={setValue}
     />
   ) : (
     <ImportShipperInfo

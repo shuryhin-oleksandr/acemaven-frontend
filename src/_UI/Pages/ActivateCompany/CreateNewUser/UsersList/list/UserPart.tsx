@@ -17,8 +17,8 @@ import editIcon from '../../../../../../_UI/assets/icons/profile/editCard.svg'
 import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {IAddNewUserData} from "../../../../../../_BLL/types/addNewUserTypes";
 import {getColor} from "../../../../../../_BLL/helpers/colorWrapMaker";
-const deleteIcon = require('../../../../../assets/icons/delete.svg') as string
-const user = require('../../../../../assets/icons/profile/defaultUserPhoto.svg') as string
+import deleteIcon from '../../../../../assets/icons/delete.svg';
+import user from '../../../../../assets/icons/profile/defaultUserPhoto.svg';
 
 
 

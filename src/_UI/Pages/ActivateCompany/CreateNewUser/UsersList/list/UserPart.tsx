@@ -21,7 +21,6 @@ import deleteIcon from '../../../../../assets/icons/delete.svg';
 import user from '../../../../../assets/icons/profile/defaultUserPhoto.svg';
 
 
-
 type PropsType = {
     roles?: string[],
     max_width?: string,

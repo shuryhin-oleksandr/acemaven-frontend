@@ -18,7 +18,6 @@ import SurchargeRateSelect from "../../../../../components/_commonComponents/sel
 import {Controller} from "react-hook-form";
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 
-
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',

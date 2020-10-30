@@ -17,11 +17,11 @@ import DashboardContainer from "../_UI/Pages/dashboard/DashboardContainer";
 import ExactRateContainer from "../_UI/Pages/Services&Rates/rates/rates_page/rate/ExactRateContainer";
 import QuotesContainer from "../_UI/Pages/quotes/QuotesContainer";
 import QuoteCard from "../_UI/Pages/quotes/agent/QuoteCard";
+import BookingAgentContainer from "../_UI/Pages/Requests/Booking_agent/BookingAgentContainer";
 
 
 
 const useRoute = (isAuth: boolean) => {
-
     if (isAuth) {
         return (
             <Switch>
@@ -36,9 +36,9 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={GeneralSettingsContainer} path='/settings/general'/>
                 <Route exact component={QuotesContainer} path='/quotes'/>
                 <Route component={QuoteCard} path='/quotes/:id'/>
+                <Route component={BookingAgentContainer} path='/requests/booking'/>
                 {/*<Redirect to='/'/>*/}
             </Switch>
-
         )
     } else {
         return (

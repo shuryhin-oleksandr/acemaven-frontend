@@ -23,7 +23,6 @@ const useStyles = makeStyles({
         boxShadow: 'none',
         height: 400,
         overflowY: 'scroll',
-
     },
     table: {
         '& .MuiTableHead-root' : {
@@ -38,7 +37,6 @@ const useStyles = makeStyles({
         borderBottom: '1px solid #828282',
         paddingLeft: '63px',
         padding: '0'
-
     },
     cell: {
         color: '#115B86',

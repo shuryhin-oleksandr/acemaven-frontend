@@ -15,7 +15,7 @@ import {useDispatch} from "react-redux";
 import AgentQuoteRow from "./AgentQuoteRow";
 
 type PropsType = {
-    setCardOpen: (value: boolean) => void
+    setCardOpen: (value: number) => void
 }
 
 const useStyles = makeStyles({

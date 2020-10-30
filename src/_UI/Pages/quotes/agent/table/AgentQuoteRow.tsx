@@ -7,6 +7,7 @@ import {StatusSpan} from "../../client/tables/client-quotes-table-styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {DoneIcon, SubmitQuoteButton, SubmittedWrapper} from "./agent-quotes-styles";
 
+
 const useStyles = makeStyles({
     root: {
         '& > *': {
@@ -62,7 +63,7 @@ const useStyles = makeStyles({
 
 type PropsType = {
     submit_status: boolean,
-    setCardOpen: (value: boolean) => void
+    setCardOpen: (value: number) => void
 }
 
 const AgentQuoteRow:React.FC<PropsType> = ({submit_status, setCardOpen}) => {
@@ -70,7 +71,7 @@ const AgentQuoteRow:React.FC<PropsType> = ({submit_status, setCardOpen}) => {
     const classes = useStyles();
 
     return (
-        <TableRow onClick={() => setCardOpen(true)} className={classes.root}>
+        <TableRow onClick={() => setCardOpen(1)} className={classes.root}>
             <TableCell  className={classes.innerMainCell} align="left" component="th" scope="row">
                 <ModeIcon src={sea_type} alt=""/>
                 <SpanMode>LHR</SpanMode>

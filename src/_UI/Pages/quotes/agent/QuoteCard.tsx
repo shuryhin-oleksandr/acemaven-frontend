@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     ActionsAgentWrap,
     CardHeader,
@@ -30,6 +30,10 @@ import {Controller, useForm} from "react-hook-form";
 import FrateRatesTable from "./table/FrateRatesTable";
 import Additional from "../../Services&Rates/surcharge/surcharges_page/surcharge/Additional";
 import UsageFees from "../../Services&Rates/surcharge/register_new_surcharge/tables/UsageFees";
+import Layout from "../../../components/BaseLayout/Layout";
+import NoRateSurchargeCard from "./NoRateSurchargeCard";
+import RegisterNewRateFromQuotePopup
+    from "../../../components/PopUps/register_new_rate_from_quote/RegisterNewRateFromQuotePopup";
 
 
 type PropsType = {
@@ -40,104 +44,115 @@ const QuoteCard:React.FC<PropsType> = ({setCardOpen}) => {
     const {control, errors, handleSubmit, setValue} = useForm({
         reValidateMode: "onBlur"
     })
+    let no_rates = true
+
+    const [isCreatePopup, openCreatePopup] = useState(false)
 
     return (
-        <QuoteCardContainer>
-            <QuoteCardInner>
-                <CardHeader>
-                    <CardTitle>Quotes</CardTitle>
-                    <ActionsAgentWrap>
-                        <QuoteOpenStatus>Open</QuoteOpenStatus>
-                        <SubmitQuoteButton>SUBMIT QUOTE</SubmitQuoteButton>
-                        <RejectButton onClick={() => setCardOpen(false)}>REJECT</RejectButton>
-                    </ActionsAgentWrap>
-                </CardHeader>
-                <QuoteInfo>
-                    <GeneralInfo>
-                        <GeneralTitle>GENERAL INFO</GeneralTitle>
-                        <GeneralInfoContent>
-                            <ShipmentType>
-                                <img src={sea_type} alt=""/>
-                            </ShipmentType>
-                            <Content>
-                                <ContentRow>
-                                    <RowTitle>SHIPPING MODE</RowTitle>
-                                    <RowValue>Loose Cargo</RowValue>
-                                </ContentRow>
-                                <ContentRow>
-                                    <RowTitle>ORIGIN</RowTitle>
-                                    <RowValue>Barcelona</RowValue>
-                                </ContentRow>
-                                <ContentRow>
-                                    <RowTitle>DESTINATION</RowTitle>
-                                    <RowValue>London</RowValue>
-                                </ContentRow>
-                            </Content>
-                        </GeneralInfoContent>
-                    </GeneralInfo>
-                    <ShipmentInfo>
-                        <GeneralTitle>SHIPMENT INFO</GeneralTitle>
-                        <GeneralInfoContent>
-                            <ShipmentType margin_right='15.68px'>
-                                <img src={dates_icon} alt=""/>
-                            </ShipmentType>
-                            <ShipmentRow>
-                                <ShipmentRowTitle>SHIPMENT DATE</ShipmentRowTitle>
-                                <ShipmentRowWeek>WEEK 24</ShipmentRowWeek>
-                                <RowValue>01/11 - 07/11</RowValue>
-                            </ShipmentRow>
-                        </GeneralInfoContent>
-                    </ShipmentInfo>
-                </QuoteInfo>
-                <CargoInfo>
-                    <GeneralTitle>CARGO</GeneralTitle>
-                    <CargoShippingModeWrap>
-                        Loose Cargo
-                    </CargoShippingModeWrap>
-                    <CargoContentWrapper>
-                        <CargoTable />
-                    </CargoContentWrapper>
+        <Layout>
+            {isCreatePopup && <RegisterNewRateFromQuotePopup openCreatePopup={openCreatePopup}/>}
+            <QuoteCardContainer>
+                <QuoteCardInner>
+                    <CardHeader>
+                        <CardTitle>Quotes</CardTitle>
+                        <ActionsAgentWrap>
+                            <QuoteOpenStatus>Open</QuoteOpenStatus>
+                            <SubmitQuoteButton>SUBMIT QUOTE</SubmitQuoteButton>
+                            <RejectButton onClick={() => setCardOpen(false)}>REJECT</RejectButton>
+                        </ActionsAgentWrap>
+                    </CardHeader>
+                    <QuoteInfo>
+                        <GeneralInfo>
+                            <GeneralTitle>GENERAL INFO</GeneralTitle>
+                            <GeneralInfoContent>
+                                <ShipmentType>
+                                    <img src={sea_type} alt=""/>
+                                </ShipmentType>
+                                <Content>
+                                    <ContentRow>
+                                        <RowTitle>SHIPPING MODE</RowTitle>
+                                        <RowValue>Loose Cargo</RowValue>
+                                    </ContentRow>
+                                    <ContentRow>
+                                        <RowTitle>ORIGIN</RowTitle>
+                                        <RowValue>Barcelona</RowValue>
+                                    </ContentRow>
+                                    <ContentRow>
+                                        <RowTitle>DESTINATION</RowTitle>
+                                        <RowValue>London</RowValue>
+                                    </ContentRow>
+                                </Content>
+                            </GeneralInfoContent>
+                        </GeneralInfo>
+                        <ShipmentInfo>
+                            <GeneralTitle>SHIPMENT INFO</GeneralTitle>
+                            <GeneralInfoContent>
+                                <ShipmentType margin_right='15.68px'>
+                                    <img src={dates_icon} alt=""/>
+                                </ShipmentType>
+                                <ShipmentRow>
+                                    <ShipmentRowTitle>SHIPMENT DATE</ShipmentRowTitle>
+                                    <ShipmentRowWeek>WEEK 24</ShipmentRowWeek>
+                                    <RowValue>01/11 - 07/11</RowValue>
+                                </ShipmentRow>
+                            </GeneralInfoContent>
+                        </ShipmentInfo>
+                    </QuoteInfo>
+                    <CargoInfo>
+                        <GeneralTitle>CARGO</GeneralTitle>
+                        <CargoShippingModeWrap>
+                            Loose Cargo
+                        </CargoShippingModeWrap>
+                        <CargoContentWrapper>
+                            <CargoTable />
+                        </CargoContentWrapper>
 
-                </CargoInfo>
-                <CarrierInfo>
-                    <CarrierWrap>
-                        <GeneralTitle>CARRIER</GeneralTitle>
-                        <Controller control={control}
-                                    name='carrier'
-                                    as={
-                                        <FormSelect error={errors?.carrier?.message}
-                                                    maxW='500px'
-                                                    placeholder='Carrier company name'
-                                        />
-                                    }
-                                    rules={{
-                                        required: 'Field is required'
-                                    }}
-                        />
-                    </CarrierWrap>
-                    <CarrierWrap>
-                        <GeneralTitle>CARRIER</GeneralTitle>
-                        <FrateRatesTable control={control}/>
-                    </CarrierWrap>
-                </CarrierInfo>
-                <SurchargesInfo>
-                    <div style={{width: '50%'}}>
-                    <UsageFees control={control}
-                               usageFees={null}
-                               tableName={'HANDLING'}
-                               type='CONTAINER TYPE'
-                               setValue={setValue}
-                    />
-                    </div>
-                    <div style={{width: '50%'}}>
-                        <Additional control={control}
+                    </CargoInfo>
+                    <CarrierInfo>
+                        <CarrierWrap>
+                            <GeneralTitle>CARRIER</GeneralTitle>
+                            <Controller control={control}
+                                        name='carrier'
+                                        as={
+                                            <FormSelect error={errors?.carrier?.message}
+                                                        maxW='500px'
+                                                        placeholder='Carrier company name'
+                                            />
+                                        }
+                                        rules={{
+                                            required: 'Field is required'
+                                        }}
+                            />
+                        </CarrierWrap>
+                        {!no_rates && <CarrierWrap>
+                            <GeneralTitle>FREIGHT RATES</GeneralTitle>
+                            <FrateRatesTable control={control}/>
+                        </CarrierWrap>}
+                    </CarrierInfo>
+                    <SurchargesInfo no_rates={no_rates}>
+                    {no_rates
+                       ? <NoRateSurchargeCard openCreatePopup={openCreatePopup}/>
+                       : <>
+                            <div style={{width: '50%'}}>
+                                <UsageFees control={control}
+                                    usageFees={null}
+                                    tableName={'HANDLING'}
+                                    type='CONTAINER TYPE'
+                                    setValue={setValue}
+                                />
+                            </div>
+                            <div style={{width: '50%'}}>
+                                <Additional control={control}
                                     errors={errors}
                                     setValue={setValue}
-                        />
-                    </div>
-                </SurchargesInfo>
-            </QuoteCardInner>
-        </QuoteCardContainer>
+                                />
+                            </div>
+                        </>
+                    }
+                    </SurchargesInfo>
+                </QuoteCardInner>
+            </QuoteCardContainer>
+        </Layout>
     )
 }
 

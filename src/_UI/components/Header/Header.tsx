@@ -15,6 +15,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router";
 import logotype from '../../../_UI/assets/icons/landing/inline_logo.png'
+import {NavLink} from "react-router-dom";
 const notification = require("../../../_UI/assets/icons/clarity_notification-solid-badged.svg") as string;
 const card = require("../../../_UI/assets/icons/card.svg") as string;
 const user = require("../../../_UI/assets/icons/profile/defaultUserPhoto.svg");
@@ -70,7 +71,7 @@ const Header: React.FC = () => {
               <StyledTooltipItem onClick={() => dispatch(signOut(history))}>
                 Log out
               </StyledTooltipItem>
-              <StyledTooltipItem>My profile</StyledTooltipItem>
+              <NavLink to='/settings/profile' style={{textDecoration: 'none'}}><StyledTooltipItem>My profile</StyledTooltipItem></NavLink>
             </StyledUl>
           }
         >

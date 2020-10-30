@@ -5,7 +5,7 @@ import ClientBookingPopUp from "../../../components/PopUps/ClientBookingPopUp/Cl
 
 const SearchContainer = () => {
   const [isRatingPopup, showRatingPopup] = useState(false);
-  const [bookingPopupVisible, setBookingPopupVisible] = useState(true);
+  const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
 
   return (
     <>

@@ -7,18 +7,22 @@ type PropsType = {
   inputref?: React.Ref<HTMLInputElement>;
   setIsCheck: (value: boolean) => void;
   isCheck: boolean;
+  labelText?: string;
+  color?: string;
 };
 
 const SearchCheckbox: React.FC<PropsType> = ({
   isCheck,
   setIsCheck,
+  labelText,
+  color,
   ...props
 }) => {
   let handleChange = () => {
     isCheck ? setIsCheck(false) : setIsCheck(true);
   };
   return (
-    <Container>
+    <Container color={color}>
       <input
         {...props}
         type="checkbox"
@@ -27,7 +31,7 @@ const SearchCheckbox: React.FC<PropsType> = ({
         ref={props.inputref}
       />
       <span className="checkmark" />
-      My company will be the shipper
+      {labelText}
     </Container>
   );
 };
@@ -43,9 +47,13 @@ const Container = styled.label`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-family: "Helvetica Light", sans-serif;
+
+  font-family: ${({ color }) =>
+    color === "#000000"
+      ? "Helvetica Reg, sans-serif"
+      : "Helvetica Light, sans-serif"};
   font-size: 16px;
-  color: #828282;
+  color: ${({ color }) => (color ? color : "#828282")};
 
   & input {
     position: absolute;

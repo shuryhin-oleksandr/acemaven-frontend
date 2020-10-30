@@ -27,7 +27,7 @@ export const PopupContainer = styled.div`
 
 export const PopupContent = styled.div`
   background-color: white;
-  max-width: 750px;
+  max-width: 800px;
   max-height: 800px;
   width: 100%;
   padding: 35px 25px;

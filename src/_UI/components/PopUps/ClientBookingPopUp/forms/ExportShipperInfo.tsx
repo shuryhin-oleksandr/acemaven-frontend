@@ -93,6 +93,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           setIsCheck={setIsCheck}
           inputref={register}
           name="is_shipper"
+          labelText="My company will be the shipper"
         />
       </IsShipperWrapper>
       <InputGroupName>Shipper</InputGroupName>

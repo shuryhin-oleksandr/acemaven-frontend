@@ -31,6 +31,7 @@ import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { bookingActions } from "../../../../_BLL/reducers/bookingReducer";
 import BaseButton from "../../base/BaseButton";
+import PaymentContainer from "./payment/PaymentContainer";
 
 const useStyles = makeStyles({
   container: {
@@ -77,6 +78,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
   const companyId = sessionStorage.getItem("u");
   useEffect(() => {
     dispatch(getCompanyInfo(Number(companyId)));
+    return () => {
+      dispatch(bookingActions.changeBookingStep("shipping-form"));
+    };
   }, [dispatch]);
 
   let companyInfo = useSelector(
@@ -271,7 +275,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             </TableTotal>
           </HiddenWrapper>
         )}
-        {bookingStep === "payment" && <div>Payment</div>}
+        {bookingStep === "payment" && <PaymentContainer />}
       </PopupContent>
     </PopupContainer>
   );

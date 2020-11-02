@@ -18,7 +18,6 @@ const SignUpFinishPopup:React.FC<PropsType> = ({openSignUp}) => {
 
     return (
         <Container>
-
             <Inner>
                 <TextWrap>We will call your contact person soon.</TextWrap>
                 <ButtonWrap onClick={() => closeFinishPopup()}>GOT IT!</ButtonWrap>

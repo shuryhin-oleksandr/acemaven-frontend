@@ -51,6 +51,12 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
 
 
   useEffect(() => {
+   if(errors) {
+     console.log('errors', errors)
+   }
+  }, [errors])
+
+  useEffect(() => {
     if (checkedUser) {
       setValue("first_name", checkedUser?.first_name); //должно меняться в зав от стора
       setValue("last_name", checkedUser?.last_name); //должно меняться в зав от стора
@@ -114,11 +120,17 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
         label="Phone Number"
         inputRef={register({
           required: "Field is required",
+          maxLength: 13,
+          minLength: 10,
+          pattern: /^(\+)?([0-9]){10,13}$/
         })}
         placeholder="Phone Number"
         name="phone"
         error={errors?.phone}
         getValues={getValues}
+        max='13'
+        min='10'
+        pattern_message='Phone number has to include only + and numbers'
       />
       <FormField
         label="Position in the Company"
@@ -139,7 +151,6 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
         errors={errors}
         placeholder="Password"
         register={register}
-
       />
       {passwordError && <ErrorServerMessage>{passwordError}</ErrorServerMessage>}
       <FormField

@@ -11,12 +11,13 @@ import {
 
 
 type PropsType = {
-
+    setAssignAgent: (value: boolean) => void
 }
 
-const BookingCard:React.FC<PropsType> = ({}) => {
+const BookingCard:React.FC<PropsType> = ({setAssignAgent}) => {
 
-    let current_user_role = 'client'
+    let current_user_role = 'master'
+
 
     return (
         <CardWrapper>
@@ -31,7 +32,7 @@ const BookingCard:React.FC<PropsType> = ({}) => {
                         </BookingStatus>
                     </BookingInfo>
                     <ActionsButtons>
-                        {current_user_role === 'master' && <AssignButton>ASSIGN</AssignButton>}
+                        {current_user_role === 'master' && <AssignButton onClick={() => setAssignAgent(true)}>ASSIGN</AssignButton>}
                         <AcceptButton>ACCEPT</AcceptButton>
                         <RejectButton>REJECT</RejectButton>
                     </ActionsButtons>

@@ -59,7 +59,9 @@ const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch, my_id}) 
                         : <EditUserCardForm dispatch={dispatch} setEditMode={setEditMode}/>
                     }*/}
                     {workersList?.map(w => editedUserId !== w?.id
-                        ? <UserPart my_id={my_id} key={w.id} deleteUser={deleteUser} u={w} setEditMode={editHandler} cardsMode={cardsMode} max_width='447px'/>
+                        ? <UserPart my_id={my_id} key={w.id} deleteUser={deleteUser} u={w}
+                                    setEditMode={editHandler} cardsMode={cardsMode} max_width='447px'
+                        />
                         : <EditUserCardForm key={w.id} worker={w} dispatch={dispatch} setEditMode={editHandler}/>
                     )}
                 </CardsOuter>

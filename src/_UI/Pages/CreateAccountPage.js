@@ -18,7 +18,6 @@ import Spinner from "../components/_commonComponents/spinner/Spinner";
 import { authAPI } from "../../_DAL/API/authAPI";
 import CheckedTokenPopup from "../components/PopUps/checked_token/checkedTokenPopup";
 import { getFilesFormData } from "../../_BLL/helpers/MultipartFormDataHelper";
-import { HelperText } from "../components/_commonComponents/Input/input-styles";
 import { ErrorServerMessage } from "./SignInPage";
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
 
@@ -78,12 +77,14 @@ const CreateAccountPage = ({ history }) => {
                   position: "",
                 }}
                 onSubmit={(values, {}) => {
+                  debugger
                   let wholeData = getFilesFormData(values, file);
                   dispatch(authActions.setIsLoading(true));
                   authAPI
                     .signUp(location.search.substr(7), wholeData)
                     .then((res) => {
                       localStorage.setItem("access_token", res.data.token);
+                      dispatch(authActions.setAuth(true))
                       res.data && history.push("/create/user");
                       dispatch(authActions.setIsLoading(false));
                     })

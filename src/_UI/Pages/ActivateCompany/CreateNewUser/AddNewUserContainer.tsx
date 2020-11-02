@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../_BLL/store";
 import { getEmployees} from "../../../../_BLL/reducers/employeesAndBanksReducer";
 import LayoutWithoutNav from "../../../components/BaseLayout/LayoutWithoutNav";
+import {authActions} from "../../../../_BLL/reducers/authReducer";
 
 interface IProps {
 
@@ -22,13 +23,12 @@ const AddNewUserContainer:React.FC<IProps> = () => {
    /* const clearToken = () => {
         localStorage.removeItem('access_token')
     }*/
-   /* useEffect(() => {
+    useEffect(() => {
         debugger
+        dispatch(authActions.setAuth(true))
         dispatch(getEmployees())
-        /!*return () => {
-            clearToken()
-        }*!/
-    }, [dispatch])*/
+
+    }, [dispatch])
 
     return (
         <Outer>

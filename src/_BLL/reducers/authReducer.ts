@@ -4,13 +4,13 @@ import {
   ICompanySignUpData,
   ICompanySignUpError,
   ILoginData,
-  IMasterAccountData,
   IMasterSignUpError
 } from "../types/authTypes";
 import { History } from "history";
 
 const initialState: InitialStateType = {
   isAuth: false,
+  isInit: false,
   isFetching: false,
   loginError: "",
   signedCompanyData: null,
@@ -25,6 +25,7 @@ const initialState: InitialStateType = {
 
 type InitialStateType = {
   isFetching: boolean;
+  isInit: boolean;
   isAuth: boolean;
   loginError: string;
   signedCompanyData: ICompanySignUpData | null;
@@ -47,12 +48,16 @@ export const authReducer = (
         ...state,
         isFetching: action.isFetching,
       };
+    case "SET_INIT":
+      return {
+        ...state,
+        isInit: action.isInit
+      }
     case "SET_AUTH":
       return {
         ...state,
         isAuth: action.isAuth,
       };
-
     case "SET_LOGIN_ERROR":
       return {
         ...state,
@@ -107,6 +112,7 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U }
 type commonAuthActions = AC<typeof authActions>;
 
 export const authActions = {
+  setInit: (isInit: boolean) => ({type:"SET_INIT", isInit} as const),
   setAuth: (isAuth: boolean) => ({ type: "SET_AUTH", isAuth } as const),
   setIsLoading: (isFetching: boolean) =>
     ({ type: "SET_IS_LOADING", isFetching } as const),
@@ -188,7 +194,7 @@ export const checkToken = (token: string) => {
   };
 };
 
-export const masterAccountSignUp = (
+/*export const masterAccountSignUp = (
   data: IMasterAccountData,
   token: string,
   history: History
@@ -200,13 +206,14 @@ export const masterAccountSignUp = (
       localStorage.setItem("access_token", res.data.token);
       dispatch(authActions.setAuth(true));
       res.data && history.push("/create/user");
+      dispatch(authActions.setAuth(true));
       dispatch(authActions.setIsLoading(false));
     } catch (e) {
       console.log("error", e.response);
       dispatch(authActions.setIsLoading(false));
     }
   };
-};
+};*/
 
 export const completeAdditionalUser = (
   token: string,

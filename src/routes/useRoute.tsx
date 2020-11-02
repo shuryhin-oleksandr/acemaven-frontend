@@ -18,7 +18,6 @@ import ExactRateContainer from "../_UI/Pages/Services&Rates/rates/rates_page/rat
 import QuotesContainer from "../_UI/Pages/quotes/QuotesContainer";
 import QuoteCard from "../_UI/Pages/quotes/agent/QuoteCard";
 import BookingAgentContainer from "../_UI/Pages/Requests/Booking_agent/BookingAgentContainer";
-import {PrivateRoute} from "./PrivateRoute";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../_BLL/store";
 import BookingCardContainer from "../_UI/Pages/Requests/Booking_agent/booking_card/BookingCardContainer";
@@ -37,7 +36,9 @@ const useRoute = (isAuth: boolean) => {
     if (isAuth) {
         return (
             <Switch>
-                <Route exact component={DashboardContainer} path='/'/>
+                <Route component={AddNewUserContainer} path='/create/user'/>
+                <Route component={AddBankAccountContainer} path='/create/bank'/>
+                <Route component={ActivateEnd} path='/create/finish'/>
                 <Route component={SurchargesContainer} path='/services/surcharges'/>
                 <Route component={ExactSurchargeContainer} path='/services/surcharge/:id'/>
                 <Route exact component={RatesContainer} path='/services/rates'/>
@@ -47,10 +48,10 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={UserManagementContainer} path='/settings/user/management'/>
                 <Route component={GeneralSettingsContainer} path='/settings/general'/>
                 <Route exact component={QuotesContainer} path='/quotes'/>
-                {/*<PrivateRoute currentUserCompany={currentUserCompany} roles={[Role.User]} component={QuotesContainer} />*/}
                 <Route component={QuoteCard} path='/quotes/:id'/>
                 <Route exact component={BookingAgentContainer} path='/requests/booking'/>
                 <Route component={BookingCardContainer} path='/requests/booking/:id'/>
+                <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>
             </Switch>
         )
@@ -59,11 +60,8 @@ const useRoute = (isAuth: boolean) => {
             <Switch>
                 <Route component={LandingPage} path='/acemaven'/>
                 <Route component={CreateAccountPage} path='/create-account'/>
-                <Route component={AddNewUserContainer} path='/create/user'/>
-                <Route component={AddBankAccountContainer} path='/create/bank'/>
-                <Route component={ActivateEnd} path='/create/finish'/>
                 <Route component={AdditionalUserContainer} path='/additional/user'/>
-                {/*<Redirect to='/acemaven'/>*/}
+                <Redirect to='/acemaven'/>
             </Switch>
         )
     }

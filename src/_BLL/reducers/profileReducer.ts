@@ -5,6 +5,7 @@ import { profileSettingsAPI } from "../../_DAL/API/profileSettingsAPI";
 import { CompanyInfoType } from "../types/profileSettingsType";
 import { IAddNewBank, IAddNewUserData } from "../types/addNewUserTypes";
 
+
 type Error = {
   old_password?: string[];
   new_password1?: string[];
@@ -60,12 +61,6 @@ export const profileReducer = (state = initialState, action: commonProfileAction
       return {
         ...state,
         banksList: [...state.banksList, action.bank],
-      };
-    case "SET_BANKS_AFTER_DELETE":
-      return {
-        ...state,
-        banksList:
-          state.banksList && state.banksList.filter((b) => b.id !== action.id),
       };
     case "SET_BANKS_AFTER_DEFAULT":
       return {
@@ -155,7 +150,6 @@ export const profileActions = {
   setBanksList: (banksList: Array<IAddNewBank>) => ({ type: "SET_BANKS_LIST", banksList } as const),
   setNewToBanksList: (bank: IAddNewBank) => ({ type: "SET_NEW_TO_BANKS", bank } as const),
   setAddingBankError: (error: string) => ({type: 'SET_ADDING_BANK_ERROR', error} as const),
-  setBanksAfterDelete: (id: number) => ({ type: "SET_BANKS_AFTER_DELETE", id } as const),
   setWorkersList: (workersList: Array<IAddNewUserData>) => ({ type: "SET_WORKERS_LIST", workersList } as const),
   setNewToWorkersList: (worker: IAddNewUserData) => ({ type: "SET_NEW_TO_WORKERS_LIST", worker } as const),
   setAddingUserSuccess: (value: boolean) => ({type: 'SET_ADDING_USER_SUCCESS', value} as const),

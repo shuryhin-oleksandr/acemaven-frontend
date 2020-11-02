@@ -14,13 +14,13 @@ type IProps = {
   options?: any;
   placeholder?: string;
   callback?: VoidFunctionType;
-  maxW?: string
+  maxW?: string;
 };
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     width: "100%",
-    marginBottom: "15px"
+    marginBottom: "15px",
   },
   selectEmpty: {
     width: "100%",
@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
     transition: ".3",
 
     "&.Mui-error": {
-      border: '1px solid rgba(0, 0, 0, .5)',
-      backgroundColor: 'rgba(0, 0, 0, .07)',
+      border: "1px solid rgba(0, 0, 0, .5)",
+      backgroundColor: "rgba(0, 0, 0, .07)",
     },
 
     "& .MuiSelect-icon": {
@@ -111,7 +111,7 @@ const FormSelect: React.FC<IProps> = ({ label, error, ...props }) => {
               key={o.name}
               value={o.value}
             >
-              {o.name}
+              {o.name ? o.name : o.title}
             </MenuItem>
           ))}
         </Select>

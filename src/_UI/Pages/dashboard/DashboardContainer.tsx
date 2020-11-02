@@ -6,7 +6,7 @@ import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/Char
 
 
 const DashboardContainer:React.FC = () => {
-    const search_result = true
+    const search_result = false
 
     return (
         <Layout>

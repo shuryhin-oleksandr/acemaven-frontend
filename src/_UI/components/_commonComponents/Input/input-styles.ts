@@ -15,7 +15,8 @@ type PropsStyle = {
   maxW?: string;
   focusBack?: string;
   height?: string;
-  marginBottom?: string
+  marginBottom?: string;
+  background?:string
 };
 
 export const InputOuter = styled.div<PropsStyle>`
@@ -23,22 +24,24 @@ export const InputOuter = styled.div<PropsStyle>`
   flex-direction: column;
   width: 100%;
   max-width: ${({ maxW }) => (maxW ? maxW : "100%")};
-  margin-bottom: ${({marginBottom}) => marginBottom ? marginBottom : '15px'};
+  margin-bottom: ${({ marginBottom }) =>
+    marginBottom ? marginBottom : "15px"};
 `;
 export const Field = styled.input<PropsStyle>`
   padding: 10px;
-  color: rgba(0, 0, 0, .8);
+  color: rgba(0, 0, 0, 0.8);
   font-size: 14px;
   font-family: "Helvetica Light", sans-serif;
   line-height: 17px;
   transition: 0.5s;
-  max-width: ${({maxW}) => maxW ? maxW : '420px'};
+  max-width: ${({ maxW }) => (maxW ? maxW : "420px")};
   width: 100%;
-  height: ${({height}) => height ? height : '40px'};
+  height: ${({ height }) => (height ? height : "40px")};
   border: ${({ error }) => (error ? "1px solid #7C7C89" : "1px solid #BDBDBD")};
   border-radius: 4px;
   outline: none;
-  background: ${({ error }) => (error ? "#ECECEC" : "white")};
+  background: ${({ error, background }) =>
+    background ? background : error ? "#ECECEC" : "white"};
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -74,7 +77,7 @@ export const Label = styled.div<PropsStyle>`
 `;
 export const HelperText = styled.div`
   padding-top: 9px;
-  color: #E76767;
+  color: #e76767;
   font-family: "Helvetica Reg", sans-serif;
   width: 100%;
   text-align: end;

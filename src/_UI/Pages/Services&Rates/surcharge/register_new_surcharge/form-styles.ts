@@ -177,7 +177,6 @@ export const Port = styled.div`
   color: #7C7C89;
   font-size: 14px;
   transition: .3s;
-  min-height: 25px;
   padding: 0 5px;
   border-radius: 5px;
   

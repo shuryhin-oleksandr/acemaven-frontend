@@ -19,16 +19,17 @@ type PropsType = {
   height?: string;
   onBlur?: VoidFunctionType;
   marginBottom?: string;
-  server_error?: string
+  server_error?: string;
   defaultValue?: any;
   pattern_message?: string;
-  disabled?: boolean
+  disabled?: boolean;
+  background?: string;
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
   return (
     <InputOuter maxW={props.maxW} marginBottom={props.marginBottom}>
-      <Label>{label}</Label>
+      {!!label && <Label>{label}</Label>}
       <Field
         height={props.height}
         focusBack={props.focusBack}
@@ -40,25 +41,28 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         type={props.type ? props.type : "text"}
         onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
         onBlur={(e) => props.onBlur && props.onBlur(e.target.value)}
-        autoComplete='off'
+        autoComplete="off"
         maxW={props.maxW}
         defaultValue={props.defaultValue}
         disabled={props.disabled}
+        background={props.background}
       />
       {error?.type === "required" && <HelperText>{error?.message}</HelperText>}
-      {error?.type === "pattern" && <HelperText>{props.pattern_message ? props.pattern_message : 'Value is not valid'}</HelperText>}
-     {/* {error?.type === "minLength" && (
+      {error?.type === "pattern" && (
+        <HelperText>
+          {props.pattern_message ? props.pattern_message : "Value is not valid"}
+        </HelperText>
+      )}
+      {/* {error?.type === "minLength" && (
         <HelperText>Minimum length is 1 symbol</HelperText>
       )}*/}
       {error?.type === "maxLength" && (
         <HelperText>Maximum length is {props.max} symbols</HelperText>
       )}
       {error?.type === "minLength" && (
-          <HelperText>Minimum length is {props.min} symbols</HelperText>
+        <HelperText>Minimum length is {props.min} symbols</HelperText>
       )}
-      {props.server_error && (
-          <HelperText>{props.server_error}</HelperText>
-      )}
+      {props.server_error && <HelperText>{props.server_error}</HelperText>}
     </InputOuter>
   );
 };

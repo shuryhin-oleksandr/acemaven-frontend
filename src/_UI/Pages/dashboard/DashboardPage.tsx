@@ -8,12 +8,12 @@ import {
   MapWrapper,
 } from "./dashboard-styles";
 import SearchWidget from "./Widgets/SearchWidget/SearchWidget";
+import Search from "./Widgets/SearchWidget/Search";
 import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
 import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
 import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
 import MapComponent from "./MapComponent/MapComponent";
 import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/ChargeableWeightPopup";
-
 
 const DashboardPage: React.FC = () => {
   const [widgetsVisible, setWidgetsVisible] = useState(true);
@@ -30,7 +30,8 @@ const DashboardPage: React.FC = () => {
       {widgetsVisible && (
         <>
           <SearchBox>
-            <SearchWidget right='162px'/>
+            <SearchWidget right="162px" />
+            <Search />
           </SearchBox>
           <MultiWidgetBox>
             <FeePaymentWidget />

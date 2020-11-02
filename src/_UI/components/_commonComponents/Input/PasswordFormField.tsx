@@ -20,17 +20,16 @@ type PropsType = {
     showPassword: boolean
 }
 
-const PasswordFormField:React.FC<PropsType> = ({errors, label, ...props}) => {
+const PasswordFormField:React.FC<PropsType> = ({errors, label, name, register, ...props}) => {
     return (
         <PasswordWrapper>
             <FormField label='Password'
-                       inputRef={props.register({
-                           required: 'Field is required',
-                           //pattern: /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,25}$/
+                       inputRef={register({
+                           required: 'Field is required'
                        })}
                        placeholder='Password'
-                       name={props.name}
-                       error={errors?.name?.message}
+                       name='password'
+                       error={errors?.password}
                        getValues={props.getValues}
                        type={props.showPassword ? 'text' : 'password'}
                        onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
@@ -61,9 +60,9 @@ export const EyeButton = styled.button`
   display: flex;
   align-items: center;
   z-index: 30;
-  padding-top: 13px;
   position: absolute;
   right: 5px;
+  top: 26px;
   img {
     
   }

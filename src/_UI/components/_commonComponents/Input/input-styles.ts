@@ -22,6 +22,7 @@ type PropsStyle = {
 export const InputOuter = styled.div<PropsStyle>`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
   max-width: ${({ maxW }) => (maxW ? maxW : "100%")};
   margin-bottom: ${({ marginBottom }) =>
@@ -42,6 +43,7 @@ export const Field = styled.input<PropsStyle>`
   outline: none;
   background: ${({ error, background }) =>
     background ? background : error ? "#ECECEC" : "white"};
+  
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import {Controller, useFieldArray, useForm} from "react-hook-form";
 import {
   Container,
   Heading,
   RelativeWrapper,
-  FieldWrapper,
   ButtonGroup,
   AddImg,
-  RemoveImg,
 } from "./searchWidgett-styles";
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
-import { Field } from "../../../../components/_commonComponents/Input/input-styles";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
-import FormSelect from "../../../../components/_commonComponents/select/FormSelect";
-import { Formik, Form, FieldArray } from "formik";
-import BaseFormikInput from "../../../../components/base/BaseFormikInput";
 import BaseButton from "../../../../components/base/BaseButton";
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
-import RemoveIcon from "../../../../assets/icons/widgets/remove-icon.svg";
 import BaseTooltip from "../../../../components/_commonComponents/baseTooltip/BaseTooltip";
-import { IAdditionalUserCompleteData } from "../../../../../_BLL/types/addNewUserTypes";
-import TableCell from "@material-ui/core/TableCell";
-import { currency } from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 import {
-  GroupWrap,
   Port,
   PortsList,
 } from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
@@ -57,11 +46,12 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
   const destination_ports = useSelector(getDestinationPorts);
 
   const shippingModeOptions =
-    mode === ShippingTypesEnum.AIR
-      ? shippingTypes[0]?.shipping_modes
-      : shippingTypes[1]?.shipping_modes;
+      mode === ShippingTypesEnum.AIR
+          ? shippingTypes[0]?.shipping_modes
+          : shippingTypes[1]?.shipping_modes;
 
-  console.log("shippingModeOptions", shippingModeOptions);
+  let container_types = shippingModeOptions?.find(s => s.id === shippingValue)?.container_types
+
 
   const {
     handleSubmit,
@@ -70,7 +60,23 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
     errors,
     getValues,
     setValue,
-  } = useForm();
+  } = useForm({
+    reValidateMode: 'onBlur',
+    /*defaultValues: {
+      search_test: [{
+        container_type: null,
+        volume: 0,
+        is_frozen: 'frozen',
+      }]
+    }*/
+  });
+
+  const {fields, append} = useFieldArray(
+      {
+        control,
+        name: "search_test"
+      }
+  );
 
   let onOriginChangeHandler = (value: any) => {
     dispatch(getPorts(value.value, "origin", mode));
@@ -80,6 +86,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
+    dispatch(rateActions.setOriginPortValue(port))
     setValue(field, port.display_name);
     dispatch(rateActions.setOriginPortsList([]));
     dispatch(rateActions.setDestinationPortsList([]));
@@ -97,7 +104,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
           <div
             style={{
               display: "flex",
-              alignItems: "center",
+              alignItems: "end",
               justifyContent: "space-between",
             }}
           >
@@ -199,9 +206,43 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
               )}
             </div>
           </div>
+          {fields.map((item, index) => {
+            return (
+                <div style={{width: '100%', display: 'flex'}}>
+                  <Controller control={control}
+                              name={`search_test[${index}].container_type`}
+                              defaultValue={item.container_type}
+                              as={
+                                  <SurchargeRateSelect options={container_types}
+                                                       maxW='140px'
+                                                       marginRight= '16px'
+                                  />
+                              }
+                  />
+                  <Controller control={control}
+                              name={`search_test[${index}].volume`}
+                              as={
+                                <div style={{marginRight: '10px', width: '130px', display: 'flex'}}>
+                                  <FormField marginBottom='5px'
+                                  />
+                                </div>
+
+                              }
+                  />
+                  <Controller control={control}
+                              name={`search_test[${index}].is_frozen`}
+                              defaultValue='frozen'
+                              as={
+                                <SurchargeRateSelect maxW='115px'
+                                />
+                              }
+                  />
+                </div>
+                )
+          })}
           <ButtonGroup bottom={bottom} right={right}>
             <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
-              <AddImg src={AddIcon} alt="add" />
+              <AddImg onClick={() => append({name: 'search_test'})} src={AddIcon} alt="add" />
             </BaseTooltip>
             <BaseButton type="submit">Search</BaseButton>
           </ButtonGroup>

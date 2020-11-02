@@ -4,12 +4,14 @@ import styled from 'styled-components'
 export const SelectContainer = styled.div<PropsStyle>`
   width: 100%;
   max-width: ${({maxW}) => maxW ? maxW : '100%'};
+  margin-right: ${({marginRight}) => marginRight ? marginRight : '0px'};
 `
 
 type PropsStyle = {
     isFocus?: boolean,
     error?: string,
-    maxW?: string
+    maxW?: string,
+    marginRight?: string
 }
 
 export const Select = styled.select<PropsStyle>`

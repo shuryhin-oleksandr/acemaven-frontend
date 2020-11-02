@@ -19,6 +19,9 @@ type IProps = {
   hideLabel?: boolean;
   marginBot?: string;
   background?: string;
+  name?: string;
+  register?: any;
+  marginRight?: string
 };
 
 const useStyles = makeStyles(() => ({
@@ -103,7 +106,7 @@ const SurchargeRateSelect: React.FC<IProps> = ({
   });
 
   return (
-    <SelectContainer maxW={props.maxW}>
+    <SelectContainer maxW={props.maxW} marginRight={props.marginRight}>
       <FormControl className={classes.formControl}>
         {hideLabel ? null : <Label>{label}</Label>}
         <Select

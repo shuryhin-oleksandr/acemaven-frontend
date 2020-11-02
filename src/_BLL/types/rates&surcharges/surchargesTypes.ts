@@ -10,7 +10,7 @@ export type CarrierType = {
     shipping_type?: number
 }
 export type PortType = {
-    id: number ,
+    id: number,
     display_name: string,
     name: string,
     code: string
@@ -22,7 +22,10 @@ export type AdditionalSurchargeType = {
 }
 export type ContainerType = {
     id: number,
-    code: string
+    code: string,
+    //shipping_mode_id
+    //is_need_volume: true(рисую volume) / false (w/m)
+    //
 }
 
 export type ShippingModeType = {

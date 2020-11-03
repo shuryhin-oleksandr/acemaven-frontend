@@ -30,7 +30,7 @@ const DashboardPage: React.FC = () => {
       {widgetsVisible && (
         <>
           <SearchBox>
-            <SearchWidget right="162px" />
+            {/*<SearchWidget right="162px" />*/}
             <Search />
           </SearchBox>
           <MultiWidgetBox>

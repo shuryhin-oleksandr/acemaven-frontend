@@ -3,7 +3,8 @@ import styled from "styled-components";
 type PropsStyle = {
     mode?: string,
     w? : string,
-    flex_direction?: string
+    flex_direction?: string,
+    top?:string
 }
 
 export const Outer = styled.form`
@@ -154,7 +155,7 @@ export const UnderTitle = styled.div`
   padding-top: 35px;
 `;
 
-export const PortsList = styled.div`
+export const PortsList = styled.div<PropsStyle>`
   display: flex;
   flex-direction: column;
   max-height: 110px;
@@ -165,7 +166,7 @@ export const PortsList = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.5);
   padding: 5px 2px;
   position: absolute;
-  top: 64px;
+  top: ${({top})=>top?top:"64px"};
   z-index: 10;
 `;
 

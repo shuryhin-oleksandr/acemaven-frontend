@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Controller, useFieldArray, useForm} from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import {
   Container,
   Heading,
@@ -28,6 +28,8 @@ import {
   getOriginPorts,
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import Dates from "../../Dates";
+import moment from "moment";
 
 type PropsType = {
   right?: string;
@@ -38,6 +40,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
   const dispatch = useDispatch();
   const [mode, setMode] = useState("sea");
   const [shippingValue, setShippingValue] = useState(0);
+  const [dates, setDates] = useState([]);
   useEffect(() => {
     dispatch(getShippingTypes(""));
   }, []);
@@ -46,12 +49,12 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
   const destination_ports = useSelector(getDestinationPorts);
 
   const shippingModeOptions =
-      mode === ShippingTypesEnum.AIR
-          ? shippingTypes[0]?.shipping_modes
-          : shippingTypes[1]?.shipping_modes;
+    mode === ShippingTypesEnum.AIR
+      ? shippingTypes[0]?.shipping_modes
+      : shippingTypes[1]?.shipping_modes;
 
-  let container_types = shippingModeOptions?.find(s => s.id === shippingValue)?.container_types
-
+  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
+    ?.container_types;
 
   const {
     handleSubmit,
@@ -61,22 +64,13 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
     getValues,
     setValue,
   } = useForm({
-    reValidateMode: 'onBlur',
-    /*defaultValues: {
-      search_test: [{
-        container_type: null,
-        volume: 0,
-        is_frozen: 'frozen',
-      }]
-    }*/
+    reValidateMode: "onBlur",
   });
 
-  const {fields, append} = useFieldArray(
-      {
-        control,
-        name: "search_test"
-      }
-  );
+  const { fields, append } = useFieldArray({
+    control,
+    name: "search_test",
+  });
 
   let onOriginChangeHandler = (value: any) => {
     dispatch(getPorts(value.value, "origin", mode));
@@ -86,14 +80,20 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
-    dispatch(rateActions.setOriginPortValue(port))
+    dispatch(rateActions.setOriginPortValue(port));
     setValue(field, port.display_name);
+    sessionStorage.setItem(`${field}_id`, JSON.stringify(port.id));
     dispatch(rateActions.setOriginPortsList([]));
     dispatch(rateActions.setDestinationPortsList([]));
   };
 
   const onSubmit = (values: any) => {
-    console.log(values);
+    const finalData = values;
+    finalData.from = moment(dates[0]).format("DD/MM/YYYY");
+    finalData.to = moment(dates[1]).format("DD/MM/YYYY");
+    finalData.destination = Number(sessionStorage.getItem("destination_id"));
+    finalData.origin = Number(sessionStorage.getItem("origin_id"));
+    console.log("finalData", finalData);
   };
 
   return (
@@ -127,7 +127,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
                   options={shippingModeOptions}
                   callback={setShippingValue}
                   // error={errors?.shipping_mode?.message}
-                  maxW={"19%"}
+                  maxW={"18%"}
                   label={"Shipping mode"}
                   hideLabel={true}
                   background={"#ECECEC"}
@@ -137,7 +137,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
             />
             <div
               style={{
-                width: "19%",
+                width: "18%",
                 display: "flex",
                 flexDirection: "column",
                 position: "relative",
@@ -158,7 +158,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
                 // onBlur={blurHandler}
               />
               {origin_ports && origin_ports?.length > 0 && (
-                <PortsList>
+                <PortsList top="45px">
                   {origin_ports?.map((p: PortType) => (
                     <Port
                       onClick={() => closePortsHandler(p, "origin")}
@@ -172,7 +172,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
             </div>
             <div
               style={{
-                width: "19%",
+                width: "18%",
                 display: "flex",
                 flexDirection: "column",
                 position: "relative",
@@ -193,7 +193,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
                 //onBlur={blurHandler}
               />
               {destination_ports && destination_ports?.length > 0 && (
-                <PortsList>
+                <PortsList top="45px">
                   {destination_ports?.map((p: PortType) => (
                     <Port
                       onClick={() => closePortsHandler(p, "destination")}
@@ -205,44 +205,58 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
                 </PortsList>
               )}
             </div>
+            <Dates
+              setDates={setDates}
+              extraDateNumber={mode === "sea" ? 9 : 2}
+            />
           </div>
           {fields.map((item, index) => {
             return (
-                <div style={{width: '100%', display: 'flex'}}>
-                  <Controller control={control}
-                              name={`search_test[${index}].container_type`}
-                              defaultValue={item.container_type}
-                              as={
-                                  <SurchargeRateSelect options={container_types}
-                                                       maxW='140px'
-                                                       marginRight= '16px'
-                                  />
-                              }
-                  />
-                  <Controller control={control}
-                              name={`search_test[${index}].volume`}
-                              as={
-                                <div style={{marginRight: '10px', width: '130px', display: 'flex'}}>
-                                  <FormField marginBottom='5px'
-                                  />
-                                </div>
-
-                              }
-                  />
-                  <Controller control={control}
-                              name={`search_test[${index}].is_frozen`}
-                              defaultValue='frozen'
-                              as={
-                                <SurchargeRateSelect maxW='115px'
-                                />
-                              }
-                  />
-                </div>
-                )
+              <div style={{ width: "100%", display: "flex" }}>
+                <Controller
+                  control={control}
+                  name={`search_test[${index}].container_type`}
+                  defaultValue={item.container_type}
+                  as={
+                    <SurchargeRateSelect
+                      options={container_types}
+                      maxW="140px"
+                      marginRight="16px"
+                      background="#ECECEC"
+                    />
+                  }
+                />
+                <Controller
+                  control={control}
+                  name={`search_test[${index}].volume`}
+                  as={
+                    <div
+                      style={{
+                        marginRight: "10px",
+                        width: "130px",
+                        display: "flex",
+                      }}
+                    >
+                      <FormField background="#ECECEC" marginBottom="5px" />
+                    </div>
+                  }
+                />
+                <Controller
+                  control={control}
+                  name={`search_test[${index}].is_frozen`}
+                  defaultValue="frozen"
+                  as={<SurchargeRateSelect background="#ECECEC" maxW="115px" />}
+                />
+              </div>
+            );
           })}
           <ButtonGroup bottom={bottom} right={right}>
             <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
-              <AddImg onClick={() => append({name: 'search_test'})} src={AddIcon} alt="add" />
+              <AddImg
+                onClick={() => append({ name: "search_test" })}
+                src={AddIcon}
+                alt="add"
+              />
             </BaseTooltip>
             <BaseButton type="submit">Search</BaseButton>
           </ButtonGroup>

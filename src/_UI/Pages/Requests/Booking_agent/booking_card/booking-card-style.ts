@@ -14,6 +14,8 @@ export const ContentHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #bdbdbd;
 `
 export const BookingInfo = styled.div`
   display: flex;
@@ -75,4 +77,59 @@ export const RejectButton = styled.button`
     transition: .3s;
     background-color: rgba(0, 0, 0, .07);
   }
+`
+export const GeneralBookingInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 0 40px;
+  border-bottom: 1px solid #bdbdbd;
+`
+export const GeneralBookingContent = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+`
+export const GeneralShipType = styled.div<{margin_top?: string}>`
+  width: 99px;
+  height: 99px;
+  margin-right: 15px;
+  margin-top: ${({margin_top}) => margin_top ? margin_top : '-5px' };
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`
+export const InfoRow = styled.div<{margin_right?: string, margin_bottom?: string}>`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '15px'};
+  margin-right: ${({margin_right}) => margin_right ? margin_right : '0px'};
+`
+
+export const InfoRowLabel = styled.div<{font_size?: string, font_color?: string, font_family?: string }>`
+  font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Bold, sans-serif'};
+  color: ${({font_color}) => font_color ? font_color : '#115b86'};
+  font-size: ${({font_size}) => font_size ? font_size : '14px'};
+  margin-bottom: 4.2px;
+`
+export const InfoRowValue = styled.div<{font_size?: string}>`
+  font-family: "Helvetica Light", sans-serif;
+  color: #1b1b25;
+  font-size: ${({font_size}) => font_size ? font_size : '14px'};
+`
+export const ValuesShipmentWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+`
+export const ShipmentInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 38px 0 40px;
+  border-bottom: 1px solid #bdbdbd;
+`
+export const CalendarIcon = styled(GeneralShipType)`
 `

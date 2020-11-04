@@ -36,10 +36,11 @@ type PropsType = {
   bottom?: string;
 };
 
-const Search: React.FC<PropsType> = ({ bottom, right }) => {
+const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   const dispatch = useDispatch();
   const [mode, setMode] = useState("sea");
   const [shippingValue, setShippingValue] = useState(0);
+  console.log("shippingValue", shippingValue);
   const [dates, setDates] = useState([]);
   useEffect(() => {
     dispatch(getShippingTypes(""));
@@ -63,14 +64,29 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
     errors,
     getValues,
     setValue,
+    watch,
   } = useForm({
     reValidateMode: "onBlur",
+    defaultValues: {
+      search_test: [
+        {
+          container_type: "",
+          volume: "",
+          is_frozen: "",
+        },
+      ],
+    },
   });
+
+  const watchFields = watch(["shipping_mode", "origin", "destination"]);
+  const watchResultArr = Object.values(watchFields).filter((val) => !!val);
 
   const { fields, append } = useFieldArray({
     control,
     name: "search_test",
   });
+  const watchFieldArray = watch("search_test");
+  console.log("watchFieldArray", watchFieldArray);
 
   let onOriginChangeHandler = (value: any) => {
     dispatch(getPorts(value.value, "origin", mode));
@@ -106,6 +122,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
               display: "flex",
               alignItems: "end",
               justifyContent: "space-between",
+              marginBottom: "10px",
             }}
           >
             <OptionsDeliveryButtons
@@ -210,54 +227,63 @@ const Search: React.FC<PropsType> = ({ bottom, right }) => {
               extraDateNumber={mode === "sea" ? 9 : 2}
             />
           </div>
-          {fields.map((item, index) => {
-            return (
-              <div style={{ width: "100%", display: "flex" }}>
-                <Controller
-                  control={control}
-                  name={`search_test[${index}].container_type`}
-                  defaultValue={item.container_type}
-                  as={
-                    <SurchargeRateSelect
-                      options={container_types}
-                      maxW="140px"
-                      marginRight="16px"
-                      background="#ECECEC"
-                    />
-                  }
-                />
-                <Controller
-                  control={control}
-                  name={`search_test[${index}].volume`}
-                  as={
-                    <div
-                      style={{
-                        marginRight: "10px",
-                        width: "130px",
-                        display: "flex",
-                      }}
-                    >
-                      <FormField background="#ECECEC" marginBottom="5px" />
-                    </div>
-                  }
-                />
-                <Controller
-                  control={control}
-                  name={`search_test[${index}].is_frozen`}
-                  defaultValue="frozen"
-                  as={<SurchargeRateSelect background="#ECECEC" maxW="115px" />}
-                />
-              </div>
-            );
-          })}
+
+          {watchResultArr.length === 3 &&
+            dates.length > 0 &&
+            (shippingValue === 3 || shippingValue === 2) &&
+            fields.map((item, index) => {
+              return (
+                <div style={{ width: "100%", display: "flex" }}>
+                  <Controller
+                    control={control}
+                    name={`search_test[${index}].container_type`}
+                    defaultValue={item.container_type}
+                    as={
+                      <SurchargeRateSelect
+                        options={container_types}
+                        maxW="140px"
+                        marginRight="16px"
+                        background="#ECECEC"
+                      />
+                    }
+                  />
+                  <Controller
+                    control={control}
+                    name={`search_test[${index}].volume`}
+                    as={
+                      <div
+                        style={{
+                          marginRight: "10px",
+                          width: "130px",
+                          display: "flex",
+                        }}
+                      >
+                        <FormField background="#ECECEC" marginBottom="5px" />
+                      </div>
+                    }
+                  />
+                  <Controller
+                    control={control}
+                    name={`search_test[${index}].is_frozen`}
+                    defaultValue="frozen"
+                    as={
+                      <SurchargeRateSelect background="#ECECEC" maxW="115px" />
+                    }
+                  />
+                </div>
+              );
+            })}
           <ButtonGroup bottom={bottom} right={right}>
-            <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
-              <AddImg
-                onClick={() => append({ name: "search_test" })}
-                src={AddIcon}
-                alt="add"
-              />
-            </BaseTooltip>
+            {watchFieldArray.length > 0 && !!watchFieldArray[0].container_type && (
+              <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
+                <AddImg
+                  onClick={() => append({ name: "search_test" })}
+                  src={AddIcon}
+                  alt="add"
+                />
+              </BaseTooltip>
+            )}
+
             <BaseButton type="submit">Search</BaseButton>
           </ButtonGroup>
         </form>

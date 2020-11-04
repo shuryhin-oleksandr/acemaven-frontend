@@ -1,4 +1,4 @@
-import {CargoGroupType} from "../../types/";
+import {CargoGroupType} from "../../types/search/search_types";
 
 
 const initialState = {

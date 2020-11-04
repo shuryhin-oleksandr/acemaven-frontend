@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
+
 
 type PropsType = {
   name?: string;
@@ -28,8 +28,10 @@ const SearchCheckbox: React.FC<PropsType> = ({
         type="checkbox"
         checked={isCheck}
         onChange={() => handleChange()}
-        ref={props.register}
+        ref={props.inputref}
         name={props.name}
+          // @ts-ignore
+
       />
       <span className="checkmark" />
       {labelText}

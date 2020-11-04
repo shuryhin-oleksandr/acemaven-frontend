@@ -82,6 +82,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
           container_type: "",
           volume: "",
           is_frozen: "",
+          can_be_dangerous: true
         },
       ],
     },
@@ -114,6 +115,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   };
 
   const onSubmit = (values: any) => {
+    debugger
     const finalData = values;
     finalData.from = moment(dates[0]).format("DD/MM/YYYY");
     finalData.to = moment(dates[1]).format("DD/MM/YYYY");
@@ -243,6 +245,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
               <FCLFieldArray
                 fields={fields}
                 control={control}
+                register={register}
                 container_types={container_types}
                 remove={remove}
               />

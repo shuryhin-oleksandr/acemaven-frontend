@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
@@ -7,6 +7,7 @@ import RemoveIcon from "../../../../../assets/icons/widgets/remove-icon.svg";
 import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SearchCheckbox from "src/_UI/components/_commonComponents/customCheckbox/searchCheckbox";
 
+
 type PropsType = {
   fields: any;
   control: any;
@@ -14,6 +15,7 @@ type PropsType = {
   remove: any;
   item: any;
   index: number;
+  register: any
 };
 
 const FCLField: React.FC<PropsType> = ({
@@ -23,10 +25,13 @@ const FCLField: React.FC<PropsType> = ({
   container_types,
   fields,
   remove,
+    register
 }) => {
   const [chosenContainer, setChosenContainer] = useState(0);
   let finded = container_types.find(c => c.id === chosenContainer)
     console.log('finded', finded)
+
+    const [isCheck, setIsCheck] = useState(false)
 
   return (
     <div
@@ -73,9 +78,11 @@ const FCLField: React.FC<PropsType> = ({
                 defaultValue="frozen"
                 as={<SurchargeRateSelect background="#ECECEC" maxW="115px" />}
             />
-            :
-            //name={`search_test[${index}].can_be_dangerous`}
-                <div>danger</div>
+            : <SearchCheckbox isCheck={isCheck}
+                              setIsCheck={setIsCheck}
+                              name={`search_test[${index}].can_be_dangerous`}
+                              inputref={register}
+            />
         }
 
       {fields.length > 1 && (

@@ -16,14 +16,14 @@ export const ManagTitle = styled.div`
   color: black;
   margin-bottom: 35px;
 `
-export const CardsOuter = styled.div`
+export const CardsOuter = styled.div<{editMode?: boolean}>`
   max-width: 922px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
-  max-height: 395px;
+  max-height: ${({editMode}) => editMode ? '700px' : '395px'};
   overflow-y: auto;
   ::-webkit-scrollbar { /* chrome based */
           width: 5px; /* ширина scrollbar'a */

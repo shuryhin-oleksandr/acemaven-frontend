@@ -23,9 +23,9 @@ export type AdditionalSurchargeType = {
 export type ContainerType = {
     id: number,
     code: string,
-    //shipping_mode_id
-    //is_need_volume: true(рисую volume) / false (w/m)
-    //
+    shipping_mode?:number
+    is_frozen?:boolean
+    can_be_dangerous?:boolean
 }
 
 export type ShippingModeType = {

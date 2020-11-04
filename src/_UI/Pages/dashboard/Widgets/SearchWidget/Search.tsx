@@ -47,6 +47,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   useEffect(() => {
     dispatch(getShippingTypes(""));
   }, []);
+
   const shippingTypes = useSelector(getShippingTypesSelector);
   const origin_ports = useSelector(getOriginPorts);
   const destination_ports = useSelector(getDestinationPorts);
@@ -82,6 +83,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
 
   const watchFields = watch(["shipping_mode", "origin", "destination"]);
   const watchResultArr = Object.values(watchFields).filter((val) => !!val);
+  console.log("watchResultArr", watchResultArr);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -267,7 +269,11 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
                           display: "flex",
                         }}
                       >
-                        <FormField background="#ECECEC" marginBottom="5px" />
+                        <FormField
+                          background="#ECECEC"
+                          marginBottom="5px"
+                          type="number"
+                        />
                       </div>
                     }
                   />

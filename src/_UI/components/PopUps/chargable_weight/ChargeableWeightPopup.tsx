@@ -94,28 +94,28 @@ const ChargeableWeightPopup:React.FC<PropsType> = ({disable_no_of_packs, select_
                             <>
                                 <CalculationWrapper>
                                     <FormRow>
-                                        <Controller name={`test[${index}].uld_type`}
+                                        <Controller name={`test[${index}].container_type`} //package_type
                                                     control={control}
                                                     defaultValue=''
                                             /*rules={{
                                                 required: 'Field is required'
                                             }}*/
                                                     as={
-                                                        <FormSelect //error={errors?.uld_type?.message}
+                                                        <FormSelect //error={errors?.container_type?.message}
                                                                     label='ULD type'
                                                                     placeholder='Placeholder'
                                                                     maxW='140px'
                                                         />
                                                     }
                                         />
-                                        <Controller name={`test[${index}].number_of_packs`}
+                                        <Controller name={`test[${index}].volume`}
                                                     control={control}
                                                     defaultValue={1}
                                                     rules={{
                                                         required: 'Field is required'
                                                     }}
                                                     as={
-                                                        <FormField //error={errors?.number_of_packs}
+                                                        <FormField //error={errors?.volume}
                                                                    label='No. of packs'
                                                                    maxW='135px'
                                                                    type='number'

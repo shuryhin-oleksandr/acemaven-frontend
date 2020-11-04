@@ -8,6 +8,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { surchargeReducer } from "./reducers/surcharge&rates/surchargeReducer";
 import { rateReducer } from "./reducers/surcharge&rates/rateReducer";
 import { bookingReducer } from "./reducers/bookingReducer";
+import {searchClientReducer} from "./reducers/search_client/searchClientReducer";
 
 let reducers = combineReducers({
   auth: authReducer,
@@ -17,6 +18,7 @@ let reducers = combineReducers({
   surcharge: surchargeReducer,
   rate: rateReducer,
   booking: bookingReducer,
+  search: searchClientReducer
 });
 
 export const store = createStore(

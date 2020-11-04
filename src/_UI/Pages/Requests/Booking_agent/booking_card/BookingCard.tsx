@@ -24,10 +24,11 @@ import ShipmentInfoBlock from "./blocks/ShipmentInfoBlock";
 
 type PropsType = {
     setAssignAgent: (value: boolean) => void,
-    setRejectPopupOpen: (value:boolean) => void
+    setRejectPopupOpen: (value:boolean) => void,
+    openAcceptPopup: (value: boolean) => void
 }
 
-const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen}) => {
+const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, openAcceptPopup}) => {
 
     let current_user_role = 'client'
 
@@ -45,7 +46,7 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen}) =
                     </BookingInfo>
                     <ActionsButtons>
                         {current_user_role === 'master' && <AssignButton onClick={() => setAssignAgent(true)}>ASSIGN</AssignButton>}
-                        <AcceptButton>ACCEPT</AcceptButton>
+                        <AcceptButton onClick={() => openAcceptPopup(true)}>ACCEPT</AcceptButton>
                         <RejectButton onClick={() => setRejectPopupOpen(true)}>REJECT</RejectButton>
                     </ActionsButtons>
                 </ContentHeader>

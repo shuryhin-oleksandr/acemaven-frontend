@@ -8,12 +8,15 @@ type PropsStyle = {
     max_width?: string
     margin_bottom?: string
     input_height?: string
+    margin_right?: string
 }
 
-export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, margin_bottom?: string, input_height?: string}>`
+export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, margin_bottom?: string, input_height?: string, margin_right?: string}>`
   flex: none;
   margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '10px'};
   width: 100%;
+  max-width: ${({max_width}) => max_width ? max_width : '440px'};
+  margin-right: ${({margin_right}) => margin_right ? margin_right : '0px'};
   
   .DayPickerInput {
     width: 100%;

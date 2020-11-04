@@ -1,13 +1,4 @@
-import styled, { keyframes } from "styled-components";
-
-const showLabel = keyframes`
- 0% {
-  opacity: 0;
- }
- 100% {
-  opacity: 1;
- }
-`;
+import styled from "styled-components";
 
 type PropsStyle = {
   isFocus?: boolean;
@@ -70,7 +61,7 @@ export const Label = styled.div<PropsStyle>`
   color: black;
   margin-bottom: 9px;
   opacity: 1;
-  animation: ${showLabel} ease-in-out 0.3s;
+ 
 `;
 export const HelperText = styled.div`
   padding-top: 9px;

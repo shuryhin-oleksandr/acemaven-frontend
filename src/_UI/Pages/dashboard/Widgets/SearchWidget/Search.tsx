@@ -32,6 +32,7 @@ import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateRe
 import Dates from "../../Dates";
 import moment from "moment";
 import RemoveIcon from "../../../../assets/icons/widgets/remove-icon.svg";
+import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
 
 type PropsType = {
   right?: string;
@@ -47,6 +48,10 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   useEffect(() => {
     dispatch(getShippingTypes(""));
   }, []);
+
+  useEffect(() => {
+    reset();
+  }, [mode]);
 
   const shippingTypes = useSelector(getShippingTypesSelector);
   const origin_ports = useSelector(getOriginPorts);
@@ -64,6 +69,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
     handleSubmit,
     register,
     control,
+    reset,
     errors,
     getValues,
     setValue,
@@ -232,69 +238,18 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
             />
           </div>
 
-          {watchResultArr.length === 3 &&
-            dates.length > 0 &&
-            (shippingValue === 3 || shippingValue === 2) &&
-            fields.map((item, index) => {
-              return (
-                <div
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    borderBottom: "1px solid #E0E0E0",
-                  }}
-                  key={item.id}
-                >
-                  <Controller
-                    control={control}
-                    name={`search_test[${index}].container_type`}
-                    defaultValue={item.container_type}
-                    as={
-                      <SurchargeRateSelect
-                        options={container_types}
-                        maxW="140px"
-                        marginRight="16px"
-                        background="#ECECEC"
-                      />
-                    }
-                  />
-                  <Controller
-                    control={control}
-                    name={`search_test[${index}].volume`}
-                    as={
-                      <div
-                        style={{
-                          marginRight: "10px",
-                          width: "130px",
-                          display: "flex",
-                        }}
-                      >
-                        <FormField
-                          background="#ECECEC"
-                          marginBottom="5px"
-                          type="number"
-                        />
-                      </div>
-                    }
-                  />
-                  <Controller
-                    control={control}
-                    name={`search_test[${index}].is_frozen`}
-                    defaultValue="frozen"
-                    as={
-                      <SurchargeRateSelect background="#ECECEC" maxW="115px" />
-                    }
-                  />
-                  {fields.length > 1 && (
-                    <RemoveImg
-                      src={RemoveIcon}
-                      alt="remove"
-                      onClick={() => remove(index)}
-                    />
-                  )}
-                </div>
-              );
-            })}
+          {watchResultArr.length === 3 && dates.length > 0 ? (
+            shippingValue === 3 ? (
+              <FCLFieldArray
+                fields={fields}
+                control={control}
+                container_types={container_types}
+                remove={remove}
+              />
+            ) : (
+              <div>Another type</div>
+            )
+          ) : null}
           <ButtonGroup bottom={bottom} right={right}>
             {watchFieldArray.length > 0 && !!watchFieldArray[0].container_type && (
               <BaseTooltip title={"Add more cargo groups by clicking on plus"}>

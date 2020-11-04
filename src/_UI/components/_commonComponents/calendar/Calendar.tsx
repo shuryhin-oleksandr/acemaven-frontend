@@ -31,6 +31,7 @@ type PropsType = {
     display_label?: string
     max_width?: string
     margin_bottom?: string
+    margin_right?: string
     onBlur?: any
     input_height?: string
     required_dates?: boolean
@@ -44,8 +45,10 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
     const modifiers = {start: selectedDay.from, end: selectedDay.to};
 
     return (
-        <CalendarWrapper margin_bottom={props.margin_bottom} error={error} max_width={props.max_width} input_height={props.input_height}>
-            <CalendarLabel display_label={props.display_label} textTransform={props.textTransform} textColor={props.textColor} textFont={props.textFont}>
+        <CalendarWrapper margin_bottom={props.margin_bottom} error={error} max_width={props.max_width}
+                         input_height={props.input_height} margin_right={props.margin_right}>
+            <CalendarLabel display_label={props.display_label} textTransform={props.textTransform}
+                           textColor={props.textColor} textFont={props.textFont}>
                 {label}
             </CalendarLabel>
             <Controller

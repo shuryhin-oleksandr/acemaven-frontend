@@ -24,7 +24,9 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
         dispatch && dispatch(addNewWorker(values))
     }
 
+    const [masterRole, setMasterRole] = useState('')
     const [roleValue, setRole] = useState('')
+    const [agentRole, setAgentRole] = useState('')
 
 
     return (
@@ -61,9 +63,9 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                         })}
                         role='Master'
                         getValues={getValues}
-                        disabled={roleValue === 'agent' || roleValue === 'billing'}
-                        setRole={setRole}
-                        roleValue={roleValue}
+                        disabled={agentRole === 'agent' || roleValue === 'billing'}
+                        setRole={setMasterRole}
+                        roleValue={masterRole}
                         error={errors?.roles}
                     />
                     <CustomCheckbox value='agent'
@@ -73,9 +75,9 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                                     })}
                                     role='Agent'
                                     getValues={getValues}
-                                    disabled={roleValue === 'master'}
-                                    setRole={setRole}
-                                    roleValue={roleValue}
+                                    disabled={masterRole === 'master'}
+                                    setRole={setAgentRole}
+                                    roleValue={agentRole}
                                     error={errors?.roles}
                     />
                     <CustomCheckbox value='billing'
@@ -85,7 +87,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                                     })}
                                     role='Billing'
                                     getValues={getValues}
-                                    disabled={roleValue === 'master'}
+                                    disabled={masterRole === 'master'}
                                     setRole={setRole}
                                     roleValue={roleValue}
                                     error={errors?.roles}

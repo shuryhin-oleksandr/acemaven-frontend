@@ -33,10 +33,22 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
         setEditMode && setEditMode(0, false)
     }
 
+
+    const [masterRole, setMasterRole] = useState('')
     const [roleValue, setRole] = useState('')
+    const [agentRole, setAgentRole] = useState('')
+
+
     useEffect(() => {
         worker && Object.keys(worker).forEach((key: string) => {
             setValue(key, worker[key])
+            if(worker.roles.includes('master')) {
+                setMasterRole('master')
+            } else if (worker.roles.includes('agent')) {
+                setAgentRole('agent')
+            } else if (worker.roles.includes('billing')) {
+                setRole('billing')
+            }
         })
     }, [worker, setValue])
 
@@ -83,9 +95,9 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                 })}
                                 role='Master'
                                 getValues={getValues}
-                                disabled={roleValue === 'agent' || roleValue === 'billing'}
-                                setRole={setRole}
-                                roleValue={roleValue}
+                                disabled={agentRole  || roleValue }
+                                setRole={setMasterRole}
+                                roleValue={masterRole}
                                 error={errors?.roles}
                             />
                             <CustomCheckbox value='agent'
@@ -95,9 +107,9 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                             })}
                                             role='Agent'
                                             getValues={getValues}
-                                            disabled={roleValue === 'master'}
-                                            setRole={setRole}
-                                            roleValue={roleValue}
+                                            disabled={masterRole}
+                                            setRole={setAgentRole}
+                                            roleValue={agentRole}
                                             error={errors?.roles}
                             />
                             <CustomCheckbox value='billing'
@@ -107,7 +119,7 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                             })}
                                             role='Billing'
                                             getValues={getValues}
-                                            disabled={roleValue === 'master'}
+                                            disabled={masterRole}
                                             setRole={setRole}
                                             roleValue={roleValue}
                                             error={errors?.roles}

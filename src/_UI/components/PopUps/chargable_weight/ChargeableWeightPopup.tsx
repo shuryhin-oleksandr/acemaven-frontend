@@ -99,56 +99,56 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({disable_no_of_packs, select
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <CargoTitle>Please enter the details of your cargo</CargoTitle>
-                {fields.map((item, index) => {
-                    return (
-                        <>
-                            <CalculationWrapper>
-                                <FormRow>
-                                    <Controller name={`test[${index}].uld_type`}
-                                                control={control}
-                                                defaultValue=''
-                                        /*rules={{
-                                            required: 'Field is required'
-                                        }}*/
-                                                as={
-                                                    <FormSelect //error={errors?.uld_type?.message}
-                                                        label='ULD type'
-                                                        placeholder='Placeholder'
-                                                        maxW='140px'
-                                                    />
-                                                }
-                                    />
-                                    <Controller name={`test[${index}].number_of_packs`}
-                                                control={control}
-                                                defaultValue={1}
-                                                rules={{
-                                                    required: 'Field is required'
-                                                }}
-                                                as={
-                                                    <FormField //error={errors?.number_of_packs}
-                                                        label='No. of packs'
-                                                        maxW='135px'
-                                                        type='number'
-                                                        disabled={true}
-                                                    />
-                                                }
-                                    />
-                                    <Controller name={`test[${index}].weight`}
-                                                control={control}
-                                                defaultValue=''
-                                                rules={{
-                                                    required: 'Field is required'
-                                                }}
-                                                as={
-                                                    <WeightWrapper>
-                                                        <WeightIcon><img src={weight} alt=""/></WeightIcon>
-                                                        <FormField //error={errors?.weight}
-                                                            label='Weight, kgs'
-                                                            maxW='90px'
-                                                            placeholder='0 (kgs)'
-                                                            type='number'
+                    {fields.map((item, index) => {
+                        return (
+                            <>
+                                <CalculationWrapper>
+                                    <FormRow>
+                                        <Controller name={`test[${index}].container_type`} //package_type
+                                                    control={control}
+                                                    defaultValue=''
+                                            /*rules={{
+                                                required: 'Field is required'
+                                            }}*/
+                                                    as={
+                                                        <FormSelect //error={errors?.container_type?.message}
+                                                                    label='ULD type'
+                                                                    placeholder='Placeholder'
+                                                                    maxW='140px'
                                                         />
-                                                    </WeightWrapper>
+                                                    }
+                                        />
+                                        <Controller name={`test[${index}].volume`}
+                                                    control={control}
+                                                    defaultValue={1}
+                                                    rules={{
+                                                        required: 'Field is required'
+                                                    }}
+                                                    as={
+                                                        <FormField //error={errors?.volume}
+                                                                   label='No. of packs'
+                                                                   maxW='135px'
+                                                                   type='number'
+                                                                   disabled={true}
+                                                        />
+                                                    }
+                                        />
+                                        <Controller name={`test[${index}].weight`}
+                                                    control={control}
+                                                    defaultValue=''
+                                                    rules={{
+                                                        required: 'Field is required'
+                                                    }}
+                                                    as={
+                                                        <WeightWrapper>
+                                                            <WeightIcon><img src={weight} alt=""/></WeightIcon>
+                                                            <FormField //error={errors?.weight}
+                                                                       label='Weight, kgs'
+                                                                       maxW='90px'
+                                                                       placeholder='0 (kgs)'
+                                                                       type='number'
+                                                            />
+                                                        </WeightWrapper>
 
                                                 }
                                     />

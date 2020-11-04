@@ -51,4 +51,5 @@ export const AddImg = styled.img`
 
 export const RemoveImg = styled.img`
   cursor: pointer;
+  margin-left: 15px;
 `;

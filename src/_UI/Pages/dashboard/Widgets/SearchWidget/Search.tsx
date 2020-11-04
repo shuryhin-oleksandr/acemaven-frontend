@@ -6,6 +6,7 @@ import {
   RelativeWrapper,
   ButtonGroup,
   AddImg,
+  RemoveImg,
 } from "./searchWidgett-styles";
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
@@ -30,6 +31,7 @@ import {
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import Dates from "../../Dates";
 import moment from "moment";
+import RemoveIcon from "../../../../assets/icons/widgets/remove-icon.svg";
 
 type PropsType = {
   right?: string;
@@ -81,7 +83,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   const watchFields = watch(["shipping_mode", "origin", "destination"]);
   const watchResultArr = Object.values(watchFields).filter((val) => !!val);
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "search_test",
   });
@@ -233,7 +235,14 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
             (shippingValue === 3 || shippingValue === 2) &&
             fields.map((item, index) => {
               return (
-                <div style={{ width: "100%", display: "flex" }}>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    borderBottom: "1px solid #E0E0E0",
+                  }}
+                  key={item.id}
+                >
                   <Controller
                     control={control}
                     name={`search_test[${index}].container_type`}
@@ -270,6 +279,13 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
                       <SurchargeRateSelect background="#ECECEC" maxW="115px" />
                     }
                   />
+                  {fields.length > 1 && (
+                    <RemoveImg
+                      src={RemoveIcon}
+                      alt="remove"
+                      onClick={() => remove(index)}
+                    />
+                  )}
                 </div>
               );
             })}

@@ -28,7 +28,8 @@ const SearchCheckbox: React.FC<PropsType> = ({
         type="checkbox"
         checked={isCheck}
         onChange={() => handleChange()}
-        ref={props.inputref}
+        ref={props.register}
+        name={props.name}
       />
       <span className="checkmark" />
       {labelText}

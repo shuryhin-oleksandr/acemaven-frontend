@@ -4,12 +4,13 @@ import SurchargeRateSelect from "../../../../../components/_commonComponents/sel
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
 import { RemoveImg } from "../searchWidgett-styles";
 import RemoveIcon from "../../../../../assets/icons/widgets/remove-icon.svg";
-import { log } from "util";
+import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import SearchCheckbox from "src/_UI/components/_commonComponents/customCheckbox/searchCheckbox";
 
 type PropsType = {
   fields: any;
   control: any;
-  container_types: any;
+  container_types: ContainerType[];
   remove: any;
   item: any;
   index: number;
@@ -24,6 +25,9 @@ const FCLField: React.FC<PropsType> = ({
   remove,
 }) => {
   const [chosenContainer, setChosenContainer] = useState(0);
+  let finded = container_types.find(c => c.id === chosenContainer)
+    console.log('finded', finded)
+
   return (
     <div
       style={{
@@ -62,12 +66,17 @@ const FCLField: React.FC<PropsType> = ({
           </div>
         }
       />
-      <Controller
-        control={control}
-        name={`search_test[${index}].is_frozen`}
-        defaultValue="frozen"
-        as={<SurchargeRateSelect background="#ECECEC" maxW="115px" />}
-      />
+        {finded && finded.is_frozen
+            ? <Controller
+                control={control}
+                name={`search_test[${index}].is_frozen`}
+                defaultValue="frozen"
+                as={<SurchargeRateSelect background="#ECECEC" maxW="115px" />}
+            />
+            :
+            //name={`search_test[${index}].can_be_dangerous`}
+                <div>danger</div>
+        }
 
       {fields.length > 1 && (
         <RemoveImg

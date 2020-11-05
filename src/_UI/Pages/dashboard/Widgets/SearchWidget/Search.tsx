@@ -36,6 +36,7 @@ import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
 import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
 import {AppStateType} from "../../../../../_BLL/store";
+import {CargoGroupType} from "../../../../../_BLL/types/search/search_types";
 
 type PropsType = {
   right?: string;
@@ -44,10 +45,11 @@ type PropsType = {
   shippingValue: number,
   setShippingValue: (value: number) => void,
   mode: CurrentShippingType,
-  setMode: (value: CurrentShippingType) => void
+  setMode: (value: CurrentShippingType) => void,
+  cargo_groups: CargoGroupType[] | null
 };
 
-const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shippingValue, setShippingValue, mode, setMode }, newParam = "") => {
+const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shippingValue, setShippingValue, mode, setMode, cargo_groups }, newParam = "") => {
   const dispatch = useDispatch();
 
   const [dates, setDates] = useState([]);
@@ -62,7 +64,7 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
   const shippingTypes = useSelector(getShippingTypesSelector);
   const origin_ports = useSelector(getOriginPorts);
   const destination_ports = useSelector(getDestinationPorts);
-  const calculatedCargoGroupsList = useSelector((state: AppStateType) => state.search.cargo_groups)
+
 
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
@@ -245,8 +247,8 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
                 container_types={container_types}
                 remove={remove}
               />
-            ) : (  calculatedCargoGroupsList && calculatedCargoGroupsList.length > 0 &&
-                    <OtherModesFieldArray cargo_groups={calculatedCargoGroupsList}/>
+            ) : (  cargo_groups && cargo_groups.length > 0 &&
+                    <OtherModesFieldArray cargo_groups={cargo_groups}/>
             )
           ) : null}
           <ButtonGroup bottom={bottom} right={right} justify_content={dates.length > 0 && shippingValue !== 3 ? 'space-between' : 'flex-end'}>

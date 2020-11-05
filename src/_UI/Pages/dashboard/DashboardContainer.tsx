@@ -8,7 +8,10 @@ import {
     getCurrentShippingTypeSelector,
     getShippingTypesSelector
 } from "../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
-import {getWmCalculationSuccessSelector} from "../../../_BLL/selectors/search/searchClientSelector";
+import {
+    getCargoGroupsListSelector,
+    getWmCalculationSuccessSelector
+} from "../../../_BLL/selectors/search/searchClientSelector";
 import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {surchargeActions} from "../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {getWMCalculationThunk} from "../../../_BLL/thunks/search_client_thunks/searchClientThunks";
@@ -33,6 +36,7 @@ const DashboardContainer:React.FC = () => {
     let shipping_modes_options = (current_shipping_type === ShippingTypesEnum.AIR) ? shipping_types[0]?.shipping_modes : shipping_types[1]?.shipping_modes
     const usageFees = shipping_modes_options?.find(m => m.id === shippingValue)?.container_types || []
     const packaging_types = shipping_modes_options?.find(m => m.id === shippingValue)?.packaging_types || []
+    const cargo_groups = useSelector(getCargoGroupsListSelector)
 
     let setMode = (value: CurrentShippingType) => {
         dispatch(surchargeActions.setCurrentShippingType(value))
@@ -50,7 +54,7 @@ const DashboardContainer:React.FC = () => {
                                                        packaging_types={packaging_types}
                                                        container_types={usageFees}
                                                        shippingValue={shippingValue}
-                                                       //getCalculation={getCalculation}
+                                                       getCalculation={getCalculation}
                                                        current_shipping_type={current_shipping_type}
             />}
             {search_result
@@ -60,6 +64,7 @@ const DashboardContainer:React.FC = () => {
                                  setShippingValue={setShippingValue}
                                  setMode={setMode}
                                  mode={current_shipping_type}
+                                 cargo_groups={cargo_groups}
                 />}
         </Layout>
     )

@@ -13,16 +13,18 @@ import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget"
 import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
 import MapComponent from "./MapComponent/MapComponent";
 import {CurrentShippingType} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {CargoGroupType} from "../../../_BLL/types/search/search_types";
 
 type PropsType = {
     setOpenCalcPopup: (value: boolean) => void,
     shippingValue: number,
     setShippingValue: (value: number) => void,
     setMode: (value: CurrentShippingType) => void
-    mode: CurrentShippingType
+    mode: CurrentShippingType,
+    cargo_groups: CargoGroupType[] | null
 }
 
-const DashboardPage: React.FC<PropsType> = ({setOpenCalcPopup, shippingValue, setShippingValue, mode, setMode}) => {
+const DashboardPage: React.FC<PropsType> = ({setOpenCalcPopup, shippingValue, setShippingValue, mode, setMode, cargo_groups}) => {
   const [widgetsVisible, setWidgetsVisible] = useState(true);
 
   return (
@@ -43,6 +45,7 @@ const DashboardPage: React.FC<PropsType> = ({setOpenCalcPopup, shippingValue, se
                     setShippingValue={setShippingValue}
                     mode={mode}
                     setMode={setMode}
+                    cargo_groups={cargo_groups}
             />
           </SearchBox>
           <MultiWidgetBox>

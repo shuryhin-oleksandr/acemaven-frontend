@@ -8,12 +8,17 @@ type PropsType = {
 
 const OtherModesFieldArray:React.FC<PropsType> = ({cargo_groups}) => {
     return (
-        <OneFieldWrapper>
-            <OneFieldContent>
-                 <TotalPart>Total: 15w/m</TotalPart>
-                <TotalDescriptions>= 1 x boxes of 5w/m</TotalDescriptions>
-            </OneFieldContent>
-        </OneFieldWrapper>
+        <> {cargo_groups?.map(c =>
+            <OneFieldWrapper>
+                <OneFieldContent>
+                    <TotalPart>Total: {c.total_wm}w/m</TotalPart>
+                    <TotalDescriptions>= {c.volume} x boxes of {c.total_per_pack}w/m</TotalDescriptions>
+                </OneFieldContent>
+            </OneFieldWrapper>
+        )}
+
+        </>
+
     )
 }
 

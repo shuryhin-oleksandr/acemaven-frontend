@@ -20,7 +20,7 @@ export type CargoGroupType = {
     height: string,
     is_dangerous?: boolean,
     total_wm?: number,
-    one_box_wm?: number,
+    total_per_pack?: number,
     shipping_type?: string,
     id?: number
 }

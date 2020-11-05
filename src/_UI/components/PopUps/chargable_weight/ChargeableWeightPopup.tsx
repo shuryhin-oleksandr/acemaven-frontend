@@ -10,18 +10,16 @@ import {
     ConfirmButton,
     FormRow,
     NewPackageWrapper,
-    TotalWrapper,
     WeightIcon,
     WeightWrapper
 } from "./chargeable-weght-popup-styles";
-import {Controller, useFieldArray, useForm} from "react-hook-form";
+import {Controller,  useForm} from "react-hook-form";
 import FormField from "../../_commonComponents/Input/FormField";
 import weight from '../../../../_UI/assets/icons/widgets/weight.svg';
 import height from '../../../../_UI/assets/icons/widgets/height.svg';
 import length from '../../../../_UI/assets/icons/widgets/length.svg';
 import width from '../../../../_UI/assets/icons/widgets/width.svg';
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg';
-import add_new_icon from '../../../../_UI/assets/icons/search/add_new_package.svg';
 import FormSelect from "../../_commonComponents/select/FormSelect";
 import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
 import {IconButton} from "@material-ui/core";
@@ -35,8 +33,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import {ContainerType, PackagingType} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {CargoGroupType} from "../../../../_BLL/types/search/search_types";
 import {CurrentShippingType} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {getWMCalculationThunk} from "../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import {useDispatch} from "react-redux";
+import {searchActions} from "../../../../_BLL/reducers/search_client/searchClientReducer";
 
 let useStyles = makeStyles({
     root: {
@@ -58,46 +56,18 @@ type PropsType = {
     packaging_types: PackagingType[] | null,
     container_types: ContainerType[] | null,
     shippingValue: number,
-    //getCalculation: (data: CargoGroupType) => void,
+    getCalculation: (data: CargoGroupType) => void,
     current_shipping_type: CurrentShippingType
 }
 
-const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_success, packaging_types, container_types, shippingValue,  current_shipping_type}) => {
-    const {control, errors, setValue, getValues, handleSubmit, register, reset, watch} = useForm({
+const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_success, packaging_types, container_types,getCalculation, shippingValue,  current_shipping_type}) => {
+    const {control, errors, setValue, getValues, handleSubmit, register, reset,} = useForm({
         reValidateMode: "onBlur"
     })
 
     const dispatch = useDispatch()
-    /*const {fields, append} = useFieldArray(
-        {
-            control,
-            name: "test"
-        }
-    );*/
-
     const onSubmit = (values: CargoGroupType) => {
-        debugger
-        dispatch(getWMCalculationThunk({
-            volume: values.volume,
-            weight: values.weight,
-            height: values.height,
-            length: values.length,
-            width: values.width,
-            shipping_type: current_shipping_type,
-            weight_measurement: values.weight_measurement,
-            length_measurement: values.length_measurement
-        }))
-       /* getCalculation({
-            volume: values.volume,
-            weight: values.weight,
-            height: values.height,
-            length: values.length,
-            width: values.width,
-            shipping_type: current_shipping_type,
-            weight_measurement: values.weight_measurement,
-            length_measurement: values.length_measurement
-        })*/
-        //console.log(values)
+        getCalculation({...values, shipping_type: current_shipping_type})
     }
 
     const [isCheck, setIsCheck] = useState(true)
@@ -112,12 +82,13 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
 
     const classes = useStyles()
 
-    /*useEffect(() => {
+    useEffect(() => {
         if(calc_success) {
             setOpenCalcPopup(false)
+            dispatch(searchActions.setSuccessCalculate(false))
             reset()
         }
-    }, [calc_success])*/
+    }, [calc_success])
 
     return (
         <ChargeableWeightOuter onSubmit={handleSubmit(onSubmit)}>

@@ -21,14 +21,17 @@ type PropsType = {
     ports: any
     locationChangeHandler: (currentTarget: HTMLInputElement) => void
     getDisabledSurchargesDates: (portName: string, portId: number) => void
-    required_dates: boolean
+    required_dates: boolean,
+    adding_success: boolean
 }
 
 const SurchargeForm: React.FC<PropsType> = (
     {control, register, getValues, setValue, errors, carrierOptions, shippingModeOptions, setShippingValue, ports,
-        locationChangeHandler, getDisabledSurchargesDates,required_dates
+        locationChangeHandler, getDisabledSurchargesDates,required_dates, adding_success
     }
     ) => {
+
+
 
     return (
         <FormWrap>

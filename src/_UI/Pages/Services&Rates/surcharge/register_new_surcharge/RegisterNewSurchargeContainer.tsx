@@ -16,6 +16,7 @@ import {
     getCarriers, getCurrencyList,
     getPorts, getShippingTypes
 } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import {AppStateType} from "../../../../../_BLL/store";
 
 
 type PropsType = {
@@ -26,7 +27,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
 
     const dispatch = useDispatch()
 
-    const {handleSubmit, register, control, errors, getValues, setValue} = useForm()
+    const {handleSubmit, register, control, errors, getValues, setValue, reset} = useForm()
 
     //Данные из стейта
     const shippingMode = useSelector(getCurrentShippingTypeSelector)
@@ -35,6 +36,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     const shippingTypes = useSelector(getShippingTypesSelector)
     const ports = useSelector(getPortsSelector)
     const surcharge = useSelector(getSurcharge)
+    const adding_success = useSelector((state:AppStateType) => state.surcharge.adding_success)
 
     //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
     const [shippingValue, setShippingValue] = useState(0)
@@ -51,6 +53,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     const closeRegisterForm = useCallback(() => {
         dispatch(surchargeActions.setSurchargeInfo(null))
         setNewSurchargeMode(false)
+
     }, [dispatch])
 
     //Посимвольно поиск по портам
@@ -123,6 +126,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
             additionalType={additionalType}
             additional={additional}
             handleSubmit={handleSubmit}
+            adding_success={adding_success}
         />
     )
 };

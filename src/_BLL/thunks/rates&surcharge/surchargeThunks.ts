@@ -77,6 +77,7 @@ export const addNewSurcharge = (surcharge_data: any) => {
             let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
             dispatch(filterByThunk('import', 'sea','', '', ''))
             dispatch(surchargeActions.setSurchargeInfo(res.data))
+            dispatch(surchargeActions.setAddingSurchargeSuccess(true))
             console.log('surcharge', res.data)
         } catch (e) {
             console.log(e.response)

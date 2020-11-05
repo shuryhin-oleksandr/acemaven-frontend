@@ -2,7 +2,7 @@ import {CargoGroupType} from "../../types/search/search_types";
 
 
 const initialState = {
-    cargo_groups: null as CargoGroupType[] | null,
+    cargo_groups: [] as CargoGroupType[] | null,
     cargo_for_edit: null as CargoGroupType | null,
     success_server_calc: false,
     search_result: null as any | null

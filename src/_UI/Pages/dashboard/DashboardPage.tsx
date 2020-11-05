@@ -14,6 +14,7 @@ import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidg
 import MapComponent from "./MapComponent/MapComponent";
 import {CurrentShippingType} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {CargoGroupType} from "../../../_BLL/types/search/search_types";
+import { PackagingType} from "../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 type PropsType = {
     setOpenCalcPopup: (value: boolean) => void,
@@ -21,10 +22,12 @@ type PropsType = {
     setShippingValue: (value: number) => void,
     setMode: (value: CurrentShippingType) => void
     mode: CurrentShippingType,
-    cargo_groups: CargoGroupType[] | null
+    cargo_groups: CargoGroupType[] | null,
+    packaging_types: PackagingType[] | null,
 }
 
-const DashboardPage: React.FC<PropsType> = ({setOpenCalcPopup, shippingValue, setShippingValue, mode, setMode, cargo_groups}) => {
+const DashboardPage: React.FC<PropsType> = ({setOpenCalcPopup, shippingValue, setShippingValue, mode, setMode,
+                                                cargo_groups, packaging_types, }) => {
   const [widgetsVisible, setWidgetsVisible] = useState(true);
 
   return (
@@ -46,6 +49,7 @@ const DashboardPage: React.FC<PropsType> = ({setOpenCalcPopup, shippingValue, se
                     mode={mode}
                     setMode={setMode}
                     cargo_groups={cargo_groups}
+                    packaging_types={packaging_types}
             />
           </SearchBox>
           <MultiWidgetBox>

@@ -70,7 +70,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
         getCalculation({...values, shipping_type: current_shipping_type})
     }
 
-    const [isCheck, setIsCheck] = useState(true)
+    const [isCheck, setIsCheck] = useState(false)
     const [selectedValueWeight, setSelectedValueWeight] = React.useState('t');
     const [selectedValueLength, setSelectedValueLength] = React.useState('m');
     const handleChangeWeight = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,9 +133,9 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                                           }
                                             />
                                         }
-                                        <Controller name='volume'
+                                        {/*<Controller name='volume'
                                                     control={control}
-                                                    defaultValue={1}
+                                                    defaultValue=''
                                                     rules={{
                                                         required: 'Field is required'
                                                     }}
@@ -144,9 +144,18 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                                                    label='No. of packs'
                                                                    maxW='135px'
                                                                    type='number'
-                                                                   disabled={shippingValue === 4}
+                                                                   //disabled={shippingValue === 4 ? true : false}
                                                         />
                                                     }
+                                        />*/}
+                                        <FormField error={errors?.volume}
+                                                   label='No. of packs'
+                                                   maxW='135px'
+                                                   type='number'
+                                                   inputRef={register({required: true})}
+                                                   disabled={shippingValue === 2 }
+                                                   defaultValue={1}
+                                                   name='volume'
                                         />
                                         <Controller name='weight'
                                                     control={control}

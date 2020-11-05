@@ -1,22 +1,21 @@
 import React from 'react'
-import {OneFieldContent, OneFieldWrapper, TotalDescriptions, TotalPart} from "./other-fields-array-styles";
 import {CargoGroupType} from "../../../../../../_BLL/types/search/search_types";
+import {PackagingType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import OneField from "./OneField";
 
 type PropsType = {
-    cargo_groups: CargoGroupType[] | null
+    cargo_groups: CargoGroupType[] | null,
+    packaging_types: PackagingType[] | null,
 }
 
-const OtherModesFieldArray:React.FC<PropsType> = ({cargo_groups}) => {
+const OtherModesFieldArray:React.FC<PropsType> = ({cargo_groups, packaging_types}) => {
     return (
-        <> {cargo_groups?.map(c =>
-            <OneFieldWrapper>
-                <OneFieldContent>
-                    <TotalPart>Total: {c.total_wm}w/m</TotalPart>
-                    <TotalDescriptions>= {c.volume} x boxes of {c.total_per_pack}w/m</TotalDescriptions>
-                </OneFieldContent>
-            </OneFieldWrapper>
-        )}
-
+        <>
+            {cargo_groups?.map(c =>
+            <OneField cargo={c}
+                      packaging_types={packaging_types}
+            />
+            )}
         </>
 
     )

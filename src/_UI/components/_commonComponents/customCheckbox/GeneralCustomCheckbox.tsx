@@ -28,7 +28,8 @@ const GeneralCustomCheckbox:React.FC<PropsType> = ({...props}) => {
                       ref={props.inputRef}
                       name={props.name}
                 // @ts-ignore
-                      checked={props.value}
+                      defaultValue={props.value}
+                      checked={props.isCheck}
             />
             <CheckMark error={props.error} className='checkmark'/>
         </Check>

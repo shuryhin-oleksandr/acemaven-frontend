@@ -28,6 +28,7 @@ const DashboardContainer:React.FC = () => {
 
     //current shipping mode id
     const [shippingValue, setShippingValue] = useState(0);
+    console.log("mode_id",shippingValue)
 
     //data from store
     let calc_success = useSelector(getWmCalculationSuccessSelector)
@@ -65,6 +66,7 @@ const DashboardContainer:React.FC = () => {
                                  setMode={setMode}
                                  mode={current_shipping_type}
                                  cargo_groups={cargo_groups}
+                                 packaging_types={packaging_types}
                 />}
         </Layout>
     )

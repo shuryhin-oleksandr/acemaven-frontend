@@ -35,8 +35,9 @@ import { getFrozenChoices } from "../../../../../_BLL/thunks/search_client_thunk
 import {getFrozenChoicesSelector} from "../../../../../_BLL/selectors/search/searchClientSelector";
 import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
-import {AppStateType} from "../../../../../_BLL/store";
 import {CargoGroupType} from "../../../../../_BLL/types/search/search_types";
+import {searchActions} from "../../../../../_BLL/reducers/search_client/searchClientReducer";
+import { PackagingType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 type PropsType = {
   right?: string;
@@ -46,10 +47,12 @@ type PropsType = {
   setShippingValue: (value: number) => void,
   mode: CurrentShippingType,
   setMode: (value: CurrentShippingType) => void,
-  cargo_groups: CargoGroupType[] | null
+  cargo_groups: CargoGroupType[] | null,
+  packaging_types: PackagingType[] | null,
 };
 
-const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shippingValue, setShippingValue, mode, setMode, cargo_groups }, newParam = "") => {
+const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shippingValue, setShippingValue,
+                                       mode, setMode, cargo_groups, packaging_types, }, newParam = "") => {
   const dispatch = useDispatch();
 
   const [dates, setDates] = useState([]);
@@ -63,6 +66,7 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
 
   useEffect(() => {
     reset();
+    dispatch(searchActions.clearCargoList([]))
   }, [mode]);
 
   const shippingTypes = useSelector(getShippingTypesSelector);
@@ -77,8 +81,7 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
       ? shippingTypes[0]?.shipping_modes
       : shippingTypes[1]?.shipping_modes;
 
-  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
-    ?.container_types;
+  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)?.container_types;
 
   const { handleSubmit, register, control, reset, errors, getValues, setValue, watch,} = useForm({
     reValidateMode: "onBlur",
@@ -257,7 +260,9 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
                 frozen_choices={frozen_choices}
               />
             ) : (  cargo_groups && cargo_groups.length > 0 &&
-                    <OtherModesFieldArray cargo_groups={cargo_groups}/>
+                    <OtherModesFieldArray cargo_groups={cargo_groups}
+                                          packaging_types={packaging_types}
+                    />
             )
           ) : null}
           <ButtonGroup bottom={bottom} right={right} justify_content={dates.length > 0 && watchResultArr.length === 3 && shippingValue !== 3 ? 'space-between' : 'flex-end'}>

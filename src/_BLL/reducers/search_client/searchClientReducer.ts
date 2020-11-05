@@ -14,11 +14,14 @@ type InitialStateType = typeof initialState;
 export const searchClientReducer = (state = initialState, action: commonSearchActions):InitialStateType => {
    switch (action.type) {
        case "SET_CARGO_GROUP_DATA":
-           debugger
-           console.log(action)
            return {
                ...state,
                cargo_groups: [...state.cargo_groups, action.cargo_data]
+           }
+       case "CLEAR_CARGO_LIST":
+           return {
+               ...state,
+               cargo_groups: action.value
            }
        case "DELETE_CARGO_GROUP":
            return {
@@ -56,7 +59,8 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : neve
 export type commonSearchActions = AC<typeof searchActions>;
 
 export const searchActions = {
-    setCargoGroupData: (cargo_data: CargoGroupType) => ({ type: "SET_CARGO_GROUP_DATA", cargo_data } as const),
+    clearCargoList: (value: any) => ({type: 'CLEAR_CARGO_LIST', value} as const),
+    setCargoGroupData: (cargo_data: CargoGroupType ) => ({ type: "SET_CARGO_GROUP_DATA", cargo_data } as const),
     setSuccessCalculate: (value: boolean) => ({type:'SET_SUCCESS_CALCULATE', value} as const),
     deleteCargoGroup: (id: number) => ({type: 'DELETE_CARGO_GROUP', id} as const),
     editCargoGroup: (id: number) => ({type: 'EDIT_CARGO_GROUP', id} as const),

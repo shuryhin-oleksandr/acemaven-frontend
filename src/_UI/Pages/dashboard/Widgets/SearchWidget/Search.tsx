@@ -89,7 +89,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
           container_type: "",
           volume: "",
           is_frozen: "",
-          can_be_dangerous: true,
+          can_be_dangerous: false,
         },
       ],
     },

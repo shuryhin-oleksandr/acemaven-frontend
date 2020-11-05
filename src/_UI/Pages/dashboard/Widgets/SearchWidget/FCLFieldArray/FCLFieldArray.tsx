@@ -1,6 +1,6 @@
 import React from "react";
 import FCLField from "./FCLField";
-import {ChoiceType} from "../../../../../../_BLL/types/search/search_types";
+import { ChoiceType } from "../../../../../../_BLL/types/search/search_types";
 
 type PropsType = {
   fields: any;
@@ -8,7 +8,7 @@ type PropsType = {
   container_types: any;
   remove: any;
   register: any;
-  frozen_choices:ChoiceType[] | null
+  frozen_choices: ChoiceType[] | null;
 };
 
 const FCLFieldArray: React.FC<PropsType> = ({
@@ -22,6 +22,7 @@ const FCLFieldArray: React.FC<PropsType> = ({
   return fields.map((item: any, index: number) => {
     return (
       <FCLField
+        key={item.id}
         register={register}
         fields={fields}
         control={control}

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 type PropsType = {
   name?: string;
-  inputref?: React.Ref<HTMLInputElement>;
+  inputref: any;
   setIsCheck: (value: boolean) => void;
   isCheck: boolean;
   labelText?: string;
@@ -27,7 +27,7 @@ const SearchCheckbox: React.FC<PropsType> = ({
         type="checkbox"
         checked={isCheck}
         onChange={() => handleChange()}
-        ref={props.inputref}
+        ref={props.inputref()}
         name={props.name}
         // @ts-ignore
       />

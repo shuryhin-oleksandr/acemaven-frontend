@@ -4,9 +4,9 @@ import SurchargeRateSelect from "../../../../../components/_commonComponents/sel
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
 import { RemoveImg } from "../searchWidgett-styles";
 import RemoveIcon from "../../../../../assets/icons/widgets/remove-icon.svg";
-import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import { ContainerType } from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SearchCheckbox from "src/_UI/components/_commonComponents/customCheckbox/searchCheckbox";
-
+import { ChoiceType } from "../../../../../../_BLL/types/search/search_types";
 
 type PropsType = {
   fields: any;
@@ -15,7 +15,8 @@ type PropsType = {
   remove: any;
   item: any;
   index: number;
-  register: any
+  register: any;
+  frozen_choices: ChoiceType[] | null
 };
 
 const FCLField: React.FC<PropsType> = ({
@@ -25,13 +26,12 @@ const FCLField: React.FC<PropsType> = ({
   container_types,
   fields,
   remove,
-    register
+  register,
+  frozen_choices,
 }) => {
   const [chosenContainer, setChosenContainer] = useState(0);
-  let finded = container_types.find(c => c.id === chosenContainer)
-    console.log('finded', finded)
-
-    const [isCheck, setIsCheck] = useState(false)
+  let finded = container_types.find((c) => c.id === chosenContainer);
+  const [isCheck, setIsCheck] = useState(false);
 
   return (
     <div
@@ -39,6 +39,7 @@ const FCLField: React.FC<PropsType> = ({
         width: "100%",
         display: "flex",
         borderBottom: "1px solid #E0E0E0",
+        alignItems: "center",
       }}
       key={item.id}
     >
@@ -46,6 +47,9 @@ const FCLField: React.FC<PropsType> = ({
         control={control}
         name={`search_test[${index}].container_type`}
         defaultValue={item.container_type}
+        rules={{
+          required: "Field is required",
+        }}
         as={
           <SurchargeRateSelect
             options={container_types}
@@ -59,6 +63,9 @@ const FCLField: React.FC<PropsType> = ({
       <Controller
         control={control}
         name={`search_test[${index}].volume`}
+        rules={{
+          required: "Field is required",
+        }}
         as={
           <div
             style={{
@@ -71,20 +78,28 @@ const FCLField: React.FC<PropsType> = ({
           </div>
         }
       />
-        {finded && finded.is_frozen
-            ? <Controller
-                control={control}
-                name={`search_test[${index}].is_frozen`}
-                defaultValue="frozen"
-                as={<SurchargeRateSelect background="#ECECEC" maxW="115px" />}
+      {finded && finded.is_frozen ? (
+        <Controller
+          control={control}
+          name={`search_test[${index}].is_frozen`}
+          defaultValue="frozen"
+          as={
+            <SurchargeRateSelect
+              background="#ECECEC"
+              maxW="123px"
+              options={frozen_choices}
             />
-            : <SearchCheckbox isCheck={isCheck}
-                              setIsCheck={setIsCheck}
-                              name={`search_test[${index}].can_be_dangerous`}
-                              inputref={register}
-            />
-        }
-
+          }
+        />
+      ) : (
+        <SearchCheckbox
+          isCheck={isCheck}
+          setIsCheck={setIsCheck}
+          name={`search_test[${index}].can_be_dangerous`}
+          inputref={register}
+          labelText="DANGEROUS"
+        />
+      )}
       {fields.length > 1 && (
         <RemoveImg
           src={RemoveIcon}

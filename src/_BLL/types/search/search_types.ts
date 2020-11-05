@@ -24,3 +24,14 @@ export type CargoGroupType = {
     shipping_type?: string,
     id?: number
 }
+
+
+
+export type ChoiceType = {
+    id: string
+    title: string
+}
+
+export type FrozenChoiceType = {
+    frozen_choices:ChoiceType[]
+}

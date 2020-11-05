@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-
 type PropsType = {
   name?: string;
   inputref?: React.Ref<HTMLInputElement>;
@@ -30,8 +29,7 @@ const SearchCheckbox: React.FC<PropsType> = ({
         onChange={() => handleChange()}
         ref={props.inputref}
         name={props.name}
-          // @ts-ignore
-
+        // @ts-ignore
       />
       <span className="checkmark" />
       {labelText}
@@ -71,13 +69,14 @@ const Container = styled.label`
     width: 19px;
     border: 2px solid #4f4f4f;
     margin-right: 8px;
+    position: relative;
   }
   .checkmark:after {
     content: "";
     position: absolute;
     display: none;
-    left: 7px;
-    top: 3px;
+    left: 6px;
+    top: 2px;
     width: 4px;
     height: 8px;
     border: solid #4f4f4f;

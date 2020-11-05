@@ -6,7 +6,6 @@ import {
   RelativeWrapper,
   ButtonGroup,
   AddImg,
-  RemoveImg,
 } from "./searchWidgett-styles";
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
@@ -31,8 +30,9 @@ import {
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import Dates from "../../Dates";
 import moment from "moment";
-import RemoveIcon from "../../../../assets/icons/widgets/remove-icon.svg";
 import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
+import { getFrozenChoices } from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
+import {getFrozenChoicesSelector} from "../../../../../_BLL/selectors/search/searchClientSelector";
 
 type PropsType = {
   right?: string;
@@ -50,12 +50,19 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   }, []);
 
   useEffect(() => {
+    dispatch(getFrozenChoices());
+  }, []);
+
+  useEffect(() => {
     reset();
   }, [mode]);
 
   const shippingTypes = useSelector(getShippingTypesSelector);
   const origin_ports = useSelector(getOriginPorts);
   const destination_ports = useSelector(getDestinationPorts);
+  const frozen_choices = useSelector(getFrozenChoicesSelector);
+
+  console.log(frozen_choices);
 
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
@@ -82,7 +89,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
           container_type: "",
           volume: "",
           is_frozen: "",
-          can_be_dangerous: true
+          can_be_dangerous: true,
         },
       ],
     },
@@ -115,7 +122,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   };
 
   const onSubmit = (values: any) => {
-    debugger
+    debugger;
     const finalData = values;
     finalData.from = moment(dates[0]).format("DD/MM/YYYY");
     finalData.to = moment(dates[1]).format("DD/MM/YYYY");
@@ -126,7 +133,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
 
   return (
     <RelativeWrapper>
-      <Container>
+      <Container scroll={watchFieldArray.length > 3 ? true : false}>
         <Heading>Search Rates</Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
@@ -248,21 +255,26 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
                 register={register}
                 container_types={container_types}
                 remove={remove}
+                frozen_choices={frozen_choices}
               />
             ) : (
               <div>Another type</div>
             )
           ) : null}
           <ButtonGroup bottom={bottom} right={right}>
-            {watchFieldArray.length > 0 && !!watchFieldArray[0].container_type && (
-              <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
-                <AddImg
-                  onClick={() => append({ name: "search_test" })}
-                  src={AddIcon}
-                  alt="add"
-                />
-              </BaseTooltip>
-            )}
+            {watchFieldArray.length > 0 &&
+              !!watchFieldArray[0].container_type &&
+              !!watchFieldArray[0].volume && (
+                <BaseTooltip
+                  title={"Add more cargo groups by clicking on plus"}
+                >
+                  <AddImg
+                    onClick={() => append({ name: "search_test" })}
+                    src={AddIcon}
+                    alt="add"
+                  />
+                </BaseTooltip>
+              )}
 
             <BaseButton type="submit">Search</BaseButton>
           </ButtonGroup>

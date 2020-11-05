@@ -9,6 +9,9 @@ export const searchAPI = {
     },
     searchRates (search_data: SearchDataType) {
         return instance.post('', search_data)
+    },
+    getFrozenChoices(){
+        return instance.get("/core/choices?models=frozen_choices")
     }
 
 }

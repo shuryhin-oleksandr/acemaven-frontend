@@ -5,17 +5,20 @@ type PropsStyle = {
     background_repeat?: string,
     login_color?: string,
     subtitle_max_width?: string
+    background_size?: string
 }
 
 export const Outer = styled.div<PropsStyle>`
   width: 100%;
  
   background-image: url(${props => props.background_img});
-  background-repeat: round;
+  background-repeat: ${({background_size}) => background_size === "cover" ? "unset" : "round"};
   height: 100%;
+  background-size: ${({background_size}) => background_size ? background_size : "auto auto"};
+  background-position: ${({background_size}) => background_size === "cover" ? "center" : "0% 0%"};
   
   @media (max-width: 1440px) {
-    background-repeat: ${({background_repeat}) => background_repeat ? background_repeat : 'round'};
+    background-repeat: ${({background_repeat, background_size}) => background_repeat ? background_repeat : background_size === "cover" ? 'unset' : 'round'};
   }
   
 `

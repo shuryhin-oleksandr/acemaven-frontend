@@ -260,8 +260,8 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
                     <OtherModesFieldArray cargo_groups={cargo_groups}/>
             )
           ) : null}
-          <ButtonGroup bottom={bottom} right={right} justify_content={dates.length > 0 && shippingValue !== 3 ? 'space-between' : 'flex-end'}>
-            {dates.length > 0 && shippingValue !== 3 && <CalculateButton type='button' onClick={() => setOpenCalcPopup(true)}>Calculate w/m</CalculateButton>}
+          <ButtonGroup bottom={bottom} right={right} justify_content={dates.length > 0 && watchResultArr.length === 3 && shippingValue !== 3 ? 'space-between' : 'flex-end'}>
+            {dates.length > 0 && watchResultArr.length === 3 && shippingValue !== 3 && <CalculateButton type='button' onClick={() => setOpenCalcPopup(true)}>Calculate w/m</CalculateButton>}
             <div style={{display: 'flex'}}>
             {watchFieldArray.length > 0
             && !!watchFieldArray[0].container_type

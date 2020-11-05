@@ -99,6 +99,7 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                 setRole={setMasterRole}
                                 roleValue={masterRole}
                                 error={errors?.roles}
+                                worker={worker}
                             />
                             <CustomCheckbox value='agent'
                                             name='roles'
@@ -111,6 +112,7 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                             setRole={setAgentRole}
                                             roleValue={agentRole}
                                             error={errors?.roles}
+                                            worker={worker}
                             />
                             <CustomCheckbox value='billing'
                                             name='roles'
@@ -123,6 +125,7 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                             setRole={setRole}
                                             roleValue={roleValue}
                                             error={errors?.roles}
+                                            worker={worker}
                             />
                         </CheckboxWrap>
                         <FormField name='email'

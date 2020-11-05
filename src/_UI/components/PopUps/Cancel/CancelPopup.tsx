@@ -27,10 +27,10 @@ const CancelPopup: React.FC<PropsTypes> = ({ setIsOpen, things}) => {
         </CancelTitle>
         <ButtonsWrap>
           <a style={{ textDecoration: "none" }} href="/">
-            <CancelButton>Cancel registration</CancelButton>
+            <CancelButton>CANCEL REGISTRATION</CancelButton>
           </a>
           <CancelButton onClick={() => setIsOpen(false)}>
-            Continue registration
+            CONTINUE REGISTRATION
           </CancelButton>
         </ButtonsWrap>
       </PopupContent>

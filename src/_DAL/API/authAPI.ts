@@ -17,7 +17,7 @@ export const authAPI = {
         return instance.get(`/core/signup-check/?token=${token}`)
     },
     signUp (token: string, formData:any) {
-        return axios.post(`http://192.168.1.69:8000/api/v1/core/signup/?token=${token}`, formData )
+        return axios.post(`http://37.17.34.252:8777/api/v1/core/signup/?token=${token}`, formData )
     },
     createMasterAccount (masterData: IMasterAccountData, token: string) {
         return instance.post(`/core/signup/?token=${token}`, masterData)

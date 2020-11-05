@@ -12,10 +12,11 @@ import {editCompanyInfo} from "../../../../../_BLL/reducers/profileReducer";
 
 type PropsType = {
     setEdit?: VoidFunctionType,
-    companyInfo?: CompanyInfoType | null
+    companyInfo?: CompanyInfoType | null,
+    company_type: string
 }
 
-const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo}) => {
+const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_type}) => {
     let {register, getValues, handleSubmit, errors, setValue} = useForm<EditCompanyInfo>()
     const dispatch = useDispatch()
 
@@ -99,7 +100,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo}) => {
                                    required: 'Field is required'
                                })}
                     />
-                    <FormField name='website'
+                    {company_type !== 'client' && <FormField name='website'
                                label='Website'
                                getValues={getValues}
                                placeholder='www.company.com'
@@ -107,7 +108,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                    />
+                    />}
                 </InputWrap>
             </FormWrap>
             <ButtonsWrap>

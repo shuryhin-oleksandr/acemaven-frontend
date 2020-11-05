@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from "styled-components";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
 
 type PropsType = {
     role: string,
@@ -12,7 +13,9 @@ type PropsType = {
     getValues: (key: string) => Record<string, unknown>,
     disabled: any,
     setRole: VoidFunctionType,
-    roleValue: string
+    roleValue: string,
+    success_user?: boolean,
+    worker?: IAddNewUserData
 }
 
 const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
@@ -23,6 +26,27 @@ const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
         props.roleValue !== value ? props.setRole(value) : props.setRole('')
     }
 
+    /*useEffect (() => {
+        if(props.worker) {
+            setIsCheck(true)
+            if(props.worker.roles.includes('master')) {
+                setIsCheck(true)
+            } else if (props.worker.roles.includes('agent')) {
+                setIsCheck(true)
+            } else if (props.worker.roles.includes('billing')) {
+                setIsCheck(true)
+            }
+        }
+    }, [props.worker])*/
+
+    useEffect (() => {
+        if(props.success_user) {
+            setIsCheck(false)
+            props.setRole('')
+        }
+    }, [props.success_user])
+
+
     return (
         <Check className='label'> <SpanRole isCheck={isCheck} className='role'>{role}</SpanRole>
             <InputBox value={props.value}
@@ -31,6 +55,7 @@ const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
                       onChange={(e) => handleChange(e.currentTarget.value)}
                       type="checkbox"
                       disabled={props.disabled}
+                      checked={isCheck}
             />
             <CheckMark error={props.error} className='checkmark'/>
         </Check>

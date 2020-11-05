@@ -15,9 +15,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCompanyInfo} from "../../../../../_BLL/reducers/profileReducer";
 import {AppStateType} from "../../../../../_BLL/store";
 
+type PropsType = {
+    company_type: string
+}
 
-
-const CompanyInfoContainer:React.FC = () => {
+const CompanyInfoContainer:React.FC<PropsType> = ({company_type}) => {
     const [edit, setEdit] = useState(false)
     const dispatch = useDispatch()
     const companyId = sessionStorage.getItem('u')
@@ -43,8 +45,8 @@ const CompanyInfoContainer:React.FC = () => {
                 </InfoHeader>
                 <LineWrap/>
                 {!edit
-                    ? <Info setEdit={setEdit} companyInfo={companyInfo}/>
-                    : <EditCompanyInfoForm companyInfo={companyInfo} setEdit={setEdit}/>
+                    ? <Info setEdit={setEdit} companyInfo={companyInfo} company_type={company_type}/>
+                    : <EditCompanyInfoForm companyInfo={companyInfo} setEdit={setEdit} company_type={company_type}/>
                 }
             </InfoInner>
         </InfoContainer>

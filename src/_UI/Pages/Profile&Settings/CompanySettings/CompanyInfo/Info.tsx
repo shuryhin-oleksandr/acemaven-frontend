@@ -6,10 +6,11 @@ import {CompanyInfoType} from "../../../../../_BLL/types/profileSettingsType";
 
 type PropsType = {
     setEdit: VoidFunctionType,
-    companyInfo?: CompanyInfoType | null
+    companyInfo?: CompanyInfoType | null,
+    company_type: string
 }
 
-const Info:React.FC<PropsType> = ({setEdit, companyInfo}) => {
+const Info:React.FC<PropsType> = ({setEdit, companyInfo, company_type}) => {
 
     return (
         <FieldsWrap>
@@ -34,10 +35,10 @@ const Info:React.FC<PropsType> = ({setEdit, companyInfo}) => {
                     <Label>Zip Code</Label>
                     <TextWrap>{companyInfo?.zip_code}</TextWrap>
                 </Field>
-                <Field>
+                {company_type !== 'client' && <Field>
                     <Label>Website</Label>
                     <TextWrap>{companyInfo?.website}</TextWrap>
-                </Field>
+                </Field>}
             </FieldsContent>
             <EditIcon onClick={() => setEdit(true)}><img src={editIcon} alt=""/></EditIcon>
         </FieldsWrap>

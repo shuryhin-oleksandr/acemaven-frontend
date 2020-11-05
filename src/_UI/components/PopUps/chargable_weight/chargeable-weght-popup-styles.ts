@@ -80,6 +80,7 @@ export const CheckboxWrap = styled.div`
   width: 100%;
   border-bottom: 1px solid #7C7C89;
   padding: 14px 0;
+  margin-bottom: 30px;
 `
 
 export const TotalWrapper = styled.div`

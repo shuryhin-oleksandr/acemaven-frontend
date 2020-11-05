@@ -108,10 +108,10 @@ const FormSelect: React.FC<IProps> = ({ label, error, ...props }) => {
           {props.options?.map((o: any) => (
             <MenuItem
               onClick={() => props.callback && props.callback(o.value)}
-              key={o.name}
-              value={o.value}
+              key={o.name ? o.name : o.id}
+              value={o.value ? o.value : o.id}
             >
-              {o.name ? o.name : o.title}
+              {o.name ? o.name : (o.title ? o.title : (o.description ? o.description : o.code))}
             </MenuItem>
           ))}
         </Select>

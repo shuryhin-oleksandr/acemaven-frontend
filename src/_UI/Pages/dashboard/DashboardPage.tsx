@@ -7,15 +7,22 @@ import {
   ButtonBox,
   MapWrapper,
 } from "./dashboard-styles";
-import SearchWidget from "./Widgets/SearchWidget/SearchWidget";
 import Search from "./Widgets/SearchWidget/Search";
 import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
 import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
 import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
 import MapComponent from "./MapComponent/MapComponent";
-import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/ChargeableWeightPopup";
+import {CurrentShippingType} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
-const DashboardPage: React.FC = () => {
+type PropsType = {
+    setOpenCalcPopup: (value: boolean) => void,
+    shippingValue: number,
+    setShippingValue: (value: number) => void,
+    setMode: (value: CurrentShippingType) => void
+    mode: CurrentShippingType
+}
+
+const DashboardPage: React.FC<PropsType> = ({setOpenCalcPopup, shippingValue, setShippingValue, mode, setMode}) => {
   const [widgetsVisible, setWidgetsVisible] = useState(true);
 
   return (
@@ -31,7 +38,12 @@ const DashboardPage: React.FC = () => {
         <>
           <SearchBox>
             {/*<SearchWidget right="162px" />*/}
-            <Search />
+            <Search setOpenCalcPopup={setOpenCalcPopup}
+                    shippingValue={shippingValue}
+                    setShippingValue={setShippingValue}
+                    mode={mode}
+                    setMode={setMode}
+            />
           </SearchBox>
           <MultiWidgetBox>
             <FeePaymentWidget />

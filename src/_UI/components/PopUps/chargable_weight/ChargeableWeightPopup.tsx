@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     ActionsWrapper,
     CalculationWrapper,
@@ -32,6 +32,11 @@ import {
     RadioLabel
 } from "../../_commonComponents/settingsNotification/settings-notification-styles";
 import {makeStyles} from "@material-ui/core/styles";
+import {ContainerType, PackagingType} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {CargoGroupType} from "../../../../_BLL/types/search/search_types";
+import {CurrentShippingType} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {getWMCalculationThunk} from "../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
+import {useDispatch} from "react-redux";
 
 let useStyles = makeStyles({
     root: {
@@ -48,34 +53,51 @@ let useStyles = makeStyles({
 type PropsType = {
     disable_no_of_packs?: boolean //disable no. of packs = 1 (for ULD),
     select_label?: string, //packaging type or ULD type
+    setOpenCalcPopup: (value: boolean) => void,
+    calc_success: boolean,
+    packaging_types: PackagingType[] | null,
+    container_types: ContainerType[] | null,
+    shippingValue: number,
+    //getCalculation: (data: CargoGroupType) => void,
+    current_shipping_type: CurrentShippingType
 }
 
-const ChargeableWeightPopup: React.FC<PropsType> = ({disable_no_of_packs, select_label}) => {
+const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_success, packaging_types, container_types, shippingValue,  current_shipping_type}) => {
     const {control, errors, setValue, getValues, handleSubmit, register, reset, watch} = useForm({
-        reValidateMode: "onBlur",
-        defaultValues: {
-            test: [{
-                uld_type: "Bill",
-                number_of_packs: 1,
-                weight: 0,
-                height: 0,
-                length: 0,
-                width: 0,
-                weight_measurement: 't',
-                length_measurement: 'm'
-            }]
-        }
+        reValidateMode: "onBlur"
     })
 
-    const {fields, append} = useFieldArray(
+    const dispatch = useDispatch()
+    /*const {fields, append} = useFieldArray(
         {
             control,
             name: "test"
         }
-    );
+    );*/
 
-    const onSubmit = (values: any) => {
-        console.log(values)
+    const onSubmit = (values: CargoGroupType) => {
+        debugger
+        dispatch(getWMCalculationThunk({
+            volume: values.volume,
+            weight: values.weight,
+            height: values.height,
+            length: values.length,
+            width: values.width,
+            shipping_type: current_shipping_type,
+            weight_measurement: values.weight_measurement,
+            length_measurement: values.length_measurement
+        }))
+       /* getCalculation({
+            volume: values.volume,
+            weight: values.weight,
+            height: values.height,
+            length: values.length,
+            width: values.width,
+            shipping_type: current_shipping_type,
+            weight_measurement: values.weight_measurement,
+            length_measurement: values.length_measurement
+        })*/
+        //console.log(values)
     }
 
     const [isCheck, setIsCheck] = useState(true)
@@ -90,50 +112,72 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({disable_no_of_packs, select
 
     const classes = useStyles()
 
+    /*useEffect(() => {
+        if(calc_success) {
+            setOpenCalcPopup(false)
+            reset()
+        }
+    }, [calc_success])*/
 
     return (
         <ChargeableWeightOuter onSubmit={handleSubmit(onSubmit)}>
             <ChargeableWeightInner>
-                <IconButton
+                <IconButton onClick={() => setOpenCalcPopup(false)}
                     style={{top: '20px', right: '20px', width: '10.5px', height: '10.5px', position: 'absolute'}}>
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <CargoTitle>Please enter the details of your cargo</CargoTitle>
-                    {fields.map((item, index) => {
-                        return (
                             <>
                                 <CalculationWrapper>
                                     <FormRow>
-                                        <Controller name={`test[${index}].container_type`} //package_type
+                                        { container_types && container_types?.length > 0
+                                            ? <Controller name='container_type'
                                                     control={control}
                                                     defaultValue=''
-                                            /*rules={{
-                                                required: 'Field is required'
-                                            }}*/
+                                                    rules={{
+                                                        required: 'Field is required'
+                                                    }}
                                                     as={
-                                                        <FormSelect //error={errors?.container_type?.message}
+                                                        <FormSelect error={errors?.container_type?.message}
                                                                     label='ULD type'
                                                                     placeholder='Placeholder'
                                                                     maxW='140px'
+                                                                    options={container_types}
                                                         />
                                                     }
-                                        />
-                                        <Controller name={`test[${index}].volume`}
+                                            />
+                                            : <Controller name='package_type'
+                                                          control={control}
+                                                          defaultValue=''
+                                                          rules={{
+                                                              required: 'Field is required'
+                                                          }}
+                                                          as={
+                                                              <FormSelect error={errors?.package_type?.message}
+                                                                          label='Packaging type'
+                                                                          placeholder='Placeholder'
+                                                                          maxW='140px'
+                                                                          options={packaging_types}
+                                                              />
+                                                          }
+                                            />
+                                        }
+                                        <Controller name='volume'
                                                     control={control}
                                                     defaultValue={1}
                                                     rules={{
                                                         required: 'Field is required'
                                                     }}
                                                     as={
-                                                        <FormField //error={errors?.volume}
+                                                        <FormField error={errors?.volume}
                                                                    label='No. of packs'
                                                                    maxW='135px'
                                                                    type='number'
-                                                                   disabled={true}
+                                                                   disabled={shippingValue === 4}
                                                         />
                                                     }
                                         />
-                                        <Controller name={`test[${index}].weight`}
+                                        <Controller name='weight'
                                                     control={control}
                                                     defaultValue=''
                                                     rules={{
@@ -142,18 +186,19 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({disable_no_of_packs, select
                                                     as={
                                                         <WeightWrapper>
                                                             <WeightIcon><img src={weight} alt=""/></WeightIcon>
-                                                            <FormField //error={errors?.weight}
-                                                                       label='Weight, kgs'
+                                                            <FormField error={errors?.weight}
+                                                                       label={selectedValueWeight === 'kg' ? 'Weight, kgs' : 'Weight, t'}
                                                                        maxW='90px'
-                                                                       placeholder='0 (kgs)'
+                                                                       placeholder={selectedValueWeight === 'kg' ? '0, kg' : '0, t'}
                                                                        type='number'
                                                             />
                                                         </WeightWrapper>
 
                                                 }
                                     />
-                                    <Controller name={`test[${index}].weight_measurement`}
+                                    <Controller name='weight_measurement'
                                                 control={control}
+                                                defaultValue={'t'}
                                                 as={
                                                     <ActionsWrapRadio>
                                                         <CommonWrap>
@@ -184,8 +229,8 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({disable_no_of_packs, select
                                                 }
                                     />
                                 </FormRow>
-                                <FormRow>
-                                    <Controller name={`test[${index}].height`}
+                                    <FormRow>
+                                    <Controller name='height'
                                                 control={control}
                                                 defaultValue=''
                                                 rules={{
@@ -194,16 +239,16 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({disable_no_of_packs, select
                                                 as={
                                                     <WeightWrapper>
                                                         <WeightIcon><img src={height} alt=""/></WeightIcon>
-                                                        <FormField //error={errors?.height}
-                                                            label='Height, cm'
-                                                            maxW='90px'
-                                                            placeholder='0 (cm)'
-                                                            type='number'
+                                                        <FormField error={errors?.height}
+                                                                    label={selectedValueLength === 'cm' ? 'Height, cm' : 'Height, m'}
+                                                                    maxW='90px'
+                                                                    placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
+                                                                    type='number'
                                                         />
                                                     </WeightWrapper>
                                                 }
                                     />
-                                    <Controller name={`test[${index}].length`}
+                                    <Controller name='length'
                                                 control={control}
                                                 defaultValue=''
                                                 rules={{
@@ -212,17 +257,17 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({disable_no_of_packs, select
                                                 as={
                                                     <WeightWrapper>
                                                         <WeightIcon><img src={length} alt=""/></WeightIcon>
-                                                        <FormField //error={errors?.length}
-                                                            label='Length, cm'
-                                                            maxW='90px'
-                                                            placeholder='0 (cm)'
-                                                            type='number'
+                                                        <FormField error={errors?.length}
+                                                                label={selectedValueLength === 'cm' ? 'Length, cm' : 'Length, m'}
+                                                                maxW='90px'
+                                                                placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
+                                                                type='number'
                                                         />
                                                     </WeightWrapper>
 
                                                 }
                                     />
-                                    <Controller name={`test[${index}].width`}
+                                    <Controller name='width'
                                                 control={control}
                                                 defaultValue=''
                                                 rules={{
@@ -231,18 +276,19 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({disable_no_of_packs, select
                                                 as={
                                                     <WeightWrapper>
                                                         <WeightIcon><img src={width} alt=""/></WeightIcon>
-                                                        <FormField //error={errors?.test[${index}]?.width`)}
-                                                            label='Width, cm'
-                                                            maxW='90px'
-                                                            placeholder='0 (cm)'
-                                                            type='number'
+                                                        <FormField error={errors?.width}
+                                                                label={selectedValueLength === 'cm' ? 'Width, cm' : 'Width, m'}
+                                                                maxW='90px'
+                                                                placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
+                                                                type='number'
                                                         />
                                                     </WeightWrapper>
 
                                                 }
                                     />
-                                    <Controller name={`test[${index}].length_measurement`}
+                                    <Controller name='length_measurement'
                                                 control={control}
+                                                defaultValue='m'
                                                 as={
                                                     <ActionsWrapRadio>
                                                         <CommonWrap>
@@ -276,31 +322,29 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({disable_no_of_packs, select
                             </CalculationWrapper>
                             <CheckboxWrap>
                                 <GeneralCustomCheckbox inputRef={register}
-                                                       name={`test[${index}].is_dangerous`}
+                                                       name='is_dangerous'
                                                        value={isCheck}
                                     //setIsDangerous={setIsDangerous}
                                                        setValue={setValue}
                                                        setIsCheck={setIsCheck}
                                 />
                             </CheckboxWrap>
-                            <TotalWrapper>
+                           {/* <TotalWrapper>
                                 <span style={{fontFamily: 'Helvetica Reg', marginRight: '5px'}}>Total:</span> 15w/m
-                            </TotalWrapper>
+                            </TotalWrapper>*/}
                         </>
-                    )
-                })}
                 <NewPackageWrapper>
-                    <IconButton onClick={() => {
+                    {/*<IconButton onClick={() => {
                         append({uld_type: "", number_of_packs: "1", weight: '', height: '', length: '', width: ''})
                     }}
                                 style={{padding: '0', marginBottom: '24px'}}
                     >
                         <img src={add_new_icon} alt=""/>
-                    </IconButton>
+                    </IconButton>*/}
                 </NewPackageWrapper>
                 <ActionsWrapper>
                     <ConfirmButton type='submit'>CONFIRM</ConfirmButton>
-                    <CancelButton type='button'>CANCEL</CancelButton>
+                    <CancelButton onClick={() => setOpenCalcPopup(false)} type='button'>CANCEL</CancelButton>
                 </ActionsWrapper>
             </ChargeableWeightInner>
         </ChargeableWeightOuter>

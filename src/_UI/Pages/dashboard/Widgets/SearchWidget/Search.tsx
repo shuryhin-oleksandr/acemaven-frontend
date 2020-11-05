@@ -17,7 +17,7 @@ import {
   Port,
   PortsList,
 } from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
-import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {CurrentShippingType, ShippingTypesEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { getShippingTypesSelector } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import { getShippingTypes } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
@@ -33,17 +33,23 @@ import Dates from "../../Dates";
 import moment from "moment";
 import RemoveIcon from "../../../../assets/icons/widgets/remove-icon.svg";
 import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
+import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
+import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
+import {AppStateType} from "../../../../../_BLL/store";
 
 type PropsType = {
   right?: string;
   bottom?: string;
+  setOpenCalcPopup: (value: boolean) => void,
+  shippingValue: number,
+  setShippingValue: (value: number) => void,
+  mode: CurrentShippingType,
+  setMode: (value: CurrentShippingType) => void
 };
 
-const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
+const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shippingValue, setShippingValue, mode, setMode }, newParam = "") => {
   const dispatch = useDispatch();
-  const [mode, setMode] = useState("sea");
-  const [shippingValue, setShippingValue] = useState(0);
-  console.log("shippingValue", shippingValue);
+
   const [dates, setDates] = useState([]);
   useEffect(() => {
     dispatch(getShippingTypes(""));
@@ -56,6 +62,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   const shippingTypes = useSelector(getShippingTypesSelector);
   const origin_ports = useSelector(getOriginPorts);
   const destination_ports = useSelector(getDestinationPorts);
+  const calculatedCargoGroupsList = useSelector((state: AppStateType) => state.search.cargo_groups)
 
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
@@ -65,16 +72,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
     ?.container_types;
 
-  const {
-    handleSubmit,
-    register,
-    control,
-    reset,
-    errors,
-    getValues,
-    setValue,
-    watch,
-  } = useForm({
+  const { handleSubmit, register, control, reset, errors, getValues, setValue, watch,} = useForm({
     reValidateMode: "onBlur",
     defaultValues: {
       search_test: [
@@ -90,14 +88,13 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
 
   const watchFields = watch(["shipping_mode", "origin", "destination"]);
   const watchResultArr = Object.values(watchFields).filter((val) => !!val);
-  console.log("watchResultArr", watchResultArr);
+
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "search_test",
   });
   const watchFieldArray = watch("search_test");
-  console.log("watchFieldArray", watchFieldArray);
 
   let onOriginChangeHandler = (value: any) => {
     dispatch(getPorts(value.value, "origin", mode));
@@ -115,7 +112,6 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
   };
 
   const onSubmit = (values: any) => {
-    debugger
     const finalData = values;
     finalData.from = moment(dates[0]).format("DD/MM/YYYY");
     finalData.to = moment(dates[1]).format("DD/MM/YYYY");
@@ -249,22 +245,26 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
                 container_types={container_types}
                 remove={remove}
               />
-            ) : (
-              <div>Another type</div>
+            ) : (  calculatedCargoGroupsList && calculatedCargoGroupsList.length > 0 &&
+                    <OtherModesFieldArray cargo_groups={calculatedCargoGroupsList}/>
             )
           ) : null}
-          <ButtonGroup bottom={bottom} right={right}>
-            {watchFieldArray.length > 0 && !!watchFieldArray[0].container_type && (
-              <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
-                <AddImg
-                  onClick={() => append({ name: "search_test" })}
-                  src={AddIcon}
-                  alt="add"
-                />
-              </BaseTooltip>
-            )}
+          <ButtonGroup bottom={bottom} right={right} justify_content={dates.length > 0 && shippingValue !== 3 ? 'space-between' : 'flex-end'}>
+            {dates.length > 0 && shippingValue !== 3 && <CalculateButton type='button' onClick={() => setOpenCalcPopup(true)}>Calculate w/m</CalculateButton>}
 
-            <BaseButton type="submit">Search</BaseButton>
+            <div style={{display: 'flex'}}>
+              {watchFieldArray.length > 0 && !!watchFieldArray[0].container_type && (
+                  <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
+                    <AddImg
+                        onClick={() => append({ name: "search_test" })}
+                        src={AddIcon}
+                        alt="add"
+                    />
+                  </BaseTooltip>
+              )}
+
+              <BaseButton type="submit">Search</BaseButton>
+            </div>
           </ButtonGroup>
         </form>
       </Container>

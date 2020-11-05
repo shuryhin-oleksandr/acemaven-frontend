@@ -3,6 +3,7 @@ import styled from "styled-components";
 type PropsStyle = {
   right?: string;
   bottom?: string;
+  justify_content?: string
 };
 
 export const RelativeWrapper = styled.div`
@@ -38,7 +39,7 @@ export const FieldWrapper = styled.div`
 export const ButtonGroup = styled.div<PropsStyle>`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: ${({justify_content}) => justify_content ? justify_content : 'space-between'};
   //position: absolute;
   bottom: ${({ bottom }) => (bottom ? bottom : "22px")};
   right: ${({ right }) => (right ? right : "30px")};

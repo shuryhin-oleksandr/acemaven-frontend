@@ -5,8 +5,10 @@ import {searchAPI} from "../../../_DAL/API/searchAPI";
 import {AppStateType} from "../../store";
 
 export const getWMCalculationThunk = (data: CargoGroupType) => {
-    return async (dispatch: Dispatch<commonSearchActions>, getState: () => AppStateType) => {
+    return async (dispatch: Dispatch<any>, ) => {
         try {
+            debugger
+
             let res = await searchAPI.getWmCalculation(
                 {width: data.width, length: data.length, height: data.length,
                                 weight: data.weight, shipping_type: String(data.shipping_type),
@@ -14,15 +16,15 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
                                 weight_measurement: data.weight_measurement,
                                 volume: data.volume}
                 )
-            res.data && dispatch(searchActions.setCargoGroup(
-                {
-                    ...data,
-                    // @ts-ignore
-                    id:  getState().search.cargo_groups ? getState().search.cargo_groups?.length + 1 : 0,
-                    //one_box_wm: res.data,
-                    total_wm: res.data
-                }
-                ))
+            console.log('group', {
+                ...data,
+                /*// @ts-ignore
+                id:  getState().search.cargo_groups ? getState().search.cargo_groups?.length + 1 : 0,*/
+                //one_box_wm: res.data,
+                total_wm: res.data.total
+            })
+            let data_cargo = {...data, total_wm: res.data.total}
+            dispatch(searchActions.setCargoGroupData(data_cargo))
             dispatch(searchActions.setSuccessCalculate(true))
         } catch (e) {
             console.log(e.response);

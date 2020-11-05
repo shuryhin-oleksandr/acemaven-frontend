@@ -18,9 +18,20 @@ export type CargoGroupType = {
     length_measurement: string,
     width: string,
     height: string,
-    is_dangerous: boolean,
+    is_dangerous?: boolean,
     total_wm?: number,
-    one_box_wm?: number,
+    total_per_pack?: number,
     shipping_type?: string,
     id?: number
+}
+
+
+
+export type ChoiceType = {
+    id: string
+    title: string
+}
+
+export type FrozenChoiceType = {
+    frozen_choices:ChoiceType[]
 }

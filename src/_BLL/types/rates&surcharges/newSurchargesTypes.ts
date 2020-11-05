@@ -2,9 +2,9 @@ import {AdditionalSurchargeType, ContainerType} from "./surchargesTypes";
 
 export enum ShippingModeEnum {
     Loose_Cargo_RORO = 1,
-    LCL = 2,
+    ULD = 2,
     FCL = 3,
-    ULD = 4,
+    LCL = 4,
     Loose_Cargo = 5
 }
 

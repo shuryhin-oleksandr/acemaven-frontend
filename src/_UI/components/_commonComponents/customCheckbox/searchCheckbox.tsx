@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 
 type PropsType = {
   name?: string;
-  inputref?: React.Ref<HTMLInputElement>;
+  inputref: any;
   setIsCheck: (value: boolean) => void;
   isCheck: boolean;
   labelText?: string;
@@ -28,7 +27,9 @@ const SearchCheckbox: React.FC<PropsType> = ({
         type="checkbox"
         checked={isCheck}
         onChange={() => handleChange()}
-        ref={props.inputref}
+        ref={props.inputref()}
+        name={props.name}
+        // @ts-ignore
       />
       <span className="checkmark" />
       {labelText}
@@ -68,13 +69,14 @@ const Container = styled.label`
     width: 19px;
     border: 2px solid #4f4f4f;
     margin-right: 8px;
+    position: relative;
   }
   .checkmark:after {
     content: "";
     position: absolute;
     display: none;
-    left: 7px;
-    top: 3px;
+    left: 6px;
+    top: 2px;
     width: 4px;
     height: 8px;
     border: solid #4f4f4f;

@@ -7,144 +7,160 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { VoidFunctionType } from "src/_BLL/types/commonTypes";
-import {Tooltip} from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
 
 type IProps = {
-    label?: string;
-    error?: string;
-    options?: any;
-    placeholder?: string;
-    callback?: VoidFunctionType;
-    maxW?: string;
+  label?: string;
+  error?: string;
+  options?: any;
+  placeholder?: string;
+  callback?: VoidFunctionType;
+  maxW?: string;
+  hideLabel?: boolean;
+  marginBot?: string;
+  background?: string;
+  name?: string;
+  register?: any;
+  marginRight?: string
 };
 
 const useStyles = makeStyles(() => ({
-    formControl: {
-        width: "100%",
-        marginBottom: '10px'
+  formControl: (props: any) => ({
+    width: "100%",
+    marginBottom: props.marginBot ? props.marginBot : "10px",
+  }),
+  selectEmpty: (props: any) => ({
+    width: "100%",
+    height: "40px",
+    color: "#828282",
+    fontSize: "14px",
+    fontFamily: "Helvetica Light",
+    fontStyle: "normal",
+    transition: ".3",
+    backgroundColor: props.background ? props.background : "unset",
+
+    "& .MuiSelect-icon": {
+      color: "rgba(0, 0, 0, 0.23)",
     },
-    selectEmpty: {
-        width: "100%",
-        height: "40px",
-        color: "#828282",
-        fontSize: "14px",
-        fontFamily: "Helvetica Light",
-        fontStyle: "normal",
-        transition: ".3",
 
-
-        "& .MuiSelect-icon": {
-            color: "rgba(0, 0, 0, 0.23)",
-        },
-
-        "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "rgba(0, 0, 0, 0.23)",
-            borderWidth: "1px",
-            zIndex: 100,
-        },
-
-        "&.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
-            transition: ".3s",
-            borderColor: "#7C7C89",
-            background: "#ECECEC",
-            "z-index": -1,
-        },
-
-        "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "rgba(0, 0, 0, 0.23)",
-        },
-
-        "& .MuiSelect-select": {
-            paddingLeft: "10px",
-            "&:focus": {
-                background: "none",
-            },
-        },
+    "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "rgba(0, 0, 0, 0.23)",
+      borderWidth: "1px",
+      zIndex: 100,
     },
-    helperText: {
-        textAlign: "right",
-        fontWeight: 500,
-        fontFamily: "Helvetica Reg, sans-serif",
 
-        "&.Mui-error": {
-            color: "#E76767",
-        },
+    "&.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
+      transition: ".3s",
+      borderColor: "#7C7C89",
+      background: "#ECECEC",
+      "z-index": -1,
     },
-    customTooltip: {
-        "& .MuiTooltip-arrow::before": {
-            backgroundColor: "#FFFFFF",
-            border: "1px solid #828282",
-        },
-        borderRadius: "4px",
-        boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.25)",
-        backgroundColor: "rgba(0, 0, 0, 0.25)",
-        border: "1px solid #828282",
-        padding: "20px 25px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 100000
-    }
+
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "rgba(0, 0, 0, 0.23)",
+    },
+
+    "& .MuiSelect-select": {
+      paddingLeft: "10px",
+      "&:focus": {
+        background: "none",
+      },
+    },
+  }),
+  helperText: {
+    textAlign: "right",
+    fontWeight: 500,
+    fontFamily: "Helvetica Reg, sans-serif",
+
+    "&.Mui-error": {
+      color: "#E76767",
+    },
+  },
+  customTooltip: {
+    "& .MuiTooltip-arrow::before": {
+      backgroundColor: "#FFFFFF",
+      border: "1px solid #828282",
+    },
+    borderRadius: "4px",
+    boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.25)",
+    backgroundColor: "rgba(0, 0, 0, 0.25)",
+    border: "1px solid #828282",
+    padding: "20px 25px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 100000,
+  },
 }));
 
-const SurchargeRateSelect: React.FC<IProps> = ({ label, error, callback=()=>{}, ...props }) => {
-    const classes = useStyles();
+const SurchargeRateSelect: React.FC<IProps> = ({
+  label,
+  error,
+  callback = () => {},
+  hideLabel,
+  ...props
+}) => {
+  const classes = useStyles({
+    marginBot: props.marginBot,
+    background: props.background,
+  });
 
-    return (
-        <SelectContainer maxW={props.maxW}>
-            <FormControl className={classes.formControl}>
-                <Label>{label}</Label>
-                <Select
-                    labelId={label}
-                    id="demo-simple-select-placeholder-label"
-                    displayEmpty
-                    className={classes.selectEmpty}
-                    {...props}
-                    MenuProps={{
-                        style: { zIndex: 999999 },
-                        anchorOrigin: {
-                            vertical: "bottom",
-                            horizontal: "left",
-                        },
-                        transformOrigin: {
-                            vertical: "top",
-                            horizontal: "left",
-                        },
-                        getContentAnchorEl: null,
-                    }}
-                    variant="outlined"
-                    error={!!error}
+  return (
+    <SelectContainer maxW={props.maxW} marginRight={props.marginRight}>
+      <FormControl className={classes.formControl}>
+        {hideLabel ? null : <Label>{label}</Label>}
+        <Select
+          labelId={label}
+          id="demo-simple-select-placeholder-label"
+          displayEmpty
+          className={classes.selectEmpty}
+          {...props}
+          MenuProps={{
+            style: { zIndex: 999999 },
+            anchorOrigin: {
+              vertical: "bottom",
+              horizontal: "left",
+            },
+            transformOrigin: {
+              vertical: "top",
+              horizontal: "left",
+            },
+            getContentAnchorEl: null,
+          }}
+          variant="outlined"
+          error={!!error}
+        >
+          <MenuItem value="" onClick={() => callback("")}>
+            <em>{label}</em>
+          </MenuItem>
+          {props.options?.map((o: any) =>
+            o.tooltip ? (
+              <Tooltip
+                title={o.tooltip}
+                arrow
+                classes={{ tooltip: classes.customTooltip }}
+              >
+                <MenuItem
+                  onClick={() => callback(o.id)}
+                  key={o.id}
+                  value={o.id}
                 >
-                    <MenuItem value="" onClick={() => callback('')}>
-                        <em>{label}</em>
-                    </MenuItem>
-                    {props.options?.map((o: any) => (
-                        (o.tooltip
-                            ? (<Tooltip title={o.tooltip} arrow classes={{ tooltip: classes.customTooltip }}>
-                            <MenuItem
-                                onClick={() => callback(o.id)}
-                                key={o.id}
-                                value={o.id}
-                            >
-                                {o.title ? o.title : o.code}
-                            </MenuItem>
-                        </Tooltip>)
-                            :  <MenuItem
-                                onClick={() => callback(o.id)}
-                                key={o.id}
-                                value={o.id}
-                            >
-                                {o.title ? o.title : o.code}
-                            </MenuItem>)
-
-                    ))}
-                </Select>
-                <FormHelperText className={classes.helperText} error={!!error}>
-                    {error}
-                </FormHelperText>
-            </FormControl>
-        </SelectContainer>
-    );
+                  {o.title ? o.title : o.code}
+                </MenuItem>
+              </Tooltip>
+            ) : (
+              <MenuItem onClick={() => callback(o.id)} key={o.id} value={o.id}>
+                {o.title ? o.title : o.code}
+              </MenuItem>
+            )
+          )}
+        </Select>
+        <FormHelperText className={classes.helperText} error={!!error}>
+          {error}
+        </FormHelperText>
+      </FormControl>
+    </SelectContainer>
+  );
 };
 
 export default SurchargeRateSelect;

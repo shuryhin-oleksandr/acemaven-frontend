@@ -30,7 +30,6 @@ const SurchargesContainer: React.FC = () => {
   const [searchValue, setSearchValue] = useState('')
   const [search_column, setSearchColumn] = useState('')
 
-  console.log(searchValue, search_column)
 
   const [isOpen, setIsOpen] = useState(false);
   const [newSurchargeMode, setNewSurchargeMode] = useState(false);

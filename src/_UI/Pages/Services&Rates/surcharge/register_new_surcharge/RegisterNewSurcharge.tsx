@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
     ActionsWrapper,
     Cancel,
@@ -45,7 +45,8 @@ type PropsType = {
     additionalTableName: string
     additionalType: string
     additional: AdditionalSurchargeType[]
-    handleSubmit: any
+    handleSubmit: any,
+    adding_success: boolean
 }
 
 
@@ -54,7 +55,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
     const {
         handleSubmit, mode, setMode, control, register, errors, getValues, setValue, closeRegisterForm, carrierOptions, shippingModeOptions,
         setShippingValue, ports, locationChangeHandler, getDisabledSurchargesDates, usageFees, additionalTableName,
-        additionalType, shippingValue, additional
+        additionalType, shippingValue, additional, adding_success
     } = props
 
     const dispatch = useDispatch()
@@ -86,8 +87,12 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
             location: Number(sessionStorage.getItem('port_id'))}
 
         usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
-        closeRegisterForm()
     }
+    useEffect(() => {
+        if(adding_success) {
+            closeRegisterForm()
+        }
+    }, [adding_success])
     
 
     return (
@@ -121,6 +126,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 locationChangeHandler={locationChangeHandler}
                 getDisabledSurchargesDates={getDisabledSurchargesDates}
                 required_dates={true}
+                adding_success={adding_success}
             />
             {
                 !!shippingValue

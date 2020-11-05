@@ -4,6 +4,7 @@ type PropsStyle = {
   right?: string;
   bottom?: string;
   scroll?: boolean;
+  justify_content?: string
 };
 
 export const RelativeWrapper = styled.div`
@@ -39,7 +40,7 @@ export const FieldWrapper = styled.div`
 export const ButtonGroup = styled.div<PropsStyle>`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: ${({justify_content}) => justify_content ? justify_content : 'space-between'};
   position: sticky;
   bottom: ${({ bottom }) => (bottom ? bottom : "22px")};
   right: ${({ right }) => (right ? right : "30px")};

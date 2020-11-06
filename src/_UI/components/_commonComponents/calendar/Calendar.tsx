@@ -22,7 +22,7 @@ type PropsType = {
     onDayClick?: VoidFunctionType
     ref: MutableRefObject<DayPickerInput>
     control: any
-    disabled?: any
+    disabled?: boolean
     error: boolean
     disabledDates: any
     textColor?: string
@@ -34,11 +34,13 @@ type PropsType = {
     margin_right?: string
     onBlur?: any
     input_height?: string
-    required_dates?: boolean
+    required_dates?: boolean,
+    watchResultArrForDates?: number[],
+
 }
 
 const Calendar = forwardRef<DayPickerInput, PropsType>(
-    ({name, label, value, handleDayChange, selectedDay, onDayClick = () => {}, disabled, control, error, disabledDates, ...props},
+    ({name, label, value, handleDayChange, selectedDay, onDayClick = () => {}, disabled, control, error, disabledDates, watchResultArrForDates, ...props},
      ref) => {
 
     const { from, to } = selectedDay

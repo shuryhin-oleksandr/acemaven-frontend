@@ -48,6 +48,9 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                 setAgentRole('agent')
             } else if (worker.roles.includes('billing')) {
                 setRole('billing')
+            } else if (worker.roles.includes('billing') && worker.roles.includes('agent')) {
+                setRole('billing')
+                setAgentRole('agent')
             }
         })
     }, [worker, setValue])
@@ -100,6 +103,7 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                 roleValue={masterRole}
                                 error={errors?.roles}
                                 worker={worker}
+                                checked={!!masterRole}
                             />
                             <CustomCheckbox value='agent'
                                             name='roles'
@@ -113,6 +117,7 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                             roleValue={agentRole}
                                             error={errors?.roles}
                                             worker={worker}
+                                            checked={!!agentRole}
                             />
                             <CustomCheckbox value='billing'
                                             name='roles'
@@ -126,6 +131,7 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                             roleValue={roleValue}
                                             error={errors?.roles}
                                             worker={worker}
+                                            checked={!!roleValue}
                             />
                         </CheckboxWrap>
                         <FormField name='email'

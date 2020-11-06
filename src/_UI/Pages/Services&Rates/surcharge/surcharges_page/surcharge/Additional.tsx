@@ -168,6 +168,7 @@ const Additional: React.FC<PropsType> = ({
                     control={props.control}
                     defaultValue={findConditionDefaultValue(charge.conditions)}
                     name={`charges.${charge.id}.conditions`}
+                    rules={{required: true}}
                     as={
                       // <SurchargeRateConditionsSelect options={conditions}
                       //                      placeholder='Currency'
@@ -180,6 +181,7 @@ const Additional: React.FC<PropsType> = ({
                           setValue={setValue}
                           defaultV={findConditionDisplayName(charge.conditions)}
                           setFormMode={setFormMode}
+
                         />
                       </TableCell>
                     }

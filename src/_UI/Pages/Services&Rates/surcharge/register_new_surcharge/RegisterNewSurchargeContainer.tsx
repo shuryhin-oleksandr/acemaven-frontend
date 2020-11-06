@@ -8,7 +8,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {
-    getAirCarriersSelector, getCurrentShippingTypeSelector, getPortsSelector,
+    getAirCarriersSelector, getCurrentShippingTypeSelector, getLocationId, getPortsSelector,
     getSeaCarriersSelector, getShippingTypesSelector, getSurcharge
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
@@ -27,7 +27,17 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
 
     const dispatch = useDispatch()
 
-    const {handleSubmit, register, control, errors, getValues, setValue, reset} = useForm()
+    const {handleSubmit, register, control, errors, getValues, setValue,  watch} = useForm()
+
+    //check if some fields are not empty for 'location'
+    const watchFields = watch(["carrier", "direction", "shipping_mode"]);
+    const watchResultArr = Object.values(watchFields).filter((val) => !!val);
+
+
+    //check if some fields are not empty for 'dates'
+    const watchFieldsForDates = watch(["location"]);
+    const watchResultArrForDates = Object.values(watchFields).filter((val) => !!val);
+    console.log("watch", watchFieldsForDates);
 
     //Данные из стейта
     const shippingMode = useSelector(getCurrentShippingTypeSelector)
@@ -37,6 +47,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     const ports = useSelector(getPortsSelector)
     const surcharge = useSelector(getSurcharge)
     const adding_success = useSelector((state:AppStateType) => state.surcharge.adding_success)
+    const location_id = useSelector(getLocationId)
 
     //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
     const [shippingValue, setShippingValue] = useState(0)
@@ -49,11 +60,13 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     const additionalType = (shippingMode === ShippingTypesEnum.AIR) ? 'ULD TYPES' : 'CONTAINER TYPE'
 
 
+
     //Закрывает форму регистрации серчарджа
     const closeRegisterForm = useCallback(() => {
         dispatch(surchargeActions.setSurchargeInfo(null))
         setNewSurchargeMode(false)
-
+        //sessionStorage.removeItem('port_id')
+        dispatch(surchargeActions.setLocationId(0))
     }, [dispatch])
 
     //Посимвольно поиск по портам
@@ -64,7 +77,8 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     //Запрос на наличие забронированных дат по первым 4 полям
     const getDisabledSurchargesDates = useCallback((portName: string, portId: number) => {
         setValue('location', portName)
-        sessionStorage.setItem('port_id', JSON.stringify(portId))
+        //sessionStorage.setItem('port_id', JSON.stringify(portId))
+        dispatch(surchargeActions.setLocationId(portId))
         dispatch(surchargeActions.setPortsList([]))
         dispatch(checkSurchargeDates({
             location: portId,
@@ -79,10 +93,12 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
         setValue('direction', '')
         setValue('shipping_mode', '')
         dispatch(surchargeActions.setCurrentShippingType(mode))
+        sessionStorage.removeItem('port_id')
     }, [dispatch])
 
     let unmountComponent = () => {
         dispatch(surchargeActions.setSurchargeInfo(null))
+        dispatch(surchargeActions.setLocationId(0))
     }
 
     useEffect(() => {
@@ -127,6 +143,9 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
             additional={additional}
             handleSubmit={handleSubmit}
             adding_success={adding_success}
+            watchResultArr={watchResultArr}
+            watchResultArrForDates={watchResultArrForDates}
+            location_id={location_id}
         />
     )
 };

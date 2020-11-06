@@ -57,6 +57,7 @@ type PropsType = {
   shippingMode: number;
   charges: AdditionalSurchargeType[];
   setValue?: (name: string, value: string | number) => void;
+  errors?: any
 };
 
 const Additional: React.FC<PropsType> = ({
@@ -64,6 +65,7 @@ const Additional: React.FC<PropsType> = ({
   setValue,
   shippingMode,
   charges,
+    errors
 }) => {
   const classes = useStyles();
   const noConditions = ShippingModeEnum.FCL === shippingMode;
@@ -156,8 +158,9 @@ const Additional: React.FC<PropsType> = ({
                     name={`charges.${charge.id}.charge`}
                     control={control}
                     defaultValue={0}
+                    rules={{required: true}}
                     as={
-                      <Field maxW="100px" placeholder="0.00$" type="number" />
+                      <Field maxW="100px" placeholder="0.00$" type="number" error={errors?.charges}/>
                     }
                   />
                 </TableCell>

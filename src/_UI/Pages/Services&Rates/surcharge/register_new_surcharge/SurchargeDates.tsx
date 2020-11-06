@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import { SurchargesDatesFilter } from "./form-styles";
 import Calendar from "../../../../components/_commonComponents/calendar/Calendar";
 import DayPickerInput from "react-day-picker/DayPickerInput";
@@ -21,10 +22,12 @@ type PropsType = {
     input_height?: string
     rate_start_date?: string
     setFormMode?: (value: boolean) => void
-    required_dates: boolean
+    required_dates: boolean,
+    watchResultArrForDates?: number[],
+    disabled?: boolean
 }
 
-const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, required_dates, ...props}) => {
+const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, required_dates, watchResultArrForDates, disabled, ...props}) => {
 
     const reservedDates = useSelector(getBookedDates)
 
@@ -34,10 +37,11 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
     })
 
     let surcharge = useSelector(getSurcharge)
-
+    const history = useHistory()
+    console.log(history)
 
     useEffect(() => {
-        if(surcharge) {
+        if(surcharge && history.location.pathname === `/services/surcharge/${surcharge.id}`) {
             setSelectedDay({from: moment(surcharge.start_date, 'DD/MM/YYYY').toDate(),
                 to: moment(surcharge.expiration_date, 'DD/MM/YYYY').toDate()})
             setValue('from', surcharge.start_date)
@@ -91,12 +95,13 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
                 textColor={props.textColor}
                 textFont={props.textFont}
                 textTransform={props.textTransform}
-                disabled={!reservedDates}
+                disabled={disabled}
                 display_label={props.display_label}
                 max_width={props.max_width}
                 margin_bottom={props.margin_bottom}
                 input_height={props.input_height}
                 required_dates={required_dates}
+                watchResultArrForDates={watchResultArrForDates}
             />
             <Calendar
                 label='Expiration Date'
@@ -111,12 +116,14 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
                 textColor={props.textColor}
                 textFont={props.textFont}
                 textTransform={props.textTransform}
-                disabled={!reservedDates}
+                //disabled={!reservedDates}
+                disabled={disabled}
                 display_label={props.display_label}
                 max_width={props.max_width}
                 margin_bottom={props.margin_bottom}
                 input_height={props.input_height}
                 required_dates={required_dates}
+                watchResultArrForDates={watchResultArrForDates}
             />
         </SurchargesDatesFilter>
     )

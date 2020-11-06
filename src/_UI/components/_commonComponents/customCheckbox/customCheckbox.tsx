@@ -15,7 +15,8 @@ type PropsType = {
     setRole: VoidFunctionType,
     roleValue: string,
     success_user?: boolean,
-    worker?: IAddNewUserData
+    worker?: IAddNewUserData,
+    checked?: boolean
 }
 
 const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
@@ -55,7 +56,7 @@ const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
                       onChange={(e) => handleChange(e.currentTarget.value)}
                       type="checkbox"
                       disabled={props.disabled}
-                      checked={isCheck}
+                      checked={props.checked}
             />
             <CheckMark error={props.error} className='checkmark'/>
         </Check>
@@ -82,9 +83,9 @@ const Check = styled.label`
   
   .checkmark:after {
   left: 3.5px;
-  top: 0;
-  width: 3px;
-  height: 9px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
   border: solid #115B86;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);

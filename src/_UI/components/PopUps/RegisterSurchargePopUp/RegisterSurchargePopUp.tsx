@@ -97,6 +97,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
 
   useEffect(() => {
     if(existing_surcharge) {
+      debugger
       setIsOpen(false)
       dispatch(rateActions.setEmptyExistingSurcharge(''))
       dispatch(surchargeActions.setSurchargeInfo(null))

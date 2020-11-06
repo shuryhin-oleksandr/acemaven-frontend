@@ -20,7 +20,7 @@ import Search from "./Widgets/SearchWidget/Search";
 import {SearchBox} from "./dashboard-styles";
 
 const DashboardContainer:React.FC = () => {
-    const search_result = true
+    const search_result = false
 
     const dispatch = useDispatch()
 
@@ -62,7 +62,7 @@ const DashboardContainer:React.FC = () => {
                                                        editable_cargo_group={editable_cargo_group}
             />}
             <div style={{position:"relative", width:"100%", height:"calc(100vh - 60px)"}}>
-                <div style={{position:search_result?"relative":"absolute", zIndex:10, top:"30px", left:"30px"}}>
+                <div style={{position:search_result?"relative":"absolute", zIndex:6, top:"30px", left:"30px"}}>
                     <Search setOpenCalcPopup={setOpenCalcPopup}
                             shippingValue={shippingValue}
                             setShippingValue={setShippingValue}

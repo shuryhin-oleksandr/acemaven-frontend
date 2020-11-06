@@ -16,7 +16,7 @@ import {
   Port,
   PortsList,
 } from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
-import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {CurrentShippingType, ShippingTypesEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { getShippingTypesSelector } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import { getShippingTypes } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
@@ -33,17 +33,28 @@ import moment from "moment";
 import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
 import { getFrozenChoices } from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import {getFrozenChoicesSelector} from "../../../../../_BLL/selectors/search/searchClientSelector";
+import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
+import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
+import {CargoGroupType} from "../../../../../_BLL/types/search/search_types";
+import {searchActions} from "../../../../../_BLL/reducers/search_client/searchClientReducer";
+import { PackagingType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 type PropsType = {
   right?: string;
   bottom?: string;
+  setOpenCalcPopup: (value: boolean) => void,
+  shippingValue: number,
+  setShippingValue: (value: number) => void,
+  mode: CurrentShippingType,
+  setMode: (value: CurrentShippingType) => void,
+  cargo_groups: CargoGroupType[] | null,
+  packaging_types: PackagingType[] | null,
 };
 
-const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
+const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shippingValue, setShippingValue,
+                                       mode, setMode, cargo_groups, packaging_types, }, newParam = "") => {
   const dispatch = useDispatch();
-  const [mode, setMode] = useState("sea");
-  const [shippingValue, setShippingValue] = useState(0);
-  console.log("shippingValue", shippingValue);
+
   const [dates, setDates] = useState([]);
   useEffect(() => {
     dispatch(getShippingTypes(""));
@@ -55,6 +66,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
 
   useEffect(() => {
     reset();
+    dispatch(searchActions.clearCargoList([]))
   }, [mode]);
 
   const shippingTypes = useSelector(getShippingTypesSelector);
@@ -69,19 +81,9 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
       ? shippingTypes[0]?.shipping_modes
       : shippingTypes[1]?.shipping_modes;
 
-  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
-    ?.container_types;
+  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)?.container_types;
 
-  const {
-    handleSubmit,
-    register,
-    control,
-    reset,
-    errors,
-    getValues,
-    setValue,
-    watch,
-  } = useForm({
+  const { handleSubmit, register, control, reset, errors, getValues, setValue, watch,} = useForm({
     reValidateMode: "onBlur",
     defaultValues: {
       search_test: [
@@ -89,7 +91,7 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
           container_type: "",
           volume: "",
           is_frozen: "",
-          can_be_dangerous: true,
+          can_be_dangerous: false,
         },
       ],
     },
@@ -257,26 +259,29 @@ const Search: React.FC<PropsType> = ({ bottom, right }, newParam = "") => {
                 remove={remove}
                 frozen_choices={frozen_choices}
               />
-            ) : (
-              <div>Another type</div>
+            ) : (  cargo_groups && cargo_groups.length > 0 &&
+                    <OtherModesFieldArray cargo_groups={cargo_groups}
+                                          packaging_types={packaging_types}
+                    />
             )
           ) : null}
-          <ButtonGroup bottom={bottom} right={right}>
-            {watchFieldArray.length > 0 &&
-              !!watchFieldArray[0].container_type &&
-              !!watchFieldArray[0].volume && (
-                <BaseTooltip
-                  title={"Add more cargo groups by clicking on plus"}
-                >
-                  <AddImg
-                    onClick={() => append({ name: "search_test" })}
-                    src={AddIcon}
-                    alt="add"
-                  />
-                </BaseTooltip>
-              )}
+          <ButtonGroup bottom={bottom} right={right} justify_content={dates.length > 0 && watchResultArr.length === 3 && shippingValue !== 3 ? 'space-between' : 'flex-end'}>
+            {dates.length > 0 && watchResultArr.length === 3 && shippingValue !== 3 && <CalculateButton type='button' onClick={() => setOpenCalcPopup(true)}>Calculate w/m</CalculateButton>}
+            <div style={{display: 'flex'}}>
+            {watchFieldArray.length > 0
+            && !!watchFieldArray[0].container_type
+            && !!watchFieldArray[0].volume &&(
+              <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
+                <AddImg
+                  onClick={() => append({ name: "search_test" })}
+                  src={AddIcon}
+                  alt="add"
+                />
+              </BaseTooltip>
+            )}
 
             <BaseButton type="submit">Search</BaseButton>
+            </div>
           </ButtonGroup>
         </form>
       </Container>

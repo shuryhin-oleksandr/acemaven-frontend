@@ -16,7 +16,7 @@ type PropsType = {
   item: any;
   index: number;
   register: any;
-  frozen_choices: ChoiceType[] | null
+  frozen_choices: ChoiceType[] | null;
 };
 
 const FCLField: React.FC<PropsType> = ({
@@ -30,7 +30,9 @@ const FCLField: React.FC<PropsType> = ({
   frozen_choices,
 }) => {
   const [chosenContainer, setChosenContainer] = useState(0);
-  let finded = container_types.find((c) => c.id === chosenContainer);
+  let finded =
+    container_types?.length > 0 &&
+    container_types.find((c) => c.id === chosenContainer);
   const [isCheck, setIsCheck] = useState(false);
 
   return (
@@ -41,7 +43,6 @@ const FCLField: React.FC<PropsType> = ({
         borderBottom: "1px solid #E0E0E0",
         alignItems: "center",
       }}
-      key={item.id}
     >
       <Controller
         control={control}
@@ -61,6 +62,7 @@ const FCLField: React.FC<PropsType> = ({
         }
       />
       <Controller
+        defaultValue={item.volume}
         control={control}
         name={`search_test[${index}].volume`}
         rules={{
@@ -78,7 +80,7 @@ const FCLField: React.FC<PropsType> = ({
           </div>
         }
       />
-      {finded && finded.is_frozen ? (
+      {finded && finded?.is_frozen ? (
         <Controller
           control={control}
           name={`search_test[${index}].is_frozen`}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from "styled-components";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 
@@ -15,7 +15,6 @@ type PropsType = {
 }
 
 const GeneralCustomCheckbox:React.FC<PropsType> = ({...props}) => {
-
     let changeHandler = () => {
         !props.isCheck ? props.setIsCheck && props.setIsCheck(true) : props.setIsCheck && props.setIsCheck(false)
         console.log(props.isCheck)
@@ -29,7 +28,8 @@ const GeneralCustomCheckbox:React.FC<PropsType> = ({...props}) => {
                       ref={props.inputRef}
                       name={props.name}
                 // @ts-ignore
-                      value={props.value}
+                      defaultValue={props.value}
+                      checked={props.isCheck}
             />
             <CheckMark error={props.error} className='checkmark'/>
         </Check>
@@ -79,7 +79,9 @@ const InputBox = styled.input`
   }
   
   &:checked ~ .checkmark:after {
-   display: block;
+    display: block;
+    width: 5px;
+    height: 11px;
   }
   
    &:checked ~ .role {
@@ -94,7 +96,7 @@ const CheckMark = styled.span<PropsStyle>`
   top: 0;
   left: 0;
   height: 18.7px;
-  width: 18.7px;
+  width: 20px;
   background-color: ${({error}) => error ? '#ECECEC' : 'white'} ;
   border:${({error}) => error ? '1px solid red' : '2px solid gray'};
   &:after {

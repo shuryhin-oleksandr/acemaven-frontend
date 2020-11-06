@@ -27,12 +27,17 @@ export type ContainerType = {
     is_frozen?:boolean
     can_be_dangerous?:boolean
 }
-
+export type PackagingType = {
+    id: number,
+    code: string,
+    description: string
+}
 export type ShippingModeType = {
     id: number,
     title: string,
     additional_surcharges?: AdditionalSurchargeType[],
-    container_types?: ContainerType[]
+    container_types?: ContainerType[],
+    packaging_types?: PackagingType[]
 }
 
 export type ShippingTypeType = {

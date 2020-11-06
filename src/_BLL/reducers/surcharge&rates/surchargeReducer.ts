@@ -22,7 +22,8 @@ const initialState = {
     surchargeId: 0,
     surchargeDataForCheck: null as CheckSurchargeDatesType | null,
     bookedDates: null as Array<{start_date: string, expiration_date: string}> | null,
-    edit_surcharge_success: ''
+    edit_surcharge_success: '',
+    adding_success: false
 }
 
 type InitialStateType = typeof initialState
@@ -84,6 +85,12 @@ export const surchargeReducer = (state = initialState, action: commonSurchargeAc
                 ...state,
                 surcharge_info: action.info
             }
+        case "SET_ADDING_SURCHARGE_SUCCESS":
+            return {
+                ...state,
+                adding_success: action.value
+            }
+
         case "SET_EDIT_SURCHARGE_SUCCESS":
             return {
                 ...state,
@@ -110,6 +117,7 @@ export const surchargeActions = {
     setShippingType: (shipping_type: ShippingTypeType[]) => ({type: 'SET_SHIPPING_TYPE', shipping_type} as const),
     setCurrencyList: (list: CurrencyType[]) => ({type: 'SET_CURRENCY_LIST', list} as const),
     setNewSurcharge: (surcharge: SurchargeObjectType) => ({type: 'SET_NEW_SURCHARGE', surcharge} as const),
+    setAddingSurchargeSuccess: (value: boolean) => ({type: 'SET_ADDING_SURCHARGE_SUCCESS', value}  as const),
     setSurchargesList: (list: SurchargeObjectType[]) => ({type: 'SET_SURCHARGES_LIST', list} as const),
     setSurchargeInfo: (info: SurchargeInfoType | null) => ({type: 'SET_SURCHARGE_INFO', info} as const),
     setEditSurchargeSuccess: (success: string) => ({type: 'SET_EDIT_SURCHARGE_SUCCESS', success} as const),

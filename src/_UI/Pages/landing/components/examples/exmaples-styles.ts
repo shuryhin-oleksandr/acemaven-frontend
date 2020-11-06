@@ -8,5 +8,4 @@ background-repeat: round;
 width: 100%;
 height: 100%;
 min-height: 1209px;
-min-width: 100vw;
 `

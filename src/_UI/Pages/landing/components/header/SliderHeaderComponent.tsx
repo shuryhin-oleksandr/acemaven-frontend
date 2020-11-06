@@ -16,6 +16,7 @@ import RouteButton from "../../../../components/_commonComponents/buttons/route_
 
 type PropsType = {
     background_img: string,
+    background_size?: string,
     background_repeat?: string,
     openSignIn: (value: boolean) => void,
     openSignUp: (value: boolean) => void,
@@ -27,11 +28,11 @@ type PropsType = {
     title_text: string[]
 }
 
-const SliderHeaderComponent:React.FC<PropsType> = ({background_img, background_repeat, openSignIn, openSignUp,subtitle_max_width,
+const SliderHeaderComponent:React.FC<PropsType> = ({background_img,background_size, background_repeat, openSignIn, openSignUp,subtitle_max_width,
                                                        button_background, login_color, borderColor, title_text, subtitle_text}) => {
 
     return (
-        <Outer background_img={background_img} background_repeat={background_repeat}>
+        <Outer background_img={background_img} background_repeat={background_repeat} background_size={background_size}>
             <UpperPart>
                 <LogoWrap><img src={landing_logo} alt=""/></LogoWrap>
                 <ActionsWrapper>

@@ -43,14 +43,14 @@ const DashboardPage: React.FC<PropsType> = ({setOpenCalcPopup, shippingValue, se
         <>
           <SearchBox>
             {/*<SearchWidget right="162px" />*/}
-            <Search setOpenCalcPopup={setOpenCalcPopup}
-                    shippingValue={shippingValue}
-                    setShippingValue={setShippingValue}
-                    mode={mode}
-                    setMode={setMode}
-                    cargo_groups={cargo_groups}
-                    packaging_types={packaging_types}
-            />
+            {/*<Search setOpenCalcPopup={setOpenCalcPopup}*/}
+            {/*        shippingValue={shippingValue}*/}
+            {/*        setShippingValue={setShippingValue}*/}
+            {/*        mode={mode}*/}
+            {/*        setMode={setMode}*/}
+            {/*        cargo_groups={cargo_groups}*/}
+            {/*        packaging_types={packaging_types}*/}
+            {/*/>*/}
           </SearchBox>
           <MultiWidgetBox>
             <FeePaymentWidget />

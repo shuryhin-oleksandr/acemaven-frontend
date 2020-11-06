@@ -17,6 +17,8 @@ type PropsType = {
   index: number;
   register: any;
   frozen_choices: ChoiceType[] | null;
+  errors: any;
+  disabled?: any;
 };
 
 const FCLField: React.FC<PropsType> = ({
@@ -28,6 +30,8 @@ const FCLField: React.FC<PropsType> = ({
   remove,
   register,
   frozen_choices,
+  errors,
+  disabled,
 }) => {
   const [chosenContainer, setChosenContainer] = useState(0);
   let finded =
@@ -53,11 +57,13 @@ const FCLField: React.FC<PropsType> = ({
         }}
         as={
           <SurchargeRateSelect
+            error={errors?.shipping_mode?.message}
             options={container_types}
             maxW="140px"
             marginRight="16px"
             background="#ECECEC"
             callback={setChosenContainer}
+            disabled={disabled}
           />
         }
       />
@@ -76,7 +82,7 @@ const FCLField: React.FC<PropsType> = ({
               display: "flex",
             }}
           >
-            <FormField background="#ECECEC" marginBottom="5px" type="number" />
+            <FormField background="#ECECEC" marginBottom="5px" type="number" disabled={disabled} />
           </div>
         }
       />
@@ -90,6 +96,7 @@ const FCLField: React.FC<PropsType> = ({
               background="#ECECEC"
               maxW="123px"
               options={frozen_choices}
+              disabled={disabled}
             />
           }
         />
@@ -100,9 +107,10 @@ const FCLField: React.FC<PropsType> = ({
           name={`search_test[${index}].can_be_dangerous`}
           inputref={register}
           labelText="DANGEROUS"
+          disabled={disabled}
         />
       )}
-      {fields.length > 1 && (
+      {fields.length > 1 && !disabled && (
         <RemoveImg
           src={RemoveIcon}
           alt="remove"

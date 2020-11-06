@@ -7,7 +7,8 @@ type PropsStyle = {
   focusBack?: string;
   height?: string;
   marginBottom?: string;
-  background?:string
+  background?: string;
+  messagePaddingTop?: string;
 };
 
 export const InputOuter = styled.div<PropsStyle>`
@@ -34,7 +35,6 @@ export const Field = styled.input<PropsStyle>`
   outline: none;
   background: ${({ error, background }) =>
     background ? background : error ? "#ECECEC" : "white"};
-  
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -66,10 +66,10 @@ export const Label = styled.div<PropsStyle>`
   color: black;
   margin-bottom: 9px;
   opacity: 1;
- 
 `;
-export const HelperText = styled.div`
-  padding-top: 9px;
+export const HelperText = styled.div<PropsStyle>`
+  padding-top: ${({ messagePaddingTop }) =>
+    messagePaddingTop ? messagePaddingTop : "9px"};
   color: #e76767;
   font-family: "Helvetica Reg", sans-serif;
   width: 100%;

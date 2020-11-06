@@ -21,7 +21,8 @@ type IProps = {
   background?: string;
   name?: string;
   register?: any;
-  marginRight?: string
+  marginRight?: string;
+  disabled?:boolean
 };
 
 const useStyles = makeStyles(() => ({
@@ -129,6 +130,7 @@ const SurchargeRateSelect: React.FC<IProps> = ({
           }}
           variant="outlined"
           error={!!error}
+          disabled={props.disabled}
         >
           <MenuItem value="" disabled>
             {props.placeholder}

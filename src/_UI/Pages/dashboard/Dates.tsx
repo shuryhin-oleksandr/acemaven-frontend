@@ -6,9 +6,16 @@ import moment from "moment";
 type PropsType = {
   setDates: any;
   extraDateNumber: number;
+  dates: any;
+  disabled?: any;
 };
 
-const Dates: React.FC<PropsType> = ({ setDates, extraDateNumber }) => {
+const Dates: React.FC<PropsType> = ({
+  setDates,
+  extraDateNumber,
+  dates,
+  disabled,
+}) => {
   const { combine, before, after } = DateRangePicker;
   const tillTheEnd =
     moment().endOf("week").diff(moment(), "days") + extraDateNumber;
@@ -17,6 +24,7 @@ const Dates: React.FC<PropsType> = ({ setDates, extraDateNumber }) => {
 
   return (
     <DateRangePicker
+      disabled={disabled}
       appearance="default"
       isoWeek={true}
       showOneCalendar={true}
@@ -30,6 +38,8 @@ const Dates: React.FC<PropsType> = ({ setDates, extraDateNumber }) => {
         setDates(date);
       }}
       disabledDate={combine(before(disabledDate), after(maxDate))}
+      value={dates}
+      onClean={() => setDates([])}
     />
   );
 };

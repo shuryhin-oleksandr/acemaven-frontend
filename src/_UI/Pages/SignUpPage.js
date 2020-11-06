@@ -22,7 +22,7 @@ const AgentValidationSchema = Yup.object().shape({
   phone: Yup.string()
     .matches(phoneRegex, "Phone number is not valid")
     .required("Please, enter your phone number"),
-  employees_number: Yup.number().required(
+  employees_number: Yup.number().min(1, "Employees number must be more then 0").max(1000000, "Employees number must be no more than 1000000").required(
     "Please, enter your employees number"
   ),
   website: Yup.string().required("Please, enter your website"),

@@ -67,6 +67,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
         setNewSurchargeMode(false)
         //sessionStorage.removeItem('port_id')
         dispatch(surchargeActions.setLocationId(0))
+        dispatch(surchargeActions.setAddingSurchargeSuccess(false))
     }, [dispatch])
 
     //Посимвольно поиск по портам

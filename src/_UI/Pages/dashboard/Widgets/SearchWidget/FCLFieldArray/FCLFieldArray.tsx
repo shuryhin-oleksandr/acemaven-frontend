@@ -9,6 +9,7 @@ type PropsType = {
   remove: any;
   register: any;
   frozen_choices: ChoiceType[] | null;
+  errors: any;
 };
 
 const FCLFieldArray: React.FC<PropsType> = ({
@@ -18,6 +19,7 @@ const FCLFieldArray: React.FC<PropsType> = ({
   remove,
   register,
   frozen_choices,
+  errors,
 }) => {
   return fields.map((item: any, index: number) => {
     return (
@@ -31,6 +33,7 @@ const FCLFieldArray: React.FC<PropsType> = ({
         item={item}
         index={index}
         frozen_choices={frozen_choices}
+        errors={errors}
       />
     );
   });

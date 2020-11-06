@@ -71,6 +71,7 @@ const Search: React.FC<PropsType> = (
   const dispatch = useDispatch();
 
   const [dates, setDates] = useState([]);
+
   useEffect(() => {
     dispatch(getShippingTypes(""));
   }, []);
@@ -82,14 +83,13 @@ const Search: React.FC<PropsType> = (
   useEffect(() => {
     reset();
     dispatch(searchActions.clearCargoList([]));
+    setDates([]);
   }, [mode]);
 
   const shippingTypes = useSelector(getShippingTypesSelector);
   const origin_ports = useSelector(getOriginPorts);
   const destination_ports = useSelector(getDestinationPorts);
   const frozen_choices = useSelector(getFrozenChoicesSelector);
-
-  console.log(frozen_choices);
 
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
@@ -113,7 +113,7 @@ const Search: React.FC<PropsType> = (
     defaultValues: {
       shipping_mode: "",
       origin: "",
-      destination:"",
+      destination: "",
       search_test: [
         {
           container_type: "",
@@ -154,8 +154,8 @@ const Search: React.FC<PropsType> = (
   const onSubmit = (values: any) => {
     debugger;
     const finalData = values;
-    finalData.from = moment(dates[0]).format("DD/MM/YYYY");
-    finalData.to = moment(dates[1]).format("DD/MM/YYYY");
+    finalData.date_from = moment(dates[0]).format("DD/MM/YYYY");
+    finalData.date_to = moment(dates[1]).format("DD/MM/YYYY");
     finalData.destination = Number(sessionStorage.getItem("destination_id"));
     finalData.origin = Number(sessionStorage.getItem("origin_id"));
     console.log("finalData", finalData);
@@ -274,6 +274,7 @@ const Search: React.FC<PropsType> = (
             <Dates
               setDates={setDates}
               extraDateNumber={mode === "sea" ? 9 : 2}
+              dates={dates}
             />
           </div>
 
@@ -286,6 +287,7 @@ const Search: React.FC<PropsType> = (
                 container_types={container_types}
                 remove={remove}
                 frozen_choices={frozen_choices}
+                errors={errors}
               />
             ) : (
               cargo_groups &&

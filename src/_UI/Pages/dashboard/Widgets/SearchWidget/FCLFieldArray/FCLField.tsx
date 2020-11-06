@@ -17,6 +17,7 @@ type PropsType = {
   index: number;
   register: any;
   frozen_choices: ChoiceType[] | null;
+  errors: any;
 };
 
 const FCLField: React.FC<PropsType> = ({
@@ -28,6 +29,7 @@ const FCLField: React.FC<PropsType> = ({
   remove,
   register,
   frozen_choices,
+  errors,
 }) => {
   const [chosenContainer, setChosenContainer] = useState(0);
   let finded =
@@ -53,6 +55,7 @@ const FCLField: React.FC<PropsType> = ({
         }}
         as={
           <SurchargeRateSelect
+            error={errors?.shipping_mode?.message}
             options={container_types}
             maxW="140px"
             marginRight="16px"

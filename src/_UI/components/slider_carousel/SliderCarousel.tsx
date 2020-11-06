@@ -32,6 +32,7 @@ const SliderCarousel:React.FC<PropsType> = ({openSignUp, openSignIn}) => {
                static // default false
            >
                <SliderHeaderComponent background_img={lan1}
+                                      background_size='cover'
                                       openSignIn={openSignIn}
                                       openSignUp={openSignUp}
                                       title_text={['AIR', 'AND SEA', 'SHIPMENTS']}
@@ -39,6 +40,7 @@ const SliderCarousel:React.FC<PropsType> = ({openSignUp, openSignIn}) => {
                />
                <SliderHeaderComponent background_img={lan2}
                                       background_repeat='no-repeat'
+                                      background_size='cover'
                                       openSignIn={openSignIn}
                                       openSignUp={openSignUp}
                                       title_text={['SEARCH', 'FOR THE', 'BEST RATES']}
@@ -46,6 +48,7 @@ const SliderCarousel:React.FC<PropsType> = ({openSignUp, openSignIn}) => {
                />
                <SliderHeaderComponent background_img={lan3}
                                       background_repeat='no-repeat'
+                                      background_size='cover'
                                       openSignIn={openSignIn}
                                       openSignUp={openSignUp}
                                       button_background='#115b86'

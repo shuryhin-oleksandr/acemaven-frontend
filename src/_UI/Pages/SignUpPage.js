@@ -12,6 +12,7 @@ import { companySignUp } from "../../_BLL/reducers/authReducer";
 
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
 const taxIdRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
+const zipCodeRegex = /^[a-zA-Z0-9](.){3,10}[a-zA-Z0-9]$/
 
 const AgentValidationSchema = Yup.object().shape({
   name: Yup.string().required("Please, enter your company name"),
@@ -22,16 +23,18 @@ const AgentValidationSchema = Yup.object().shape({
     .matches(phoneRegex, "Phone number is not valid")
     .required("Please, enter your phone number"),
   employees_number: Yup.number().required(
-    "Please, enter your employees_number"
+    "Please, enter your employees number"
   ),
-  website: Yup.string().required("Please, enter your Website"),
+  website: Yup.string().required("Please, enter your website"),
   address_line_first: Yup.string().required("Please, enter your address"),
   state: Yup.string().required("Please, enter your state"),
   city: Yup.string().required("Please, enter your city"),
-  zip_code: Yup.string().required("Please, enter your Zip Code"),
+  zip_code: Yup.string()
+      .matches(zipCodeRegex, "Zip code has invalid format.")
+      .required("Please, enter your zip code"),
   tax_id: Yup.string()
     .matches(taxIdRegex, "Tax id number must be in format 00.000.000/0000-00")
-    .required("Please, enter your Tax id Number"),
+    .required("Please, enter your tax id number"),
   first_name: Yup.string().required("Please, enter your name"),
   last_name: Yup.string().required("Please, enter your last name"),
   master_phone: Yup.string()
@@ -54,10 +57,12 @@ const ClientValidationSchema = Yup.object().shape({
   address_line_first: Yup.string().required("Please, enter your address"),
   state: Yup.string().required("Please, enter your state"),
   city: Yup.string().required("Please, enter your city"),
-  zip_code: Yup.string().required("Please, enter your Zip Code"),
+  zip_code: Yup.string()
+      .matches(zipCodeRegex, "Zip code has invalid format.")
+      .required("Please, enter your zip code"),
   tax_id: Yup.string()
     .matches(taxIdRegex, "Tax id number must be in format 00.000.000/0000-00")
-    .required("Please, enter your Tax id Number"),
+    .required("Please, enter your tax id number"),
   first_name: Yup.string().required("Please, enter your name"),
   last_name: Yup.string().required("Please, enter your last name"),
   master_phone: Yup.string()

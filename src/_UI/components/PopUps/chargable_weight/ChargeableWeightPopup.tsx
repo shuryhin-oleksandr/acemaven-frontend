@@ -57,17 +57,25 @@ type PropsType = {
     container_types: ContainerType[] | null,
     shippingValue: number,
     getCalculation: (data: CargoGroupType) => void,
-    current_shipping_type: CurrentShippingType
+    current_shipping_type: CurrentShippingType,
+    editable_cargo_group: CargoGroupType | null
 }
 
-const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_success, packaging_types, container_types,getCalculation, shippingValue,  current_shipping_type}) => {
-    const {control, errors, setValue, getValues, handleSubmit, register, reset,} = useForm({
+const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_success, packaging_types, container_types,getCalculation,
+                                                        shippingValue,  current_shipping_type, editable_cargo_group}) => {
+
+    const {control, errors, setValue, handleSubmit, register, reset,} = useForm({
         reValidateMode: "onBlur"
     })
 
     const dispatch = useDispatch()
     const onSubmit = (values: CargoGroupType) => {
-        getCalculation({...values, shipping_type: current_shipping_type})
+        if(!editable_cargo_group) {
+            getCalculation({...values, shipping_type: current_shipping_type})
+        } else {
+            getCalculation({...values, shipping_type: current_shipping_type, id: editable_cargo_group.id})
+        }
+
     }
 
     const [isCheck, setIsCheck] = useState(false)
@@ -82,18 +90,36 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
 
     const classes = useStyles()
 
+    //set data to popup if user is editing some cargo group
+    useEffect(() => {
+        if(editable_cargo_group) {
+            Object.keys(editable_cargo_group).forEach((key: string) => {
+                setValue(key, editable_cargo_group[key])
+            })
+            setSelectedValueWeight(editable_cargo_group.weight_measurement)
+            setSelectedValueLength(editable_cargo_group.length_measurement)
+        }
+    }, [editable_cargo_group, setValue])
+
+    //close popup and clear store data
     useEffect(() => {
         if(calc_success) {
             setOpenCalcPopup(false)
             dispatch(searchActions.setSuccessCalculate(false))
+            dispatch(searchActions.setEditableCargoGroupToNull(null))
             reset()
         }
     }, [calc_success])
 
+    const closeHandler = () => {
+        setOpenCalcPopup(false)
+        dispatch(searchActions.setEditableCargoGroupToNull(null))
+    }
+
     return (
         <ChargeableWeightOuter onSubmit={handleSubmit(onSubmit)}>
             <ChargeableWeightInner>
-                <IconButton onClick={() => setOpenCalcPopup(false)}
+                <IconButton onClick={() => closeHandler()}
                     style={{top: '20px', right: '20px', width: '10.5px', height: '10.5px', position: 'absolute'}}>
                     <img src={close_icon} alt=""/>
                 </IconButton>
@@ -159,7 +185,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                         />
                                         <Controller name='weight'
                                                     control={control}
-                                                    defaultValue=''
+                                                    defaultValue={''}
                                                     rules={{
                                                         required: 'Field is required'
                                                     }}
@@ -171,6 +197,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                                                        maxW='90px'
                                                                        placeholder={selectedValueWeight === 'kg' ? '0, kg' : '0, t'}
                                                                        type='number'
+                                                                       defaultValue={editable_cargo_group ? editable_cargo_group.weight : ''}
                                                             />
                                                         </WeightWrapper>
 
@@ -224,6 +251,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                                                     maxW='90px'
                                                                     placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
                                                                     type='number'
+                                                                    defaultValue={editable_cargo_group ? editable_cargo_group.height : ''}
                                                         />
                                                     </WeightWrapper>
                                                 }
@@ -242,6 +270,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                                                 maxW='90px'
                                                                 placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
                                                                 type='number'
+                                                                defaultValue={editable_cargo_group ? editable_cargo_group.length : ''}
                                                         />
                                                     </WeightWrapper>
 
@@ -261,6 +290,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                                                 maxW='90px'
                                                                 placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
                                                                 type='number'
+                                                                defaultValue={editable_cargo_group ? editable_cargo_group.width : ''}
                                                         />
                                                     </WeightWrapper>
 
@@ -324,7 +354,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                 </NewPackageWrapper>
                 <ActionsWrapper>
                     <ConfirmButton type='submit'>CONFIRM</ConfirmButton>
-                    <CancelButton onClick={() => setOpenCalcPopup(false)} type='button'>CANCEL</CancelButton>
+                    <CancelButton onClick={() => closeHandler()} type='button'>CANCEL</CancelButton>
                 </ActionsWrapper>
             </ChargeableWeightInner>
         </ChargeableWeightOuter>

@@ -132,8 +132,8 @@ const SurchargeRateSelect: React.FC<IProps> = ({
           error={!!error}
           disabled={props.disabled}
         >
-          <MenuItem value="" onClick={() => callback("")}>
-            <em>{label}</em>
+          <MenuItem value="" disabled>
+            {props.placeholder}
           </MenuItem>
           {props.options?.map((o: any) =>
             o.tooltip ? (

@@ -23,7 +23,8 @@ const initialState = {
     surchargeDataForCheck: null as CheckSurchargeDatesType | null,
     bookedDates: null as Array<{start_date: string, expiration_date: string}> | null,
     edit_surcharge_success: '',
-    adding_success: false
+    adding_success: false,
+    location_id: 0
 }
 
 type InitialStateType = typeof initialState
@@ -59,6 +60,11 @@ export const surchargeReducer = (state = initialState, action: commonSurchargeAc
             return {
                 ...state,
                 ports: action.ports
+            }
+        case "SET_LOCATION_ID":
+            return {
+                ...state,
+                location_id: action.location_id
             }
         case "SET_SHIPPING_TYPE":
             return {
@@ -113,6 +119,7 @@ export const surchargeActions = {
     setSeaCarriersList: (sea_carriers: CarrierType[]) => ({type: 'SET_SEA_CARRIERS_LIST', sea_carriers} as const),
     setAirCarriersList: (air_carriers: CarrierType[]) => ({type: 'SET_AIR_CARRIERS_LIST', air_carriers} as const),
     setPortsList: (ports: PortType[]) => ({type: 'SET_PORTS_LIST', ports} as const),
+    setLocationId: (location_id: number) => ({type: 'SET_LOCATION_ID', location_id} as const),
     setShippingModeList: (shipping_modes: ShippingModeType[]) => ({type: 'SET_SHIPPING_MODES', shipping_modes} as const),
     setShippingType: (shipping_type: ShippingTypeType[]) => ({type: 'SET_SHIPPING_TYPE', shipping_type} as const),
     setCurrencyList: (list: CurrencyType[]) => ({type: 'SET_CURRENCY_LIST', list} as const),

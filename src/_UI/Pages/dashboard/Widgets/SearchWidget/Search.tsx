@@ -55,6 +55,19 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
                                        mode, setMode, cargo_groups, packaging_types, }, newParam = "") => {
   const dispatch = useDispatch();
 
+  //delete cargo groups from cargo list after calculation
+  const deleteCargoGroup = (id: number) => {
+    dispatch(searchActions.deleteCargoGroup(id))
+  }
+  //set editable cargo group to state
+  const setEditableCargoGroupToState = (id: number) => {
+    dispatch(searchActions.setEditableCargoGroup(id))
+  }
+  //edit chosen one
+  const editCargoGroup = (edit_data: CargoGroupType) => {
+    dispatch(searchActions.editChosenCargoGroup(edit_data))
+  }
+
   const [dates, setDates] = useState([]);
   useEffect(() => {
     dispatch(getShippingTypes(""));
@@ -74,7 +87,6 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
   const destination_ports = useSelector(getDestinationPorts);
   const frozen_choices = useSelector(getFrozenChoicesSelector);
 
-  console.log(frozen_choices);
 
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
@@ -135,7 +147,7 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
 
   return (
     <RelativeWrapper>
-      <Container scroll={watchFieldArray.length > 3 ? true : false}>
+      <Container scroll={watchFieldArray.length > 3}>
         <Heading>Search Rates</Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
@@ -259,9 +271,13 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
                 remove={remove}
                 frozen_choices={frozen_choices}
               />
-            ) : (  cargo_groups && cargo_groups.length > 0 &&
+            ) : ( cargo_groups && cargo_groups.length > 0 &&
                     <OtherModesFieldArray cargo_groups={cargo_groups}
                                           packaging_types={packaging_types}
+                                          deleteCargoGroup={deleteCargoGroup}
+                                          setEditableCargoGroupToState={setEditableCargoGroupToState}
+                                          editCargoGroup={editCargoGroup}
+                                          setOpenCalcPopup={setOpenCalcPopup}
                     />
             )
           ) : null}

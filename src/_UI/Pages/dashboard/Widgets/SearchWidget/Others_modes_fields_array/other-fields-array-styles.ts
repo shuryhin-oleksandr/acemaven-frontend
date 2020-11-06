@@ -8,6 +8,10 @@ export const OneFieldContent = styled.div`
   display: flex;
   align-items: flex-start;
   padding: 12px 0;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `
 export const TotalPart = styled.div`
   width: 130px;
@@ -27,6 +31,7 @@ export const TotalDescriptions = styled.div`
   font-size: 14px;
   color: black;
   padding-top: 5px;
+  margin-right: 15px;
 `
 export const CalculateButton = styled.button`
   height: 30px;

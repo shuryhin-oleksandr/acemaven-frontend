@@ -130,8 +130,8 @@ const SurchargeRateSelect: React.FC<IProps> = ({
           variant="outlined"
           error={!!error}
         >
-          <MenuItem value="" onClick={() => callback("")}>
-            <em>{label}</em>
+          <MenuItem value="" disabled>
+            {props.placeholder}
           </MenuItem>
           {props.options?.map((o: any) =>
             o.tooltip ? (

@@ -34,7 +34,7 @@ const DashboardPage: React.FC<PropsType> = ({setOpenCalcPopup, shippingValue, se
     <DashboardWrapper>
       <MapComponent
         isMarkerShown
-        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfyjgjCgBPurRc7zaVTJNXPOAMRtbQWmo&v=3.exp&libraries=geometry,drawing,places"
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<MapWrapper />}
         mapElement={<div style={{ height: `100%` }} />}

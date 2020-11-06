@@ -8,12 +8,17 @@ width: 100%;
 min-height: 100vh;
 height: 100%;
 position: relative;
+@media (max-width: 1400px){
+  min-height: calc(100vh - 15px);
+}
 `
 
 export const Content = styled.div`
 display: flex;
 flex:1;
 width: 100%;
-height: 100%;
-min-height: 100vh;
+height: calc(100vh - 60px);
+@media (max-width: 1400px){
+  height: calc(100vh - 75px);
+}
 `

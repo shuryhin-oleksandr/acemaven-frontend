@@ -2,7 +2,8 @@ import {CargoGroupType, FrozenChoiceType,ChoiceType } from "../../types/search/s
 
 
 const initialState = {
-    cargo_groups: [] as CargoGroupType[] | null,
+    cargo_groups: [] as CargoGroupType[],
+    edit_mode: false,
     cargo_for_edit: null as CargoGroupType | null,
     success_server_calc: false,
     search_result: null as any | null,
@@ -28,11 +29,29 @@ export const searchClientReducer = (state = initialState, action: commonSearchAc
                ...state,
                cargo_groups: state.cargo_groups && state.cargo_groups.filter(c => c.id !== action.id)
            }
-       case "EDIT_CARGO_GROUP":
+       case "SET_EDIT":
+           return {
+               ...state,
+               edit_mode: action.edit_mode
+           }
+       case "SET_EDITABLE_CARGO_GROUP":
            return {
                ...state,
                //@ts-ignore
                cargo_for_edit: state.cargo_groups?.find(c => c.id === action.id)
+           }
+       case "EDIT_CHOSEN_CARGO_GROUP":
+           return {
+               ...state,
+               //@ts-ignore
+               cargo_groups: state.cargo_groups.map(c => {
+                   return c.id === action.edit_data.id ? action.edit_data : c
+               })
+           }
+       case "SET_EDITABLE_CARGO_TO_NULL":
+           return {
+               ...state,
+               cargo_for_edit: action.value
            }
        case "SET_SUCCESS_CALCULATE":
            return {
@@ -63,7 +82,10 @@ export const searchActions = {
     setCargoGroupData: (cargo_data: CargoGroupType ) => ({ type: "SET_CARGO_GROUP_DATA", cargo_data } as const),
     setSuccessCalculate: (value: boolean) => ({type:'SET_SUCCESS_CALCULATE', value} as const),
     deleteCargoGroup: (id: number) => ({type: 'DELETE_CARGO_GROUP', id} as const),
-    editCargoGroup: (id: number) => ({type: 'EDIT_CARGO_GROUP', id} as const),
+    setEdit: (edit_mode: boolean) => ({type: 'SET_EDIT', edit_mode} as const),
+    setEditableCargoGroup: (id: number) => ({type: 'SET_EDITABLE_CARGO_GROUP', id} as const),
+    editChosenCargoGroup: (edit_data: CargoGroupType) => ({type: 'EDIT_CHOSEN_CARGO_GROUP', edit_data} as const),
+    setEditableCargoGroupToNull: (value: any) => ({type: 'SET_EDITABLE_CARGO_TO_NULL', value} as const),
     setSearchResult: (result: any) => ({type: 'SET_SEARCH_RESULT', result} as const),
     setFrozenChoices:(choices:FrozenChoiceType)=>({type:"SET_FROZEN_CHOICES", choices} as const)
 };

@@ -160,7 +160,7 @@ export const rateActions = {
     ({ type: "SET_EXISTING_SURCHARGE_BY_RATE", surcharge } as const),
   setEmptyExistingSurcharge: (empty: string) =>
     ({ type: "SET_EMPTY_EXISTING_SURCHARGE", empty } as const),
-  setOriginPortValue: (port_value: PortType) =>
+  setOriginPortValue: (port_value: PortType | null) =>
     ({ type: "SET_ORIGIN_PORT_VALUE", port_value } as const),
   setDestinationPortValue: (port_value: PortType) =>
     ({ type: "SET_DESTINATION_PORT_VALUE", port_value } as const),

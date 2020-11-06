@@ -65,7 +65,11 @@ export const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-const CompanySettingsPage:React.FC = () => {
+type PropsType = {
+    company_type: string
+}
+
+const CompanySettingsPage:React.FC<PropsType> = ({company_type}) => {
     const classes = useStyles();
     const [value, setValue] = React.useState('1');
 
@@ -85,7 +89,7 @@ const CompanySettingsPage:React.FC = () => {
                                 <Tab className={classes.tabButton} label="Bank Accounts" value="2" />
                             </TabList>
                         </AppBar>
-                        <TabPanel value="1"><CompanyInfoContainer /></TabPanel>
+                        <TabPanel value="1"><CompanyInfoContainer company_type={company_type}/></TabPanel>
                         <TabPanel value="2"><BankAccountsContainer /></TabPanel>
                     </TabContext>
                 </div>

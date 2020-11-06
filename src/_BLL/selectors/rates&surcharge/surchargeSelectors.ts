@@ -7,7 +7,6 @@ export const getBookedDates = (state: AppStateType) => {
             to: new Date(d.expiration_date)
         })
     )
-
     return bookedDates ? [...bookedDates, {before: new Date()}] : [{before: new Date()}]
 }
 
@@ -21,3 +20,4 @@ export const getPortsSelector = (state: AppStateType) => state.surcharge.ports
 export const getCurrencyListSelector = (state: AppStateType) => state.surcharge.currency_list
 export const getShippingModesSelector = (state: AppStateType) => state.surcharge.shipping_modes
 export const getEditSurchargeSelector = (state: AppStateType) => state.surcharge.edit_surcharge_success
+export const getLocationId = (state: AppStateType) => state.surcharge.location_id

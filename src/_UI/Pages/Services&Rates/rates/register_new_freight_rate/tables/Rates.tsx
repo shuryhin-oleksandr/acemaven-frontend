@@ -183,6 +183,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                                 as={
                                                     <SurchargeRateSelect options={currency}
                                                                          maxW='70px'
+                                                                         placeholder='Currency'
                                                     />
                                                 }
                                     />
@@ -237,6 +238,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                 <TableCell className={classes.innerCell} align="left">
                                     <Controller control={control}
                                                 name={`rates.rate`}
+                                                rules={{required: true}}
                                                 defaultValue={0}
                                                 render={({}) => (
                                                     <div style={{position: 'relative'}}>

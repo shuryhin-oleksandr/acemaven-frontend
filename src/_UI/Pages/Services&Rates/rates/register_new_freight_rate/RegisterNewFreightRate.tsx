@@ -54,6 +54,9 @@ type PropsType = {
   rate_data_for_surcharge: RateForSurchargeType | null
   registration_success: string
   rate_info: RateInfoType | null,
+  watchResultArr: number[],
+  origin_port_value: PortType | null,
+  destination_port_value: PortType | null
   //booked_dates: Array<{from: Date, to: Date}>
 };
 
@@ -61,12 +64,13 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
   getValues, setValue, closeRateRegistration, setMode,
   mode, carrierOptions, shippingModeOptions, shippingValue,
   setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
-  onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, usageFees,
-  setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge, registration_success, rate_info
+  onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, usageFees, origin_port_value, destination_port_value,
+  setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge, registration_success, rate_info, watchResultArr
 }) => {
 
   const dispatch = useDispatch();
   const onSubmit = (values: any) => {
+    debugger
     let rates_array;
     if (values.rates.length > 1) {
       let full_rates = values.rates.filter((r: any) => r !== null);
@@ -80,8 +84,8 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
         carrier: values.carrier,
         shipping_mode: values.shipping_mode,
         transit_time: Number(values.transit_time),
-        origin: Number(sessionStorage.getItem("origin_id")),
-        destination: Number(sessionStorage.getItem("destination_id")),
+        origin: Number(origin_port_value?.id),
+        destination: Number(destination_port_value?.id),
         rates: rates_array,
       };
       dispatch(registerNewFreightRateThunk(data));
@@ -90,8 +94,8 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
         carrier: values.carrier,
         shipping_mode: values.shipping_mode,
         transit_time: Number(values.transit_time),
-        origin: Number(sessionStorage.getItem("origin_id")),
-        destination: Number(sessionStorage.getItem("destination_id")),
+        origin: Number(origin_port_value?.id),
+        destination: Number(destination_port_value?.id),
         rates: [
           {
             currency: values.rates.currency,
@@ -110,6 +114,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
       closeRateRegistration()
       dispatch(rateActions.setRegistrationSuccess(''))
       dispatch(rateActions.setExistingSurchargeByRate(null))
+      dispatch(rateActions.setOriginPortValue(null))
     }
   }, [registration_success]);
 
@@ -148,8 +153,9 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
                              getBookedRatesDates={getBookedRatesDates}
                               rate_info={rate_info}
                              setValue={setValue}
+                             watchResultArr={watchResultArr}
             />
-            {!!shippingValue
+            {watchResultArr.length === 4
                 ? <>
                     <Rates control={control}
                            errors={errors}

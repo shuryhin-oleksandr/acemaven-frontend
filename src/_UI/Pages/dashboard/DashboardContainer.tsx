@@ -9,7 +9,7 @@ import {
     getShippingTypesSelector
 } from "../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
-    getCargoGroupsListSelector,
+    getCargoGroupsListSelector, getEditableCargoSelector,
     getWmCalculationSuccessSelector
 } from "../../../_BLL/selectors/search/searchClientSelector";
 import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
@@ -38,6 +38,7 @@ const DashboardContainer:React.FC = () => {
     const usageFees = shipping_modes_options?.find(m => m.id === shippingValue)?.container_types || []
     const packaging_types = shipping_modes_options?.find(m => m.id === shippingValue)?.packaging_types || []
     const cargo_groups = useSelector(getCargoGroupsListSelector)
+    const editable_cargo_group = useSelector(getEditableCargoSelector)
 
     let setMode = (value: CurrentShippingType) => {
         dispatch(surchargeActions.setCurrentShippingType(value))
@@ -57,6 +58,7 @@ const DashboardContainer:React.FC = () => {
                                                        shippingValue={shippingValue}
                                                        getCalculation={getCalculation}
                                                        current_shipping_type={current_shipping_type}
+                                                       editable_cargo_group={editable_cargo_group}
             />}
             {search_result
                 ? <SearchContainer />

@@ -19,11 +19,13 @@ type PropsType = {
   searchColumn: string;
   searchValue: string;
   setShippingValue?: (shippingModeId: number) => void;
+  disabled?:boolean;
 };
 
 const OptionsDeliveryButtons: React.FC<PropsType> = ({
   setMode,
   mode,
+                                                       disabled,
   ...props
 }) => {
   let dispatchDeliveryHandler = (type: string) => {
@@ -44,11 +46,11 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
 
   return (
     <OptionsButtonsWrap>
-      <OptionButton onClick={() => dispatchDeliveryHandler("sea")} mode={mode}>
+      <OptionButton onClick={() => {!disabled && dispatchDeliveryHandler("sea")}} mode={mode}>
         <img src={mode === "sea" ? shipActive : ship} alt="" />
       </OptionButton>
       <OptionButtonPlane
-        onClick={() => dispatchDeliveryHandler("air")}
+        onClick={() => {!disabled && dispatchDeliveryHandler("air")}}
         mode={mode}
       >
         <img src={mode === "air" ? planeActive : plane} alt="" />

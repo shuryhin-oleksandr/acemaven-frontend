@@ -16,10 +16,11 @@ import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&
 import {surchargeActions} from "../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {getWMCalculationThunk} from "../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import {CargoGroupType} from "../../../_BLL/types/search/search_types";
-
+import Search from "./Widgets/SearchWidget/Search";
+import {SearchBox} from "./dashboard-styles";
 
 const DashboardContainer:React.FC = () => {
-    const search_result = false
+    const search_result = true
 
     const dispatch = useDispatch()
 
@@ -58,6 +59,18 @@ const DashboardContainer:React.FC = () => {
                                                        getCalculation={getCalculation}
                                                        current_shipping_type={current_shipping_type}
             />}
+            <div style={{position:"relative", width:"100%", height:"calc(100vh - 60px)"}}>
+                <div style={{position:search_result?"relative":"absolute", zIndex:10, top:"30px", left:"30px"}}>
+                    <Search setOpenCalcPopup={setOpenCalcPopup}
+                            shippingValue={shippingValue}
+                            setShippingValue={setShippingValue}
+                            setMode={setMode}
+                            mode={current_shipping_type}
+                            cargo_groups={cargo_groups}
+                            packaging_types={packaging_types}
+                            disabled={search_result}
+                    />
+                </div>
             {search_result
                 ? <SearchContainer />
                 : <DashboardPage setOpenCalcPopup={setOpenCalcPopup}
@@ -68,6 +81,8 @@ const DashboardContainer:React.FC = () => {
                                  cargo_groups={cargo_groups}
                                  packaging_types={packaging_types}
                 />}
+            </div>
+
         </Layout>
     )
 }

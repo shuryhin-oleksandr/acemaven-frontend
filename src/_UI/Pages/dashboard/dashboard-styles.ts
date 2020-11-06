@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const DashboardWrapper = styled.div`
   width: 100%;
-  height: calc(100vh - 60px);
+  height: 100%;
   display: grid;
   grid-template-columns: 30px 2fr 1fr 30px;
   grid-template-rows: 30px 1fr 40px 30px;

@@ -7,9 +7,15 @@ type PropsType = {
   setDates: any;
   extraDateNumber: number;
   dates: any;
+  disabled?: any;
 };
 
-const Dates: React.FC<PropsType> = ({ setDates, extraDateNumber, dates }) => {
+const Dates: React.FC<PropsType> = ({
+  setDates,
+  extraDateNumber,
+  dates,
+  disabled,
+}) => {
   const { combine, before, after } = DateRangePicker;
   const tillTheEnd =
     moment().endOf("week").diff(moment(), "days") + extraDateNumber;
@@ -18,6 +24,7 @@ const Dates: React.FC<PropsType> = ({ setDates, extraDateNumber, dates }) => {
 
   return (
     <DateRangePicker
+      disabled={disabled}
       appearance="default"
       isoWeek={true}
       showOneCalendar={true}

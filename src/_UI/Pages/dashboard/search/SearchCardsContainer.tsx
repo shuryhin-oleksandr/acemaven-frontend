@@ -13,7 +13,7 @@ type PropsType = {
 const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup, setBookingPopupVisible}) => {
     return (
         <SearchWrapper >
-            <SearchWidget bottom='35px'/>
+            {/*<SearchWidget bottom='35px'/>*/}
             <SearchCard showRatingPopup={showRatingPopup} setBookingPopupVisible={setBookingPopupVisible}/>
             {/*<NoSearchResultCard />*/}
         </SearchWrapper>

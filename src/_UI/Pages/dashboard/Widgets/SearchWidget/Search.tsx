@@ -52,6 +52,7 @@ type PropsType = {
   setMode: (value: CurrentShippingType) => void;
   cargo_groups: CargoGroupType[] | null;
   packaging_types: PackagingType[] | null;
+  disabled: any;
 };
 
 const Search: React.FC<PropsType> = (
@@ -65,6 +66,7 @@ const Search: React.FC<PropsType> = (
     setMode,
     cargo_groups,
     packaging_types,
+    disabled,
   },
   newParam = ""
 ) => {
@@ -180,6 +182,7 @@ const Search: React.FC<PropsType> = (
               directory=""
               searchColumn=""
               searchValue=""
+              disabled={disabled}
             />
             <Controller
               name="shipping_mode"
@@ -198,6 +201,7 @@ const Search: React.FC<PropsType> = (
                   hideLabel={true}
                   background={"#ECECEC"}
                   marginBot={"0px"}
+                  disabled={disabled}
                 />
               }
             />
@@ -222,6 +226,7 @@ const Search: React.FC<PropsType> = (
                 marginBottom="0"
                 messagePaddingTop="4px"
                 // onBlur={blurHandler}
+                disabled={disabled}
               />
               {origin_ports && origin_ports?.length > 0 && (
                 <PortsList top="45px">
@@ -256,6 +261,7 @@ const Search: React.FC<PropsType> = (
                 background="#ECECEC"
                 marginBottom="0"
                 messagePaddingTop="4px"
+                disabled={disabled}
                 //onBlur={blurHandler}
               />
               {destination_ports && destination_ports?.length > 0 && (
@@ -275,6 +281,7 @@ const Search: React.FC<PropsType> = (
               setDates={setDates}
               extraDateNumber={mode === "sea" ? 9 : 2}
               dates={dates}
+              disabled={disabled}
             />
           </div>
 
@@ -288,6 +295,7 @@ const Search: React.FC<PropsType> = (
                 remove={remove}
                 frozen_choices={frozen_choices}
                 errors={errors}
+                disabled={disabled}
               />
             ) : (
               cargo_groups &&

@@ -64,6 +64,7 @@ const FCLField: React.FC<PropsType> = ({
             background="#ECECEC"
             callback={setChosenContainer}
             disabled={disabled}
+            placeholder='Container Type'
           />
         }
       />

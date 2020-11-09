@@ -206,7 +206,7 @@ const Search: React.FC<PropsType> = (
         cargo_groups: cargo_groups_list?.map(c => c.package_type
             ? {
               packaging_type: c.package_type,
-              dangerous: c.is_dangerous,
+              dangerous: c.dangerous,
               volume: Number(c.volume),
               weight: Number(c.weight),
               length: Number(c.length),
@@ -216,7 +216,7 @@ const Search: React.FC<PropsType> = (
         }
             : {
               container_type: c.container_type,
-              dangerous: c.is_dangerous,
+              dangerous: c.dangerous,
               volume: Number(c.volume),
               weight: Number(c.weight),
               length: Number(c.length),

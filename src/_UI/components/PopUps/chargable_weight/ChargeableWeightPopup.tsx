@@ -70,8 +70,23 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
 
     const dispatch = useDispatch()
     const onSubmit = (values: CargoGroupType) => {
+        debugger
         if(!editable_cargo_group) {
-            getCalculation({...values, shipping_type: current_shipping_type})
+            values.volume
+                ? getCalculation({...values, shipping_type: current_shipping_type})
+                : getCalculation({
+                    volume: 1,
+                    weight: values.weight,
+                    weight_measurement: values.weight_measurement,
+                    width: values.width,
+                    height: values.height,
+                    length: values.length,
+                    length_measurement: values.length_measurement,
+                    container_type: values.container_type,
+                    shipping_type: current_shipping_type,
+                    dangerous: values.dangerous
+
+                })
         } else {
             getCalculation({...values, shipping_type: current_shipping_type, id: editable_cargo_group.id})
         }
@@ -159,21 +174,6 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                                           }
                                             />
                                         }
-                                        {/*<Controller name='volume'
-                                                    control={control}
-                                                    defaultValue=''
-                                                    rules={{
-                                                        required: 'Field is required'
-                                                    }}
-                                                    as={
-                                                        <FormField error={errors?.volume}
-                                                                   label='No. of packs'
-                                                                   maxW='135px'
-                                                                   type='number'
-                                                                   //disabled={shippingValue === 4 ? true : false}
-                                                        />
-                                                    }
-                                        />*/}
                                         <FormField error={errors?.volume}
                                                    label='No. of packs'
                                                    maxW='135px'
@@ -332,7 +332,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                             </CalculationWrapper>
                             <CheckboxWrap>
                                 <GeneralCustomCheckbox inputRef={register}
-                                                       name='is_dangerous'
+                                                       name='dangerous'
                                                        value={isCheck}
                                     //setIsDangerous={setIsDangerous}
                                                        setValue={setValue}

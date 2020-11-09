@@ -15,7 +15,7 @@ export const OneFieldContent = styled.div`
 `
 export const TotalPart = styled.div`
   width: 130px;
-  height: 30px;
+  min-height: 30px;
   background-color: #ececec;
   border-radius: 4px;
   color: #1b1b25;

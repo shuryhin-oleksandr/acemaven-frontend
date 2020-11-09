@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+type PropsStyle = {
+  widgetsVisible: boolean;
+};
+
 export const DashboardWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -23,7 +27,8 @@ export const SearchBox = styled.div`
   grid-area: 2/2/3/3;
   margin-right: 69px;
 `;
-export const MultiWidgetBox = styled.div`
+export const MultiWidgetBox = styled.div<PropsStyle>`
+  display: ${({ widgetsVisible }) => (widgetsVisible ? "block" : "none")};
   grid-area: 2/3/3/-2;
 `;
 

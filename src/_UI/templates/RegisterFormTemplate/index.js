@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import close_icon from "../../../_UI/assets/icons/close-icon.svg";
 
-const RegisterFormTemplate = ({ children, openFlow }) => {
+const RegisterFormTemplate = ({ children, openFlow, height_inner }) => {
   return (
-    <Container>
-      <ContentWrapper>
+    <Container >
+      <ContentWrapper height_inner={height_inner}>
         {children}
         <CloseIcon onClick={openFlow}>
           <img src={close_icon} alt="" />
@@ -36,6 +36,8 @@ const ContentWrapper = styled.div`
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
   background-color: #ffffff;
   position: relative;
+  overflow: scroll;
+  height: ${({height_inner}) => height_inner ? height_inner : '430px'};
 `;
 const CloseIcon = styled.button`
   outline: none;

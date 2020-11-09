@@ -1,4 +1,9 @@
-import {CargoGroupType, FrozenChoiceType,ChoiceType } from "../../types/search/search_types";
+import {
+    CargoGroupType,
+    FrozenChoiceType,
+    ChoiceType,
+    SearchResultType
+} from "../../types/search/search_types";
 
 
 const initialState = {
@@ -6,7 +11,8 @@ const initialState = {
     edit_mode: false,
     cargo_for_edit: null as CargoGroupType | null,
     success_server_calc: false,
-    search_result: null as any | null,
+    search_result: [] as SearchResultType[],
+    search_success: false,
     frozen_choices: null as ChoiceType[] | null,
 }
 
@@ -61,9 +67,13 @@ export const searchClientReducer = (state = initialState, action: commonSearchAc
        case "SET_SEARCH_RESULT":
            return {
                ...state,
-               search_result: [...state.search_result, action.result]
+               search_result: action.result
            }
-
+       case "SET_SEARCH_SUCCESS":
+           return {
+               ...state,
+               search_success: action.value
+           }
        case "SET_FROZEN_CHOICES": {
            return {
                ...state,
@@ -86,6 +96,7 @@ export const searchActions = {
     setEditableCargoGroup: (id: number) => ({type: 'SET_EDITABLE_CARGO_GROUP', id} as const),
     editChosenCargoGroup: (edit_data: CargoGroupType) => ({type: 'EDIT_CHOSEN_CARGO_GROUP', edit_data} as const),
     setEditableCargoGroupToNull: (value: any) => ({type: 'SET_EDITABLE_CARGO_TO_NULL', value} as const),
-    setSearchResult: (result: any) => ({type: 'SET_SEARCH_RESULT', result} as const),
+    setSearchResult: (result: SearchResultType[]) => ({type: 'SET_SEARCH_RESULT', result} as const),
+    setSearchSuccess: (value: boolean) => ({type: 'SET_SEARCH_SUCCESS', value} as const),
     setFrozenChoices:(choices:FrozenChoiceType)=>({type:"SET_FROZEN_CHOICES", choices} as const)
 };

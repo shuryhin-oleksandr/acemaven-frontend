@@ -50,7 +50,7 @@ const FCLField: React.FC<PropsType> = ({
     >
       <Controller
         control={control}
-        name={`search_test[${index}].container_type`}
+        name={`cargo_groups[${index}].container_type`}
         defaultValue={item.container_type}
         rules={{
           required: "Field is required",
@@ -70,7 +70,7 @@ const FCLField: React.FC<PropsType> = ({
       <Controller
         defaultValue={item.volume}
         control={control}
-        name={`search_test[${index}].volume`}
+        name={`cargo_groups[${index}].volume`}
         rules={{
           required: "Field is required",
         }}
@@ -89,7 +89,7 @@ const FCLField: React.FC<PropsType> = ({
       {finded && finded?.is_frozen ? (
         <Controller
           control={control}
-          name={`search_test[${index}].is_frozen`}
+          name={`cargo_groups[${index}].is_frozen`}
           defaultValue="frozen"
           as={
             <SurchargeRateSelect
@@ -104,7 +104,7 @@ const FCLField: React.FC<PropsType> = ({
         <SearchCheckbox
           isCheck={isCheck}
           setIsCheck={setIsCheck}
-          name={`search_test[${index}].can_be_dangerous`}
+          name={`cargo_groups[${index}].can_be_dangerous`}
           inputref={register}
           labelText="DANGEROUS"
           disabled={disabled}

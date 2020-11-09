@@ -85,7 +85,7 @@ const SignUpPage = ({ openSignUp, openSignIn }) => {
   const [firstPage, changePage] = useState(true);
 
   return (
-    <RegisterFormTemplate openFlow={() => openSignUp(false)}>
+    <RegisterFormTemplate height_inner='920px' openFlow={() => openSignUp(false)}>
       <RegisterHead
         title="Register"
         buttonText="Log in"

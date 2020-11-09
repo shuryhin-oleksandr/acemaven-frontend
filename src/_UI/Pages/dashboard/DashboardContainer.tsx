@@ -82,13 +82,13 @@ const DashboardContainer:React.FC = () => {
                 </div>
             {search_success
                 ? <SearchContainer search_result={search_result}/>
-                : <DashboardPage setOpenCalcPopup={setOpenCalcPopup}
+                : <DashboardPage /*//setOpenCalcPopup={setOpenCalcPopup}
                                  shippingValue={shippingValue}
                                  setShippingValue={setShippingValue}
                                  setMode={setMode}
                                  mode={current_shipping_type}
                                  cargo_groups={cargo_groups}
-                                 packaging_types={packaging_types}
+                                 packaging_types={packaging_types}*/
                                  widgetsVisible={widgetsVisible} setWidgetsVisible={setWidgetsVisible}
                 />}
             </div>

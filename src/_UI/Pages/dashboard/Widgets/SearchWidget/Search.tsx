@@ -156,14 +156,6 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
 
   const onSubmit = (values: any) => {
     debugger
-    /*values.cargo_groups = values.cargo_groups.map((v: any) => ({volume: Number(v.volume), container_type: v.container_type, can_be_dangerous: v.can_be_dangerous}))
-    const finalData = values;
-    finalData.shipping_mode = values.shipping_mode
-    finalData.date_from = moment(dates[0]).format("DD/MM/YYYY");
-    finalData.date_to = moment(dates[1]).format("DD/MM/YYYY");
-    finalData.destination = Number(sessionStorage.getItem("destination_id"));
-    finalData.origin = Number(sessionStorage.getItem("origin_id"));
-    console.log("finalData", finalData);*/
     let finalData;
     if(values.cargo_groups) {
       finalData = {
@@ -183,7 +175,7 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
         origin: Number(sessionStorage.getItem("origin_id")),
         cargo_groups: cargo_groups_list?.map(c => c.package_type
             ? {package_type: c.package_type, can_be_dangerous: c.is_dangerous, volume: Number(c.volume)}
-            : {package_type: c.package_type, can_be_dangerous: c.is_dangerous, volume: Number(c.volume)}
+            : {container_type: c.container_type, can_be_dangerous: c.is_dangerous, volume: Number(c.volume)}
 
         )
       }

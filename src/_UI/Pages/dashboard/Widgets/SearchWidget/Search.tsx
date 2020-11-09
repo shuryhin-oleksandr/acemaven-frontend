@@ -149,9 +149,10 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
   };
 
   let newSearch = () => {
-    dispatch(searchActions.setSearchSuccess(false))
-    reset()
-  }
+    dispatch(searchActions.setSearchSuccess(false));
+    reset();
+    setDates([]);
+  };
 
 
   const onSubmit = (values: any) => {
@@ -374,7 +375,7 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
             <div style={{ display: "flex" }}>
               {watchFieldArray.length > 0 &&
                 !!watchFieldArray[0].container_type &&
-                !!watchFieldArray[0].volume && (
+                !!watchFieldArray[0].volume && !search_success &&(
                   <BaseTooltip
                     title={"Add more cargo groups by clicking on plus"}
                   >

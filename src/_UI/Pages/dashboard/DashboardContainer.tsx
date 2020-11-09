@@ -21,6 +21,7 @@ import Search from "./Widgets/SearchWidget/Search";
 
 const DashboardContainer:React.FC = () => {
     //const search_result = false
+    const [widgetsVisible, setWidgetsVisible] = useState(true);
 
     const dispatch = useDispatch()
 
@@ -65,8 +66,8 @@ const DashboardContainer:React.FC = () => {
                                                        current_shipping_type={current_shipping_type}
                                                        editable_cargo_group={editable_cargo_group}
             />}
-            <div style={{position:"relative", width:"100%", height:"calc(100vh - 60px)"}}>
-                <div style={{position:search_result?"relative":"absolute", zIndex:6, top:"30px", left:"30px"}}>
+            <div style={{position:"relative", width:"100%"}}>
+                <div style={{position:search_result?"relative":"absolute", zIndex:6, top:"30px", left:"30px", display:widgetsVisible?"block":"none"}}>
                     <Search setOpenCalcPopup={setOpenCalcPopup}
                             shippingValue={shippingValue}
                             setShippingValue={setShippingValue}
@@ -88,6 +89,7 @@ const DashboardContainer:React.FC = () => {
                                  mode={current_shipping_type}
                                  cargo_groups={cargo_groups}
                                  packaging_types={packaging_types}
+                                 widgetsVisible={widgetsVisible} setWidgetsVisible={setWidgetsVisible}
                 />}
             </div>
 

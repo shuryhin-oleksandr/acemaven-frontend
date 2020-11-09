@@ -1,7 +1,6 @@
 import instance from './axiosConfig'
 import {ICompanySignUpData, ILoginData, IMasterAccountData,} from "../../_BLL/types/authTypes";
 import {IAddNewUserData} from "../../_BLL/types/addNewUserTypes";
-import axios from 'axios'
 
 export const authAPI = {
     signIn (loginData: ILoginData) {
@@ -17,7 +16,7 @@ export const authAPI = {
         return instance.get(`/core/signup-check/?token=${token}`)
     },
     signUp (token: string, formData:any) {
-        return axios.post(`/core/signup/?token=${token}`, formData )
+        return instance.post(`/core/signup/?token=${token}`, formData )
     },
     createMasterAccount (masterData: IMasterAccountData, token: string) {
         return instance.post(`/core/signup/?token=${token}`, masterData)

@@ -20,7 +20,7 @@ import Search from "./Widgets/SearchWidget/Search";
 import {SearchBox} from "./dashboard-styles";
 
 const DashboardContainer:React.FC = () => {
-    const search_result = false
+    const search_result = true
     const [widgetsVisible, setWidgetsVisible] = useState(true);
 
     const dispatch = useDispatch()

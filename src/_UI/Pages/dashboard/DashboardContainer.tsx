@@ -62,7 +62,7 @@ const DashboardContainer:React.FC = () => {
                                                        current_shipping_type={current_shipping_type}
                                                        editable_cargo_group={editable_cargo_group}
             />}
-            <div style={{position:"relative", width:"100%", height:"calc(100vh - 60px)"}}>
+            <div style={{position:"relative", width:"100%"}}>
                 <div style={{position:search_result?"relative":"absolute", zIndex:6, top:"30px", left:"30px", display:widgetsVisible?"block":"none"}}>
                     <Search setOpenCalcPopup={setOpenCalcPopup}
                             shippingValue={shippingValue}

@@ -21,6 +21,8 @@ const initialState: InitialStateType = {
   checkedUser: null,
   finishPopup: false,
   passwordError: "",
+  isSignUp: false,
+  isSignIn: false,
 };
 
 type InitialStateType = {
@@ -36,6 +38,8 @@ type InitialStateType = {
   checkedUser: any;
   finishPopup: boolean;
   passwordError: string;
+  isSignUp: boolean;
+  isSignIn: boolean;
 };
 
 export const authReducer = (
@@ -101,6 +105,18 @@ export const authReducer = (
         passwordError: action.error,
       };
     }
+    case "SET_OPEN_SIGN_UP": {
+      return {
+        ...state,
+        isSignUp: action.value,
+      };
+    }
+    case "SET_OPEN_SIGN_IN": {
+      return {
+        ...state,
+        isSignIn: action.value,
+      };
+    }
     default:
       return state;
   }
@@ -133,6 +149,10 @@ export const authActions = {
     ({ type: "OPEN_FINISH_POPUP", value } as const),
   setPasswordError: (error: string) =>
     ({ type: "SET_PASSWORD_ERROR", error } as const),
+  setOpenSignUp: (value: boolean) =>
+    ({ type: "SET_OPEN_SIGN_UP", value } as const),
+  setOpenSignIn: (value: boolean) =>
+    ({ type: "SET_OPEN_SIGN_IN", value } as const),
 };
 
 export const signIn = (loginData: ILoginData, history: History) => {
@@ -142,6 +162,8 @@ export const signIn = (loginData: ILoginData, history: History) => {
       let res = await authAPI.signIn(loginData);
       localStorage.setItem("access_token", res.data.token);
       dispatch(authActions.setAuth(true));
+      dispatch(authActions.setOpenSignUp(false));
+      dispatch(authActions.setOpenSignIn(false));
       res.data && history.push("/");
       dispatch(authActions.setIsLoading(false));
     } catch (e) {
@@ -168,6 +190,8 @@ export const companySignUp = (data: ICompanySignUpData) => {
       dispatch(authActions.setIsLoading(true));
       let res = await authAPI.signUpCompany(data);
       dispatch(authActions.setSignedCompanyData(res.data));
+      dispatch(authActions.setOpenSignUp(false));
+      dispatch(authActions.setOpenSignIn(false));
       dispatch(authActions.setIsFinish(true)) &&
         dispatch(authActions.openFinishSignUpPopup(true));
       dispatch(authActions.setIsLoading(false));

@@ -2,10 +2,10 @@ import React from "react";
 import SliderCarousel from "../../../../components/slider_carousel/SliderCarousel";
 
 
-const LandingHeader = ({openSignIn, openSignUp}) => {
+const LandingHeader = () => {
 
     return (
-        <SliderCarousel openSignIn={openSignIn} openSignUp={openSignUp}/>
+        <SliderCarousel/>
     )
 }
 

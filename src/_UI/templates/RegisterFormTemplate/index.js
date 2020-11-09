@@ -2,17 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import close_icon from "../../../_UI/assets/icons/close-icon.svg";
 
-const RegisterFormTemplate = ({ children, openFlow }) => {
+const RegisterFormTemplate = ({ children, openFlow, isShow }) => {
   return (
-    <Container>
-      <ContentWrapper>
-        {children}
-        <CloseIcon onClick={openFlow}>
-          <img src={close_icon} alt="" />
-        </CloseIcon>
-      </ContentWrapper>
-    </Container>
+    <>
+      {isShow && <Container>
+        <ContentWrapper>
+          {children}
+          <CloseIcon onClick={openFlow}>
+            <img src={close_icon} alt="" />
+          </CloseIcon>
+        </ContentWrapper>
+      </Container>}
+    </>
   );
+
 };
 
 export default RegisterFormTemplate;

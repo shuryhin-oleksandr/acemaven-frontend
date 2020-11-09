@@ -12,7 +12,7 @@ import RegisterFormTemplate from "../templates/RegisterFormTemplate";
 import BaseButton from "../components/base/BaseButton";
 import BaseInputGroup from "../components/base/BaseInputGroup";
 import {useDispatch, useSelector} from "react-redux";
-import {signIn} from "../../_BLL/reducers/authReducer";
+import {authActions, signIn} from "../../_BLL/reducers/authReducer";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
 import {withRouter} from "react-router";
 
@@ -23,18 +23,20 @@ const ValidationSchema = Yup.object().shape({
   password: Yup.string().required("Please, enter your password"),
 });
 
-const SignInPage = ({history, openSignIn, openSignUp}) => {
+const SignInPage = ({history}) => {
     const dispatch = useDispatch()
     const loginFail = useSelector(state => state.auth.loginError)
     const isFetching = useSelector(state => state.auth.isFetching)
 
     let popupCallback = () => {
-        openSignUp(true)
-        openSignIn(false)
+        dispatch(authActions.setOpenSignUp(true))
+        dispatch(authActions.setOpenSignIn(false))
     }
 
+    let isSignIn = useSelector(state => state.auth.isSignIn)
+
   return (
-    <RegisterFormTemplate openFlow={() => openSignIn(false)}>
+    <RegisterFormTemplate openFlow={() => dispatch(authActions.setOpenSignIn(false))} isShow={isSignIn}>
         {isFetching && <Spinner />}
       <RegisterHead
         title="Log in"

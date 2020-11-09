@@ -8,7 +8,7 @@ import PartTwo from "../components/SignUpFormParts/PartTwo";
 import PartOne from "../components/SignUpFormParts/PartOne";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { companySignUp } from "../../_BLL/reducers/authReducer";
+import {authActions, companySignUp} from "../../_BLL/reducers/authReducer";
 
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
 const taxIdRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
@@ -74,18 +74,20 @@ const ClientValidationSchema = Yup.object().shape({
   position: Yup.string().required("Please, enter your position"),
 });
 
-const SignUpPage = ({ openSignUp, openSignIn }) => {
+const SignUpPage = () => {
   const dispatch = useDispatch();
   let error = useSelector((state) => state.auth.companySignUpError);
+  let finishPopup = useSelector(state => state.auth.finishPopup)
+  let isSignUp = useSelector(state => state.auth.isSignUp)
 
   let popupCallback = () => {
-    openSignUp(false);
-    openSignIn(true);
+    dispatch(authActions.setOpenSignUp(false));
+    dispatch(authActions.setOpenSignIn(true));
   };
   const [firstPage, changePage] = useState(true);
 
   return (
-    <RegisterFormTemplate openFlow={() => openSignUp(false)}>
+    <RegisterFormTemplate openFlow={() => dispatch(authActions.setOpenSignUp(false))} isShow={isSignUp && !finishPopup}>
       <RegisterHead
         title="Register"
         buttonText="Log in"

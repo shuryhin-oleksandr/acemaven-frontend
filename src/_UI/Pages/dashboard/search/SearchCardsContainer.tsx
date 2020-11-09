@@ -21,7 +21,7 @@ const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup, setBookingPo
                                                       search_result={s}
                 />
                 )
-                : <NoSearchResultCard />
+                : null
             }
         </SearchWrapper>
     )

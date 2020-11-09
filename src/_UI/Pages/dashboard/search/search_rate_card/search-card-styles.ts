@@ -27,6 +27,7 @@ export const CardContainer = styled.div`
   width: 100%;
  border: 1px solid #7c7c89;
  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+ margin-bottom: 20px;
 `
 
 export const CardInner = styled.div`

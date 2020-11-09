@@ -82,7 +82,7 @@ const FCLField: React.FC<PropsType> = ({
               display: "flex",
             }}
           >
-            <FormField background="#ECECEC" marginBottom="5px" type="number" disabled={disabled} />
+            <FormField background="#ECECEC" marginBottom="5px" type="number" disabled={disabled} placeholder='Volume'/>
           </div>
         }
       />
@@ -97,6 +97,7 @@ const FCLField: React.FC<PropsType> = ({
               maxW="123px"
               options={frozen_choices}
               disabled={disabled}
+              placeholder='Frozen'
             />
           }
         />
@@ -104,7 +105,7 @@ const FCLField: React.FC<PropsType> = ({
         <SearchCheckbox
           isCheck={isCheck}
           setIsCheck={setIsCheck}
-          name={`cargo_groups[${index}].can_be_dangerous`}
+          name={`cargo_groups[${index}].dangerous`}
           inputref={register}
           labelText="DANGEROUS"
           disabled={disabled}

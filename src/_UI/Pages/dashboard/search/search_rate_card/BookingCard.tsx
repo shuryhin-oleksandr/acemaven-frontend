@@ -27,8 +27,6 @@ type PropsType = {
 
 const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result}) => {
 
-
-
     return (
         <UpperWrapper onClick={() => isTableShown ? showTable && showTable(false) : showTable && showTable(true)}>
             <InfoPart>
@@ -71,16 +69,16 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                         <CalcValue>{c.freight.currency} {c.freight.subtotal}</CalcValue>
                     </CalculationLine>)}
                     <CalculationLine>
-                        <CalcName>Total Freight:</CalcName>
-                        <CalcValue>USD 1025</CalcValue>
+                        <CalcName>Total Freight in USD:</CalcName>
+                        <CalcValue> {search_result?.total_freight_rate.USD}</CalcValue>
                     </CalculationLine>
-                    <CalculationLine>
+                    {/*<CalculationLine>
                         <CalcName>Surcharges in:</CalcName>
                         <CalcValue>USD 240</CalcValue>
-                    </CalculationLine>
+                    </CalculationLine>*/}
                     <CalculationLine marginBottom='10px'>
-                        <CalcName>Surcharges in:</CalcName>
-                        <CalcValue>BRL 7100</CalcValue>
+                        <CalcName>Surcharges in BRL :</CalcName>
+                        <CalcValue>{search_result?.total_surcharge.BRL}</CalcValue>
                     </CalculationLine>
                     <CalculationLine>
                         <CalcName>Acemaven Service Fee:</CalcName>

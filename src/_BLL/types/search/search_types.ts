@@ -70,6 +70,12 @@ export type SearchResultType = {
         USD: number,
         BRL: number
     },
+    total_freight_rate: {
+        USD: number
+    },
+    total_surcharge: {
+        BRL: number
+    },
     pay_to_book: {
         service_fee: number,
         booking_fee: number,

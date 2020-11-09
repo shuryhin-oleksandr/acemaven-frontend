@@ -151,15 +151,11 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup,setBookingPopupVisible,
                     <TableTotal>
                         <TotalLine>
                             <TotalName>TOTAL FREIGHT</TotalName>
-                            <TotalValue>8.802</TotalValue>
+                            <TotalValue>{search_result.total_freight_rate.USD}</TotalValue>
                         </TotalLine>
                         <TotalLine>
                             <TotalName>CHARGES IN BRL</TotalName>
-                            <TotalValue>{search_result.totals.BRL}</TotalValue>
-                        </TotalLine>
-                        <TotalLine>
-                            <TotalName>CHARGES IN USD</TotalName>
-                            <TotalValue>{search_result.totals.USD}</TotalValue>
+                            <TotalValue>{search_result.total_surcharge.BRL}</TotalValue>
                         </TotalLine>
                         <TotalLine>
                             <TotalName>ACEMAVEN SERVICE FEE: IN {search_result.service_fee.currency}</TotalName>

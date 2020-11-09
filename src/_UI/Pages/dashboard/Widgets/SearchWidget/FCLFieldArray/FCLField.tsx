@@ -89,7 +89,7 @@ const FCLField: React.FC<PropsType> = ({
       {finded && finded?.is_frozen ? (
         <Controller
           control={control}
-          name={`cargo_groups[${index}].is_frozen`}
+          name={`cargo_groups[${index}].frozen`}
           defaultValue="frozen"
           as={
             <SurchargeRateSelect

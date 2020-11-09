@@ -25,7 +25,7 @@ const ConditionSelect = ({
   name,
   setValue,
   defaultV,
-  setFormMode,
+  setFormMode
 }) => {
   const [boxVisible, setBoxVisible] = useState(false);
   const [displayValue, setDisplayValue] = useState(defaultV);
@@ -50,7 +50,7 @@ const ConditionSelect = ({
         setBoxVisible(!boxVisible);
       }}
     >
-      <Main>{displayValue}</Main>
+      <Main >{displayValue}</Main>
       {boxVisible && (
         <Box>
           {options.map((o) => (
@@ -78,6 +78,10 @@ const ConditionSelect = ({
     </Wrapper>
   );
 };
+
+
+export default ConditionSelect;
+
 
 const Wrapper = styled.div`
   position: relative;
@@ -129,5 +133,3 @@ const ArrowImg = styled.img`
   right: 20px;
   width: 10px;
 `;
-
-export default ConditionSelect;

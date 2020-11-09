@@ -22,16 +22,17 @@ type PropsType = {
     locationChangeHandler: (currentTarget: HTMLInputElement) => void
     getDisabledSurchargesDates: (portName: string, portId: number) => void
     required_dates: boolean,
-    adding_success: boolean
+    adding_success: boolean,
+    watchResultArr: number[],
+    watchResultArrForDates: number[],
+    location_id: number
 }
 
 const SurchargeForm: React.FC<PropsType> = (
-    {control, register, getValues, setValue, errors, carrierOptions, shippingModeOptions, setShippingValue, ports,
-        locationChangeHandler, getDisabledSurchargesDates,required_dates, adding_success
+    {control, register, getValues, setValue, errors, carrierOptions, shippingModeOptions, setShippingValue, ports,location_id,
+        locationChangeHandler, getDisabledSurchargesDates,required_dates, adding_success, watchResultArr, watchResultArrForDates
     }
     ) => {
-
-
 
     return (
         <FormWrap>
@@ -48,6 +49,7 @@ const SurchargeForm: React.FC<PropsType> = (
                             <SurchargeRateSelect label="Carrier"
                                                  options={carrierOptions}
                                                  error={errors?.carrier?.message}
+                                                 placeholder='Carrier'
                             />
                         }
                     />
@@ -62,6 +64,7 @@ const SurchargeForm: React.FC<PropsType> = (
                             <SurchargeRateSelect label="Direction"
                                                  options={directions}
                                                  error={errors?.direction?.message}
+                                                 placeholder='Direction'
                             />
                         }
                     />
@@ -78,6 +81,7 @@ const SurchargeForm: React.FC<PropsType> = (
                                 options={shippingModeOptions}
                                 callback={setShippingValue}
                                 error={errors?.shipping_mode?.message}
+                                placeholder='Shipping Mode'
                             />
                         }
                     />
@@ -101,6 +105,7 @@ const SurchargeForm: React.FC<PropsType> = (
                         error={errors?.location}
                         getValues={getValues}
                         onChange={locationChangeHandler}
+                        disabled={watchResultArr.length !== 3}
                     />
                     {ports && ports?.length > 0 && (
                         <PortsList>
@@ -117,6 +122,8 @@ const SurchargeForm: React.FC<PropsType> = (
                     control={control}
                     setValue={setValue}
                     required_dates={required_dates}
+                    watchResultArrForDates={watchResultArrForDates}
+                    disabled={location_id === 0}
                 />
                 </GroupWrap>
             </FormContent>

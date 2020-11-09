@@ -6,14 +6,22 @@ import OneField from "./OneField";
 type PropsType = {
     cargo_groups: CargoGroupType[] | null,
     packaging_types: PackagingType[] | null,
+    deleteCargoGroup: (id: number) => void,
+    setEditableCargoGroupToState: (id: number) => void,
+    editCargoGroup: (edit_data: CargoGroupType) => void,
+    setOpenCalcPopup: (value: boolean) => void
 }
 
-const OtherModesFieldArray:React.FC<PropsType> = ({cargo_groups, packaging_types}) => {
+const OtherModesFieldArray:React.FC<PropsType> = ({cargo_groups, packaging_types, deleteCargoGroup, setEditableCargoGroupToState, editCargoGroup, setOpenCalcPopup}) => {
     return (
         <>
             {cargo_groups?.map(c =>
             <OneField cargo={c}
                       packaging_types={packaging_types}
+                      deleteCargoGroup={deleteCargoGroup}
+                      editCargoGroup={editCargoGroup}
+                      setEditableCargoGroupToState={setEditableCargoGroupToState}
+                      setOpenCalcPopup={setOpenCalcPopup}
             />
             )}
         </>

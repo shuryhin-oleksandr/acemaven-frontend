@@ -25,6 +25,7 @@ import {addNewSurcharge} from "../../../../../_BLL/thunks/rates&surcharge/surcha
 import {useDispatch} from "react-redux";
 import {UnderTitle} from "../../rates/register_new_freight_rate/form-styles";
 
+
 type PropsType = {
     mode: CurrentShippingType
     setMode: (mode: CurrentShippingType) => void
@@ -46,7 +47,10 @@ type PropsType = {
     additionalType: string
     additional: AdditionalSurchargeType[]
     handleSubmit: any,
-    adding_success: boolean
+    adding_success: boolean,
+    watchResultArr: number[],
+    watchResultArrForDates: number[],
+    location_id: number
 }
 
 
@@ -55,7 +59,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
     const {
         handleSubmit, mode, setMode, control, register, errors, getValues, setValue, closeRegisterForm, carrierOptions, shippingModeOptions,
         setShippingValue, ports, locationChangeHandler, getDisabledSurchargesDates, usageFees, additionalTableName,
-        additionalType, shippingValue, additional, adding_success
+        additionalType, shippingValue, additional, adding_success, watchResultArr, watchResultArrForDates, location_id
     } = props
 
     const dispatch = useDispatch()
@@ -76,7 +80,8 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
             expiration_date: moment(values.to).format('DD/MM/YYYY'),
             charges: charges_array,
             usage_fees: usageFees_array,
-            location: Number(sessionStorage.getItem('port_id'))}
+            location: location_id
+        }
 
         let data_without_fees = {start_date: moment(values.from).format('DD/MM/YYYY'),
             expiration_date: moment(values.to).format('DD/MM/YYYY'),
@@ -84,7 +89,8 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
             direction: values.direction,
             shipping_mode: values.shipping_mode,
             charges: charges_array,
-            location: Number(sessionStorage.getItem('port_id'))}
+            location: location_id
+        }
 
         usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
     }
@@ -127,6 +133,9 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 getDisabledSurchargesDates={getDisabledSurchargesDates}
                 required_dates={true}
                 adding_success={adding_success}
+                watchResultArr={watchResultArr}
+                watchResultArrForDates={watchResultArrForDates}
+                location_id={location_id}
             />
             {
                 !!shippingValue
@@ -147,6 +156,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                             shippingMode={shippingValue}
                             charges={additional}
                             setValue={setValue}
+                            errors={errors}
                         />
 
                     }

@@ -19,12 +19,11 @@ export default RegisterFormTemplate;
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
   height: 100%;
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
-  padding: 35px 0;
+  padding-top: 35px;
   justify-content: center;
   align-items: flex-start;
   z-index: 600;

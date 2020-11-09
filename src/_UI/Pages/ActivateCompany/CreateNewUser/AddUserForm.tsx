@@ -19,7 +19,7 @@ interface IProps {
 const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
 
     const dispatch = useDispatch()
-    const {register, handleSubmit, errors, getValues, setValue} = useForm<IAddNewUserData>()
+    const {register, handleSubmit, errors, getValues, setValue, reset} = useForm<IAddNewUserData>()
     let success_user = useSelector((state: AppStateType) => state.company.successUser)
     const onSubmit = (values: IAddNewUserData) => {
         dispatch(companyActions.setAddingEmployeeError(null))
@@ -30,15 +30,27 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
     const [roleValue, setRole] = useState('') //billing
     const [agentRole, setAgentRole] = useState('')
 
+    console.log('agent', agentRole)
+    console.log('billing', roleValue)
+    console.log('master', masterRole)
+
+
     useEffect(() => {
         if(success_user) {
-            setValue('first_name', '')
+            /*setValue('first_name', '')
             setValue('last_name', '')
             setValue('email', '')
             setValue('position', '')
-            setValue('roles', [])
+            setValue('roles', [])*/
+            reset()
+            setAgentRole('')
+            setMasterRole('')
+            setRole('')
+
         }
     }, [setValue, success_user])
+
+
 
     return (
         <FormContainer>
@@ -104,6 +116,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                         disabled={agentRole || roleValue}
                         setRole={setMasterRole}
                         roleValue={masterRole}
+                        success_user={success_user}
                     />
                     <CustomCheckbox value='agent'
                                     name='roles'
@@ -116,6 +129,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                     disabled={masterRole}
                                     setRole={setAgentRole}
                                     roleValue={agentRole}
+                                    success_user={success_user}
                     />
                     <CustomCheckbox value='billing'
                                     name='roles'
@@ -128,6 +142,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                     disabled={masterRole}
                                     setRole={setRole}
                                     roleValue={roleValue}
+                                    success_user={success_user}
                     />
                 </CheckboxWrap>
                      <SubmitButton type='submit'>ADD USER</SubmitButton>

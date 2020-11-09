@@ -24,6 +24,7 @@ type PropsType = {
   pattern_message?: string;
   disabled?: boolean;
   background?: string;
+  messagePaddingTop?: string;
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
@@ -47,7 +48,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         disabled={props.disabled}
         background={props.background}
       />
-      {error?.type === "required" && <HelperText>{error?.message}</HelperText>}
+      {error?.type === "required" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}
       {error?.type === "pattern" && (
         <HelperText>
           {props.pattern_message ? props.pattern_message : "Value is not valid"}

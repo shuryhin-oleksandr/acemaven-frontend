@@ -25,12 +25,12 @@ type PropsType = {
     closePortsHandler: any
     getBookedRatesDates: any  /*(portName: string, portId: number) => void*/
     rate_info: RateInfoType | null,
-
+    watchResultArr: number[]
 }
 
 const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValues, carrierOptions, shippingModeOptions,
-                                            setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, setValue,
-                                             onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, rate_info}) => {
+                                            setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
+                                             onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, rate_info, watchResultArr}) => {
 
     return (
         <FormWrap>
@@ -47,6 +47,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             <SurchargeRateSelect label="Carrier"
                                                  options={carrierOptions}
                                                  error={errors?.carrier?.message}
+                                                 placeholder='Carrier'
                             />}
                     />
                     <Controller
@@ -62,6 +63,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                                 options={shippingModeOptions}
                                 callback={setShippingValue}
                                 error={errors?.shipping_mode?.message}
+                                placeholder='Shipping Mode'
                             />
                         }
                     />
@@ -120,6 +122,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             error={errors?.destination}
                             getValues={getValues}
                             onChange={onDestinationChangeHandler}
+                            disabled={watchResultArr.length < 3}
                             //onBlur={blurHandler}
                         />
                         {destination_ports && destination_ports?.length > 0 && (
@@ -146,6 +149,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                         name="transit_time"
                         error={errors?.transit_time}
                         getValues={getValues}
+                        disabled={watchResultArr.length < 3}
                     />
                 </GroupWrap>
             </div>

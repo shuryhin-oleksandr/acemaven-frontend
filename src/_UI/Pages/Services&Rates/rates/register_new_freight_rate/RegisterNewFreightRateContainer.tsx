@@ -15,7 +15,7 @@ import {
   getCurrentShippingTypeSelector, getRateBookedDatesSelector
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {
-  addNewSurcharge,
+
   getCarriers,
   getCurrencyList,
   getShippingTypes,
@@ -30,6 +30,7 @@ import {
   getOriginPorts, getRateDataForSurcharge, getRateStartDate, getRegistrationSuccess,
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {
+  addNewSurchargeForRate,
   checkRatesDatesThunk,
   getPorts,
 } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
@@ -38,6 +39,7 @@ import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateRe
 import RegisterSurchargePopUp from "../../../../components/PopUps/RegisterSurchargePopUp/RegisterSurchargePopUp";
 import styled from "styled-components";
 import NoSurchargeCard from "./NoSurchargeCard";
+
 
 type PropsType = {
   setNewRateMode: VoidFunctionType;
@@ -50,7 +52,11 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   //попап для нового сюрчарджа
   const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(false);
 //useForm
-  const {handleSubmit, register, control, errors, getValues, setValue,} = useForm();
+  const {handleSubmit, register, control, errors, getValues, setValue, watch} = useForm();
+
+  //check if some fields empty fro check free rate dates
+  const watchFields = watch(["carrier", "shipping_mode", "origin", "destination"]);
+  const watchResultArr = Object.values(watchFields).filter((val) => !!val);
 
   //запрос за опшионсами для селектов
   useEffect(() => {
@@ -76,6 +82,8 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   let registration_success = useSelector(getRegistrationSuccess)
   let rate_info = useSelector(getCheckedRateInfo)
   let booked_dates = useSelector(getRateBookedDatesSelector)
+  let origin_port = useSelector(getIsLocalPort)
+
 
   //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
   const [shippingValue, setShippingValue] = useState(0);
@@ -90,6 +98,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     //!!фрэйт рейт на нулл, если используем его как шаблон
     dispatch(rateActions.setRateInfo(null))
     setNewRateMode(false);
+    dispatch(rateActions.setEmptyExistingSurcharge(''))
     sessionStorage.removeItem("origin_id");
     sessionStorage.removeItem("destination_id");
   };
@@ -98,27 +107,22 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   let closePortsHandler = (port: PortType, field: string) => {
     setValue(field, port.display_name);
     dispatch(rateActions.setOriginPortValue(port))
-      sessionStorage.setItem("origin_id", JSON.stringify(port.id));
-    /*field === "destination" &&
-      sessionStorage.setItem("port_id_rate", JSON.stringify(port.id));*/
-    /*dispatch(rateActions.setDestinationPortsList([]));*/
+     sessionStorage.setItem("origin_id", JSON.stringify(port.id));
     dispatch(rateActions.setOriginPortsList([]));
   };
 
   //достаем занятые даты
   let getRatesBookedDates = useCallback((p: PortType) => {
-    sessionStorage.setItem("destination_id", JSON.stringify(p.id));
     dispatch(rateActions.setDestinationPortValue(p))
     let carrier = getValues("carrier");
     let shipping_mode = getValues("shipping_mode");
-    let origin = Number(sessionStorage.getItem("origin_id"));
     setValue("destination", p.display_name);
     dispatch(rateActions.setDestinationPortsList([]));
     dispatch(
       checkRatesDatesThunk({
         carrier: carrier,
         shipping_mode: shipping_mode,
-        origin: origin,
+        origin: Number(sessionStorage.getItem("origin_id")),
         destination: p.id,
       })
     );
@@ -154,12 +158,18 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     dispatch(setRateStartDate(start_date))
   }
   const createNewSurcharge = (surcharge_data: any) => {
-    dispatch(addNewSurcharge(surcharge_data))
+    dispatch(addNewSurchargeForRate(surcharge_data))
   }
 
+/*  let  clearStorage = () => {
+    sessionStorage.removeItem('origin_id')
+    sessionStorage.removeItem('destination_id')
+  }*/
 
   useEffect(() => {
-    console.log('DATA',new Date('10/31/2020'))
+    return () => {
+      sessionStorage.removeItem('origin_id')
+    }
   }, [])
   //сетаем значения, когда используем как шаблон
   useEffect(() => {
@@ -218,7 +228,9 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         rate_data_for_surcharge={rate_data_for_surcharge}
         registration_success={registration_success}
         rate_info={rate_info}
-
+        watchResultArr={watchResultArr}
+        origin_port_value={origin_port}
+        destination_port_value={destination_port_value}
       />
       {empty_surcharge === 'empty' && <NoSurchargeCard usageFees={usageFees} shippingValue={shippingValue} setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
     </RatesWrapper>

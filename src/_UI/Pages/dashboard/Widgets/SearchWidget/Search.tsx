@@ -16,7 +16,10 @@ import {
   Port,
   PortsList,
 } from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
-import {CurrentShippingType, ShippingTypesEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {
+  CurrentShippingType,
+  ShippingTypesEnum,
+} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { getShippingTypesSelector } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import { getShippingTypes } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
@@ -32,28 +35,55 @@ import Dates from "../../Dates";
 import moment from "moment";
 import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
 import { getFrozenChoices } from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
-import {getFrozenChoicesSelector} from "../../../../../_BLL/selectors/search/searchClientSelector";
+import { getFrozenChoicesSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
-import {CargoGroupType} from "../../../../../_BLL/types/search/search_types";
-import {searchActions} from "../../../../../_BLL/reducers/search_client/searchClientReducer";
-import { PackagingType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import { CargoGroupType } from "../../../../../_BLL/types/search/search_types";
+import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
+import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 type PropsType = {
   right?: string;
   bottom?: string;
-  setOpenCalcPopup: (value: boolean) => void,
-  shippingValue: number,
-  setShippingValue: (value: number) => void,
-  mode: CurrentShippingType,
-  setMode: (value: CurrentShippingType) => void,
-  cargo_groups: CargoGroupType[] | null,
-  packaging_types: PackagingType[] | null,
+  setOpenCalcPopup: (value: boolean) => void;
+  shippingValue: number;
+  setShippingValue: (value: number) => void;
+  mode: CurrentShippingType;
+  setMode: (value: CurrentShippingType) => void;
+  cargo_groups: CargoGroupType[] | null;
+  packaging_types: PackagingType[] | null;
+  disabled: any;
 };
 
-const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shippingValue, setShippingValue,
-                                       mode, setMode, cargo_groups, packaging_types, }, newParam = "") => {
+const Search: React.FC<PropsType> = (
+  {
+    bottom,
+    right,
+    setOpenCalcPopup,
+    shippingValue,
+    setShippingValue,
+    mode,
+    setMode,
+    cargo_groups,
+    packaging_types,
+    disabled,
+  },
+  newParam = ""
+) => {
   const dispatch = useDispatch();
+
+  //delete cargo groups from cargo list after calculation
+  const deleteCargoGroup = (id: number) => {
+    dispatch(searchActions.deleteCargoGroup(id))
+  }
+  //set editable cargo group to state
+  const setEditableCargoGroupToState = (id: number) => {
+    dispatch(searchActions.setEditableCargoGroup(id))
+  }
+  //edit chosen one
+  const editCargoGroup = (edit_data: CargoGroupType) => {
+    dispatch(searchActions.editChosenCargoGroup(edit_data))
+  }
 
   const [dates, setDates] = useState([]);
   useEffect(() => {
@@ -66,7 +96,8 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
 
   useEffect(() => {
     reset();
-    dispatch(searchActions.clearCargoList([]))
+    dispatch(searchActions.clearCargoList([]));
+    setDates([]);
   }, [mode]);
 
   const shippingTypes = useSelector(getShippingTypesSelector);
@@ -74,18 +105,29 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
   const destination_ports = useSelector(getDestinationPorts);
   const frozen_choices = useSelector(getFrozenChoicesSelector);
 
-  console.log(frozen_choices);
-
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
       ? shippingTypes[0]?.shipping_modes
       : shippingTypes[1]?.shipping_modes;
 
-  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)?.container_types;
+  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
+    ?.container_types;
 
-  const { handleSubmit, register, control, reset, errors, getValues, setValue, watch,} = useForm({
+  const {
+    handleSubmit,
+    register,
+    control,
+    reset,
+    errors,
+    getValues,
+    setValue,
+    watch,
+  } = useForm({
     reValidateMode: "onBlur",
     defaultValues: {
+      shipping_mode: "",
+      origin: "",
+      destination: "",
       search_test: [
         {
           container_type: "",
@@ -126,8 +168,8 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
   const onSubmit = (values: any) => {
     debugger;
     const finalData = values;
-    finalData.from = moment(dates[0]).format("DD/MM/YYYY");
-    finalData.to = moment(dates[1]).format("DD/MM/YYYY");
+    finalData.date_from = moment(dates[0]).format("DD/MM/YYYY");
+    finalData.date_to = moment(dates[1]).format("DD/MM/YYYY");
     finalData.destination = Number(sessionStorage.getItem("destination_id"));
     finalData.origin = Number(sessionStorage.getItem("origin_id"));
     console.log("finalData", finalData);
@@ -135,7 +177,7 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
 
   return (
     <RelativeWrapper>
-      <Container scroll={watchFieldArray.length > 3 ? true : false}>
+      <Container scroll={watchFieldArray.length > 3}>
         <Heading>Search Rates</Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
@@ -152,6 +194,7 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
               directory=""
               searchColumn=""
               searchValue=""
+              disabled={disabled}
             />
             <Controller
               name="shipping_mode"
@@ -164,12 +207,13 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
                 <SurchargeRateSelect
                   options={shippingModeOptions}
                   callback={setShippingValue}
-                  // error={errors?.shipping_mode?.message}
+                  error={errors?.shipping_mode?.message}
                   maxW={"18%"}
                   label={"Shipping mode"}
                   hideLabel={true}
                   background={"#ECECEC"}
                   marginBot={"0px"}
+                  disabled={disabled}
                 />
               }
             />
@@ -187,13 +231,14 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
                 })}
                 name="origin"
                 placeholder="Origin"
-                // label="Origin"
-                // error={errors?.origin}
+                error={errors?.origin}
                 getValues={getValues}
                 onChange={onOriginChangeHandler}
                 background="#ECECEC"
                 marginBottom="0"
+                messagePaddingTop="4px"
                 // onBlur={blurHandler}
+                disabled={disabled}
               />
               {origin_ports && origin_ports?.length > 0 && (
                 <PortsList top="45px">
@@ -222,12 +267,13 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
                 })}
                 name="destination"
                 placeholder="Destination"
-                // label="Destination"
-                // error={errors?.destination}
+                error={errors?.destination}
                 getValues={getValues}
                 onChange={onDestinationChangeHandler}
                 background="#ECECEC"
                 marginBottom="0"
+                messagePaddingTop="4px"
+                disabled={disabled}
                 //onBlur={blurHandler}
               />
               {destination_ports && destination_ports?.length > 0 && (
@@ -246,6 +292,8 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
             <Dates
               setDates={setDates}
               extraDateNumber={mode === "sea" ? 9 : 2}
+              dates={dates}
+              disabled={disabled}
             />
           </div>
 
@@ -258,29 +306,56 @@ const Search: React.FC<PropsType> = ({ bottom, right, setOpenCalcPopup, shipping
                 container_types={container_types}
                 remove={remove}
                 frozen_choices={frozen_choices}
+                errors={errors}
+                disabled={disabled}
               />
-            ) : (  cargo_groups && cargo_groups.length > 0 &&
+            ) : ( cargo_groups && cargo_groups.length > 0 &&
                     <OtherModesFieldArray cargo_groups={cargo_groups}
                                           packaging_types={packaging_types}
+                                          deleteCargoGroup={deleteCargoGroup}
+                                          setEditableCargoGroupToState={setEditableCargoGroupToState}
+                                          editCargoGroup={editCargoGroup}
+                                          setOpenCalcPopup={setOpenCalcPopup}
                     />
             )
           ) : null}
-          <ButtonGroup bottom={bottom} right={right} justify_content={dates.length > 0 && watchResultArr.length === 3 && shippingValue !== 3 ? 'space-between' : 'flex-end'}>
-            {dates.length > 0 && watchResultArr.length === 3 && shippingValue !== 3 && <CalculateButton type='button' onClick={() => setOpenCalcPopup(true)}>Calculate w/m</CalculateButton>}
-            <div style={{display: 'flex'}}>
-            {watchFieldArray.length > 0
-            && !!watchFieldArray[0].container_type
-            && !!watchFieldArray[0].volume &&(
-              <BaseTooltip title={"Add more cargo groups by clicking on plus"}>
-                <AddImg
-                  onClick={() => append({ name: "search_test" })}
-                  src={AddIcon}
-                  alt="add"
-                />
-              </BaseTooltip>
-            )}
+          <ButtonGroup
+            bottom={bottom}
+            right={right}
+            justify_content={
+              dates.length > 0 &&
+              watchResultArr.length === 3 &&
+              shippingValue !== 3
+                ? "space-between"
+                : "flex-end"
+            }
+          >
+            {dates.length > 0 &&
+              watchResultArr.length === 3 &&
+              shippingValue !== 3 && (
+                <CalculateButton
+                  type="button"
+                  onClick={() => setOpenCalcPopup(true)}
+                >
+                  Calculate w/m
+                </CalculateButton>
+              )}
+            <div style={{ display: "flex" }}>
+              {watchFieldArray.length > 0 &&
+                !!watchFieldArray[0].container_type &&
+                !!watchFieldArray[0].volume && (
+                  <BaseTooltip
+                    title={"Add more cargo groups by clicking on plus"}
+                  >
+                    <AddImg
+                      onClick={() => append({ name: "search_test" })}
+                      src={AddIcon}
+                      alt="add"
+                    />
+                  </BaseTooltip>
+                )}
 
-            <BaseButton type="submit">Search</BaseButton>
+              <BaseButton type="submit">Search</BaseButton>
             </div>
           </ButtonGroup>
         </form>

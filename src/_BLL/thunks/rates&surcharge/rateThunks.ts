@@ -6,6 +6,8 @@ import {
 import { rateAPI } from "../../../_DAL/API/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
+import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
+
 
 
 type ThunkType = ThunkAction<
@@ -74,6 +76,17 @@ export const getSurchargeForExactRateThunk = (rate_data: any) => {
     }
   };
 };
+export const addNewSurchargeForRate = (surcharge_data: any) => {
+  return async (dispatch:Dispatch<any>) => {
+    try {
+      let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
+      dispatch(rateActions.setExistingSurchargeByRate(res.data))
+      console.log('surcharge', res.data)
+    } catch (e) {
+      console.log(e.response)
+    }
+  }
+}
 
 export const getFilteredRateListThunk = (
   direction: string,

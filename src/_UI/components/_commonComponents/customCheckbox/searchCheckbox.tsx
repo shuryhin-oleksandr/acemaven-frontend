@@ -8,6 +8,7 @@ type PropsType = {
   isCheck: boolean;
   labelText?: string;
   color?: string;
+  disabled?: any;
 };
 
 const SearchCheckbox: React.FC<PropsType> = ({
@@ -15,6 +16,7 @@ const SearchCheckbox: React.FC<PropsType> = ({
   setIsCheck,
   labelText,
   color,
+  disabled,
   ...props
 }) => {
   let handleChange = () => {
@@ -26,9 +28,10 @@ const SearchCheckbox: React.FC<PropsType> = ({
         {...props}
         type="checkbox"
         checked={isCheck}
-        onChange={() => handleChange()}
+        onChange={() => !disabled && handleChange()}
         ref={props.inputref()}
         name={props.name}
+        disabled={disabled}
         // @ts-ignore
       />
       <span className="checkmark" />

@@ -36,16 +36,18 @@ import moment from "moment";
 import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
 import {
   getFrozenChoices,
-  searchRatesOffersThunk
+  searchRatesOffersThunk,
 } from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
-import {
-  getFrozenChoicesSelector
-} from "../../../../../_BLL/selectors/search/searchClientSelector";
+import { getFrozenChoicesSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
-import {CargoGroupType, SearchResultType} from "../../../../../_BLL/types/search/search_types";
+import {
+  CargoGroupType,
+  SearchResultType,
+} from "../../../../../_BLL/types/search/search_types";
 import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
 import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
 
 type PropsType = {
   right?: string;
@@ -58,26 +60,41 @@ type PropsType = {
   cargo_groups_list: CargoGroupType[] | null;
   packaging_types: PackagingType[] | null;
   disabled: any;
-  search_result: SearchResultType[]
-  search_success: boolean
+  search_result: SearchResultType[];
+  search_success: boolean;
 };
 
-const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingValue, setShippingValue, mode,
-                                       setMode, cargo_groups_list, packaging_types, disabled, search_success, search_result},newParam = "") => {
+const Search: React.FC<PropsType> = (
+  {
+    bottom,
+    right,
+    setOpenCalcPopup,
+    shippingValue,
+    setShippingValue,
+    mode,
+    setMode,
+    cargo_groups_list,
+    packaging_types,
+    disabled,
+    search_success,
+    search_result,
+  },
+  newParam = ""
+) => {
   const dispatch = useDispatch();
 
   //delete cargo groups from cargo list after calculation
   const deleteCargoGroup = (id: number) => {
-    dispatch(searchActions.deleteCargoGroup(id))
-  }
+    dispatch(searchActions.deleteCargoGroup(id));
+  };
   //set editable cargo group to state
   const setEditableCargoGroupToState = (id: number) => {
-    dispatch(searchActions.setEditableCargoGroup(id))
-  }
+    dispatch(searchActions.setEditableCargoGroup(id));
+  };
   //edit chosen one
   const editCargoGroup = (edit_data: CargoGroupType) => {
-    dispatch(searchActions.editChosenCargoGroup(edit_data))
-  }
+    dispatch(searchActions.editChosenCargoGroup(edit_data));
+  };
 
   const [dates, setDates] = useState([]);
   useEffect(() => {
@@ -99,13 +116,24 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
   const destination_ports = useSelector(getDestinationPorts);
   const frozen_choices = useSelector(getFrozenChoicesSelector);
 
-
-  const shippingModeOptions = mode === ShippingTypesEnum.AIR ? shippingTypes[0]?.shipping_modes : shippingTypes[1]?.shipping_modes;
+  const shippingModeOptions =
+    mode === ShippingTypesEnum.AIR
+      ? shippingTypes[0]?.shipping_modes
+      : shippingTypes[1]?.shipping_modes;
 
   let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
     ?.container_types;
 
-  const { handleSubmit, register, control, reset, errors, getValues, setValue, watch,} = useForm({
+  const {
+    handleSubmit,
+    register,
+    control,
+    reset,
+    errors,
+    getValues,
+    setValue,
+    watch,
+  } = useForm({
     reValidateMode: "onBlur",
     defaultValues: {
       shipping_mode: "",
@@ -125,13 +153,11 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
   const watchFields = watch(["shipping_mode", "origin", "destination"]);
   const watchResultArr = Object.values(watchFields).filter((val) => !!val);
 
-
   const { fields, append, remove } = useFieldArray({
     control,
     name: "cargo_groups",
   });
   const watchFieldArray = watch("cargo_groups");
-
 
   let onOriginChangeHandler = (value: any) => {
     dispatch(getPorts(value.value, "origin", mode));
@@ -154,19 +180,22 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
     setDates([]);
   };
 
-
   const onSubmit = (values: any) => {
-    debugger
+    debugger;
     let finalData;
-    if(values.cargo_groups) {
+    if (values.cargo_groups) {
       finalData = {
         shipping_mode: values.shipping_mode,
         date_from: moment(dates[0]).format("DD/MM/YYYY"),
         date_to: moment(dates[1]).format("DD/MM/YYYY"),
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
-        cargo_groups: values.cargo_groups.map((g: any) => ({container_type : g.container_type, can_be_dangerous: g.can_be_dangerous, volume: Number(g.volume)}))
-      }
+        cargo_groups: values.cargo_groups.map((g: any) => ({
+          container_type: g.container_type,
+          can_be_dangerous: g.can_be_dangerous,
+          volume: Number(g.volume),
+        })),
+      };
     } else {
       finalData = {
         shipping_mode: values.shipping_mode,
@@ -174,16 +203,23 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
         date_to: moment(dates[1]).format("DD/MM/YYYY"),
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
-        cargo_groups: cargo_groups_list?.map(c => c.package_type
-            ? {package_type: c.package_type, can_be_dangerous: c.is_dangerous, volume: Number(c.volume)}
-            : {container_type: c.container_type, can_be_dangerous: c.is_dangerous, volume: Number(c.volume)}
-
-        )
-      }
+        cargo_groups: cargo_groups_list?.map((c) =>
+          c.package_type
+            ? {
+                package_type: c.package_type,
+                can_be_dangerous: c.is_dangerous,
+                volume: Number(c.volume),
+              }
+            : {
+                container_type: c.container_type,
+                can_be_dangerous: c.is_dangerous,
+                volume: Number(c.volume),
+              }
+        ),
+      };
     }
 
-    dispatch(searchRatesOffersThunk(finalData))
-
+    dispatch(searchRatesOffersThunk(finalData));
   };
 
   return (
@@ -320,14 +356,18 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
                 errors={errors}
                 disabled={disabled}
               />
-            ) : ( cargo_groups_list && cargo_groups_list.length > 0 &&
-                    <OtherModesFieldArray cargo_groups={cargo_groups_list}
-                                          packaging_types={packaging_types}
-                                          deleteCargoGroup={deleteCargoGroup}
-                                          setEditableCargoGroupToState={setEditableCargoGroupToState}
-                                          editCargoGroup={editCargoGroup}
-                                          setOpenCalcPopup={setOpenCalcPopup}
-                    />
+            ) : (
+              cargo_groups_list &&
+              cargo_groups_list.length > 0 && (
+                <OtherModesFieldArray
+                  cargo_groups={cargo_groups_list}
+                  packaging_types={packaging_types}
+                  deleteCargoGroup={deleteCargoGroup}
+                  setEditableCargoGroupToState={setEditableCargoGroupToState}
+                  editCargoGroup={editCargoGroup}
+                  setOpenCalcPopup={setOpenCalcPopup}
+                />
+              )
             )
           ) : null}
           <ButtonGroup
@@ -354,7 +394,8 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
             <div style={{ display: "flex" }}>
               {watchFieldArray.length > 0 &&
                 !!watchFieldArray[0].container_type &&
-                !!watchFieldArray[0].volume && !search_success &&(
+                !!watchFieldArray[0].volume &&
+                !search_success && (
                   <BaseTooltip
                     title={"Add more cargo groups by clicking on plus"}
                   >
@@ -366,14 +407,18 @@ const Search: React.FC<PropsType> = ({bottom, right, setOpenCalcPopup, shippingV
                   </BaseTooltip>
                 )}
 
-              {!search_success
-                  ? <BaseButton type="submit">Search</BaseButton>
-                  : <BaseButton type="button" onClick={newSearch}>New Search</BaseButton>
-              }
+              {!search_success ? (
+                <BaseButton type="submit">Search</BaseButton>
+              ) : (
+                <BaseButton type="button" onClick={newSearch}>
+                  New Search
+                </BaseButton>
+              )}
             </div>
           </ButtonGroup>
         </form>
       </Container>
+      {search_result.length == 0 && search_success && <NoSearchResultCard newSearch={newSearch} />}
     </RelativeWrapper>
   );
 };

@@ -2,7 +2,7 @@
 import React from 'react';
 import Flickity from 'react-flickity-component'
 import lan1 from '../../../_UI/assets/icons/landing/3620.jpg'
-import lan2 from '../../../_UI/assets/icons/landing/Landing1.png'
+import lan2 from '../../../_UI/assets/icons/landing/Landing1.jpg'
 import lan3 from '../../../_UI/assets/icons/landing/Landing3.png'
 import './flickity.css'
 import SliderHeaderComponent from "../../Pages/landing/components/header/SliderHeaderComponent";

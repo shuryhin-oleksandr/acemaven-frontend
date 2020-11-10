@@ -71,10 +71,12 @@ export type SearchResultType = {
         BRL: number
     },
     total_freight_rate: {
-        USD: number
+        USD?: number,
+        BRL?: number
     },
     total_surcharge: {
-        BRL: number
+        BRL?: number,
+        USD?: number
     },
     pay_to_book: {
         service_fee: number,

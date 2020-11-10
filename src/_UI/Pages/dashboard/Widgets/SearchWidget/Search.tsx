@@ -176,6 +176,7 @@ const Search: React.FC<PropsType> = (
 
   let newSearch = () => {
     dispatch(searchActions.setSearchSuccess(false));
+    dispatch(searchActions.clearCargoList([]));
     reset();
     setDates([]);
   };

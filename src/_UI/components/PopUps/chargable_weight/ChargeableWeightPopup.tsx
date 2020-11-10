@@ -339,18 +339,8 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                                        setIsCheck={setIsCheck}
                                 />
                             </CheckboxWrap>
-                           {/* <TotalWrapper>
-                                <span style={{fontFamily: 'Helvetica Reg', marginRight: '5px'}}>Total:</span> 15w/m
-                            </TotalWrapper>*/}
                         </>
                 <NewPackageWrapper>
-                    {/*<IconButton onClick={() => {
-                        append({uld_type: "", number_of_packs: "1", weight: '', height: '', length: '', width: ''})
-                    }}
-                                style={{padding: '0', marginBottom: '24px'}}
-                    >
-                        <img src={add_new_icon} alt=""/>
-                    </IconButton>*/}
                 </NewPackageWrapper>
                 <ActionsWrapper>
                     <ConfirmButton type='submit'>CONFIRM</ConfirmButton>

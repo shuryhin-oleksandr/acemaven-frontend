@@ -22,6 +22,7 @@ import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateR
 import {RateForSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import styled from "styled-components";
 import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+import {ShippingModeEnum} from "../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 const useStyles = makeStyles({
     container: {
@@ -69,10 +70,11 @@ type PropsType = {
     existing_surcharge: any
     surcharge: SurchargeInfoType | null
     rate_data_for_surcharge: RateForSurchargeType | null
-    required_dates: boolean
+    required_dates: boolean,
+    shipping_value: number
 }
 
-const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getValues,
+const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getValues, shipping_value,
                                        rate_data_for_surcharge, surcharge, required_dates}) => {
     const classes = useStyles()
 
@@ -133,11 +135,11 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            {usageFees.length > 0 && <TableCell className={classes.cell}>CONTAINER TYPE </TableCell>}
+                            {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD && <TableCell className={classes.cell}>CONTAINER TYPE </TableCell>}
                             <TableCell className={classes.cell} align="left">
                                 CURRENCY
                             </TableCell>
-                            {usageFees.length > 0
+                            {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD
                                 ? (<TableCell className={classes.cell} align="left">
                                     RATE
                                 </TableCell>)
@@ -154,7 +156,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {usageFees.length > 0
+                        {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD
                             ? usageFees.map(fee => {
                                 if(reservedDates) {
                                     return {...fee, ...reservedDates.find(d => d.container_type === fee.id)}

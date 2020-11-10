@@ -69,16 +69,33 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                         <CalcValue>{c.freight.currency} {c.freight.subtotal}</CalcValue>
                     </CalculationLine>)}
                     <CalculationLine>
-                        <CalcName>Total Freight in USD:</CalcName>
-                        <CalcValue> {search_result?.total_freight_rate.USD}</CalcValue>
+                        <CalcName>Total Freight in {search_result?.total_freight_rate.USD
+                            ? "BRL"
+                            : "USD" } :
+                        </CalcName>
+                        <CalcValue>
+                            {search_result?.total_freight_rate.USD
+                            ? search_result?.total_freight_rate.USD
+                            : search_result?.total_freight_rate.BRL}
+                        </CalcValue>
                     </CalculationLine>
                     {/*<CalculationLine>
                         <CalcName>Surcharges in:</CalcName>
                         <CalcValue>USD 240</CalcValue>
                     </CalculationLine>*/}
                     <CalculationLine marginBottom='10px'>
-                        <CalcName>Surcharges in BRL :</CalcName>
-                        <CalcValue>{search_result?.total_surcharge.BRL}</CalcValue>
+                        <CalcName>
+                            Surcharges in {search_result?.total_surcharge.BRL
+                                ? "BRL"
+                                : "USD"
+                            } :
+                        </CalcName>
+                        <CalcValue>
+                            {search_result?.total_surcharge.BRL
+                                ? search_result?.total_surcharge.BRL
+                                : search_result?.total_surcharge.USD
+                            }
+                        </CalcValue>
                     </CalculationLine>
                     <CalculationLine>
                         <CalcName>Acemaven Service Fee:</CalcName>

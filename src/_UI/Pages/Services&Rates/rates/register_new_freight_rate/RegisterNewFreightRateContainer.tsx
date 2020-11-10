@@ -60,7 +60,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
 
   //запрос за опшионсами для селектов
   useEffect(() => {
-    dispatch(getShippingTypes(true));
+    dispatch(getShippingTypes(''));
     dispatch(getCarriers());
     dispatch(getCurrencyList());
   }, [dispatch]);
@@ -161,7 +161,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     dispatch(addNewSurchargeForRate(surcharge_data))
   }
 
-/*  let  clearStorage = () => {
+/*  let clearStorage = () => {
     sessionStorage.removeItem('origin_id')
     sessionStorage.removeItem('destination_id')
   }*/

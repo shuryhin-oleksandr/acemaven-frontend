@@ -41,7 +41,7 @@ export const UpperWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 22px;
+
   
   &:hover {
     cursor:pointer;
@@ -128,6 +128,7 @@ export const CalculationWrap = styled.div`
    display: flex;
    flex-direction: column;
    align-items: flex-end;
+   margin-bottom: 20px;
 `
 export const CalculationLine = styled.div<{marginBottom?: string}>`
 display: flex;

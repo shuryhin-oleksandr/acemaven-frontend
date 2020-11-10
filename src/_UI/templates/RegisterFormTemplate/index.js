@@ -38,7 +38,6 @@ const ContentWrapper = styled.div`
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
   background-color: #ffffff;
   position: relative;
-  overflow: scroll;
 `;
 const CloseIcon = styled.button`
   outline: none;

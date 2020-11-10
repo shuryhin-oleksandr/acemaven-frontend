@@ -45,8 +45,13 @@ export type CargoGroupResultType = {
         subtotal: number,
         booking_fee: number
     },
+    handling: {
+        currency: string,
+        cost: number,
+        subtotal: number
+    },
     other: {
-        currency: "BRL",
+        currency: string,
         cost: number,
         subtotal: number
     },

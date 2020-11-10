@@ -30,7 +30,7 @@ export const HandlingSurchargeContainer = styled.div<PropsStyle>`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 38px;
+  margin-top: 20px;
   max-width: ${({max_width}) => max_width ? max_width : '478px'};
   max-height: ${({max_height}) => max_height ? max_height : '420px'};
 `

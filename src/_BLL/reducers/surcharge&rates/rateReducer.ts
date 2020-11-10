@@ -28,7 +28,10 @@ const initialState = {
   registration_success: "",
   rate_info: null as any | null,
   booked_dates: null as Array<Array<{container_type: number | null, start_date: string, expiration_date: string}>> | null,
-  edit_success: ''
+  edit_success: '',
+  adding_rate_error: null,
+  adding_popup_error: null,
+  rate_transit_error: null
 };
 
 type InitialStateType = typeof initialState;
@@ -132,6 +135,22 @@ export const rateReducer = (
         edit_success: action.success
       }
     }
+    case "SET_ADDING_POPUP_ERROR":
+      debugger
+      return {
+        ...state,
+        adding_popup_error: action.error
+      }
+    case "SET_ADDING_RATE_ERROR":
+      return {
+        ...state,
+        adding_rate_error: action.error
+      }
+    case "SET_TRANSIT_ERROR":
+      return {
+        ...state,
+       rate_transit_error: action.error
+      }
     default:
       return state;
   }
@@ -177,5 +196,8 @@ export const rateActions = {
     ({ type: "SET_ACTIVE_OR_PAUSED", rate } as const),
   setBookedDates: (booked_dates: Array<Array<{container_type: number, start_date: string, expiration_date: string}>>) =>
       ({type: 'SET_BOOKED_DATES', booked_dates} as const),
-  setEditSuccess: (success: string) => ({type: 'SET_EDIT_RATE_SUCCESS', success} as const)
+  setEditSuccess: (success: string) => ({type: 'SET_EDIT_RATE_SUCCESS', success} as const),
+  setAddingPopupError: (error: any) => ({type: 'SET_ADDING_POPUP_ERROR', error} as const),
+  setAddingRateError: (error: any) => ({type: 'SET_ADDING_RATE_ERROR', error} as const),
+  setTransitError: (error: any) => ({type: 'SET_TRANSIT_ERROR', error} as const)
 };

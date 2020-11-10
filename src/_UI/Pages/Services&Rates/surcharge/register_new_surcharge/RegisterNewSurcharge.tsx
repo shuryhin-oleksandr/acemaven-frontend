@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {
     ActionsWrapper,
-    Cancel,
+    Cancel, ErrorChargesServerMessage,
     FormTitle,
     HeaderWrapper,
     OptionsDeliveryWrapper,
@@ -24,6 +24,8 @@ import moment from "moment";
 import {addNewSurcharge} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {useDispatch} from "react-redux";
 import {UnderTitle} from "../../rates/register_new_freight_rate/form-styles";
+import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
+
 
 
 type PropsType = {
@@ -50,7 +52,8 @@ type PropsType = {
     adding_success: boolean,
     watchResultArr: number[],
     watchResultArrForDates: number[],
-    location_id: number
+    location_id: number,
+    adding_error: string[]
 }
 
 
@@ -58,13 +61,14 @@ type PropsType = {
 const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
     const {
         handleSubmit, mode, setMode, control, register, errors, getValues, setValue, closeRegisterForm, carrierOptions, shippingModeOptions,
-        setShippingValue, ports, locationChangeHandler, getDisabledSurchargesDates, usageFees, additionalTableName,
+        setShippingValue, ports, locationChangeHandler, getDisabledSurchargesDates, usageFees, additionalTableName, adding_error,
         additionalType, shippingValue, additional, adding_success, watchResultArr, watchResultArrForDates, location_id
     } = props
 
     const dispatch = useDispatch()
 
     const onSubmit = (values: any) => {
+        dispatch(surchargeActions.setAddingSurchargeError([]))
         let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
 
         let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
@@ -137,6 +141,11 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 watchResultArrForDates={watchResultArrForDates}
                 location_id={location_id}
             />
+            {adding_error && adding_error?.length > 0
+            && <ErrorChargesServerMessage text_align='start'>
+                Charge has to be equal or grater than 0 and includes max 15 numbers.
+            </ErrorChargesServerMessage>
+            }
             {
                 !!shippingValue
                     ? <>

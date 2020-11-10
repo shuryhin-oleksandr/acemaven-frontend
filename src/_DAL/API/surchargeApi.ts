@@ -10,8 +10,8 @@ export const surchargeAPI = {
     getCarriersList () {
         return instance.get('/handling/carrier/')
     },
-    getPortsList (q: string) {
-        return instance.get(`/handling/port/?is_local=true&search=${q}`)
+    getPortsList (local: any, q: string) {
+        return instance.get(`/handling/port/?is_local=${local}&search=${q}`)
     },
     getShippingModesList () {
         return instance.get('/handling/shipping-mode/')

@@ -194,3 +194,12 @@ export const SurchargesDatesFilter = styled.div<PropsStyle>`
   display: flex;
   flex-direction: ${({flex_direction}) => flex_direction ? flex_direction : 'column'};
 `
+export const ErrorChargesServerMessage = styled.div<{text_align?: string}>`
+  width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: ${({text_align}) => text_align ? text_align : 'end'};
+    color: #E76767;
+    font-family: "Helvetica Reg", sans-serif;
+    font-size: 14px;
+`

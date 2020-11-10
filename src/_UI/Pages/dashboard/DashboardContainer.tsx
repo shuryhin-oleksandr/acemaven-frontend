@@ -17,6 +17,7 @@ import {surchargeActions} from "../../../_BLL/reducers/surcharge&rates/surcharge
 import {getWMCalculationThunk} from "../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import {CargoGroupType} from "../../../_BLL/types/search/search_types";
 import Search from "./Widgets/SearchWidget/Search";
+import {AppStateType} from "../../../_BLL/store";
 
 
 const DashboardContainer:React.FC = () => {
@@ -33,9 +34,9 @@ const DashboardContainer:React.FC = () => {
     console.log("mode_id",shippingValue)
 
     //data from store
-    let calc_success = useSelector(getWmCalculationSuccessSelector)
+    const calc_success = useSelector(getWmCalculationSuccessSelector)
     const current_shipping_type = useSelector(getCurrentShippingTypeSelector)
-    let shipping_types = useSelector(getShippingTypesSelector)
+    const shipping_types = useSelector(getShippingTypesSelector)
     let shipping_modes_options = (current_shipping_type === ShippingTypesEnum.AIR) ? shipping_types[0]?.shipping_modes : shipping_types[1]?.shipping_modes
     const usageFees = shipping_modes_options?.find(m => m.id === shippingValue)?.container_types || []
     const packaging_types = shipping_modes_options?.find(m => m.id === shippingValue)?.packaging_types || []
@@ -43,8 +44,7 @@ const DashboardContainer:React.FC = () => {
     const editable_cargo_group = useSelector(getEditableCargoSelector)
     const search_result = useSelector(getSearchResult)
     const search_success = useSelector(getSearchSuccess)
-
-
+    const auth_user = useSelector((state:AppStateType) => state.profile.authUserInfo)
 
     let setMode = (value: CurrentShippingType) => {
         dispatch(surchargeActions.setCurrentShippingType(value))
@@ -67,29 +67,26 @@ const DashboardContainer:React.FC = () => {
                                                        editable_cargo_group={editable_cargo_group}
             />}
             <div style={{position:"relative", width:"100%"}}>
+                {auth_user?.companies && auth_user.companies[0].type === 'client'
+                    &&
                 <div style={{position:search_success?"relative":"absolute", zIndex:6, top:"30px", left:"30px", display:widgetsVisible?"block":"none"}}>
-                    <Search setOpenCalcPopup={setOpenCalcPopup}
-                            shippingValue={shippingValue}
-                            setShippingValue={setShippingValue}
-                            setMode={setMode}
-                            mode={current_shipping_type}
-                            cargo_groups_list={cargo_groups}
-                            packaging_types={packaging_types}
-                            disabled={search_success}
-                            search_result={search_result}
-                            search_success={search_success}
-                    />
+                     <Search setOpenCalcPopup={setOpenCalcPopup}
+                               shippingValue={shippingValue}
+                               setShippingValue={setShippingValue}
+                               setMode={setMode}
+                               mode={current_shipping_type}
+                               cargo_groups_list={cargo_groups}
+                               packaging_types={packaging_types}
+                               disabled={search_success}
+                               search_result={search_result}
+                               search_success={search_success}
+                        />
                 </div>
-            {search_success
+                }
+                {search_success
                 ? <SearchContainer search_result={search_result}/>
-                : <DashboardPage /*//setOpenCalcPopup={setOpenCalcPopup}
-                                 shippingValue={shippingValue}
-                                 setShippingValue={setShippingValue}
-                                 setMode={setMode}
-                                 mode={current_shipping_type}
-                                 cargo_groups={cargo_groups}
-                                 packaging_types={packaging_types}*/
-                                 widgetsVisible={widgetsVisible} setWidgetsVisible={setWidgetsVisible}
+                : <DashboardPage widgetsVisible={widgetsVisible}
+                                 setWidgetsVisible={setWidgetsVisible}
                 />}
             </div>
 

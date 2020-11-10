@@ -80,20 +80,6 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
 
     const reservedDates = useSelector(getRateBookedDatesSelector)
 
-    console.log('reservedDates', reservedDates)
-
-
-    //CALENDAR
-    /*useEffect(() => {
-        if(surcharge && !sessionStorage.getItem('reg')) {
-            setSelectedDay({from: moment(surcharge.start_date, 'DD/MM/YYYY').toDate(),
-                to: moment(surcharge.expiration_date, 'DD/MM/YYYY').toDate()})
-            setValue('from', surcharge.start_date)
-            setValue('to', surcharge.expiration_date)
-            console.log(new Date(surcharge.start_date))
-        }
-    }, [surcharge])*/
-
     const dispatch = useDispatch()
     const getSurchargeToRateHandle = (id: number, from: string, to: string) => {
         let surcharge_to_rate = {

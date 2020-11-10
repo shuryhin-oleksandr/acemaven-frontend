@@ -25,7 +25,7 @@ import { useDispatch } from "react-redux";
 import { Outer } from "../../surcharge/register_new_surcharge/form-styles";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {RateForSurchargeType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import {rateActions} from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import {ErrorServerMessage} from "../../../SignInPage";
 
 type PropsType = {
   handleSubmit: any;
@@ -58,11 +58,13 @@ type PropsType = {
   origin_port_value: PortType | null,
   destination_port_value: PortType | null
   //booked_dates: Array<{from: Date, to: Date}>
+  adding_rate_error: any
+  rate_transit_error: any
 };
 
 const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, register, errors,
   getValues, setValue, closeRateRegistration, setMode,
-  mode, carrierOptions, shippingModeOptions, shippingValue,
+  mode, carrierOptions, shippingModeOptions, shippingValue, adding_rate_error, rate_transit_error,
   setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
   onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, usageFees, origin_port_value, destination_port_value,
   setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge, registration_success, rate_info, watchResultArr
@@ -70,7 +72,6 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
 
   const dispatch = useDispatch();
   const onSubmit = (values: any) => {
-    debugger
     let rates_array;
     if (values.rates.length > 1) {
       let full_rates = values.rates.filter((r: any) => r !== null);
@@ -112,9 +113,6 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
   useEffect(() => {
     if(registration_success) {
       closeRateRegistration()
-      dispatch(rateActions.setRegistrationSuccess(''))
-      dispatch(rateActions.setExistingSurchargeByRate(null))
-      dispatch(rateActions.setOriginPortValue(null))
     }
   }, [registration_success]);
 
@@ -154,7 +152,14 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
                               rate_info={rate_info}
                              setValue={setValue}
                              watchResultArr={watchResultArr}
+                             rate_transit_error={rate_transit_error}
             />
+          {
+            (adding_rate_error && adding_rate_error.length > 0)
+            && <ErrorServerMessage style={{textAlign: 'start'}}>
+              Rate has to be equal or grater than zero and includes maximum 15 symbols
+            </ErrorServerMessage>
+          }
             {watchResultArr.length === 4
                 ? <>
                     <Rates control={control}

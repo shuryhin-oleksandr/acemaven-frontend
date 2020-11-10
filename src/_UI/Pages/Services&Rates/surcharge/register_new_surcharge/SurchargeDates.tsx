@@ -38,7 +38,6 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
 
     let surcharge = useSelector(getSurcharge)
     const history = useHistory()
-    console.log(history)
 
     useEffect(() => {
         if(surcharge && history.location.pathname === `/services/surcharge/${surcharge.id}`) {
@@ -49,7 +48,6 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
             console.log(new Date(surcharge.start_date))
         }
         if(props.rate_start_date) {
-            debugger
             setSelectedDay({from: moment(props.rate_start_date, 'DD/MM/YYYY').toDate()})
             setValue('from', props.rate_start_date)
         }

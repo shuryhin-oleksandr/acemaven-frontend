@@ -27,8 +27,8 @@ import FormField from "../../../../components/_commonComponents/Input/FormField"
 import { PortType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import { getPorts } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {
-  getDestinationPorts,
-  getOriginPorts,
+    getDestinationPorts, getIsLocalPort,
+    getOriginPorts,
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import Dates from "../../Dates";
@@ -115,6 +115,7 @@ const Search: React.FC<PropsType> = (
   const origin_ports = useSelector(getOriginPorts);
   const destination_ports = useSelector(getDestinationPorts);
   const frozen_choices = useSelector(getFrozenChoicesSelector);
+  const origin_port_value = useSelector(getIsLocalPort)
 
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
@@ -160,10 +161,16 @@ const Search: React.FC<PropsType> = (
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    dispatch(getPorts(value.value, "origin", mode));
+      if(value.value.length >= 3) {
+          dispatch(getPorts('', value.value, "origin", mode));
+      }
   };
   let onDestinationChangeHandler = (value: any) => {
-    dispatch(getPorts(value.value, "destination", mode));
+      if(value.value.length >= 3) {
+          origin_port_value?.is_local
+              ? dispatch(getPorts(false, value.value, "destination", mode))
+              : dispatch(getPorts(true, value.value, "destination", mode))
+      }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
@@ -182,7 +189,6 @@ const Search: React.FC<PropsType> = (
   };
 
   const onSubmit = (values: any) => {
-    debugger;
     let finalData;
     if (values.cargo_groups) {
       finalData = {

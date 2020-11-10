@@ -12,8 +12,8 @@ import {Field} from "../../../../../components/_commonComponents/Input/input-sty
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
-
 import styled from "styled-components";
+
 
 
 const useStyles = makeStyles({
@@ -52,7 +52,7 @@ type PropsType = {
     setValue: any
 }
 
-const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, setValue }) => {
+const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, setValue}) => {
 
     const classes = useStyles()
 
@@ -69,7 +69,7 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
     }
 
     return (
-        <HandlingSurchargeContainer>
+        <HandlingSurchargeContainer max_height='400px'>
             <HandlingTitle>{tableName}</HandlingTitle>
             <TableContainer>
                 <Table>
@@ -123,7 +123,10 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
                                         control={control}
                                         name={`usage_fees.${fees.id}.charge`}
                                         defaultValue=''
-                                        render={({}) => (
+                                        rules={{
+                                            maxLength: 15
+                                        }}
+                                        as={
                                             <div style={{position: 'relative'}}>
                                             <Field maxW="100px"
                                                    marginBottom="0"
@@ -136,7 +139,6 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
                                                 && <SpanAware><Title>You are setting this surcharge as $0,
                                                     please double check before saving.</Title></SpanAware>}
                                             </div>
-                                            )
                                         }
                                     />
                                 </TableCell>
@@ -145,7 +147,6 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
                         }
                     </TableBody>
                 </Table>
-
             </TableContainer>
         </HandlingSurchargeContainer>
     )

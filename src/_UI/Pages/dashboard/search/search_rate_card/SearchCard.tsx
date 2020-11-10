@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import BookingCard from "./BookingCard";
+import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
 
 const useStyles = makeStyles({
     container: {
@@ -49,10 +50,11 @@ const useStyles = makeStyles({
 
 type PropsType = {
     showRatingPopup: (value: boolean) => void
-    setBookingPopupVisible:(value: boolean) => void
+    setBookingPopupVisible:(value: boolean) => void,
+    search_result: SearchResultType
 }
 
-const SearchCard:React.FC<PropsType> = ({showRatingPopup,setBookingPopupVisible}) => {
+const SearchCard:React.FC<PropsType> = ({showRatingPopup,setBookingPopupVisible, search_result}) => {
     const classes = useStyles();
 
     const [isShown, setShow] = useState(false)
@@ -60,7 +62,13 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup,setBookingPopupVisible}
     return (
         <CardContainer>
             <CardInner>
-                <BookingCard showRatingPopup={showRatingPopup} showTable={setShow} isTableShown={isShown} button_display={true} setBookingPopupVisible={setBookingPopupVisible}/>
+                <BookingCard showRatingPopup={showRatingPopup}
+                             showTable={setShow}
+                             isTableShown={isShown}
+                             button_display={true}
+                             setBookingPopupVisible={setBookingPopupVisible}
+                             search_result={search_result}
+                />
                 {isShown && <HiddenWrapper>
                     <HiddenTitle>
                         CHARGES
@@ -91,90 +99,33 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup,setBookingPopupVisible}
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <TableRow className={classes.info_row}>
-                                        <TableCell className={classes.innerCell} scope="row">
-                                            1
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="left" >
-                                            40GH
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="left">
-                                            <div>FREIGHT</div>
-                                            <div>HANDING</div>
-                                            <div>OTHERS</div>
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="left">
-                                            <div>USD</div>
-                                            <div>BRL</div>
-                                            <div>USD</div>
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="right">
-                                            <div>1000</div>
-                                            <div>500</div>
-                                            <div>599</div>
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="right">
-                                            <div>1000.00</div>
-                                            <div>500.6</div>
-                                            <div>599.68</div>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow className={classes.info_row}>
-                                        <TableCell className={classes.innerCell} scope="row">
-                                            1
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="left" >
-                                            40GH
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="left">
-                                            <div>FREIGHT</div>
-                                            <div>HANDING</div>
-                                            <div>OTHERS</div>
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="left">
-                                            <div>USD</div>
-                                            <div>BRL</div>
-                                            <div>USD</div>
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="right">
-                                            <div>1000</div>
-                                            <div>500</div>
-                                            <div>599</div>
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="right">
-                                            <div>1000.00</div>
-                                            <div>500.6</div>
-                                            <div>599.68</div>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow className={classes.info_row}>
-                                        <TableCell className={classes.innerCell} scope="row">
-                                            1
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="left" >
-                                            40GH
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="left">
-                                            <div>FREIGHT</div>
-                                            <div>HANDING</div>
-                                            <div>OTHERS</div>
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="left">
-                                            <div>USD</div>
-                                            <div>BRL</div>
-                                            <div>USD</div>
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="right">
-                                            <div>1000</div>
-                                            <div>500</div>
-                                            <div>599</div>
-                                        </TableCell>
-                                        <TableCell className={classes.innerCell} align="right">
-                                            <div>1000.00</div>
-                                            <div>500.6</div>
-                                            <div>599.68</div>
-                                        </TableCell>
-                                    </TableRow>
+                                    {search_result.cargo_groups.map(s =>
+                                        <TableRow key={s.cargo_type} className={classes.info_row}>
+                                            <TableCell className={classes.innerCell} scope="row">
+                                                {s.volume}
+                                            </TableCell>
+                                            <TableCell className={classes.innerCell} align="left" >
+                                                {s.cargo_type}
+                                            </TableCell>
+                                            <TableCell className={classes.innerCell} align="left">
+                                                <div>FREIGHT</div>
+                                               {/* <div>HANDING</div>*/}
+                                                <div>OTHERS</div>
+                                            </TableCell>
+                                            <TableCell className={classes.innerCell} align="left">
+                                                <div>{s.freight.currency}</div>
+                                                <div>{s.other.currency}</div>
+                                            </TableCell>
+                                            <TableCell className={classes.innerCell} align="right">
+                                                <div>{s.freight.cost}</div>
+                                                <div>{s.other.cost}</div>
+                                            </TableCell>
+                                            <TableCell className={classes.innerCell} align="right">
+                                                <div>{s.freight.subtotal}</div>
+                                                <div>{s.other.subtotal}</div>
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
                                     <TableRow className={classes.info_row}>
                                         <TableCell className={classes.innerCell} scope="row">
                                         </TableCell>
@@ -184,13 +135,13 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup,setBookingPopupVisible}
                                             DOC FEE
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="left">
-                                            BRL
+                                            {search_result.doc_fee.currency}
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="right">
-                                            700
+                                            {search_result.doc_fee.cost}
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="right">
-                                            50.00
+                                            {search_result.doc_fee.subtotal}
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
@@ -199,20 +150,34 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup,setBookingPopupVisible}
                     </HiddenTable>
                     <TableTotal>
                         <TotalLine>
-                            <TotalName>TOTAL FREIGHT</TotalName>
-                            <TotalValue>8.802</TotalValue>
+                            <TotalName>
+                                TOTAL FREIGHT IN {search_result?.total_freight_rate.USD
+                                    ? "BRL"
+                                    : "USD" }
+                            </TotalName>
+                            <TotalValue>
+                                {search_result.total_freight_rate.USD
+                                    ? search_result.total_freight_rate.USD
+                                    : search_result.total_freight_rate.BRL}
+                            </TotalValue>
                         </TotalLine>
                         <TotalLine>
-                            <TotalName>CHARGES IN BRL</TotalName>
-                            <TotalValue>3000</TotalValue>
+                            <TotalName>
+                                CHARGES IN {search_result?.total_surcharge.BRL
+                                    ? "BRL"
+                                    : "USD"
+                                }
+                            </TotalName>
+                            <TotalValue>
+                                {search_result.total_surcharge.BRL
+                                    ? search_result.total_surcharge.BRL
+                                    : search_result.total_surcharge.USD
+                                }
+                            </TotalValue>
                         </TotalLine>
                         <TotalLine>
-                            <TotalName>CHARGES IN BRL</TotalName>
-                            <TotalValue>100</TotalValue>
-                        </TotalLine>
-                        <TotalLine>
-                            <TotalName>ACEMAVEN SERVICE FEE: IN BRL</TotalName>
-                            <TotalValue>50</TotalValue>
+                            <TotalName>ACEMAVEN SERVICE FEE: IN {search_result.service_fee.currency}</TotalName>
+                            <TotalValue>{search_result.service_fee.cost}</TotalValue>
                         </TotalLine>
                     </TableTotal>
                 </HiddenWrapper>}

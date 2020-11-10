@@ -31,8 +31,12 @@ border: 1px solid #3B3B41;
 min-height: 40px;
 max-width: 115px;
 width: 100%;
+font-family: "Helvetica Reg", sans-serif;
+transition: .3s;
 
 &:hover {
-cursor: pointer
+cursor: pointer;
+transition: .3s;
+background-color: rgba(0, 0, 0, .07);
 }
 `

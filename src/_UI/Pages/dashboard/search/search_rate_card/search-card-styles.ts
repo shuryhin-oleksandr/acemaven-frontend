@@ -15,7 +15,6 @@ const show_table = keyframes`
 
 export const SearchWrapper = styled.div`
     width: 100%;
-   height: 100vh;
    display: flex;
    flex-direction: column;
    align-items: flex-start;
@@ -28,6 +27,7 @@ export const CardContainer = styled.div`
   width: 100%;
  border: 1px solid #7c7c89;
  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+ margin-bottom: 20px;
 `
 
 export const CardInner = styled.div`
@@ -41,7 +41,7 @@ export const UpperWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 22px;
+
   
   &:hover {
     cursor:pointer;
@@ -128,6 +128,7 @@ export const CalculationWrap = styled.div`
    display: flex;
    flex-direction: column;
    align-items: flex-end;
+   margin-bottom: 20px;
 `
 export const CalculationLine = styled.div<{marginBottom?: string}>`
 display: flex;

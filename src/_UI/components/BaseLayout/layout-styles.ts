@@ -17,8 +17,5 @@ export const Content = styled.div`
 display: flex;
 flex:1;
 width: 100%;
-height: calc(100vh - 60px);
-@media (max-width: 1400px){
-  height: calc(100vh - 75px);
-}
+min-height: calc(100vh - 60px);
 `

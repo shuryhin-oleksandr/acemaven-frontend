@@ -8,10 +8,9 @@ export const searchAPI = {
         return instance.post('/booking/calculate/', calculation_values)
     },
     searchRates (search_data: SearchDataType) {
-        return instance.post('', search_data)
+        return instance.post('booking/freight-rate/search/', search_data)
     },
     getFrozenChoices(){
         return instance.get("/core/choices?models=frozen_choices")
     }
-
 }

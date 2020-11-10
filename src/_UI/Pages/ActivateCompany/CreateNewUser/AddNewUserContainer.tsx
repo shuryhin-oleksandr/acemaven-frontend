@@ -24,7 +24,6 @@ const AddNewUserContainer:React.FC<IProps> = () => {
         localStorage.removeItem('access_token')
     }*/
     useEffect(() => {
-        debugger
         dispatch(authActions.setAuth(true))
         dispatch(getEmployees())
 

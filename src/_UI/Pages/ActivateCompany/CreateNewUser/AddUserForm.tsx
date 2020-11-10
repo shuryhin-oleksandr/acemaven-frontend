@@ -7,7 +7,6 @@ import CustomCheckbox from "../../../components/_commonComponents/customCheckbox
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addEmployee, companyActions} from "../../../../_BLL/reducers/employeesAndBanksReducer";
-import {ErrorServerMessage} from "../../SignInPage";
 import {AppStateType} from "../../../../_BLL/store";
 import {AddUserError} from "../../../../_BLL/reducers/profileReducer";
 
@@ -24,15 +23,15 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
     const onSubmit = (values: IAddNewUserData) => {
         dispatch(companyActions.setAddingEmployeeError(null))
         dispatch(addEmployee(values))
+        setMasterRole('')
     }
 
     const [masterRole, setMasterRole] = useState('')
     const [roleValue, setRole] = useState('') //billing
     const [agentRole, setAgentRole] = useState('')
 
-    console.log('agent', agentRole)
-    console.log('billing', roleValue)
-    console.log('master', masterRole)
+
+    console.log('m', masterRole)
 
 
     useEffect(() => {
@@ -43,10 +42,10 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
             setValue('position', '')
             setValue('roles', [])*/
             reset()
-            setAgentRole('')
+            /*setAgentRole('')
             setMasterRole('')
             setRole('')
-
+*/
         }
     }, [setValue, success_user])
 
@@ -117,6 +116,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                         setRole={setMasterRole}
                         roleValue={masterRole}
                         success_user={success_user}
+                        checked={!!masterRole}
                     />
                     <CustomCheckbox value='agent'
                                     name='roles'
@@ -130,6 +130,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                     setRole={setAgentRole}
                                     roleValue={agentRole}
                                     success_user={success_user}
+                                    checked={!!agentRole}
                     />
                     <CustomCheckbox value='billing'
                                     name='roles'
@@ -143,6 +144,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                     setRole={setRole}
                                     roleValue={roleValue}
                                     success_user={success_user}
+                                    checked={!!roleValue}
                     />
                 </CheckboxWrap>
                      <SubmitButton type='submit'>ADD USER</SubmitButton>

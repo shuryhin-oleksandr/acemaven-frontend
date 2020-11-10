@@ -62,25 +62,24 @@ margin-bottom: 100px;
 export const ButtonsWrap = styled.div`
 width: 100%;  
 display: flex;
-justify-content: space-between;
-max-width: 500px;
+justify-content: center;
 `
 export const CancelButton = styled.button`
 height: 40px;
-max-width: 231px;
+max-width: 165px;
 width: 100%;
 border: 1px solid #3B3B41;
 background-color: transparent;
 color: #3B3B41;
-transition: .2s;
-font-family: "Helvetica Bold", sans-serif;
+transition: .3s;
+font-family: "Helvetica Reg", sans-serif;
 font-size: 14px;
 margin: 0 15px;
+outline: none;
 
 &:hover {
   cursor: pointer;
-  background-color: black;
-  color: white;
-  transition: .2s;
+  background-color: rgba(0, 0, 0, .07);
+  transition: .3s;
 }
 `

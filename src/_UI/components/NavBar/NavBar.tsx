@@ -47,13 +47,16 @@ const NavBar:React.FC<IProps> = () => {
                       setChecked={setChecked}
                       checkedLink={checkedLink}
             />
-            <MenuLink icon={rates}
-                      nestedLinks={ratesLinks}
-                      name='RATES & SERVICES'
-                      setChecked={setChecked}
-                      checkedLink={checkedLink}
-                      activeIcon={activeRates}
-            />
+            {
+                company_type && company_type[0].type === 'agent'
+                    && < MenuLink icon={rates}
+                                nestedLinks={ratesLinks}
+                                name='RATES & SERVICES'
+                                setChecked={setChecked}
+                                checkedLink={checkedLink}
+                                activeIcon={activeRates}
+                     />
+            }
             <MenuLink icon={billing} path='#' name='BILLING'/>
             <MenuLink icon={settings}
                       activeIcon={activeSettings}

@@ -40,10 +40,14 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
 export const searchRatesOffersThunk = (search_data: SearchDataType) => {
   return async (dispatch: Dispatch<commonSearchActions>) => {
     try {
+        debugger
       let res = await searchAPI.searchRates(search_data);
-      res.data && dispatch(searchActions.setSearchResult(res.data));
+      console.log('search', res.data)
+      dispatch(searchActions.setSearchSuccess(true))
+      dispatch(searchActions.setSearchResult(res.data));
     } catch (e) {
-      console.log(e.response);
+      console.log(e);
+      console.log('server_errors', e.response);
     }
   };
 };

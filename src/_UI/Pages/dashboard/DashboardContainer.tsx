@@ -9,7 +9,7 @@ import {
     getShippingTypesSelector
 } from "../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
-    getCargoGroupsListSelector, getEditableCargoSelector,
+    getCargoGroupsListSelector, getEditableCargoSelector, getSearchResult, getSearchSuccess,
     getWmCalculationSuccessSelector
 } from "../../../_BLL/selectors/search/searchClientSelector";
 import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
@@ -17,10 +17,10 @@ import {surchargeActions} from "../../../_BLL/reducers/surcharge&rates/surcharge
 import {getWMCalculationThunk} from "../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import {CargoGroupType} from "../../../_BLL/types/search/search_types";
 import Search from "./Widgets/SearchWidget/Search";
-import {SearchBox} from "./dashboard-styles";
+
 
 const DashboardContainer:React.FC = () => {
-    const search_result = false
+    //const search_result = false
     const [widgetsVisible, setWidgetsVisible] = useState(true);
 
     const dispatch = useDispatch()
@@ -41,6 +41,10 @@ const DashboardContainer:React.FC = () => {
     const packaging_types = shipping_modes_options?.find(m => m.id === shippingValue)?.packaging_types || []
     const cargo_groups = useSelector(getCargoGroupsListSelector)
     const editable_cargo_group = useSelector(getEditableCargoSelector)
+    const search_result = useSelector(getSearchResult)
+    const search_success = useSelector(getSearchSuccess)
+
+
 
     let setMode = (value: CurrentShippingType) => {
         dispatch(surchargeActions.setCurrentShippingType(value))
@@ -63,20 +67,30 @@ const DashboardContainer:React.FC = () => {
                                                        editable_cargo_group={editable_cargo_group}
             />}
             <div style={{position:"relative", width:"100%"}}>
-                <div style={{position:search_result?"relative":"absolute", zIndex:6, top:"30px", left:"30px", display:widgetsVisible?"block":"none"}}>
+                <div style={{position:search_success?"relative":"absolute", zIndex:6, top:"30px", left:"30px", display:widgetsVisible?"block":"none"}}>
                     <Search setOpenCalcPopup={setOpenCalcPopup}
                             shippingValue={shippingValue}
                             setShippingValue={setShippingValue}
                             setMode={setMode}
                             mode={current_shipping_type}
-                            cargo_groups={cargo_groups}
+                            cargo_groups_list={cargo_groups}
                             packaging_types={packaging_types}
-                            disabled={search_result}
+                            disabled={search_success}
+                            search_result={search_result}
+                            search_success={search_success}
                     />
                 </div>
-            {search_result
-                ? <SearchContainer />
-                : <DashboardPage widgetsVisible={widgetsVisible} setWidgetsVisible={setWidgetsVisible}/>}
+            {search_success
+                ? <SearchContainer search_result={search_result}/>
+                : <DashboardPage /*//setOpenCalcPopup={setOpenCalcPopup}
+                                 shippingValue={shippingValue}
+                                 setShippingValue={setShippingValue}
+                                 setMode={setMode}
+                                 mode={current_shipping_type}
+                                 cargo_groups={cargo_groups}
+                                 packaging_types={packaging_types}*/
+                                 widgetsVisible={widgetsVisible} setWidgetsVisible={setWidgetsVisible}
+                />}
             </div>
 
         </Layout>

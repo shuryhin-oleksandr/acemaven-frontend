@@ -50,7 +50,7 @@ const FCLField: React.FC<PropsType> = ({
     >
       <Controller
         control={control}
-        name={`search_test[${index}].container_type`}
+        name={`cargo_groups[${index}].container_type`}
         defaultValue={item.container_type}
         rules={{
           required: "Field is required",
@@ -64,13 +64,14 @@ const FCLField: React.FC<PropsType> = ({
             background="#ECECEC"
             callback={setChosenContainer}
             disabled={disabled}
+            placeholder='Container Type'
           />
         }
       />
       <Controller
         defaultValue={item.volume}
         control={control}
-        name={`search_test[${index}].volume`}
+        name={`cargo_groups[${index}].volume`}
         rules={{
           required: "Field is required",
         }}
@@ -82,14 +83,14 @@ const FCLField: React.FC<PropsType> = ({
               display: "flex",
             }}
           >
-            <FormField background="#ECECEC" marginBottom="5px" type="number" disabled={disabled} />
+            <FormField background="#ECECEC" marginBottom="5px" type="number" disabled={disabled} placeholder='Volume'/>
           </div>
         }
       />
       {finded && finded?.is_frozen ? (
         <Controller
           control={control}
-          name={`search_test[${index}].is_frozen`}
+          name={`cargo_groups[${index}].frozen`}
           defaultValue="frozen"
           as={
             <SurchargeRateSelect
@@ -97,6 +98,7 @@ const FCLField: React.FC<PropsType> = ({
               maxW="123px"
               options={frozen_choices}
               disabled={disabled}
+              placeholder='Frozen'
             />
           }
         />
@@ -104,7 +106,7 @@ const FCLField: React.FC<PropsType> = ({
         <SearchCheckbox
           isCheck={isCheck}
           setIsCheck={setIsCheck}
-          name={`search_test[${index}].can_be_dangerous`}
+          name={`cargo_groups[${index}].dangerous`}
           inputref={register}
           labelText="DANGEROUS"
           disabled={disabled}

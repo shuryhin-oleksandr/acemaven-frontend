@@ -46,7 +46,7 @@ const SignInPage = ({history, openSignIn, openSignUp}) => {
         <Formik
           validationSchema={ValidationSchema}
           initialValues={{ email: "", password: "" }}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(values, { }) => {
             console.log("submit", values);
             dispatch(signIn(values, history))
           }}
@@ -107,8 +107,7 @@ export const ErrorServerMessage = styled.div`
   width: 100%;
     padding-top: 5px;
     padding-bottom: 5px;
-    text-align: end;
-    
+    text-align:end;
     color: #E76767;
     font-family: "Helvetica Reg", sans-serif;
     font-size: 14px;

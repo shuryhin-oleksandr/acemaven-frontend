@@ -21,3 +21,4 @@ export const getCurrencyListSelector = (state: AppStateType) => state.surcharge.
 export const getShippingModesSelector = (state: AppStateType) => state.surcharge.shipping_modes
 export const getEditSurchargeSelector = (state: AppStateType) => state.surcharge.edit_surcharge_success
 export const getLocationId = (state: AppStateType) => state.surcharge.location_id
+export const getAddingSurchargeErrorSelector = (state: AppStateType) => state.surcharge.adding_surcharge_error

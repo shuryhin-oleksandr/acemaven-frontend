@@ -8,6 +8,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {
+    getAddingSurchargeErrorSelector,
     getAirCarriersSelector, getCurrentShippingTypeSelector, getLocationId, getPortsSelector,
     getSeaCarriersSelector, getShippingTypesSelector, getSurcharge
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
@@ -27,7 +28,9 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
 
     const dispatch = useDispatch()
 
-    const {handleSubmit, register, control, errors, getValues, setValue,  watch} = useForm()
+    const {handleSubmit, register, control, errors, getValues, setValue, watch,} = useForm({
+        reValidateMode: 'onBlur', mode: 'onSubmit'
+    })
 
     //check if some fields are not empty for 'location'
     const watchFields = watch(["carrier", "direction", "shipping_mode"]);
@@ -35,9 +38,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
 
 
     //check if some fields are not empty for 'dates'
-    const watchFieldsForDates = watch(["location"]);
     const watchResultArrForDates = Object.values(watchFields).filter((val) => !!val);
-    console.log("watch", watchFieldsForDates);
 
     //Данные из стейта
     const shippingMode = useSelector(getCurrentShippingTypeSelector)
@@ -47,6 +48,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     const ports = useSelector(getPortsSelector)
     const surcharge = useSelector(getSurcharge)
     const adding_success = useSelector((state:AppStateType) => state.surcharge.adding_success)
+    const adding_error = useSelector(getAddingSurchargeErrorSelector)
     const location_id = useSelector(getLocationId)
 
     //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
@@ -68,6 +70,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
         //sessionStorage.removeItem('port_id')
         dispatch(surchargeActions.setLocationId(0))
         dispatch(surchargeActions.setAddingSurchargeSuccess(false))
+        dispatch(surchargeActions.setAddingSurchargeError([]))
     }, [dispatch])
 
     //Посимвольно поиск по портам
@@ -121,6 +124,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
         }
     }, [surcharge, setValue])
 
+
     return (
         <RegisterNewSurcharge
             register={register}
@@ -147,6 +151,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
             watchResultArr={watchResultArr}
             watchResultArrForDates={watchResultArrForDates}
             location_id={location_id}
+            adding_error={adding_error}
         />
     )
 };

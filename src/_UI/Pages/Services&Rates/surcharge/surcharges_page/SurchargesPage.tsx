@@ -22,12 +22,11 @@ import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/sur
 import {useSelector} from "react-redux";
 import {getCurrentShippingTypeSelector} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {Scrollbars} from "react-custom-scrollbars";
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        height: 400,
-        overflowY: 'scroll'
     },
     table: {
         '& .MuiTableHead-root' : {
@@ -131,114 +130,116 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
 
     return (
         <Outer>
-            <TableContainer className={classes.container} component={Paper}>
-                <Table  className={classes.table} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell className={classes.shipping_cell} align="left">
-                                <TableCellContent setSearchValue={props.setSearchValue}
-                                                  setSearchMode={setSearchMode}
-                                                  dispatch={props.dispatch}
-                                                  direction={props.directory}
-                                                  type={props.mode}
-                                                  column_name='shipping_mode'
-                                                  searchValue={props.searchValue}
-                                                  isSearchMode={isSearchMode}
-                                                  title='SHIPPING TYPE'
-                                                  searchColumn={props.searchColumn}
-                                                  setSearchColumn={props.setSearchColumn}
-                                />
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                <TableCellContent setSearchValue={props.setSearchValue}
-                                                  setSearchMode={setSearchMode}
-                                                  dispatch={props.dispatch}
-                                                  direction={props.directory}
-                                                  type={props.mode}
-                                                  column_name='carrier'
-                                                  searchValue={props.searchValue}
-                                                  isSearchMode={isSearchMode}
-                                                  title='CARRIER'
-                                                  searchColumn={props.searchColumn}
-                                                  setSearchColumn={props.setSearchColumn}
-                                />
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                <TableCellContent setSearchValue={props.setSearchValue}
-                                                  setSearchMode={setSearchMode}
-                                                  dispatch={props.dispatch}
-                                                  direction={props.directory}
-                                                  type={props.mode}
-                                                  column_name='location'
-                                                  searchValue={props.searchValue}
-                                                  searchColumn={props.searchColumn}
-                                                  setSearchColumn={props.setSearchColumn}
-                                                  isSearchMode={isSearchMode}
-                                                  title='LOCATION'
-                                />
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                DIRECTION
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                <TableCellContent setSearchValue={props.setSearchValue}
-                                                  setSearchMode={setSearchMode}
-                                                  dispatch={props.dispatch}
-                                                  direction={props.directory}
-                                                  type={props.mode}
-                                                  column_name='start_date'
-                                                  searchValue={props.searchValue}
-                                                  isSearchMode={isSearchMode}
-                                                  title='START DATE'
-                                                  searchColumn={props.searchColumn}
-                                                  setSearchColumn={props.setSearchColumn}
-                                />
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                <TableCellContent setSearchValue={props.setSearchValue}
-                                                  setSearchMode={setSearchMode}
-                                                  dispatch={props.dispatch}
-                                                  direction={props.directory}
-                                                  type={props.mode}
-                                                  column_name='expiration_date'
-                                                  searchValue={props.searchValue}
-                                                  isSearchMode={isSearchMode}
-                                                  title='EXPIRATION DATE'
-                                                  searchColumn={props.searchColumn}
-                                                  setSearchColumn={props.setSearchColumn}
-                                />
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows?.map((row) => (
-                            <TableRow key={row.id}>
-                                    <TableCell onClick={() => goToPage(row.id)} className={classes.innerMainCell} align="left" component="th" scope="row">
-                                        <ModeIcon src={ row.shipping_type === 'sea' ? ship_surcharge : plane_surcharge} alt=""/>
-                                        <SpanMode >{row.shipping_mode}</SpanMode>
-                                    </TableCell>
-                                <TableCell className={classes.innerCell} align="left"><span >{row.carrier}</span></TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.location}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.direction}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">{row.start_date}</TableCell>
-                                <TableCell className={classes.innerCell} align="left">
-                                   <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                       {row.expiration_date}
-                                       <Tooltip title='Use this registry as a template for a new rate, with the same values and parameters.'
-                                                arrow
-                                                classes={{ tooltip: classes.customTooltip }}
-                                       >
-                                           <TemplateIcon onClick={() => templateDataHandler(row.id, row.shipping_type)}>
-                                               <img src={template_icon} alt="" />
-                                           </TemplateIcon>
-                                       </Tooltip>
-                                   </div>
+            <Scrollbars style={{width: "100%", height: 400}}>
+                <TableContainer className={classes.container} component={Paper}>
+                    <Table  className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className={classes.shipping_cell} align="left">
+                                    <TableCellContent setSearchValue={props.setSearchValue}
+                                                      setSearchMode={setSearchMode}
+                                                      dispatch={props.dispatch}
+                                                      direction={props.directory}
+                                                      type={props.mode}
+                                                      column_name='shipping_mode'
+                                                      searchValue={props.searchValue}
+                                                      isSearchMode={isSearchMode}
+                                                      title='SHIPPING TYPE'
+                                                      searchColumn={props.searchColumn}
+                                                      setSearchColumn={props.setSearchColumn}
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    <TableCellContent setSearchValue={props.setSearchValue}
+                                                      setSearchMode={setSearchMode}
+                                                      dispatch={props.dispatch}
+                                                      direction={props.directory}
+                                                      type={props.mode}
+                                                      column_name='carrier'
+                                                      searchValue={props.searchValue}
+                                                      isSearchMode={isSearchMode}
+                                                      title='CARRIER'
+                                                      searchColumn={props.searchColumn}
+                                                      setSearchColumn={props.setSearchColumn}
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    <TableCellContent setSearchValue={props.setSearchValue}
+                                                      setSearchMode={setSearchMode}
+                                                      dispatch={props.dispatch}
+                                                      direction={props.directory}
+                                                      type={props.mode}
+                                                      column_name='location'
+                                                      searchValue={props.searchValue}
+                                                      searchColumn={props.searchColumn}
+                                                      setSearchColumn={props.setSearchColumn}
+                                                      isSearchMode={isSearchMode}
+                                                      title='LOCATION'
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    DIRECTION
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    <TableCellContent setSearchValue={props.setSearchValue}
+                                                      setSearchMode={setSearchMode}
+                                                      dispatch={props.dispatch}
+                                                      direction={props.directory}
+                                                      type={props.mode}
+                                                      column_name='start_date'
+                                                      searchValue={props.searchValue}
+                                                      isSearchMode={isSearchMode}
+                                                      title='START DATE'
+                                                      searchColumn={props.searchColumn}
+                                                      setSearchColumn={props.setSearchColumn}
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    <TableCellContent setSearchValue={props.setSearchValue}
+                                                      setSearchMode={setSearchMode}
+                                                      dispatch={props.dispatch}
+                                                      direction={props.directory}
+                                                      type={props.mode}
+                                                      column_name='expiration_date'
+                                                      searchValue={props.searchValue}
+                                                      isSearchMode={isSearchMode}
+                                                      title='EXPIRATION DATE'
+                                                      searchColumn={props.searchColumn}
+                                                      setSearchColumn={props.setSearchColumn}
+                                    />
                                 </TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {rows?.map((row) => (
+                                <TableRow key={row.id}>
+                                        <TableCell onClick={() => goToPage(row.id)} className={classes.innerMainCell} align="left" component="th" scope="row">
+                                            <ModeIcon src={ row.shipping_type === 'sea' ? ship_surcharge : plane_surcharge} alt=""/>
+                                            <SpanMode >{row.shipping_mode}</SpanMode>
+                                        </TableCell>
+                                    <TableCell className={classes.innerCell} align="left"><span >{row.carrier}</span></TableCell>
+                                    <TableCell className={classes.innerCell} align="left">{row.location}</TableCell>
+                                    <TableCell className={classes.innerCell} align="left">{row.direction}</TableCell>
+                                    <TableCell className={classes.innerCell} align="left">{row.start_date}</TableCell>
+                                    <TableCell className={classes.innerCell} align="left">
+                                       <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                           {row.expiration_date}
+                                           <Tooltip title='Use this registry as a template for a new rate, with the same values and parameters.'
+                                                    arrow
+                                                    classes={{ tooltip: classes.customTooltip }}
+                                           >
+                                               <TemplateIcon onClick={() => templateDataHandler(row.id, row.shipping_type)}>
+                                                   <img src={template_icon} alt="" />
+                                               </TemplateIcon>
+                                           </Tooltip>
+                                       </div>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Scrollbars>
         </Outer>
     )
 }

@@ -26,11 +26,6 @@ export const SettingsWrap = styled.div`
   flex-direction: column;
   width: 100%;
   padding: 0 200px 0 7px;
-  height: calc(100vh - 341px);
-  overflow: overlay;
-  @media (max-width: 1400px){
-    height: calc(100vh - 356px);
-  }
 `
 export const SettingsTitle = styled.div`
   color: black;

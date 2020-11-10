@@ -29,24 +29,13 @@ export const getPorts = (q: string) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
             let res = await surchargeAPI.getPortsList(q)
-            console.log('ports', res.data)
             dispatch(surchargeActions.setPortsList(res.data))
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
         }
     }
 }
 
-export const getShippingModes = () => {
-    return async (dispatch: Dispatch<commonSurchargeActions>) => {
-        try {
-            let res = await surchargeAPI.getShippingModesList()
-            dispatch(surchargeActions.setShippingModeList(res.data.result))
-        } catch (e) {
-            console.log(e.response)
-        }
-    }
-}
 
 export const getShippingTypes = (is_freight_rate?: boolean | string) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
@@ -63,7 +52,6 @@ export const getCurrencyList = () => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
             let res = await surchargeAPI.getCurrencyList()
-            console.log(res.data)
             dispatch(surchargeActions.setCurrencyList(res.data))
         } catch (e) {
             console.log(e.response)
@@ -78,9 +66,9 @@ export const addNewSurcharge = (surcharge_data: any) => {
             dispatch(filterByThunk('import', 'sea','', '', ''))
             dispatch(surchargeActions.setSurchargeInfo(res.data))
             dispatch(surchargeActions.setAddingSurchargeSuccess(true))
-            console.log('surcharge', res.data)
         } catch (e) {
             console.log(e.response)
+            e.response.data.charges && dispatch(surchargeActions.setAddingSurchargeError(e.response.data.charges))
         }
     }
 }
@@ -140,7 +128,6 @@ export const checkSurchargeDates = (checkSurchargeValues: {location: number,
     shipping_mode: number}): ThunkType => async(dispatch) => {
     try {
         let bookedDates = await surchargeAPI.checkSurchargeDates(checkSurchargeValues);
-        console.log(bookedDates)
         dispatch(surchargeActions.setBookedDates(bookedDates))
     } catch (e) {
         console.log(e)

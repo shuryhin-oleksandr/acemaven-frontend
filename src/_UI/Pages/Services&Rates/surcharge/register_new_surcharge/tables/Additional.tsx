@@ -64,11 +64,11 @@ const Additional: React.FC<PropsType> = ({
   control,
   setValue,
   shippingMode,
-  charges,
-    errors
+  charges
 }) => {
   const classes = useStyles();
   const noConditions = ShippingModeEnum.FCL === shippingMode;
+
 
   return (
     <HandlingSurchargeContainer max_width="662px" max_height="490px">
@@ -99,13 +99,13 @@ const Additional: React.FC<PropsType> = ({
                   control={control}
                   defaultValue={charge.id}
                   as={
-                    <TableCell
-                      className={classes.innerMainCell}
-                      component="th"
-                      scope="row"
-                    >
-                      {charge.title}
-                    </TableCell>
+                      <TableCell
+                          className={classes.innerMainCell}
+                          component="th"
+                          scope="row"
+                      >
+                        {charge.title}
+                      </TableCell>
                   }
                 />
 
@@ -160,7 +160,7 @@ const Additional: React.FC<PropsType> = ({
                     defaultValue={0}
                     rules={{required: true}}
                     as={
-                      <Field maxW="100px" placeholder="0.00$" type="number" error={errors?.charges}/>
+                        <Field maxW="100px" placeholder="0.00$" type="number"  />
                     }
                   />
                 </TableCell>

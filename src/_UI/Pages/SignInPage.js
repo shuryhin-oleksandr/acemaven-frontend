@@ -50,6 +50,7 @@ const SignInPage = ({history}) => {
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, { }) => {
             console.log("submit", values);
+            dispatch(authActions.setLoginError(''))
             dispatch(signIn(values, history))
           }}
         >

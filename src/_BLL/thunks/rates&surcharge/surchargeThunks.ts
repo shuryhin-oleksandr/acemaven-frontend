@@ -25,10 +25,10 @@ export const getCarriers = () => {
     }
 }
 
-export const getPorts = (q: string) => {
+export const getPorts = (local: any, q: string) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
-            let res = await surchargeAPI.getPortsList(q)
+            let res = await surchargeAPI.getPortsList(local, q)
             dispatch(surchargeActions.setPortsList(res.data))
         } catch (e) {
             console.log(e)

@@ -17,10 +17,10 @@ type ThunkType = ThunkAction<
   commonRateActions
 >;
 
-export const getPorts = (q: string, field: string, type: string) => {
+export const getPorts = (local: any, q: string, field: string, type: string) => {
   return async (dispatch: Dispatch<commonRateActions>) => {
     try {
-      let res = await rateAPI.getPortsList(q, type);
+      let res = await rateAPI.getPortsList(local, q, type);
       field === "origin"
         ? dispatch(rateActions.setOriginPortsList(res.data))
         : dispatch(rateActions.setDestinationPortsList(res.data));

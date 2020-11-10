@@ -46,8 +46,6 @@ const DashboardContainer:React.FC = () => {
     const search_success = useSelector(getSearchSuccess)
     const auth_user = useSelector((state:AppStateType) => state.profile.authUserInfo)
 
-
-
     let setMode = (value: CurrentShippingType) => {
         dispatch(surchargeActions.setCurrentShippingType(value))
     }

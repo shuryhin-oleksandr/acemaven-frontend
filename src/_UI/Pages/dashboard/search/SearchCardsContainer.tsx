@@ -1,7 +1,6 @@
 import React from 'react'
 import SearchCard from "./search_rate_card/SearchCard";
 import {SearchWrapper} from "./search_rate_card/search-card-styles";
-import NoSearchResultCard from "./search_rate_card/no_search_card/NoSearchResultCard";
 import {SearchResultType} from "../../../../_BLL/types/search/search_types";
 
 

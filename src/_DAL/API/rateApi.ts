@@ -2,9 +2,9 @@ import instance from "./axiosConfig";
 import { FreightRateType } from "../../_BLL/types/rates&surcharges/ratesTypes";
 
 export const rateAPI = {
-  getPortsList(q: string, type: string) {
+  getPortsList(local: any, q: string, type: string) {
     return instance.get(
-      `/handling/port/?is_local=&search=${q}&shipping_type=${type}`
+      `/handling/port/?is_local=${local}&search=${q}&shipping_type=${type}`
     );
   },
   checkRatesDates(checkRatesValues: {

@@ -62,7 +62,6 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     const additionalType = (shippingMode === ShippingTypesEnum.AIR) ? 'ULD TYPES' : 'CONTAINER TYPE'
 
 
-
     //Закрывает форму регистрации серчарджа
     const closeRegisterForm = useCallback(() => {
         dispatch(surchargeActions.setSurchargeInfo(null))
@@ -72,9 +71,17 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
         dispatch(surchargeActions.setAddingSurchargeError([]))
     }, [dispatch])
 
+
+
     //Посимвольно поиск по портам
     const locationChangeHandler = useCallback(({ value }) => {
-        dispatch(getPorts(value))
+        if(value.length >= 3) {
+            let a = watch('direction')
+            a === 'import'
+                ? dispatch(getPorts(true, value))
+                : dispatch(getPorts(false, value))
+
+        }
     }, [dispatch])
 
     //Запрос на наличие забронированных дат по первым 4 полям

@@ -57,6 +57,8 @@ export const registerNewFreightRateThunk = (freight_data: any) => {
       dispatch(rateActions.setEmptyExistingSurcharge(''));
     } catch (e) {
       console.log(e.response);
+      e.response.data.rates && dispatch(rateActions.setAddingRateError(e.response.data.rates))
+      e.response.data.transit_time && dispatch(rateActions.setTransitError(e.response.data.transit_time))
     }
   };
 };
@@ -81,9 +83,9 @@ export const addNewSurchargeForRate = (surcharge_data: any) => {
     try {
       let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
       dispatch(rateActions.setExistingSurchargeByRate(res.data))
-      console.log('surcharge', res.data)
     } catch (e) {
-      console.log(e.response)
+      e.response.data.usage_fees && dispatch(rateActions.setAddingPopupError(e.response.data.usage_fees))
+      e.response.data.charges && dispatch(rateActions.setAddingPopupError(e.response.data.charges))
     }
   }
 }

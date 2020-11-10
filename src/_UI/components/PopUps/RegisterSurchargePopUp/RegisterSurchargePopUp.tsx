@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import CancelButton from "../../_commonComponents/buttons/navFormButtons/CancelButton";
 import {
   CloseButton,
   PopupContent,
@@ -13,7 +12,7 @@ import {
   Content,
   FieldOuter,
   FieldsWrap,
-  Label,
+  Label, Cancel,
 } from "./register-surcharge-styles";
 import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import closeIcon from "../../../../_UI/assets/icons/close-icon.svg";
@@ -34,6 +33,7 @@ import moment from "moment";
 import {surchargeActions} from "../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {useDispatch} from "react-redux";
 import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import {ErrorServerMessage} from "../../../Pages/SignInPage";
 
 
 type PropsType = {
@@ -50,12 +50,14 @@ type PropsType = {
   rate_start_date: string
   createNewSurcharge: (surcharge_data: any) => void
   existing_surcharge: SurchargeInfoType | null
-  setValue: any
+  setValue: any,
+  adding_surcharge_error: any,
+
 };
 
 const RegisterSurchargePopUp: React.FC<PropsType> = ({
   setIsOpen,
-  popUpCarrier,
+  popUpCarrier, adding_surcharge_error,
   popUpShippingMode, rate_start_date, createNewSurcharge, existing_surcharge,
   mode, usageFees, additional, shippingValue, is_local_port, destination_port_value
 }) => {
@@ -97,24 +99,29 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
 
   useEffect(() => {
     if(existing_surcharge) {
-      debugger
       setIsOpen(false)
       dispatch(rateActions.setEmptyExistingSurcharge(''))
       dispatch(surchargeActions.setSurchargeInfo(null))
+      dispatch(rateActions.setAddingPopupError(null))
     }
   }, [existing_surcharge, dispatch])
+
+  const closePopup = () => {
+    setIsOpen && setIsOpen(false)
+    dispatch(rateActions.setAddingPopupError(null))
+  }
 
   return (
     <PopupOuter>
       <PopupContent onSubmit={handleSubmit(onSubmit)}>
-        <CloseButton onClick={() => setIsOpen && setIsOpen(false)}>
+        <CloseButton onClick={() => closePopup()}>
           <img src={closeIcon} alt="" />
         </CloseButton>
         <HeaderWrapper>
           <FormTitle>Register Surcharge</FormTitle>
           <ActionsWrapper>
             <RegisterButton type="submit">SAVE</RegisterButton>
-            <CancelButton text="CANCEL" setIsOpen={setIsOpen} />
+            <Cancel onClick={() => closePopup()}>CANCEL</Cancel>
           </ActionsWrapper>
         </HeaderWrapper>
         <InfoWrap>
@@ -166,6 +173,12 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
             />
           </FieldsWrap>
         </InfoWrap>
+        {
+          (adding_surcharge_error && adding_surcharge_error.length > 0)
+        && <ErrorServerMessage style={{textAlign: 'start'}}>
+          Charge has to be equal or grater than zero and includes maximum 15 symbols
+        </ErrorServerMessage>
+        }
         {usageFees.length > 0 && <UsageFees control={control} setValue={setValue}
                    tableName={mode === 'sea' ? 'HANDLING' : 'USAGE FEE'}
                    type={mode === 'sea' ? 'CONTAINER TYPE' : 'ULD TYPES'}

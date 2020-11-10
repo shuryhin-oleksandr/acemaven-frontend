@@ -12,7 +12,9 @@ import {
   getShippingTypesSelector, getSurcharge,
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
-  getCurrentShippingTypeSelector, getRateBookedDatesSelector
+  getAddingError,
+  getAddingRateError,
+  getCurrentShippingTypeSelector, getRateBookedDatesSelector, getRateTransitError
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {
 
@@ -83,6 +85,9 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   let rate_info = useSelector(getCheckedRateInfo)
   let booked_dates = useSelector(getRateBookedDatesSelector)
   let origin_port = useSelector(getIsLocalPort)
+  const adding_surcharge_error = useSelector(getAddingError)
+  const adding_rate_error = useSelector(getAddingRateError)
+  const rate_transit_error = useSelector(getRateTransitError)
 
 
   //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
@@ -101,6 +106,11 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     dispatch(rateActions.setEmptyExistingSurcharge(''))
     sessionStorage.removeItem("origin_id");
     sessionStorage.removeItem("destination_id");
+    dispatch(rateActions.setRegistrationSuccess(''))
+    dispatch(rateActions.setExistingSurchargeByRate(null))
+    dispatch(rateActions.setOriginPortValue(null))
+    dispatch(rateActions.setTransitError(null))
+    dispatch(rateActions.setAddingRateError(null))
   };
 
   //закрывает выборку портов
@@ -117,6 +127,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     let carrier = getValues("carrier");
     let shipping_mode = getValues("shipping_mode");
     setValue("destination", p.display_name);
+    sessionStorage.setItem('destination_id', JSON.stringify(p.id))
     dispatch(rateActions.setDestinationPortsList([]));
     dispatch(
       checkRatesDatesThunk({
@@ -199,6 +210,8 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
           createNewSurcharge={createNewSurcharge}
           existing_surcharge={existing_surcharge}
           setValue={setValue}
+          adding_surcharge_error={adding_surcharge_error}
+
         />
       )}
       <RegisterNewFreightRate
@@ -231,6 +244,8 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         watchResultArr={watchResultArr}
         origin_port_value={origin_port}
         destination_port_value={destination_port_value}
+        adding_rate_error={adding_rate_error}
+        rate_transit_error={rate_transit_error}
       />
       {empty_surcharge === 'empty' && <NoSurchargeCard usageFees={usageFees} shippingValue={shippingValue} setNewSurchargePopUpVisible={setNewSurchargePopUpVisible} />}
     </RatesWrapper>

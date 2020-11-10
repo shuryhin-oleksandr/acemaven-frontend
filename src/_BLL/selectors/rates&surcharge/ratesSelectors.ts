@@ -14,6 +14,9 @@ export const getCheckedRateInfo = ((state: AppStateType) => state.rate.rate_info
 export const getRateIsActive = ((state: AppStateType) => state.rate.rate_info?.is_active)
 export const getCurrentShippingTypeSelector = (state: AppStateType) => state.rate.current_shipping_type
 export const getEditSuccess = ((state: AppStateType) => state.rate.edit_success)
+export const getAddingError = (state: AppStateType) => state.rate.adding_popup_error
+export const getAddingRateError = (state: AppStateType) => state.rate.adding_rate_error
+export const getRateTransitError = (state: AppStateType) => state.rate.rate_transit_error
 
 export const getRateBookedDatesSelector = (state: AppStateType)
     :Array<{container_type: number | null, disabledDates: Array<{from: Date, to: Date}>}> | undefined  => {

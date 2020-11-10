@@ -146,3 +146,21 @@ export const Content = styled.div<PropsStyle>`
   font-size: 18px;
   text-transform: capitalize;
 `;
+export const Cancel = styled.button<PropsStyle>`
+font-family: "Helvetica Reg", sans-serif;
+font-size: 14px;
+background: white;
+outline: none;
+border: 1px solid #3B3B41;
+height: 40px;
+max-width: 115px;
+width: 100%;
+color: #3B3B41;
+transition: .3s;
+
+&:hover {
+ transition: .3s;
+ background-color: #E0E0E0;
+cursor: pointer
+}
+`

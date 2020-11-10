@@ -7,6 +7,7 @@ import {Port, PortsList} from "../../surcharge/register_new_surcharge/form-style
 import {PortType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import {CarrierType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {ShippingModeType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
 
 type PropsType = {
     control: any
@@ -25,12 +26,13 @@ type PropsType = {
     closePortsHandler: any
     getBookedRatesDates: any  /*(portName: string, portId: number) => void*/
     rate_info: RateInfoType | null,
-    watchResultArr: number[]
+    watchResultArr: number[],
+    rate_transit_error: any
 }
 
 const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValues, carrierOptions, shippingModeOptions,
-                                            setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
-                                             onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, rate_info, watchResultArr}) => {
+                                            setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, rate_transit_error,
+                                             onDestinationChangeHandler, closePortsHandler, getBookedRatesDates,  watchResultArr}) => {
 
     return (
         <FormWrap>
@@ -151,6 +153,11 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                         getValues={getValues}
                         disabled={watchResultArr.length < 3}
                     />
+                    {rate_transit_error && rate_transit_error.length > 0 &&
+                        <HelperText style={{paddingTop: 0}}>
+                            Value is not valid
+                        </HelperText>}
+
                 </GroupWrap>
             </div>
         </FormWrap>

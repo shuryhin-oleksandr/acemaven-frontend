@@ -67,7 +67,6 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     const closeRegisterForm = useCallback(() => {
         dispatch(surchargeActions.setSurchargeInfo(null))
         setNewSurchargeMode(false)
-        //sessionStorage.removeItem('port_id')
         dispatch(surchargeActions.setLocationId(0))
         dispatch(surchargeActions.setAddingSurchargeSuccess(false))
         dispatch(surchargeActions.setAddingSurchargeError([]))

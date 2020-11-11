@@ -1,13 +1,19 @@
 import React, {useState} from 'react'
-import TableCell from "@material-ui/core/TableCell";
-import {ModeIcon, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
-import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
-import {OffersSpan, StatusSpan} from "./client-quotes-table-styles";
-import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
-import TableRow from "@material-ui/core/TableRow";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+//components
 import OfferDescription from "./OfferDescription";
+//styles
+import {ModeIcon, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
+import {OffersSpan, StatusSpan} from "./client-quotes-table-styles";
+//material ui
 import IconButton from '@material-ui/core/IconButton';
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+//icons
+import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
+import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
+import close_icon from '../../../../../_UI/assets/icons/close-icon.svg'
+import Tooltip from "@material-ui/core/Tooltip";
 
 
 const useStyles = makeStyles({
@@ -60,7 +66,17 @@ const useStyles = makeStyles({
         borderBottom: 0,
         fontFamily: 'Helvetica Light',
         fontSize: '14px'
-    }
+    },
+    customTooltip: {
+        maxWidth: 330,
+        height: 60,
+        fontFamily: "Helvetica Reg",
+        fontSize: "14px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "15px",
+    },
 });
 
 const QuoteRow = () => {
@@ -71,7 +87,7 @@ const QuoteRow = () => {
 
     return (
         <React.Fragment>
-            <TableRow className={classes.root} onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)}>
+            <TableRow className={classes.root}>
                 <TableCell  className={classes.innerMainCell} align="left" component="th" scope="row">
                     <ModeIcon src={sea_type} alt=""/>
                     <SpanMode>FCL</SpanMode>
@@ -79,11 +95,30 @@ const QuoteRow = () => {
                 <TableCell className={classes.innerCell} align="left"><div>LHR</div><div>JFK</div></TableCell>
                 <TableCell className={classes.innerCell} align="left">12 boxes <br/> 2W/M</TableCell>
                 <TableCell className={classes.innerCell} align="left">WEEK 36 <br/> 1-7 APR 2020</TableCell>
-                <TableCell className={classes.innerCell} align="center"><OffersSpan new_offer={true}>3</OffersSpan></TableCell>
+                <TableCell className={classes.innerCell} align="center" onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)}>
+                    <OffersSpan new_offer={true}>3</OffersSpan>
+                </TableCell>
                 <TableCell className={classes.innerCell} align="center"><StatusSpan status='active'>Active</StatusSpan></TableCell>
-                <TableCell className={classes.innerCell} align="right">
 
-                    <IconButton><img src={play_icon} alt=""/></IconButton>
+                <TableCell className={classes.innerCell} align="right">
+                    <Tooltip
+                        arrow
+                        title="Quotes can be paused or reactivated using this button. "
+                        classes={{ tooltip: classes.customTooltip }}
+                    >
+                        <IconButton onClick={() => {}}>
+                            <img src={play_icon} alt=""/>
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip
+                        arrow
+                        title="Quotes can be cancelled using this button. "
+                        classes={{ tooltip: classes.customTooltip }}
+                    >
+                        <IconButton onClick={() => {}}>
+                            <img src={close_icon} alt=""/>
+                        </IconButton>
+                    </Tooltip>
                 </TableCell>
             </TableRow>
            <OfferDescription isOpen={isOpen}/>

@@ -188,6 +188,8 @@ const Search: React.FC<PropsType> = (
     setDates([]);
   };
 
+
+
   const onSubmit = (values: any) => {
     let finalData;
     if (values.cargo_groups) {

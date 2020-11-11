@@ -28,7 +28,7 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
 
     const dispatch = useDispatch()
 
-    const {handleSubmit, register, control, errors, getValues, setValue, watch,} = useForm({
+    const {handleSubmit, register, control, errors, getValues, setValue, watch, reset} = useForm({
         reValidateMode: 'onBlur', mode: 'onSubmit'
     })
 
@@ -99,9 +99,8 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
     }, [dispatch])
 
     const setMode = useCallback((mode: CurrentShippingType) => {
-        setValue('carrier', '')
-        setValue('direction', '')
-        setValue('shipping_mode', '')
+        reset()
+        dispatch(surchargeActions.setLocationId(0))
         dispatch(surchargeActions.setCurrentShippingType(mode))
         sessionStorage.removeItem('port_id')
     }, [dispatch])

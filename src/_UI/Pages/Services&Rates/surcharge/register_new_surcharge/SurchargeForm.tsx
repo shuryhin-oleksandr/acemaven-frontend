@@ -7,6 +7,7 @@ import {CarrierType, PortType} from "../../../../../_BLL/types/rates&surcharges/
 import SurchargesDates from "./SurchargeDates";
 import {directions} from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 import {ShippingModeType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
 
 
 type PropsType = {
@@ -25,12 +26,13 @@ type PropsType = {
     adding_success: boolean,
     watchResultArr: number[],
     watchResultArrForDates: number[],
-    location_id: number
+    location_id: number,
+    invalidDate?: string
 }
 
 const SurchargeForm: React.FC<PropsType> = (
     {control, register, getValues, setValue, errors, carrierOptions, shippingModeOptions, setShippingValue, ports,location_id,
-        locationChangeHandler, getDisabledSurchargesDates,required_dates, adding_success, watchResultArr, watchResultArrForDates
+        locationChangeHandler, getDisabledSurchargesDates,required_dates,  watchResultArr, watchResultArrForDates, invalidDate
     }
     ) => {
 
@@ -125,6 +127,7 @@ const SurchargeForm: React.FC<PropsType> = (
                     watchResultArrForDates={watchResultArrForDates}
                     disabled={location_id === 0}
                 />
+                    {invalidDate && <HelperText messagePaddingTop='0'>{invalidDate}</HelperText>}
                 </GroupWrap>
             </FormContent>
         </FormWrap>

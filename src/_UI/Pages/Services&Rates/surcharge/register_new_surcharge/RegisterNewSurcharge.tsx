@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     ActionsWrapper,
     Cancel, ErrorChargesServerMessage,
@@ -65,38 +65,46 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
         additionalType, shippingValue, additional, adding_success, watchResultArr, watchResultArrForDates, location_id
     } = props
 
+    let [invalidDate, setInvalidDate] = useState('')
+
     const dispatch = useDispatch()
 
     const onSubmit = (values: any) => {
-        dispatch(surchargeActions.setAddingSurchargeError([]))
-        let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
+        debugger
+        setInvalidDate('')
+        if(values.from <= values.to) {
+            dispatch(surchargeActions.setAddingSurchargeError([]))
+            let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
 
-        let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+            let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
 
-        let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
-        || !f.charge && {container_type: f.container_type, currency: f.currency}
-        )
+            let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
+                || !f.charge && {container_type: f.container_type, currency: f.currency}
+            )
 
-        let data = {carrier: values.carrier,
-            direction: values.direction,
-            shipping_mode: values.shipping_mode,
-            start_date: moment(values.from).format('DD/MM/YYYY'),
-            expiration_date: moment(values.to).format('DD/MM/YYYY'),
-            charges: charges_array,
-            usage_fees: usageFees_array,
-            location: location_id
+            let data = {carrier: values.carrier,
+                direction: values.direction,
+                shipping_mode: values.shipping_mode,
+                start_date: moment(values.from).format('DD/MM/YYYY'),
+                expiration_date: moment(values.to).format('DD/MM/YYYY'),
+                charges: charges_array,
+                usage_fees: usageFees_array,
+                location: location_id
+            }
+
+            let data_without_fees = {start_date: moment(values.from).format('DD/MM/YYYY'),
+                expiration_date: moment(values.to).format('DD/MM/YYYY'),
+                carrier: values.carrier,
+                direction: values.direction,
+                shipping_mode: values.shipping_mode,
+                charges: charges_array,
+                location: location_id
+            }
+
+            usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
+        } else {
+            setInvalidDate('Invalid dates')
         }
-
-        let data_without_fees = {start_date: moment(values.from).format('DD/MM/YYYY'),
-            expiration_date: moment(values.to).format('DD/MM/YYYY'),
-            carrier: values.carrier,
-            direction: values.direction,
-            shipping_mode: values.shipping_mode,
-            charges: charges_array,
-            location: location_id
-        }
-
-        usageFees_array !== null ? dispatch(addNewSurcharge(data)) : dispatch(addNewSurcharge(data_without_fees))
     }
     useEffect(() => {
         if(adding_success) {
@@ -140,6 +148,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 watchResultArr={watchResultArr}
                 watchResultArrForDates={watchResultArrForDates}
                 location_id={location_id}
+                invalidDate={invalidDate}
             />
             {adding_error && adding_error?.length > 0
             && <ErrorChargesServerMessage text_align='start'>

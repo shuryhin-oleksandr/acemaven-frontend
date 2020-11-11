@@ -32,7 +32,7 @@ const useRoute = (isAuth: boolean) => {
 
     if (isAuth) {
         return (
-            <Switch>
+            /*<Switch>
                 <Route component={AddNewUserContainer} path='/create/user'/>
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
                 <Route component={ActivateEnd} path='/create/finish'/>
@@ -50,6 +50,28 @@ const useRoute = (isAuth: boolean) => {
                 {type_comp === 'agent' && <Route component={ExactRateContainer} path='/services/rate/:id'/>}
                 {type_comp === 'agent' && <Route exact component={BookingAgentContainer} path='/requests/booking'/>}
                 {type_comp === 'agent' && <Route component={BookingCardContainer} path='/requests/booking/:id'/>}
+
+                <Route exact component={DashboardContainer} path='/'/>
+                <Redirect to='/'/>
+            </Switch>*/
+            <Switch>
+                <Route component={AddNewUserContainer} path='/create/user'/>
+                <Route component={AddBankAccountContainer} path='/create/bank'/>
+                <Route component={ActivateEnd} path='/create/finish'/>
+                <Route component={ProfileContainer} path='/settings/profile'/>
+                <Route component={CompanySettingsContainer} path='/settings/company'/>
+                <Route component={UserManagementContainer} path='/settings/user/management'/>
+                <Route component={GeneralSettingsContainer} path='/settings/general'/>
+
+                <Route exact component={QuotesContainer} path='/quotes'/>
+                <Route component={QuoteCard} path='/quotes/:id'/>
+
+                <Route component={SurchargesContainer} path='/services/surcharges'/>
+                <Route component={ExactSurchargeContainer} path='/services/surcharge/:id'/>
+                <Route exact component={RatesContainer} path='/services/rates'/>
+                <Route component={ExactRateContainer} path='/services/rate/:id'/>
+                <Route exact component={BookingAgentContainer} path='/requests/booking'/>
+                <Route component={BookingCardContainer} path='/requests/booking/:id'/>
 
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>

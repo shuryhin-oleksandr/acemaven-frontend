@@ -14,10 +14,11 @@ type PropsType = {
     deleteCargoGroup: (id: number) => void,
     setEditableCargoGroupToState: (id: number) => void,
     editCargoGroup: (edit_data: CargoGroupType) => void,
-    setOpenCalcPopup: (value: boolean) => void
+    setOpenCalcPopup: (value: boolean) => void,
+    search_success: boolean
 }
 
-const OneField:React.FC<PropsType> = ({cargo, packaging_types, deleteCargoGroup, setEditableCargoGroupToState,  setOpenCalcPopup}) => {
+const OneField:React.FC<PropsType> = ({cargo, packaging_types, deleteCargoGroup, setEditableCargoGroupToState, setOpenCalcPopup, search_success}) => {
 
     let a = packaging_types && packaging_types.find(p => p.id === cargo.package_type)
 
@@ -28,13 +29,15 @@ const OneField:React.FC<PropsType> = ({cargo, packaging_types, deleteCargoGroup,
         dispatch(searchActions.setEdit(true))
     }
 
-
     return (
         <OneFieldWrapper>
             <OneFieldContent >
-                <TotalPart onClick={() => setEditMode(Number(cargo.id))}>Total: {cargo ? cargo.total_wm : ''}w/m</TotalPart>
+                <TotalPart onClick={() => !search_success && setEditMode(Number(cargo.id))}>Total: {cargo ? cargo.total_wm : ''}w/m</TotalPart>
                 <TotalDescriptions>= {cargo ? cargo.volume : ''} x {a ? a.description : 'boxes'} of {cargo ? cargo.total_per_pack : ''}w/m</TotalDescriptions>
-                <IconButton onClick={() => deleteCargoGroup(Number(cargo.id))} style={{padding: '10px'}}><img src={close_icon} alt=""/></IconButton>
+                {!search_success
+                    && <IconButton onClick={() => deleteCargoGroup(Number(cargo.id))} style={{padding: '10px'}}>
+                        <img src={close_icon} alt=""/>
+                    </IconButton>}
             </OneFieldContent>
         </OneFieldWrapper>
     )

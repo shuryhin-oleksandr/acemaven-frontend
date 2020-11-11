@@ -385,6 +385,7 @@ const Search: React.FC<PropsType> = (
                   setEditableCargoGroupToState={setEditableCargoGroupToState}
                   editCargoGroup={editCargoGroup}
                   setOpenCalcPopup={setOpenCalcPopup}
+                  search_success={search_success}
                 />
               )
             )
@@ -400,9 +401,9 @@ const Search: React.FC<PropsType> = (
                 : "flex-end"
             }
           >
-            {dates.length > 0 &&
+            {!search_success && dates.length > 0 &&
               watchResultArr.length === 3 &&
-              shippingValue !== 3 && (
+            (shippingValue !== 3) && (
                 <CalculateButton
                   type="button"
                   onClick={() => setOpenCalcPopup(true)}

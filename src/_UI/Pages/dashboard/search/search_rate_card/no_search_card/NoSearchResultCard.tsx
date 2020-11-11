@@ -10,9 +10,11 @@ import {
 
 type PropsType = {
   newSearch: any;
+  handleSubmit:any;
+  onSubmit:any;
 };
 
-const NoSearchResultCard: React.FC<PropsType> = ({ newSearch }) => {
+const NoSearchResultCard: React.FC<PropsType> = ({ newSearch,handleSubmit,onSubmit }) => {
   return (
     <NoSearchContainer>
       <NoSearchInner>
@@ -23,7 +25,7 @@ const NoSearchResultCard: React.FC<PropsType> = ({ newSearch }) => {
           know who posted the quote until you book the offer
         </NoSearchText>
         <ButtonsWrapper>
-          <QuoteButton>POST AS A QUOTE</QuoteButton>
+          <QuoteButton onClick={()=>handleSubmit(onSubmit)()}>POST AS A QUOTE</QuoteButton>
           <NewSearchButton
             onClick={() => {
               newSearch();

@@ -17,11 +17,11 @@ import { UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surch
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Controller} from "react-hook-form";
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+import {Scrollbars} from "react-custom-scrollbars";
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        height: 300
     },
     table: {
         minWidth: 479,
@@ -59,73 +59,75 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
     return (
         <HandlingSurchargeContainer style={{maxWidth: '834px'}}>
             <HandlingTitle>Handling (surcharge)</HandlingTitle>
-            <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell className={classes.cell}>CONTAINER TYPE</TableCell>
-                            <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                            <TableCell className={classes.cell} align="left">CHARGE</TableCell>
-                            <TableCell className={classes.cell} align="left">UPDATE BY</TableCell>
-                            <TableCell className={classes.cell} align="left">ON</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody className={classes.body}>
-                        {containers?.map((fee : any) => (
-                            <TableRow key={fee.id}>
-                                <Controller control={props.control}
-                                            name={`usage_fees.${fee.id}.container_type`}
-                                            defaultValue={fee.container_type.id}
-                                            as={
-                                                <TableCell className={classes.innerCell}  component="th" scope="row">
-                                                    {fee.container_type.code}
-                                                </TableCell>
-                                            }
-                                />
-                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                    <Controller control={props.control}
-                                                name={`usage_fees.${fee.id}.currency`}
-                                                defaultValue={fee.currency.id}
-                                               as={
-                                                    <SurchargeRateSelect options={currency}
-                                                                         placeholder='Currency'
-                                                                         maxW='80px'
-                                                    />
-                                                }
-                                    />
-                                </TableCell>
-                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
-                                    <Controller control={props.control}
-                                                name={`usage_fees.${fee.id}.charge`}
-                                                defaultValue={fee.charge}
-                                                as={
-                                                    <Field type='number'/>
-                                                }
-                                    />
-                                </TableCell>
-                                <Controller control={props.control}
-                                            defaultValue={fee.updated_by}
-                                            name={`usage_fees.${fee.id}.updated_by`}
-                                            as={
-                                                <TableCell className={classes.innerCell} align="left">
-                                                    {fee.updated_by}
-                                                </TableCell>
-                                            }
-                                />
-                               <Controller control={props.control}
-                                           defaultValue={fee.date_updated}
-                                           name={`usage_fees.${fee.id}.date_updated`}
-                                           as={
-                                               <TableCell className={classes.innerCell} align="left">
-                                                   {fee.date_updated}
-                                               </TableCell>
-                                           }
-                               />
+            <Scrollbars style={{ height: 300 }}>
+                <TableContainer className={classes.container} component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className={classes.cell}>CONTAINER TYPE</TableCell>
+                                <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
+                                <TableCell className={classes.cell} align="left">CHARGE</TableCell>
+                                <TableCell className={classes.cell} align="left">UPDATE BY</TableCell>
+                                <TableCell className={classes.cell} align="left">ON</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody className={classes.body}>
+                            {containers?.map((fee : any) => (
+                                <TableRow key={fee.id}>
+                                    <Controller control={props.control}
+                                                name={`usage_fees.${fee.id}.container_type`}
+                                                defaultValue={fee.container_type.id}
+                                                as={
+                                                    <TableCell className={classes.innerCell}  component="th" scope="row">
+                                                        {fee.container_type.code}
+                                                    </TableCell>
+                                                }
+                                    />
+                                    <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
+                                        <Controller control={props.control}
+                                                    name={`usage_fees.${fee.id}.currency`}
+                                                    defaultValue={fee.currency.id}
+                                                   as={
+                                                        <SurchargeRateSelect options={currency}
+                                                                             placeholder='Currency'
+                                                                             maxW='80px'
+                                                        />
+                                                    }
+                                        />
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode && setFormMode(true)}>
+                                        <Controller control={props.control}
+                                                    name={`usage_fees.${fee.id}.charge`}
+                                                    defaultValue={fee.charge}
+                                                    as={
+                                                        <Field type='number'/>
+                                                    }
+                                        />
+                                    </TableCell>
+                                    <Controller control={props.control}
+                                                defaultValue={fee.updated_by}
+                                                name={`usage_fees.${fee.id}.updated_by`}
+                                                as={
+                                                    <TableCell className={classes.innerCell} align="left">
+                                                        {fee.updated_by}
+                                                    </TableCell>
+                                                }
+                                    />
+                                   <Controller control={props.control}
+                                               defaultValue={fee.date_updated}
+                                               name={`usage_fees.${fee.id}.date_updated`}
+                                               as={
+                                                   <TableCell className={classes.innerCell} align="left">
+                                                       {fee.date_updated}
+                                                   </TableCell>
+                                               }
+                                   />
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Scrollbars>
         </HandlingSurchargeContainer>
     )
 }

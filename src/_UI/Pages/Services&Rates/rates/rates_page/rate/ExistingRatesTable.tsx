@@ -15,8 +15,8 @@ import DatesCells from "../../register_new_freight_rate/tables/DatesCells";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useSelector} from "react-redux";
 import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
-
 import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {Scrollbars} from "react-custom-scrollbars";
 
 type PropsType = {
     rate: RateInfoType | null,
@@ -31,8 +31,6 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
-        height: "420px",
-        overflowY: "scroll",
     },
     table: {
         "& .MuiTableHead-root": {},
@@ -88,142 +86,144 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
     return (
         <div style={{width: '100%', maxWidth: '1002px'}}>
             <HandlingTitle>RATES</HandlingTitle>
-            <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            {rate?.shipping_mode.id === 2 ||
-                            (rate?.shipping_mode.id === 3 && (
-                                <TableCell className={classes.cell}>
-                                    CONTAINER TYPE
-                                </TableCell>
-                            ))}
-                            <TableCell className={classes.cell} align="left">
-                                CURRENCY
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                RATE
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                START DATE
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                EXPIRATION DATE
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                UPDATE BY
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                ON
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {  rate?.rates.map((r) => {
-                            if(reservedDates) {
-                                if(r.container_type) {
-                                    const disabledDates = reservedDates.find(d => d.container_type === r.container_type.id)?.disabledDates || [];
-                                    return {...r, disabledDates: [...disabledDates]}
-                                }
-                                else {
-                                    return {...r, disabledDates: [...reservedDates[0].disabledDates]}
-                                }
-                            } else {
-                                return r
-                            }
-                        }).map((r) => (
-                            <TableRow key={r.id} className={classes.info_row}>
+            <Scrollbars style={{ height: 420 }}>
+                <TableContainer className={classes.container} component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
                                 {rate?.shipping_mode.id === 2 ||
                                 (rate?.shipping_mode.id === 3 && (
+                                    <TableCell className={classes.cell}>
+                                        CONTAINER TYPE
+                                    </TableCell>
+                                ))}
+                                <TableCell className={classes.cell} align="left">
+                                    CURRENCY
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    RATE
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    START DATE
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    EXPIRATION DATE
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    UPDATE BY
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    ON
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {  rate?.rates.map((r) => {
+                                if(reservedDates) {
+                                    if(r.container_type) {
+                                        const disabledDates = reservedDates.find(d => d.container_type === r.container_type.id)?.disabledDates || [];
+                                        return {...r, disabledDates: [...disabledDates]}
+                                    }
+                                    else {
+                                        return {...r, disabledDates: [...reservedDates[0].disabledDates]}
+                                    }
+                                } else {
+                                    return r
+                                }
+                            }).map((r) => (
+                                <TableRow key={r.id} className={classes.info_row}>
+                                    {rate?.shipping_mode.id === 2 ||
+                                    (rate?.shipping_mode.id === 3 && (
+                                        <Controller
+                                            control={control}
+                                            defaultValue={r?.container_type.id}
+                                            name={`rates.${r.id}.container_type`}
+                                            as={
+                                                <TableCell
+                                                    className={classes.innerCell}
+                                                    component="th"
+                                                    scope="row"
+                                                >
+                                                    <SpanType onClick={() => getSurchargeForRate(r.start_date, r.expiration_date)}>
+                                                        {r?.container_type.code}
+                                                    </SpanType>
+                                                </TableCell>
+                                            }
+                                        />
+                                    ))}
+                                    <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
+                                        <Controller
+                                            control={control}
+                                            name={`rates.${r.id}.currency`}
+                                            defaultValue={r.currency.id}
+                                            as={
+                                                <SurchargeRateSelect
+                                                    options={currency}
+                                                    maxW="70px"
+                                                />
+                                            }
+                                        />
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
+                                        <Controller
+                                            control={control}
+                                            name={`rates.${r.id}.rate`}
+                                            defaultValue={r.rate}
+                                            as={
+                                                <Field placeholder="0.00$"
+                                                       maxW="100px"
+                                                       type='number'
+                                                />
+                                            }
+                                        />
+                                    </TableCell>
+                                    <DatesCells
+                                        currentDates={{from: r.start_date, to: r.expiration_date}}
+                                        setValue={setValue}
+                                        control={control}
+                                        id={r.id}
+                                        // @ts-ignore
+                                        reservedDates={r.disabledDates || []}
+                                        errors={errors}
+                                        classes={classes}
+                                        getValues={getValues}
+                                        getSurchargeToRateHandle={() => {}}
+                                        setFormMode={setFormMode}
+                                        required_dates={false}
+                                    />
                                     <Controller
                                         control={control}
-                                        defaultValue={r?.container_type.id}
-                                        name={`rates.${r.id}.container_type`}
+                                        defaultValue={r.updated_by}
+                                        name={`rates.${r.id}.updated_by`}
                                         as={
                                             <TableCell
                                                 className={classes.innerCell}
-                                                component="th"
-                                                scope="row"
+                                                align="left"
                                             >
-                                                <SpanType onClick={() => getSurchargeForRate(r.start_date, r.expiration_date)}>
-                                                    {r?.container_type.code}
-                                                </SpanType>
+                                                {r.updated_by}
                                             </TableCell>
                                         }
                                     />
-                                ))}
-                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
                                     <Controller
                                         control={control}
-                                        name={`rates.${r.id}.currency`}
-                                        defaultValue={r.currency.id}
+                                        defaultValue={r.date_updated}
+                                        name={`rates.${r.id}.date_updated`}
                                         as={
-                                            <SurchargeRateSelect
-                                                options={currency}
-                                                maxW="70px"
-                                            />
+                                            <TableCell
+                                                className={classes.innerCell}
+                                                align="left"
+                                            >
+                                                {r.date_updated}
+                                            </TableCell>
                                         }
                                     />
-                                </TableCell>
-                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
-                                    <Controller
-                                        control={control}
-                                        name={`rates.${r.id}.rate`}
-                                        defaultValue={r.rate}
-                                        as={
-                                            <Field placeholder="0.00$"
-                                                   maxW="100px"
-                                                   type='number'
-                                            />
-                                        }
-                                    />
-                                </TableCell>
-                                <DatesCells
-                                    currentDates={{from: r.start_date, to: r.expiration_date}}
-                                    setValue={setValue}
-                                    control={control}
-                                    id={r.id}
-                                    // @ts-ignore
-                                    reservedDates={r.disabledDates || []}
-                                    errors={errors}
-                                    classes={classes}
-                                    getValues={getValues}
-                                    getSurchargeToRateHandle={() => {}}
-                                    setFormMode={setFormMode}
-                                    required_dates={false}
-                                />
-                                <Controller
-                                    control={control}
-                                    defaultValue={r.updated_by}
-                                    name={`rates.${r.id}.updated_by`}
-                                    as={
-                                        <TableCell
-                                            className={classes.innerCell}
-                                            align="left"
-                                        >
-                                            {r.updated_by}
-                                        </TableCell>
-                                    }
-                                />
-                                <Controller
-                                    control={control}
-                                    defaultValue={r.date_updated}
-                                    name={`rates.${r.id}.date_updated`}
-                                    as={
-                                        <TableCell
-                                            className={classes.innerCell}
-                                            align="left"
-                                        >
-                                            {r.date_updated}
-                                        </TableCell>
-                                    }
-                                />
-                            </TableRow>
-                        ))
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                                </TableRow>
+                            ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Scrollbars>
         </div>
     )
 }

@@ -21,6 +21,7 @@ import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { getSurchargeInfo } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { useHistory } from "react-router-dom";
 import { setActiveOrPausedRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const useStyles = makeStyles({
   container: {
@@ -139,158 +140,160 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
 
   return (
     <Outer>
-      <TableContainer className={classes.container} component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell className={classes.shipping_cell} align="left" />
-              <TableCell className={classes.cell} align="left">
-                <TableCellContent
-                  setSearchValue={props.setSearchValue}
-                  setSearchMode={setSearchMode}
-                  dispatch={props.dispatch}
-                  direction={props.directory}
-                  type={props.mode}
-                  column_name="shipping_mode"
-                  searchValue={props.searchValue}
-                  isSearchMode={isSearchMode}
-                  title="SHIPPING MODE"
-                  searchColumn={props.searchColumn}
-                  setSearchColumn={props.setSearchColumn}
-                  thunkName="rates"
-                />
-              </TableCell>
-              <TableCell className={classes.cell} align="left">
-                <TableCellContent
-                  setSearchValue={props.setSearchValue}
-                  setSearchMode={setSearchMode}
-                  dispatch={props.dispatch}
-                  direction={props.directory}
-                  type={props.mode}
-                  column_name="carrier"
-                  searchValue={props.searchValue}
-                  isSearchMode={isSearchMode}
-                  title="CARRIER"
-                  searchColumn={props.searchColumn}
-                  setSearchColumn={props.setSearchColumn}
-                  thunkName="rates"
-                />
-              </TableCell>
-              <TableCell className={classes.cell} align="left">
-                <TableCellContent
-                  setSearchValue={props.setSearchValue}
-                  setSearchMode={setSearchMode}
-                  dispatch={props.dispatch}
-                  direction={props.directory}
-                  type={props.mode}
-                  column_name="origin"
-                  searchValue={props.searchValue}
-                  isSearchMode={isSearchMode}
-                  title="ORIGIN"
-                  searchColumn={props.searchColumn}
-                  setSearchColumn={props.setSearchColumn}
-                  thunkName="rates"
-                />
-              </TableCell>
-              <TableCell className={classes.cell} align="left">
-                <TableCellContent
-                  setSearchValue={props.setSearchValue}
-                  setSearchMode={setSearchMode}
-                  dispatch={props.dispatch}
-                  direction={props.directory}
-                  type={props.mode}
-                  column_name="destination"
-                  searchValue={props.searchValue}
-                  isSearchMode={isSearchMode}
-                  title="DESTINATION"
-                  searchColumn={props.searchColumn}
-                  setSearchColumn={props.setSearchColumn}
-                  thunkName="rates"
-                />
-              </TableCell>
-              <TableCell className={classes.cell} align="left">
-                <div style={{ display: "flex" }}>EXPIRATION DATE</div>
-              </TableCell>
-              <TableCell className={classes.cell} align="left">
-                <div style={{ display: "flex" }}>ACTIONS</div>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows?.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell
-                  className={classes.innerMainCell}
-                  align="left"
-                  component="th"
-                  scope="row"
-                >
-                  <ModeIcon
-                    src={
-                      row.shipping_type === "sea"
-                        ? ship_surcharge
-                        : plane_surcharge
-                    }
-                    alt=""
+      <Scrollbars style={{width: "100%", height: "100%"}}>
+        <TableContainer className={classes.container} component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell className={classes.shipping_cell} align="left" />
+                <TableCell className={classes.cell} align="left">
+                  <TableCellContent
+                    setSearchValue={props.setSearchValue}
+                    setSearchMode={setSearchMode}
+                    dispatch={props.dispatch}
+                    direction={props.directory}
+                    type={props.mode}
+                    column_name="shipping_mode"
+                    searchValue={props.searchValue}
+                    isSearchMode={isSearchMode}
+                    title="SHIPPING MODE"
+                    searchColumn={props.searchColumn}
+                    setSearchColumn={props.setSearchColumn}
+                    thunkName="rates"
                   />
                 </TableCell>
-                <TableCell
-                  onClick={() => goToPage(row.id)}
-                  className={classes.innerCell}
-                  align="left"
-                >
-                  <SpanMode>{row.shipping_mode}</SpanMode>
+                <TableCell className={classes.cell} align="left">
+                  <TableCellContent
+                    setSearchValue={props.setSearchValue}
+                    setSearchMode={setSearchMode}
+                    dispatch={props.dispatch}
+                    direction={props.directory}
+                    type={props.mode}
+                    column_name="carrier"
+                    searchValue={props.searchValue}
+                    isSearchMode={isSearchMode}
+                    title="CARRIER"
+                    searchColumn={props.searchColumn}
+                    setSearchColumn={props.setSearchColumn}
+                    thunkName="rates"
+                  />
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  <span>{row.carrier}</span>
+                <TableCell className={classes.cell} align="left">
+                  <TableCellContent
+                    setSearchValue={props.setSearchValue}
+                    setSearchMode={setSearchMode}
+                    dispatch={props.dispatch}
+                    direction={props.directory}
+                    type={props.mode}
+                    column_name="origin"
+                    searchValue={props.searchValue}
+                    isSearchMode={isSearchMode}
+                    title="ORIGIN"
+                    searchColumn={props.searchColumn}
+                    setSearchColumn={props.setSearchColumn}
+                    thunkName="rates"
+                  />
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  {row.origin}
+                <TableCell className={classes.cell} align="left">
+                  <TableCellContent
+                    setSearchValue={props.setSearchValue}
+                    setSearchMode={setSearchMode}
+                    dispatch={props.dispatch}
+                    direction={props.directory}
+                    type={props.mode}
+                    column_name="destination"
+                    searchValue={props.searchValue}
+                    isSearchMode={isSearchMode}
+                    title="DESTINATION"
+                    searchColumn={props.searchColumn}
+                    setSearchColumn={props.setSearchColumn}
+                    thunkName="rates"
+                  />
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  {row.destination}
+                <TableCell className={classes.cell} align="left">
+                  <div style={{ display: "flex" }}>EXPIRATION DATE</div>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  {row.expiration_date}
-                </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  <div style={{ display: "flex" }}>
-                    <Tooltip
-                      arrow
-                      title="Rates can be paused or reactivated using this button."
-                      classes={{ tooltip: classes.customTooltip }}
-                    >
-                      <TemplateIcon>
-                        <img
-                          style={{ height: 24, width: 24 }}
-                          src={row.is_active ? pause_icon : play_icon}
-                          alt=""
-                          onClick={() =>
-                            props.dispatch(
-                              setActiveOrPausedRateThunk(row.id, !row.is_active)
-                            )
-                          }
-                        />
-                      </TemplateIcon>
-                    </Tooltip>
-                    <Tooltip
-                      arrow
-                      title="Use this registry as a template for a new rate, with the same values and parameters."
-                      classes={{ tooltip: classes.customTooltip }}
-                    >
-                      <TemplateIcon
-                        onClick={() => props.setCheckedFreightRate(row)}
-                      >
-                        <img src={template_icon} alt="" />
-                      </TemplateIcon>
-                    </Tooltip>
-                  </div>
+                <TableCell className={classes.cell} align="left">
+                  <div style={{ display: "flex" }}>ACTIONS</div>
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {rows?.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell
+                    className={classes.innerMainCell}
+                    align="left"
+                    component="th"
+                    scope="row"
+                  >
+                    <ModeIcon
+                      src={
+                        row.shipping_type === "sea"
+                          ? ship_surcharge
+                          : plane_surcharge
+                      }
+                      alt=""
+                    />
+                  </TableCell>
+                  <TableCell
+                    onClick={() => goToPage(row.id)}
+                    className={classes.innerCell}
+                    align="left"
+                  >
+                    <SpanMode>{row.shipping_mode}</SpanMode>
+                  </TableCell>
+                  <TableCell className={classes.innerCell} align="left">
+                    <span>{row.carrier}</span>
+                  </TableCell>
+                  <TableCell className={classes.innerCell} align="left">
+                    {row.origin}
+                  </TableCell>
+                  <TableCell className={classes.innerCell} align="left">
+                    {row.destination}
+                  </TableCell>
+                  <TableCell className={classes.innerCell} align="left">
+                    {row.expiration_date}
+                  </TableCell>
+                  <TableCell className={classes.innerCell} align="left">
+                    <div style={{ display: "flex" }}>
+                      <Tooltip
+                        arrow
+                        title="Rates can be paused or reactivated using this button."
+                        classes={{ tooltip: classes.customTooltip }}
+                      >
+                        <TemplateIcon>
+                          <img
+                            style={{ height: 24, width: 24 }}
+                            src={row.is_active ? pause_icon : play_icon}
+                            alt=""
+                            onClick={() =>
+                              props.dispatch(
+                                setActiveOrPausedRateThunk(row.id, !row.is_active)
+                              )
+                            }
+                          />
+                        </TemplateIcon>
+                      </Tooltip>
+                      <Tooltip
+                        arrow
+                        title="Use this registry as a template for a new rate, with the same values and parameters."
+                        classes={{ tooltip: classes.customTooltip }}
+                      >
+                        <TemplateIcon
+                          onClick={() => props.setCheckedFreightRate(row)}
+                        >
+                          <img src={template_icon} alt="" />
+                        </TemplateIcon>
+                      </Tooltip>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Scrollbars>
     </Outer>
   );
 };

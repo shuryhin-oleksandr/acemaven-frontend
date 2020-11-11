@@ -8,9 +8,6 @@ width: 100%;
 min-height: 100vh;
 height: 100%;
 position: relative;
-@media (max-width: 1400px){
-  min-height: calc(100vh - 15px);
-}
 `
 
 export const Content = styled.div`

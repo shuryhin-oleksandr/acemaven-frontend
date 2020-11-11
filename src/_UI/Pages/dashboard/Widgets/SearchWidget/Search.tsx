@@ -189,6 +189,7 @@ const Search: React.FC<PropsType> = (
   let newSearch = () => {
     dispatch(searchActions.setSearchSuccess(false));
     dispatch(searchActions.clearCargoList([]));
+    setShippingValue(0);
     reset();
     setDates([]);
   };
@@ -254,6 +255,37 @@ const Search: React.FC<PropsType> = (
       ? dispatch(postSearchQuoteThunk(finalData, history))
       : dispatch(searchRatesOffersThunk(finalData));
   };
+
+  const shippingValueReset = () => {
+    setValue("cargo_groups", [
+      {
+        container_type: "",
+        volume: 0,
+        frozen: "",
+        dangerous: false,
+      },
+    ]);
+    // reset({
+    //   shipping_mode: !!shippingValue ? shippingValue.toString() : "",
+    //   origin: "",
+    //   destination: "",
+    //   cargo_groups: [
+    //     {
+    //       container_type: "",
+    //       volume: 0,
+    //       frozen: "",
+    //       dangerous: false,
+    //     },
+    //   ],
+    // });
+    // setDates([]);
+    dispatch(searchActions.setSearchSuccess(false));
+    dispatch(searchActions.clearCargoList([]));
+  };
+
+  useEffect(() => {
+    shippingValueReset();
+  }, [shippingValue]);
 
   return (
     <RelativeWrapper>
@@ -416,9 +448,10 @@ const Search: React.FC<PropsType> = (
                 : "flex-end"
             }
           >
-            {!search_success && dates.length > 0 &&
+            {!search_success &&
+              dates.length > 0 &&
               watchResultArr.length === 3 &&
-            (shippingValue !== 3) && (
+              shippingValue !== 3 && (
                 <CalculateButton
                   type="button"
                   onClick={() => setOpenCalcPopup(true)}

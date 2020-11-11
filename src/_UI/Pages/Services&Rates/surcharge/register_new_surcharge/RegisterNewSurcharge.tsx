@@ -70,7 +70,6 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
     const dispatch = useDispatch()
 
     const onSubmit = (values: any) => {
-        debugger
         setInvalidDate('')
         if(values.from <= values.to) {
             dispatch(surchargeActions.setAddingSurchargeError([]))

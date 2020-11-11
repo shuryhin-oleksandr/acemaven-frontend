@@ -4,7 +4,11 @@ import { SurchargesDatesFilter } from "./form-styles";
 import Calendar from "../../../../components/_commonComponents/calendar/Calendar";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import { useSelector} from "react-redux";
-import {getBookedDates, getSurcharge} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import {
+    getBookedDates,
+    getLocationId,
+    getSurcharge
+} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import moment from "moment";
 
 
@@ -38,6 +42,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
 
     let surcharge = useSelector(getSurcharge)
     const history = useHistory()
+    let location_id = useSelector(getLocationId)
 
     useEffect(() => {
         if(surcharge && history.location.pathname === `/services/surcharge/${surcharge.id}`) {
@@ -76,6 +81,12 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
     const fromDayClick = () => {
         toInput?.current?.getInput().focus()
     }
+
+    useEffect(() => {
+        if(location_id === 0) {
+            setSelectedDay({from : '', to: ''})
+        }
+    }, [location_id])
 
 
     return (

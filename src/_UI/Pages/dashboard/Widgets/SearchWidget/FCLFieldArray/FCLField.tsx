@@ -7,6 +7,7 @@ import RemoveIcon from "../../../../../assets/icons/widgets/remove-icon.svg";
 import { ContainerType } from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SearchCheckbox from "src/_UI/components/_commonComponents/customCheckbox/searchCheckbox";
 import { ChoiceType } from "../../../../../../_BLL/types/search/search_types";
+import { IconButton } from "@material-ui/core";
 
 type PropsType = {
   fields: any;
@@ -64,7 +65,7 @@ const FCLField: React.FC<PropsType> = ({
             background="#ECECEC"
             callback={setChosenContainer}
             disabled={disabled}
-            placeholder='Container Type'
+            placeholder="Container Type"
           />
         }
       />
@@ -83,7 +84,13 @@ const FCLField: React.FC<PropsType> = ({
               display: "flex",
             }}
           >
-            <FormField background="#ECECEC" marginBottom="5px" type="number" disabled={disabled} placeholder='Volume'/>
+            <FormField
+              background="#ECECEC"
+              marginBottom="5px"
+              type="number"
+              disabled={disabled}
+              placeholder="Volume"
+            />
           </div>
         }
       />
@@ -98,7 +105,7 @@ const FCLField: React.FC<PropsType> = ({
               maxW="123px"
               options={frozen_choices}
               disabled={disabled}
-              placeholder='Frozen'
+              placeholder="Frozen"
             />
           }
         />
@@ -113,11 +120,12 @@ const FCLField: React.FC<PropsType> = ({
         />
       )}
       {fields.length > 1 && !disabled && (
-        <RemoveImg
-          src={RemoveIcon}
-          alt="remove"
+        <IconButton
           onClick={() => remove(index)}
-        />
+          style={{ padding: "10px", marginLeft: "15px" }}
+        >
+          <img src={RemoveIcon} alt="remove" />
+        </IconButton>
       )}
     </div>
   );

@@ -27,8 +27,9 @@ import FormField from "../../../../components/_commonComponents/Input/FormField"
 import { PortType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import { getPorts } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {
-    getDestinationPorts, getIsLocalPort,
-    getOriginPorts,
+  getDestinationPorts,
+  getIsLocalPort,
+  getOriginPorts,
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import Dates from "../../Dates";
@@ -48,6 +49,7 @@ import {
 import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
 import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
+
 
 type PropsType = {
   right?: string;
@@ -115,7 +117,7 @@ const Search: React.FC<PropsType> = (
   const origin_ports = useSelector(getOriginPorts);
   const destination_ports = useSelector(getDestinationPorts);
   const frozen_choices = useSelector(getFrozenChoicesSelector);
-  const origin_port_value = useSelector(getIsLocalPort)
+  const origin_port_value = useSelector(getIsLocalPort);
 
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
@@ -161,16 +163,16 @@ const Search: React.FC<PropsType> = (
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-      if(value.value.length >= 3) {
-          dispatch(getPorts('', value.value, "origin", mode));
-      }
+    if (value.value.length >= 3) {
+    dispatch(getPorts("", value.value, "origin", mode));
+    }
   };
   let onDestinationChangeHandler = (value: any) => {
-      if(value.value.length >= 3) {
-          origin_port_value?.is_local
-              ? dispatch(getPorts(false, value.value, "destination", mode))
-              : dispatch(getPorts(true, value.value, "destination", mode))
-      }
+    if (value.value.length >= 3) {
+    origin_port_value?.is_local
+      ? dispatch(getPorts(false, value.value, "destination", mode))
+      : dispatch(getPorts(true, value.value, "destination", mode));
+    }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
@@ -189,6 +191,7 @@ const Search: React.FC<PropsType> = (
   };
 
   const onSubmit = (values: any) => {
+    debugger;
     let finalData;
     if (values.cargo_groups) {
       finalData = {
@@ -198,11 +201,20 @@ const Search: React.FC<PropsType> = (
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
         /*cargo_groups: values.cargo_groups.map((g: any) => ({container_type : g.container_type, dangerous: g.dangerous, volume: Number(g.volume)}))*/
-        cargo_groups: values.cargo_groups.map((c: any) => c.dangerous
-            ? {container_type : c.container_type, dangerous: c.dangerous, volume: Number(c.volume)}
-            : {container_type : c.container_type, frozen: c.frozen, volume: Number(c.volume)}
-        )
-      }
+        cargo_groups: values.cargo_groups.map((c: any) =>
+          c.frozen
+            ? {
+                container_type: c.container_type,
+                frozen: c.frozen,
+                volume: Number(c.volume),
+              }
+            : {
+                container_type: c.container_type,
+                dangerous: c.dangerous,
+                volume: Number(c.volume),
+              }
+        ),
+      };
     } else {
       finalData = {
         shipping_mode: values.shipping_mode,
@@ -210,32 +222,34 @@ const Search: React.FC<PropsType> = (
         date_to: moment(dates[1]).format("DD/MM/YYYY"),
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
-        cargo_groups: cargo_groups_list?.map(c => c.package_type
+        cargo_groups: cargo_groups_list?.map((c) =>
+          c.package_type
             ? {
-              packaging_type: c.package_type,
-              dangerous: c.dangerous,
-              volume: Number(c.volume),
-              weight: Number(c.weight),
-              length: Number(c.length),
-              width: Number(c.width),
-              height: Number(c.height),
-              total_wm: c.total_wm,
-        }
+                packaging_type: c.package_type,
+                dangerous: c.dangerous,
+                volume: Number(c.volume),
+                weight: Number(c.weight),
+                length: Number(c.length),
+                width: Number(c.width),
+                height: Number(c.height),
+                total_wm: c.total_wm,
+              }
             : {
-              container_type: c.container_type,
-              dangerous: c.dangerous,
-              volume: Number(c.volume),
-              weight: Number(c.weight),
-              length: Number(c.length),
-              width: Number(c.width),
-              height: Number(c.height),
-              total_wm: c.total_wm
-        }
-        )
-      }
+                container_type: c.container_type,
+                dangerous: c.dangerous,
+                volume: Number(c.volume),
+                weight: Number(c.weight),
+                length: Number(c.length),
+                width: Number(c.width),
+                height: Number(c.height),
+                total_wm: c.total_wm,
+              }
+        ),
+      };
     }
-
-    dispatch(searchRatesOffersThunk(finalData));
+    search_result.length == 0 && search_success
+      ? console.log("another dispatch", finalData)
+      : dispatch(searchRatesOffersThunk(finalData));
   };
 
   return (
@@ -277,7 +291,7 @@ const Search: React.FC<PropsType> = (
                   background={"#ECECEC"}
                   marginBot={"0px"}
                   disabled={disabled}
-                  placeholder='Shipping Mode'
+                  placeholder="Shipping Mode"
                 />
               }
             />
@@ -426,16 +440,22 @@ const Search: React.FC<PropsType> = (
 
               {!search_success ? (
                 <BaseButton type="submit">Search</BaseButton>
-              ) : (
+              ) : search_result.length !== 0 ? (
                 <BaseButton type="button" onClick={newSearch}>
                   New Search
                 </BaseButton>
-              )}
+              ) : null}
             </div>
           </ButtonGroup>
         </form>
       </Container>
-      {search_result.length == 0 && search_success && <NoSearchResultCard newSearch={newSearch} />}
+      {search_result.length == 0 && search_success && (
+        <NoSearchResultCard
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          newSearch={newSearch}
+        />
+      )}
     </RelativeWrapper>
   );
 };

@@ -39,6 +39,7 @@ import {
   getFrozenChoices,
   searchRatesOffersThunk,
 } from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
+import { postSearchQuoteThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 import { getFrozenChoicesSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
@@ -49,7 +50,6 @@ import {
 import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
 import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
-
 
 type PropsType = {
   right?: string;
@@ -163,16 +163,16 @@ const Search: React.FC<PropsType> = (
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    if (value.value.length >= 3) {
-    dispatch(getPorts("", value.value, "origin", mode));
-    }
+    // if (value.value.length >= 3) {
+      dispatch(getPorts("", value.value, "origin", mode));
+    // }
   };
   let onDestinationChangeHandler = (value: any) => {
-    if (value.value.length >= 3) {
-    origin_port_value?.is_local
-      ? dispatch(getPorts(false, value.value, "destination", mode))
-      : dispatch(getPorts(true, value.value, "destination", mode));
-    }
+    // if (value.value.length >= 3) {
+      origin_port_value?.is_local
+        ? dispatch(getPorts(false, value.value, "destination", mode))
+        : dispatch(getPorts(true, value.value, "destination", mode));
+    // }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
@@ -189,8 +189,6 @@ const Search: React.FC<PropsType> = (
     reset();
     setDates([]);
   };
-
-
 
   const onSubmit = (values: any) => {
     debugger;
@@ -250,7 +248,7 @@ const Search: React.FC<PropsType> = (
       };
     }
     search_result.length == 0 && search_success
-      ? console.log("another dispatch", finalData)
+      ? dispatch(postSearchQuoteThunk(finalData))
       : dispatch(searchRatesOffersThunk(finalData));
   };
 

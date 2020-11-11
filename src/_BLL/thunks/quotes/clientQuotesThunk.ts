@@ -47,10 +47,11 @@ export const deleteQuoteFromClientListThunk = (id: number) => {
     }
 }
 
-export const postSearchQuoteThunk = (data:SearchDataType) =>{
+export const postSearchQuoteThunk = (data:SearchDataType,history:any ) =>{
     return async () => {
         try {
             let res = await quotesClientAPI.postSearchQuote(data);
+            history.push(`/settings/profile/`)
         }catch (e) {
             console.log(e);
         }

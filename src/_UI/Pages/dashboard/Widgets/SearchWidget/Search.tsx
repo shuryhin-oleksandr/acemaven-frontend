@@ -50,6 +50,7 @@ import {
 import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
 import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
+import { useHistory } from "react-router-dom";
 
 type PropsType = {
   right?: string;
@@ -84,6 +85,7 @@ const Search: React.FC<PropsType> = (
   newParam = ""
 ) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   //delete cargo groups from cargo list after calculation
   const deleteCargoGroup = (id: number) => {
@@ -164,14 +166,14 @@ const Search: React.FC<PropsType> = (
 
   let onOriginChangeHandler = (value: any) => {
     // if (value.value.length >= 3) {
-      dispatch(getPorts("", value.value, "origin", mode));
+    dispatch(getPorts("", value.value, "origin", mode));
     // }
   };
   let onDestinationChangeHandler = (value: any) => {
     // if (value.value.length >= 3) {
-      origin_port_value?.is_local
-        ? dispatch(getPorts(false, value.value, "destination", mode))
-        : dispatch(getPorts(true, value.value, "destination", mode));
+    origin_port_value?.is_local
+      ? dispatch(getPorts(false, value.value, "destination", mode))
+      : dispatch(getPorts(true, value.value, "destination", mode));
     // }
   };
 
@@ -248,7 +250,7 @@ const Search: React.FC<PropsType> = (
       };
     }
     search_result.length == 0 && search_success
-      ? dispatch(postSearchQuoteThunk(finalData))
+      ? dispatch(postSearchQuoteThunk(finalData, history))
       : dispatch(searchRatesOffersThunk(finalData));
   };
 

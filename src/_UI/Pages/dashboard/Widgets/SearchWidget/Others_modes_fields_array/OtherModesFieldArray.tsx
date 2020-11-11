@@ -9,10 +9,12 @@ type PropsType = {
     deleteCargoGroup: (id: number) => void,
     setEditableCargoGroupToState: (id: number) => void,
     editCargoGroup: (edit_data: CargoGroupType) => void,
-    setOpenCalcPopup: (value: boolean) => void
+    setOpenCalcPopup: (value: boolean) => void,
+    search_success: boolean
 }
 
-const OtherModesFieldArray:React.FC<PropsType> = ({cargo_groups, packaging_types, deleteCargoGroup, setEditableCargoGroupToState, editCargoGroup, setOpenCalcPopup}) => {
+const OtherModesFieldArray:React.FC<PropsType> = ({cargo_groups, packaging_types, deleteCargoGroup, search_success,
+                                                      setEditableCargoGroupToState, editCargoGroup, setOpenCalcPopup}) => {
     return (
         <>
             {cargo_groups?.map(c =>
@@ -22,6 +24,7 @@ const OtherModesFieldArray:React.FC<PropsType> = ({cargo_groups, packaging_types
                       editCargoGroup={editCargoGroup}
                       setEditableCargoGroupToState={setEditableCargoGroupToState}
                       setOpenCalcPopup={setOpenCalcPopup}
+                      search_success={search_success}
             />
             )}
         </>

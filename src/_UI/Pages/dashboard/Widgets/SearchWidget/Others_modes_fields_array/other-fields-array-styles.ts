@@ -14,7 +14,7 @@ export const OneFieldContent = styled.div`
   }
 `
 export const TotalPart = styled.div`
-  width: 130px;
+  min-width: 130px;
   min-height: 30px;
   background-color: #ececec;
   border-radius: 4px;
@@ -23,7 +23,7 @@ export const TotalPart = styled.div`
   font-size: 14px;
   display: flex;
   align-items: center;
-  padding-left: 10px;
+  padding: 5px 10px;
   margin-right: 10px;
 `
 export const TotalDescriptions = styled.div`

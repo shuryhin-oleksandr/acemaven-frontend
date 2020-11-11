@@ -15,11 +15,11 @@ const ProfileInfoField:React.FC<PropsType> = () => {
                 <Wrapper>
                     <FieldWrap>
                         <Label>Name</Label>
-                        <TextWrap>{profileInfo?.first_name}</TextWrap>
+                        <TextWrap style={{textTransform: 'capitalize'}}>{profileInfo?.first_name}</TextWrap>
                     </FieldWrap>
                     <FieldWrap>
                         <Label>Last Name</Label>
-                        <TextWrap>{profileInfo?.last_name}</TextWrap>
+                        <TextWrap style={{textTransform: 'capitalize'}}>{profileInfo?.last_name}</TextWrap>
                     </FieldWrap>
                     <FieldWrap>
                         <Label>Position in the Company</Label>

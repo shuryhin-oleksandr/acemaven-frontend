@@ -57,6 +57,7 @@ margin-bottom: 5px;
 font-family: "Helvetica Bold", sans-serif;
 font-size: 16px;
 color: black;
+text-transform: capitalize;
 `
 export const Role = styled.div`
 color: #828282;

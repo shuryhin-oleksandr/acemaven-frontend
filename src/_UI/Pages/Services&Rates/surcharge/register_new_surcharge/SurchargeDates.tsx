@@ -82,6 +82,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
         toInput?.current?.getInput().focus()
     }
 
+    //RESET range in calendar if we changed shipping type
     useEffect(() => {
         if(location_id === 0) {
             setSelectedDay({from : '', to: ''})

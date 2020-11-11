@@ -34,12 +34,12 @@ export const HandlingSurchargeContainer = styled.div<PropsStyle>`
   max-width: ${({max_width}) => max_width ? max_width : '478px'};
   max-height: ${({max_height}) => max_height ? max_height : '420px'};
 `
-export const HandlingTitle = styled.div`
+export const HandlingTitle = styled.div<{margin_bottom?: string}>`
   text-transform: uppercase;
   font-size: 20px;
   font-family: "Helvetica Bold", sans-serif;
   color: #1AB8E5;
-  margin-bottom: 24px;
+  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '24px'};
 `
 
 export const Field = styled.input<PropsStyle>`

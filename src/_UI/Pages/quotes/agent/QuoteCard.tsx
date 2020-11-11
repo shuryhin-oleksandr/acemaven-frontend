@@ -1,4 +1,14 @@
 import React, {useState} from 'react'
+//react-hook-form
+import {Controller, useForm} from "react-hook-form";
+//components
+import CargoTable from "./CargoTable";
+import FormSelect from "../../../components/_commonComponents/select/FormSelect";
+import FrateRatesTable from "./table/FrateRatesTable";
+import Layout from "../../../components/BaseLayout/Layout";
+import NoRateSurchargeCard from "./NoRateSurchargeCard";
+import RegisterNewRateFromQuotePopup from "../../../components/PopUps/register_new_rate_from_quote/RegisterNewRateFromQuotePopup";
+//styles
 import {
     ActionsAgentWrap,
     CardHeader,
@@ -22,29 +32,19 @@ import {
     ShipmentType,
     SubmitQuoteButton, SurchargesInfo
 } from "./table/agent-quotes-styles";
+//icons
 import sea_type from '../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import dates_icon from '../../../../_UI/assets/icons/date_1.svg'
-import CargoTable from "./CargoTable";
-import FormSelect from "../../../components/_commonComponents/select/FormSelect";
-import {Controller, useForm} from "react-hook-form";
-import FrateRatesTable from "./table/FrateRatesTable";
-import Additional from "../../Services&Rates/surcharge/surcharges_page/surcharge/Additional";
-import UsageFees from "../../Services&Rates/surcharge/register_new_surcharge/tables/UsageFees";
-import Layout from "../../../components/BaseLayout/Layout";
-import NoRateSurchargeCard from "./NoRateSurchargeCard";
-import RegisterNewRateFromQuotePopup
-    from "../../../components/PopUps/register_new_rate_from_quote/RegisterNewRateFromQuotePopup";
-
 
 type PropsType = {
-    setCardOpen: (value: boolean) => void
+
 }
 
-const QuoteCard:React.FC<PropsType> = ({setCardOpen}) => {
+const QuoteCard:React.FC<PropsType> = () => {
     const {control, errors, handleSubmit, setValue} = useForm({
         reValidateMode: "onBlur"
     })
-    let no_rates = true
+    let no_rates = false
 
     const [isCreatePopup, openCreatePopup] = useState(false)
 
@@ -58,7 +58,7 @@ const QuoteCard:React.FC<PropsType> = ({setCardOpen}) => {
                         <ActionsAgentWrap>
                             <QuoteOpenStatus>Open</QuoteOpenStatus>
                             <SubmitQuoteButton>SUBMIT QUOTE</SubmitQuoteButton>
-                            <RejectButton onClick={() => setCardOpen(false)}>REJECT</RejectButton>
+                            <RejectButton onClick={() => {}}>REJECT</RejectButton>
                         </ActionsAgentWrap>
                     </CardHeader>
                     <QuoteInfo>
@@ -106,7 +106,6 @@ const QuoteCard:React.FC<PropsType> = ({setCardOpen}) => {
                         <CargoContentWrapper>
                             <CargoTable />
                         </CargoContentWrapper>
-
                     </CargoInfo>
                     <CarrierInfo>
                         <CarrierWrap>
@@ -134,18 +133,10 @@ const QuoteCard:React.FC<PropsType> = ({setCardOpen}) => {
                        ? <NoRateSurchargeCard openCreatePopup={openCreatePopup}/>
                        : <>
                             <div style={{width: '50%'}}>
-                                <UsageFees control={control}
-                                    usageFees={null}
-                                    tableName={'HANDLING'}
-                                    type='CONTAINER TYPE'
-                                    setValue={setValue}
-                                />
+
                             </div>
                             <div style={{width: '50%'}}>
-                                <Additional control={control}
-                                    errors={errors}
-                                    setValue={setValue}
-                                />
+
                             </div>
                         </>
                     }

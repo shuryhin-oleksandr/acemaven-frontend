@@ -51,6 +51,7 @@ import { searchActions } from "../../../../../_BLL/reducers/search_client/search
 import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
 import { useHistory } from "react-router-dom";
+import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 type PropsType = {
   right?: string;
@@ -428,7 +429,8 @@ const Search: React.FC<PropsType> = (
               {watchFieldArray.length > 0 &&
                 !!watchFieldArray[0].container_type &&
                 !!watchFieldArray[0].volume &&
-                !search_success && (
+                !search_success &&
+                shippingValue === ShippingModeEnum.FCL && (
                   <BaseTooltip
                     title={"Add more cargo groups by clicking on plus"}
                   >

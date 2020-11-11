@@ -7,15 +7,8 @@ type PropsType = {
 }
 
 const AgentQuotesTableContainer:React.FC<PropsType> = ({ setCardOpen}) => {
-
     return (
-       /* <>
-            {isCardOpen
-                ? <QuoteCard setCardOpen={setCardOpen}/>
-                :
-            }
-        </>*/
-    <AgentQuotesTable setCardOpen={setCardOpen}/>
+        <AgentQuotesTable setCardOpen={setCardOpen}/>
     )
 }
 

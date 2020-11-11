@@ -104,12 +104,12 @@ export const GeneralInfo = styled.div`
   max-width: 265px;
   width: 100%;
 `
-export const GeneralTitle = styled.div`
+export const GeneralTitle = styled.div<{margin_bottom?: string}>`
   font-family: "Helvetica Bold", sans-serif;
   color: #1ab8e5;
   font-size: 20px;
   line-height: 23px;
-  margin-bottom: 29px;
+  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '29px'};
 `
 export const GeneralInfoContent = styled.div`
   display: flex;

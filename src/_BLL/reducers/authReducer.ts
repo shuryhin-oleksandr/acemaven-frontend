@@ -218,26 +218,6 @@ export const checkToken = (token: string) => {
   };
 };
 
-/*export const masterAccountSignUp = (
-  data: IMasterAccountData,
-  token: string,
-  history: History
-) => {
-  return async (dispatch: Dispatch<commonAuthActions>) => {
-    try {
-      dispatch(authActions.setIsLoading(true));
-      let res = await authAPI.createMasterAccount(data, token);
-      localStorage.setItem("access_token", res.data.token);
-      dispatch(authActions.setAuth(true));
-      res.data && history.push("/create/user");
-      dispatch(authActions.setAuth(true));
-      dispatch(authActions.setIsLoading(false));
-    } catch (e) {
-      console.log("error", e.response);
-      dispatch(authActions.setIsLoading(false));
-    }
-  };
-};*/
 
 export const completeAdditionalUser = (
   token: string,

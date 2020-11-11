@@ -17,19 +17,22 @@ type PropsType = {
     currentDates?: {from: string, to: string}
     setFormMode?: (value: boolean) => void
     required_dates: boolean,
-    disabled?: boolean
+    disabled?: boolean,
+    invalidDate?: string,
+    setInvalidDate?: (value: string) => void
 }
 
 const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, errors, classes, reservedDates,
-                                             id, getSurchargeToRateHandle, setFormMode, required_dates, disabled}) => {
+                                             id, getSurchargeToRateHandle, setFormMode, required_dates, disabled, setInvalidDate}) => {
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
         to:  ''
     })
 
-    useEffect(() => {
 
+
+    useEffect(() => {
         currentDates &&
         setSelectedDay({
             from: moment(currentDates?.from, 'DD/MM/YYYY').toDate(),
@@ -58,7 +61,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
         setValue(`rates.${id}.to`, moment(to).format('DD/MM/YYYY'))
 
         //запрос за существующими сюрчарджами для этого контейнера
-        getSurchargeToRateHandle(0, selectedDay.from, to)
+        //getSurchargeToRateHandle(0, selectedDay.from, to)
     }
 
     const toInput = useRef<DayPickerInput>(null)
@@ -67,48 +70,57 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
         toInput?.current?.getInput().focus()
     }
 
+    useEffect(() => {
+        setInvalidDate && setInvalidDate('')
+        if(selectedDay.to && selectedDay.from && selectedDay.to >= selectedDay.from) {
+            getSurchargeToRateHandle(0, selectedDay.from, selectedDay.to)
+        } else if (selectedDay.to && selectedDay.from && selectedDay.to < selectedDay.from) {
+            setInvalidDate && setInvalidDate('Invalid dates')
+        }
+    }, [selectedDay.to, selectedDay.from])
+
     return (
         <>
             <TableCell className={classes.innerCell} onClick={() => setFormMode && setFormMode(true)}>
-                <Calendar
-                    label='Start Date'
-                    name={`rates.${id}.from`}
-                    value={selectedDay.from}
-                    handleDayChange={(from: string) => {
-                        handleFromChange(from, id)
-                    }}
-                    selectedDay={selectedDay}
-                    onDayClick={fromDayClick}
-                    control={control}
-                    error={!!errors.from}
-                    disabledDates={reservedDates}
-                    //disabled={!sessionStorage.getItem('destination_id')}
-                    display_label='none'
-                    max_width='107px'
-                    margin_bottom='0'
-                    required_dates={required_dates}
-                />
-            </TableCell>
+                    <Calendar
+                        label='Start Date'
+                        name={`rates.${id}.from`}
+                        value={selectedDay.from}
+                        handleDayChange={(from: string) => {
+                            handleFromChange(from, id)
+                        }}
+                        selectedDay={selectedDay}
+                        onDayClick={fromDayClick}
+                        control={control}
+                        error={!!errors.from}
+                        disabledDates={reservedDates}
+                        //disabled={!sessionStorage.getItem('destination_id')}
+                        display_label='none'
+                        max_width='107px'
+                        margin_bottom='0'
+                        required_dates={required_dates}
+                    />
+                </TableCell>
             <TableCell className={classes.innerCell} onClick={() => setFormMode && setFormMode(true)}>
-                <Calendar
-                    label='Expiration Date'
-                    name={`rates.${id}.to`}
-                    value={selectedDay.to}
-                    handleDayChange={(to: string) => {
-                        handleToChange(to, id)
-                    }}
-                    selectedDay={selectedDay}
-                    ref={toInput}
-                    control={control}
-                    error={!!errors.to}
-                    disabledDates={reservedDates}
-                    //disabled={!sessionStorage.getItem('destination_id')}
-                    display_label='none'
-                    max_width='107px'
-                    margin_bottom='0'
-                    required_dates={required_dates}
-                />
-            </TableCell>
+                    <Calendar
+                        label='Expiration Date'
+                        name={`rates.${id}.to`}
+                        value={selectedDay.to}
+                        handleDayChange={(to: string) => {
+                            handleToChange(to, id)
+                        }}
+                        selectedDay={selectedDay}
+                        ref={toInput}
+                        control={control}
+                        error={!!errors.to}
+                        disabledDates={reservedDates}
+                        //disabled={!sessionStorage.getItem('destination_id')}
+                        display_label='none'
+                        max_width='107px'
+                        margin_bottom='0'
+                        required_dates={required_dates}
+                    />
+                </TableCell>
         </>
     )
 };

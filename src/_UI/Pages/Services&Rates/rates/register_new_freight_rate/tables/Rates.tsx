@@ -9,7 +9,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import {Controller} from "react-hook-form";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
-import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
+import {Field, HelperText} from "../../../../../components/_commonComponents/Input/input-styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {ContainerType, SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
@@ -23,6 +23,7 @@ import {RateForSurchargeType} from "../../../../../../_BLL/types/rates&surcharge
 import styled from "styled-components";
 import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {ShippingModeEnum} from "../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import FCLField from "./FCLField";
 
 const useStyles = makeStyles({
     container: {
@@ -34,7 +35,11 @@ const useStyles = makeStyles({
     table: {
         "& .MuiTableHead-root": {},
     },
-
+    row: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+    },
     cell: {
         color: "#115B86",
         fontFamily: "Helvetica Bold",
@@ -113,6 +118,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
         }
     }
 
+    const [invalidDate, setInvalidDate] = useState('')
 
     return (
         <div>
@@ -151,110 +157,71 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                 }
                             }).map(fee => (
                             <TableRow key={fee.id} >
-                                <Controller control={control}
-                                            defaultValue={fee.id}
-                                            name={`rates.${fee.id}.container_type`}
-                                            as={
-                                                <TableCell
-                                                    className={classes.innerCell}
-                                                    component="th"
-                                                    scope="row"
-                                                >
-                                                    {fee.code}
-                                                </TableCell>
-                                            }
-                                />
-                                <TableCell className={classes.innerCell} align="left">
-                                    <Controller control={control}
-                                                name={`rates.${fee.id}.currency`}
-                                                defaultValue={currency[0].id}
-                                                as={
-                                                    <SurchargeRateSelect options={currency}
-                                                                         maxW='70px'
-                                                                         placeholder='Currency'
-                                                    />
-                                                }
-                                    />
-                                </TableCell>
-                                <TableCell className={classes.innerCell} align="left">
-                                    <Controller control={control}
-                                                name={`rates.${fee.id}.rate`}
-                                                defaultValue=''
-                                                render={({}) => (
-                                                   <div style={{position: 'relative'}}>
-                                                       <Field placeholder='0.00$' maxW='100px'
-                                                              onChange={(e) => onChange(e, String(fee.id))}
-                                                              onBlur={() => setAware(false)}
-                                                              type='number'
-                                                       />
-                                                       {awareMessage && String(fee.id) === rate_value
-                                                       && <SpanAware><Title>You are setting this freight rate as $0 and only surcharges will apply,
-                                                           please double check before saving.</Title></SpanAware>}
-                                                   </div>
-                                                    )
-                                                }
-
-                                    />
-                                </TableCell>
-                                <DatesCells
-                                    setValue={setValue}
-                                    control={control}
-                                    id={fee.id}
-                                    // @ts-ignore
-                                    reservedDates={fee.disabledDates || []}
-                                    errors={errors}
-                                    classes={classes}
-                                    getValues={getValues}
-                                    getSurchargeToRateHandle={getSurchargeToRateHandle}
-                                    required_dates={required_dates}
+                                <FCLField fee={fee}
+                                          getSurchargeToRateHandle={getSurchargeToRateHandle}
+                                          setValue={setValue}
+                                          control={control}
+                                          getValues={getValues}
+                                          errors={errors}
+                                          required_dates={required_dates}
+                                          setAware={setAware}
+                                          awareMessage={awareMessage}
+                                          rate_value={rate_value}
+                                          onChange={onChange}
                                 />
                             </TableRow>
                         ))
-                            :
-                            <TableRow >
-                                <TableCell className={classes.innerCell} align="left">
-                                    <Controller control={control}
-                                                name={`rates.currency`}
-                                                defaultValue={currency[0].id}
-                                                as={
-                                                    <SurchargeRateSelect options={currency}
-                                                                         maxW='70px'
-                                                    />
-                                                }
-                                    />
-                                </TableCell>
-                                <TableCell className={classes.innerCell} align="left">
-                                    <Controller control={control}
-                                                name={`rates.rate`}
-                                                rules={{required: true}}
-                                                defaultValue={0}
-                                                render={({}) => (
-                                                    <div style={{position: 'relative'}}>
-                                                        <Field placeholder='0.00$' maxW='100px'
-                                                               onChange={(e) => onChange(e, String(0))}
-                                                               onBlur={() => setAware(false)}
-                                                               type='number'
-                                                        />
-                                                        {awareMessage && String(0) === rate_value
-                                                        && <SpanAware><Title>Rate will be register as 0. Are you sure?</Title></SpanAware>}
-                                                    </div>
-                                                )
-                                                }
+                            : <>
+                                <TableRow>
+                                    <>
+                                        <TableCell className={classes.innerCell} align="left">
+                                            <Controller control={control}
+                                                        name={`rates.currency`}
+                                                        defaultValue={currency[0].id}
+                                                        as={
+                                                            <SurchargeRateSelect options={currency}
+                                                                                 maxW='70px'
+                                                            />
+                                                        }
+                                            />
+                                        </TableCell>
+                                        <TableCell className={classes.innerCell} align="left">
+                                            <Controller control={control}
+                                                        name={`rates.rate`}
+                                                        rules={{required: true}}
+                                                        defaultValue={0}
+                                                        render={({}) => (
+                                                            <div style={{position: 'relative'}}>
+                                                                <Field placeholder='0.00$' maxW='100px'
+                                                                       onChange={(e) => onChange(e, String(0))}
+                                                                       onBlur={() => setAware(false)}
+                                                                       type='number'
+                                                                />
+                                                                {awareMessage && String(0) === rate_value
+                                                                && <SpanAware><Title>Rate will be register as 0. Are you sure?</Title></SpanAware>}
+                                                            </div>
+                                                        )
+                                                        }
 
-                                    />
-                                </TableCell>
-                                <DatesCells
-                                    setValue={setValue}
-                                    control={control}
-                                    id={0}
-                                    errors={errors}
-                                    classes={classes}
-                                    getValues={getValues}
-                                    getSurchargeToRateHandle={getSurchargeToRateHandle}
-                                    reservedDates={reservedDates? reservedDates[0].disabledDates : []}
-                                    required_dates={required_dates}
-                                />
-                            </TableRow>
+                                            />
+                                        </TableCell>
+                                        <DatesCells
+                                            setValue={setValue}
+                                            control={control}
+                                            id={0}
+                                            errors={errors}
+                                            classes={classes}
+                                            getValues={getValues}
+                                            getSurchargeToRateHandle={getSurchargeToRateHandle}
+                                            reservedDates={reservedDates? reservedDates[0].disabledDates : []}
+                                            required_dates={required_dates}
+                                            invalidDate={invalidDate}
+                                            setInvalidDate={setInvalidDate}
+                                        />
+                                    </>
+                                    {invalidDate && <HelperText messagePaddingTop='25px'>{invalidDate}</HelperText>}
+                                </TableRow>
+                            </>
                         }
                     </TableBody>
                 </Table>

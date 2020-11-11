@@ -18,19 +18,13 @@ import ExactRateContainer from "../_UI/Pages/Services&Rates/rates/rates_page/rat
 import QuotesContainer from "../_UI/Pages/quotes/QuotesContainer";
 import QuoteCard from "../_UI/Pages/quotes/agent/QuoteCard";
 import BookingAgentContainer from "../_UI/Pages/Requests/Booking_agent/BookingAgentContainer";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../_BLL/store";
 import BookingCardContainer from "../_UI/Pages/Requests/Booking_agent/booking_card/BookingCardContainer";
 
 
 
 const useRoute = (isAuth: boolean) => {
-   enum Role {
-        Admin = 'Admin',
-        User = 'Client'
-    }
 
-    const currentUserCompany = useSelector((state:AppStateType) => state.profile.authUserInfo?.companies);
+    //const currentUserCompany = useSelector((state:AppStateType) => state.profile.authUserInfo?.companies);
 
 
     if (isAuth) {
@@ -39,18 +33,18 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={AddNewUserContainer} path='/create/user'/>
                 <Route component={AddBankAccountContainer} path='/create/bank'/>
                 <Route component={ActivateEnd} path='/create/finish'/>
-                <Route component={SurchargesContainer} path='/services/surcharges'/>
-                <Route component={ExactSurchargeContainer} path='/services/surcharge/:id'/>
-                <Route exact component={RatesContainer} path='/services/rates'/>
-                <Route component={ExactRateContainer} path='/services/rate/:id'/>
                 <Route component={ProfileContainer} path='/settings/profile'/>
                 <Route component={CompanySettingsContainer} path='/settings/company'/>
                 <Route component={UserManagementContainer} path='/settings/user/management'/>
                 <Route component={GeneralSettingsContainer} path='/settings/general'/>
                 <Route exact component={QuotesContainer} path='/quotes'/>
                 <Route component={QuoteCard} path='/quotes/:id'/>
-                <Route exact component={BookingAgentContainer} path='/requests/booking'/>
-                <Route component={BookingCardContainer} path='/requests/booking/:id'/>
+                        <Route component={SurchargesContainer} path='/services/surcharges'/>
+                        <Route component={ExactSurchargeContainer} path='/services/surcharge/:id'/>
+                        <Route exact component={RatesContainer} path='/services/rates'/>
+                        <Route component={ExactRateContainer} path='/services/rate/:id'/>
+                        <Route exact component={BookingAgentContainer} path='/requests/booking'/>
+                        <Route component={BookingCardContainer} path='/requests/booking/:id'/>
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>
             </Switch>

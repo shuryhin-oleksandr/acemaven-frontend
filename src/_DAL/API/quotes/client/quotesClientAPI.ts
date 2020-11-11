@@ -1,4 +1,5 @@
 import instance from "../../axiosConfig";
+import {SearchDataType} from "../../../../_BLL/types/search/search_types";
 
 export const quotesClientAPI = {
     getQuotes () {
@@ -12,5 +13,10 @@ export const quotesClientAPI = {
     },
     deleteQuoteFromClientList (id: number) {
         return instance.delete('')
+    },
+    postSearchQuote(data:SearchDataType) {
+        console.log("data", data);
+        // return instance.post('', data);
     }
-}
+
+};

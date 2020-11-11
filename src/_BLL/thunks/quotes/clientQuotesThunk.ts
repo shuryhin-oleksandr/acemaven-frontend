@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {commonQuotesClientActions, quotesClientActions} from "../../reducers/quotes/quotesClientReducer";
 import {quotesClientAPI} from "../../../_DAL/API/quotes/client/quotesClientAPI";
+import {SearchDataType} from "../../types/search/search_types";
 
 export const getClientQuotesThunk = () => {
     return async (dispatch: Dispatch<commonQuotesClientActions>) => {
@@ -42,6 +43,17 @@ export const deleteQuoteFromClientListThunk = (id: number) => {
             dispatch(quotesClientActions.deleteQuoteFromList(id))
         } catch (e) {
             console.log(e)
+        }
+    }
+}
+
+export const postSearchQuoteThunk = (data:SearchDataType,history:any ) =>{
+    return async () => {
+        try {
+            let res = await quotesClientAPI.postSearchQuote(data);
+            history.push(`/settings/profile/`)
+        }catch (e) {
+            console.log(e);
         }
     }
 }

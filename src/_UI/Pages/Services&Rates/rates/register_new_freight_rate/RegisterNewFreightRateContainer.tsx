@@ -54,7 +54,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   //попап для нового сюрчарджа
   const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(false);
 //useForm
-  const {handleSubmit, register, control, errors, getValues, setValue, watch} = useForm();
+  const {handleSubmit, register, control, errors, getValues, setValue, watch, reset} = useForm();
 
   //check if some fields empty fro check free rate dates
   const watchFields = watch(["carrier", "shipping_mode", "origin", "destination"]);
@@ -142,9 +142,10 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
 
   //меняет шиппинг тайп с air на sea
   const setMode = useCallback((mode: CurrentShippingType) => {
-    setValue("carrier", "");
-    setValue("direction", "");
-    setValue("shipping_mode", "");
+    reset()
+    sessionStorage.removeItem('origin_id')
+    sessionStorage.removeItem('destination_id')
+    dispatch(rateActions.setDestinationPortValue(null))
     dispatch(surchargeActions.setCurrentShippingType(mode));
   }, []);
 

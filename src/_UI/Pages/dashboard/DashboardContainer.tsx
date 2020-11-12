@@ -31,7 +31,7 @@ const DashboardContainer:React.FC = () => {
 
     //current shipping mode id
     const [shippingValue, setShippingValue] = useState(0);
-    console.log("mode_id",shippingValue)
+
 
     //data from store
     const calc_success = useSelector(getWmCalculationSuccessSelector)
@@ -84,7 +84,7 @@ const DashboardContainer:React.FC = () => {
                 </div>
                 }
                 {search_success
-                ? <SearchContainer search_result={search_result}/>
+                ? <SearchContainer search_result={search_result} shippingValue={shippingValue}/>
                 : <DashboardPage widgetsVisible={widgetsVisible}
                                  setWidgetsVisible={setWidgetsVisible}
                 />}

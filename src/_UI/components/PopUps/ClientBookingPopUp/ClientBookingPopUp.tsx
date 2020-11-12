@@ -32,6 +32,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { bookingActions } from "../../../../_BLL/reducers/bookingReducer";
 import BaseButton from "../../base/BaseButton";
 import PaymentContainer from "./payment/PaymentContainer";
+import { getReleaseTypeChoices } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
 
 const useStyles = makeStyles({
   container: {
@@ -69,10 +70,12 @@ const useStyles = makeStyles({
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
+  shippingValue: number;
 };
 
 const ClientBookingPopUp: React.FC<PropsType> = ({
   setBookingPopupVisible,
+  shippingValue,
 }) => {
   const dispatch = useDispatch();
   const companyId = sessionStorage.getItem("u");
@@ -82,6 +85,10 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
       dispatch(bookingActions.changeBookingStep("shipping-form"));
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getReleaseTypeChoices());
+  }, []);
 
   let companyInfo = useSelector(
     (state: AppStateType) => state.profile.companyInfo
@@ -106,6 +113,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
           <RootShippingForm
             companyInfo={companyInfo}
             currentUser={currentUser}
+            shippingValue={shippingValue}
           />
         )}
         {bookingStep === "fee-table" && (

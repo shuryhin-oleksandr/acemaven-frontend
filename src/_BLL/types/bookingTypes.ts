@@ -1,3 +1,5 @@
+import { isNumber } from "util";
+
 export type CargoDetailsValue = {
   id: string;
   description: string;
@@ -14,6 +16,12 @@ export type CargoGroup = {
   total_wm?: string;
   frozen?: string;
   dangerous?: boolean;
-  weight_measurement?:string;
-  length_measurement?:string;
+  weight_measurement?: string;
+  length_measurement?: string;
+};
+
+export type ChoiceType = {
+  id: number;
+  code?: string;
+  title: string;
 };

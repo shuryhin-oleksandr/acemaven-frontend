@@ -1,10 +1,11 @@
-import { CargoDetailsValue } from "../types/bookingTypes";
+import { CargoDetailsValue, CargoGroup } from "../types/bookingTypes";
 
 const initialState = {
   cargo_details: null as CargoDetailsValue[] | null,
   booking_step: "shipping-form",
   current_booking_freight_rate_id: null as number | null,
   booking_dates: null as { date_from: string; date_to: string } | null,
+  current_booking_cargo_groups: null as CargoGroup[] | null,
 };
 
 type InitialStateType = typeof initialState;
@@ -34,6 +35,11 @@ export const bookingReducer = (
         ...state,
         booking_dates: action.dates,
       };
+    case "SET_CURRENT_CARGO_GROUPS":
+      return {
+        ...state,
+        current_booking_cargo_groups: action.cargo_groups,
+      };
     default:
       return state;
   }
@@ -58,5 +64,10 @@ export const bookingActions = {
     ({
       type: "SET_BOOKING_DATES",
       dates,
+    } as const),
+  set_current_booking_cargo_groups: (cargo_groups: CargoGroup[]) =>
+    ({
+      type: "SET_CURRENT_CARGO_GROUPS",
+      cargo_groups,
     } as const),
 };

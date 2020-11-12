@@ -253,6 +253,9 @@ const Search: React.FC<PropsType> = (
       };
     }
     dispatch(
+      bookingActions.set_current_booking_cargo_groups(finalData.cargo_groups)
+    );
+    dispatch(
       bookingActions.set_booking_dates({
         date_from: finalData.date_from,
         date_to: finalData.date_to,

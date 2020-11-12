@@ -52,6 +52,7 @@ import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surcha
 import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
 import { useHistory } from "react-router-dom";
 import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 
 type PropsType = {
   right?: string;
@@ -251,6 +252,13 @@ const Search: React.FC<PropsType> = (
         ),
       };
     }
+    dispatch(
+      bookingActions.set_booking_dates({
+        date_from: finalData.date_from,
+        date_to: finalData.date_to,
+      })
+    );
+
     search_result.length == 0 && search_success
       ? dispatch(postSearchQuoteThunk(finalData, history))
       : dispatch(searchRatesOffersThunk(finalData));

@@ -15,6 +15,8 @@ import blue_fill_star from "../../../../assets/icons/search/filled_star.svg";
 import blue_part_fill_star from "../../../../assets/icons/search/part_filled_star.svg";
 import blue_empty_star from "../../../../assets/icons/search/empty_star.svg";
 import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
+import {bookingActions} from "../../../../../_BLL/reducers/bookingReducer";
+import {useDispatch} from "react-redux";
 
 type PropsType = {
     button_display: boolean,
@@ -26,7 +28,7 @@ type PropsType = {
 }
 
 const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result}) => {
-
+    const dispatch = useDispatch();
     return (
         <UpperWrapper onClick={() => isTableShown ? showTable && showTable(false) : showTable && showTable(true)}>
             <InfoPart>
@@ -100,6 +102,7 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                 </CalculationWrap>
                 <BookButton onClick={(e) => {
                     e.stopPropagation();
+                    search_result && dispatch(bookingActions.set_current_booking_freight_rate_id(search_result.freight_rate.id));
                     setBookingPopupVisible && setBookingPopupVisible(true)
                 }} button_display={button_display}>
                     BOOK

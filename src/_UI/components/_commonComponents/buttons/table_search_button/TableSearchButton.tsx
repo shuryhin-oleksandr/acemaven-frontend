@@ -1,7 +1,11 @@
 import React from "react";
-import search_icon from "../../../../assets/icons/rates&services/search_loop.svg";
-import {SearchButton} from "./table-search-button-style";
+//types
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+//styles
+import {SearchButton} from "./table-search-button-style";
+//icons
+import search_icon from "../../../../assets/icons/rates&services/search_loop.svg";
+
 
 
 type PropsType = {

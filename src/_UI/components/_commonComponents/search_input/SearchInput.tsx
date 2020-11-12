@@ -4,6 +4,7 @@ import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import { filterByThunk } from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import search_icon from "../../../../_UI/assets/icons/rates&services/search_loop.svg";
 import { getFilteredRateListThunk } from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {getClientQuotesThunk} from "../../../../_BLL/thunks/quotes/clientQuotesThunk";
 
 type PropsType = {
   setSearchMode: VoidFunctionType;
@@ -34,25 +35,35 @@ const SearchInput: React.FC<PropsType> = ({
 
   let searchHandler = (value: any) => {
     setSearchValue(value);
-    thunkName === "rates"
-      ? dispatch(
+    if(thunkName === "rates") {
+      dispatch(
           getFilteredRateListThunk(
-            props.direction,
+              props.direction,
+              props.type,
+              props.column_name,
+              props.searchColumn,
+              value
+          )
+      )
+    } else if(thunkName === "quotes") {
+        dispatch( getClientQuotesThunk(
             props.type,
             props.column_name,
             props.searchColumn,
             value
-          )
+            )
         )
-      : dispatch(
+    } else {
+      dispatch(
           filterByThunk(
-            props.direction,
-            props.type,
-            props.column_name,
-            props.searchColumn,
-            value
+              props.direction,
+              props.type,
+              props.column_name,
+              props.searchColumn,
+              value
           )
-        );
+      );
+    }
   };
 
   return (

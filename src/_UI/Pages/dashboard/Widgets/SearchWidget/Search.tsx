@@ -1,57 +1,43 @@
 import React, { useEffect, useState } from "react";
+//react-router-dom
+import { useHistory } from "react-router-dom";
+//react-hook-form
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import {
-  Container,
-  Heading,
-  RelativeWrapper,
-  ButtonGroup,
-  AddImg,
-} from "./searchWidgett-styles";
+//moment
+import moment from "moment";
+//types
+import { CurrentShippingType, ShippingTypesEnum,} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import { getShippingTypes } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import { PortType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {CargoGroupType, SearchResultType } from "../../../../../_BLL/types/search/search_types";
+import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+// BLL
+import { useDispatch, useSelector } from "react-redux";
+import { getShippingTypesSelector } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import { getPorts } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import { getDestinationPorts, getIsLocalPort, getOriginPorts } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import { getFrozenChoices, searchRatesOffersThunk,} from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
+import { postSearchQuoteThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
+import { getFrozenChoicesSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
+import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
+//components
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
 import BaseButton from "../../../../components/base/BaseButton";
-import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
 import BaseTooltip from "../../../../components/_commonComponents/baseTooltip/BaseTooltip";
-import {
-  Port,
-  PortsList,
-} from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
-import {
-  CurrentShippingType,
-  ShippingTypesEnum,
-} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import { useDispatch, useSelector } from "react-redux";
-import { getShippingTypesSelector } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
-import { getShippingTypes } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
-import { PortType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import { getPorts } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import {
-  getDestinationPorts,
-  getIsLocalPort,
-  getOriginPorts,
-} from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
-import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import Dates from "../../Dates";
-import moment from "moment";
 import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
-import {
-  getFrozenChoices,
-  searchRatesOffersThunk,
-} from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
-import { postSearchQuoteThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
-import { getFrozenChoicesSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
-import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
-import {
-  CargoGroupType,
-  SearchResultType,
-} from "../../../../../_BLL/types/search/search_types";
-import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
-import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
-import { useHistory } from "react-router-dom";
-import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+//styles
+import { Container, Heading, RelativeWrapper, ButtonGroup, AddImg } from "./searchWidgett-styles";
+import { Port, PortsList,} from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
+import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
+//icons
+import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
 
 type PropsType = {
   right?: string;
@@ -82,8 +68,7 @@ const Search: React.FC<PropsType> = (
     disabled,
     search_success,
     search_result,
-  },
-  newParam = ""
+  }
 ) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -104,11 +89,11 @@ const Search: React.FC<PropsType> = (
   const [dates, setDates] = useState([]);
   useEffect(() => {
     dispatch(getShippingTypes(""));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getFrozenChoices());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     reset();
@@ -130,16 +115,7 @@ const Search: React.FC<PropsType> = (
   let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
     ?.container_types;
 
-  const {
-    handleSubmit,
-    register,
-    control,
-    reset,
-    errors,
-    getValues,
-    setValue,
-    watch,
-  } = useForm({
+  const { handleSubmit, register, control, reset, errors, getValues, setValue, watch} = useForm({
     reValidateMode: "onBlur",
     defaultValues: {
       shipping_mode: "",
@@ -166,16 +142,16 @@ const Search: React.FC<PropsType> = (
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
-    dispatch(getPorts("", value.value, "origin", mode));
-    // }
+    if (value.value.length >= 3) {
+      dispatch(getPorts("", value.value, "origin", mode));
+    }
   };
   let onDestinationChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
+    if (value.value.length >= 3) {
     origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
-    // }
+    }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
@@ -195,7 +171,6 @@ const Search: React.FC<PropsType> = (
   };
 
   const onSubmit = (values: any) => {
-    debugger;
     let finalData;
     if (values.cargo_groups) {
       finalData = {
@@ -204,7 +179,6 @@ const Search: React.FC<PropsType> = (
         date_to: moment(dates[1]).format("DD/MM/YYYY"),
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
-        /*cargo_groups: values.cargo_groups.map((g: any) => ({container_type : g.container_type, dangerous: g.dangerous, volume: Number(g.volume)}))*/
         cargo_groups: values.cargo_groups.map((c: any) =>
           c.frozen
             ? {
@@ -237,6 +211,8 @@ const Search: React.FC<PropsType> = (
                 width: Number(c.width),
                 height: Number(c.height),
                 total_wm: c.total_wm,
+                length_measurement: c.length_measurement,
+                weight_measurement: c.weight_measurement
               }
             : {
                 container_type: c.container_type,
@@ -247,12 +223,15 @@ const Search: React.FC<PropsType> = (
                 width: Number(c.width),
                 height: Number(c.height),
                 total_wm: c.total_wm,
+                length_measurement: c.length_measurement,
+                weight_measurement: c.weight_measurement
               }
         ),
       };
     }
     search_result.length == 0 && search_success
-      ? dispatch(postSearchQuoteThunk(finalData, history))
+      ? dispatch(postSearchQuoteThunk( finalData, history
+        ))
       : dispatch(searchRatesOffersThunk(finalData));
   };
 

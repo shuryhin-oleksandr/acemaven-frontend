@@ -2,21 +2,19 @@ import instance from "../../axiosConfig";
 import {SearchDataType} from "../../../../_BLL/types/search/search_types";
 
 export const quotesClientAPI = {
-    getQuotes () {
-        return instance.get('')
+    postSearchQuote(data:SearchDataType) {
+        return instance.post('/booking/quote/', data);
+    },
+    getQuotes (type: string, field_name: string, search_column: string, search_value: string) {
+        return instance.get(`/booking/quote/?shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`)
     },
     activateQuote (id: number, is_active: boolean) {
-        return instance.patch('', {is_active: is_active})
+        return instance.patch(`/booking/quote/${id}/`, {is_active: is_active})
     },
-    filterSortClientQuotes (type: string, field_name: string, search_column: string, search_value: string) {
-        return instance.get(`/.../?shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`)
-    },
+    /*filterSortClientQuotes (type: string, field_name: string, search_column: string, search_value: string) {
+        return instance.get(`/booking/quote/?shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`)
+    },*/
     deleteQuoteFromClientList (id: number) {
-        return instance.delete('')
-    },
-    postSearchQuote(data:SearchDataType) {
-        console.log("data", data);
-        // return instance.post('', data);
+        return instance.delete(`/booking/quote/${id}/`)
     }
-
 };

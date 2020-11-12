@@ -74,6 +74,7 @@ const RatesContainer: React.FC = () => {
                   directory={directory}
                   searchColumn=""
                   searchValue=""
+                  thunkName='rates'
                 />
                 <OptionsDirectoryButtons
                   mode={mode}

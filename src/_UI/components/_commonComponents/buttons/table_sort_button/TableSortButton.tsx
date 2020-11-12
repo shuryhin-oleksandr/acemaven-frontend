@@ -4,6 +4,7 @@ import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { filterByThunk } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { getFilteredRateListThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { SortButton } from "./table-sort-button-style";
+import {getClientQuotesThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 
 type PropsType = {
   column_name: string;
@@ -28,25 +29,34 @@ const TableSortButton: React.FC<PropsType> = ({
   return (
     <SortButton
       onClick={() => {
-        thunkName === "rates"
-          ? dispatch(
+        if(thunkName === "rates") {
+          dispatch(
               getFilteredRateListThunk(
-                direction,
-                mode,
-                descendingOrder.current ? `-${column_name}` : column_name,
-                props.searchColumn,
-                props.searchValue
+                  direction,
+                  mode,
+                  descendingOrder.current ? `-${column_name}` : column_name,
+                  props.searchColumn,
+                  props.searchValue
               )
-            )
-          : dispatch(
+          )
+        } else if(thunkName === 'quotes') {
+          dispatch(getClientQuotesThunk(
+              mode,
+              descendingOrder.current ? `-${column_name}` : column_name,
+              props.searchColumn,
+              props.searchValue)
+          )
+        } else {
+          dispatch(
               filterByThunk(
-                direction,
-                mode,
-                descendingOrder.current ? `-${column_name}` : column_name,
-                props.searchColumn,
-                props.searchValue
+                  direction,
+                  mode,
+                  descendingOrder.current ? `-${column_name}` : column_name,
+                  props.searchColumn,
+                  props.searchValue
               )
-            );
+          );
+        }
         descendingOrder.current = !descendingOrder.current;
       }}
     >

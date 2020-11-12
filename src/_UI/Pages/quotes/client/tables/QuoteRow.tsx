@@ -11,10 +11,11 @@ import TableCell from "@material-ui/core/TableCell";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 //icons
 import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
+import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import close_icon from '../../../../../_UI/assets/icons/close-icon.svg'
 import Tooltip from "@material-ui/core/Tooltip";
-
+import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 
 const useStyles = makeStyles({
     root: {
@@ -79,7 +80,13 @@ const useStyles = makeStyles({
     },
 });
 
-const QuoteRow = () => {
+type PropsType = {
+    quote: QuoteType,
+    activeInactiveQuote: (id: number, is_active: boolean) => void,
+    deleteQuoteByClient: (id: number) => void
+}
+
+const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteByClient}) => {
 
     const classes = useStyles();
 
@@ -88,26 +95,27 @@ const QuoteRow = () => {
     return (
         <React.Fragment>
             <TableRow className={classes.root}>
-                <TableCell  className={classes.innerMainCell} align="left" component="th" scope="row">
+                <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
                     <ModeIcon src={sea_type} alt=""/>
                     <SpanMode>FCL</SpanMode>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left"><div>LHR</div><div>JFK</div></TableCell>
                 <TableCell className={classes.innerCell} align="left">12 boxes <br/> 2W/M</TableCell>
-                <TableCell className={classes.innerCell} align="left">WEEK 36 <br/> 1-7 APR 2020</TableCell>
+                <TableCell className={classes.innerCell} align="left">? WEEK ? <br/> {quote.date_from}{'-'}{quote.date_to}</TableCell>
                 <TableCell className={classes.innerCell} align="center" onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)}>
-                    <OffersSpan new_offer={true}>3</OffersSpan>
+                    <OffersSpan new_offer={true}>0</OffersSpan>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="center"><StatusSpan status='active'>Active</StatusSpan></TableCell>
-
+                <TableCell className={classes.innerCell} align="center">
+                    <StatusSpan status='active'>{quote.is_active ? 'Active' : 'Paused'}</StatusSpan>
+                </TableCell>
                 <TableCell className={classes.innerCell} align="right">
                     <Tooltip
                         arrow
                         title="Quotes can be paused or reactivated using this button. "
                         classes={{ tooltip: classes.customTooltip }}
                     >
-                        <IconButton onClick={() => {}}>
-                            <img src={play_icon} alt=""/>
+                        <IconButton onClick={() => activeInactiveQuote(Number(quote.id), !quote.is_active)}>
+                            <img style={{width: '24px', height: '24px'}} src={!quote.is_active ? play_icon : pause_icon} alt=""/>
                         </IconButton>
                     </Tooltip>
                     <Tooltip
@@ -115,7 +123,7 @@ const QuoteRow = () => {
                         title="Quotes can be cancelled using this button. "
                         classes={{ tooltip: classes.customTooltip }}
                     >
-                        <IconButton onClick={() => {}}>
+                        <IconButton onClick={() => deleteQuoteByClient(Number(quote.id))}>
                             <img src={close_icon} alt=""/>
                         </IconButton>
                     </Tooltip>

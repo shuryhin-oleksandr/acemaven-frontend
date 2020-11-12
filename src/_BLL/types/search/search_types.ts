@@ -19,6 +19,7 @@ export type CargoGroupType = {
     width: string,
     height: string,
     dangerous?: boolean,
+    frozen?: string,
     total_wm?: number,
     total_per_pack?: number,
     shipping_type?: string,

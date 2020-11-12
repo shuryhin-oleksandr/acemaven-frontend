@@ -1,25 +1,37 @@
 import React, {useState} from 'react'
-import {
-    HeaderTitle,
-    QuotesTableContainer,
-    QuotesTableHeader,
-} from "./client-quotes-table-styles";
-import OptionsDeliveryButtons
-    from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+//BLL
 import {useDispatch} from "react-redux";
+import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+//components
+import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import QuoteRow from "./QuoteRow";
+//styles
+import {HeaderTitle, QuotesTableContainer, QuotesTableHeader,} from "./client-quotes-table-styles";
+
 
 type PropsType = {
-
+    my_quotes_list: QuoteType[],
+    activeInactiveQuote: (id: number, is_active: boolean) => void,
+    deleteQuoteByClient: (id: number) => void,
+    getQuotesByFilters: (type: string, field_name: string, search_column: string, search_value: string) => void,
+    setSearchMode: (value: boolean) => void
+    isSearchMode: boolean
+    mode: string
+    setMode: (value: string) => void
+    searchValue: string
+    setSearchValue: (value: string) => void
+    search_column: string
+    setSearchColumn: (value: string) => void
 }
 
 const useStyles = makeStyles({
@@ -82,27 +94,24 @@ const useStyles = makeStyles({
     },
 });
 
-const ClientQuotesTable:React.FC<PropsType> = () => {
+const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQuote, deleteQuoteByClient, getQuotesByFilters, ...props}) => {
 
     const classes = useStyles();
 
     const dispatch = useDispatch()
 
-    const [isSearchMode, setSearchMode] = useState(false)
-    const [mode, setMode] = useState("sea");
-    const [directory, setDirectory] = useState("import");
-    const [searchValue, setSearchValue] = useState('')
-    const [search_column, setSearchColumn] = useState('')
 
     return (
         <QuotesTableContainer>
             <QuotesTableHeader>
                 <HeaderTitle>Quotes</HeaderTitle>
                 <OptionsDeliveryButtons directory=''
-                                        searchColumn=''
-                                        searchValue=''
-                                        mode={mode}
-                                        setMode={setMode}
+                                        searchColumn={props.search_column}
+                                        searchValue={props.searchValue}
+                                        mode={props.mode}
+                                        setMode={props.setMode}
+                                        dispatch={dispatch}
+                                        thunkName='quotes'
                 />
             </QuotesTableHeader>
             <TableContainer className={classes.container} component={Paper}>
@@ -110,65 +119,69 @@ const ClientQuotesTable:React.FC<PropsType> = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.shipping_cell} align="left">
-                                <TableCellContent setSearchValue={setSearchValue}
-                                                  setSearchMode={setSearchMode}
+                                <TableCellContent setSearchValue={props.setSearchValue}
+                                                  setSearchMode={props.setSearchMode}
                                                   dispatch={dispatch}
-                                                  direction={directory}
-                                                  type={mode}
+                                                  direction={''}
+                                                  type={props.mode}
                                                   column_name='shipping_mode'
-                                                  searchValue={searchValue}
-                                                  isSearchMode={isSearchMode}
+                                                  searchValue={props.searchValue}
+                                                  isSearchMode={props.isSearchMode}
                                                   title='SHIPPING MODE'
-                                                  searchColumn={search_column}
-                                                  setSearchColumn={setSearchColumn}
+                                                  searchColumn={props.search_column}
+                                                  setSearchColumn={props.setSearchColumn}
+                                                  thunkName='quotes'
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                <TableCellContent setSearchValue={setSearchValue}
-                                                  setSearchMode={setSearchMode}
+                                <TableCellContent setSearchValue={props.setSearchValue}
+                                                  setSearchMode={props.setSearchMode}
                                                   dispatch={dispatch}
-                                                  direction={directory}
-                                                  type={mode}
+                                                  direction={''}
+                                                  type={props.mode}
                                                   column_name='route'
-                                                  searchValue={searchValue}
-                                                  isSearchMode={isSearchMode}
+                                                  searchValue={props.searchValue}
+                                                  isSearchMode={props.isSearchMode}
                                                   title='ROUTE'
-                                                  searchColumn={search_column}
-                                                  setSearchColumn={setSearchColumn}
+                                                  searchColumn={props.search_column}
+                                                  setSearchColumn={props.setSearchColumn}
+                                                  thunkName='quotes'
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
                                 VOLUME
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                <TableCellContent setSearchValue={setSearchValue}
-                                                  setSearchMode={setSearchMode}
+                                <TableCellContent setSearchValue={props.setSearchValue}
+                                                  setSearchMode={props.setSearchMode}
                                                   dispatch={dispatch}
-                                                  direction={directory}
-                                                  type={mode}
+                                                  direction={''}
+                                                  type={props.mode}
                                                   column_name='shipment_date'
-                                                  searchValue={searchValue}
-                                                  isSearchMode={isSearchMode}
+                                                  searchValue={props.searchValue}
+                                                  isSearchMode={props.isSearchMode}
                                                   title='SHIPMENT DATE'
-                                                  searchColumn={search_column}
-                                                  setSearchColumn={setSearchColumn}
+                                                  searchColumn={props.search_column}
+                                                  setSearchColumn={props.setSearchColumn}
+                                                  thunkName='quotes'
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="center">
                                 OFFERS
                             </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                <TableCellContent setSearchValue={setSearchValue}
-                                                  setSearchMode={setSearchMode}
+                            <TableCell className={classes.cell} align="right">
+                                <TableCellContent setSearchValue={props.setSearchValue}
+                                                  setSearchMode={props.setSearchMode}
                                                   dispatch={dispatch}
-                                                  direction={directory}
-                                                  type={mode}
+                                                  direction={''}
+                                                  type={props.mode}
                                                   column_name='status'
-                                                  searchValue={searchValue}
-                                                  isSearchMode={isSearchMode}
+                                                  searchValue={props.searchValue}
+                                                  isSearchMode={props.isSearchMode}
                                                   title='STATUS'
-                                                  searchColumn={search_column}
-                                                  setSearchColumn={setSearchColumn}
+                                                  searchColumn={props.search_column}
+                                                  setSearchColumn={props.setSearchColumn}
+                                                  thunkName='quotes'
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="right">
@@ -177,7 +190,11 @@ const ClientQuotesTable:React.FC<PropsType> = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                            <QuoteRow />
+                        {my_quotes_list?.map(q => <QuoteRow key={q.id}
+                                                            quote={q}
+                                                            activeInactiveQuote={activeInactiveQuote}
+                                                            deleteQuoteByClient={deleteQuoteByClient}
+                        />)}
                     </TableBody>
                 </Table>
             </TableContainer>

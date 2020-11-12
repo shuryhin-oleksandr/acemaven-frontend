@@ -17,6 +17,14 @@ background-color: white;
 border: 1px solid #BDBDBD;
 border-radius: 4px;
 padding-left: 5px;
+font-family: "Helvetica Light", sans-serif;
+color: rgba(0, 0, 0, .7);
+font-size: 14px;
+  &::placeholder {
+    font-size: 14px;
+    font-family: "Helvetica Light", sans-serif;
+    color: rgba(0, 0, 0, .3);
+  }
 `
 
 export const SearchIcon = styled.button`

@@ -9,6 +9,7 @@ type PropsStyle = {
   marginBottom?: string;
   background?: string;
   messagePaddingTop?: string;
+  color_label? : string
 };
 
 export const InputOuter = styled.div<PropsStyle>`
@@ -63,7 +64,7 @@ export const Field = styled.input<PropsStyle>`
 export const Label = styled.div<PropsStyle>`
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
-  color: black;
+  color: ${({color_label}) => color_label ? color_label : 'black'};
   margin-bottom: 9px;
   opacity: 1;
 `;

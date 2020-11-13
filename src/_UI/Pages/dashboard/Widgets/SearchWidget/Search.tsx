@@ -201,9 +201,9 @@ const Search: React.FC<PropsType> = (
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
         cargo_groups: cargo_groups_list?.map((c) =>
-          c.package_type
+          c.packaging_type
             ? {
-                packaging_type: c.package_type,
+                packaging_type: c.packaging_type,
                 dangerous: c.dangerous,
                 volume: Number(c.volume),
                 weight: Number(c.weight),

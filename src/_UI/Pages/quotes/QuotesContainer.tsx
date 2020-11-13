@@ -24,7 +24,7 @@ const QuotesContainer:React.FC = () => {
     //get quotes after mounting
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getClientQuotesThunk(currentShippingType, '', '', '' ))
+        dispatch(getClientQuotesThunk('sea', '', '', '' ))
     }, [dispatch])
 
     //get quotes list sort by smth, filter by shipping type and search value
@@ -44,7 +44,6 @@ const QuotesContainer:React.FC = () => {
 
     const [isSearchMode, setSearchMode] = useState(false)
     const [mode, setMode] = useState("sea"); //shipping_type
-    const [directory, setDirectory] = useState("import");
     const [searchValue, setSearchValue] = useState('')
     const [search_column, setSearchColumn] = useState('')
 

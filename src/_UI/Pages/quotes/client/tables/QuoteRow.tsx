@@ -1,21 +1,25 @@
 import React, {useState} from 'react'
-//components
-import OfferDescription from "./OfferDescription";
-//styles
-import {ModeIcon, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
-import {OffersSpan, StatusSpan} from "./client-quotes-table-styles";
 //material ui
 import IconButton from '@material-ui/core/IconButton';
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Tooltip from "@material-ui/core/Tooltip";
+//types
+import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+//components
+import OfferDescription from "./OfferDescription";
+//styles
+import {ModeIcon, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
+import {OffersSpan, StatusSpan} from "./client-quotes-table-styles";
+import {CargosOuter} from "../quotes-client-styles";
 //icons
 import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
 import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
+import air_type from '../../../../assets/icons/rates&services/plane-surcharge.svg';
 import close_icon from '../../../../../_UI/assets/icons/close-icon.svg'
-import Tooltip from "@material-ui/core/Tooltip";
-import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+
 
 const useStyles = makeStyles({
     root: {
@@ -96,17 +100,30 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
         <React.Fragment>
             <TableRow className={classes.root}>
                 <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
-                    <ModeIcon src={sea_type} alt=""/>
-                    <SpanMode>FCL</SpanMode>
+                    <ModeIcon src={quote.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
+                    <SpanMode>{quote.shipping_mode.title}</SpanMode>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left"><div>LHR</div><div>JFK</div></TableCell>
-                <TableCell className={classes.innerCell} align="left">12 boxes <br/> 2W/M</TableCell>
-                <TableCell className={classes.innerCell} align="left">? WEEK ? <br/> {quote.date_from}{'-'}{quote.date_to}</TableCell>
+                <TableCell className={classes.innerCell} align="left"><div>{quote.origin.code}</div><div>{quote.destination.code}</div></TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                    <CargosOuter>
+                        {quote.cargo_groups.map(c => {
+                           return <span>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
+                           {c.total_wm && ` - ${c.total_wm}w/m`}</span>
+                        })}
+                    </CargosOuter>
+                </TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                    {(quote.week_range.week_from !== quote.week_range.week_to)
+                        ? `WEEK ${quote.week_range.week_from} - ${quote.week_range.week_to}`
+                        : `WEEK ${quote.week_range.week_from}`
+                    }
+                    <br/> <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>{quote.date_from}{'-'}{quote.date_to}</span>
+                </TableCell>
                 <TableCell className={classes.innerCell} align="center" onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)}>
                     <OffersSpan new_offer={true}>0</OffersSpan>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="center">
-                    <StatusSpan status='active'>{quote.is_active ? 'Active' : 'Paused'}</StatusSpan>
+                    <StatusSpan status={quote.is_active}>{quote.is_active ? 'Active' : 'Paused'}</StatusSpan>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="right">
                     <Tooltip

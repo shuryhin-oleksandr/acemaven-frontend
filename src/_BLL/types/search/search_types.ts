@@ -10,7 +10,7 @@ export type SearchDataType = {
 
 export type CargoGroupType = {
     container_type?: number,
-    package_type?: number,
+    packaging_type?: number,
     volume: number,
     weight: string,
     weight_measurement: string,

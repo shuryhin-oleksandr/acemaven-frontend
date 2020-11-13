@@ -200,3 +200,8 @@ export const SurchargesInfo = styled.div<PropsStyle>`
   padding-top: ${({no_rates}) => no_rates ? '30px' : '0'};
   justify-content: ${({no_rates}) => no_rates ? 'center' : 'space-between'};
 `
+export const AgentSurchargesTableWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`

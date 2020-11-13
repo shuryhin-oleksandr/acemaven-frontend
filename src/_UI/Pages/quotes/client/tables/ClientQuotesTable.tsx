@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 //material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Paper from "@material-ui/core/Paper";
@@ -157,7 +157,7 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                                                   dispatch={dispatch}
                                                   direction={''}
                                                   type={props.mode}
-                                                  column_name='shipment_date'
+                                                  column_name='date_from'
                                                   searchValue={props.searchValue}
                                                   isSearchMode={props.isSearchMode}
                                                   title='SHIPMENT DATE'
@@ -175,7 +175,7 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                                                   dispatch={dispatch}
                                                   direction={''}
                                                   type={props.mode}
-                                                  column_name='status'
+                                                  column_name='is_active'
                                                   searchValue={props.searchValue}
                                                   isSearchMode={props.isSearchMode}
                                                   title='STATUS'

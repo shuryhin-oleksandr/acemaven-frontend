@@ -2,7 +2,7 @@ import * as React from "react";
 import MenuLink from "./MenuLink";
 import {NavSmallContainer} from "./nav-styles";
 const requests = require('../../../_UI/assets/icons/sidebar/requests.svg') as string;
-const operations = require('../../../_UI/assets/icons/sidebar/operations.svg') as string;
+const operations = require('../../../_UI/assets/icons/sidebar/operations(small).svg') as string;
 const rates = require('../../../_UI/assets/icons/sidebar/rates.svg') as string;
 const billing = require('../../../_UI/assets/icons/sidebar/billing.svg') as string;
 const settings = require('../../../_UI/assets/icons/sidebar/settings.svg') as string;

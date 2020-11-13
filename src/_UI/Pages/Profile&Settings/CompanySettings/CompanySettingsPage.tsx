@@ -1,14 +1,18 @@
 import React from "react";
-import {CompanyInner, CompanySettingsContainer, PageTitle} from "./company-settings-styles";
-
+//material ui
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
+//components
 import CompanyInfoContainer from "./CompanyInfo/CompanyInfoContainer";
 import BankAccountsContainer from "./BankAccounts/BankAccountsContainer";
+//styles
+import {CompanyInner, CompanySettingsContainer, PageTitle} from "./company-settings-styles";
+import CreditCardsContainer from "./credit_cards/CreditCardsContainer";
+
 
 export const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -87,10 +91,12 @@ const CompanySettingsPage:React.FC<PropsType> = ({company_type}) => {
                             <TabList onChange={handleChange} aria-label="simple tabs example">
                                 <Tab className={classes.tabButton} label="Company info" value="1" />
                                 <Tab className={classes.tabButton} label="Bank Accounts" value="2" />
+                                <Tab className={classes.tabButton} label="Credit Cards" value="3" />
                             </TabList>
                         </AppBar>
                         <TabPanel value="1"><CompanyInfoContainer company_type={company_type}/></TabPanel>
                         <TabPanel value="2"><BankAccountsContainer /></TabPanel>
+                        <TabPanel value="3"><CreditCardsContainer credit_cards={[]}/></TabPanel>
                     </TabContext>
                 </div>
             </CompanyInner>

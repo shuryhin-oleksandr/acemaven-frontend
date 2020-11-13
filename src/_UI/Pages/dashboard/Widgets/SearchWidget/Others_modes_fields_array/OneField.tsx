@@ -1,11 +1,16 @@
 import React from 'react'
-import {OneFieldContent, OneFieldWrapper, TotalDescriptions, TotalPart} from "./other-fields-array-styles";
+//material ui
+import {IconButton} from "@material-ui/core";
+//types
 import {CargoGroupType} from "../../../../../../_BLL/types/search/search_types";
 import {PackagingType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import {IconButton} from "@material-ui/core";
-import close_icon from '../../../../../../_UI/assets/icons/close-icon.svg'
+//BLL
 import {useDispatch} from "react-redux";
 import {searchActions} from "../../../../../../_BLL/reducers/search_client/searchClientReducer";
+//styles
+import {OneFieldContent, OneFieldWrapper, TotalDescriptions, TotalPart} from "./other-fields-array-styles";
+//icons
+import close_icon from '../../../../../../_UI/assets/icons/close-icon.svg'
 
 
 type PropsType = {
@@ -20,7 +25,7 @@ type PropsType = {
 
 const OneField:React.FC<PropsType> = ({cargo, packaging_types, deleteCargoGroup, setEditableCargoGroupToState, setOpenCalcPopup, search_success}) => {
 
-    let a = packaging_types && packaging_types.find(p => p.id === cargo.package_type)
+    let a = packaging_types && packaging_types.find(p => p.id === Number(cargo.packaging_type))
 
     const dispatch = useDispatch()
     let setEditMode = (id: number) => {
@@ -28,6 +33,7 @@ const OneField:React.FC<PropsType> = ({cargo, packaging_types, deleteCargoGroup,
         setOpenCalcPopup(true)
         dispatch(searchActions.setEdit(true))
     }
+
 
     return (
         <OneFieldWrapper>

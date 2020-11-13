@@ -6,8 +6,7 @@ import {quotesClientAPI} from "../../../_DAL/API/quotes/client/quotesClientAPI";
 export const postSearchQuoteThunk = (data:any, history: any) =>{
     return async (dispatch: Dispatch<commonQuotesClientActions>) => {
         try {
-            let res = await quotesClientAPI.postSearchQuote(data);
-            console.log(res)
+            await quotesClientAPI.postSearchQuote(data);
             history.push(`/quotes`)
         }catch (e) {
             console.log(e);

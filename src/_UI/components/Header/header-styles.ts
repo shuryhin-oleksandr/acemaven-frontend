@@ -16,6 +16,10 @@ export const LogoWrap = styled.div`
 font-family: "Helvetica Bold", sans-serif;
 font-size: 18px;
 color: black;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const InfoWrap = styled.div`

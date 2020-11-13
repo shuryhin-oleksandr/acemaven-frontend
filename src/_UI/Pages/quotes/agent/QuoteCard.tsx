@@ -35,6 +35,7 @@ import {
 //icons
 import sea_type from '../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import dates_icon from '../../../../_UI/assets/icons/date_1.svg'
+import AgentSurchargesTable from "./table/surcharge/AgentSurchargesTable";
 
 type PropsType = {
 
@@ -131,14 +132,7 @@ const QuoteCard:React.FC<PropsType> = () => {
                     <SurchargesInfo no_rates={no_rates}>
                     {no_rates
                        ? <NoRateSurchargeCard openCreatePopup={openCreatePopup}/>
-                       : <>
-                            <div style={{width: '50%'}}>
-
-                            </div>
-                            <div style={{width: '50%'}}>
-
-                            </div>
-                        </>
+                       : <AgentSurchargesTable />
                     }
                     </SurchargesInfo>
                 </QuoteCardInner>

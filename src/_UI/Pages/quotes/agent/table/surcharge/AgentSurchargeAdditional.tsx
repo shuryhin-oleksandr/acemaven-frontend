@@ -1,7 +1,4 @@
 import React from 'react'
-//react hook form
-import {Controller} from "react-hook-form";
-//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -10,18 +7,15 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-//helpers
-import {currency} from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
-//components
-import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
-//styles
-import {Field} from "../../../Services&Rates/surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 
+type PropsType = {
+
+}
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        width: 700
+        width: 620
     },
     table: {
         '& .MuiTableHead-root' : {
@@ -51,11 +45,7 @@ const useStyles = makeStyles({
     }
 });
 
-type PropsType = {
-    control: any
-}
-
-const FrateRatesTable:React.FC<PropsType> = ({control}) => {
+const AgentSurchargeAdditional:React.FC<PropsType> = ({}) => {
     const classes = useStyles();
 
     return (
@@ -63,53 +53,53 @@ const FrateRatesTable:React.FC<PropsType> = ({control}) => {
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell className={classes.cell} align="left">CONTAINER TYPE</TableCell>
+                        <TableCell className={classes.cell} align="left" />
                         <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                        <TableCell className={classes.cell} align="left">FREIGHT RATE</TableCell>
-                        <TableCell className={classes.cell} align="left">EXPIRATION DATE</TableCell>
+                        <TableCell className={classes.cell} align="left">CHARGE</TableCell>
+                        <TableCell className={classes.cell} align="left">CONDITIONS</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow >
                         <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            Container type 1
-                        </TableCell>
-                            <TableCell className={classes.innerCell} align="left" >
-                                BRL
-                            </TableCell>
-                            <TableCell className={classes.innerCell} align="left" >
-                                1500
-                            </TableCell>
-                            <TableCell className={classes.innerCell} align="left">
-                            22/11/2020
-                            </TableCell>
-                    </TableRow>
-                    <TableRow >
-                        <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            Container type 1
+                            DOC FEEeeeeeeeeeeee
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
                             BRL
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
-                            1500
+                            150
                         </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            22/11/2020
+                        <TableCell className={classes.innerCell} align="left" >
+                            fixed
                         </TableCell>
                     </TableRow>
                     <TableRow >
                         <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            Container type 1
+                            DOC FEEeeeeeeeee
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
                             BRL
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
-                            1500
+                            150
                         </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            22/11/2020
+                        <TableCell className={classes.innerCell} align="left" >
+                            fixed
+                        </TableCell>
+                    </TableRow>
+                    <TableRow >
+                        <TableCell className={classes.innerMainCell}  component="th" scope="row">
+                            DOC FEEeeeeeeeeeeee
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="left" >
+                            BRL
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="left" >
+                            150
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="left" >
+                            fixed
                         </TableCell>
                     </TableRow>
                 </TableBody>
@@ -118,4 +108,4 @@ const FrateRatesTable:React.FC<PropsType> = ({control}) => {
     )
 }
 
-export default FrateRatesTable
+export default AgentSurchargeAdditional

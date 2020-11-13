@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 type PropsStyle = {
-    status?: string,
+    status?: boolean,
     new_offer?: boolean
 }
 
@@ -24,7 +24,7 @@ export const HeaderTitle = styled.div`
   color: black;
 `
 export const StatusSpan = styled.div<PropsStyle>`
-  color: ${({status}) => status === 'active' ? '#115b86' : 'black'};
+  color: ${({status}) => status ? '#115b86' : 'black'};
   font-family: "Helvetica Bold", sans-serif;
   font-size: 16px;
 `

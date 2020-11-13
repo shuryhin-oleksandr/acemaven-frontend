@@ -70,7 +70,6 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
 
     const dispatch = useDispatch()
     const onSubmit = (values: CargoGroupType) => {
-        debugger
         if(!editable_cargo_group) {
             values.volume
                 ? getCalculation({...values, shipping_type: current_shipping_type})
@@ -90,7 +89,6 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
         } else {
             getCalculation({...values, shipping_type: current_shipping_type, id: editable_cargo_group.id})
         }
-
     }
 
     const [isCheck, setIsCheck] = useState(false)
@@ -158,14 +156,14 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                                         />
                                                     }
                                             />
-                                            : <Controller name='package_type'
+                                            : <Controller name='packaging_type'
                                                           control={control}
                                                           defaultValue=''
                                                           rules={{
                                                               required: 'Field is required'
                                                           }}
                                                           as={
-                                                              <FormSelect error={errors?.package_type?.message}
+                                                              <FormSelect error={errors?.packaging_type?.message}
                                                                           label='Packaging type'
                                                                           placeholder='Placeholder'
                                                                           maxW='140px'

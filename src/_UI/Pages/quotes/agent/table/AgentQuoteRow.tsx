@@ -84,7 +84,7 @@ const AgentQuoteRow:React.FC<PropsType> = ({submit_status, setCardOpen}) => {
                 {submit_status
                     ? <SubmittedWrapper>
                         <DoneIcon />
-                        <StatusSpan status='active'>Submitted</StatusSpan>
+                        <StatusSpan status={true}>Submitted</StatusSpan>
                     </SubmittedWrapper>
                     :  <SubmitQuoteButton>SUBMIT QUOTE</SubmitQuoteButton>
                 }

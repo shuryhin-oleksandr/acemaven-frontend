@@ -10,6 +10,7 @@ import {
 import { searchAPI } from "../../../_DAL/API/searchAPI";
 import { AppStateType } from "../../store";
 
+
 export const getWMCalculationThunk = (data: CargoGroupType) => {
     return async (dispatch: Dispatch<commonSearchActions>, getState: () => AppStateType) => {
         try {
@@ -22,12 +23,11 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
                     volume: data.volume}
             )
             if(!mode) {
-                debugger
+
                 let id_cargo = getState().search.cargo_groups?.length + 1
                 let data_cargo = {...data, total_per_pack: res.data.total_per_pack, total_wm: res.data.total, id: id_cargo}
                 dispatch(searchActions.setCargoGroupData(data_cargo))
             } else {
-                debugger
                 dispatch(searchActions.editChosenCargoGroup({...data, total_per_pack: res.data.total_per_pack, total_wm: res.data.total}))
             }
             dispatch(searchActions.setSuccessCalculate(true))
@@ -40,7 +40,6 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
 export const searchRatesOffersThunk = (search_data: SearchDataType) => {
   return async (dispatch: Dispatch<commonSearchActions>) => {
     try {
-        debugger
       let res = await searchAPI.searchRates(search_data);
       console.log('search', res.data)
       dispatch(searchActions.setSearchSuccess(true))

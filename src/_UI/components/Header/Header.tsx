@@ -55,7 +55,7 @@ const Header: React.FC = () => {
 
   return (
     <HeaderContainer>
-      <LogoWrap><img src={logotype} alt=""/></LogoWrap>
+      <LogoWrap onClick={() => history.push('/')}><img src={logotype} alt=""/></LogoWrap>
       <Info>
         <ButtonWrap>
           <img src={card} alt="" />

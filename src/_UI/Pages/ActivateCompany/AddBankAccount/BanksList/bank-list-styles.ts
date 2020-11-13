@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 type PropsStyle = {
    max_width?: string,
-   w?: string
+   w?: string,
+   flex_direction?: string
 }
 
 export const ListWrap = styled.div`
@@ -43,6 +44,7 @@ export const LineWrap = styled.div<PropsStyle>`
 display: flex;
 width: ${({w}) => w ? w : '90%'};
 align-items: flex-end;
+flex-direction: ${({flex_direction}) => flex_direction ? flex_direction : 'column'};
 margin-bottom: 15px;
 `
 export const Label = styled.div`

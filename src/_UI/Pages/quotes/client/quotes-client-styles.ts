@@ -52,4 +52,13 @@ export const BookLittleButton = styled.div`
     cursor: pointer;
   }
 `
+export const CargosOuter = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  font-family: "Helvetica Light", sans-serif;
+  font-size: 13px;
+`
+
 

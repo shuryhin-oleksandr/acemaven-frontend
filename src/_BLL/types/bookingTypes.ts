@@ -1,5 +1,3 @@
-import { isNumber } from "util";
-
 export type CargoDetailsValue = {
   id: string;
   description: string;

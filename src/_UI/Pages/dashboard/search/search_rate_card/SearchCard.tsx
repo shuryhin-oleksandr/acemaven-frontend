@@ -12,6 +12,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import BookingCard from "./BookingCard";
 import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
+import ClientBookingPopUp from "../../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
 
 const useStyles = makeStyles({
     container: {
@@ -50,17 +51,18 @@ const useStyles = makeStyles({
 
 type PropsType = {
     showRatingPopup: (value: boolean) => void
-    setBookingPopupVisible:(value: boolean) => void,
     search_result: SearchResultType
+    shippingValue:number
 }
 
-const SearchCard:React.FC<PropsType> = ({showRatingPopup,setBookingPopupVisible, search_result}) => {
+const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,shippingValue}) => {
     const classes = useStyles();
 
     const [isShown, setShow] = useState(false)
-
+    const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
     return (
         <CardContainer>
+            {bookingPopupVisible && <ClientBookingPopUp shippingValue={shippingValue} setBookingPopupVisible={setBookingPopupVisible} search_result={search_result} />}
             <CardInner>
                 <BookingCard showRatingPopup={showRatingPopup}
                              showTable={setShow}

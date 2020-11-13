@@ -11,7 +11,7 @@ import {
   DocumentationRow,
   DocumentationCol,
 } from "../client-popup-styles";
-import { Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Field } from "../../../_commonComponents/Input/input-styles";
 import React, { useEffect } from "react";
 import BaseButton from "../../../base/BaseButton";
@@ -28,14 +28,11 @@ import {
   getShippingTypesSelector,
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import { useFieldArray } from "react-hook-form";
 
 type PropsType = {
-  control: any;
   setFormStep: VoidFunctionType;
   formStep: number;
-  getValues: any;
-  register: any;
-  setValue?: any;
   shippingValue: number;
 };
 
@@ -45,11 +42,8 @@ const arr = [
   { id: 3, type: "1 Pallets x 2w/m" },
 ];
 const CargoDetails: React.FC<PropsType> = ({
-  control,
   setFormStep,
   formStep,
-  getValues,
-  register,
   shippingValue,
 }) => {
   const dispatch = useDispatch();
@@ -59,6 +53,23 @@ const CargoDetails: React.FC<PropsType> = ({
   let cargo_groups = useSelector(
     (state: AppStateType) => state.booking.current_booking_cargo_groups
   );
+  const {
+    register,
+    handleSubmit,
+    errors,
+    control,
+    getValues,
+    setValue,
+  } = useForm({
+    defaultValues: {
+      cargo_groups: cargo_groups,
+    },
+  });
+
+  const { fields } = useFieldArray({
+    control,
+    name: "cargo_groups",
+  });
 
   console.log("cargo_groups", cargo_groups);
 
@@ -72,35 +83,23 @@ const CargoDetails: React.FC<PropsType> = ({
   let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
     ?.container_types;
 
-  console.log("container_types", container_types);
-
   const findContainer = (id: number) => {
     const container = container_types?.find((c) => c.id === id);
-    console.log("CCC", container);
     return container?.code;
   };
 
+  const onSubmit = (values: any) => {
+    console.log("values part 1", values);
+    setFormStep(formStep + 1);
+  };
+
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <HeadingFormWrapper>
         <HeadingFormText>
           Please, fill basic information about the shipment
         </HeadingFormText>
-        <BaseButton
-          onClick={() => {
-            const values = getValues();
-            console.log("values", values);
-            const arr = Object.keys(values).map((v) => ({
-              id: v,
-              description: values[v],
-            }));
-            dispatch(bookingActions.setCargoDetails(arr));
-            setFormStep(formStep + 1);
-          }}
-          type="button"
-        >
-          Next
-        </BaseButton>
+        <BaseButton type="submit">Next</BaseButton>
       </HeadingFormWrapper>
       <InputGroupName>Cargo details</InputGroupName>
       <FlexWrapper>
@@ -112,24 +111,51 @@ const CargoDetails: React.FC<PropsType> = ({
         </div>
       </FlexWrapper>
       <InputsWrapper>
-        {cargo_groups?.map((item, idx) => (
-          <RowWrapper key={idx}>
+        {fields?.map((item, idx) => (
+          <RowWrapper key={item.id}>
             <div style={{ width: 205 }}>
               <ContainerInfo>
-                {`${findContainer(Number(item.container_type))} x ${
-                  item.volume
-                }`}
+                <Controller
+                  name={`cargo_groups[${idx}].volume`}
+                  control={control}
+                  as={<span>{item.volume} </span>}
+                />
+                x
+                <Controller
+                  name={`cargo_groups[${idx}].container_type`}
+                  control={control}
+                  as={
+                    <span> {findContainer(Number(item.container_type))}</span>
+                  }
+                />
+                {/*{`${findContainer(Number(item.container_type))} x ${*/}
+                {/*  item.volume*/}
+                {/*}`}*/}
               </ContainerInfo>
             </div>
-            {/*<div style={{ flex: 1 }}>*/}
-            {/*  <Controller*/}
-            {/*    name={`${item.id}`}*/}
-            {/*    control={control}*/}
-            {/*    as={<Field placeholder="Add desription..." />}*/}
-            {/*    rules={{ required: "Field is required" }}*/}
-            {/*    defaultValue=""*/}
-            {/*  />*/}
-            {/*</div>*/}
+            {item.dangerous !== false && (
+              <Controller
+                name={`cargo_groups[${idx}].dangerous`}
+                control={control}
+                as={<span />}
+              />
+            )}
+            {!!item.frozen && (
+              <Controller
+                name={`cargo_groups[${idx}].frozen`}
+                control={control}
+                as={<span />}
+              />
+            )}
+            <div style={{ flex: 1 }}>
+              <Controller
+                name={`cargo_groups[${idx}].description`}
+                control={control}
+                as={<Field placeholder="Add desription..." />}
+                rules={{ required: "Field is required" }}
+                defaultValue=""
+              />
+            </div>
           </RowWrapper>
         ))}
       </InputsWrapper>
@@ -168,7 +194,7 @@ const CargoDetails: React.FC<PropsType> = ({
           </DocumentationCol>
         </DocumentationRow>
       </DocumentationSection>
-    </>
+    </form>
   );
 };
 

@@ -33,6 +33,7 @@ import { bookingActions } from "../../../../_BLL/reducers/bookingReducer";
 import BaseButton from "../../base/BaseButton";
 import PaymentContainer from "./payment/PaymentContainer";
 import { getReleaseTypeChoices } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
+import { SearchResultType } from "../../../../_BLL/types/search/search_types";
 
 const useStyles = makeStyles({
   container: {
@@ -71,11 +72,13 @@ const useStyles = makeStyles({
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
   shippingValue: number;
+  search_result: SearchResultType;
 };
 
 const ClientBookingPopUp: React.FC<PropsType> = ({
   setBookingPopupVisible,
   shippingValue,
+  search_result,
 }) => {
   const dispatch = useDispatch();
   const companyId = sessionStorage.getItem("u");
@@ -108,7 +111,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
         <CloseBtn onClick={() => setBookingPopupVisible(false)}>
           <img src={close} alt="" />
         </CloseBtn>
-        <BookingCard button_display={false} />
+        <BookingCard button_display={false} search_result={search_result} />
         {bookingStep === "shipping-form" && (
           <RootShippingForm
             companyInfo={companyInfo}

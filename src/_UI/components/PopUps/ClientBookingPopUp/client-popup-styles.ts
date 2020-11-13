@@ -53,7 +53,7 @@ export const CloseBtn = styled.div`
   cursor: pointer;
 `;
 
-export const Form = styled.form`
+export const Wrapper = styled.div`
   border-top: 1px solid #7c7c89;
   padding-top: 20px;
 `;

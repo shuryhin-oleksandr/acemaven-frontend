@@ -4,51 +4,60 @@ import ImportShipperInfo from "./ImportShipperInfo";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
+import { useForm } from "react-hook-form";
 
 type PropsType = {
   direction: string;
-  control: any;
   setFormStep: VoidFunctionType;
   formStep: number;
-  getValues: any;
-  register: any;
   companyInfo: CompanyInfoType | null;
   currentUser: IAuthUserInfo | null;
-  setValue: any;
 };
 
 const ShipperInfoContainer: React.FC<PropsType> = ({
   direction,
-  control,
   setFormStep,
   formStep,
-  getValues,
-  register,
   companyInfo,
   currentUser,
-  setValue,
 }) => {
-  // return direction === "export" ? (
+  const {
+    register,
+    handleSubmit,
+    errors,
+    control,
+    getValues,
+    setValue,
+  } = useForm();
 
-  return true ? (
-    <ExportShipperInfo
-      control={control}
-      setFormStep={setFormStep}
-      formStep={formStep}
-      register={register}
-      getValues={getValues}
-      companyInfo={companyInfo}
-      currentUser={currentUser}
-      setValue={setValue}
-    />
-  ) : (
-    <ImportShipperInfo
-      control={control}
-      setFormStep={setFormStep}
-      formStep={formStep}
-      register={register}
-      getValues={getValues}
-    />
+  // return direction === "export" ? (
+  const onSubmit = (values: any) => {
+    console.log("values part 1", values);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {true ? (
+        <ExportShipperInfo
+          control={control}
+          setFormStep={setFormStep}
+          formStep={formStep}
+          register={register}
+          getValues={getValues}
+          companyInfo={companyInfo}
+          currentUser={currentUser}
+          setValue={setValue}
+        />
+      ) : (
+        <ImportShipperInfo
+          control={control}
+          setFormStep={setFormStep}
+          formStep={formStep}
+          register={register}
+          getValues={getValues}
+        />
+      )}
+    </form>
   );
 };
 

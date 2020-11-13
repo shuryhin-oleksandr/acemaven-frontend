@@ -16,6 +16,7 @@ export type CargoGroup = {
   dangerous?: boolean;
   weight_measurement?: string;
   length_measurement?: string;
+  description?: string;
 };
 
 export type ChoiceType = {

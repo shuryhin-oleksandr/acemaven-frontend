@@ -5,16 +5,17 @@ import ClientBookingPopUp from "../../../components/PopUps/ClientBookingPopUp/Cl
 import {SearchResultType} from "../../../../_BLL/types/search/search_types";
 
 type PropsType = {
-  search_result: SearchResultType[]
+  search_result: SearchResultType[],
+  shippingValue:number
 }
 
-const SearchContainer:React.FC<PropsType> = ({search_result}) => {
+const SearchContainer:React.FC<PropsType> = ({search_result,shippingValue}) => {
   const [isRatingPopup, showRatingPopup] = useState(false);
   const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
 
   return (
     <>
-      {bookingPopupVisible && <ClientBookingPopUp setBookingPopupVisible={setBookingPopupVisible} />}
+      {bookingPopupVisible && <ClientBookingPopUp shippingValue={shippingValue} setBookingPopupVisible={setBookingPopupVisible} />}
       {isRatingPopup ? (
         <RatingInfoPopup showRatingPopup={showRatingPopup} />
       ) : (

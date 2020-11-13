@@ -11,11 +11,13 @@ import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
 type PropsType = {
   companyInfo: CompanyInfoType | null;
   currentUser: IAuthUserInfo | null;
+  shippingValue: number;
 };
 
 const RootShippingForm: React.FC<PropsType> = ({
   companyInfo,
   currentUser,
+  shippingValue,
 }) => {
   const [formStep, setFormStep] = useState(1);
   const {
@@ -43,6 +45,7 @@ const RootShippingForm: React.FC<PropsType> = ({
           getValues={getValues}
           register={register}
           setValue={setValue}
+          shippingValue={shippingValue}
         />
       ) : (
         <ShipperInfoContainer

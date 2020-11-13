@@ -133,14 +133,14 @@ const CargoDetails: React.FC<PropsType> = ({
                 {/*}`}*/}
               </ContainerInfo>
             </div>
-            {item.dangerous !== false && (
+            {item.hasOwnProperty("dangerous") && (
               <Controller
                 name={`cargo_groups[${idx}].dangerous`}
                 control={control}
                 as={<span />}
               />
             )}
-            {!!item.frozen && (
+            {item.hasOwnProperty("frozen") && (
               <Controller
                 name={`cargo_groups[${idx}].frozen`}
                 control={control}

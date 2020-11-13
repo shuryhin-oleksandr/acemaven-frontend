@@ -239,10 +239,13 @@ const Search: React.FC<PropsType> = ({
       const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
 
       if (uniqCargoArr.length === finalData.cargo_groups.length) {
-        const arrWithDescription = finalData.cargo_groups.map((c: any) => ({
-          ...c,
-          description: "",
-        }));
+        const arrWithDescription = finalData.cargo_groups.map(
+          (c: any, index: number) => ({
+            ...c,
+            description: "",
+            id: index + 1,
+          })
+        );
         dispatch(
           bookingActions.set_current_booking_cargo_groups(arrWithDescription)
         );

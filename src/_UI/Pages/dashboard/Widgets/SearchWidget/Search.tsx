@@ -6,6 +6,7 @@ import {
   RelativeWrapper,
   ButtonGroup,
   AddImg,
+  ErrorMessage,
 } from "./searchWidgett-styles";
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
@@ -53,6 +54,7 @@ import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoS
 import { useHistory } from "react-router-dom";
 import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
+import { uniqWith, isEqual } from "lodash";
 
 type PropsType = {
   right?: string;
@@ -67,6 +69,8 @@ type PropsType = {
   disabled: any;
   search_result: SearchResultType[];
   search_success: boolean;
+  setDuplicatedCargoError: (value: string) => void;
+  duplicatedCargoError: string;
 };
 
 const Search: React.FC<PropsType> = (
@@ -83,6 +87,8 @@ const Search: React.FC<PropsType> = (
     disabled,
     search_success,
     search_result,
+    duplicatedCargoError,
+    setDuplicatedCargoError,
   },
   newParam = ""
 ) => {
@@ -205,7 +211,6 @@ const Search: React.FC<PropsType> = (
         date_to: moment(dates[1]).format("DD/MM/YYYY"),
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
-        /*cargo_groups: values.cargo_groups.map((g: any) => ({container_type : g.container_type, dangerous: g.dangerous, volume: Number(g.volume)}))*/
         cargo_groups: values.cargo_groups.map((c: any) =>
           c.frozen
             ? {
@@ -220,6 +225,28 @@ const Search: React.FC<PropsType> = (
               }
         ),
       };
+
+      const arrWithoutValues = finalData.cargo_groups.map((c: any) => {
+        const copyObj = { ...c };
+        delete copyObj.volume;
+        return copyObj;
+      });
+
+      const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
+
+      if (uniqCargoArr.length === finalData.cargo_groups.length) {
+        dispatch(
+          bookingActions.set_current_booking_cargo_groups(
+            finalData.cargo_groups
+          )
+        );
+        setDuplicatedCargoError("");
+        search_result.length == 0 && search_success
+          ? dispatch(postSearchQuoteThunk(finalData, history))
+          : dispatch(searchRatesOffersThunk(finalData));
+      } else {
+        setDuplicatedCargoError("You have duplicated cargo groups");
+      }
     } else {
       finalData = {
         shipping_mode: values.shipping_mode,
@@ -252,19 +279,13 @@ const Search: React.FC<PropsType> = (
         ),
       };
     }
-    dispatch(
-      bookingActions.set_current_booking_cargo_groups(finalData.cargo_groups)
-    );
+
     dispatch(
       bookingActions.set_booking_dates({
         date_from: finalData.date_from,
         date_to: finalData.date_to,
       })
     );
-
-    search_result.length == 0 && search_success
-      ? dispatch(postSearchQuoteThunk(finalData, history))
-      : dispatch(searchRatesOffersThunk(finalData));
   };
 
   const shippingValueReset = () => {
@@ -420,7 +441,9 @@ const Search: React.FC<PropsType> = (
               disabled={disabled}
             />
           </div>
-
+          {!!duplicatedCargoError ? (
+            <ErrorMessage>{duplicatedCargoError}</ErrorMessage>
+          ) : null}
           {watchResultArr.length === 3 && dates.length > 0 ? (
             shippingValue === 3 ? (
               <FCLFieldArray

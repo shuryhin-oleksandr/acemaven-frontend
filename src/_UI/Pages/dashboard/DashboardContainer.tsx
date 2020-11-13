@@ -32,6 +32,8 @@ const DashboardContainer:React.FC = () => {
     //current shipping mode id
     const [shippingValue, setShippingValue] = useState(0);
 
+    const [duplicatedCargoError, setDuplicatedCargoError] = useState("");
+
 
     //data from store
     const calc_success = useSelector(getWmCalculationSuccessSelector)
@@ -80,6 +82,8 @@ const DashboardContainer:React.FC = () => {
                                disabled={search_success}
                                search_result={search_result}
                                search_success={search_success}
+                             duplicatedCargoError={duplicatedCargoError}
+                             setDuplicatedCargoError={setDuplicatedCargoError}
                         />
                 </div>
                 }

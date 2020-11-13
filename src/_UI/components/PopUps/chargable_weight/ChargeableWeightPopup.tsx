@@ -1,40 +1,32 @@
 import React, {useEffect, useState} from 'react'
-import {
-    ActionsWrapper,
-    CalculationWrapper,
-    CancelButton,
-    CargoTitle,
-    ChargeableWeightInner,
-    ChargeableWeightOuter,
-    CheckboxWrap,
-    ConfirmButton,
-    FormRow,
-    NewPackageWrapper,
-    WeightIcon,
-    WeightWrapper
-} from "./chargeable-weght-popup-styles";
+//react hook form
 import {Controller,  useForm} from "react-hook-form";
+//material ui
+import {IconButton} from "@material-ui/core";
+import Radio from "@material-ui/core/Radio";
+import {makeStyles} from "@material-ui/core/styles";
+//types
+import {ContainerType, PackagingType} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {CargoGroupType} from "../../../../_BLL/types/search/search_types";
+import {CurrentShippingType} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+//BLL
+import {useDispatch} from "react-redux";
+import {searchActions} from "../../../../_BLL/reducers/search_client/searchClientReducer";
+//components
 import FormField from "../../_commonComponents/Input/FormField";
+import FormSelect from "../../_commonComponents/select/FormSelect";
+import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
+//styles
+import { ActionsWrapper, CalculationWrapper, CancelButton, CargoTitle, ChargeableWeightInner, ChargeableWeightOuter,
+    CheckboxWrap, ConfirmButton, FormRow, NewPackageWrapper, WeightIcon, WeightWrapper} from "./chargeable-weght-popup-styles";
+import { ActionsWrapRadio, CommonWrap, RadioLabel} from "../../_commonComponents/settingsNotification/settings-notification-styles";
+//icons
 import weight from '../../../../_UI/assets/icons/widgets/weight.svg';
 import height from '../../../../_UI/assets/icons/widgets/height.svg';
 import length from '../../../../_UI/assets/icons/widgets/length.svg';
 import width from '../../../../_UI/assets/icons/widgets/width.svg';
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg';
-import FormSelect from "../../_commonComponents/select/FormSelect";
-import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
-import {IconButton} from "@material-ui/core";
-import Radio from "@material-ui/core/Radio";
-import {
-    ActionsWrapRadio,
-    CommonWrap,
-    RadioLabel
-} from "../../_commonComponents/settingsNotification/settings-notification-styles";
-import {makeStyles} from "@material-ui/core/styles";
-import {ContainerType, PackagingType} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import {CargoGroupType} from "../../../../_BLL/types/search/search_types";
-import {CurrentShippingType} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {useDispatch} from "react-redux";
-import {searchActions} from "../../../../_BLL/reducers/search_client/searchClientReducer";
+
 
 let useStyles = makeStyles({
     root: {
@@ -58,7 +50,7 @@ type PropsType = {
     shippingValue: number,
     getCalculation: (data: CargoGroupType) => void,
     current_shipping_type: CurrentShippingType,
-    editable_cargo_group: CargoGroupType | null
+    editable_cargo_group: CargoGroupType | null,
 }
 
 const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_success, packaging_types, container_types,getCalculation,

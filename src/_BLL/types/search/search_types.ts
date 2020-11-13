@@ -5,7 +5,7 @@ export type SearchDataType = {
     destination: number,
     date_from: string,
     date_to: string,
-    cargo_groups: CargoGroupType[] | null
+    cargo_groups: CargoGroupType[]
 }
 
 export type CargoGroupType = {

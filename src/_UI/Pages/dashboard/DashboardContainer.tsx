@@ -1,23 +1,33 @@
 import React, {useState} from "react";
-import Layout from "../../components/BaseLayout/Layout";
-import DashboardPage from "./DashboardPage";
-import SearchContainer from "./search/SearchContainer";
-import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/ChargeableWeightPopup";
+//types
+import {AppStateType} from "../../../_BLL/store";
+import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {CargoGroupType} from "../../../_BLL/types/search/search_types";
+//BLL
 import {useDispatch, useSelector} from "react-redux";
 import {
     getCurrentShippingTypeSelector,
     getShippingTypesSelector
 } from "../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
-    getCargoGroupsListSelector, getEditableCargoSelector, getSearchResult, getSearchSuccess,
+    getCargoGroupsListSelector, getEditableCargoSelector, getFrozenChoicesSelector, getSearchResult, getSearchSuccess,
     getWmCalculationSuccessSelector
 } from "../../../_BLL/selectors/search/searchClientSelector";
-import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {surchargeActions} from "../../../_BLL/reducers/surcharge&rates/surchargeReducer";
+import {
+    getDestinationPorts,
+    getIsLocalPort,
+    getOriginPorts
+} from "../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {getWMCalculationThunk} from "../../../_BLL/thunks/search_client_thunks/searchClientThunks";
-import {CargoGroupType} from "../../../_BLL/types/search/search_types";
+import {searchActions} from "../../../_BLL/reducers/search_client/searchClientReducer";
+import {surchargeActions} from "../../../_BLL/reducers/surcharge&rates/surchargeReducer";
+//components
+import Layout from "../../components/BaseLayout/Layout";
+import DashboardPage from "./DashboardPage";
+import SearchContainer from "./search/SearchContainer";
+import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/ChargeableWeightPopup";
 import Search from "./Widgets/SearchWidget/Search";
-import {AppStateType} from "../../../_BLL/store";
+
 
 
 const DashboardContainer:React.FC = () => {
@@ -32,9 +42,6 @@ const DashboardContainer:React.FC = () => {
     //current shipping mode id
     const [shippingValue, setShippingValue] = useState(0);
 
-    const [duplicatedCargoError, setDuplicatedCargoError] = useState("");
-
-
     //data from store
     const calc_success = useSelector(getWmCalculationSuccessSelector)
     const current_shipping_type = useSelector(getCurrentShippingTypeSelector)
@@ -47,6 +54,15 @@ const DashboardContainer:React.FC = () => {
     const search_result = useSelector(getSearchResult)
     const search_success = useSelector(getSearchSuccess)
     const auth_user = useSelector((state:AppStateType) => state.profile.authUserInfo)
+    const duplicatesError = useSelector((state: AppStateType) => state.search.duplicates_error)
+    const origin_ports = useSelector(getOriginPorts);
+    const destination_ports = useSelector(getDestinationPorts);
+    const frozen_choices = useSelector(getFrozenChoicesSelector);
+    const origin_port_value = useSelector(getIsLocalPort);
+
+    let setDuplicatedCargoError = (error: string) => {
+        dispatch(searchActions.setDuplicatedError(error))
+    }
 
     let setMode = (value: CurrentShippingType) => {
         dispatch(surchargeActions.setCurrentShippingType(value))
@@ -67,6 +83,8 @@ const DashboardContainer:React.FC = () => {
                                                        getCalculation={getCalculation}
                                                        current_shipping_type={current_shipping_type}
                                                        editable_cargo_group={editable_cargo_group}
+
+
             />}
             <div style={{position:"relative", width:"100%"}}>
                 {auth_user?.companies && auth_user.companies[0].type === 'client'
@@ -79,12 +97,18 @@ const DashboardContainer:React.FC = () => {
                                mode={current_shipping_type}
                                cargo_groups_list={cargo_groups}
                                packaging_types={packaging_types}
+                                container_types={usageFees}
                                disabled={search_success}
                                search_result={search_result}
                                search_success={search_success}
-                             duplicatedCargoError={duplicatedCargoError}
-                             setDuplicatedCargoError={setDuplicatedCargoError}
-                        />
+                                duplicatedCargoError={duplicatesError}
+                                setDuplicatedCargoError={setDuplicatedCargoError}
+                                shippingTypes={shipping_types}
+                                origin_ports={origin_ports}
+                                destination_ports={destination_ports}
+                                frozen_choices={frozen_choices}
+                                origin_port_value={origin_port_value}
+                />
                 </div>
                 }
                 {search_success

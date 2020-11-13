@@ -11,6 +11,7 @@ import { searchAPI } from "../../../_DAL/API/searchAPI";
 import { AppStateType } from "../../store";
 
 
+
 export const getWMCalculationThunk = (data: CargoGroupType) => {
     return async (dispatch: Dispatch<commonSearchActions>, getState: () => AppStateType) => {
         try {
@@ -25,7 +26,12 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
             if(!mode) {
 
                 let id_cargo = getState().search.cargo_groups?.length + 1
-                let data_cargo = {...data, total_per_pack: res.data.total_per_pack, total_wm: res.data.total, id: id_cargo}
+                let data_cargo = {
+                    ...data,
+                    total_per_pack: res.data.total_per_pack,
+                    total_wm: res.data.total,
+                    id: id_cargo
+                }
                 dispatch(searchActions.setCargoGroupData(data_cargo))
             } else {
                 dispatch(searchActions.editChosenCargoGroup({...data, total_per_pack: res.data.total_per_pack, total_wm: res.data.total}))

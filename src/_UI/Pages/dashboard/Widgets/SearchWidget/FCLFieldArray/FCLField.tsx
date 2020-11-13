@@ -1,13 +1,18 @@
 import React, { useState } from "react";
+//react hook form
 import { Controller } from "react-hook-form";
+//material ui
+import { IconButton } from "@material-ui/core";
+//types
+import { ContainerType } from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import { ChoiceType } from "../../../../../../_BLL/types/search/search_types";
+//components
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
-import { RemoveImg } from "../searchWidgett-styles";
-import RemoveIcon from "../../../../../assets/icons/widgets/remove-icon.svg";
-import { ContainerType } from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SearchCheckbox from "src/_UI/components/_commonComponents/customCheckbox/searchCheckbox";
-import { ChoiceType } from "../../../../../../_BLL/types/search/search_types";
-import { IconButton } from "@material-ui/core";
+//icons
+import RemoveIcon from "../../../../../assets/icons/widgets/remove-icon.svg";
+
 
 type PropsType = {
   fields: any;
@@ -61,7 +66,7 @@ const FCLField: React.FC<PropsType> = ({
             error={errors?.shipping_mode?.message}
             options={container_types}
             maxW="140px"
-            marginRight="16px"
+            margin_right="16px"
             background="#ECECEC"
             callback={setChosenContainer}
             disabled={disabled}

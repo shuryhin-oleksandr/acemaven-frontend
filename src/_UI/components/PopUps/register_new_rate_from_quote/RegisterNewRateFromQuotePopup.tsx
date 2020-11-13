@@ -55,7 +55,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup}) =>
                                                 <SurchargeRateSelect placeholder='Carrier company name'
                                                                      error={methods.errors?.carrier?.message}
                                                     //maxW='300px'
-                                                                     marginRight='35px'
+                                                                     margin_right='35px'
                                                 />
                                             }
                                 />

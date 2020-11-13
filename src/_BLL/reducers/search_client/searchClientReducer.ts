@@ -7,13 +7,14 @@ import {
 
 
 const initialState = {
-    cargo_groups: [] as CargoGroupType[],
+    cargo_groups: [] as CargoGroupType[] ,
     edit_mode: false,
     cargo_for_edit: null as CargoGroupType | null,
     success_server_calc: false,
     search_result: [] as SearchResultType[],
     search_success: false,
-    frozen_choices: null as ChoiceType[] | null,
+    frozen_choices: [] as ChoiceType[],
+    duplicates_error: ''
 }
 
 type InitialStateType = typeof initialState;
@@ -80,6 +81,11 @@ export const searchClientReducer = (state = initialState, action: commonSearchAc
                frozen_choices: action.choices.frozen_choices
            }
        }
+       case "SET_DUPLICATED_ERROR":
+           return {
+               ...state,
+               duplicates_error: action.error
+           }
        default: return state
    }
 }
@@ -98,5 +104,6 @@ export const searchActions = {
     setEditableCargoGroupToNull: (value: any) => ({type: 'SET_EDITABLE_CARGO_TO_NULL', value} as const),
     setSearchResult: (result: SearchResultType[]) => ({type: 'SET_SEARCH_RESULT', result} as const),
     setSearchSuccess: (value: boolean) => ({type: 'SET_SEARCH_SUCCESS', value} as const),
-    setFrozenChoices:(choices:FrozenChoiceType)=>({type:"SET_FROZEN_CHOICES", choices} as const)
+    setFrozenChoices:(choices:FrozenChoiceType)=>({type:"SET_FROZEN_CHOICES", choices} as const),
+    setDuplicatedError: (error: string) => ({type: 'SET_DUPLICATED_ERROR', error} as const)
 };

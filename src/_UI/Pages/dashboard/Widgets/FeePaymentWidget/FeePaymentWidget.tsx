@@ -10,24 +10,8 @@ import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 
 const FeePaymentWidget: React.FC = () => {
   const classes = useStyles();
-  function createData(
-    reservation_number: string,
-    route: string,
-    date: string,
-    status: string
-  ) {
-    return { reservation_number, route, date, status };
-  }
 
-  const rows = [
-    createData("AMX100097", "HOU-GJS", "25/12", "In transit"),
-    createData(
-      "AMX100557",
-      "JOY-BRZ",
-      "09/12",
-      "Documentation Receive text text text"
-    ),
-  ];
+
   return (
     <BaseWidget heading="pending of Booking Fee payment">
       <Table className={classes.table} aria-label="simple table">
@@ -49,8 +33,7 @@ const FeePaymentWidget: React.FC = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.reservation_number}>
+          <TableRow >
               <TableCell className={classes.innerCell}>
                 <div
                   style={{
@@ -63,19 +46,43 @@ const FeePaymentWidget: React.FC = () => {
                 </div>
               </TableCell>
               <TableCell className={classes.boldCell} align="left">
-                {row.reservation_number}
+                AMX100097
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                {row.route}
+                HOU-GJS
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                {row.date}
+                25/12
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                {row.status}
+                In transit
               </TableCell>
             </TableRow>
-          ))}
+          <TableRow >
+            <TableCell className={classes.innerCell}>
+              <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    paddingRight: 10,
+                  }}
+              >
+                <img src={ShipIcon} alt="" />
+              </div>
+            </TableCell>
+            <TableCell className={classes.boldCell} align="left">
+              AMX100097
+            </TableCell>
+            <TableCell className={classes.innerCell} align="left">
+              HOU-GJS
+            </TableCell>
+            <TableCell className={classes.innerCell} align="left">
+              25/12
+            </TableCell>
+            <TableCell className={classes.innerCell} align="left">
+              In transit
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </BaseWidget>

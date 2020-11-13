@@ -17,18 +17,18 @@ type IProps = {
   callback?: VoidFunctionType;
   maxW?: string;
   hideLabel?: boolean;
-  marginBot?: string;
+  margin_bottom?: string;
   background?: string;
   name?: string;
   register?: any;
-  marginRight?: string;
+  margin_right?: string;
   disabled?:boolean
 };
 
 const useStyles = makeStyles(() => ({
   formControl: (props: any) => ({
     width: "100%",
-    marginBottom: props.marginBot ? props.marginBot : "10px",
+    marginBottom: props.margin_bottom ? props.margin_bottom : "10px",
   }),
   selectEmpty: (props: any) => ({
     width: "100%",
@@ -102,12 +102,12 @@ const SurchargeRateSelect: React.FC<IProps> = ({
   ...props
 }) => {
   const classes = useStyles({
-    marginBot: props.marginBot,
+    margin_bottom: props.margin_bottom,
     background: props.background,
   });
 
   return (
-    <SelectContainer maxW={props.maxW} marginRight={props.marginRight}>
+    <SelectContainer maxW={props.maxW} marginRight={props.margin_right}>
       <FormControl className={classes.formControl}>
         {hideLabel ? null : <Label>{label}</Label>}
         <Select

@@ -9,18 +9,15 @@ import moment from "moment";
 import { CurrentShippingType, ShippingTypesEnum,} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { getShippingTypes } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
-import { PortType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import {CargoGroupType, SearchResultType } from "../../../../../_BLL/types/search/search_types";
+import {ContainerType, PortType, ShippingTypeType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {CargoGroupType, ChoiceType, SearchResultType} from "../../../../../_BLL/types/search/search_types";
 import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 // BLL
-import { useDispatch, useSelector } from "react-redux";
-import { getShippingTypesSelector } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import { useDispatch } from "react-redux";
 import { getPorts } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import { getDestinationPorts, getIsLocalPort, getOriginPorts } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import { getFrozenChoices, searchRatesOffersThunk,} from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import { postSearchQuoteThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
-import { getFrozenChoicesSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
 import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 //components
@@ -44,6 +41,7 @@ import { uniqWith, isEqual } from "lodash";
 type PropsType = {
   right?: string;
   bottom?: string;
+  shippingTypes: ShippingTypeType[]
   setOpenCalcPopup: (value: boolean) => void;
   shippingValue: number;
   setShippingValue: (value: number) => void;
@@ -56,6 +54,11 @@ type PropsType = {
   search_success: boolean;
   setDuplicatedCargoError: (value: string) => void;
   duplicatedCargoError: string;
+  origin_ports: PortType[]
+  destination_ports: PortType[]
+  frozen_choices: ChoiceType[]
+  origin_port_value: PortType | null
+  container_types: ContainerType[]
 };
 
 const Search: React.FC<PropsType> = (
@@ -74,6 +77,8 @@ const Search: React.FC<PropsType> = (
     search_result,
     duplicatedCargoError,
     setDuplicatedCargoError,
+      shippingTypes,
+      ...props
   }
 ) => {
   const dispatch = useDispatch();
@@ -107,11 +112,6 @@ const Search: React.FC<PropsType> = (
     setDates([]);
   }, [mode]);
 
-  const shippingTypes = useSelector(getShippingTypesSelector);
-  const origin_ports = useSelector(getOriginPorts);
-  const destination_ports = useSelector(getDestinationPorts);
-  const frozen_choices = useSelector(getFrozenChoicesSelector);
-  const origin_port_value = useSelector(getIsLocalPort);
 
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
@@ -157,16 +157,16 @@ const Search: React.FC<PropsType> = (
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
+    if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
-    // }
+    }
   };
   let onDestinationChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
-    origin_port_value?.is_local
+    if (value.value.length >= 3) {
+    props.origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
-    // }
+    }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
@@ -187,7 +187,8 @@ const Search: React.FC<PropsType> = (
 
   const onSubmit = (values: any) => {
     let finalData;
-    if (values.cargo_groups) {
+      //FCL
+    if (values.shipping_mode === ShippingModeEnum.FCL) {
       finalData = {
         shipping_mode: values.shipping_mode,
         date_from: moment(dates[0]).format("DD/MM/YYYY"),
@@ -209,28 +210,27 @@ const Search: React.FC<PropsType> = (
         ),
       };
 
+      // checking if there are duplicated cargo groups
       const arrWithoutValues = finalData.cargo_groups.map((c: any) => {
         const copyObj = { ...c };
         delete copyObj.volume;
         return copyObj;
       });
-
       const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
-
+      //if there are no duplicates
       if (uniqCargoArr.length === finalData.cargo_groups.length) {
         dispatch(
-          bookingActions.set_current_booking_cargo_groups(
-            finalData.cargo_groups
-          )
-        );
+          bookingActions.set_current_booking_cargo_groups(finalData.cargo_groups));
         setDuplicatedCargoError("");
-        search_result.length == 0 && search_success
-          ? dispatch(postSearchQuoteThunk(finalData, history))
-          : dispatch(searchRatesOffersThunk(finalData));
+          search_result.length === 0 && search_success
+              ? dispatch(postSearchQuoteThunk(finalData, history))
+              // @ts-ignore
+              : dispatch(searchRatesOffersThunk(finalData))
       } else {
+          //if there are duplicates
         setDuplicatedCargoError("You have duplicated cargo groups");
       }
-    } else {
+    } else {   //chargeable weight shipping modes
       finalData = {
         shipping_mode: values.shipping_mode,
         date_from: moment(dates[0]).format("DD/MM/YYYY"),
@@ -265,6 +265,22 @@ const Search: React.FC<PropsType> = (
               }
         ),
       };
+        const arrWithoutValues = finalData.cargo_groups?.map((c: any) => {
+            const copyObj = {...c};
+            delete copyObj.volume;
+            return copyObj;
+        });
+        const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
+        //if there are no duplicates
+        if (uniqCargoArr.length === finalData.cargo_groups?.length) {
+            dispatch(searchActions.setDuplicatedError(''));
+            search_result.length === 0 && search_success
+                ? dispatch(postSearchQuoteThunk(finalData, history))
+                // @ts-ignore
+                : dispatch(searchRatesOffersThunk(finalData))
+        } else {
+            dispatch(searchActions.setDuplicatedError('You have duplicated cargo groups'));
+        }
     }
 
     dispatch(
@@ -343,7 +359,7 @@ const Search: React.FC<PropsType> = (
                   label={"Shipping mode"}
                   hideLabel={true}
                   background={"#ECECEC"}
-                  marginBot={"0px"}
+                  margin_bottom={"0px"}
                   disabled={disabled}
                   placeholder="Shipping Mode"
                 />
@@ -372,9 +388,9 @@ const Search: React.FC<PropsType> = (
                 // onBlur={blurHandler}
                 disabled={disabled}
               />
-              {origin_ports && origin_ports?.length > 0 && (
+              {props.origin_ports && props.origin_ports?.length > 0 && (
                 <PortsList top="45px">
-                  {origin_ports?.map((p: PortType) => (
+                  {props.origin_ports?.map((p: PortType) => (
                     <Port
                       onClick={() => closePortsHandler(p, "origin")}
                       key={p?.id}
@@ -408,9 +424,9 @@ const Search: React.FC<PropsType> = (
                 disabled={disabled}
                 //onBlur={blurHandler}
               />
-              {destination_ports && destination_ports?.length > 0 && (
+              {props.destination_ports && props.destination_ports?.length > 0 && (
                 <PortsList top="45px">
-                  {destination_ports?.map((p: PortType) => (
+                  {props.destination_ports?.map((p: PortType) => (
                     <Port
                       onClick={() => closePortsHandler(p, "destination")}
                       key={p?.id}
@@ -439,7 +455,7 @@ const Search: React.FC<PropsType> = (
                 register={register}
                 container_types={container_types}
                 remove={remove}
-                frozen_choices={frozen_choices}
+                frozen_choices={props.frozen_choices}
                 errors={errors}
                 disabled={disabled}
               />
@@ -454,6 +470,7 @@ const Search: React.FC<PropsType> = (
                   editCargoGroup={editCargoGroup}
                   setOpenCalcPopup={setOpenCalcPopup}
                   search_success={search_success}
+                  container_types={props.container_types}
                 />
               )
             )
@@ -508,7 +525,7 @@ const Search: React.FC<PropsType> = (
           </ButtonGroup>
         </form>
       </Container>
-      {search_result.length == 0 && search_success && (
+      {search_result.length === 0 && search_success && (
         <NoSearchResultCard
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}

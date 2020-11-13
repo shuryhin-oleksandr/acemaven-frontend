@@ -4,7 +4,7 @@ type PropsStyle = {
   right?: string;
   bottom?: string;
   scroll?: boolean;
-  justify_content?: string
+  justify_content?: string;
 };
 
 export const RelativeWrapper = styled.div`
@@ -40,7 +40,8 @@ export const FieldWrapper = styled.div`
 export const ButtonGroup = styled.div<PropsStyle>`
   display: flex;
   align-items: center;
-  justify-content: ${({justify_content}) => justify_content ? justify_content : 'space-between'};
+  justify-content: ${({ justify_content }) =>
+    justify_content ? justify_content : "space-between"};
   position: sticky;
   bottom: ${({ bottom }) => (bottom ? bottom : "22px")};
   right: ${({ right }) => (right ? right : "30px")};
@@ -54,4 +55,10 @@ export const AddImg = styled.img`
 export const RemoveImg = styled.img`
   cursor: pointer;
   margin-left: 15px;
+`;
+
+export const ErrorMessage = styled.div`
+  color: #e76767;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 12px;
 `;

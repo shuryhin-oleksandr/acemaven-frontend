@@ -16,12 +16,18 @@ import { Field } from "../../../_commonComponents/Input/input-styles";
 import React, { useEffect } from "react";
 import BaseButton from "../../../base/BaseButton";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 import { InputColWrapper } from "./shipper-styles";
 import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
 import { GroupWrap } from "../../../../Pages/Services&Rates/rates/register_new_freight_rate/form-styles";
 import FormField from "../../../_commonComponents/Input/FormField";
+import { AppStateType } from "../../../../../_BLL/store";
+import {
+  getCurrentShippingTypeSelector,
+  getShippingTypesSelector,
+} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 type PropsType = {
   control: any;
@@ -30,6 +36,7 @@ type PropsType = {
   getValues: any;
   register: any;
   setValue?: any;
+  shippingValue: number;
 };
 
 const arr = [
@@ -43,8 +50,35 @@ const CargoDetails: React.FC<PropsType> = ({
   formStep,
   getValues,
   register,
+  shippingValue,
 }) => {
   const dispatch = useDispatch();
+  let release_type_choices = useSelector(
+    (state: AppStateType) => state.booking.release_type_choices
+  );
+  let cargo_groups = useSelector(
+    (state: AppStateType) => state.booking.current_booking_cargo_groups
+  );
+
+  console.log("cargo_groups", cargo_groups);
+
+  const shippingTypes = useSelector(getShippingTypesSelector);
+  const mode = useSelector(getCurrentShippingTypeSelector);
+  const shippingModeOptions =
+    mode === ShippingTypesEnum.AIR
+      ? shippingTypes[0]?.shipping_modes
+      : shippingTypes[1]?.shipping_modes;
+
+  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
+    ?.container_types;
+
+  console.log("container_types", container_types);
+
+  const findContainer = (id: number) => {
+    const container = container_types?.find((c) => c.id === id);
+    console.log("CCC", container);
+    return container?.code;
+  };
 
   return (
     <>
@@ -78,20 +112,24 @@ const CargoDetails: React.FC<PropsType> = ({
         </div>
       </FlexWrapper>
       <InputsWrapper>
-        {arr.map((item) => (
-          <RowWrapper key={item.id}>
+        {cargo_groups?.map((item, idx) => (
+          <RowWrapper key={idx}>
             <div style={{ width: 205 }}>
-              <ContainerInfo>{item.type}</ContainerInfo>
+              <ContainerInfo>
+                {`${findContainer(Number(item.container_type))} x ${
+                  item.volume
+                }`}
+              </ContainerInfo>
             </div>
-            <div style={{ flex: 1 }}>
-              <Controller
-                name={`${item.id}`}
-                control={control}
-                as={<Field placeholder="Add desription..." />}
-                rules={{ required: "Field is required" }}
-                defaultValue=""
-              />
-            </div>
+            {/*<div style={{ flex: 1 }}>*/}
+            {/*  <Controller*/}
+            {/*    name={`${item.id}`}*/}
+            {/*    control={control}*/}
+            {/*    as={<Field placeholder="Add desription..." />}*/}
+            {/*    rules={{ required: "Field is required" }}*/}
+            {/*    defaultValue=""*/}
+            {/*  />*/}
+            {/*</div>*/}
           </RowWrapper>
         ))}
       </InputsWrapper>
@@ -111,11 +149,9 @@ const CargoDetails: React.FC<PropsType> = ({
               as={
                 <SurchargeRateSelect
                   label="Release type"
-                  options={[
-                    { title: "type 1", id: 1 },
-                    { title: "type 2", id: 2 },
-                  ]}
+                  options={release_type_choices}
                   // error={errors?.carrier?.message}
+                  placeholder="Release type"
                 />
               }
             />

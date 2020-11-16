@@ -243,7 +243,7 @@ const Search: React.FC<PropsType> = ({
           (c: any, index: number) => ({
             ...c,
             description: "",
-            id: index + 1,
+            id: `${index + 1}cargo`,
           })
         );
         dispatch(

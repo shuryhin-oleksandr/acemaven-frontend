@@ -29,6 +29,7 @@ import {
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { useFieldArray } from "react-hook-form";
+import { CargoGroup } from "../../../../../_BLL/types/bookingTypes";
 
 type PropsType = {
   setFormStep: VoidFunctionType;
@@ -36,11 +37,6 @@ type PropsType = {
   shippingValue: number;
 };
 
-const arr = [
-  { id: 1, type: "2 x 40HC" },
-  { id: 2, type: "2 x 40HC" },
-  { id: 3, type: "1 Pallets x 2w/m" },
-];
 const CargoDetails: React.FC<PropsType> = ({
   setFormStep,
   formStep,
@@ -60,11 +56,7 @@ const CargoDetails: React.FC<PropsType> = ({
     control,
     getValues,
     setValue,
-  } = useForm({
-    defaultValues: {
-      cargo_groups: cargo_groups,
-    },
-  });
+  } = useForm({});
 
   const { fields } = useFieldArray({
     control,
@@ -89,7 +81,19 @@ const CargoDetails: React.FC<PropsType> = ({
   };
 
   const onSubmit = (values: any) => {
-    console.log("values part 1", values);
+    const newArr = cargo_groups?.map((c: any) => {
+      return { ...c, description: values.cargo_descriptions[c.id] };
+    });
+
+    const firstStepObj = {
+      cargo_groups: newArr,
+      release_type: values.release_type,
+      number_of_documents: Number(values.number_of_documents),
+    };
+
+    dispatch(bookingActions.set_description_step(firstStepObj));
+
+    console.log("firstStepObj", firstStepObj);
     setFormStep(formStep + 1);
   };
 
@@ -111,45 +115,18 @@ const CargoDetails: React.FC<PropsType> = ({
         </div>
       </FlexWrapper>
       <InputsWrapper>
-        {fields?.map((item, idx) => (
+        {cargo_groups?.map((item, index) => (
           <RowWrapper key={item.id}>
             <div style={{ width: 205 }}>
               <ContainerInfo>
-                <Controller
-                  name={`cargo_groups[${idx}].volume`}
-                  control={control}
-                  as={<span>{item.volume} </span>}
-                />
-                x
-                <Controller
-                  name={`cargo_groups[${idx}].container_type`}
-                  control={control}
-                  as={
-                    <span> {findContainer(Number(item.container_type))}</span>
-                  }
-                />
-                {/*{`${findContainer(Number(item.container_type))} x ${*/}
-                {/*  item.volume*/}
-                {/*}`}*/}
+                {`${findContainer(Number(item.container_type))} x ${
+                  item.volume
+                }`}
               </ContainerInfo>
             </div>
-            {item.hasOwnProperty("dangerous") && (
-              <Controller
-                name={`cargo_groups[${idx}].dangerous`}
-                control={control}
-                as={<span />}
-              />
-            )}
-            {item.hasOwnProperty("frozen") && (
-              <Controller
-                name={`cargo_groups[${idx}].frozen`}
-                control={control}
-                as={<span />}
-              />
-            )}
             <div style={{ flex: 1 }}>
               <Controller
-                name={`cargo_groups[${idx}].description`}
+                name={`cargo_descriptions.${item.id}`}
                 control={control}
                 as={<Field placeholder="Add desription..." />}
                 rules={{ required: "Field is required" }}
@@ -187,7 +164,7 @@ const CargoDetails: React.FC<PropsType> = ({
               label="No. of Documents"
               inputRef={register}
               placeholder="No. of Documents"
-              name="number_of_docs"
+              name="number_of_documents"
               getValues={getValues}
               defaultValue={1}
             />

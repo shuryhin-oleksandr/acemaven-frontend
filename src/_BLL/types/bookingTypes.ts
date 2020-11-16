@@ -17,10 +17,17 @@ export type CargoGroup = {
   weight_measurement?: string;
   length_measurement?: string;
   description?: string;
+  id?: string;
 };
 
 export type ChoiceType = {
   id: number;
   code?: string;
   title: string;
+};
+
+export type DescriptionStepType = {
+  cargo_groups: CargoGroup[];
+  release_type?: number;
+  number_of_documents?: number;
 };

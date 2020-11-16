@@ -2,6 +2,7 @@ import {
   CargoDetailsValue,
   CargoGroup,
   ChoiceType,
+  DescriptionStepType,
 } from "../types/bookingTypes";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   booking_dates: null as { date_from: string; date_to: string } | null,
   current_booking_cargo_groups: null as CargoGroup[] | null,
   release_type_choices: null as ChoiceType[] | null,
+  description_step_data: null as DescriptionStepType | null,
 };
 
 type InitialStateType = typeof initialState;
@@ -50,6 +52,11 @@ export const bookingReducer = (
         ...state,
         release_type_choices: action.choices,
       };
+    case "SET_DESCRIPTION_STEP":
+      return {
+        ...state,
+        description_step_data: action.data,
+      };
     default:
       return state;
   }
@@ -82,4 +89,9 @@ export const bookingActions = {
     } as const),
   set_release_type_choices: (choices: ChoiceType[]) =>
     ({ type: "SET_RELEASE_TYPE_CHOICES", choices } as const),
+  set_description_step: (data: any) =>
+    ({
+      type: "SET_DESCRIPTION_STEP",
+      data,
+    } as const),
 };

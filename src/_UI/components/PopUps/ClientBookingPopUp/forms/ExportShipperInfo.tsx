@@ -48,24 +48,24 @@ const ExportShipperInfo: React.FC<PropsType> = ({
 
   useEffect(() => {
     if (isCheck) {
-      setValue("company_name", companyInfo?.name);
+      setValue("name", companyInfo?.name);
       setValue("address_line_first", companyInfo?.address_line_first);
       setValue("address_line_second", companyInfo?.address_line_second);
       setValue("state", companyInfo?.state);
       setValue("city", companyInfo?.city);
       setValue("zip_code", companyInfo?.zip_code);
       setValue("contact_name", currentUser?.first_name);
-      setValue("phone_number", currentUser?.phone);
+      setValue("phone", currentUser?.phone);
       setValue("email", currentUser?.email);
     } else {
-      setValue("company_name", "");
+      setValue("name", "");
       setValue("address_line_first", "");
       setValue("address_line_second", "");
       setValue("state", "");
       setValue("city", "");
       setValue("zip_code", "");
       setValue("contact_name", "");
-      setValue("phone_number", "");
+      setValue("phone", "");
       setValue("email", "");
     }
   }, [setValue, isCheck]);
@@ -78,10 +78,10 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             Back
           </BackButton>
           <BaseButton
-            onClick={() => {
-              dispatch(bookingActions.changeBookingStep("fee-table"));
-            }}
             type="submit"
+            // onClick={() => {
+            //   dispatch(bookingActions.changeBookingStep("fee-table"));
+            // }}
           >
             Next
           </BaseButton>
@@ -103,7 +103,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             label="Company Name"
             inputRef={register}
             placeholder="Company Name"
-            name="company_name"
+            name="name"
             getValues={getValues}
           />
           <FormField
@@ -155,7 +155,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             label="Phone number"
             inputRef={register}
             placeholder="Phone number"
-            name="phone_number"
+            name="phone"
             getValues={getValues}
           />
           <FormField

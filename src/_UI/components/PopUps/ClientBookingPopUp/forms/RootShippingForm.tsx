@@ -7,22 +7,22 @@ import { AppStateType } from "../../../../../_BLL/store";
 import { useForm } from "react-hook-form";
 import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
+import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
 
 type PropsType = {
   companyInfo: CompanyInfoType | null;
   currentUser: IAuthUserInfo | null;
   shippingValue: number;
+  currentFreightRate: SearchResultType;
 };
 
 const RootShippingForm: React.FC<PropsType> = ({
   companyInfo,
   currentUser,
   shippingValue,
+  currentFreightRate,
 }) => {
   const [formStep, setFormStep] = useState(1);
-  let cargo_groups = useSelector(
-    (state: AppStateType) => state.booking.current_booking_cargo_groups
-  );
 
   return (
     <Wrapper>
@@ -31,6 +31,7 @@ const RootShippingForm: React.FC<PropsType> = ({
           setFormStep={setFormStep}
           formStep={formStep}
           shippingValue={shippingValue}
+          currentFreightRate={currentFreightRate}
         />
       </div>
       <div style={{ display: formStep === 2 ? "block" : "none" }}>

@@ -30,17 +30,20 @@ import {
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { useFieldArray } from "react-hook-form";
 import { CargoGroup } from "../../../../../_BLL/types/bookingTypes";
+import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
 
 type PropsType = {
   setFormStep: VoidFunctionType;
   formStep: number;
   shippingValue: number;
+  currentFreightRate: SearchResultType;
 };
 
 const CargoDetails: React.FC<PropsType> = ({
   setFormStep,
   formStep,
   shippingValue,
+  currentFreightRate,
 }) => {
   const dispatch = useDispatch();
   let release_type_choices = useSelector(
@@ -91,9 +94,8 @@ const CargoDetails: React.FC<PropsType> = ({
       number_of_documents: Number(values.number_of_documents),
     };
 
-    dispatch(bookingActions.set_description_step(firstStepObj));
 
-    console.log("firstStepObj", firstStepObj);
+    dispatch(bookingActions.set_description_step(firstStepObj));
     setFormStep(formStep + 1);
   };
 
@@ -137,40 +139,46 @@ const CargoDetails: React.FC<PropsType> = ({
         ))}
       </InputsWrapper>
 
-      {/*{direction==="export" && shipping_type==="sea" &&}*/}
-      <DocumentationSection>
-        <InputGroupName>Documentation</InputGroupName>
-        <DocumentationRow>
-          <DocumentationCol>
-            <Controller
-              name="release_type"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "Field is required",
-              }}
-              as={
-                <SurchargeRateSelect
-                  label="Release type"
-                  options={release_type_choices}
-                  // error={errors?.carrier?.message}
-                  placeholder="Release type"
+      {currentFreightRate.freight_rate.shipping_type ===
+        ShippingTypesEnum.SEA &&
+        currentFreightRate.freight_rate.origin.is_local && (
+          <DocumentationSection>
+            <InputGroupName>Documentation</InputGroupName>
+            <DocumentationRow>
+              <DocumentationCol>
+                <Controller
+                  name="release_type"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: "Field is required",
+                  }}
+                  as={
+                    <SurchargeRateSelect
+                      label="Release type"
+                      options={release_type_choices}
+                      error={errors?.release_type?.message}
+                      placeholder="Release type"
+                    />
+                  }
                 />
-              }
-            />
-          </DocumentationCol>
-          <DocumentationCol>
-            <FormField
-              label="No. of Documents"
-              inputRef={register}
-              placeholder="No. of Documents"
-              name="number_of_documents"
-              getValues={getValues}
-              defaultValue={1}
-            />
-          </DocumentationCol>
-        </DocumentationRow>
-      </DocumentationSection>
+              </DocumentationCol>
+              <DocumentationCol>
+                <FormField
+                  label="No. of Documents"
+                  inputRef={register({
+                    required: "Field is required",
+                  })}
+                  placeholder="No. of Documents"
+                  name="number_of_documents"
+                  getValues={getValues}
+                  defaultValue={1}
+                  error={errors?.number_of_documents}
+                />
+              </DocumentationCol>
+            </DocumentationRow>
+          </DocumentationSection>
+        )}
     </form>
   );
 };

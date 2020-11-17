@@ -62,7 +62,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,shipping
     const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
     return (
         <CardContainer>
-            {bookingPopupVisible && <ClientBookingPopUp shippingValue={shippingValue} setBookingPopupVisible={setBookingPopupVisible} search_result={search_result} />}
+            {bookingPopupVisible && <ClientBookingPopUp shippingValue={shippingValue} setBookingPopupVisible={setBookingPopupVisible} currentFreightRate={search_result} />}
             <CardInner>
                 <BookingCard showRatingPopup={showRatingPopup}
                              showTable={setShow}

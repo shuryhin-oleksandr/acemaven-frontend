@@ -72,13 +72,13 @@ const useStyles = makeStyles({
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
   shippingValue: number;
-  search_result: SearchResultType;
+  currentFreightRate: SearchResultType;
 };
 
 const ClientBookingPopUp: React.FC<PropsType> = ({
   setBookingPopupVisible,
   shippingValue,
-  search_result,
+  currentFreightRate,
 }) => {
   const dispatch = useDispatch();
   const companyId = sessionStorage.getItem("u");
@@ -111,12 +111,13 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
         <CloseBtn onClick={() => setBookingPopupVisible(false)}>
           <img src={close} alt="" />
         </CloseBtn>
-        <BookingCard button_display={false} search_result={search_result} />
+        <BookingCard button_display={false} search_result={currentFreightRate} />
         {bookingStep === "shipping-form" && (
           <RootShippingForm
             companyInfo={companyInfo}
             currentUser={currentUser}
             shippingValue={shippingValue}
+            currentFreightRate={currentFreightRate}
           />
         )}
         {bookingStep === "fee-table" && (

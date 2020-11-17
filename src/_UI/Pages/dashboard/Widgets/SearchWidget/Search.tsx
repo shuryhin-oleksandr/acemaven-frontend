@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 //moment
 import moment from "moment";
+//Lodash
+import { uniqWith, isEqual } from "lodash";
 //types
 import {
   CurrentShippingType,
@@ -16,21 +18,14 @@ import {ContainerType, PortType, ShippingTypeType} from "../../../../../_BLL/typ
 import {CargoGroupType, ChoiceType, SearchResultType} from "../../../../../_BLL/types/search/search_types";
 import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 // BLL
-import { useDispatch, useSelector } from "react-redux";
-import { getShippingTypesSelector } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+import { useDispatch } from "react-redux";
 import { getPorts } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import {
-  getDestinationPorts,
-  getIsLocalPort,
-  getOriginPorts,
-} from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import {
   getFrozenChoices,
   searchRatesOffersThunk,
 } from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import { postSearchQuoteThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
-import { getFrozenChoicesSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
 import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 //components
@@ -59,7 +54,7 @@ import {
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
-import { uniqWith, isEqual } from "lodash";
+
 
 type PropsType = {
   right?: string;
@@ -180,16 +175,16 @@ const Search: React.FC<PropsType> = (
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
+    if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
-    // }
+    }
   };
   let onDestinationChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
+    if (value.value.length >= 3) {
     props.origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
-    // }
+    }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {

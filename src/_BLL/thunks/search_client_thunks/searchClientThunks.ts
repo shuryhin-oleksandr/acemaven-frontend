@@ -24,13 +24,13 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
                     volume: data.volume}
             )
             if(!mode) {
-
                 let id_cargo = getState().search.cargo_groups?.length + 1
                 let data_cargo = {
                     ...data,
                     total_per_pack: res.data.total_per_pack,
                     total_wm: res.data.total,
-                    id: id_cargo
+                    id: id_cargo,
+                    description: ''
                 }
                 dispatch(searchActions.setCargoGroupData(data_cargo))
             } else {

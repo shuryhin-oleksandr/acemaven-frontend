@@ -87,35 +87,52 @@ const DashboardContainer:React.FC = () => {
 
             />}
             <div style={{position:"relative", width:"100%"}}>
-                {auth_user?.companies && auth_user.companies[0].type === 'client'
-                    &&
-                <div style={{position:search_success?"relative":"absolute", zIndex:6, top:"30px", left:"30px", display:widgetsVisible?"block":"none"}}>
-                     <Search setOpenCalcPopup={setOpenCalcPopup}
-                               shippingValue={shippingValue}
+                {/*{auth_user?.companies && auth_user.companies[0].type === 'client'*/}
+                {/*    &&*/}
+                {/*<div style={{position:search_success?"relative":"absolute", zIndex:6, top:"30px", left:"30px", display:widgetsVisible?"block":"none"}}>*/}
+                {/*     <Search setOpenCalcPopup={setOpenCalcPopup}*/}
+                {/*               shippingValue={shippingValue}*/}
+                {/*               setShippingValue={setShippingValue}*/}
+                {/*               setMode={setMode}*/}
+                {/*               mode={current_shipping_type}*/}
+                {/*               cargo_groups_list={cargo_groups}*/}
+                {/*               packaging_types={packaging_types}*/}
+                {/*                container_types={usageFees}*/}
+                {/*               disabled={search_success}*/}
+                {/*               search_result={search_result}*/}
+                {/*               search_success={search_success}*/}
+                {/*                duplicatedCargoError={duplicatesError}*/}
+                {/*                setDuplicatedCargoError={setDuplicatedCargoError}*/}
+                {/*                shippingTypes={shipping_types}*/}
+                {/*                origin_ports={origin_ports}*/}
+                {/*                destination_ports={destination_ports}*/}
+                {/*                frozen_choices={frozen_choices}*/}
+                {/*                origin_port_value={origin_port_value}*/}
+                {/*/>*/}
+                {/*</div>*/}
+                {/*}*/}
+
+                <DashboardPage widgetsVisible={widgetsVisible}
+                                 setWidgetsVisible={setWidgetsVisible}
+                                 shippingValue={shippingValue}
+                               setOpenCalcPopup={setOpenCalcPopup}
                                setShippingValue={setShippingValue}
                                setMode={setMode}
                                mode={current_shipping_type}
-                               cargo_groups_list={cargo_groups}
+                               cargo_groups={cargo_groups}
                                packaging_types={packaging_types}
-                                container_types={usageFees}
+                               container_types={usageFees}
                                disabled={search_success}
                                search_result={search_result}
                                search_success={search_success}
-                                duplicatedCargoError={duplicatesError}
-                                setDuplicatedCargoError={setDuplicatedCargoError}
-                                shippingTypes={shipping_types}
-                                origin_ports={origin_ports}
-                                destination_ports={destination_ports}
-                                frozen_choices={frozen_choices}
-                                origin_port_value={origin_port_value}
+                               duplicatedCargoError={duplicatesError}
+                               setDuplicatedCargoError={setDuplicatedCargoError}
+                               shippingTypes={shipping_types}
+                               origin_ports={origin_ports}
+                               destination_ports={destination_ports}
+                               frozen_choices={frozen_choices}
+                               origin_port_value={origin_port_value}
                 />
-                </div>
-                }
-                {search_success
-                ? <SearchContainer search_result={search_result} shippingValue={shippingValue}/>
-                : <DashboardPage widgetsVisible={widgetsVisible}
-                                 setWidgetsVisible={setWidgetsVisible}
-                />}
             </div>
 
         </Layout>

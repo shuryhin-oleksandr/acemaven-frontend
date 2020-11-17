@@ -3,7 +3,7 @@ import {commonQuotesClientActions, quotesClientActions} from "../../reducers/quo
 import {quotesClientAPI} from "../../../_DAL/API/quotes/client/quotesClientAPI";
 
 
-export const postSearchQuoteThunk = (data:any, history: any) =>{
+export const postSearchQuoteThunk = (data:any, history: any) => {
     return async (dispatch: Dispatch<commonQuotesClientActions>) => {
         try {
             await quotesClientAPI.postSearchQuote(data);

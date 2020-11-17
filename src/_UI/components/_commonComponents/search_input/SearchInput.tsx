@@ -5,6 +5,7 @@ import { filterByThunk } from "../../../../_BLL/thunks/rates&surcharge/surcharge
 import search_icon from "../../../../_UI/assets/icons/rates&services/search_loop.svg";
 import { getFilteredRateListThunk } from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {getClientQuotesThunk} from "../../../../_BLL/thunks/quotes/clientQuotesThunk";
+import {getAgentQuotesListThunk} from "../../../../_BLL/thunks/quotes/agentQuotesThunk";
 
 type PropsType = {
   setSearchMode: VoidFunctionType;
@@ -53,6 +54,14 @@ const SearchInput: React.FC<PropsType> = ({
             value
             )
         )
+    } else if (thunkName === 'quotes_agent') {
+        dispatch(getAgentQuotesListThunk(
+            props.type,
+            props.column_name,
+            props.searchColumn,
+            value
+           )
+       )
     } else {
       dispatch(
           filterByThunk(

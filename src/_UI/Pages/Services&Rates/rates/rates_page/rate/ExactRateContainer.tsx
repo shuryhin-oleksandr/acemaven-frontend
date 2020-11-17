@@ -78,9 +78,7 @@ const ExactRateContainer = ({...props}) => {
         }
         dispatch(getSurchargeForExactRateThunk(rate_data))
     }
-    useEffect(() => {
 
-    }, [dispatch])
 
     return (
     <Layout>

@@ -1,4 +1,5 @@
 import React from 'react'
+//MATERIAL UI
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -7,9 +8,12 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+//types
+import {CargoGroupQuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
+
 
 type PropsType = {
-
+    cargos?: CargoGroupQuoteType[]
 }
 
 const useStyles = makeStyles({
@@ -17,10 +21,7 @@ const useStyles = makeStyles({
         boxShadow: 'none'
     },
     table: {
-        width: 700,
-        '& .MuiTableHead-root' : {
-
-        }
+        width: 450,
     },
     cell: {
         color: '#115B86',
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
     }
 });
 
-const CargoTable:React.FC<PropsType> = ({}) => {
+const CargoTable:React.FC<PropsType> = ({cargos}) => {
     const classes = useStyles();
 
     return (
@@ -46,45 +47,23 @@ const CargoTable:React.FC<PropsType> = ({}) => {
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell className={classes.cell} align="left">VOLUME ?</TableCell>
-                        <TableCell className={classes.cell} align="left">PACKAGING TYPE</TableCell>
-                        <TableCell className={classes.cell} align="left">CARGO DESCRIPTION</TableCell>
+                        <TableCell className={classes.cell} align="left">VOLUME</TableCell>
+                        <TableCell className={classes.cell} align="left">
+                            {cargos && cargos[0].container_type ? 'CONTAINER TYPE' : 'PACKAGING TYPE'}
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                        <TableRow>
-                            <TableCell className={classes.innerCell}  component="th" scope="row">
-                               CONTAINER TYPE
-                            </TableCell>
-                            <TableCell className={classes.innerCell} align="left" >
-                                2 OF 250 SACKS
+                    {cargos?.map(c => <TableRow>
+                            <TableCell className={classes.innerCell} component="th" scope="row">
+                                {c?.volume}
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                CARGO DESCRIPTION ( COFFEE & ETC.)
+                                {c.container_type?.code ?? (`${c.packaging_type?.description} - ${c.total_wm}w/m`)}
                             </TableCell>
                         </TableRow>
-                        <TableRow>
-                        <TableCell className={classes.innerCell}  component="th" scope="row">
-                            CONTAINER TYPE
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            2 OF 250 SACKS
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            CARGO DESCRIPTION ( COFFEE & ETC.)
-                        </TableCell>
-                    </TableRow>
-                        <TableRow>
-                        <TableCell className={classes.innerCell}  component="th" scope="row">
-                            CONTAINER TYPE
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            2 OF 250 SACKS
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            CARGO DESCRIPTION ( COFFEE & ETC.)
-                        </TableCell>
-                    </TableRow>
+                        )
+                    }
                 </TableBody>
             </Table>
         </TableContainer>

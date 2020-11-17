@@ -1,11 +1,19 @@
 import React from 'react'
+//material ui
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import {ModeIcon, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
-import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
-import {StatusSpan} from "../../client/tables/client-quotes-table-styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//types
+import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+//styles
+import {ModeIcon, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
+import {StatusSpan} from "../../client/tables/client-quotes-table-styles";
 import {DoneIcon, SubmitQuoteButton, SubmittedWrapper} from "./agent-quotes-styles";
+//icons
+import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
+import air_type from '../../../../assets/icons/rates&services/plane-surcharge.svg'
+import moment from "moment";
+import {CargosOuter} from "../../client/quotes-client-styles";
 
 
 const useStyles = makeStyles({
@@ -62,31 +70,45 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    submit_status: boolean,
-    setCardOpen: (value: number) => void
+    setCardOpen: (value: number) => void,
+    quote: QuoteType
 }
 
-const AgentQuoteRow:React.FC<PropsType> = ({submit_status, setCardOpen}) => {
+const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
 
     const classes = useStyles();
+    let a = moment(quote.date_from, 'DD/MM/YYYY').toDate()
+    let day_from = moment(a).format('D')
+    let c = moment(quote.date_to, 'DD/MM/YYYY').toDate()
+    let date_to = moment(c).format('D MMMM YYYY')
 
     return (
-        <TableRow onClick={() => setCardOpen(1)} className={classes.root}>
-            <TableCell  className={classes.innerMainCell} align="left" component="th" scope="row">
-                <ModeIcon src={sea_type} alt=""/>
-                <SpanMode>LHR</SpanMode>
+        <TableRow  className={classes.root}>
+            <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
+                <ModeIcon src={quote.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
+                <SpanMode>{quote.origin.code}</SpanMode>
             </TableCell>
-            <TableCell className={classes.innerCell} align="left">JFK</TableCell>
-            <TableCell className={classes.innerCell} align="left">FCL</TableCell>
-            <TableCell className={classes.innerCell} align="left">2 x 3.0 kg</TableCell>
-            <TableCell className={classes.innerCell} align="center"><div>12 march 2020</div><div>WEEK 5</div></TableCell>
+            <TableCell className={classes.innerCell} align="left">{quote.destination.code}</TableCell>
+            <TableCell className={classes.innerCell} align="left">{quote.shipping_mode.title}</TableCell>
+            <TableCell className={classes.innerCell} align="left">
+                <CargosOuter>
+                    {quote.cargo_groups.map((c, index) => {
+                        return <span key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
+                            {c.total_wm && ` - ${c.total_wm}w/m`}</span>
+                    })}
+                </CargosOuter>
+            </TableCell>
             <TableCell className={classes.innerCell} align="center">
-                {submit_status
+                <div style={{fontFamily: 'Helvetica Light', fontSize: '15px', textAlign: 'start'}}>{day_from} - {date_to}</div>
+                <div style={{textAlign: 'start'}}>WEEK {quote.week_range.week_from}{quote.week_range.week_from !== quote.week_range.week_to && ` - ${quote.week_range.week_to}`}</div>
+            </TableCell>
+            <TableCell className={classes.innerCell} align="right">
+                {quote.is_submitted
                     ? <SubmittedWrapper>
                         <DoneIcon />
-                        <StatusSpan status={true}>Submitted</StatusSpan>
+                        <StatusSpan>Submitted</StatusSpan>
                     </SubmittedWrapper>
-                    :  <SubmitQuoteButton>SUBMIT QUOTE</SubmitQuoteButton>
+                    :  <SubmitQuoteButton onClick={() => setCardOpen(Number(quote.id))}>SUBMIT QUOTE</SubmitQuoteButton>
                 }
             </TableCell>
         </TableRow>

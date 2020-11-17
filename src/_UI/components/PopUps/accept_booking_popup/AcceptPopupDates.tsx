@@ -9,7 +9,7 @@ import {Controller} from "react-hook-form";
 type PropsType = {
     control: any
     setValue: (name: string, value: any) => void
-    errors: {from: any, to: any, departure_time: any}
+    errors: {from: any, to: any, departure_time: any, arrival_time: any}
     textColor?: string
     textFont?: string
     textTransform?: string
@@ -133,8 +133,18 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
                 input_height={props.input_height}
                 required_dates={required_dates}
             />
-            <TimePicker type="time" step='300'
-            />
+                <Controller control={control}
+                            rules={{
+                                required: true
+                            }}
+                            name='arrival_time'
+                            as={
+                                <TimePicker type="time"
+                                            step='300'
+                                            error={!!errors?.arrival_time}
+                                />
+                            }
+                />
                 </Wrapper>
         </AcceptDatesFilter>
     )

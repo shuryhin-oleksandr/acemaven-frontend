@@ -6,14 +6,14 @@ type PropsStyle = {
 }
 
 export const SubmittedWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  position: relative;
 `
 export const DoneIcon = styled.div`
   background: url(${done_icon});
   height: 19px;
   width: 19px;
-  margin-right: 3px;
+  position: absolute;
+  right: 90px;
 `
 export const SubmitQuoteButton = styled.button`
   width: 187px;
@@ -101,7 +101,7 @@ export const QuoteInfo = styled.div`
 export const GeneralInfo = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 265px;
+  max-width: 400px;
   width: 100%;
 `
 export const GeneralTitle = styled.div<{margin_bottom?: string}>`
@@ -157,7 +157,7 @@ margin-bottom: 12px;
 `
 export const ShipmentRowWeek = styled.div`
   font-family: "Helvetica Light", sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 26px;
   text-transform: capitalize;
   color: black;

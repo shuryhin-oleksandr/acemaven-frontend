@@ -11,12 +11,12 @@ export const AcceptWrapper = styled.div`
   bottom: 0;
   display: flex;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: 70px;
 `
 export const AcceptInner = styled.div`
   max-width: 800px;
   width: 100%;
-  height: 777px;
+  max-height: 1000px;
   background-color: white;
   position: relative;
 `
@@ -58,7 +58,7 @@ export const FormTextarea = styled.textarea<{error?: boolean}>`
     background-color: ${({error}) => error ? 'rgba(0, 0, 0, .06)' : 'white'};
     padding-top: 12px;
     padding-left: 10px;
-    outline-color: rgba(0, 0, 0, .2);
+    outline: none;
     
   &::placeholder {
     color: #bdbdbd;
@@ -74,7 +74,7 @@ export const TimePicker = styled.input<{error?: boolean}>`
   border-radius: 4px; 
   font-family: 'Helvetica Light', sans-serif;
  padding: 3px;
- margin-top: ${({error}) => error ? '-7px' : '15px'};
+ margin-top: ${({error}) => error ? '-10px' : '15px'};
  outline: none;
 `
 export const AcceptPopupActions = styled.div`

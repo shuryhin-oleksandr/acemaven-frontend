@@ -19,6 +19,7 @@ import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_type from '../../../../assets/icons/rates&services/plane-surcharge.svg';
 import close_icon from '../../../../../_UI/assets/icons/close-icon.svg'
+import moment from "moment";
 
 
 const useStyles = makeStyles({
@@ -95,6 +96,10 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
     const classes = useStyles();
 
     const [isOpen, setIsOpen] = useState(false)
+    let a = moment(quote.date_from, 'DD/MM/YYYY').toDate()
+    let day_from = moment(a).format('D')
+    let c = moment(quote.date_to, 'DD/MM/YYYY').toDate()
+    let date_to = moment(c).format('D MMMM YYYY')
 
     return (
         <React.Fragment>
@@ -117,7 +122,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                         ? `WEEK ${quote.week_range.week_from} - ${quote.week_range.week_to}`
                         : `WEEK ${quote.week_range.week_from}`
                     }
-                    <br/> <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>{quote.date_from}{'-'}{quote.date_to}</span>
+                    <br/> <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>{day_from}{'-'}{date_to}</span>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="center" onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)}>
                     <OffersSpan new_offer={true}>0</OffersSpan>

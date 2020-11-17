@@ -49,6 +49,7 @@ export type QuoteType = {
     date_from: string,
     date_to: string,
     is_active: boolean,
+    is_submitted?: boolean,
     cargo_groups: CargoGroupQuoteType[],
     shipping_type: string,
     week_range: {

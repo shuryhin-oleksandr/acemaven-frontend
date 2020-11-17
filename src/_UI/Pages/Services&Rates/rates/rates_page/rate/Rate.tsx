@@ -1,4 +1,20 @@
 import React, {useEffect, useState} from "react";
+//react hook form
+import { Controller } from "react-hook-form";
+//react-redux
+import {useDispatch, useSelector} from "react-redux";
+//types
+import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+//BLL
+import {editRates} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {getEditSuccess} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
+//COMPONENTS
+import ExistingRatesTable from "./ExistingRatesTable";
+import SurchargesToRate from "../../register_new_freight_rate/tables/SurchargesToRate";
+import RateEditPopUp from "../../../../../components/PopUps/RateEditPopUp/RateEditPopUp"
+//styles
 import {
   RateContainer,
   Wrap,
@@ -13,22 +29,12 @@ import {
   FieldsWrap,
   Label, PauseButton,
 } from "./exact-rate-styles";
+import { SaveButton } from "../../../surcharge/surcharges_page/surcharge/surcharge-style";
+//icons
 import pause from "../../../../../assets/icons/rates&services/pause.svg";
 import play from "../../../../../assets/icons/rates&services/play_icon.svg";
-import { SaveButton } from "../../../surcharge/surcharges_page/surcharge/surcharge-style";
-import { Controller } from "react-hook-form";
 import ship from "../../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../../assets/icons/rates&services/plane-surcharge.svg";
-import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import ExistingRatesTable from "./ExistingRatesTable";
-import {SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import SurchargesToRate from "../../register_new_freight_rate/tables/SurchargesToRate";
-import RateEditPopUp from "../../../../../components/PopUps/RateEditPopUp/RateEditPopUp";
-import {useDispatch, useSelector} from "react-redux";
-import {editRates} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import {getEditSuccess} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
-import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
-
 
 
 type PropsType = {
@@ -45,7 +51,7 @@ type PropsType = {
   existing_surcharge: SurchargeInfoType | null
 }
 
-const Rate:React.FC<PropsType> = ({ is_active, rate, id, handleSubmit, errors, setValue,
+const Rate:React.FC<PropsType> = ({ is_active, rate, handleSubmit, errors, setValue,
                                     control, getValues, activateRateHandler, getSurchargeForRate,
                                     existing_surcharge
                                   }) => {
@@ -56,7 +62,6 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, id, handleSubmit, errors, s
   useEffect(() => {
     if(rate && rate.rates.length > 1) {
       rate.rates.map((r) => {
-        //setValue(`rates.${r.id}.rate`)
         setValue(`rates.${r.id}.from`, r.start_date)
         setValue(`rates.${r.id}.to`, r.expiration_date)
       })
@@ -86,7 +91,7 @@ const dispatch = useDispatch()
       setFormMode(false)
       dispatch(rateActions.setEditSuccess(''))
     }
-  }, [edit_success])
+  }, [edit_success, dispatch])
 
   return (
     <RateContainer onSubmit={handleSubmit(onSubmit)}>

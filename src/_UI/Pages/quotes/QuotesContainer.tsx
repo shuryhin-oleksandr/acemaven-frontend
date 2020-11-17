@@ -8,28 +8,35 @@ import {
     getClientQuotesThunk
 } from "../../../_BLL/thunks/quotes/clientQuotesThunk";
 import {getClientQuotesListSelector} from "../../../_BLL/selectors/quotes/client/quotesClientSelector";
+import {getAgentQuotesListThunk} from "../../../_BLL/thunks/quotes/agentQuotesThunk";
+import {
+    getAgentQuotesLIstSelector
+} from "../../../_BLL/selectors/quotes/agent/agentQuoteSelector";
 //components
 import Layout from "../../components/BaseLayout/Layout";
 import QuotesPage from "./client/QuotesPage";
 import AgentQuotesPage from "./agent/AgentQuotesPage";
-import {getCurrentShippingTypeSelector} from "../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 
 
 const QuotesContainer:React.FC = () => {
     //data from store
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo?.companies[0])
-    const my_quotes_list = useSelector(getClientQuotesListSelector)
-    const currentShippingType = useSelector(getCurrentShippingTypeSelector)
+    const my_quotes_list = useSelector(getClientQuotesListSelector) //client
+    const agent_quotes_list = useSelector(getAgentQuotesLIstSelector) //agent
 
     //get quotes after mounting
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getClientQuotesThunk('sea', '', '', '' ))
-    }, [dispatch])
+        company_type?.type === 'client'
+            ? dispatch(getClientQuotesThunk( mode, '', '', ''))
+            : dispatch(getAgentQuotesListThunk(mode, '', '', ''))
+    }, [dispatch, company_type])
 
     //get quotes list sort by smth, filter by shipping type and search value
     let getQuotesByFilters = (type: string, field_name: string, search_column: string, search_value: string) => {
-        dispatch(getClientQuotesThunk(type, field_name, search_column, search_value))
+        company_type.type === 'client'
+            ? dispatch(getClientQuotesThunk(type, field_name, search_column, search_value))
+            : dispatch(getAgentQuotesListThunk(type, field_name, search_column, search_value))
     }
 
     //CLIENT: active or pause quote
@@ -64,7 +71,17 @@ const QuotesContainer:React.FC = () => {
                               setSearchColumn={setSearchColumn}
 
                 />
-                : <AgentQuotesPage />
+                : <AgentQuotesPage setSearchMode={setSearchMode}
+                                   isSearchMode={isSearchMode}
+                                   mode={mode}
+                                   setMode={setMode}
+                                   searchValue={searchValue}
+                                   setSearchValue={setSearchValue}
+                                   search_column={search_column}
+                                   setSearchColumn={setSearchColumn}
+                                   getQuotesByFilters={getQuotesByFilters}
+                                   agent_quotes_list={agent_quotes_list}
+                />
             }
         </Layout>
     )

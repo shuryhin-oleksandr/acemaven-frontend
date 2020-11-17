@@ -58,7 +58,7 @@ export const CargosOuter = styled.div`
   width: 100%;
   justify-content: flex-start;
   font-family: "Helvetica Light", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
 `
 
 

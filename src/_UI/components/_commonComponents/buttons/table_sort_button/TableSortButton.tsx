@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, {useRef } from "react";
 import sort_arrows from "../../../../assets/icons/rates&services/sort_arrows.svg";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { filterByThunk } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { getFilteredRateListThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { SortButton } from "./table-sort-button-style";
 import {getClientQuotesThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
+import {getAgentQuotesListThunk} from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
 
 type PropsType = {
   column_name: string;
@@ -46,6 +47,13 @@ const TableSortButton: React.FC<PropsType> = ({
               props.searchColumn,
               props.searchValue)
           )
+        } else if(thunkName === 'quotes_agent') {
+            dispatch(getAgentQuotesListThunk(
+                mode,
+                descendingOrder.current ? `-${column_name}` : column_name,
+                props.searchColumn,
+                props.searchValue
+            ))
         } else {
           dispatch(
               filterByThunk(

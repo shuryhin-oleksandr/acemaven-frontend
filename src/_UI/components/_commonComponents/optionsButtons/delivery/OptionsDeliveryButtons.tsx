@@ -12,6 +12,7 @@ import plane from "../../../../assets/icons/rates&services/Plan.svg";
 import { filterByThunk } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {getClientQuotesThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 import {getFilteredRateListThunk} from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {getAgentQuotesListThunk} from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
 
 type PropsType = {
   setMode?: VoidFunctionType;
@@ -39,6 +40,15 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
           "",
           props.searchColumn,
           props.searchValue))
+    } else if(props.thunkName === 'quotes_agent') {
+      props.dispatch && props.dispatch(
+          getAgentQuotesListThunk(
+              type,
+              "",
+              props.searchColumn,
+              props.searchValue
+          )
+      )
     } else if (props.thunkName === 'rates') {
       props.dispatch && props.dispatch(
           getFilteredRateListThunk(

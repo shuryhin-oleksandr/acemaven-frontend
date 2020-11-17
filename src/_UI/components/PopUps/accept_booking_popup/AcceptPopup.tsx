@@ -13,6 +13,7 @@ import AcceptPopupDates from "./AcceptPopupDates";
 import {IconButton} from "@material-ui/core";
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
 import OutlineButton from "../../_commonComponents/buttons/outline_button/OutlineButton";
+import GoogleInput from "../../_commonComponents/Input/google_autocomplete_input/GoogleInput";
 
 
 
@@ -22,7 +23,7 @@ type PropsType = {
 
 
 const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup}) => {
-    const {control, errors, handleSubmit, setValue} = useForm({
+    const {control, errors, handleSubmit, setValue, register} = useForm({
         reValidateMode: 'onBlur'
     })
 
@@ -78,9 +79,26 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup}) => {
                                     }
                         />
                         <AcceptPopupDates control={control}
-                                          errors={{from: errors.from, to: errors.to, departure_time: errors.departure_time}}
+                                          errors={{from: errors.from, to: errors.to, departure_time: errors.departure_time, arrival_time: errors.arrival_time}}
                                           setValue={setValue}
                                           required_dates={true}
+                        />
+                        <Controller name='empty_pickup_location'
+                                    control={control}
+                                    rules={{
+                                        required: 'Field is required'
+                                    }}
+                                    as={
+                                        <FormField error={errors?.empty_pickup_location}
+                                                   label='Empty Pick Up Location'
+                                                   placeholder='Placeholder'
+                                                   maxW='100%'
+                                        />
+                                    }
+                        />
+                        <GoogleInput register={register}
+                                     name='autocomplete_address'
+                                     errors={errors}
                         />
                         <Controller name='booking_notes'
                                     control={control}

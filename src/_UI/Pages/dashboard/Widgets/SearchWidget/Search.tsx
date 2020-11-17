@@ -154,6 +154,8 @@ const Search: React.FC<PropsType> = (
     control,
     name: "cargo_groups",
   });
+
+  console.log('fields', fields)
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
@@ -188,6 +190,7 @@ const Search: React.FC<PropsType> = (
   const onSubmit = (values: any) => {
     let finalData;
       //FCL
+      debugger
     if (values.shipping_mode === ShippingModeEnum.FCL) {
       finalData = {
         shipping_mode: values.shipping_mode,
@@ -195,17 +198,18 @@ const Search: React.FC<PropsType> = (
         date_to: moment(dates[1]).format("DD/MM/YYYY"),
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
-        cargo_groups: values.cargo_groups.map((c: any) =>
+        cargo_groups: values.cargo_groups.map((c: any, index : any) =>
           c.frozen
             ? {
                 container_type: c.container_type,
                 frozen: c.frozen,
                 volume: Number(c.volume),
+                id: index + 1
               }
             : {
                 container_type: c.container_type,
                 dangerous: c.dangerous,
-                volume: Number(c.volume),
+                volume: Number(c.volume), id: index + 1
               }
         ),
       };
@@ -507,7 +511,9 @@ const Search: React.FC<PropsType> = (
                     title={"Add more cargo groups by clicking on plus"}
                   >
                     <AddImg
-                      onClick={() => append({ name: "cargo_groups" })}
+                      onClick={() => append({
+                          name: 'cargo_groups'
+                      },)}
                       src={AddIcon}
                       alt="add"
                     />

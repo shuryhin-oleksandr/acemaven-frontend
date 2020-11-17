@@ -16,7 +16,7 @@ import OptionsDeliveryButtons from "../../../../components/_commonComponents/opt
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import QuoteRow from "./QuoteRow";
 //styles
-import {HeaderTitle, QuotesTableContainer, QuotesTableHeader,} from "./client-quotes-table-styles";
+import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "./client-quotes-table-styles";
 
 
 type PropsType = {
@@ -40,11 +40,6 @@ const useStyles = makeStyles({
         height: 400,
         overflowY: 'scroll',
 
-    },
-    table: {
-        '& .MuiTableHead-root' : {
-
-        }
     },
     shipping_cell: {
         width: '220px',
@@ -115,7 +110,7 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                 />
             </QuotesTableHeader>
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="collapsible table">
+                <Table aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.shipping_cell} align="left">

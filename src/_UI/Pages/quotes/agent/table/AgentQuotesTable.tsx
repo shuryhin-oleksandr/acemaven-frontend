@@ -1,21 +1,39 @@
-import React, {useState} from 'react'
+import React from 'react'
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "../../client/tables/client-quotes-table-styles";
-import OptionsDeliveryButtons
-    from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import TableBody from "@material-ui/core/TableBody";
+//react-redux
 import {useDispatch} from "react-redux";
+//types
+import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+//components
+import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import AgentQuoteRow from "./AgentQuoteRow";
+//styles
+import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "../../client/tables/client-quotes-table-styles";
+
+
 
 type PropsType = {
-    setCardOpen: (value: number) => void
+    setCardOpen: (value: number) => void,
+    setSearchMode: (value: boolean) => void
+    isSearchMode: boolean
+    mode: string
+    setMode: (value: string) => void
+    searchValue: string
+    setSearchValue: (value: string) => void
+    search_column: string
+    setSearchColumn: (value: string) => void,
+    getQuotesByFilters: (type: string, field_name: string, search_column: string, search_value: string) => void,
+    agent_quotes_list: QuoteType[],
+
 }
 
 const useStyles = makeStyles({
@@ -76,27 +94,25 @@ const useStyles = makeStyles({
     },
 });
 
-const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen}) => {
+const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearchValue, mode, setMode, search_column,
+                                                  setSearchColumn, setSearchMode, isSearchMode, agent_quotes_list}) => {
 
     const classes = useStyles();
 
     const dispatch = useDispatch()
 
-    const [isSearchMode, setSearchMode] = useState(false)
-    const [mode, setMode] = useState("sea");
-    const [directory, setDirectory] = useState("import");
-    const [searchValue, setSearchValue] = useState('')
-    const [search_column, setSearchColumn] = useState('')
 
     return (
         <QuotesTableContainer>
             <QuotesTableHeader>
                 <HeaderTitle>Quotes</HeaderTitle>
                 <OptionsDeliveryButtons directory=''
-                                        searchColumn=''
-                                        searchValue=''
+                                        searchColumn={search_column}
+                                        searchValue={searchValue}
                                         mode={mode}
                                         setMode={setMode}
+                                        thunkName='quotes_agent'
+                                        dispatch={dispatch}
                 />
             </QuotesTableHeader>
             <TableContainer className={classes.container} component={Paper}>
@@ -107,7 +123,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen}) => {
                                 <TableCellContent setSearchValue={setSearchValue}
                                                   setSearchMode={setSearchMode}
                                                   dispatch={dispatch}
-                                                  direction={directory}
+                                                  direction={''}
                                                   type={mode}
                                                   column_name='origin'
                                                   searchValue={searchValue}
@@ -115,13 +131,14 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen}) => {
                                                   title='ORIGIN'
                                                   searchColumn={search_column}
                                                   setSearchColumn={setSearchColumn}
+                                                  thunkName='quotes_agent'
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
                                 <TableCellContent setSearchValue={setSearchValue}
                                                   setSearchMode={setSearchMode}
                                                   dispatch={dispatch}
-                                                  direction={directory}
+                                                  direction={''}
                                                   type={mode}
                                                   column_name='destination'
                                                   searchValue={searchValue}
@@ -129,13 +146,14 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen}) => {
                                                   title='DESTINATION'
                                                   searchColumn={search_column}
                                                   setSearchColumn={setSearchColumn}
+                                                  thunkName='quotes_agent'
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
                                 <TableCellContent setSearchValue={setSearchValue}
                                                   setSearchMode={setSearchMode}
                                                   dispatch={dispatch}
-                                                  direction={directory}
+                                                  direction={''}
                                                   type={mode}
                                                   column_name='shipping_mode'
                                                   searchValue={searchValue}
@@ -143,9 +161,10 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen}) => {
                                                   title='SHIPPING MODE'
                                                   searchColumn={search_column}
                                                   setSearchColumn={setSearchColumn}
+                                                  thunkName='quotes_agent'
                                 />
                             </TableCell>
-                            <TableCell className={classes.cell} align="center">
+                            <TableCell className={classes.cell} align="left">
                                VOLUME
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
@@ -155,8 +174,11 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <AgentQuoteRow submit_status={true} setCardOpen={setCardOpen}/>
-                        <AgentQuoteRow  submit_status={false} setCardOpen={setCardOpen}/>
+                        {agent_quotes_list.map(a => <AgentQuoteRow key={a.id}
+                                                                   quote={a}
+                                                                   setCardOpen={setCardOpen}
+
+                        />)}
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -22,7 +22,7 @@ const BookingCardContainer = () => {
     const [isAssignConfirmation, setAssignConfirmation] = useState(false)
     const [agent_full_name, setAgentFullName] = useState('')
     const [isRejectPopupOpen, setRejectPopupOpen] = useState(false)
-    const [isAcceptPopup, openAcceptPopup] = useState(false)
+    const [isAcceptPopup, openAcceptPopup] = useState(true)
 
     //data from store
     let workers = useSelector((state:AppStateType) => state.profile.workersList)

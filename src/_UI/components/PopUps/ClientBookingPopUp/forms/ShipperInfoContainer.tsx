@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../../_BLL/store";
 import { postBooking } from "../../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
 import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
+import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 
 type PropsType = {
   direction: string;
@@ -48,7 +49,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
   let freight_rate_id = useSelector(
     (state: AppStateType) => state.booking.current_booking_freight_rate_id
   );
-  // return direction === "export" ? (
+
   const onSubmit = (values: any) => {
     !values.phone_additional && delete values.phone_additional;
     const finalData = {
@@ -61,6 +62,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
 
     console.log("finalData", finalData);
     dispatch(postBooking(finalData));
+    dispatch(bookingActions.changeBookingStep("fee-table"));
   };
 
   return (

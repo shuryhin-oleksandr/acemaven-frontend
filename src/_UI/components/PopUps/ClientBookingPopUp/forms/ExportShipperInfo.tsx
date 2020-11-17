@@ -32,6 +32,7 @@ type PropsType = {
   watch?: any;
   currentUser: IAuthUserInfo | null;
   setValue: any;
+  errors: any;
 };
 const ExportShipperInfo: React.FC<PropsType> = ({
   control,
@@ -42,6 +43,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
   companyInfo,
   currentUser,
   setValue,
+  errors,
 }) => {
   const dispatch = useDispatch();
   const [isCheck, setIsCheck] = useState(true);
@@ -101,17 +103,23 @@ const ExportShipperInfo: React.FC<PropsType> = ({
         <InputColWrapper>
           <FormField
             label="Company Name"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Company Name"
             name="name"
             getValues={getValues}
+            error={errors.name}
           />
           <FormField
             label="Address"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Address"
             name="address_line_first"
             getValues={getValues}
+            error={errors.address_line_first}
           />
           <div style={{ marginTop: -15 }}>
             <FormField
@@ -123,47 +131,65 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           </div>
           <FormField
             label="State"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="State"
             name="state"
             getValues={getValues}
+            error={errors.state}
           />
           <FormField
             label="City"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="City"
             name="city"
             getValues={getValues}
+            error={errors.city}
           />
           <FormField
             label="Zip Code"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Zip Code"
             name="zip_code"
             getValues={getValues}
+            error={errors.zip_code}
           />
         </InputColWrapper>
         <InputColWrapper>
           <FormField
             label="Contact name"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Contact name"
             name="contact_name"
             getValues={getValues}
+            error={errors.contact_name}
           />
           <FormField
             label="Phone number"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Phone number"
             name="phone"
             getValues={getValues}
+            error={errors.phone}
           />
           <FormField
             label="Email"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Email"
             name="email"
             getValues={getValues}
+            error={errors.email}
           />
         </InputColWrapper>
       </InputsWrapper>

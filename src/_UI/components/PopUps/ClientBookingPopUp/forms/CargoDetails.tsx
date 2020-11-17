@@ -59,14 +59,7 @@ const CargoDetails: React.FC<PropsType> = ({
     control,
     getValues,
     setValue,
-  } = useForm({});
-
-  const { fields } = useFieldArray({
-    control,
-    name: "cargo_groups",
-  });
-
-  console.log("cargo_groups", cargo_groups);
+  } = useForm();
 
   const shippingTypes = useSelector(getShippingTypesSelector);
   const mode = useSelector(getCurrentShippingTypeSelector);
@@ -93,7 +86,6 @@ const CargoDetails: React.FC<PropsType> = ({
       release_type: values.release_type,
       number_of_documents: Number(values.number_of_documents),
     };
-
 
     dispatch(bookingActions.set_description_step(firstStepObj));
     setFormStep(formStep + 1);

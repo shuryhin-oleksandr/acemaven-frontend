@@ -42,6 +42,7 @@ const RootShippingForm: React.FC<PropsType> = ({
             formStep={formStep}
             companyInfo={companyInfo}
             currentUser={currentUser}
+            currentFreightRate={currentFreightRate}
           />
         )}
       </div>

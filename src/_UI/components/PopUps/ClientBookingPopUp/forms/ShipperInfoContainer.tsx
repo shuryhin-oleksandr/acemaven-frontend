@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../../_BLL/store";
 import { postBooking } from "../../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
+import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
 
 type PropsType = {
   direction: string;
@@ -15,6 +16,7 @@ type PropsType = {
   formStep: number;
   companyInfo: CompanyInfoType | null;
   currentUser: IAuthUserInfo | null;
+  currentFreightRate: SearchResultType;
 };
 
 const ShipperInfoContainer: React.FC<PropsType> = ({
@@ -23,6 +25,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
   formStep,
   companyInfo,
   currentUser,
+  currentFreightRate,
 }) => {
   const {
     register,
@@ -47,6 +50,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
   );
   // return direction === "export" ? (
   const onSubmit = (values: any) => {
+    !values.phone_additional && delete values.phone_additional;
     const finalData = {
       ...firstStepData,
       shipper: values,
@@ -61,7 +65,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {true ? (
+      {currentFreightRate.freight_rate.origin.is_local ? (
         <ExportShipperInfo
           control={control}
           setFormStep={setFormStep}
@@ -71,6 +75,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
           companyInfo={companyInfo}
           currentUser={currentUser}
           setValue={setValue}
+          errors={errors}
         />
       ) : (
         <ImportShipperInfo
@@ -79,6 +84,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
           formStep={formStep}
           register={register}
           getValues={getValues}
+          errors={errors}
         />
       )}
     </form>

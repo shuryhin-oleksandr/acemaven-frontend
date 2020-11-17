@@ -23,3 +23,7 @@ export type ChoiceType = {
   code?: string;
   title: string;
 };
+
+export type BookingInfoType = {
+
+}

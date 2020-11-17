@@ -2,7 +2,7 @@ import {
   CargoDetailsValue,
   CargoGroup,
   ChoiceType,
-} from "../types/bookingTypes";
+} from "../../types/bookingTypes";
 
 const initialState = {
   cargo_details: null as CargoDetailsValue[] | null,
@@ -18,7 +18,7 @@ type InitialStateType = typeof initialState;
 export const bookingReducer = (
   state = initialState,
   action: commonBookingActions
-) => {
+):InitialStateType => {
   switch (action.type) {
     case "SET_CARGO_DETAILS":
       return {

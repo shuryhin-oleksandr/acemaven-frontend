@@ -19,7 +19,7 @@ import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateRe
 import { getFrozenChoices, searchRatesOffersThunk,} from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import { postSearchQuoteThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
-import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
+import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 //components
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
@@ -190,7 +190,6 @@ const Search: React.FC<PropsType> = (
   const onSubmit = (values: any) => {
     let finalData;
       //FCL
-      debugger
     if (values.shipping_mode === ShippingModeEnum.FCL) {
       finalData = {
         shipping_mode: values.shipping_mode,

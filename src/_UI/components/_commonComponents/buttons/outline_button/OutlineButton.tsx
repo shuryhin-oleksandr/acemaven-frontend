@@ -9,10 +9,11 @@ type PropsType = {
     borderColor?: string,
     type?: any
     text_color?: string,
-    margin_right?: string
+    margin_right?: string,
+    disabled?: boolean
 }
 
-const OutlineButton:React.FC<PropsType> = ({text, callback, button_background, borderColor, type, text_color,  margin_right}) => {
+const OutlineButton:React.FC<PropsType> = ({text, callback, button_background, borderColor, type, text_color, margin_right, disabled}) => {
     return (
         <Button  type={type}
                  onClick={callback}
@@ -20,6 +21,7 @@ const OutlineButton:React.FC<PropsType> = ({text, callback, button_background, b
                  borderColor={borderColor}
                  text_color={text_color}
                  margin_right={margin_right}
+                 disabled={disabled}
         >
             {text}
         </Button>

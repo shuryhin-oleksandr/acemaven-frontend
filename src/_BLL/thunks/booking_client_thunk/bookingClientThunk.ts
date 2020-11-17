@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import {
   commonBookingActions,
   bookingActions,
-} from "../../reducers/bookingReducer";
+} from "../../reducers/booking/bookingReducer";
 import { bookingApi } from "../../../_DAL/API/bookingApi";
 
 export const getReleaseTypeChoices = () => {

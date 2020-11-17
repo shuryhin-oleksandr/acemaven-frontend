@@ -39,6 +39,12 @@ export const AcceptFormOuter = styled.form`
  flex-direction: column;
  width: 100%;
 `
+export const AgentComment = styled.span`
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 12px;
+  color: #115B86;
+  margin-top: 5px;
+`
 export const TextareaLabel = styled.div`
   width: 100%;
   text-align: left;

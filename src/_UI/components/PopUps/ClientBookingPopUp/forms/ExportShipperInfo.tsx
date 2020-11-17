@@ -3,7 +3,6 @@ import {
   HeadingFormWrapper,
   InputGroupName,
   BackButton,
-  DocumentationSection,
 } from "../client-popup-styles";
 
 import {
@@ -20,7 +19,7 @@ import FormField from "../../../_commonComponents/Input/FormField";
 import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
 import { useDispatch } from "react-redux";
-import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
+import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 
 type PropsType = {
   control: any;
@@ -34,7 +33,6 @@ type PropsType = {
   setValue: any;
 };
 const ExportShipperInfo: React.FC<PropsType> = ({
-  control,
   setFormStep,
   formStep,
   register,

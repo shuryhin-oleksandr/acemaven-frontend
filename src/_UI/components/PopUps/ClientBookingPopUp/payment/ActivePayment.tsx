@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Title, Container } from "./payment-styles";
 import BaseButton from "../../../base/BaseButton";
 import { BackButton } from "../client-popup-styles";
-import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
+import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import BankAccountForm from "./ActivePaymentForms/BankAccountForm";

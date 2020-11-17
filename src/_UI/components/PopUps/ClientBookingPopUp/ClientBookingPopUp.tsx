@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import {
   PopupContainer,
@@ -29,7 +29,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { bookingActions } from "../../../../_BLL/reducers/bookingReducer";
+import { bookingActions } from "../../../../_BLL/reducers/booking/bookingReducer";
 import BaseButton from "../../base/BaseButton";
 import PaymentContainer from "./payment/PaymentContainer";
 import { getReleaseTypeChoices } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
@@ -241,11 +241,11 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                       <TableCell
                         className={classes.innerCell}
                         scope="row"
-                      ></TableCell>
+                      />
                       <TableCell
                         className={classes.innerCell}
                         align="left"
-                      ></TableCell>
+                      />
                       <TableCell className={classes.innerCell} align="left">
                         DOC FEE
                       </TableCell>

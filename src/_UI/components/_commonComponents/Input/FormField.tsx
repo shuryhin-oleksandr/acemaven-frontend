@@ -1,6 +1,7 @@
 import React from "react";
 import { Field, HelperText, InputOuter, Label } from "./input-styles";
 import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
+import {AgentComment} from "../../PopUps/accept_booking_popup/accept-popup-styles";
 
 type PropsType = {
   placeholder?: string;
@@ -25,7 +26,8 @@ type PropsType = {
   disabled?: boolean;
   background?: string;
   messagePaddingTop?: string;
-  color_label?: string
+  color_label?: string,
+  booking_process?: boolean
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
@@ -49,7 +51,8 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         disabled={props.disabled}
         background={props.background}
       />
-      {error?.type === "required" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}
+        {props.booking_process && <AgentComment>For shipment tracking purposes, won’t be shown to the client.</AgentComment>}
+        {error?.type === "required" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}
       {error?.type === "pattern" && (
         <HelperText>
           {props.pattern_message ? props.pattern_message : "Value is not valid"}

@@ -12,15 +12,12 @@ import {
   DocumentationCol,
 } from "../client-popup-styles";
 import { Controller } from "react-hook-form";
-import { Field } from "../../../_commonComponents/Input/input-styles";
-import React, { useEffect } from "react";
+import React from "react";
 import BaseButton from "../../../base/BaseButton";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
-import { InputColWrapper } from "./shipper-styles";
+import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
-import { GroupWrap } from "../../../../Pages/Services&Rates/rates/register_new_freight_rate/form-styles";
 import FormField from "../../../_commonComponents/Input/FormField";
 import { AppStateType } from "../../../../../_BLL/store";
 import {
@@ -39,11 +36,7 @@ type PropsType = {
   shippingValue: number;
 };
 
-const arr = [
-  { id: 1, type: "2 x 40HC" },
-  { id: 2, type: "2 x 40HC" },
-  { id: 3, type: "1 Pallets x 2w/m" },
-];
+
 const CargoDetails: React.FC<PropsType> = ({
   control,
   setFormStep,

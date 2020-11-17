@@ -186,7 +186,7 @@ const Search: React.FC<PropsType> = (
   };
   let onDestinationChangeHandler = (value: any) => {
     // if (value.value.length >= 3) {
-    origin_port_value?.is_local
+    props.origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
     // }

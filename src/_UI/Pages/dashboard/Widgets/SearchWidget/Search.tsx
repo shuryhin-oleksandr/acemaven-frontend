@@ -6,18 +6,31 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 //moment
 import moment from "moment";
 //types
-import { CurrentShippingType, ShippingTypesEnum,} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {
+  CurrentShippingType,
+  ShippingTypesEnum,
+} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { getShippingTypes } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {ContainerType, PortType, ShippingTypeType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import {CargoGroupType, ChoiceType, SearchResultType} from "../../../../../_BLL/types/search/search_types";
 import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 // BLL
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getShippingTypesSelector } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import { getPorts } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {
+  getDestinationPorts,
+  getIsLocalPort,
+  getOriginPorts,
+} from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
-import { getFrozenChoices, searchRatesOffersThunk,} from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
+import {
+  getFrozenChoices,
+  searchRatesOffersThunk,
+} from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import { postSearchQuoteThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
+import { getFrozenChoicesSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
 import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 //components
@@ -31,8 +44,18 @@ import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
 import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
 import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
 //styles
-import { Container, Heading, RelativeWrapper, ButtonGroup, AddImg,ErrorMessage } from "./searchWidgett-styles";
-import { Port, PortsList,} from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
+import {
+  Container,
+  Heading,
+  RelativeWrapper,
+  ButtonGroup,
+  AddImg,
+  ErrorMessage,
+} from "./searchWidgett-styles";
+import {
+  Port,
+  PortsList,
+} from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
@@ -154,21 +177,19 @@ const Search: React.FC<PropsType> = (
     control,
     name: "cargo_groups",
   });
-
-  console.log('fields', fields)
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    if (value.value.length >= 3) {
+    // if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
-    }
+    // }
   };
   let onDestinationChangeHandler = (value: any) => {
-    if (value.value.length >= 3) {
-    props.origin_port_value?.is_local
+    // if (value.value.length >= 3) {
+    origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
-    }
+    // }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
@@ -223,8 +244,16 @@ const Search: React.FC<PropsType> = (
       const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
       //if there are no duplicates
       if (uniqCargoArr.length === finalData.cargo_groups.length) {
+        const arrWithDescription = finalData.cargo_groups.map(
+          (c: any, index: number) => ({
+            ...c,
+            description: "",
+            id: `${index + 1}cargo`,
+          })
+        );
         dispatch(
-          bookingActions.set_current_booking_cargo_groups(finalData.cargo_groups));
+          bookingActions.set_current_booking_cargo_groups(arrWithDescription)
+        );
         setDuplicatedCargoError("");
           search_result.length === 0 && search_success
               ? dispatch(postSearchQuoteThunk(finalData, history))
@@ -511,9 +540,7 @@ const Search: React.FC<PropsType> = (
                     title={"Add more cargo groups by clicking on plus"}
                   >
                     <AddImg
-                      onClick={() => append({
-                          name: 'cargo_groups'
-                      },)}
+                      onClick={() => append({ name: "cargo_groups" })}
                       src={AddIcon}
                       alt="add"
                     />

@@ -33,6 +33,7 @@ import { bookingActions } from "../../../../_BLL/reducers/bookingReducer";
 import BaseButton from "../../base/BaseButton";
 import PaymentContainer from "./payment/PaymentContainer";
 import { getReleaseTypeChoices } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
+import { SearchResultType } from "../../../../_BLL/types/search/search_types";
 
 const useStyles = makeStyles({
   container: {
@@ -71,11 +72,13 @@ const useStyles = makeStyles({
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
   shippingValue: number;
+  currentFreightRate: SearchResultType;
 };
 
 const ClientBookingPopUp: React.FC<PropsType> = ({
   setBookingPopupVisible,
   shippingValue,
+  currentFreightRate,
 }) => {
   const dispatch = useDispatch();
   const companyId = sessionStorage.getItem("u");
@@ -108,12 +111,16 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
         <CloseBtn onClick={() => setBookingPopupVisible(false)}>
           <img src={close} alt="" />
         </CloseBtn>
-        <BookingCard button_display={false} />
+        <BookingCard
+          button_display={false}
+          search_result={currentFreightRate}
+        />
         {bookingStep === "shipping-form" && (
           <RootShippingForm
             companyInfo={companyInfo}
             currentUser={currentUser}
             shippingValue={shippingValue}
+            currentFreightRate={currentFreightRate}
           />
         )}
         {bookingStep === "fee-table" && (
@@ -153,90 +160,36 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    <TableRow className={classes.info_row}>
-                      <TableCell className={classes.innerCell} scope="row">
-                        1
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="left">
-                        40GH
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="left">
-                        <div>FREIGHT</div>
-                        <div>HANDING</div>
-                        <div>OTHERS</div>
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="left">
-                        <div>USD</div>
-                        <div>BRL</div>
-                        <div>USD</div>
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="right">
-                        <div>1000</div>
-                        <div>500</div>
-                        <div>599</div>
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="right">
-                        <div>1000.00</div>
-                        <div>500.6</div>
-                        <div>599.68</div>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className={classes.info_row}>
-                      <TableCell className={classes.innerCell} scope="row">
-                        1
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="left">
-                        40GH
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="left">
-                        <div>FREIGHT</div>
-                        <div>HANDING</div>
-                        <div>OTHERS</div>
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="left">
-                        <div>USD</div>
-                        <div>BRL</div>
-                        <div>USD</div>
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="right">
-                        <div>1000</div>
-                        <div>500</div>
-                        <div>599</div>
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="right">
-                        <div>1000.00</div>
-                        <div>500.6</div>
-                        <div>599.68</div>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow className={classes.info_row}>
-                      <TableCell className={classes.innerCell} scope="row">
-                        1
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="left">
-                        40GH
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="left">
-                        <div>FREIGHT</div>
-                        <div>HANDING</div>
-                        <div>OTHERS</div>
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="left">
-                        <div>USD</div>
-                        <div>BRL</div>
-                        <div>USD</div>
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="right">
-                        <div>1000</div>
-                        <div>500</div>
-                        <div>599</div>
-                      </TableCell>
-                      <TableCell className={classes.innerCell} align="right">
-                        <div>1000.00</div>
-                        <div>500.6</div>
-                        <div>599.68</div>
-                      </TableCell>
-                    </TableRow>
+                    {currentFreightRate.cargo_groups.map((s) => (
+                      <TableRow key={s.cargo_type} className={classes.info_row}>
+                        <TableCell className={classes.innerCell} scope="row">
+                          {s.volume}
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="left">
+                          {s.cargo_type}
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="left">
+                          <div>FREIGHT</div>
+                          <div>HANDLING</div>
+                          <div>OTHERS</div>
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="left">
+                          <div>{s.freight.currency}</div>
+                          <div>{s.handling.currency}</div>
+                          <div>{s.other.currency}</div>
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="right">
+                          <div>{s.freight.cost}</div>
+                          <div>{s.handling.cost}</div>
+                          <div>{s.other.cost}</div>
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="right">
+                          <div>{s.freight.subtotal}</div>
+                          <div>{s.handling.subtotal}</div>
+                          <div>{s.other.subtotal}</div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                     <TableRow className={classes.info_row}>
                       <TableCell
                         className={classes.innerCell}
@@ -250,13 +203,13 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                         DOC FEE
                       </TableCell>
                       <TableCell className={classes.innerCell} align="left">
-                        BRL
+                        {currentFreightRate.doc_fee.currency}
                       </TableCell>
                       <TableCell className={classes.innerCell} align="right">
-                        700
+                        {currentFreightRate.doc_fee.cost}
                       </TableCell>
                       <TableCell className={classes.innerCell} align="right">
-                        50.00
+                        {currentFreightRate.doc_fee.subtotal}
                       </TableCell>
                     </TableRow>
                   </TableBody>

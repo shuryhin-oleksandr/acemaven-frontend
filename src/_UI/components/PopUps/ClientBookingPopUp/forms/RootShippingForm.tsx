@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form } from "../client-popup-styles";
+import { Wrapper } from "../client-popup-styles";
 import CargoDetails from "./CargoDetails";
 import ShipperInfoContainer from "./ShipperInfoContainer";
 import { useSelector } from "react-redux";
@@ -7,60 +7,46 @@ import { AppStateType } from "../../../../../_BLL/store";
 import { useForm } from "react-hook-form";
 import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
+import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
 
 type PropsType = {
   companyInfo: CompanyInfoType | null;
   currentUser: IAuthUserInfo | null;
   shippingValue: number;
+  currentFreightRate: SearchResultType;
 };
 
 const RootShippingForm: React.FC<PropsType> = ({
   companyInfo,
   currentUser,
   shippingValue,
+  currentFreightRate,
 }) => {
   const [formStep, setFormStep] = useState(1);
-  const {
-    register,
-    handleSubmit,
-    errors,
-    control,
-    getValues,
-    setValue,
-  } = useForm();
-  let details = useSelector(
-    (state: AppStateType) => state.booking.cargo_details
-  );
-  const onSubmit = (values: any) => {
-    const finalValues = { ...values, details: details };
-    console.log("finalValues", finalValues);
-  };
+
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      {formStep === 1 ? (
+    <Wrapper>
+      <div style={{ display: formStep === 1 ? "block" : "none" }}>
         <CargoDetails
-          control={control}
           setFormStep={setFormStep}
           formStep={formStep}
-          getValues={getValues}
-          register={register}
-          setValue={setValue}
           shippingValue={shippingValue}
+          currentFreightRate={currentFreightRate}
         />
-      ) : (
-        <ShipperInfoContainer
-          direction="export"
-          control={control}
-          setFormStep={setFormStep}
-          formStep={formStep}
-          register={register}
-          getValues={getValues}
-          companyInfo={companyInfo}
-          currentUser={currentUser}
-          setValue={setValue}
-        />
-      )}
-    </Form>
+      </div>
+      <div style={{ display: formStep === 2 ? "block" : "none" }}>
+        {companyInfo && (
+          <ShipperInfoContainer
+            direction="export"
+            setFormStep={setFormStep}
+            formStep={formStep}
+            companyInfo={companyInfo}
+            currentUser={currentUser}
+            currentFreightRate={currentFreightRate}
+          />
+        )}
+      </div>
+    </Wrapper>
   );
 };
 

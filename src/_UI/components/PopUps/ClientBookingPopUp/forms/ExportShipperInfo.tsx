@@ -32,6 +32,7 @@ type PropsType = {
   watch?: any;
   currentUser: IAuthUserInfo | null;
   setValue: any;
+  errors: any;
 };
 const ExportShipperInfo: React.FC<PropsType> = ({
   control,
@@ -42,30 +43,31 @@ const ExportShipperInfo: React.FC<PropsType> = ({
   companyInfo,
   currentUser,
   setValue,
+  errors,
 }) => {
   const dispatch = useDispatch();
   const [isCheck, setIsCheck] = useState(true);
 
   useEffect(() => {
     if (isCheck) {
-      setValue("company_name", companyInfo?.name);
+      setValue("name", companyInfo?.name);
       setValue("address_line_first", companyInfo?.address_line_first);
       setValue("address_line_second", companyInfo?.address_line_second);
       setValue("state", companyInfo?.state);
       setValue("city", companyInfo?.city);
       setValue("zip_code", companyInfo?.zip_code);
       setValue("contact_name", currentUser?.first_name);
-      setValue("phone_number", currentUser?.phone);
+      setValue("phone", currentUser?.phone);
       setValue("email", currentUser?.email);
     } else {
-      setValue("company_name", "");
+      setValue("name", "");
       setValue("address_line_first", "");
       setValue("address_line_second", "");
       setValue("state", "");
       setValue("city", "");
       setValue("zip_code", "");
       setValue("contact_name", "");
-      setValue("phone_number", "");
+      setValue("phone", "");
       setValue("email", "");
     }
   }, [setValue, isCheck]);
@@ -78,10 +80,10 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             Back
           </BackButton>
           <BaseButton
-            onClick={() => {
-              dispatch(bookingActions.changeBookingStep("fee-table"));
-            }}
             type="submit"
+            // onClick={() => {
+            //   dispatch(bookingActions.changeBookingStep("fee-table"));
+            // }}
           >
             Next
           </BaseButton>
@@ -101,17 +103,23 @@ const ExportShipperInfo: React.FC<PropsType> = ({
         <InputColWrapper>
           <FormField
             label="Company Name"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Company Name"
-            name="company_name"
+            name="name"
             getValues={getValues}
+            error={errors.name}
           />
           <FormField
             label="Address"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Address"
             name="address_line_first"
             getValues={getValues}
+            error={errors.address_line_first}
           />
           <div style={{ marginTop: -15 }}>
             <FormField
@@ -123,47 +131,65 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           </div>
           <FormField
             label="State"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="State"
             name="state"
             getValues={getValues}
+            error={errors.state}
           />
           <FormField
             label="City"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="City"
             name="city"
             getValues={getValues}
+            error={errors.city}
           />
           <FormField
             label="Zip Code"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Zip Code"
             name="zip_code"
             getValues={getValues}
+            error={errors.zip_code}
           />
         </InputColWrapper>
         <InputColWrapper>
           <FormField
             label="Contact name"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Contact name"
             name="contact_name"
             getValues={getValues}
+            error={errors.contact_name}
           />
           <FormField
             label="Phone number"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Phone number"
-            name="phone_number"
+            name="phone"
             getValues={getValues}
+            error={errors.phone}
           />
           <FormField
             label="Email"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Email"
             name="email"
             getValues={getValues}
+            error={errors.email}
           />
         </InputColWrapper>
       </InputsWrapper>

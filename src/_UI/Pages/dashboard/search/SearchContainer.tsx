@@ -11,17 +11,17 @@ type PropsType = {
 
 const SearchContainer:React.FC<PropsType> = ({search_result,shippingValue}) => {
   const [isRatingPopup, showRatingPopup] = useState(false);
-  const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
+
 
   return (
     <>
-      {bookingPopupVisible && <ClientBookingPopUp shippingValue={shippingValue} setBookingPopupVisible={setBookingPopupVisible} />}
+
       {isRatingPopup ? (
         <RatingInfoPopup showRatingPopup={showRatingPopup} />
       ) : (
         <SearchCardsContainer showRatingPopup={showRatingPopup}
-                              setBookingPopupVisible={setBookingPopupVisible}
                               search_result={search_result}
+                              shippingValue={shippingValue}
         />
       )}
     </>

@@ -11,7 +11,7 @@ import {
   DocumentationRow,
   DocumentationCol,
 } from "../client-popup-styles";
-import { Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Field } from "../../../_commonComponents/Input/input-styles";
 import React, { useEffect } from "react";
 import BaseButton from "../../../base/BaseButton";
@@ -28,29 +28,22 @@ import {
   getShippingTypesSelector,
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import { useFieldArray } from "react-hook-form";
+import { CargoGroup } from "../../../../../_BLL/types/bookingTypes";
+import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
 
 type PropsType = {
-  control: any;
   setFormStep: VoidFunctionType;
   formStep: number;
-  getValues: any;
-  register: any;
-  setValue?: any;
   shippingValue: number;
+  currentFreightRate: SearchResultType;
 };
 
-const arr = [
-  { id: 1, type: "2 x 40HC" },
-  { id: 2, type: "2 x 40HC" },
-  { id: 3, type: "1 Pallets x 2w/m" },
-];
 const CargoDetails: React.FC<PropsType> = ({
-  control,
   setFormStep,
   formStep,
-  getValues,
-  register,
   shippingValue,
+  currentFreightRate,
 }) => {
   const dispatch = useDispatch();
   let release_type_choices = useSelector(
@@ -59,8 +52,14 @@ const CargoDetails: React.FC<PropsType> = ({
   let cargo_groups = useSelector(
     (state: AppStateType) => state.booking.current_booking_cargo_groups
   );
-
-  console.log("cargo_groups", cargo_groups);
+  const {
+    register,
+    handleSubmit,
+    errors,
+    control,
+    getValues,
+    setValue,
+  } = useForm();
 
   const shippingTypes = useSelector(getShippingTypesSelector);
   const mode = useSelector(getCurrentShippingTypeSelector);
@@ -72,35 +71,33 @@ const CargoDetails: React.FC<PropsType> = ({
   let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
     ?.container_types;
 
-  console.log("container_types", container_types);
-
   const findContainer = (id: number) => {
     const container = container_types?.find((c) => c.id === id);
-    console.log("CCC", container);
     return container?.code;
   };
 
+  const onSubmit = (values: any) => {
+    const newArr = cargo_groups?.map((c: any) => {
+      return { ...c, description: values.cargo_descriptions[c.id] };
+    });
+
+    const firstStepObj = {
+      cargo_groups: newArr,
+      release_type: values.release_type,
+      number_of_documents: Number(values.number_of_documents),
+    };
+
+    dispatch(bookingActions.set_description_step(firstStepObj));
+    setFormStep(formStep + 1);
+  };
+
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <HeadingFormWrapper>
         <HeadingFormText>
           Please, fill basic information about the shipment
         </HeadingFormText>
-        <BaseButton
-          onClick={() => {
-            const values = getValues();
-            console.log("values", values);
-            const arr = Object.keys(values).map((v) => ({
-              id: v,
-              description: values[v],
-            }));
-            dispatch(bookingActions.setCargoDetails(arr));
-            setFormStep(formStep + 1);
-          }}
-          type="button"
-        >
-          Next
-        </BaseButton>
+        <BaseButton type="submit">Next</BaseButton>
       </HeadingFormWrapper>
       <InputGroupName>Cargo details</InputGroupName>
       <FlexWrapper>
@@ -112,8 +109,8 @@ const CargoDetails: React.FC<PropsType> = ({
         </div>
       </FlexWrapper>
       <InputsWrapper>
-        {cargo_groups?.map((item, idx) => (
-          <RowWrapper key={idx}>
+        {cargo_groups?.map((item, index) => (
+          <RowWrapper key={item.id}>
             <div style={{ width: 205 }}>
               <ContainerInfo>
                 {`${findContainer(Number(item.container_type))} x ${
@@ -121,54 +118,60 @@ const CargoDetails: React.FC<PropsType> = ({
                 }`}
               </ContainerInfo>
             </div>
-            {/*<div style={{ flex: 1 }}>*/}
-            {/*  <Controller*/}
-            {/*    name={`${item.id}`}*/}
-            {/*    control={control}*/}
-            {/*    as={<Field placeholder="Add desription..." />}*/}
-            {/*    rules={{ required: "Field is required" }}*/}
-            {/*    defaultValue=""*/}
-            {/*  />*/}
-            {/*</div>*/}
+            <div style={{ flex: 1 }}>
+              <Controller
+                name={`cargo_descriptions.${item.id}`}
+                control={control}
+                as={<Field placeholder="Add desription..." />}
+                rules={{ required: "Field is required" }}
+                defaultValue=""
+              />
+            </div>
           </RowWrapper>
         ))}
       </InputsWrapper>
 
-      {/*{direction==="export" && shipping_type==="sea" &&}*/}
-      <DocumentationSection>
-        <InputGroupName>Documentation</InputGroupName>
-        <DocumentationRow>
-          <DocumentationCol>
-            <Controller
-              name="release_type"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "Field is required",
-              }}
-              as={
-                <SurchargeRateSelect
-                  label="Release type"
-                  options={release_type_choices}
-                  // error={errors?.carrier?.message}
-                  placeholder="Release type"
+      {currentFreightRate.freight_rate.shipping_type ===
+        ShippingTypesEnum.SEA &&
+        currentFreightRate.freight_rate.origin.is_local && (
+          <DocumentationSection>
+            <InputGroupName>Documentation</InputGroupName>
+            <DocumentationRow>
+              <DocumentationCol>
+                <Controller
+                  name="release_type"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: "Field is required",
+                  }}
+                  as={
+                    <SurchargeRateSelect
+                      label="Release type"
+                      options={release_type_choices}
+                      error={errors?.release_type?.message}
+                      placeholder="Release type"
+                    />
+                  }
                 />
-              }
-            />
-          </DocumentationCol>
-          <DocumentationCol>
-            <FormField
-              label="No. of Documents"
-              inputRef={register}
-              placeholder="No. of Documents"
-              name="number_of_docs"
-              getValues={getValues}
-              defaultValue={1}
-            />
-          </DocumentationCol>
-        </DocumentationRow>
-      </DocumentationSection>
-    </>
+              </DocumentationCol>
+              <DocumentationCol>
+                <FormField
+                  label="No. of Documents"
+                  inputRef={register({
+                    required: "Field is required",
+                  })}
+                  placeholder="No. of Documents"
+                  name="number_of_documents"
+                  getValues={getValues}
+                  defaultValue={1}
+                  error={errors?.number_of_documents}
+                />
+              </DocumentationCol>
+            </DocumentationRow>
+          </DocumentationSection>
+        )}
+    </form>
   );
 };
 

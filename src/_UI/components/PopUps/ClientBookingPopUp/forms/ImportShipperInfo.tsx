@@ -17,6 +17,7 @@ type PropsType = {
   formStep: number;
   getValues: any;
   register: any;
+  errors: any;
 };
 const ImportShipperInfo: React.FC<PropsType> = ({
   control,
@@ -24,6 +25,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
   formStep,
   register,
   getValues,
+  errors,
 }) => {
   return (
     <>
@@ -35,9 +37,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
           <BackButton onClick={() => setFormStep(formStep - 1)} type="button">
             Back
           </BackButton>
-          <BaseButton  type="submit">
-            Next
-          </BaseButton>
+          <BaseButton type="submit">Next</BaseButton>
         </div>
       </HeadingFormWrapper>
       <InputGroupName>Overseas shipper</InputGroupName>
@@ -45,47 +45,62 @@ const ImportShipperInfo: React.FC<PropsType> = ({
         <InputColWrapper>
           <FormField
             label="Company Name"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Company Name"
-            name="company_name"
+            name="name"
             getValues={getValues}
+            error={errors.name}
           />
           <FormField
             label="City"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="City"
             name="city"
             getValues={getValues}
+            error={errors.city}
           />
           <FormField
             label="Contact name"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Contact name"
             name="contact_name"
             getValues={getValues}
+            error={errors.contact_name}
           />
         </InputColWrapper>
         <InputColWrapper>
           <FormField
             label="Phone number 1"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Phone number"
-            name="phone_number2"
+            name="phone"
             getValues={getValues}
+            error={errors.phone}
           />
           <FormField
             label="Phone number 2"
             inputRef={register}
             placeholder="Phone number"
-            name="phone_number1"
+            name="phone_additional"
             getValues={getValues}
           />
           <FormField
             label="Email"
-            inputRef={register}
+            inputRef={register({
+              required: "Field is required",
+            })}
             placeholder="Email"
             name="email"
             getValues={getValues}
+            error={errors.email}
           />
         </InputColWrapper>
       </InputsWrapper>

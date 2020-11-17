@@ -1,3 +1,4 @@
+import {PortType} from "../rates&surcharges/ratesTypes";
 
 export type SearchDataType = {
     shipping_mode: number,
@@ -30,8 +31,8 @@ export type SearchFreightRateType = {
     id: number,
     carrier: string,
     carrier_disclosure?: boolean,
-    origin: string,
-    destination: string,
+    origin: PortType,
+    destination: PortType,
     shipping_mode: string,
     shipping_type: string,
     expiration_date: string,

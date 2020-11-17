@@ -14,8 +14,16 @@ import {
 } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { getShippingTypes } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
-import {ContainerType, PortType, ShippingTypeType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import {CargoGroupType, ChoiceType, SearchResultType} from "../../../../../_BLL/types/search/search_types";
+import {
+  ContainerType,
+  PortType,
+  ShippingTypeType,
+} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {
+  CargoGroupType,
+  ChoiceType,
+  SearchResultType,
+} from "../../../../../_BLL/types/search/search_types";
 import { PackagingType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 // BLL
 import { useDispatch } from "react-redux";
@@ -55,11 +63,10 @@ import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
 
-
 type PropsType = {
   right?: string;
   bottom?: string;
-  shippingTypes: ShippingTypeType[]
+  shippingTypes: ShippingTypeType[];
   setOpenCalcPopup: (value: boolean) => void;
   shippingValue: number;
   setShippingValue: (value: number) => void;
@@ -72,33 +79,31 @@ type PropsType = {
   search_success: boolean;
   setDuplicatedCargoError: (value: string) => void;
   duplicatedCargoError: string;
-  origin_ports: PortType[]
-  destination_ports: PortType[]
-  frozen_choices: ChoiceType[]
-  origin_port_value: PortType | null
-  container_types: ContainerType[]
+  origin_ports: PortType[];
+  destination_ports: PortType[];
+  frozen_choices: ChoiceType[];
+  origin_port_value: PortType | null;
+  container_types: ContainerType[];
 };
 
-const Search: React.FC<PropsType> = (
-  {
-    bottom,
-    right,
-    setOpenCalcPopup,
-    shippingValue,
-    setShippingValue,
-    mode,
-    setMode,
-    cargo_groups_list,
-    packaging_types,
-    disabled,
-    search_success,
-    search_result,
-    duplicatedCargoError,
-    setDuplicatedCargoError,
-      shippingTypes,
-      ...props
-  }
-) => {
+const Search: React.FC<PropsType> = ({
+  bottom,
+  right,
+  setOpenCalcPopup,
+  shippingValue,
+  setShippingValue,
+  mode,
+  setMode,
+  cargo_groups_list,
+  packaging_types,
+  disabled,
+  search_success,
+  search_result,
+  duplicatedCargoError,
+  setDuplicatedCargoError,
+  shippingTypes,
+  ...props
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -129,7 +134,6 @@ const Search: React.FC<PropsType> = (
     dispatch(searchActions.clearCargoList([]));
     setDates([]);
   }, [mode]);
-
 
   const shippingModeOptions =
     mode === ShippingTypesEnum.AIR
@@ -175,16 +179,16 @@ const Search: React.FC<PropsType> = (
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    if (value.value.length >= 3) {
+    // if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
-    }
+    // }
   };
   let onDestinationChangeHandler = (value: any) => {
-    if (value.value.length >= 3) {
+    // if (value.value.length >= 3) {
     props.origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
-    }
+    // }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
@@ -205,8 +209,8 @@ const Search: React.FC<PropsType> = (
 
   const onSubmit = (values: any) => {
     let finalData;
-      //FCL
-      debugger
+    //FCL
+    debugger;
     if (values.shipping_mode === ShippingModeEnum.FCL) {
       finalData = {
         shipping_mode: values.shipping_mode,
@@ -214,18 +218,19 @@ const Search: React.FC<PropsType> = (
         date_to: moment(dates[1]).format("DD/MM/YYYY"),
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
-        cargo_groups: values.cargo_groups.map((c: any, index : any) =>
+        cargo_groups: values.cargo_groups.map((c: any, index: any) =>
           c.frozen
             ? {
                 container_type: c.container_type,
                 frozen: c.frozen,
                 volume: Number(c.volume),
-                id: index + 1
+                id: index + 1,
               }
             : {
                 container_type: c.container_type,
                 dangerous: c.dangerous,
-                volume: Number(c.volume), id: index + 1
+                volume: Number(c.volume),
+                id: index + 1,
               }
         ),
       };
@@ -250,15 +255,16 @@ const Search: React.FC<PropsType> = (
           bookingActions.set_current_booking_cargo_groups(arrWithDescription)
         );
         setDuplicatedCargoError("");
-          search_result.length === 0 && search_success
-              ? dispatch(postSearchQuoteThunk(finalData, history))
-              // @ts-ignore
-              : dispatch(searchRatesOffersThunk(finalData))
+        search_result.length === 0 && search_success
+          ? dispatch(postSearchQuoteThunk(finalData, history))
+          : // @ts-ignore
+            dispatch(searchRatesOffersThunk(finalData));
       } else {
-          //if there are duplicates
+        //if there are duplicates
         setDuplicatedCargoError("You have duplicated cargo groups");
       }
-    } else {   //chargeable weight shipping modes
+    } else {
+      //chargeable weight shipping modes
       finalData = {
         shipping_mode: values.shipping_mode,
         date_from: moment(dates[0]).format("DD/MM/YYYY"),
@@ -277,7 +283,7 @@ const Search: React.FC<PropsType> = (
                 height: Number(c.height),
                 total_wm: c.total_wm,
                 length_measurement: c.length_measurement,
-                weight_measurement: c.weight_measurement
+                weight_measurement: c.weight_measurement,
               }
             : {
                 container_type: c.container_type,
@@ -289,26 +295,28 @@ const Search: React.FC<PropsType> = (
                 height: Number(c.height),
                 total_wm: c.total_wm,
                 length_measurement: c.length_measurement,
-                weight_measurement: c.weight_measurement
+                weight_measurement: c.weight_measurement,
               }
         ),
       };
-        const arrWithoutValues = finalData.cargo_groups?.map((c: any) => {
-            const copyObj = {...c};
-            delete copyObj.volume;
-            return copyObj;
-        });
-        const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
-        //if there are no duplicates
-        if (uniqCargoArr.length === finalData.cargo_groups?.length) {
-            dispatch(searchActions.setDuplicatedError(''));
-            search_result.length === 0 && search_success
-                ? dispatch(postSearchQuoteThunk(finalData, history))
-                // @ts-ignore
-                : dispatch(searchRatesOffersThunk(finalData))
-        } else {
-            dispatch(searchActions.setDuplicatedError('You have duplicated cargo groups'));
-        }
+      const arrWithoutValues = finalData.cargo_groups?.map((c: any) => {
+        const copyObj = { ...c };
+        delete copyObj.volume;
+        return copyObj;
+      });
+      const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
+      //if there are no duplicates
+      if (uniqCargoArr.length === finalData.cargo_groups?.length) {
+        dispatch(searchActions.setDuplicatedError(""));
+        search_result.length === 0 && search_success
+          ? dispatch(postSearchQuoteThunk(finalData, history))
+          : // @ts-ignore
+            dispatch(searchRatesOffersThunk(finalData));
+      } else {
+        dispatch(
+          searchActions.setDuplicatedError("You have duplicated cargo groups")
+        );
+      }
     }
 
     dispatch(

@@ -10,7 +10,7 @@ const initialState = {
   booking_step: "shipping-form",
   current_booking_freight_rate_id: null as number | null,
   booking_dates: null as { date_from: string; date_to: string } | null,
-  current_booking_cargo_groups: null as CargoGroup[] | null,
+  current_booking_cargo_groups: [] as CargoGroup[],
   release_type_choices: null as ChoiceType[] | null,
   description_step_data: null as DescriptionStepType | null,
 };

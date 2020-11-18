@@ -223,13 +223,11 @@ const Search: React.FC<PropsType> = ({
                 container_type: c.container_type,
                 frozen: c.frozen,
                 volume: Number(c.volume),
-                id: index + 1,
               }
             : {
                 container_type: c.container_type,
                 dangerous: c.dangerous,
                 volume: Number(c.volume),
-                id: index + 1,
               }
         ),
       };

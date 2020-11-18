@@ -8,7 +8,6 @@ import {
 
 interface Interface {
   isMarkerShown?: boolean;
-  googleMapURL: string;
   loadingElement?: ReactElement;
   containerElement: ReactElement;
   mapElement: ReactElement;
@@ -18,6 +17,16 @@ const MapComponent: React.FC<Interface> = (props) => (
   <GoogleMap
     options={{
       disableDefaultUI: true,
+      minZoom: 3,
+      restriction: {
+        strictBounds: true,
+        latLngBounds: {
+          north: 85,
+          south: -85,
+          east: 180,
+          west: -180,
+        },
+      },
     }}
     defaultZoom={8}
     defaultCenter={{ lat: -34.397, lng: 150.644 }}
@@ -28,4 +37,4 @@ const MapComponent: React.FC<Interface> = (props) => (
   </GoogleMap>
 );
 
-export default withScriptjs(withGoogleMap(MapComponent));
+export default withGoogleMap(MapComponent);

@@ -18,19 +18,20 @@ import BaseButton from "../../../base/BaseButton";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
-import { InputColWrapper } from "./shipper-styles";
 import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
-import { GroupWrap } from "../../../../Pages/Services&Rates/rates/register_new_freight_rate/form-styles";
 import FormField from "../../../_commonComponents/Input/FormField";
 import { AppStateType } from "../../../../../_BLL/store";
 import {
   getCurrentShippingTypeSelector,
   getShippingTypesSelector,
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
-import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import { useFieldArray } from "react-hook-form";
-import { CargoGroup } from "../../../../../_BLL/types/bookingTypes";
+import {
+  ShippingModeEnum,
+  ShippingTypesEnum,
+} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+
 import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
+import { getCargoGroupsListSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 
 type PropsType = {
   setFormStep: VoidFunctionType;
@@ -49,17 +50,18 @@ const CargoDetails: React.FC<PropsType> = ({
   let release_type_choices = useSelector(
     (state: AppStateType) => state.booking.release_type_choices
   );
-  let cargo_groups = useSelector(
+  let fcl_cargo_groups = useSelector(
     (state: AppStateType) => state.booking.current_booking_cargo_groups
   );
-  const {
-    register,
-    handleSubmit,
-    errors,
-    control,
-    getValues,
-    setValue,
-  } = useForm();
+
+  const other_cargo_groups = useSelector(getCargoGroupsListSelector);
+
+  const cargo_groups =
+    shippingValue === ShippingModeEnum.FCL
+      ? fcl_cargo_groups
+      : other_cargo_groups;
+
+  const { register, handleSubmit, errors, control, getValues } = useForm();
 
   const shippingTypes = useSelector(getShippingTypesSelector);
   const mode = useSelector(getCurrentShippingTypeSelector);
@@ -70,15 +72,21 @@ const CargoDetails: React.FC<PropsType> = ({
 
   let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
     ?.container_types;
+  let packaging_types = shippingModeOptions?.find((s) => s.id === shippingValue)
+    ?.packaging_types;
 
   const findContainer = (id: number) => {
     const container = container_types?.find((c) => c.id === id);
     return container?.code;
   };
+  const findPackagingType = (id: number) => {
+    const type = packaging_types?.find((c) => c.id === id);
+    return type?.description;
+  };
 
   const onSubmit = (values: any) => {
-    const newArr = cargo_groups?.map((c: any) => {
-      return { ...c, description: values.cargo_descriptions[c.id] };
+    const newArr = cargo_groups?.map((c) => {
+      return { ...c, description: values.cargo_descriptions[Number(c.id)] };
     });
 
     const firstStepObj = {
@@ -86,8 +94,15 @@ const CargoDetails: React.FC<PropsType> = ({
       release_type: values.release_type,
       number_of_documents: Number(values.number_of_documents),
     };
+    const obj = {
+      cargo_groups: newArr,
+    };
 
-    dispatch(bookingActions.set_description_step(firstStepObj));
+    dispatch(
+      bookingActions.set_description_step(
+        values.number_of_documents ? firstStepObj : obj
+      )
+    );
     setFormStep(formStep + 1);
   };
 
@@ -109,13 +124,17 @@ const CargoDetails: React.FC<PropsType> = ({
         </div>
       </FlexWrapper>
       <InputsWrapper>
-        {cargo_groups?.map((item, index) => (
+        {cargo_groups.map((item, index) => (
           <RowWrapper key={item.id}>
             <div style={{ width: 205 }}>
               <ContainerInfo>
-                {`${findContainer(Number(item.container_type))} x ${
-                  item.volume
-                }`}
+                {shippingValue === ShippingModeEnum.FCL
+                  ? `${item.volume} x ${findContainer(
+                      Number(item.container_type)
+                    )}`
+                  : `${item.volume} ${findPackagingType(
+                      Number(item.packaging_type)
+                    )} x  ${item.total_per_pack}w/m`}
               </ContainerInfo>
             </div>
             <div style={{ flex: 1 }}>

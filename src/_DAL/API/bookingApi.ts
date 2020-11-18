@@ -6,7 +6,6 @@ export const bookingApi = {
     return instance.get("/core/choices?models=release_type");
   },
   postBooking(data: PostBookingData) {
-    debugger;
     return instance.post("/booking/booking/", data);
   },
 };

@@ -53,16 +53,18 @@ type PropsType = {
     showRatingPopup: (value: boolean) => void
     search_result: SearchResultType
     shippingValue:number
+    setBookingPopupVisible?:(value:boolean)=>void
+    setWidgetsVisible?:(value:boolean)=>void
 }
 
-const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,shippingValue}) => {
+const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,shippingValue,setBookingPopupVisible,setWidgetsVisible}) => {
     const classes = useStyles();
 
     const [isShown, setShow] = useState(false)
-    const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
+    // const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
     return (
         <CardContainer>
-            {bookingPopupVisible && <ClientBookingPopUp shippingValue={shippingValue} setBookingPopupVisible={setBookingPopupVisible} currentFreightRate={search_result} />}
+            {/*{bookingPopupVisible && <ClientBookingPopUp shippingValue={shippingValue} setBookingPopupVisible={setBookingPopupVisible} currentFreightRate={search_result} />}*/}
             <CardInner>
                 <BookingCard showRatingPopup={showRatingPopup}
                              showTable={setShow}
@@ -70,6 +72,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,shipping
                              button_display={true}
                              setBookingPopupVisible={setBookingPopupVisible}
                              search_result={search_result}
+                             setWidgetsVisible={setWidgetsVisible}
                 />
                 {isShown && <HiddenWrapper>
                     <HiddenTitle>

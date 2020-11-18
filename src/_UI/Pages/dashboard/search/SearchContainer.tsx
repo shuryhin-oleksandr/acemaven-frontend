@@ -6,10 +6,12 @@ import {SearchResultType} from "../../../../_BLL/types/search/search_types";
 
 type PropsType = {
   search_result: SearchResultType[],
-  shippingValue:number
+  shippingValue:number,
+  setBookingPopupVisible?:(value:boolean)=>void
+  setWidgetsVisible?:(value:boolean)=>void
 }
 
-const SearchContainer:React.FC<PropsType> = ({search_result,shippingValue}) => {
+const SearchContainer:React.FC<PropsType> = ({search_result,shippingValue,setBookingPopupVisible,setWidgetsVisible}) => {
   const [isRatingPopup, showRatingPopup] = useState(false);
 
 
@@ -22,6 +24,8 @@ const SearchContainer:React.FC<PropsType> = ({search_result,shippingValue}) => {
         <SearchCardsContainer showRatingPopup={showRatingPopup}
                               search_result={search_result}
                               shippingValue={shippingValue}
+                              setBookingPopupVisible={setBookingPopupVisible}
+                              setWidgetsVisible={setWidgetsVisible}
         />
       )}
     </>

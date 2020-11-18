@@ -16,6 +16,14 @@ export const DashboardWrapper = styled.div`
   }
 `;
 
+export const Back = styled.div`
+  background-color: rgba(0, 0, 0, 0.3);
+  grid-area: 1/1/-1/-1;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+`;
+
 export const MapWrapper = styled.div`
   grid-area: 1/1/-1/-1;
   z-index: 0;
@@ -23,9 +31,11 @@ export const MapWrapper = styled.div`
   height: 100%;
 `;
 
-export const SearchBox = styled.div`
+export const SearchBox = styled.div<PropsStyle>`
   grid-area: 2/2/3/3;
+  display: ${({ widgetsVisible }) => (widgetsVisible ? "block" : "none")};
   margin-right: 69px;
+  z-index: 6;
 `;
 export const MultiWidgetBox = styled.div<PropsStyle>`
   display: ${({ widgetsVisible }) => (widgetsVisible ? "block" : "none")};

@@ -24,10 +24,11 @@ type PropsType = {
     isTableShown?: boolean
     showRatingPopup?: (value: boolean) => void
     setBookingPopupVisible?: (value: boolean) => void,
+    setWidgetsVisible?: (value: boolean) => void,
     search_result?: SearchResultType
 }
 
-const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result}) => {
+const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result,setWidgetsVisible}) => {
     const dispatch = useDispatch();
     return (
         <UpperWrapper onClick={() => isTableShown ? showTable && showTable(false) : showTable && showTable(true)}>
@@ -103,7 +104,9 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                 <BookButton onClick={(e) => {
                     e.stopPropagation();
                     search_result && dispatch(bookingActions.set_current_booking_freight_rate_id(search_result.freight_rate.id));
-                    setBookingPopupVisible && setBookingPopupVisible(true)
+                    search_result && dispatch(bookingActions.set_current_booking_freight_rate(search_result));
+                    setBookingPopupVisible && setBookingPopupVisible(true);
+                    setWidgetsVisible && setWidgetsVisible(false);
                 }} button_display={button_display}>
                     BOOK
                 </BookButton>

@@ -26,6 +26,9 @@ import {
 } from "../../../_BLL/types/rates&surcharges/ratesTypes";
 import { CurrentShippingType } from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { PackagingType } from "../../../_BLL/types/rates&surcharges/surchargesTypes";
+import ClientBookingPopUp from "../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
+import { useSelector } from "react-redux";
+import { AppStateType } from "../../../_BLL/store";
 
 type PropsType = {
   setWidgetsVisible: any;
@@ -73,8 +76,20 @@ const DashboardPage: React.FC<PropsType> = ({
   frozen_choices,
   origin_port_value,
 }) => {
+  const currentBookingRate = useSelector(
+    (state: AppStateType) => state.booking.current_booking_freight_rate
+  );
+  const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
   return (
     <DashboardWrapper>
+      {bookingPopupVisible && currentBookingRate && (
+        <ClientBookingPopUp
+          shippingValue={shippingValue}
+          setBookingPopupVisible={setBookingPopupVisible}
+          currentFreightRate={currentBookingRate}
+          setWidgetsVisible={setWidgetsVisible}
+        />
+      )}
       <MapComponent
         isMarkerShown
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
@@ -108,6 +123,8 @@ const DashboardPage: React.FC<PropsType> = ({
           <SearchContainer
             search_result={search_result}
             shippingValue={shippingValue}
+            setBookingPopupVisible={setBookingPopupVisible}
+            setWidgetsVisible={setWidgetsVisible}
           />
         )}
       </SearchBox>

@@ -71,6 +71,7 @@ const useStyles = makeStyles({
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
+  setWidgetsVisible: (value: boolean) => void;
   shippingValue: number;
   currentFreightRate: SearchResultType;
 };
@@ -79,6 +80,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
   setBookingPopupVisible,
   shippingValue,
   currentFreightRate,
+  setWidgetsVisible,
 }) => {
   const dispatch = useDispatch();
   const companyId = sessionStorage.getItem("u");
@@ -108,7 +110,12 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
     <PopupContainer>
       <PopupContent>
         <Heading>Booking process</Heading>
-        <CloseBtn onClick={() => setBookingPopupVisible(false)}>
+        <CloseBtn
+          onClick={() => {
+            setBookingPopupVisible(false);
+            setWidgetsVisible(true);
+          }}
+        >
           <img src={close} alt="" />
         </CloseBtn>
         <BookingCard

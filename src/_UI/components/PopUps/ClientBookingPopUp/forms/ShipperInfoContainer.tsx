@@ -60,7 +60,6 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
       freight_rate: freight_rate_id,
     };
 
-    console.log("finalData", finalData);
     dispatch(postBooking(finalData));
     dispatch(bookingActions.changeBookingStep("fee-table"));
   };

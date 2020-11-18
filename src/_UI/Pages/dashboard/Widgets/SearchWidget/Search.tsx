@@ -210,7 +210,6 @@ const Search: React.FC<PropsType> = ({
   const onSubmit = (values: any) => {
     let finalData;
     //FCL
-    debugger;
     if (values.shipping_mode === ShippingModeEnum.FCL) {
       finalData = {
         shipping_mode: values.shipping_mode,
@@ -248,7 +247,7 @@ const Search: React.FC<PropsType> = ({
           (c: any, index: number) => ({
             ...c,
             description: "",
-            id: `${index + 1}cargo`,
+            id: index + 1,
           })
         );
         dispatch(

@@ -243,7 +243,12 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             </TableTotal>
           </HiddenWrapper>
         )}
-        {bookingStep === "payment" && <PaymentContainer />}
+        {bookingStep === "payment" && (
+          <PaymentContainer
+            setBookingPopupVisible={setBookingPopupVisible}
+            setWidgetsVisible={setWidgetsVisible}
+          />
+        )}
       </PopupContent>
     </PopupContainer>
   );

@@ -1,17 +1,16 @@
 import {
   CargoDetailsValue,
-  CargoGroup,
   ChoiceType,
   DescriptionStepType,
 } from "../types/bookingTypes";
-import { SearchResultType } from "../types/search/search_types";
+import { CargoGroupType, SearchResultType } from "../types/search/search_types";
 
 const initialState = {
   cargo_details: null as CargoDetailsValue[] | null,
   booking_step: "shipping-form",
   current_booking_freight_rate_id: null as number | null,
   booking_dates: null as { date_from: string; date_to: string } | null,
-  current_booking_cargo_groups: [] as CargoGroup[],
+  current_booking_cargo_groups: [] as CargoGroupType[],
   release_type_choices: null as ChoiceType[] | null,
   description_step_data: null as DescriptionStepType | null,
   current_booking_freight_rate: null as SearchResultType | null,
@@ -95,7 +94,7 @@ export const bookingActions = {
       type: "SET_BOOKING_DATES",
       dates,
     } as const),
-  set_current_booking_cargo_groups: (cargo_groups: CargoGroup[]) =>
+  set_current_booking_cargo_groups: (cargo_groups: CargoGroupType[]) =>
     ({
       type: "SET_CURRENT_CARGO_GROUPS",
       cargo_groups,

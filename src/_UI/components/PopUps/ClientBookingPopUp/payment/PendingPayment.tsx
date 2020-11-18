@@ -3,16 +3,33 @@ import { Title, Container, Message } from "./payment-styles";
 import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 import BaseButton from "../../../base/BaseButton";
 
-type PropsType = {};
+type PropsType = {
+  setBookingPopupVisible: (value: boolean) => void;
+  setWidgetsVisible: (value: boolean) => void;
+};
 
-const PendingPayment: React.FC<PropsType> = () => {
+const PendingPayment: React.FC<PropsType> = ({
+  setWidgetsVisible,
+  setBookingPopupVisible,
+}) => {
   return (
     <Container>
       <div
-        style={{ display: "flex", alignItems: "center", marginBottom: "15px" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "15px",
+          justifyContent: "space-between",
+        }}
       >
         <Title>PAYMENT</Title>
-        <BaseButton onClick={() => {}} type="button">
+        <BaseButton
+          onClick={() => {
+            setBookingPopupVisible(false);
+            setWidgetsVisible(true);
+          }}
+          type="button"
+        >
           FINISH
         </BaseButton>
       </div>

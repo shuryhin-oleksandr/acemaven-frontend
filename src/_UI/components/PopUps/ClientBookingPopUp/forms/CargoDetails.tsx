@@ -18,9 +18,7 @@ import BaseButton from "../../../base/BaseButton";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
-import { InputColWrapper } from "./shipper-styles";
 import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
-import { GroupWrap } from "../../../../Pages/Services&Rates/rates/register_new_freight_rate/form-styles";
 import FormField from "../../../_commonComponents/Input/FormField";
 import { AppStateType } from "../../../../../_BLL/store";
 import {
@@ -31,8 +29,7 @@ import {
   ShippingModeEnum,
   ShippingTypesEnum,
 } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import { useFieldArray } from "react-hook-form";
-import { CargoGroup } from "../../../../../_BLL/types/bookingTypes";
+
 import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
 import { getCargoGroupsListSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 
@@ -59,24 +56,12 @@ const CargoDetails: React.FC<PropsType> = ({
 
   const other_cargo_groups = useSelector(getCargoGroupsListSelector);
 
-  console.log("fcl_cargo_groups", fcl_cargo_groups);
-  console.log("other_cargo_groups", other_cargo_groups);
-
   const cargo_groups =
     shippingValue === ShippingModeEnum.FCL
       ? fcl_cargo_groups
       : other_cargo_groups;
 
-  console.log("cargo_groups!!!", cargo_groups);
-
-  const {
-    register,
-    handleSubmit,
-    errors,
-    control,
-    getValues,
-    setValue,
-  } = useForm();
+  const { register, handleSubmit, errors, control, getValues } = useForm();
 
   const shippingTypes = useSelector(getShippingTypesSelector);
   const mode = useSelector(getCurrentShippingTypeSelector);
@@ -100,8 +85,8 @@ const CargoDetails: React.FC<PropsType> = ({
   };
 
   const onSubmit = (values: any) => {
-    const newArr = other_cargo_groups?.map((c: any) => {
-      return { ...c, description: values.cargo_descriptions[c.id] };
+    const newArr = cargo_groups?.map((c) => {
+      return { ...c, description: values.cargo_descriptions[Number(c.id)] };
     });
 
     const firstStepObj = {
@@ -109,8 +94,15 @@ const CargoDetails: React.FC<PropsType> = ({
       release_type: values.release_type,
       number_of_documents: Number(values.number_of_documents),
     };
+    const obj = {
+      cargo_groups: newArr,
+    };
 
-    dispatch(bookingActions.set_description_step(firstStepObj));
+    dispatch(
+      bookingActions.set_description_step(
+        values.number_of_documents ? firstStepObj : obj
+      )
+    );
     setFormStep(formStep + 1);
   };
 
@@ -132,73 +124,30 @@ const CargoDetails: React.FC<PropsType> = ({
         </div>
       </FlexWrapper>
       <InputsWrapper>
-        {shippingValue === ShippingModeEnum.FCL
-          ? fcl_cargo_groups.map((item, index) => (
-              <RowWrapper key={item.id}>
-                <div style={{ width: 205 }}>
-                  <ContainerInfo>
-                    {`${item.volume} x ${findContainer(
+        {cargo_groups.map((item, index) => (
+          <RowWrapper key={item.id}>
+            <div style={{ width: 205 }}>
+              <ContainerInfo>
+                {shippingValue === ShippingModeEnum.FCL
+                  ? `${item.volume} x ${findContainer(
                       Number(item.container_type)
-                    )}`}
-                  </ContainerInfo>
-                </div>
-                <div style={{ flex: 1 }}>
-                  <Controller
-                    name={`cargo_descriptions.${item.id}`}
-                    control={control}
-                    as={<Field placeholder="Add desription..." />}
-                    rules={{ required: "Field is required" }}
-                    defaultValue=""
-                  />
-                </div>
-              </RowWrapper>
-            ))
-          : other_cargo_groups.map((item, index) => (
-              <RowWrapper key={item.id}>
-                <div style={{ width: 205 }}>
-                  <ContainerInfo>
-                    {`${item.volume} ${findPackagingType(
+                    )}`
+                  : `${item.volume} ${findPackagingType(
                       Number(item.packaging_type)
-                    )} x ${item.total_per_pack}w/m`}
-                  </ContainerInfo>
-                </div>
-                <div style={{ flex: 1 }}>
-                  <Controller
-                    name={`cargo_descriptions.${item.id}`}
-                    control={control}
-                    as={<Field placeholder="Add desription..." />}
-                    rules={{ required: "Field is required" }}
-                    defaultValue=""
-                  />
-                </div>
-              </RowWrapper>
-            ))}
-
-        {/*Почему TS ругается????*/}
-        {/*{other_cargo_groups.map((item, index) => (*/}
-        {/*  <RowWrapper key={item.id}>*/}
-        {/*    <div style={{ width: 205 }}>*/}
-        {/*      <ContainerInfo>*/}
-        {/*        {shippingValue === ShippingModeEnum.FCL*/}
-        {/*          ? `${item.volume} x ${findContainer(*/}
-        {/*              Number(item.container_type)*/}
-        {/*            )}`*/}
-        {/*          : `${item.volume} ${findPackagingType(*/}
-        {/*              Number(item.packaging_type)*/}
-        {/*            )} x  ${item.total_per_pack}w/m`}*/}
-        {/*      </ContainerInfo>*/}
-        {/*    </div>*/}
-        {/*    <div style={{ flex: 1 }}>*/}
-        {/*      <Controller*/}
-        {/*        name={`cargo_descriptions.${item.id}`}*/}
-        {/*        control={control}*/}
-        {/*        as={<Field placeholder="Add desription..." />}*/}
-        {/*        rules={{ required: "Field is required" }}*/}
-        {/*        defaultValue=""*/}
-        {/*      />*/}
-        {/*    </div>*/}
-        {/*  </RowWrapper>*/}
-        {/*))}*/}
+                    )} x  ${item.total_per_pack}w/m`}
+              </ContainerInfo>
+            </div>
+            <div style={{ flex: 1 }}>
+              <Controller
+                name={`cargo_descriptions.${item.id}`}
+                control={control}
+                as={<Field placeholder="Add desription..." />}
+                rules={{ required: "Field is required" }}
+                defaultValue=""
+              />
+            </div>
+          </RowWrapper>
+        ))}
       </InputsWrapper>
 
       {currentFreightRate.freight_rate.shipping_type ===

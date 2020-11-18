@@ -133,6 +133,7 @@ const Additional: React.FC<PropsType> = ({
                             setValue={setValue}
                             defaultV={conditions[0]?.displayName}
                             setFormMode=""
+                            right={'20px'}
                           />
                         </TableCell>
                       )

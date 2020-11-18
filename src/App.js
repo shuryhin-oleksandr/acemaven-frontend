@@ -26,7 +26,7 @@ function App() {
 
   return (
      isInit ?
-      <Scrollbars style={{ width: "100vw",  height: "100vh" }} autoHide= {false}>
+      <Scrollbars style={{ width: "100vw",  height: "100vh" }} autoHide={false}>
         <div className="App">{route}</div>
       </Scrollbars>:
       <Spinner />

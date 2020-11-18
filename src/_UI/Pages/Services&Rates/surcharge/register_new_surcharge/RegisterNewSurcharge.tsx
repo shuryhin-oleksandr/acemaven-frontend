@@ -70,13 +70,10 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
     const dispatch = useDispatch()
 
     const onSubmit = (values: any) => {
-        debugger
         setInvalidDate('')
         if(values.from <= values.to) {
-
             dispatch(surchargeActions.setAddingSurchargeError([]))
             let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
-
             let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
 
             let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}

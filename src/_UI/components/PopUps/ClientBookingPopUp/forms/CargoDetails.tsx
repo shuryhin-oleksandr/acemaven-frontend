@@ -53,7 +53,6 @@ const CargoDetails: React.FC<PropsType> = ({
     (state: AppStateType) => state.booking.current_booking_cargo_groups
   );
 
-  console.log("cargo_groups", cargo_groups);
 
   const shippingTypes = useSelector(getShippingTypesSelector);
   const mode = useSelector(getCurrentShippingTypeSelector);

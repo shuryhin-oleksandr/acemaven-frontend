@@ -24,7 +24,7 @@ export const HeaderTitle = styled.div`
   color: black;
 `
 export const StatusSpan = styled.div<PropsStyle>`
-  color: ${({status}) => status ? '#115b86' : 'black'};
+  color: #115b86;
   font-family: "Helvetica Bold", sans-serif;
   font-size: 16px;
 `

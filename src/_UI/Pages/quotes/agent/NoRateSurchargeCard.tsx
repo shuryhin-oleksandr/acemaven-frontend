@@ -5,14 +5,14 @@ type PropsType = {
     openCreatePopup: (value: boolean) => void
 }
 
-const NoRateSurchargeCard:React.FC<PropsType> = () => {
+const NoRateSurchargeCard:React.FC<PropsType> = ({openCreatePopup}) => {
     return (
         <NoRatesOuter>
             <NoRatesContent>
                 There are no freight rate and surcharges for these shipment dates.
                 The offer won't be created until a matching freight rate and surcharges agreement is created.
             </NoRatesContent>
-            <RegisterButton>REGISTER NEW FREIGHT RATE AND SURCHARGES</RegisterButton>
+            <RegisterButton type={'button'} onClick={() => openCreatePopup(true)}>REGISTER NEW</RegisterButton>
         </NoRatesOuter>
     )
 }
@@ -29,6 +29,7 @@ const NoRatesOuter = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
 `
 const NoRatesContent = styled.div`
   color: #4f4f4f;
@@ -41,7 +42,7 @@ const NoRatesContent = styled.div`
 
 const RegisterButton = styled.button`
   height: 50px;
-  width: 350px;
+  width: 200px;
   background-color: black;
   outline: none;
   border: none;

@@ -20,13 +20,8 @@ const useStyles = makeStyles({
   },
 });
 
-const ConditionSelect = ({
-  options,
-  name,
-  setValue,
-  defaultV,
-  setFormMode
-}) => {
+const ConditionSelect = ({ options, name, setValue, defaultV, setFormMode, right}) => {
+
   const [boxVisible, setBoxVisible] = useState(false);
   const [displayValue, setDisplayValue] = useState(defaultV);
   const classes = useStyles();
@@ -74,7 +69,7 @@ const ConditionSelect = ({
           ))}
         </Box>
       )}
-      <ArrowImg src={boxVisible ? ArrowOpened : Arrow} alt="" />
+      <ArrowImg src={boxVisible ? ArrowOpened : Arrow} alt="" right={right}/>
     </Wrapper>
   );
 };
@@ -130,6 +125,6 @@ const StyledOption = styled.div`
 const ArrowImg = styled.img`
   position: absolute;
   top: 18px;
-  right: 20px;
+  right: ${({right}) => right ? right : '20px'};
   width: 10px;
 `;

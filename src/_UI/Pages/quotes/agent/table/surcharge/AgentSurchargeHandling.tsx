@@ -1,4 +1,5 @@
 import React from 'react'
+//material ui
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -8,19 +9,17 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-type PropsType = {
 
+type PropsType = {
+    usage_fees: any
 }
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        width: 450
-    },
-    table: {
-        '& .MuiTableHead-root' : {
-
-        }
+        width: 450,
+        height: 280,
+        overflowY: 'scroll'
     },
     cell: {
         color: '#115B86',
@@ -45,12 +44,12 @@ const useStyles = makeStyles({
     }
 });
 
-const AgentSurchargeHandling:React.FC<PropsType> = ({}) => {
+const AgentSurchargeHandling:React.FC<PropsType> = ({usage_fees}) => {
     const classes = useStyles();
 
     return (
         <TableContainer className={classes.container} component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+            <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell className={classes.cell} align="left">CONTAINER TYPE</TableCell>
@@ -59,39 +58,18 @@ const AgentSurchargeHandling:React.FC<PropsType> = ({}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow >
+                    {usage_fees.map((fee: any, index: any) => <TableRow key={index}>
                         <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            Container type 1
+                            {fee.container_type.code}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
-                            BRL
+                            {fee.currency.code}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
-                            150
+                            {fee.charge}
                         </TableCell>
-                    </TableRow>
-                    <TableRow >
-                        <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            Container type 1
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            BRL
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            150
-                        </TableCell>
-                    </TableRow>
-                    <TableRow >
-                        <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            Container type 1
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            BRL
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            150
-                        </TableCell>
-                    </TableRow>
+                    </TableRow>)}
+
                 </TableBody>
             </Table>
         </TableContainer>

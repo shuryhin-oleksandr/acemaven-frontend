@@ -13,7 +13,7 @@ import AcceptPopupDates from "./AcceptPopupDates";
 import {IconButton} from "@material-ui/core";
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
 import OutlineButton from "../../_commonComponents/buttons/outline_button/OutlineButton";
-import LocationBlock from "./LocationBlock";
+import LocationContainer from "./LocationContainer";
 
 
 
@@ -32,7 +32,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup}) => {
     }
 
     let direction = 'export'
-    let shipping_mode = 'FCL'
+    let shipping_mode = 'LCL'
     let shipping_type = 'sea'
 
     return (
@@ -43,120 +43,67 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup}) => {
                 <AcceptContent>
                     <AcceptContentTitle>Type the required shipments details to confirm booking</AcceptContentTitle>
                     <AcceptFormOuter onSubmit={handleSubmit(onSubmit)}>
-                        <Controller name='booking_number'
-                                    control={control}
-                                    rules={{
-                                        required: 'Field is required'
-                                    }}
-                                    as={
-                                        <>
-                                            <FormField error={errors?.booking_number}
-                                                       label='Booking number'
-                                                       placeholder='Placeholder'
-                                                       maxW='100%'
-                                                       booking_process={true}
-                                            />
-                                        </>
-
-                                    }
+                        <FormField error={errors?.booking_number}
+                                   label='Booking number'
+                                   placeholder='Placeholder'
+                                   maxW='100%'
+                                   name='booking_number'
+                                   inputRef={register({required: 'Field is required'})}
+                                   booking_process={true}
                         />
                         {shipping_mode === 'LCL'
                         && <>
-                            <Controller name='booking_number_with_carrier'
-                                        control={control}
-                                        rules={{
-                                            required: 'Field is required'
-                                        }}
-                                        as={
-                                            <FormField error={errors?.booking_number_with_carrier}
-                                                       label='Booking Number With Carrier'
-                                                       placeholder='Placeholder'
-                                                       maxW='100%'
-                                                       booking_process={true}
-                                            />
-                                        }
+                            <FormField error={errors?.booking_number_with_carrier}
+                                       label='Booking Number With Carrier'
+                                       placeholder='Placeholder'
+                                       maxW='100%'
+                                       name='booking_number_with_carrier'
+                                       inputRef={register({required: 'Field is required'})}
+                                       booking_process={true}
                             />
-                            <Controller name='container_number'
-                                        control={control}
-                                        rules={{
-                                            required: 'Field is required'
-                                        }}
-                                        as={
-                                            <FormField error={errors?.container_number}
-                                                       label='Container Number'
-                                                       placeholder='Placeholder'
-                                                       maxW='100%'
-                                                       booking_process={true}
-                                            />
-                                        }
+                            <FormField error={errors?.container_number}
+                                       label='Container Number'
+                                       placeholder='Placeholder'
+                                       maxW='100%'
+                                       booking_process={true}
+                                       inputRef={register({required: 'Field is required'})}
+                                       name='container_number'
                             />
                         </>
                         }
                         {shipping_type === 'air'
-                            && <Controller name='mawb'
-                                           control={control}
-                                           rules={{
-                                               required: 'Field is required'
-                                           }}
-                                           as={
-                                               <FormField error={errors?.mawb}
-                                                          label='MAWB'
-                                                          placeholder='Placeholder'
-                                                          maxW='100%'
-                                                          booking_process={true}
-                                               />
-                                           }
-                        />
+                            && <FormField error={errors?.mawb}
+                                          name='mawb'
+                                          label='MAWB'
+                                          placeholder='Placeholder'
+                                          maxW='100%'
+                                          booking_process={true}
+                                          inputRef={register({required: 'Field is required'})}
+                            />
                         }
                         {shipping_type === 'air'
-                            ? <Controller name='flight_number'
-                                          control={control}
-                                          rules={{
-                                              required: 'Field is required'
-                                          }}
-                                          as={
-                                              <>
-                                                  <FormField error={errors?.flight_number}
-                                                             label='Flight Number'
-                                                             placeholder='Placeholder'
-                                                             maxW='100%'
-                                                  />
-                                              </>
-
-                                          }
+                            ? <FormField error={errors?.flight_number}
+                                         name='flight_number'
+                                         inputRef={register({required: 'Field is required'})}
+                                         label='Flight Number'
+                                         placeholder='Placeholder'
+                                         maxW='100%'
                             />
                             : <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-                                <Controller name='Vessel'
-                                            control={control}
-                                            rules={{
-                                                required: 'Field is required'
-                                            }}
-                                            as={
-                                                <>
-                                                    <FormField error={errors?.vessel}
-                                                               label='Vessel'
-                                                               placeholder='Placeholder'
-                                                               maxW='310px'
-                                                    />
-                                                </>
-
-                                            }
+                                <FormField error={errors?.vessel}
+                                           name='vessel'
+                                           inputRef={register({required: 'Field is required'})}
+                                           label='Vessel'
+                                           placeholder='Placeholder'
+                                           maxW='310px'
                                 />
-                                <Controller name='voyage'
-                                            control={control}
-                                            rules={{
-                                                required: 'Field is required'
-                                            }}
-                                            as={
-                                                <>
-                                                    <FormField error={errors?.voyage}
-                                                               label='Voyage'
-                                                               placeholder='Placeholder'
-                                                               maxW='310px'
-                                                    />
-                                                </>
 
-                                            }
+                                <FormField error={errors?.voyage}
+                                           name='voyage'
+                                           inputRef={register({required: 'Field is required'})}
+                                           label='Voyage'
+                                           placeholder='Placeholder'
+                                           maxW='310px'
                                 />
                             </div>
                         }
@@ -164,36 +111,38 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup}) => {
                                           errors={{from: errors.from, to: errors.to, departure_time: errors.departure_time, arrival_time: errors.arrival_time}}
                                           setValue={setValue}
                                           required_dates={true}
+                                          label1={'Estimated Time of Departure'}
+                                          label2={'Estimated Time of Arrival'}
+                                          time_name_first={'estimated_time.departure_time'}
+                                          time_name_second={'estimated_time.arrival_time'}
+                                          date_name_first={'estimated_time.from'}
+                                          date_name_second={'estimated_time.to'}
                         />
-                        {shipping_mode === 'FCL'
-                            && <LocationBlock control={control}
-                                              register={register}
-                                              errors={errors}
-                                              label={'Empty Pick Up Location'}
-                                              field_name={'empty_pickup_location'}
-                                              google_field_name={'empty_pickup_location_address'}
+                        {direction === 'export'
+                            && <AcceptPopupDates control={control}
+                                                 errors={{from: errors.from, to: errors.to, departure_time: errors.departure_time, arrival_time: errors.arrival_time}}
+                                                 setValue={setValue}
+                                                 required_dates={true}
+                                                 label1={'Documents Cut Off Date'}
+                                                 label2={'Cargo Cut Off Date'}
+                                                 time_name_first={'documents_cut_off.cut_off_time'}
+                                                 time_name_second={'cargo_cut_off.cut_off_time'}
+                                                 date_name_first={'documents_cut_off.from'}
+                                                 date_name_second={'cargo_cut_off.to'}
                             />
                         }
-                        <LocationBlock control={control}
-                                       register={register}
-                                       errors={errors}
-                                       label={'Cargo Drop Off Location'}
-                                       field_name={'cargo_drop_off_location'}
-                                       google_field_name={'cargo_drop_off_location_address'}
+                        <LocationContainer errors={errors}
+                                           register={register}
+                                           shipping_mode={shipping_mode}
+                                           direction={direction}
                         />
                         {shipping_mode === 'FCL'
-                            && <Controller name='container_free_time'
-                                           control={control}
-                                           rules={{
-                                               required: 'Field is required'
-                                           }}
-                                           as={
-                                               <FormField error={errors?.container_free_time}
-                                                          label='Container Free time'
-                                                          placeholder='Number of days'
-                                                          maxW='310px'
-                                                   />
-                                           }
+                            && <FormField error={errors?.container_free_time}
+                                          name='container_free_time'
+                                          inputRef={register({required: 'Field is required'})}
+                                          label='Container Free time'
+                                          placeholder='Number of days'
+                                          maxW='310px'
                         />
                         }
                         <Controller name='booking_notes'

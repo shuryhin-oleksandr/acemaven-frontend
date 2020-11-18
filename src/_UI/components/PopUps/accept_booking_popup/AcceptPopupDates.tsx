@@ -20,7 +20,14 @@ type PropsType = {
     input_height?: string
     rate_start_date?: string
     setFormMode?: (value: boolean) => void
-    required_dates: boolean
+    required_dates: boolean,
+    label1: string,
+    label2: string,
+    time_name_first: string,
+    time_name_second: string,
+    date_name_first: string,
+    date_name_second: string,
+
 }
 
 const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, required_dates, ...props}) => {
@@ -55,7 +62,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
             ...selectedDay,
             from
         })
-        setValue('from', from)
+        setValue(props.date_name_first, from)
     }
 
     const handleToChange = (to: string) => {
@@ -64,7 +71,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
             ...selectedDay,
             to
         })
-        setValue('to', to)
+        setValue(props.date_name_second, to)
     }
 
     const toInput = useRef<DayPickerInput>(null)
@@ -78,8 +85,8 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
         <AcceptDatesFilter >
             <Wrapper justify_content='flex-start'>
                 <Calendar
-                    label='Estimated Time of Departure'
-                    name='from'
+                    label={props.label1}
+                    name={props.date_name_first}
                     value={selectedDay.from}
                     handleDayChange={handleFromChange}
                     selectedDay={selectedDay}
@@ -102,7 +109,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
                             rules={{
                                 required: true
                             }}
-                            name='departure_time'
+                            name={props.time_name_first}
                             as={
                                 <TimePicker type="time"
                                             step='300'
@@ -113,8 +120,8 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
             </Wrapper>
             <Wrapper>
             <Calendar
-                label='Estimated Time of Arrival'
-                name='to'
+                label={props.label2}
+                name={props.date_name_second}
                 value={selectedDay.to}
                 handleDayChange={handleToChange}
                 selectedDay={selectedDay}
@@ -137,7 +144,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
                             rules={{
                                 required: true
                             }}
-                            name='arrival_time'
+                            name={props.time_name_second}
                             as={
                                 <TimePicker type="time"
                                             step='300'

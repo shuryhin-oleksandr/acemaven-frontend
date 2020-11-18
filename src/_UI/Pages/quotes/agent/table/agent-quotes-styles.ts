@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import done_icon from '../../../../../_UI/assets/icons/ant-design_check-circle-outlined.svg'
+import {RateQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 
 type PropsStyle = {
-    no_rates?: boolean
+    no_rates?: RateQuoteType | null
 }
 
 export const SubmittedWrapper = styled.div`
@@ -13,26 +14,28 @@ export const DoneIcon = styled.div`
   height: 19px;
   width: 19px;
   position: absolute;
-  right: 90px;
+  left: 55px;
 `
-export const SubmitQuoteButton = styled.button`
+export const SubmitQuoteButton = styled.button<{disabled?: boolean}>`
   width: 187px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   outline: none;
-  background-color: black;
+  background-color: ${({disabled}) => disabled ? 'rgba(0, 0, 0, .6)' : 'black'};
   border: none;
   color: white;
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
+  margin-left: 20px;
   
   &:hover {
-    cursor: pointer;
+    cursor: ${({disabled}) => disabled ? 'not-allowed' : 'pointer'};
+    
   }
 `
-export const QuoteCardContainer = styled.div`
+export const QuoteCardContainer = styled.form`
   width: 100%;
   height: 100%;
   padding: 50px 80px 50px 30px;

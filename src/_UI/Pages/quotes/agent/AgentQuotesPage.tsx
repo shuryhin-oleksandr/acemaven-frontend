@@ -10,6 +10,7 @@ import AgentQuotesTableContainer from "./table/AgentQuotesTableContainer";
 import {ClientQuotesInner, ClientQuotesOuter} from "../client/quotes-client-styles";
 
 
+
 type PropsType = {
     setSearchMode: (value: boolean) => void
     isSearchMode: boolean
@@ -20,7 +21,7 @@ type PropsType = {
     search_column: string
     setSearchColumn: (value: string) => void,
     getQuotesByFilters: (type: string, field_name: string, search_column: string, search_value: string) => void,
-    agent_quotes_list: QuoteType[],
+    agent_quotes_list: QuoteType[]
 }
 
 const AgentQuotesPage:React.FC<PropsType> = ({searchValue,setSearchValue, mode, setMode, getQuotesByFilters,

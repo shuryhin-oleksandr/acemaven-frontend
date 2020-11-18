@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 //react-hook-form
-import {Controller, useFormContext} from "react-hook-form";
+import {Controller} from "react-hook-form";
 //material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -25,11 +25,10 @@ const useStyles = makeStyles({
     container: {
         boxShadow: "none",
         width: 440,
-        //height: '420px',
+        minHeight: 120,
+        maxHeight: 270,
         overflowY: 'scroll'
-    },
-    table: {
-        "& .MuiTableHead-root": {},
+
     },
     row: {
         width: '100%',
@@ -61,15 +60,17 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    usageFees?: ContainerType[];
+    usageFees: ContainerType[];
+    quote_shipping_mode_id: number,
+    control: any,
+    register: any,
+    setValue: any
 }
 
-const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
-    const classes = useStyles()
-    let usageFees: never[] = []
-   let shipping_value = 3
+const RatesForQuotesTable:React.FC<PropsType> = ({usageFees, quote_shipping_mode_id, ...props}) => {
 
-    const { control, getValues, errors, setValue } = useFormContext();
+    const classes = useStyles()
+
 
     const [awareMessage, setAware] = useState(false)
     const [rate_value, setRateValue] = useState('')
@@ -77,9 +78,9 @@ const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
         if(e.currentTarget.value === '0') {
             setRateValue(id)
             setAware(true)
-            setValue(`rates.${id}.rate`, e.currentTarget.value)
+            props.setValue(`rates.${id}.rate`, e.currentTarget.value)
         } else {
-            setValue(`rates.${id}.rate`, e.currentTarget.value)
+            props.setValue(`rates.${id}.rate`, e.currentTarget.value)
         }
     }
 
@@ -87,14 +88,18 @@ const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
         <div style={{width: '100%', paddingBottom: '40px', borderBottom: '1px solid #bdbdbd', marginBottom: '20px'}}>
             <HandlingTitle margin_bottom='0px'>FREIGHT RATE</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD && <TableCell className={classes.cell}>CONTAINER TYPE </TableCell>}
+                            {usageFees?.length > 0 && quote_shipping_mode_id !== ShippingModeEnum.ULD
+                                && <TableCell className={classes.cell}>
+                                    CONTAINER TYPE
+                                   </TableCell>
+                            }
                             <TableCell className={classes.cell} align="left">
                                 CURRENCY
                             </TableCell>
-                            {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD
+                            {usageFees?.length > 0 && quote_shipping_mode_id !== ShippingModeEnum.ULD
                                 ? (<TableCell className={classes.cell} align="left">
                                     RATE
                                 </TableCell>)
@@ -105,10 +110,10 @@ const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD
-                            ? usageFees.map((fee: any) => (
+                        {usageFees.length > 0 && quote_shipping_mode_id !== ShippingModeEnum.ULD
+                            ? usageFees.map(fee => (
                                 <TableRow key={fee.id} >
-                                    <Controller control={control}
+                                    <Controller control={props.control}
                                                 defaultValue={fee.id}
                                                 name={`rates.${fee.id}.container_type`}
                                                 as={
@@ -122,7 +127,7 @@ const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
                                                 }
                                     />
                                     <TableCell className={classes.innerCell} align="left">
-                                        <Controller control={control}
+                                        <Controller control={props.control}
                                                     name={`rates.${fee.id}.currency`}
                                                     defaultValue={currency[0].id}
                                                     as={
@@ -134,7 +139,7 @@ const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
                                         />
                                     </TableCell>
                                     <TableCell className={classes.innerCell} align="left">
-                                        <Controller control={control}
+                                       {/* <Controller control={props.control}
                                                     name={`rates.${fee.id}.rate`}
                                                     defaultValue=''
                                                     render={({}) => (
@@ -151,6 +156,13 @@ const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
                                                     )
                                                     }
 
+                                        />*/}
+                                        <Field placeholder='0.00$' maxW='100px'
+                                               name={`rates.${fee.id}.rate`}
+                                               ref={props.register}
+                                              /* onChange={(e) => onChange(e, String(fee.id))}
+                                               onBlur={() => setAware(false)}*/
+                                               type='number'
                                         />
                                     </TableCell>
                                 </TableRow>
@@ -159,7 +171,7 @@ const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
                                 <TableRow>
                                     <>
                                         <TableCell className={classes.innerCell} align="left">
-                                            <Controller control={control}
+                                            <Controller control={props.control}
                                                         name={`rates.currency`}
                                                         defaultValue={currency[0].id}
                                                         as={
@@ -170,7 +182,7 @@ const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
                                             />
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="left">
-                                            <Controller control={control}
+                                            <Controller control={props.control}
                                                         name={`rates.rate`}
                                                         rules={{required: true}}
                                                         defaultValue={0}
@@ -182,14 +194,13 @@ const RatesForQuotesTable:React.FC<PropsType> = ({}) => {
                                                                        type='number'
                                                                 />
                                                                 {awareMessage && String(0) === rate_value
-                                                                && <SpanAware><Title>Rate will be register as 0. Are you sure?</Title></SpanAware>}
+                                                                && <SpanAware><Title>Rate will be register as 0. Are you
+                                                                    sure?</Title></SpanAware>}
                                                             </div>
                                                         )
                                                         }
-
                                             />
                                         </TableCell>
-
                                     </>
                                 </TableRow>
                             </>

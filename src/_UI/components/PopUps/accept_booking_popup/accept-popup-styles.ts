@@ -16,7 +16,7 @@ export const AcceptWrapper = styled.div`
 export const AcceptInner = styled.div`
   max-width: 800px;
   width: 100%;
-  max-height: 1000px;
+  max-height: 1200px;
   background-color: white;
   position: relative;
 `

@@ -6,14 +6,17 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
 // @ts-ignore
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
+import moment from "moment";
+
 
 type PropsType = {
     control: any,
     error?: any,
-    setValue: any
+    setValue: any,
+    before_date: string
 }
 
-const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue}) => {
+const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue, before_date}) => {
     const toInput = useRef<DayPickerInput>(null)
 
     const [selectedDay, setSelectedDay] = useState<any>({
@@ -26,18 +29,18 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue}
             ...selectedDay,
             to
         })
-        setValue('to', to)
+        setValue('date_to', to)
     }
 
     return (
-        <CalendarWrapper /*error={error}*/ max_width='300px'
+        <CalendarWrapper max_width='300px'
                          input_height='40px' margin_right='0px' margin_bottom='10px'>
             <Controller
-                name='to'
+                name='date_to'
                 control={control}
-                /*rules={{
-                    required: props.required_dates
-                }}*/
+                rules={{
+                    required: 'Field is required'
+                 }}
                 defaultValue=""
                 as={
                     <DayPickerInput
@@ -50,8 +53,12 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue}
                         parseDate={parseDate}
                         hideOnDayClick={false}
                         value={selectedDay.to}
-                        onDayChange={day => console.log(day)}
+                        // @ts-ignore
+                        onDayChange={handleDayChange}
                         ref={toInput}
+                        dayPickerProps={{
+                            disabledDays: [{before: moment(before_date, 'DD/MM/YYYY').toDate()}],
+                        }}
                     />
                 }
             />

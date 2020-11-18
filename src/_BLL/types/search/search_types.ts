@@ -30,8 +30,20 @@ export type SearchFreightRateType = {
     id: number,
     carrier: string,
     carrier_disclosure?: boolean,
-    origin: string,
-    destination: string,
+    origin: {
+        id: number,
+        code: string,
+        name: string,
+        display_name: string,
+        is_local: boolean
+    },
+    destination: {
+        id: number,
+        code: string,
+        name: string,
+        display_name: string,
+        is_local: boolean
+    },
     shipping_mode: string,
     shipping_type: string,
     expiration_date: string,

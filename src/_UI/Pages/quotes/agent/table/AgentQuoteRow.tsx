@@ -90,7 +90,7 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
             </TableCell>
             <TableCell className={classes.innerCell} align="left">{quote.destination.code}</TableCell>
             <TableCell className={classes.innerCell} align="left">{quote.shipping_mode.title}</TableCell>
-            <TableCell className={classes.innerCell} align="left">
+            <TableCell className={classes.innerCell} align="center">
                 <CargosOuter>
                     {quote.cargo_groups.map((c, index) => {
                         return <span key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
@@ -102,11 +102,11 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
                 <div style={{fontFamily: 'Helvetica Light', fontSize: '15px', textAlign: 'start'}}>{day_from} - {date_to}</div>
                 <div style={{textAlign: 'start'}}>WEEK {quote.week_range.week_from}{quote.week_range.week_from !== quote.week_range.week_to && ` - ${quote.week_range.week_to}`}</div>
             </TableCell>
-            <TableCell className={classes.innerCell} align="right">
+            <TableCell className={classes.innerCell} align="center">
                 {quote.is_submitted
                     ? <SubmittedWrapper>
                         <DoneIcon />
-                        <StatusSpan>Submitted</StatusSpan>
+                        <StatusSpan onClick={() => setCardOpen(Number(quote.id))}>Submitted</StatusSpan>
                     </SubmittedWrapper>
                     :  <SubmitQuoteButton onClick={() => setCardOpen(Number(quote.id))}>SUBMIT QUOTE</SubmitQuoteButton>
                 }

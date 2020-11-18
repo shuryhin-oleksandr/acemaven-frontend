@@ -54,7 +54,7 @@ const CargoTable:React.FC<PropsType> = ({cargos}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {cargos?.map(c => <TableRow>
+                    {cargos?.map((c, index) => <TableRow key={index}>
                             <TableCell className={classes.innerCell} component="th" scope="row">
                                 {c?.volume}
                             </TableCell>

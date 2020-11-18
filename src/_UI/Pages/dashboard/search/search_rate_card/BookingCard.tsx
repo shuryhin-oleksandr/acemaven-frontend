@@ -38,7 +38,7 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                             <img src={search_result?.freight_rate.shipping_type === 'sea' ? ship : plane} alt=""/>
                         </ShippingType>
                         <DirectionWrap>
-                            <Direction>{search_result?.freight_rate.origin} - {search_result?.freight_rate.destination}</Direction>
+                            <Direction>{search_result?.freight_rate.origin.code} - {search_result?.freight_rate.destination.code}</Direction>
                             <Carrier>*{search_result?.freight_rate.company}</Carrier>
                         </DirectionWrap>
                     </GeneralWrap>

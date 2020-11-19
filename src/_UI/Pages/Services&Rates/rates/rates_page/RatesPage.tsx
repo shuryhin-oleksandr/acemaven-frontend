@@ -21,11 +21,12 @@ import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { getSurchargeInfo } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { useHistory } from "react-router-dom";
 import { setActiveOrPausedRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import { Scrollbars } from 'react-custom-scrollbars';
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
+    paddingRight: "12px"
   },
   table: {
     "& .MuiTableHead-root": {},
@@ -140,7 +141,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
 
   return (
     <Outer>
-      <Scrollbars style={{width: "100%", height: "100%"}}>
+      <ScrollbarStyled {...{style: {width: "100%", height: "100%"}}}>
         <TableContainer className={classes.container} component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -293,7 +294,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
             </TableBody>
           </Table>
         </TableContainer>
-      </Scrollbars>
+      </ScrollbarStyled>
     </Outer>
   );
 };

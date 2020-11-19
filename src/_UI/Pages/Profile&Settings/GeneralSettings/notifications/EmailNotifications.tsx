@@ -4,11 +4,11 @@ import SettingsNotificationCard
     from "../../../../components/_commonComponents/settingsNotification/SettingsNotificationCard";
 import SettingsNotificationRadio
     from "../../../../components/_commonComponents/settingsNotification/SettingsNotificationRadio/SettingsNotificationRadio";
-import { Scrollbars } from 'react-custom-scrollbars';
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const EmailNotifications = () => {
     return (
-      <Scrollbars style={{ width: "100%",  height: "calc(100vh - 341px)" }}>
+      <ScrollbarStyled {...{style: {width: "100%",  height: "calc(100vh - 341px)" }}}>
         <SettingsWrap>
             <SettingsNotificationCard title='Surcharge Expiration'
                                       subtitle='Number of days to notify before a surcharge expires'
@@ -35,7 +35,7 @@ const EmailNotifications = () => {
                                        name='operationsDetails'
             />
         </SettingsWrap>
-      </Scrollbars>
+      </ScrollbarStyled>
     )
 }
 

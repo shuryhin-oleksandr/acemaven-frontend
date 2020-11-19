@@ -8,11 +8,20 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//react hook form
+import {Controller} from "react-hook-form";
+//types
+import {ContainerType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+//helpers
+import {currency} from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+//components
+import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
 //styles
 import {
     HandlingSurchargeContainer,
     HandlingTitle
 } from "../../../../Pages/Services&Rates/surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+import {Field} from "../../../_commonComponents/Input/input-styles";
 
 
 
@@ -39,42 +48,63 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
         color: '#1B1B25',
-        padding: '16px 0'
+        padding: '5px 0'
     }
 });
 
 type PropsType = {
-    containers?: any
+    containers: ContainerType[],
+    package_type: string,
+    table_name: string,
+    control: any,
+    register: any
 }
 
-const HandlingTable:React.FC<PropsType> = () => {
+const HandlingTable:React.FC<PropsType> = ({containers, ...props}) => {
 
     const classes = useStyles();
-    let containers: any[] = []
 
     return (
-        <HandlingSurchargeContainer style={{maxWidth: '834px', marginRight: '50px'}}>
-            <HandlingTitle margin_bottom='0px'>Handling</HandlingTitle>
+        <HandlingSurchargeContainer max_height={'380px'} style={{maxWidth: '450px', marginRight: '20px'}}>
+            <HandlingTitle margin_bottom='0px'>{props.table_name}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell className={classes.cell} align="left">CONTAINER TYPE</TableCell>
+                            <TableCell className={classes.cell} align="left">{props.package_type}</TableCell>
                             <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
                             <TableCell className={classes.cell} align="right">CHARGE</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody className={classes.body}>
-                        {containers?.map((c: any) => (
+                        {containers?.map(c => (
                             <TableRow key={c.id}>
                                 <TableCell className={classes.innerCell}  component="th" scope="row">
-                                    {c.container_type.code}
+                                    <Controller name={`usage_fees.${c.id}.container_type`}
+                                                control={props.control}
+                                                defaultValue={c.id}
+                                                as={
+                                                    <span>{c?.code}</span>
+                                                }
+                                    />
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
-                                    {c.currency.code}
+                                    <Controller name={`usage_fees.${c.id}.currency`}
+                                                control={props.control}
+                                                defaultValue={currency[0].id}
+                                                as={
+                                                    <SurchargeRateSelect options={currency}
+                                                                         maxW={'80px'}
+                                                    />
+                                                }
+                                    />
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="right">
-                                    {c.charge}
+                                    <Field name={`usage_fees.${c.id}.charge`}
+                                           ref={props.register}
+                                           placeholder={'0.00$'}
+                                           maxW='102px'
+                                    />
                                 </TableCell>
                             </TableRow>
                         ))}

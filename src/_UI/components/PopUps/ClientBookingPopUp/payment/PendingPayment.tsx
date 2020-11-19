@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Title, Container, Message } from "./payment-styles";
-import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 import BaseButton from "../../../base/BaseButton";
 
 type PropsType = {

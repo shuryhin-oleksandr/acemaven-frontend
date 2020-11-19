@@ -9,7 +9,8 @@ type PropsStyle = {
     marginBottom?: string;
     minWidth?: string
     max_width?: string
-    max_height?: string
+    max_height?: string,
+    margin_left?: string
 };
 
 export const SeaContainer = styled.div<PropsStyle>`
@@ -31,6 +32,7 @@ export const HandlingSurchargeContainer = styled.div<PropsStyle>`
   flex-direction: column;
   width: 100%;
   margin-top: 20px;
+  margin-left: ${({margin_left}) => margin_left ? margin_left : '0px'};
   max-width: ${({max_width}) => max_width ? max_width : '478px'};
   max-height: ${({max_height}) => max_height ? max_height : '420px'};
 `

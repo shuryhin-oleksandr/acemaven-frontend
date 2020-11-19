@@ -35,7 +35,7 @@ import {
 } from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import { postSearchQuoteThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 import { searchActions } from "../../../../../_BLL/reducers/search_client/searchClientReducer";
-import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
+import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 //components
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
@@ -47,18 +47,8 @@ import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
 import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
 import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
 //styles
-import {
-  Container,
-  Heading,
-  RelativeWrapper,
-  ButtonGroup,
-  AddImg,
-  ErrorMessage,
-} from "./searchWidgett-styles";
-import {
-  Port,
-  PortsList,
-} from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
+import { Container, Heading, RelativeWrapper, ButtonGroup, AddImg,ErrorMessage } from "./searchWidgett-styles";
+import { Port, PortsList,} from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
@@ -179,16 +169,16 @@ const Search: React.FC<PropsType> = ({
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
+    if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
-    // }
+    }
   };
   let onDestinationChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
+    if (value.value.length >= 3) {
     props.origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
-    // }
+    }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {

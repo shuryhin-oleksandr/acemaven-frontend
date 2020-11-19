@@ -158,12 +158,13 @@ export const BookButton = styled.div<PropsStyle>`
   }
 `;
 
-export const HiddenWrapper = styled.div`
+export const HiddenWrapper = styled.div<{margin_top?: string}>`
   width: 100%;
   display: flex;
   flex-direction: column;
-  animation: ${show_table} ease-in-out 0.3s;
-`;
+  margin-top: ${({margin_top}) => margin_top ? margin_top : '30px'};
+  animation: ${show_table} ease-in-out .3s;
+`
 export const HiddenTitle = styled.div`
   color: #1ab8e5;
   font-family: "Helvetica Bold", sans-serif;

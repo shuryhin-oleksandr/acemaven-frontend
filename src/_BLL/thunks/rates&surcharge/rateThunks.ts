@@ -7,6 +7,7 @@ import { rateAPI } from "../../../_DAL/API/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
 import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
+import {quotesAgentActions} from "../../reducers/quotes/quotesAgentReducer";
 
 
 
@@ -48,17 +49,22 @@ export const checkRatesDatesThunk = (check_values: {
 };
 
 export const registerNewFreightRateThunk = (freight_data: any) => {
-  return async (dispatch: Dispatch<commonRateActions>) => {
+  return async (dispatch: Dispatch<any>) => {
     try {
       let res = await rateAPI.registerNewSurcharge(freight_data);
+      if(freight_data.hasOwnProperty('temporary')) {
+        debugger
+        dispatch(quotesAgentActions.setExistingRateForQuote(res.data))
+        dispatch(quotesAgentActions.setCheckedIsRateExist('success'))
+      }
       dispatch(rateActions.setNewFreightRate(res.data));
       dispatch(rateActions.setRegistrationSuccess("success"));
       dispatch(rateActions.setExistingSurchargeByRate(null));
       dispatch(rateActions.setEmptyExistingSurcharge(''));
     } catch (e) {
       console.log(e.response);
-      e.response.data.rates && dispatch(rateActions.setAddingRateError(e.response.data.rates))
-      e.response.data.transit_time && dispatch(rateActions.setTransitError(e.response.data.transit_time))
+      e.response?.data.rates && dispatch(rateActions.setAddingRateError(e.response.data.rates))
+      e.response?.data.transit_time && dispatch(rateActions.setTransitError(e.response.data.transit_time))
     }
   };
 };
@@ -82,10 +88,14 @@ export const addNewSurchargeForRate = (surcharge_data: any) => {
   return async (dispatch:Dispatch<any>) => {
     try {
       let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
-      dispatch(rateActions.setExistingSurchargeByRate(res.data))
+      if(surcharge_data.hasOwnProperty('temporary')) {
+        dispatch(quotesAgentActions.setExistingSurchargeForQuote(res.data))
+      } else {
+        dispatch(rateActions.setExistingSurchargeByRate(res.data))
+      }
     } catch (e) {
-      e.response.data.usage_fees && dispatch(rateActions.setAddingPopupError(e.response.data.usage_fees))
-      e.response.data.charges && dispatch(rateActions.setAddingPopupError(e.response.data.charges))
+      e.response?.data.usage_fees && dispatch(rateActions.setAddingPopupError(e.response.data.usage_fees))
+      e.response?.data.charges && dispatch(rateActions.setAddingPopupError(e.response.data.charges))
     }
   }
 }

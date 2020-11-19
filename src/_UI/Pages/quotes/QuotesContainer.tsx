@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
-//BLL
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//BLL
 import {AppStateType} from "../../../_BLL/store";
 import {
     activateClientQuoteThunk,
@@ -18,11 +19,13 @@ import QuotesPage from "./client/QuotesPage";
 import AgentQuotesPage from "./agent/AgentQuotesPage";
 
 
+
 const QuotesContainer:React.FC = () => {
     //data from store
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo?.companies[0])
     const my_quotes_list = useSelector(getClientQuotesListSelector) //client
     const agent_quotes_list = useSelector(getAgentQuotesLIstSelector) //agent
+
 
     //get quotes after mounting
     const dispatch = useDispatch()

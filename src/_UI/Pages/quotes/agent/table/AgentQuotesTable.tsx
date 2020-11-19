@@ -164,7 +164,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                                   thunkName='quotes_agent'
                                 />
                             </TableCell>
-                            <TableCell className={classes.cell} align="left">
+                            <TableCell className={classes.cell} align="center">
                                VOLUME
                             </TableCell>
                             <TableCell className={classes.cell} align="left">

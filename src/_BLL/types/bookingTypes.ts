@@ -57,3 +57,7 @@ export type PostBookingData = {
   freight_rate: number;
   shipper: ShipperType;
 };
+
+export type BookingInfoType = {
+
+}

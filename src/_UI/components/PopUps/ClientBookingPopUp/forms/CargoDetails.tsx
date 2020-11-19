@@ -17,7 +17,8 @@ import React, { useEffect } from "react";
 import BaseButton from "../../../base/BaseButton";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
+//import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
+import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
 import FormField from "../../../_commonComponents/Input/FormField";
 import { AppStateType } from "../../../../../_BLL/store";
@@ -39,6 +40,7 @@ type PropsType = {
   shippingValue: number;
   currentFreightRate: SearchResultType;
 };
+
 
 const CargoDetails: React.FC<PropsType> = ({
   setFormStep,

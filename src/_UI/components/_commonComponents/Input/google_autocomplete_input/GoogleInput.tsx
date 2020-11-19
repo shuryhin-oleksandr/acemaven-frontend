@@ -14,8 +14,8 @@ import location_icon  from '../../../../../_UI/assets/icons/booking/location_ico
 
 type PropsType = {
     register: any,
-    name: string,
-    errors: any
+    google_field_name: string,
+    errors: any,
 }
 
 const useStyles = makeStyles({
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     },
 });
 
-const GoogleInput:React.FC<PropsType> = ({register, name,errors}) => {
+const GoogleInput:React.FC<PropsType> = ({register, google_field_name,errors}) => {
 
     const classes = useStyles();
 
@@ -59,13 +59,13 @@ const GoogleInput:React.FC<PropsType> = ({register, name,errors}) => {
                 <div>
                     <GoogleInputOuter>
                         <LabelGoogleInput>Address</LabelGoogleInput>
-                        <GoogleInputWrapper error={errors?.autocomplete_address?.message}>
+                        <GoogleInputWrapper error={errors?.google_field_name?.message}>
                             <input
                                 {...getInputProps({
                                     placeholder: 'Placeholder',
                                     className: 'location-search-input'
                                 })}
-                                name={name}
+                                name={google_field_name}
                                 ref={register({
                                     required: 'Field is required'
                                 })
@@ -79,7 +79,7 @@ const GoogleInput:React.FC<PropsType> = ({register, name,errors}) => {
                                 <img src={location_icon} alt=""/>
                             </Tooltip>
                         </GoogleInputWrapper>
-                        {errors?.autocomplete_address && <HelperText>Field is required</HelperText>}
+                        {errors?.google_field_name && <HelperText>Field is required</HelperText>}
                     </GoogleInputOuter>
                     <div style={{marginTop: '-15px'}}>
                         {loading && <div>Loading...</div>}

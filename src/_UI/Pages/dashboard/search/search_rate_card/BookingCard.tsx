@@ -15,7 +15,7 @@ import blue_fill_star from "../../../../assets/icons/search/filled_star.svg";
 import blue_part_fill_star from "../../../../assets/icons/search/part_filled_star.svg";
 import blue_empty_star from "../../../../assets/icons/search/empty_star.svg";
 import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
-import {bookingActions} from "../../../../../_BLL/reducers/bookingReducer";
+import {bookingActions} from "../../../../../_BLL/reducers/booking/bookingReducer";
 import {useDispatch} from "react-redux";
 
 type PropsType = {

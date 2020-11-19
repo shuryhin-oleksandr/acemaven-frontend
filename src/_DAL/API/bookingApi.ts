@@ -8,4 +8,16 @@ export const bookingApi = {
   postBooking(data: PostBookingData) {
     return instance.post("/booking/booking/", data);
   },
+  getAgentsBookingRequestList () {
+    return instance.get('')
+  },
+  getBookingInfoById (id: number) {
+    return instance.get('')
+  },
+  deleteBookingByAgent (id: number) {
+    return instance.delete('')
+  },
+  assignAnotherAgentToBooking (user_id: number) {
+    return instance.patch('', {is_assigned: true})
+  }
 };

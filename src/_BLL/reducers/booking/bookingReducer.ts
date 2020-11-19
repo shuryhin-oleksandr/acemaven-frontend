@@ -21,7 +21,7 @@ type InitialStateType = typeof initialState;
 export const bookingReducer = (
   state = initialState,
   action: commonBookingActions
-) => {
+):InitialStateType => {
   switch (action.type) {
     case "SET_CARGO_DETAILS":
       return {

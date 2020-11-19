@@ -1,6 +1,4 @@
 import React from 'react'
-//react hook form
-import {Controller} from "react-hook-form";
 //material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -10,23 +8,16 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-//helpers
-import {currency} from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
-//components
-import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
-//styles
-import {Field} from "../../../Services&Rates/surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+//types
+import {RateQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        width: 700
-    },
-    table: {
-        '& .MuiTableHead-root' : {
-
-        }
+        width: 700,
+        height: 280,
+        overflowY: 'scroll'
     },
     cell: {
         color: '#115B86',
@@ -52,66 +43,41 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    control: any
+    rate: RateQuoteType | null
 }
 
-const FrateRatesTable:React.FC<PropsType> = ({control}) => {
+const FrateRatesTable:React.FC<PropsType> = ({rate}) => {
     const classes = useStyles();
+
 
     return (
         <TableContainer className={classes.container} component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+            <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell className={classes.cell} align="left">CONTAINER TYPE</TableCell>
+                        {rate?.rates && rate.rates[0].container_type && <TableCell className={classes.cell} align="left">CONTAINER TYPE</TableCell>}
                         <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
                         <TableCell className={classes.cell} align="left">FREIGHT RATE</TableCell>
                         <TableCell className={classes.cell} align="left">EXPIRATION DATE</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow >
-                        <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            Container type 1
+                    {rate?.rates?.map((r, index) => <TableRow key={index}>
+                        {r.container_type && <TableCell className={classes.innerMainCell} component="th" scope="row">
+                            {r.container_type.code}
                         </TableCell>
-                            <TableCell className={classes.innerCell} align="left" >
-                                BRL
-                            </TableCell>
-                            <TableCell className={classes.innerCell} align="left" >
-                                1500
-                            </TableCell>
-                            <TableCell className={classes.innerCell} align="left">
-                            22/11/2020
-                            </TableCell>
-                    </TableRow>
-                    <TableRow >
-                        <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            Container type 1
+                        }
+                        <TableCell className={classes.innerCell} align="left" >
+                            {r.currency.code}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
-                            BRL
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            1500
+                            {r.rate}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
-                            22/11/2020
+                            {r.expiration_date}
                         </TableCell>
-                    </TableRow>
-                    <TableRow >
-                        <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            Container type 1
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            BRL
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            1500
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            22/11/2020
-                        </TableCell>
-                    </TableRow>
+                    </TableRow>)}
+
                 </TableBody>
             </Table>
         </TableContainer>

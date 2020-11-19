@@ -1,4 +1,5 @@
 import React from 'react'
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -7,9 +8,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+//types
+import {ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 type PropsType = {
-
+    charges:  ChargesType[]
 }
 
 const useStyles = makeStyles({
@@ -34,7 +37,8 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
         color: '#1B1B25',
-        padding: '16px 0'
+        padding: '16px 0',
+        width: 200
     },
     innerCell: {
         borderBottom: '1px solid #E0E0E0;',
@@ -45,7 +49,7 @@ const useStyles = makeStyles({
     }
 });
 
-const AgentSurchargeAdditional:React.FC<PropsType> = ({}) => {
+const AgentSurchargeAdditional:React.FC<PropsType> = ({charges}) => {
     const classes = useStyles();
 
     return (
@@ -60,48 +64,23 @@ const AgentSurchargeAdditional:React.FC<PropsType> = ({}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow >
+                    {charges.map((charge, index) => <TableRow key={index}>
                         <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            DOC FEEeeeeeeeeeeee
+                            <span style={{fontFamily: 'Helvetica Bold', fontSize:'16px', color: '#115b86'}}>
+                                {charge.additional_surcharge.title}
+                            </span>
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
-                            BRL
+                            {charge.currency.code}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
-                            150
+                            {charge.charge}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" >
-                            fixed
+                            {charge.conditions}
                         </TableCell>
-                    </TableRow>
-                    <TableRow >
-                        <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            DOC FEEeeeeeeeee
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            BRL
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            150
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            fixed
-                        </TableCell>
-                    </TableRow>
-                    <TableRow >
-                        <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                            DOC FEEeeeeeeeeeeee
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            BRL
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            150
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            fixed
-                        </TableCell>
-                    </TableRow>
+                    </TableRow>)}
+
                 </TableBody>
             </Table>
         </TableContainer>

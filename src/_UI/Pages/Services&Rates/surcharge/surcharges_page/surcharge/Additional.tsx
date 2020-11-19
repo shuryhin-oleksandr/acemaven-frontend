@@ -181,7 +181,7 @@ const Additional: React.FC<PropsType> = ({
                           setValue={setValue}
                           defaultV={findConditionDisplayName(charge.conditions)}
                           setFormMode={setFormMode}
-
+                          right={'20px'}
                         />
                       </TableCell>
                     }

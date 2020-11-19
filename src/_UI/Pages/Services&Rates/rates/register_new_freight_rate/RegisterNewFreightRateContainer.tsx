@@ -14,10 +14,9 @@ import {
 import {
   getAddingError,
   getAddingRateError,
-  getCurrentShippingTypeSelector, getRateBookedDatesSelector, getRateTransitError
+  getCurrentShippingTypeSelector, getRateTransitError
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {
-
   getCarriers,
   getCurrencyList,
   getShippingTypes,
@@ -83,7 +82,6 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   let rate_data_for_surcharge = useSelector(getRateDataForSurcharge)
   let registration_success = useSelector(getRegistrationSuccess)
   let rate_info = useSelector(getCheckedRateInfo)
-  let booked_dates = useSelector(getRateBookedDatesSelector)
   let origin_port = useSelector(getIsLocalPort)
   const adding_surcharge_error = useSelector(getAddingError)
   const adding_rate_error = useSelector(getAddingRateError)

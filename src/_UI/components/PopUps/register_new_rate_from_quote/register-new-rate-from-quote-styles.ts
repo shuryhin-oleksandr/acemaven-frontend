@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import React from "react";
 
-export const RegisterRateWrapper = styled.div`
+
+export const RegisterRateWrapper = styled.form`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -17,14 +17,14 @@ export const RegisterRateWrapper = styled.div`
 `
 export const RegisterRateInner = styled.div`
   max-width: 1275px;
-  height: 1000px;
+  height: 1300px;
   width: 100%;
   background-color: white;
   position: relative;
 `
 export const RegisterRateContent = styled.div`
   width: 100%;
-  padding: 60px 50px;
+  padding: 60px 20px 60px 40px;
   display: flex;
   flex-direction: column;
 `

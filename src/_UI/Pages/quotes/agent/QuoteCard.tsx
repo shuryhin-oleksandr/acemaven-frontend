@@ -11,12 +11,17 @@ import {
     getBadSavingMessageSelector,
     getCheckRateResult,
     getExactQuoteInfoSelector,
-    getExistingRateForQuoteSelector, getExistingSurchargeForQuoteSelector, getFindedFirst, saveRateResultSelector
+    getExistingRateForQuoteSelector,
+    getExistingSurchargeForQuoteSelector,
+    getFindedFirst,
+    saveRateResultSelector
 } from "../../../../_BLL/selectors/quotes/agent/agentQuoteSelector";
 import {
     getExactQuoteThunk,
-    getExistingRatesForQuoteThunk, rejectQuoteThunk,
-    submitQuoteThunk, withdrawOfferThunk
+    getExistingRatesForQuoteThunk,
+    rejectQuoteThunk,
+    submitQuoteThunk,
+    withdrawOfferThunk
 } from "../../../../_BLL/thunks/quotes/agentQuotesThunk";
 import {quotesAgentActions} from "../../../../_BLL/reducers/quotes/quotesAgentReducer";
 import {getCarriers} from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
@@ -29,7 +34,8 @@ import CargoTable from "./CargoTable";
 import FrateRatesTable from "./table/FrateRatesTable";
 import Layout from "../../../components/BaseLayout/Layout";
 import NoRateSurchargeCard from "./NoRateSurchargeCard";
-import RegisterNewRateFromQuotePopup from "../../../components/PopUps/register_new_rate_from_quote/RegisterNewRateFromQuotePopup";
+import RegisterNewRateFromQuotePopup
+    from "../../../components/PopUps/register_new_rate_from_quote/RegisterNewRateFromQuotePopup";
 import SurchargeRateSelect from "../../../components/_commonComponents/select/SurchargeRateSelect";
 import AgentSurchargesTable from "./table/surcharge/AgentSurchargesTable";
 import SaveTemporaryQuotePopup from "../../../components/PopUps/save_temporary_rate_popup/SaveTemporaryQuotePopup";
@@ -37,7 +43,12 @@ import SaveTemporaryQuotePopup from "../../../components/PopUps/save_temporary_r
 import {
     ActionsAgentWrap,
     CardHeader,
-    CardTitle, CargoContentWrapper, CargoInfo, CargoShippingModeWrap, CarrierInfo, CarrierWrap,
+    CardTitle,
+    CargoContentWrapper,
+    CargoInfo,
+    CargoShippingModeWrap,
+    CarrierInfo,
+    CarrierWrap,
     Content,
     ContentRow,
     GeneralInfo,
@@ -55,14 +66,14 @@ import {
     ShipmentRowTitle,
     ShipmentRowWeek,
     ShipmentType,
-    SubmitQuoteButton, SurchargesInfo
+    SubmitQuoteButton,
+    SurchargesInfo
 } from "./table/agent-quotes-styles";
 //icons
 import sea_type from '../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import air_type from '../../../assets/icons/rates&services/plane-surcharge.svg'
 import dates_icon from '../../../../_UI/assets/icons/date_1.svg'
 import TotalCostCalculationContainer from "./table/TotalCostCalculationContainer";
-
 
 
 const QuoteCard = ({...props}) => {
@@ -147,6 +158,16 @@ const QuoteCard = ({...props}) => {
     let day_from = moment(a).format('DD/MM')
     let c = moment(exact_quote_info?.date_to, 'DD/MM/YYYY').toDate()
     let date_to = moment(c).format('DD/MM')
+
+
+    useEffect(() => {
+        if(existing_rate_for_quote && finded_first) {
+            let s = existing_rate_for_quote?.rates?.map(f => {
+                return f.surcharges.find((s: any) => s !== null)
+            })
+           s && dispatch(quotesAgentActions.setExistingSurchargeForQuote(s[0]))
+        }
+    }, [existing_rate_for_quote, finded_first])
 
 
     return (

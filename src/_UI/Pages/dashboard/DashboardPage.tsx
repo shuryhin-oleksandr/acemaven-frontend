@@ -80,6 +80,8 @@ const DashboardPage: React.FC<PropsType> = ({
     (state: AppStateType) => state.booking.current_booking_freight_rate
   );
   const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
+  const auth_user = useSelector((state:AppStateType) => state.profile.authUserInfo)
+
   return (
     <DashboardWrapper>
       {bookingPopupVisible && currentBookingRate && (
@@ -98,6 +100,7 @@ const DashboardPage: React.FC<PropsType> = ({
       />
       {search_success && <Back />}
       <SearchBox widgetsVisible={widgetsVisible}>
+        {auth_user?.companies && auth_user.companies[0].type === 'client' &&
         <Search
           setOpenCalcPopup={setOpenCalcPopup}
           shippingValue={shippingValue}
@@ -117,7 +120,7 @@ const DashboardPage: React.FC<PropsType> = ({
           destination_ports={destination_ports}
           frozen_choices={frozen_choices}
           origin_port_value={origin_port_value}
-        />
+        />}
         {search_success && (
           <SearchContainer
             search_result={search_result}

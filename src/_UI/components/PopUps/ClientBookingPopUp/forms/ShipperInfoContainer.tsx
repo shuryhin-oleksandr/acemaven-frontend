@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../../_BLL/store";
 import { postBooking } from "../../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
 import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
-import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
+import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 
 type PropsType = {
   direction: string;
@@ -21,7 +21,6 @@ type PropsType = {
 };
 
 const ShipperInfoContainer: React.FC<PropsType> = ({
-  direction,
   setFormStep,
   formStep,
   companyInfo,
@@ -53,11 +52,13 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
   const onSubmit = (values: any) => {
     !values.phone_additional && delete values.phone_additional;
     const finalData = {
-      ...firstStepData,
+      cargo_groups: firstStepData?.cargo_groups ? firstStepData?.cargo_groups : [],
+      release_type: firstStepData?.release_type,
+      number_of_documents: firstStepData?.number_of_documents,
       shipper: values,
-      date_from: booking_dates?.date_from,
-      date_to: booking_dates?.date_to,
-      freight_rate: freight_rate_id,
+      date_from: String(booking_dates?.date_from),
+      date_to: String(booking_dates?.date_to),
+      freight_rate: Number(freight_rate_id),
     };
 
     dispatch(postBooking(finalData));

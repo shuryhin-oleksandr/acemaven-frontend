@@ -1,9 +1,6 @@
-import {
-  CargoDetailsValue,
-  ChoiceType,
-  DescriptionStepType,
-} from "../types/bookingTypes";
-import { CargoGroupType, SearchResultType } from "../types/search/search_types";
+import {CargoDetailsValue, ChoiceType, DescriptionStepType} from "src/_BLL/types/bookingTypes";
+import { CargoGroupType, SearchResultType } from "src/_BLL/types/search/search_types";
+
 
 const initialState = {
   cargo_details: null as CargoDetailsValue[] | null,

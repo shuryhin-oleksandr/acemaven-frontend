@@ -24,10 +24,7 @@ import {surchargeActions} from "../../../_BLL/reducers/surcharge&rates/surcharge
 //components
 import Layout from "../../components/BaseLayout/Layout";
 import DashboardPage from "./DashboardPage";
-import SearchContainer from "./search/SearchContainer";
 import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/ChargeableWeightPopup";
-import Search from "./Widgets/SearchWidget/Search";
-
 
 
 const DashboardContainer:React.FC = () => {
@@ -53,7 +50,7 @@ const DashboardContainer:React.FC = () => {
     const editable_cargo_group = useSelector(getEditableCargoSelector)
     const search_result = useSelector(getSearchResult)
     const search_success = useSelector(getSearchSuccess)
-    const auth_user = useSelector((state:AppStateType) => state.profile.authUserInfo)
+
     const duplicatesError = useSelector((state: AppStateType) => state.search.duplicates_error)
     const origin_ports = useSelector(getOriginPorts);
     const destination_ports = useSelector(getDestinationPorts);
@@ -87,31 +84,6 @@ const DashboardContainer:React.FC = () => {
 
             />}
             <div style={{position:"relative", width:"100%"}}>
-                {/*{auth_user?.companies && auth_user.companies[0].type === 'client'*/}
-                {/*    &&*/}
-                {/*<div style={{position:search_success?"relative":"absolute", zIndex:6, top:"30px", left:"30px", display:widgetsVisible?"block":"none"}}>*/}
-                {/*     <Search setOpenCalcPopup={setOpenCalcPopup}*/}
-                {/*               shippingValue={shippingValue}*/}
-                {/*               setShippingValue={setShippingValue}*/}
-                {/*               setMode={setMode}*/}
-                {/*               mode={current_shipping_type}*/}
-                {/*               cargo_groups_list={cargo_groups}*/}
-                {/*               packaging_types={packaging_types}*/}
-                {/*                container_types={usageFees}*/}
-                {/*               disabled={search_success}*/}
-                {/*               search_result={search_result}*/}
-                {/*               search_success={search_success}*/}
-                {/*                duplicatedCargoError={duplicatesError}*/}
-                {/*                setDuplicatedCargoError={setDuplicatedCargoError}*/}
-                {/*                shippingTypes={shipping_types}*/}
-                {/*                origin_ports={origin_ports}*/}
-                {/*                destination_ports={destination_ports}*/}
-                {/*                frozen_choices={frozen_choices}*/}
-                {/*                origin_port_value={origin_port_value}*/}
-                {/*/>*/}
-                {/*</div>*/}
-                {/*}*/}
-
                 <DashboardPage widgetsVisible={widgetsVisible}
                                  setWidgetsVisible={setWidgetsVisible}
                                  shippingValue={shippingValue}

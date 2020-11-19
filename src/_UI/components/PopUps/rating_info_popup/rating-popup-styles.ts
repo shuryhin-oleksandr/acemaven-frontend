@@ -7,6 +7,8 @@ export const RatingPopupContainer = styled.div`
 export const RatingInner = styled.div`
   width: 100%;
   padding: 50px 80px 50px 30px;
+  background-color: white;
+  max-width: 800px;
 `
 export const RatingHeader = styled.div`
   width: 100%;

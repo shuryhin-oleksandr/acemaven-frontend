@@ -50,6 +50,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
         reValidateMode: 'onBlur', mode: 'onSubmit'
     })
     const onSubmit = (values: any) => {
+        debugger
         //temporal surcharge registration
         let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
         let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null

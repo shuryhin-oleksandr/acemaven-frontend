@@ -1,28 +1,33 @@
 import React from 'react'
+//REACT-REDUX
+import {useDispatch} from "react-redux";
+//types
+import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
+//BLL
+import {bookingActions} from "../../../../../_BLL/reducers/booking/bookingReducer";
+//COMPONENTS
+import RatingPartContainer from "./RatingPartContainer";
+//styles
 import {
     AdditionalWrap, BookButton, CalcName, CalculationLine, CalculationWrap, CalcValue,
-    Carrier, CompanyName, DateLine, DateName, DateValue,
+    Carrier,DateLine, DateName, DateValue,
     Direction,
     DirectionWrap,
     GeneralPart,
     GeneralWrap,
-    InfoPart, RatingPart, RatingWrap,
+    InfoPart,
     ShippingType, TotalPart, UpperWrapper
 } from "./search-card-styles";
+//icons
 import ship from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-import blue_fill_star from "../../../../assets/icons/search/filled_star.svg";
-import blue_part_fill_star from "../../../../assets/icons/search/part_filled_star.svg";
-import blue_empty_star from "../../../../assets/icons/search/empty_star.svg";
-import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
-import {bookingActions} from "../../../../../_BLL/reducers/booking/bookingReducer";
-import {useDispatch} from "react-redux";
+
 
 type PropsType = {
     button_display: boolean,
     showTable?: (value: boolean) => void,
     isTableShown?: boolean
-    showRatingPopup?: (value: boolean) => void
+    showRatingPopup: (value: boolean) => void
     setBookingPopupVisible?: (value: boolean) => void,
     setWidgetsVisible?: (value: boolean) => void,
     search_result?: SearchResultType
@@ -54,16 +59,8 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                         </DateLine>
                     </AdditionalWrap>
                 </GeneralPart>
-                {/*<RatingPart onClick={() => showRatingPopup && showRatingPopup(true)}>
-                    <CompanyName>TransferCo.</CompanyName>
-                    <RatingWrap>
-                        <img src={blue_fill_star} alt=""/>
-                        <img src={blue_fill_star} alt=""/>
-                        <img src={blue_fill_star} alt=""/>
-                        <img src={blue_part_fill_star} alt=""/>
-                        <img src={blue_empty_star} alt=""/>
-                    </RatingWrap>
-                </RatingPart>*/}
+                <RatingPartContainer showRatingPopup={showRatingPopup}
+                />
             </InfoPart>
             <TotalPart>
                 <CalculationWrap>

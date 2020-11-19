@@ -1,26 +1,5 @@
 import React, { useEffect } from "react";
-
-import {
-  PopupContainer,
-  PopupContent,
-  Heading,
-  CloseBtn,
-} from "./client-popup-styles";
-import close from "../../../assets/icons/close-icon.svg";
-import BookingCard from "../../../Pages/dashboard/search/search_rate_card/BookingCard";
-import { useDispatch, useSelector } from "react-redux";
-import { AppStateType } from "../../../../_BLL/store";
-import { getCompanyInfo } from "../../../../_BLL/reducers/profileReducer";
-import RootShippingForm from "./forms/RootShippingForm";
-import {
-  HiddenTable,
-  HiddenTitle,
-  HiddenWrapper,
-  TableTotal,
-  TotalLine,
-  TotalName,
-  TotalValue,
-} from "../../../Pages/dashboard/search/search_rate_card/search-card-styles";
+//material ui
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -29,18 +8,31 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//react-redux
+import { useDispatch, useSelector } from "react-redux";
+//BLL
+import { AppStateType } from "../../../../_BLL/store";
+import { getCompanyInfo } from "../../../../_BLL/reducers/profileReducer";
 import { bookingActions } from "../../../../_BLL/reducers/booking/bookingReducer";
+import { getReleaseTypeChoices } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
+//types
+import { SearchResultType } from "../../../../_BLL/types/search/search_types";
+//components
+import RootShippingForm from "./forms/RootShippingForm";
 import BaseButton from "../../base/BaseButton";
 import PaymentContainer from "./payment/PaymentContainer";
-import { getReleaseTypeChoices } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
-import { SearchResultType } from "../../../../_BLL/types/search/search_types";
+//styles
+import { PopupContainer, PopupContent, Heading, CloseBtn } from "./client-popup-styles";
+import { HiddenTable, HiddenTitle, HiddenWrapper,
+  TableTotal, TotalLine, TotalName, TotalValue} from "../../../Pages/dashboard/search/search_rate_card/search-card-styles";
+//icons
+import close from "../../../assets/icons/close-icon.svg";
+import BookingCard from "../../../Pages/dashboard/search/search_rate_card/BookingCard";
+
 
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
-  },
-  table: {
-    "& .MuiTableHead-root": {},
   },
   info_row: {
     "&:hover": {
@@ -121,6 +113,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
         <BookingCard
           button_display={false}
           search_result={currentFreightRate}
+          showRatingPopup={() => {}}
         />
         {bookingStep === "shipping-form" && (
           <RootShippingForm
@@ -145,7 +138,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             </div>
             <HiddenTable>
               <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell className={classes.cell}>VOLUME</TableCell>

@@ -504,7 +504,7 @@ const Search: React.FC<PropsType> = ({
             justify_content={
               dates.length > 0 &&
               watchResultArr.length === 3 &&
-              shippingValue !== 3
+              shippingValue !== 3 && !search_success
                 ? "space-between"
                 : "flex-end"
             }

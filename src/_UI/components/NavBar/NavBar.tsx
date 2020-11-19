@@ -25,9 +25,6 @@ const NavBar:React.FC<IProps> = () => {
     let [checkedLink, setChecked] = useState('')
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies)
 
-    console.log(checkedLink)
-
-
     return (
         <NavContainer>
             {

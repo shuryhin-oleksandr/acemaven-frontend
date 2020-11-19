@@ -96,7 +96,8 @@ export type Rate = {
     currency: {id: number, code: string},
     rate: string,
     start_date: string,
-    expiration_date: string
+    expiration_date: string,
+    surcharges?: any
 }
 export type RateQuoteType = {
     id: number,

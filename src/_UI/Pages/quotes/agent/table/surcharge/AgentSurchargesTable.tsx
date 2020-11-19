@@ -9,12 +9,13 @@ import {AgentSurchargesTableWrapper} from "../agent-quotes-styles";
 
 
 
-
 type PropsType = {
     surcharges: SurchargeInfoType | null
 }
 
 const AgentSurchargesTable:React.FC<PropsType> = ({surcharges}) => {
+
+
     return (
         <AgentSurchargesTableWrapper>
             {surcharges?.usage_fees && surcharges.usage_fees.length > 0 && <AgentSurchargeHandling usage_fees={surcharges.usage_fees}/>}

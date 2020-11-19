@@ -108,7 +108,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
 
   const history = useHistory();
   let setCardOpen = (booking_id: number) => {
-    history.push(`/requests/booking/:${booking_id}`);
+    history.push(`/requests/booking/${booking_id}`);
   };
 
   function createData(

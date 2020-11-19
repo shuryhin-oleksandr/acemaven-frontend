@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+import {CargoGroupType} from "../../../../../../../_BLL/types/search/search_types";
 
 const useStyles = makeStyles({
     container: {
@@ -62,10 +63,10 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-
+    cargo_groups?: CargoGroupType[]
 }
 
-const ShippingModeTable:React.FC<PropsType> = ({}) => {
+const ShippingModeTable:React.FC<PropsType> = ({cargo_groups}) => {
     const classes = useStyles();
 
     return (
@@ -87,12 +88,12 @@ const ShippingModeTable:React.FC<PropsType> = ({}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow className={classes.row}>
-                            <TableCell className={classes.innerCell} align="left">40HC</TableCell>
+                        {cargo_groups?.map((c, index) => <TableRow key={index} className={classes.row}>
+                            <TableCell className={classes.innerCell} align="left">{c.container_type ? c.container_type : c.packaging_type}</TableCell>
                             <TableCell className={classes.innerCell} align="left">12 boxes  2W/M</TableCell>
-                            <TableCell className={classes.innerCell} align="left">GREEN COFFEE BEANS MARKED COFFEE OF YELLOWSTONE, CO.</TableCell>
-
+                            <TableCell className={classes.innerCell} align="left">{c.description}</TableCell>
                         </TableRow>
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>

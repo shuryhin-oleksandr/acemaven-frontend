@@ -59,7 +59,7 @@ export type PostBookingData = {
 };
 
 export type BookingInfoType = {
-  cargo_groups: CargoGroupType[];
+  cargo_groups: any;
   release_type?: number;
   number_of_documents?: number;
   date_from: string;

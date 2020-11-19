@@ -1,7 +1,7 @@
 import { BookingInfoType, PostBookingData } from "../../types/bookingTypes";
 
 const initialState = {
-  booking_request_list: [] as BookingInfoType[] /*BookingInfoType[]*/,
+  booking_request_list: [] as BookingInfoType[] ,
   exact_booking_info: null as BookingInfoType | null,
 };
 

@@ -15,11 +15,13 @@ export const DocumentsWrapper = styled.div`
 `
 export const DocumentsContent = styled.div`
   padding-top: 17px;
+   position: relative;
 `
 export const ActionsInfoWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+ 
 `
 export const InfoBlock = styled.div`
   display: flex;

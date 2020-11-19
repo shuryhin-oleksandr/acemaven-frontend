@@ -24,7 +24,8 @@ export type CargoGroupType = {
     total_wm?: number,
     total_per_pack?: number,
     shipping_type?: string,
-    id?: number | string
+    id?: number | string,
+    description?: string
 }
 
 export type SearchFreightRateType = {

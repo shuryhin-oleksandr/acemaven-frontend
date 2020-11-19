@@ -9,8 +9,13 @@ import {
     ValuesShipmentWrapper
 } from "../booking-card-style";
 import calendar_icon from "../../../../../assets/icons/date_1.svg";
+import {ShipperType} from "../../../../../../_BLL/types/bookingTypes";
 
-const ShipmentInfoBlock = () => {
+type PropsType = {
+    shipper: ShipperType | null
+}
+
+const ShipmentInfoBlock:React.FC<PropsType> = ({shipper}) => {
     return (
         <ShipmentInfo>
             <GeneralTitle>SHIPMENT INFO</GeneralTitle>
@@ -36,19 +41,19 @@ const ShipmentInfoBlock = () => {
                         <InfoRow>
                             <InfoRowLabel>SHIPPER NAME</InfoRowLabel>
                             <InfoRowValue>
-                                COVA inc
+                                {shipper?.name}
                             </InfoRowValue>
                         </InfoRow>
                         <InfoRow>
                             <InfoRowLabel>ADDRESS</InfoRowLabel>
                             <InfoRowValue>
-                                Jonas str.4
+                                {shipper?.address_line_first && shipper?.address_line_first + shipper?.address_line_second && shipper?.address_line_second}
                             </InfoRowValue>
                         </InfoRow>
                         <InfoRow>
-                            <InfoRowLabel>COMPANY ?</InfoRowLabel>
+                            <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
                             <InfoRowValue>
-                                Cca Cola Inc.
+                                {shipper?.contact_name}
                             </InfoRowValue>
                         </InfoRow>
                     </div>
@@ -56,17 +61,17 @@ const ShipmentInfoBlock = () => {
                         <InfoRow>
                             <InfoRowLabel>PHONE NUMBER 1</InfoRowLabel>
                             <InfoRowValue>
-                                +000000000000
+                                {shipper?.phone}
                             </InfoRowValue>
                         </InfoRow>
                         <InfoRow>
                             <InfoRowLabel>PHONE NUMBER 2</InfoRowLabel>
-                            <InfoRowValue>+000001112233</InfoRowValue>
+                            <InfoRowValue>{shipper?.phone_additional}</InfoRowValue>
                         </InfoRow>
                         <InfoRow>
                             <InfoRowLabel>EMAIL</InfoRowLabel>
                             <InfoRowValue>
-                                email@email.com
+                                {shipper?.email}
                             </InfoRowValue>
                         </InfoRow>
                     </div>

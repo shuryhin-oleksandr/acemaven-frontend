@@ -21,7 +21,7 @@ export const bookingApi = {
     );
   },
   getAgentBookingInfoById(id: number) {
-    return instance.get("");
+    return instance.get(`/booking/booking/${id}`);
   },
   deleteBookingByAgent(id: number) {
     return instance.delete("");

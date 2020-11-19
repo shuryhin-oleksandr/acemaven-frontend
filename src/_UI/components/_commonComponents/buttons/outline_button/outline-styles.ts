@@ -20,7 +20,9 @@ export const Button = styled.button<PropsStyle>`
   width: ${({w}) => w ? w : '180px'};
   margin-right: ${({margin_right}) => margin_right ? margin_right : '0px'};
   
+  
   &:hover {
     cursor: pointer;
+    
   }
 `

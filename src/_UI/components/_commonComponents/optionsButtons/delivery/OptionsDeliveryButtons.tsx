@@ -10,9 +10,10 @@ import ship from "../../../../assets/icons/rates&services/ShipDefault.svg";
 import planeActive from "../../../../assets/icons/rates&services/PlanActive.svg";
 import plane from "../../../../assets/icons/rates&services/Plan.svg";
 import { filterByThunk } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
-import {getClientQuotesThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
-import {getFilteredRateListThunk} from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import {getAgentQuotesListThunk} from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
+import { getClientQuotesThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
+import { getFilteredRateListThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import { getAgentQuotesListThunk } from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
+import { getBookingRequestListThunk } from "../../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
 
 type PropsType = {
   setMode?: VoidFunctionType;
@@ -22,65 +23,83 @@ type PropsType = {
   searchColumn: string;
   searchValue: string;
   setShippingValue?: (shippingModeId: number) => void;
-  disabled?:boolean;
-  thunkName?: string
+  disabled?: boolean;
+  thunkName?: string;
 };
 
 const OptionsDeliveryButtons: React.FC<PropsType> = ({
   setMode,
-  mode, disabled,
+  mode,
+  disabled,
   ...props
 }) => {
   let dispatchDeliveryHandler = (type: string) => {
     setMode && setMode(type);
-    props.setShippingValue && props.setShippingValue(0)
-    if(props.thunkName === 'quotes') {
-      props.dispatch && props.dispatch(getClientQuotesThunk(
-          type,
-          "",
-          props.searchColumn,
-          props.searchValue))
-    } else if(props.thunkName === 'quotes_agent') {
-      props.dispatch && props.dispatch(
+    props.setShippingValue && props.setShippingValue(0);
+    if (props.thunkName === "quotes") {
+      props.dispatch &&
+        props.dispatch(
+          getClientQuotesThunk(type, "", props.searchColumn, props.searchValue)
+        );
+    } else if (props.thunkName === "quotes_agent") {
+      props.dispatch &&
+        props.dispatch(
           getAgentQuotesListThunk(
-              type,
-              "",
-              props.searchColumn,
-              props.searchValue
+            type,
+            "",
+            props.searchColumn,
+            props.searchValue
           )
-      )
-    } else if (props.thunkName === 'rates') {
-      props.dispatch && props.dispatch(
+        );
+    } else if (props.thunkName === "rates") {
+      props.dispatch &&
+        props.dispatch(
           getFilteredRateListThunk(
-              props.directory,
-              type,
-              "",
-              props.searchColumn,
-              props.searchValue
+            props.directory,
+            type,
+            "",
+            props.searchColumn,
+            props.searchValue
           )
-      )
+        );
+    } else if (props.thunkName === "agent_booking") {
+      props.dispatch &&
+        props.dispatch(
+          getBookingRequestListThunk(
+            type,
+            "",
+            props.searchColumn,
+            props.searchValue
+          )
+        );
     } else {
       props.dispatch &&
-      props.dispatch(
+        props.dispatch(
           filterByThunk(
-              props.directory,
-              type,
-              "",
-              props.searchColumn,
-              props.searchValue
+            props.directory,
+            type,
+            "",
+            props.searchColumn,
+            props.searchValue
           )
-      );
+        );
     }
   };
 
-
   return (
     <OptionsButtonsWrap>
-      <OptionButton onClick={() => {!disabled && dispatchDeliveryHandler("sea")}} mode={mode}>
+      <OptionButton
+        onClick={() => {
+          !disabled && dispatchDeliveryHandler("sea");
+        }}
+        mode={mode}
+      >
         <img src={mode === "sea" ? shipActive : ship} alt="" />
       </OptionButton>
       <OptionButtonPlane
-        onClick={() => {!disabled && dispatchDeliveryHandler("air")}}
+        onClick={() => {
+          !disabled && dispatchDeliveryHandler("air");
+        }}
         mode={mode}
       >
         <img src={mode === "air" ? planeActive : plane} alt="" />
@@ -89,4 +108,4 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
   );
 };
 
-export default OptionsDeliveryButtons
+export default OptionsDeliveryButtons;

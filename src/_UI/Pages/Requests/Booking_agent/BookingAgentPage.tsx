@@ -1,49 +1,70 @@
-import React, {useState} from 'react'
-import {BookingContent, BookingWrapper, ContentHeader, ContentTable, ContentTitle } from './booking-agent-styles'
-import OptionsDeliveryButtons
-    from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import React, { useState, useEffect } from "react";
+import {
+  BookingContent,
+  BookingWrapper,
+  ContentHeader,
+  ContentTable,
+  ContentTitle,
+} from "./booking-agent-styles";
+import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import AgentBookingListTable from "./tables/AgentBookingListTable";
+import { useDispatch, useSelector } from "react-redux";
+import { getBookingRequestListThunk } from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
+import { AppStateType } from "../../../../_BLL/store";
 
-type PropsType = {
+type PropsType = {};
 
-}
+const BookingAgentPage: React.FC<PropsType> = ({}) => {
+  const [mode, setMode] = useState("sea");
+  const [directory, setDirectory] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [search_column, setSearchColumn] = useState("");
 
-const BookingAgentPage:React.FC<PropsType> = ({}) => {
+  const [isSearchMode, setSearchMode] = useState(false);
 
-    const [mode, setMode] = useState("sea");
-    const [directory, setDirectory] = useState("import");
-    const [searchValue, setSearchValue] = useState("");
-    const [search_column, setSearchColumn] = useState("");
+  const dispatch = useDispatch();
 
-    const [isSearchMode, setSearchMode] = useState(false);
+  useEffect(() => {
+    dispatch(getBookingRequestListThunk(mode, "", "", ""));
+  }, [dispatch]);
 
-    return (
-        <BookingWrapper>
-            <BookingContent>
-                <ContentHeader>
-                    <ContentTitle>Bookings</ContentTitle>
-                    <OptionsDeliveryButtons  directory={directory}
-                                             mode={mode}
-                                             setMode={setMode}
-                                             searchColumn={search_column}
-                                             searchValue={searchValue}
-                    />
-                </ContentHeader>
-                <ContentTable>
-                    <AgentBookingListTable mode={mode}
-                                           searchValue={searchValue}
-                                           setSearchValue={setSearchValue}
-                                           searchColumn={search_column}
-                                           setSearchColumn={setSearchColumn}
-                                           directory={directory}
-                                           setDirectory={setDirectory}
-                                           isSearchMode={isSearchMode}
-                                           setSearchMode={setSearchMode}
-                    />
-                </ContentTable>
-            </BookingContent>
-        </BookingWrapper>
-    )
-}
+  const bookingList = useSelector(
+    (state: AppStateType) => state.agent_booking.booking_request_list
+  );
 
-export default BookingAgentPage
+  console.log("bookingList", bookingList);
+  return (
+    <BookingWrapper>
+      <BookingContent>
+        <ContentHeader>
+          <ContentTitle>Bookings</ContentTitle>
+          <OptionsDeliveryButtons
+            directory={directory}
+            mode={mode}
+            setMode={setMode}
+            searchColumn={search_column}
+            searchValue={searchValue}
+            thunkName="agent_booking"
+            dispatch={dispatch}
+          />
+        </ContentHeader>
+        <ContentTable>
+          <AgentBookingListTable
+            mode={mode}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            searchColumn={search_column}
+            setSearchColumn={setSearchColumn}
+            directory={directory}
+            setDirectory={setDirectory}
+            isSearchMode={isSearchMode}
+            setSearchMode={setSearchMode}
+            bookingList={bookingList}
+          />
+        </ContentTable>
+      </BookingContent>
+    </BookingWrapper>
+  );
+};
+
+export default BookingAgentPage;

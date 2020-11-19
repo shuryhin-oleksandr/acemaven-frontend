@@ -59,5 +59,12 @@ export type PostBookingData = {
 };
 
 export type BookingInfoType = {
-
+  cargo_groups: CargoGroupType[];
+  release_type?: number;
+  number_of_documents?: number;
+  date_from: string;
+  date_to: string;
+  freight_rate: number;
+  shipper: ShipperType;
+  id:number;
 }

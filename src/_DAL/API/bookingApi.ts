@@ -17,7 +17,7 @@ export const bookingApi = {
     search_value: string
   ) {
     return instance.get(
-      `&shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`
+      `/booking/booking/?shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`
     );
   },
   getAgentBookingInfoById(id: number) {

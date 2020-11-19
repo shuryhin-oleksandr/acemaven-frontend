@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
-import {
-    CardContainer, CardInner, HiddenTable, HiddenTitle, HiddenWrapper, TableTotal, TotalLine, TotalName, TotalValue,
-} from "./search-card-styles";
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -10,16 +8,20 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import BookingCard from "./BookingCard";
+//types
 import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
-import ClientBookingPopUp from "../../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
+//components
+import BookingCard from "./BookingCard";
+//styles
+import {
+    CardContainer, CardInner, HiddenTable, HiddenTitle, HiddenWrapper, TableTotal, TotalLine, TotalName, TotalValue,
+} from "./search-card-styles";
+
+
 
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
-    },
-    table: {
-        "& .MuiTableHead-root": {},
     },
     info_row: {
         '&:hover' : {
@@ -57,14 +59,13 @@ type PropsType = {
     setWidgetsVisible?:(value:boolean)=>void
 }
 
-const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,shippingValue,setBookingPopupVisible,setWidgetsVisible}) => {
+const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBookingPopupVisible,setWidgetsVisible}) => {
     const classes = useStyles();
 
     const [isShown, setShow] = useState(false)
-    // const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
+
     return (
         <CardContainer>
-            {/*{bookingPopupVisible && <ClientBookingPopUp shippingValue={shippingValue} setBookingPopupVisible={setBookingPopupVisible} currentFreightRate={search_result} />}*/}
             <CardInner>
                 <BookingCard showRatingPopup={showRatingPopup}
                              showTable={setShow}
@@ -80,7 +81,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,shipping
                     </HiddenTitle>
                     <HiddenTable>
                         <TableContainer className={classes.container} component={Paper}>
-                            <Table className={classes.table} aria-label="simple table">
+                            <Table aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell className={classes.cell}>

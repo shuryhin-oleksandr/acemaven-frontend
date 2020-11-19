@@ -6,6 +6,7 @@ export const NoSearchContainer = styled.div`
   max-width: 800px;
   width: 100%;
   border: 1px solid #bdbdbd;
+  background-color: white;
 `
 export const NoSearchInner = styled.div`
   width: 100%;

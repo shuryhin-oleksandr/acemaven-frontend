@@ -1,7 +1,11 @@
 import React from 'react'
-import SearchCard from "./search_rate_card/SearchCard";
-import {SearchWrapper} from "./search_rate_card/search-card-styles";
+//types
 import {SearchResultType} from "../../../../_BLL/types/search/search_types";
+//components
+import SearchCard from "./search_rate_card/SearchCard";
+//styles
+import {SearchWrapper} from "./search_rate_card/search-card-styles";
+
 
 
 type PropsType = {

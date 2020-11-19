@@ -23,8 +23,6 @@ import {
 } from "../../../../Pages/Services&Rates/surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import {Field} from "../../../_commonComponents/Input/input-styles";
 
-
-
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',

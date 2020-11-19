@@ -111,6 +111,17 @@ export const RatingWrap = styled.div`
     margin-right: 7.75px;
   }
 `;
+export const NoRatingUpperText = styled.div<{margin_bottom?: string}>`
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 13px;
+  color: #7C7C89;
+  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '0px'};
+`
+export const NoRatingUnderText = styled.div`
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 12px;
+  color: #7C7C89;
+`
 
 export const TotalPart = styled.div`
   display: flex;

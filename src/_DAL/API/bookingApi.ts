@@ -8,16 +8,28 @@ export const bookingApi = {
   postBooking(data: PostBookingData) {
     return instance.post("/booking/booking/", data);
   },
-  getAgentsBookingRequestList () {
-    return instance.get('')
+
+  //agents
+  getAgentsBookingRequestList(
+    type: string,
+    field_name: string,
+    search_column: string,
+    search_value: string
+  ) {
+    return instance.get(
+      `&shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`
+    );
   },
-  getBookingInfoById (id: number) {
-    return instance.get('')
+  getAgentBookingInfoById(id: number) {
+    return instance.get("");
   },
-  deleteBookingByAgent (id: number) {
-    return instance.delete('')
+  deleteBookingByAgent(id: number) {
+    return instance.delete("");
   },
-  assignAnotherAgentToBooking (user_id: number) {
-    return instance.patch('', {is_assigned: true})
-  }
+  acceptBookingByAgent(data: any) {
+    return instance.post("");
+  },
+  assignAnotherAgentToBooking(user_id: number) {
+    return instance.patch("", { is_assigned: true });
+  },
 };

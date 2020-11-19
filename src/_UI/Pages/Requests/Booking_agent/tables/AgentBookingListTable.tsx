@@ -151,7 +151,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 title="ACE ID"
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
-                //thunkName="rates"
+                thunkName="agent_booking"
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
@@ -167,7 +167,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 title="SHIPPING MODE"
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
-                //thunkName="rates"
+                thunkName="agent_booking"
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
@@ -183,7 +183,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 title="ROUTE"
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
-                //thunkName="rates"
+                thunkName="agent_booking"
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
@@ -199,7 +199,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 title="CLIENT"
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
-                //thunkName="rates"
+                thunkName="agent_booking"
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
@@ -215,7 +215,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 title="SHIPMENT DATE"
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
-                //thunkName="rates"
+                thunkName="agent_booking"
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
@@ -231,7 +231,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 title="STATUS"
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
-                //thunkName="rates"
+                thunkName="agent_booking"
               />
             </TableCell>
           </TableRow>

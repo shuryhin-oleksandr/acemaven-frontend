@@ -1,4 +1,5 @@
 import { CargoGroupType } from "./search/search_types";
+import {RateQuoteType} from "./quotes/quotesTypes";
 
 export type CargoDetailsValue = {
   id: string;
@@ -59,12 +60,17 @@ export type PostBookingData = {
 };
 
 export type BookingInfoType = {
+  id:number;
+  aceid: number;
   cargo_groups: any;
-  release_type?: number;
+  release_type?: {id: number, title: string};
   number_of_documents?: number;
   date_from: string;
   date_to: string;
-  freight_rate: number;
+  freight_rate: RateQuoteType;
   shipper: ShipperType;
-  id:number;
+  shipping_type: string;
+  status: string;
+  client: string;
+  week_range: {week_from: number; week_to: number}
 }

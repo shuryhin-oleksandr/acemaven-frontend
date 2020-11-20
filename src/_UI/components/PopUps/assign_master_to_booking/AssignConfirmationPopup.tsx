@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
     AssignActions, AssignCancel, AssignConfirm,
     PopupContent,
@@ -9,19 +9,33 @@ import {
 } from "./assign-master-to-booking-styles";
 import {IconButton} from "@material-ui/core";
 import close_icon from "../../../assets/icons/close-icon.svg";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {useDispatch, useSelector} from "react-redux";
+import {getAssignSuccess} from "../../../../_BLL/selectors/booking/bookingAgentSelector";
+import {agentBookingActions} from "../../../../_BLL/reducers/booking/agentBookingReducer";
 
 
 type PropsType = {
     setAssignConfirmation: (value: boolean) => void,
     setAssignAgent: (value: boolean) => void,
-    agent_full_name: string
+    agent_full_name: string,
+    assign_thunk: VoidFunctionType
 }
 
-const AssignConfirmationPopup:React.FC<PropsType> = ({setAssignAgent, setAssignConfirmation, agent_full_name}) => {
+const AssignConfirmationPopup:React.FC<PropsType> = ({setAssignAgent, setAssignConfirmation, agent_full_name, assign_thunk}) => {
     let closeHandler = () => {
         setAssignConfirmation(false)
-        setAssignAgent(true)
+        setAssignAgent(false)
     }
+
+    const dispatch = useDispatch()
+    let assign_success = useSelector(getAssignSuccess)
+    useEffect(() => {
+        if(assign_success) {
+            closeHandler()
+            dispatch(agentBookingActions.setAssignSuccess(''))
+        }
+    }, [assign_success])
     return (
         <PopupWrapper >
             <PopupInner height='200px'>
@@ -34,7 +48,7 @@ const AssignConfirmationPopup:React.FC<PropsType> = ({setAssignAgent, setAssignC
                     <PopupTitle>Are you sure you want to assign {'this'} booking to <span style={{textTransform: 'capitalize'}}>{agent_full_name}</span> ?
                     </PopupTitle>
                     <AssignActions>
-                        <AssignConfirm>CONFIRM</AssignConfirm>
+                        <AssignConfirm onClick={assign_thunk}>CONFIRM</AssignConfirm>
                         <AssignCancel onClick={closeHandler}>CANCEL</AssignCancel>
                     </AssignActions>
                 </PopupContent>

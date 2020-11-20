@@ -1,8 +1,10 @@
-import { BookingInfoType, PostBookingData } from "../../types/bookingTypes";
+import { BookingInfoType } from "../../types/bookingTypes";
 
 const initialState = {
   booking_request_list: [] as BookingInfoType[] ,
   exact_booking_info: null as BookingInfoType | null,
+  my_agents_list: [] as any,
+  assign_success: ''
 };
 
 type InitialStateType = typeof initialState;
@@ -29,6 +31,16 @@ export const agentBookingReducer = (
           (b) => b.id !== action.booking_id
         ),
       };
+    case "SET_MY_AGENTS":
+      return {
+        ...state,
+        my_agents_list: action.agents
+      }
+    case "SET_ASSIGN_SUCCESS":
+      return {
+        ...state,
+        assign_success: action.assign_success
+      }
     default:
       return state;
   }
@@ -46,4 +58,6 @@ export const agentBookingActions = {
     ({ type: "SET_EXACT_BOOKING_INFO", booking_info } as const),
   setRejectBookingRequest: (booking_id: number) =>
     ({ type: "SET_REJECT_BOOKING_ID", booking_id } as const),
+  setMyAgents: (agents: any) => ({type: 'SET_MY_AGENTS', agents} as const),
+  setAssignSuccess: (assign_success: string) => ({type: 'SET_ASSIGN_SUCCESS', assign_success} as const)
 };

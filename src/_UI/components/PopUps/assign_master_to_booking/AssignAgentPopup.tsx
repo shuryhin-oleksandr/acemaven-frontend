@@ -17,11 +17,14 @@ type PropsType = {
     setAssignAgent: (value: boolean) => void,
     setAssignConfirmation: (value: boolean) => void,
     agents: IAddNewUserData[] | null,
-    setAgentFullName: (value: string) => void
+    setAgentFullName: (value: string) => void,
+    setAgentId: (id: number) => void
+
 }
 
-const AssignAgentPopup:React.FC<PropsType> = ({setAssignAgent, agents, setAgentFullName, setAssignConfirmation}) => {
+const AssignAgentPopup:React.FC<PropsType> = ({setAssignAgent, agents, setAgentFullName, setAssignConfirmation, setAgentId}) => {
     let assignHandler = (a: IAddNewUserData) => {
+        setAgentId(Number(a.id))
         setAgentFullName(a.first_name + ' ' + a.last_name)
         setAssignAgent(false)
         setAssignConfirmation(true)

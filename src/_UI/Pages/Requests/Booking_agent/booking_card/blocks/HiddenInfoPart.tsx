@@ -1,4 +1,13 @@
 import React, {useState} from 'react'
+//material ui
+import {IconButton} from "@material-ui/core";
+//types
+import {CargoGroupQuoteType} from "../../../../../../_BLL/types/quotes/quotesTypes";
+import {CostBookingType} from "../../../../../../_BLL/types/bookingTypes";
+//components
+import ShippingModeTable from "./shipping_mode_table/ShippingModeTable";
+import ChargesTable from "./charges_table/ChargesTable";
+//styles
 import {
     ActionsInfoWrapper,
     CargoWrapper, ChargesWrapper,
@@ -9,13 +18,11 @@ import {
 } from "./hidden-part-styles";
 import {GeneralTitle} from "../../../../quotes/agent/table/agent-quotes-styles";
 import {InfoRow, InfoRowLabel, InfoRowValue} from "../booking-card-style";
-import {IconButton} from "@material-ui/core";
+//icons
 import down_arrow from '../../../../../../_UI/assets/icons/rates&services/show_arrow.svg'
 import up_arrow from '../../../../../../_UI/assets/icons/rates&services/hide_arrow.svg'
-import ShippingModeTable from "./shipping_mode_table/ShippingModeTable";
-import ChargesTable from "./charges_table/ChargesTable";
-import {CargoGroupQuoteType} from "../../../../../../_BLL/types/quotes/quotesTypes";
-import {CostBookingType} from "../../../../../../_BLL/types/bookingTypes";
+
+
 
 type PropsType = {
     cargo_groups: CargoGroupQuoteType[],

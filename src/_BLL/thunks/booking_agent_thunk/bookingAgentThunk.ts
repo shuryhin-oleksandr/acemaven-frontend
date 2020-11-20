@@ -53,3 +53,27 @@ export const acceptBookingByAgentThunk = (data: any) => {
     } catch (e) {}
   };
 };
+
+export const getMyAgentsThunk = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+      let res = await bookingApi.getMyAgents()
+      dispatch(agentBookingActions.setMyAgents(res.data))
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export const assignAgentThunk = (user_id: number, booking_id: number) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      await bookingApi.assignAnotherAgentToBooking(user_id, booking_id)
+      dispatch(agentBookingActions.setAssignSuccess('success'))
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+}

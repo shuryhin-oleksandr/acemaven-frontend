@@ -29,7 +29,10 @@ export const bookingApi = {
   acceptBookingByAgent(data: any) {
     return instance.post("");
   },
-  assignAnotherAgentToBooking(user_id: number) {
-    return instance.patch("", { is_assigned: true });
+  assignAnotherAgentToBooking(user_id: number, booking_id: number) {
+    return instance.post(`/booking/booking/${booking_id}/assign/`, {user: user_id});
   },
+  getMyAgents () {
+    return instance.get('/core/user/assign-users-list/')
+  }
 };

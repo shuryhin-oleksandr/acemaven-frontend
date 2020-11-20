@@ -1,5 +1,5 @@
 import React from 'react'
-import {ShippingModeBlock, ShippingModeLabel} from "../hidden-part-styles";
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -8,7 +8,10 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+//types
 import {CargoGroupQuoteType} from "../../../../../../../_BLL/types/quotes/quotesTypes";
+//styles
+import {ShippingModeBlock, ShippingModeLabel} from "../hidden-part-styles";
 
 const useStyles = makeStyles({
     container: {

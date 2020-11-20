@@ -169,16 +169,16 @@ const Search: React.FC<PropsType> = ({
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    if (value.value.length >= 3) {
+    // if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
-    }
+    // }
   };
   let onDestinationChangeHandler = (value: any) => {
-    if (value.value.length >= 3) {
+    // if (value.value.length >= 3) {
     props.origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
-    }
+    // }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {

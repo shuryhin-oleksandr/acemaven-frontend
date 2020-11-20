@@ -17,6 +17,7 @@ import {
   BookingInfoType,
   PostBookingData,
 } from "../../../../../_BLL/types/bookingTypes";
+import moment from "moment";
 
 type PropsType = {
   searchValue: string;
@@ -115,20 +116,46 @@ const AgentBookingListTable: React.FC<PropsType> = ({
     id: number,
     date_from: string,
     date_to: string,
-    client: string
+    client: string,
+    aceid: string,
+    status: string,
+    shipping_mode: string,
+    origin: string,
+    destination: string,
+    week_from: number,
+    week_to: number
   ) {
     return {
       id,
-      date_from,
-      date_to,
+      date_from: `${moment(date_from, "DD-MM-YYYY").format("D MMMM YYYY")}`,
+      date_to: `${moment(date_to, "DD-MM-YYYY").format("D MMMM YYYY")}`,
       client,
+      aceid,
+      status,
+      shipping_mode,
+      origin,
+      destination,
+      week_from,
+      week_to,
     };
   }
 
   const rows =
     bookingList && bookingList.length > 0
       ? bookingList.map((b) =>
-          createData(b.id, b.date_from, b.date_to, b.shipper.name)
+          createData(
+            b.id,
+            b.date_from,
+            b.date_to,
+            b.client,
+            b.aceid,
+            b.status,
+            b.freight_rate.shipping_mode.title,
+            b.freight_rate.origin.code,
+            b.freight_rate.destination.code,
+            b.week_range.week_from,
+            b.week_range.week_to
+          )
         )
       : null;
 
@@ -152,6 +179,8 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
                 thunkName="agent_booking"
+                withoutSearch={true}
+                withoutOrdering={true}
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
@@ -168,6 +197,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
                 thunkName="agent_booking"
+                withoutSearch={true}
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
@@ -216,6 +246,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
                 thunkName="agent_booking"
+                withoutSearch={true}
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
@@ -232,6 +263,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
                 thunkName="agent_booking"
+                withoutSearch={true}
               />
             </TableCell>
           </TableRow>
@@ -259,7 +291,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                     fontSize: "18px",
                   }}
                 >
-                  CAAE0081
+                  {row.aceid}
                 </span>
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
@@ -270,7 +302,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                     fontSize: "18px",
                   }}
                 >
-                  LCL
+                  {row.shipping_mode}
                 </span>
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
@@ -281,7 +313,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                     fontSize: "24px",
                   }}
                 >
-                  SSZ
+                  {row.origin}
                 </div>
                 <div
                   style={{
@@ -290,15 +322,20 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                     fontSize: "24px",
                   }}
                 >
-                  BCN
+                  {row.destination}
                 </div>
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
                 {row.client}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                <div>1-7 March 2020</div>
-                <div>WEEK 5</div>
+                <div>{row.date_from} -</div>
+                <div>{row.date_to}</div>
+                <div>
+                  {row.week_from === row.week_to
+                    ? `Week ${row.week_from}`
+                    : `Week ${row.week_from} - Week ${row.week_to}`}
+                </div>
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
                 <span
@@ -309,7 +346,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                     textTransform: "uppercase",
                   }}
                 >
-                  Booking Request Received
+                  {row.status}
                 </span>
               </TableCell>
             </TableRow>

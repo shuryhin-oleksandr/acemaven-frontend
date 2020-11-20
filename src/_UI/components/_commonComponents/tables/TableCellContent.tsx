@@ -17,7 +17,9 @@ type PropsType = {
     title: string,
     searchColumn: string,
     setSearchColumn: VoidFunctionType,
-    thunkName?: string
+    thunkName?: string,
+    withoutSearch?:boolean,
+    withoutOrdering?:boolean
 }
 
 const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...props}) => {
@@ -37,18 +39,27 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...prop
                 />
                 : <div style={{display: 'flex'}}>
                     {props.title}
-                    <TableSortButton dispatch={props.dispatch}
-                                     column_name={props.column_name}
-                                     direction={props.direction}
-                                     mode={props.type}
-                                     searchValue={props.searchValue}
-                                     searchColumn={props.searchColumn}
-                                     thunkName={thunkName}
-                    />
-                    <TableSearchButton setSearchMode={props.setSearchMode}
-                                       setSearchColumn={props.setSearchColumn}
-                                       column_name={props.column_name}
-                    />
+                    {props.withoutOrdering?
+                        null
+                        :
+                        <TableSortButton dispatch={props.dispatch}
+                                         column_name={props.column_name}
+                                         direction={props.direction}
+                                         mode={props.type}
+                                         searchValue={props.searchValue}
+                                         searchColumn={props.searchColumn}
+                                         thunkName={thunkName}
+                        />
+                    }
+
+                    {props.withoutSearch?
+                        null
+                        :
+                        <TableSearchButton setSearchMode={props.setSearchMode}
+                                           setSearchColumn={props.setSearchColumn}
+                                           column_name={props.column_name}
+                        />
+                    }
                 </div>
             }
         </>

@@ -61,7 +61,7 @@ export type PostBookingData = {
 
 export type BookingInfoType = {
   id:number;
-  aceid: number;
+  aceid: string;
   cargo_groups: any;
   release_type?: {id: number, title: string};
   number_of_documents?: number;

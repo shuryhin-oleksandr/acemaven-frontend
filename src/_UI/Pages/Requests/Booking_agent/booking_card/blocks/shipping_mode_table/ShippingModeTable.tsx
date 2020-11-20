@@ -8,13 +8,13 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
-import {CargoGroupType} from "../../../../../../../_BLL/types/search/search_types";
+import {CargoGroupQuoteType} from "../../../../../../../_BLL/types/quotes/quotesTypes";
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
         overflowY: 'scroll',
-        maxWidth: 700,
+        maxWidth: 1020,
         minWidth: 650
     },
     table: {
@@ -63,7 +63,7 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    cargo_groups?: CargoGroupType[]
+    cargo_groups?: CargoGroupQuoteType[]
 }
 
 const ShippingModeTable:React.FC<PropsType> = ({cargo_groups}) => {
@@ -75,23 +75,69 @@ const ShippingModeTable:React.FC<PropsType> = ({cargo_groups}) => {
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="collapsible table">
                     <TableHead>
-                        <TableRow>
-                            <TableCell className={classes.cell} align="left">
-                                VOLUME
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                               PACKAGING
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                CARGO DESCRIPTIONS
-                            </TableCell>
-                        </TableRow>
+                        {cargo_groups && cargo_groups[0]?.container_type
+                            ? <TableRow>
+                                <TableCell className={classes.cell} align="left">
+                                    VOLUME
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    PACKAGING
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    CARGO DESCRIPTIONS
+                                </TableCell>
+                            </TableRow>
+                            : <TableRow>
+                                <TableCell className={classes.cell} align="left">
+                                    VOLUME
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    NO. OF PACKS
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    PACKAGING TYPE
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    HEIGHT, WIDTH, LENGTH, WEIGHT
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    CARGO DESCRIPTIONS
+                                </TableCell>
+                            </TableRow>
+                        }
                     </TableHead>
                     <TableBody>
                         {cargo_groups?.map((c, index) => <TableRow key={index} className={classes.row}>
-                            <TableCell className={classes.innerCell} align="left">{c.container_type ? c.container_type : c.packaging_type}</TableCell>
-                            <TableCell className={classes.innerCell} align="left">12 boxes  2W/M</TableCell>
-                            <TableCell className={classes.innerCell} align="left">{c.description}</TableCell>
+                            {c.container_type
+                                ? <>
+                                    <TableCell className={classes.innerCell} align="left">
+                                        {c.container_type?.code}
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left">
+                                        {c.volume}
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left">
+                                        {c.description}
+                                    </TableCell>
+                                </>
+                                : <>
+                                    <TableCell className={classes.innerCell} align="left">
+                                        {c.total_wm}
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left">
+                                        {c.volume}
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left">
+                                        {c.packaging_type?.description}
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left">
+                                        {c.height}, {c.width}, {c.length}, {c.weight}
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left">
+                                        {c.description}
+                                    </TableCell>
+                                </>
+                            }
                         </TableRow>
                         )}
                     </TableBody>

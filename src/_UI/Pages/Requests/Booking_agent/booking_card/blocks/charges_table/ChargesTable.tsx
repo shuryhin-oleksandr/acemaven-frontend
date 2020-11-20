@@ -7,6 +7,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+import {CostBookingType} from "../../../../../../../_BLL/types/bookingTypes";
 
 const useStyles = makeStyles({
     container: {
@@ -39,10 +40,22 @@ const useStyles = makeStyles({
         color: '#1B1B25',
         height: '100px',
         padding: '16px 0 0',
+    },
+    innerCell_doc: {
+        borderBottom: '1px solid #e0e0e0',
+        fontFamily: 'Helvetica Light',
+        fontSize: '14px',
+        color: '#1B1B25',
+        height: '100px',
+        padding: '5px 0 0',
     }
 });
 
-const ChargesTable = () => {
+type PropsType = {
+    charges_cost: CostBookingType | null
+}
+
+const ChargesTable:React.FC<PropsType> = ({charges_cost}) => {
     const classes = useStyles();
 
     return (
@@ -74,14 +87,62 @@ const ChargesTable = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
+                    {charges_cost?.cargo_groups.map(cc => <TableRow className={classes.row}>
+                        <TableCell className={classes.innerCell} align="left">{cc.volume}</TableCell>
+                        <TableCell className={classes.innerCell} align="left">{cc.cargo_type}</TableCell>
+                        <TableCell className={classes.innerCell} align="left">??</TableCell>
+                        <TableCell className={classes.innerCell} align="left">
+                            FREIGHT <br/>
+                            HANDLING <br/>
+                            OTHERS
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="center">
+                            {cc.freight.currency} <br/>
+                            {cc.handling.currency}
+                            <br/> {cc.other.currency}
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="right">
+                            {cc.freight.cost} <br/>
+                            {cc.handling.cost}<br/>
+                            {cc.other.cost}</TableCell>
+                        <TableCell className={classes.innerCell} align="right">
+                            {cc.freight.subtotal} <br/>
+                            {cc.handling.subtotal}<br/>
+                            {cc.other.subtotal}
+                        </TableCell>
+                    </TableRow>
+                    )}
                     <TableRow className={classes.row}>
-                        <TableCell className={classes.innerCell} align="left">1</TableCell>
-                        <TableCell className={classes.innerCell} align="left">40HC</TableCell>
-                        <TableCell className={classes.innerCell} align="left">GREEN COFFEE BEANS</TableCell>
-                        <TableCell className={classes.innerCell} align="left">FREIGHT <br/> HANDLING <br/> OTHERS</TableCell>
-                        <TableCell className={classes.innerCell} align="center">USD <br/> BRL<br/> EUR</TableCell>
-                        <TableCell className={classes.innerCell} align="right">100 <br/> 1000<br/> 150</TableCell>
-                        <TableCell className={classes.innerCell} align="right">2000 <br/> 2900<br/> 3100</TableCell>
+                        <TableCell className={classes.innerCell_doc} align="left"/>
+                        <TableCell className={classes.innerCell_doc} align="left"/>
+                        <TableCell className={classes.innerCell_doc} align="left"/>
+                        <TableCell className={classes.innerCell_doc} align="left">
+                            DOC FEE
+                        </TableCell>
+                        <TableCell className={classes.innerCell_doc} align="center">
+                            {charges_cost?.doc_fee.currency}
+                        </TableCell>
+                        <TableCell className={classes.innerCell_doc} align="right">
+                            {charges_cost?.doc_fee.cost}
+                        </TableCell>
+                        <TableCell className={classes.innerCell_doc} align="right">
+                            {charges_cost?.doc_fee.subtotal}
+                        </TableCell>
+                    </TableRow>
+                    <TableRow className={classes.row}>
+                        <TableCell className={classes.innerCell} align="left"/>
+                        <TableCell className={classes.innerCell} align="left"/>
+                        <TableCell className={classes.innerCell} align="left"/>
+                        <TableCell className={classes.innerCell} align="left"/>
+                        <TableCell className={classes.innerCell} align="center"/>
+                        <TableCell className={classes.innerCell} align="right">
+                            {charges_cost?.total_surcharge.BRL && 'CHARGES IN BRL'}
+                            {charges_cost?.total_surcharge.USD && 'CHARGES IN USD'}
+                        </TableCell>
+                        <TableCell className={classes.innerCell} align="right">
+                            {charges_cost?.total_surcharge.BRL && charges_cost?.total_surcharge.BRL}
+                            {charges_cost?.total_surcharge.USD && charges_cost?.total_surcharge.USD}
+                        </TableCell>
                     </TableRow>
                 </TableBody>
             </Table>

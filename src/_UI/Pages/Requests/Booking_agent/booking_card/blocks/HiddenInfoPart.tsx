@@ -14,15 +14,17 @@ import down_arrow from '../../../../../../_UI/assets/icons/rates&services/show_a
 import up_arrow from '../../../../../../_UI/assets/icons/rates&services/hide_arrow.svg'
 import ShippingModeTable from "./shipping_mode_table/ShippingModeTable";
 import ChargesTable from "./charges_table/ChargesTable";
-import {CargoGroupType} from "../../../../../../_BLL/types/search/search_types";
+import {CargoGroupQuoteType} from "../../../../../../_BLL/types/quotes/quotesTypes";
+import {CostBookingType} from "../../../../../../_BLL/types/bookingTypes";
 
 type PropsType = {
-    cargo_groups: CargoGroupType[],
+    cargo_groups: CargoGroupQuoteType[],
     number_of_documents: number,
-    release_type: any
+    release_type: any,
+    charges_cost: CostBookingType | null
 }
 
-const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, release_type}) => {
+const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, release_type, charges_cost}) => {
 
     const [isHiddenDocs, setHiddenDocs] = useState(false)
 
@@ -59,7 +61,7 @@ const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, 
             <ChargesWrapper>
                 <DocumentsContent>
                     <GeneralTitle>CHARGES</GeneralTitle>
-                    <ChargesTable />
+                    <ChargesTable charges_cost={charges_cost ? charges_cost : null}/>
                 </DocumentsContent>
             </ChargesWrapper>
         </HiddenOuter>

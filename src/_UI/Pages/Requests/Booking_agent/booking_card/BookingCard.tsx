@@ -17,6 +17,7 @@ import {
     InfoRowLabel, InfoRowValue, ValuesShipmentWrapper
 } from "./booking-card-style";
 import sea_icon from '../../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
+import air_icon from '../../../../assets/icons/rates&services/plane-surcharge.svg'
 import {GeneralTitle} from "../../../quotes/agent/table/agent-quotes-styles";
 import HiddenInfoPart from "./blocks/HiddenInfoPart";
 import ShipmentInfoBlock from "./blocks/ShipmentInfoBlock";
@@ -42,10 +43,10 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                 <ContentHeader>
                     <BookingInfo>
                         <BookingNumber>
-                            Booking ACY9087512
+                            Booking ????
                         </BookingNumber>
                         <BookingStatus>
-                            <span style={{color: '#1ab8e5', marginRight: '5px'}}>STATUS</span> {local_time} BOOKING IS CONFIRMED LA LA LA
+                            <span style={{color: '#1ab8e5', marginRight: '5px'}}>STATUS</span> {local_time} {exact_booking_info?.status}
                         </BookingStatus>
                     </BookingInfo>
                     <ActionsButtons>
@@ -57,20 +58,26 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                 <GeneralBookingInfo>
                     <GeneralTitle>GENERAL INFO</GeneralTitle>
                     <GeneralBookingContent>
-                        <GeneralShipType><img src={sea_icon} alt=""/></GeneralShipType>
+                        <GeneralShipType><img src={exact_booking_info?.shipping_type === 'sea' ? sea_icon : air_icon} alt=""/></GeneralShipType>
                         <InfoRow margin_right='27px'>
                             <InfoRowLabel>ROUTE</InfoRowLabel>
-                            <InfoRowValue font_size='36px'>SSZ <br/> BCN</InfoRowValue>
+                            <InfoRowValue font_size='36px'>
+                                {exact_booking_info?.freight_rate.origin.code}
+                            <br/> {exact_booking_info?.freight_rate.destination.code}
+                            </InfoRowValue>
                         </InfoRow>
                         <ValuesShipmentWrapper>
                             <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
                                 <InfoRow >
                                     <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
-                                    <InfoRowValue>LCL</InfoRowValue>
+                                    <InfoRowValue>{exact_booking_info?.freight_rate.shipping_mode.title}</InfoRowValue>
                                 </InfoRow>
                                 <InfoRow >
                                     <InfoRowLabel>TRANSIT TIME</InfoRowLabel>
-                                    <InfoRowValue>21 Days</InfoRowValue>
+                                    <InfoRowValue>{exact_booking_info?.freight_rate.transit_time
+                                        ? `${exact_booking_info?.freight_rate.transit_time} days `
+                                        : '0 days'}
+                                    </InfoRowValue>
                                 </InfoRow>
                             </div>
                             <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
@@ -92,16 +99,23 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                             <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
                                 <InfoRow>
                                     <InfoRowLabel>STATUS</InfoRowLabel>
-                                    <InfoRowValue>{local_time}<br/> BOOKING REQUEST IN PROGRESS</InfoRowValue>
+                                    <InfoRowValue>{local_time}<br/> {exact_booking_info?.status}</InfoRowValue>
                                 </InfoRow>
                             </div>
                         </ValuesShipmentWrapper>
                     </GeneralBookingContent>
                 </GeneralBookingInfo>
-                <ShipmentInfoBlock shipper={exact_booking_info?.shipper ? exact_booking_info?.shipper : null}/>
+                <ShipmentInfoBlock shipper={exact_booking_info?.shipper ? exact_booking_info?.shipper : null}
+                                   client={String(exact_booking_info?.client)}
+                                   client_contact={String(exact_booking_info?.client_contact_person)}
+                                   date_from={String(exact_booking_info?.date_from)}
+                                   date_to={String(exact_booking_info?.date_to)}
+                                   week_range={exact_booking_info?.week_range ? exact_booking_info?.week_range : null}
+                />
                 <HiddenInfoPart cargo_groups={exact_booking_info?.cargo_groups ? exact_booking_info.cargo_groups : []}
                                 number_of_documents={Number(exact_booking_info?.number_of_documents)}
                                 release_type={exact_booking_info?.release_type}
+                                charges_cost={exact_booking_info?.charges ? exact_booking_info?.charges : null}
                 />
             </CardContent>
         </CardWrapper>

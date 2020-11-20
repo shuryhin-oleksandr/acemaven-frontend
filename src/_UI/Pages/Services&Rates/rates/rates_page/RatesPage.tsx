@@ -94,43 +94,6 @@ type PropsType = {
 const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
   const classes = useStyles();
 
-  function createData(
-    id: number,
-    shipping_mode: string,
-    shipping_type: string,
-    carrier: string,
-    origin: string,
-    destination: string,
-    expiration_date: string,
-    is_active: boolean
-  ) {
-    return {
-      id,
-      shipping_mode,
-      shipping_type,
-      carrier,
-      origin,
-      destination,
-      expiration_date,
-      is_active,
-    };
-  }
-
-  const rows =
-    freight_rates_list && freight_rates_list.length > 0
-      ? freight_rates_list.map((r) =>
-          createData(
-            r.id,
-            r?.shipping_mode,
-            r?.shipping_type,
-            r.carrier,
-            r.origin,
-            r.destination,
-            r.expiration_date,
-            r.is_active
-          )
-        )
-      : null;
   const [isSearchMode, setSearchMode] = useState(false);
   let history = useHistory();
   let goToPage = (id: number) => {
@@ -218,7 +181,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows?.map((row) => (
+              {freight_rates_list?.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell
                     className={classes.innerMainCell}

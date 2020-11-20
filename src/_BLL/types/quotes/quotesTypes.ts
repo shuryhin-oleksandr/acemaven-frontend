@@ -126,13 +126,13 @@ export type Rate = {
 }
 export type RateQuoteType = {
     id: number,
-    carrier: number,
+    carrier: {id: number, title: string},
     carrier_disclosure: boolean,
-    origin: number,
-    destination: number,
+    origin: PortType,
+    destination: PortType,
     transit_time: any,
     is_active: boolean,
-    shipping_mode: number,
+    shipping_mode: {id: number, title: string},
     temporary: boolean,
     rates: Rate[]
 }

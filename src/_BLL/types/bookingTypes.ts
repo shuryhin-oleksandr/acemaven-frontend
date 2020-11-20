@@ -1,5 +1,5 @@
 import { CargoGroupType } from "./search/search_types";
-import {RateQuoteType} from "./quotes/quotesTypes";
+import {CargoGroupQuoteType, RateQuoteType} from "./quotes/quotesTypes";
 
 export type CargoDetailsValue = {
   id: string;
@@ -59,10 +59,24 @@ export type PostBookingData = {
   shipper: ShipperType;
 };
 
+export type CostBookingType = {
+  freight_rate?: any,
+  doc_fee: {currency: string, cost: number, subtotal: number},
+  total_freight_rate: {BRL?: number, USD?: number},
+  total_surcharge: {BRL?: number, USD?: number},
+  totals: {BRL?: number, USD?: number},
+  cargo_groups: Array<{
+    volume: number,
+    cargo_type: string,
+    freight: {currency: string, cost: number, subtotal: number},
+    other: {currency: string, cost: number, subtotal: number},
+    handling: {currency: string, cost: number, subtotal: number}
+  }>
+}
 export type BookingInfoType = {
   id:number;
   aceid: string;
-  cargo_groups: any;
+  cargo_groups: CargoGroupQuoteType[];
   release_type?: {id: number, title: string};
   number_of_documents?: number;
   date_from: string;
@@ -72,5 +86,7 @@ export type BookingInfoType = {
   shipping_type: string;
   status: string;
   client: string;
-  week_range: {week_from: number; week_to: number}
+  client_contact_person: string;
+  week_range: {week_from: number; week_to: number},
+  charges: CostBookingType
 }

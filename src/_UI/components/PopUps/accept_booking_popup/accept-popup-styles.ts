@@ -12,6 +12,7 @@ export const AcceptWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 70px;
+  z-index: 70;
 `
 export const AcceptInner = styled.div`
   max-width: 800px;

@@ -20,17 +20,21 @@ import sea_icon from '../../../../../_UI/assets/icons/rates&services/ship-surcha
 import {GeneralTitle} from "../../../quotes/agent/table/agent-quotes-styles";
 import HiddenInfoPart from "./blocks/HiddenInfoPart";
 import ShipmentInfoBlock from "./blocks/ShipmentInfoBlock";
+import {BookingInfoType} from "../../../../../_BLL/types/bookingTypes";
+import moment from 'moment';
 
 
 type PropsType = {
     setAssignAgent: (value: boolean) => void,
     setRejectPopupOpen: (value:boolean) => void,
-    openAcceptPopup: (value: boolean) => void
+    openAcceptPopup: (value: boolean) => void,
+    exact_booking_info: BookingInfoType | null
 }
 
-const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, openAcceptPopup}) => {
+const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, openAcceptPopup, exact_booking_info}) => {
 
     let current_user_role = 'client'
+    let local_time = moment(new Date()).format(' DD/MM  h:mm a');
 
     return (
         <CardWrapper>
@@ -41,7 +45,7 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                             Booking ACY9087512
                         </BookingNumber>
                         <BookingStatus>
-                            <span style={{color: '#1ab8e5'}}>STATUS</span> 05/11 21:00 BOOKING IS CONFIRMED LA LA LA
+                            <span style={{color: '#1ab8e5', marginRight: '5px'}}>STATUS</span> {local_time} BOOKING IS CONFIRMED LA LA LA
                         </BookingStatus>
                     </BookingInfo>
                     <ActionsButtons>
@@ -73,12 +77,12 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                                 <InfoRow >
                                     <InfoRowLabel>DATES</InfoRowLabel>
                                     <InfoRowValue>
-                                        ETD: 05/11 <br/>
-                                        ETA: 25/11
+                                        ETD: {exact_booking_info?.date_from} <br/>
+                                        ETA: {exact_booking_info?.date_to}
                                     </InfoRowValue>
                                 </InfoRow>
                                 <InfoRow>
-                                    <InfoRowLabel>DEADLINES</InfoRowLabel>
+                                    <InfoRowLabel>???DEADLINES???</InfoRowLabel>
                                     <InfoRowValue>
                                         DOC: 04/11 12:00<br/>
                                         GARGA: 04/11 18:00
@@ -88,14 +92,17 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                             <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
                                 <InfoRow>
                                     <InfoRowLabel>STATUS</InfoRowLabel>
-                                    <InfoRowValue>05/11 21:00 <br/> BOOKING REQUEST IN PROGRESS</InfoRowValue>
+                                    <InfoRowValue>{local_time}<br/> BOOKING REQUEST IN PROGRESS</InfoRowValue>
                                 </InfoRow>
                             </div>
                         </ValuesShipmentWrapper>
                     </GeneralBookingContent>
                 </GeneralBookingInfo>
-                <ShipmentInfoBlock />
-                <HiddenInfoPart />
+                <ShipmentInfoBlock shipper={exact_booking_info?.shipper ? exact_booking_info?.shipper : null}/>
+                <HiddenInfoPart cargo_groups={exact_booking_info?.cargo_groups ? exact_booking_info.cargo_groups : []}
+                                number_of_documents={Number(exact_booking_info?.number_of_documents)}
+                                release_type={exact_booking_info?.release_type}
+                />
             </CardContent>
         </CardWrapper>
     )

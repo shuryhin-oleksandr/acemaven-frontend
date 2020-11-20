@@ -14,11 +14,10 @@ import styled from "styled-components";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
-import {FreightRateObjectType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {FreightRateObjectType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
-import { getSurchargeInfo } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { useHistory } from "react-router-dom";
 import { setActiveOrPausedRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
@@ -96,43 +95,6 @@ type PropsType = {
 const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
   const classes = useStyles();
 
-  function createData(
-    id: number,
-    shipping_mode: string,
-    shipping_type: string,
-    carrier: string,
-    origin: string,
-    destination: string,
-    expiration_date: string,
-    is_active: boolean
-  ) {
-    return {
-      id,
-      shipping_mode,
-      shipping_type,
-      carrier,
-      origin,
-      destination,
-      expiration_date,
-      is_active,
-    };
-  }
-
-  const rows =
-    freight_rates_list && freight_rates_list.length > 0
-      ? freight_rates_list.map((r) =>
-          createData(
-            r.id,
-            r?.shipping_mode,
-            r?.shipping_type,
-            r.carrier,
-            r.origin,
-            r.destination,
-            r.expiration_date,
-            r.is_active
-          )
-        )
-      : null;
   const [isSearchMode, setSearchMode] = useState(false);
   let history = useHistory();
   let goToPage = (id: number) => {
@@ -220,7 +182,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows?.map((row) => (
+              {freight_rates_list?.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell
                     className={classes.innerMainCell}

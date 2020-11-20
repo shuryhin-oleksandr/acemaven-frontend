@@ -13,8 +13,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {ChargeCalculationType} from "../../../../../_BLL/types/quotes/quotesTypes";
 
-type PropsType = {}
+type PropsType = {
+    calculation: ChargeCalculationType | null
+}
 
 const useStyles = makeStyles({
     container: {
@@ -51,7 +54,7 @@ const useStyles = makeStyles({
     }
 });
 
-const TotalCostCalculationContainer:React.FC<PropsType> = ({}) => {
+const TotalCostCalculationContainer:React.FC<PropsType> = ({calculation}) => {
     const classes = useStyles();
 
     return (
@@ -84,8 +87,8 @@ const TotalCostCalculationContainer:React.FC<PropsType> = ({}) => {
                                 </TableCell>
                             </TableRow>
                         </TableHead>
-                        {/*<TableBody>
-                            {search_result.cargo_groups.map(s =>
+                        <TableBody>
+                            {calculation?.cargo_groups?.map(s =>
                                 <TableRow key={s.cargo_type} className={classes.info_row}>
                                     <TableCell className={classes.innerCell} scope="row">
                                         {s.volume}
@@ -124,51 +127,51 @@ const TotalCostCalculationContainer:React.FC<PropsType> = ({}) => {
                                     DOC FEE
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
-                                    {search_result.doc_fee.currency}
+                                    {calculation?.doc_fee?.currency}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="right">
-                                    {search_result.doc_fee.cost}
+                                    {calculation?.doc_fee?.cost}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="right">
-                                    {search_result.doc_fee.subtotal}
+                                    {calculation?.doc_fee?.subtotal}
                                 </TableCell>
                             </TableRow>
-                        </TableBody>*/}
+                        </TableBody>
                     </Table>
                 </TableContainer>
             </HiddenTable>
-           {/* <TableTotal>
+            <TableTotal>
                 <TotalLine>
                     <TotalName>
-                        TOTAL FREIGHT IN {search_result?.total_freight_rate.USD
+                        TOTAL FREIGHT IN {calculation?.total_freight_rate?.USD
                         ? "BRL"
                         : "USD" }
                     </TotalName>
                     <TotalValue>
-                        {search_result.total_freight_rate.USD
-                            ? search_result.total_freight_rate.USD
-                            : search_result.total_freight_rate.BRL}
+                        {calculation?.total_freight_rate?.USD
+                            ? calculation?.total_freight_rate?.USD
+                            : calculation?.total_freight_rate?.BRL}
                     </TotalValue>
                 </TotalLine>
                 <TotalLine>
                     <TotalName>
-                        CHARGES IN {search_result?.total_surcharge.BRL
+                        CHARGES IN {calculation?.total_surcharge?.BRL
                         ? "BRL"
                         : "USD"
                     }
                     </TotalName>
                     <TotalValue>
-                        {search_result.total_surcharge.BRL
-                            ? search_result.total_surcharge.BRL
-                            : search_result.total_surcharge.USD
+                        {calculation?.total_surcharge?.BRL
+                            ? calculation?.total_surcharge?.BRL
+                            : calculation?.total_surcharge?.USD
                         }
                     </TotalValue>
                 </TotalLine>
-                <TotalLine>
-                    <TotalName>ACEMAVEN SERVICE FEE: IN {search_result.service_fee.currency}</TotalName>
-                    <TotalValue>{search_result.service_fee.cost}</TotalValue>
-                </TotalLine>
-            </TableTotal>*/}
+                {/*<TotalLine>
+                    <TotalName>ACEMAVEN SERVICE FEE: IN {calculation?.service_fee?.currency}</TotalName>
+                    <TotalValue>{calculation?.service_fee?.cost}</TotalValue>
+                </TotalLine>*/}
+            </TableTotal>
         </HiddenWrapper>
     )
 }

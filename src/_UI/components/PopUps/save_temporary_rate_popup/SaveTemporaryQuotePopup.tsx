@@ -29,8 +29,8 @@ type PropsType = {
 
 const SaveTemporaryQuotePopup:React.FC<PropsType> = ({closePopup, freight, saveRateResult, bad_saving_message}) => {
 
-    let freight_obj = {...freight, carrier: freight.carrier.id, shipping_mode: freight.shipping_mode.id, origin: freight.origin.id, destination: freight.destination.id}
-    let freight_obj2 = {...freight_obj, rates: freight_obj.rates.map((r: any) => (
+    let freight_obj = {...freight, carrier: freight?.carrier.id, shipping_mode: freight?.shipping_mode.id, origin: freight?.origin.id, destination: freight?.destination.id}
+    let freight_obj2 = {...freight_obj, rates: freight_obj?.rates?.map((r: any) => (
         {
             container_type: r.container_type ? r.container_type.id : null,
             currency: r.currency.id,

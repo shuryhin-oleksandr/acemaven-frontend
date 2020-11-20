@@ -6,6 +6,7 @@ import { getFilteredRateListThunk } from "../../../../../_BLL/thunks/rates&surch
 import { SortButton } from "./table-sort-button-style";
 import {getClientQuotesThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 import {getAgentQuotesListThunk} from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
+import {getBookingRequestListThunk} from "../../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
 
 type PropsType = {
   column_name: string;
@@ -54,7 +55,15 @@ const TableSortButton: React.FC<PropsType> = ({
                 props.searchColumn,
                 props.searchValue
             ))
-        } else {
+        } else if(thunkName==="agent_booking"){
+            dispatch(getBookingRequestListThunk(
+                mode,
+                descendingOrder.current ? `-${column_name}` : column_name,
+                props.searchColumn,
+                props.searchValue
+            ))
+        }
+        else {
           dispatch(
               filterByThunk(
                   direction,

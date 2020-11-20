@@ -32,6 +32,7 @@ import {
 import {GeneralTitle} from "../../../Pages/quotes/agent/table/agent-quotes-styles";
 //icons
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
+import { useHistory } from 'react-router-dom';
 
 
 type PropsType = {
@@ -46,6 +47,8 @@ type PropsType = {
 }
 
 const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, carrier_field, sea_carriers, air_carriers, quote, existing_rate_for_quote, ...props}) => {
+
+    const history = useHistory()
     const {handleSubmit, errors, control, register, setValue} = useForm({
         reValidateMode: 'onBlur', mode: 'onSubmit'
     })
@@ -99,7 +102,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                 rates: rates_array,
                 temporary: true
             };
-            dispatch(registerNewFreightRateThunk(data));
+            dispatch(registerNewFreightRateThunk(data, history));
         } else {
             let data_without_containers = {
                 carrier: carrier_field,
@@ -117,7 +120,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                     },
                 ],
             };
-            dispatch(registerNewFreightRateThunk(data_without_containers));
+            dispatch(registerNewFreightRateThunk(data_without_containers, history));
         }
     }
 

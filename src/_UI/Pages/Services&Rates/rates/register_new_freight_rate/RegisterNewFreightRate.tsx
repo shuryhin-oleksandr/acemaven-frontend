@@ -26,6 +26,7 @@ import { Outer } from "../../surcharge/register_new_surcharge/form-styles";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {RateForSurchargeType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import {ErrorServerMessage} from "../../../SignInPage";
+import { useHistory } from "react-router-dom";
 
 type PropsType = {
   handleSubmit: any;
@@ -70,6 +71,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
   setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge, registration_success, rate_info, watchResultArr
 }) => {
 
+  const history = useHistory()
   const dispatch = useDispatch();
   const onSubmit = (values: any) => {
     let rates_array;
@@ -89,7 +91,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
         destination: Number(destination_port_value?.id),
         rates: rates_array,
       };
-      dispatch(registerNewFreightRateThunk(data));
+      dispatch(registerNewFreightRateThunk(data, history));
     } else {
       let data_without_containers = {
         carrier: values.carrier,
@@ -106,7 +108,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
           },
         ],
       };
-      dispatch(registerNewFreightRateThunk(data_without_containers));
+      dispatch(registerNewFreightRateThunk(data_without_containers, history));
     }
   };
 

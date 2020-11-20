@@ -74,9 +74,27 @@ import sea_type from '../../../../_UI/assets/icons/rates&services/ship-surcharge
 import air_type from '../../../assets/icons/rates&services/plane-surcharge.svg'
 import dates_icon from '../../../../_UI/assets/icons/date_1.svg'
 import TotalCostCalculationContainer from "./table/TotalCostCalculationContainer";
+import {Tooltip} from "@material-ui/core";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
+
+const useStyles = makeStyles({
+    customTooltip: {
+        maxWidth: 330,
+        height: 60,
+        fontFamily: "Helvetica Reg",
+        fontSize: "14px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "15px",
+    },
+});
 
 const QuoteCard = ({...props}) => {
+
+    const classes = useStyles();
+
     const {control, errors, handleSubmit, watch} = useForm({
         reValidateMode: "onBlur"
     })
@@ -142,6 +160,7 @@ const QuoteCard = ({...props}) => {
     }
    useEffect(() => {
         if(carrier_field) {
+            dispatch(quotesAgentActions.setExistingRateForQuote(null))
             // @ts-ignore
             dispatch(getExistingRatesForQuoteThunk(quote_data))
         }
@@ -151,7 +170,7 @@ const QuoteCard = ({...props}) => {
         if(existing_rate_for_quote && !finded_first) {
             setIsTemporaryPopup(true)
         }
-    }, [existing_rate_for_quote])
+    }, [existing_rate_for_quote, finded_first])
 
     //refactoring dates
     let a = moment(exact_quote_info?.date_from, 'DD/MM/YYYY').toDate()
@@ -161,13 +180,15 @@ const QuoteCard = ({...props}) => {
 
 
     useEffect(() => {
-        if(existing_rate_for_quote && finded_first) {
+         if(existing_rate_for_quote && finded_first) {
             let s = existing_rate_for_quote?.rates?.map(f => {
-                return f.surcharges.find((s: any) => s !== null)
+                 return f?.surcharges?.find((s: any) => s !== null)
             })
-           s && dispatch(quotesAgentActions.setExistingSurchargeForQuote(s[0]))
-        }
-    }, [existing_rate_for_quote, finded_first])
+            s && dispatch(quotesAgentActions.setExistingSurchargeForQuote(s[0]))
+         }
+     }, [existing_rate_for_quote, finded_first])
+
+
 
 
     return (
@@ -194,11 +215,21 @@ const QuoteCard = ({...props}) => {
                             ? <ActionsAgentWrap>
                                 <QuoteOpenStatus>Open</QuoteOpenStatus>
                                 <SubmitQuoteButton disabled={!existing_rate_for_quote} type={'submit'}>SUBMIT QUOTE</SubmitQuoteButton>
-                                <RejectButton onClick={rejectQuoteHandler} type={'button'}>REJECT</RejectButton>
+                                <Tooltip arrow
+                                         title='By clicking reject you will delete this quote from your list.'
+                                         classes={{ tooltip: classes.customTooltip }}
+                                >
+                                    <RejectButton onClick={rejectQuoteHandler} type={'button'}>REJECT</RejectButton>
+                                </Tooltip>
                             </ActionsAgentWrap>
                             : <ActionsAgentWrap>
                                 <QuoteOpenStatus>Offer submitted</QuoteOpenStatus>
+                                <Tooltip arrow
+                                         title='By clicking withdraw offer you will delete your offer for this quote.'
+                                         classes={{ tooltip: classes.customTooltip }}
+                                >
                                 <RejectButton type={'button'} onClick={withdrawOfferHandler}>WITHDRAW OFFER</RejectButton>
+                                </Tooltip>
                             </ActionsAgentWrap>
                         }
                     </CardHeader>
@@ -287,7 +318,7 @@ const QuoteCard = ({...props}) => {
                                 }
                             </SurchargesInfo>
                         </>
-                        : <TotalCostCalculationContainer />
+                        : <TotalCostCalculationContainer calculation={exact_quote_info.status?.charges ? exact_quote_info.status?.charges : null}/>
                     }
 
                 </QuoteCardInner>

@@ -48,16 +48,19 @@ export const checkRatesDatesThunk = (check_values: {
   };
 };
 
-export const registerNewFreightRateThunk = (freight_data: any) => {
+export const registerNewFreightRateThunk = (freight_data: any, history: any) => {
   return async (dispatch: Dispatch<any>) => {
     try {
+      debugger
       let res = await rateAPI.registerNewSurcharge(freight_data);
       if(freight_data.hasOwnProperty('temporary')) {
         debugger
         dispatch(quotesAgentActions.setExistingRateForQuote(res.data))
         dispatch(quotesAgentActions.setCheckedIsRateExist('success'))
+      } else {
+        history.push('/services/rates/')
       }
-      dispatch(rateActions.setNewFreightRate(res.data));
+      //dispatch(rateActions.setNewFreightRate(res.data));
       dispatch(rateActions.setRegistrationSuccess("success"));
       dispatch(rateActions.setExistingSurchargeByRate(null));
       dispatch(rateActions.setEmptyExistingSurcharge(''));

@@ -1,3 +1,5 @@
+import {CarrierType, ChargesType, UsageFeeType} from "../rates&surcharges/surchargesTypes";
+import {PortType, ShippingModeType} from "../rates&surcharges/ratesTypes";
 
 
 export type CargoGroupQuoteType = {
@@ -58,6 +60,27 @@ export type QuoteType = {
     week_range: {
         week_from: number,
         week_to: number
+    },
+    status?: {
+        id: number,
+        quote: number,
+        company: any,
+        status: string,
+        is_viewed: boolean,
+        freight_rate?: {
+            id: number,
+            carrier: CarrierType,
+            carrier_disclosure: boolean,
+            origin: PortType,
+            destination: PortType,
+            transit_time: any,
+            is_active: boolean,
+            shipping_mode: ShippingModeType,
+            temporary: boolean,
+            shipping_type: string,
+            rates?: Rate[]
+        },
+        charges?: ChargeCalculationType
     }
 }
 
@@ -97,18 +120,93 @@ export type Rate = {
     rate: string,
     start_date: string,
     expiration_date: string,
-    surcharges?: any
+    surcharges?: SurchargesForQuoteType[],
+    updated_by? : string,
+    date_updated?: string
 }
 export type RateQuoteType = {
     id: number,
-    carrier: number,
+    carrier: {id: number, title: string},
     carrier_disclosure: boolean,
-    origin: number,
-    destination: number,
+    origin: PortType,
+    destination: PortType,
     transit_time: any,
     is_active: boolean,
-    shipping_mode: number,
+    shipping_mode: {id: number, title: string},
     temporary: boolean,
     rates: Rate[]
+}
+export type SurchargesForQuoteType = {
+    id: number,
+    carrier: CarrierType,
+    direction: string,
+    shipping_mode: {id: number, title: string}
+    location?: PortType,
+    destination: PortType,
+    start_date: string,
+    expiration_date: string,
+    temporary: true,
+    usage_fees: UsageFeeType[],
+    charges: ChargesType[],
+    shipping_type: string
+}
+
+export type ChargeCalculationType = {
+    totals: {'BRL' : number},
+    doc_fee?: {
+        cost: number,
+        currency: string,
+        subtotal: number,
+    },
+    pay_to_book?: {
+        currency: string,
+        booking_fee: number,
+        pay_to_book: number,
+        service_fee: number
+    },
+    service_fee?: {
+        cost: number,
+        currency: string,
+        subtotal: number,
+    },
+    total_surcharge?: {
+        'BRL' : number,
+        'USD' : number
+    },
+    total_freight_rate?: {
+        'BRL' : number,
+        'USD': number
+    },
+    cargo_groups?: Array<{ volume: number,
+          cargo_type: string,
+          other: {
+                cost: number,
+                currency: string,
+                subtotal: number,
+          },
+          freight: {
+                currency: string,
+                cost: number,
+                subtotal: number,
+                booking_fee: number
+          },
+          handling: {
+                cost: number,
+                currency: string,
+                subtotal: number,
+          }
+        }>,
+    freight_rate?: {
+        id: number,
+        carrier: string,
+        company: string,
+        is_active: boolean,
+        transit_time: any,
+        shipping_mode: string,
+        shipping_type: string,
+        expiration_date: string,
+        origin: PortType,
+        destination: PortType
+    }
 }
 

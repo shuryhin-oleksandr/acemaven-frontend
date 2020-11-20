@@ -170,6 +170,8 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup}) => {
                                            button_background='white'
                                            borderColor='1px solid #3b3b41'
                                            text_color='#3b3b41'
+                                           callback={() => openAcceptPopup(false)}
+
                             />
                         </AcceptPopupActions>
                     </AcceptFormOuter>

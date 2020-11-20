@@ -182,7 +182,7 @@ const RatesForQuotesTable:React.FC<PropsType> = ({usageFees, quote_shipping_mode
                                             />
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="left">
-                                            <Controller control={props.control}
+                                           {/* <Controller control={props.control}
                                                         name={`rates.rate`}
                                                         rules={{required: true}}
                                                         defaultValue={0}
@@ -199,6 +199,13 @@ const RatesForQuotesTable:React.FC<PropsType> = ({usageFees, quote_shipping_mode
                                                             </div>
                                                         )
                                                         }
+                                            />*/}
+                                            <Field placeholder='0.00$' maxW='100px'
+                                                   name={`rates.rate`}
+                                                   ref={props.register}
+                                                /* onChange={(e) => onChange(e, String(fee.id))}
+                                                 onBlur={() => setAware(false)}*/
+                                                   type='number'
                                             />
                                         </TableCell>
                                     </>

@@ -23,6 +23,8 @@ import HiddenInfoPart from "./blocks/HiddenInfoPart";
 import ShipmentInfoBlock from "./blocks/ShipmentInfoBlock";
 import {BookingInfoType} from "../../../../../_BLL/types/bookingTypes";
 import moment from 'moment';
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../../_BLL/store";
 
 
 type PropsType = {
@@ -34,7 +36,8 @@ type PropsType = {
 
 const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, openAcceptPopup, exact_booking_info}) => {
 
-    let current_user_role = 'client'
+    let current_user = useSelector((state: AppStateType) => state.profile.authUserInfo)
+    let current_role = current_user?.roles?.includes(('master'))
     let local_time = moment(new Date()).format(' DD/MM  h:mm a');
 
     return (
@@ -50,7 +53,7 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                         </BookingStatus>
                     </BookingInfo>
                     <ActionsButtons>
-                        {current_user_role === 'master' && <AssignButton onClick={() => setAssignAgent(true)}>ASSIGN</AssignButton>}
+                        {current_role && <AssignButton onClick={() => setAssignAgent(true)}>ASSIGN</AssignButton>}
                         <AcceptButton onClick={() => openAcceptPopup(true)}>ACCEPT</AcceptButton>
                         <RejectButton onClick={() => setRejectPopupOpen(true)}>REJECT</RejectButton>
                     </ActionsButtons>

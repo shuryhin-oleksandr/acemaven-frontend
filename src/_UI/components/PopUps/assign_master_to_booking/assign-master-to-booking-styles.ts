@@ -16,6 +16,7 @@ export const PopupWrapper = styled.div`
   justify-content: center;
   padding-top: 100px;
   background-color: rgba(0, 0, 0, .3);
+  z-index: 70;
 `
 
 export const PopupInner = styled.div<PropsStyle>`

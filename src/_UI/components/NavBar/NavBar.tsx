@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NavContainer } from "./nav-styles";
 import MenuLink from "./MenuLink";
-import {operationsLinks, profileLinks, ratesLinks} from "../../../_BLL/helpers/nestedMenu/menuLinnks";
+import {operationsLinks, profileLinks, ratesLinks, requestLinks} from "../../../_BLL/helpers/nestedMenu/menuLinnks";
 import { useState } from "react";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../_BLL/store";
@@ -38,10 +38,11 @@ const NavBar:React.FC<IProps> = () => {
                     />
                     : <MenuLink icon={requests}
                                 activeIcon={active_requests}
-                                path='/requests'
+                                // path='/requests'
                                 name='REQUESTS'
                                 setChecked={setChecked}
                                 checkedLink={checkedLink}
+                                nestedLinks={requestLinks}
                     />
             }
             <MenuLink icon={operations}

@@ -17,6 +17,11 @@ export const ratesLinks = [
     {name: 'SURCHARGES', path: '/services/surcharges'}
 ]
 
+export const requestLinks = [
+    {name:"BOOKING", path:"/requests/booking/"},
+    {name:"QUOTES", path:"/quotes/"}
+]
+
 export type nestedLink = {
     name: string,
     path: string

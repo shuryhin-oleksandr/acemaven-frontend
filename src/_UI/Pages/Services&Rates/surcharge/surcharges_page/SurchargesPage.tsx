@@ -22,11 +22,12 @@ import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/sur
 import {useSelector} from "react-redux";
 import {getCurrentShippingTypeSelector} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {Scrollbars} from "react-custom-scrollbars";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
+        paddingRight: "12px"
     },
     table: {
         '& .MuiTableHead-root' : {
@@ -130,7 +131,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
 
     return (
         <Outer>
-            <Scrollbars style={{width: "100%", height: 400}}>
+            <ScrollbarStyled {...{style: {width: "100%", height: 400}}}>
                 <TableContainer className={classes.container} component={Paper}>
                     <Table  className={classes.table} aria-label="simple table">
                         <TableHead>
@@ -239,7 +240,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </Scrollbars>
+            </ScrollbarStyled>
         </Outer>
     )
 }

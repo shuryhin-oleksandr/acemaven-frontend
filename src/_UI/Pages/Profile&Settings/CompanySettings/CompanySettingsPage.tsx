@@ -19,7 +19,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
         width: '100%',
-        height: '100%',
+        height: 0,
     },
     header: {
         backgroundColor: 'white',
@@ -66,6 +66,9 @@ export const useStyles = makeStyles((theme: Theme) => ({
             fontFamily: 'Helvetica Reg',
             fontSize: '14px',
         }
+    },
+    tabContent: {
+        height: "calc(100% - 50px)"
     }
 }));
 
@@ -95,8 +98,8 @@ const CompanySettingsPage:React.FC<PropsType> = ({company_type}) => {
                             </TabList>
                         </AppBar>
                         <TabPanel value="1"><CompanyInfoContainer company_type={company_type}/></TabPanel>
-                        <TabPanel value="2"><BankAccountsContainer /></TabPanel>
-                        <TabPanel value="3"><CreditCardsContainer credit_cards={[]}/></TabPanel>
+                        <TabPanel value="2" className={classes.tabContent}><BankAccountsContainer /></TabPanel>
+                        <TabPanel value="3" className={classes.tabContent}><CreditCardsContainer credit_cards={[]}/></TabPanel>
                     </TabContext>
                 </div>
             </CompanyInner>

@@ -4,6 +4,7 @@ export const BanksContainer = styled.div`
   height: 100%;
   width: 100%;
   padding-left: 8px;
+  padding-right: 12px;
 `
 export const BanksInner = styled.div`
   max-width: 611px;

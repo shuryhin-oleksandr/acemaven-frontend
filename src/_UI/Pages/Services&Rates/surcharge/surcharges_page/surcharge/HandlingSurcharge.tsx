@@ -17,11 +17,12 @@ import { UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surch
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Controller} from "react-hook-form";
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
-import {Scrollbars} from "react-custom-scrollbars";
+import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
+        paddingRight: "12px"
     },
     table: {
         minWidth: 479,
@@ -59,7 +60,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
     return (
         <HandlingSurchargeContainer style={{maxWidth: '834px'}}>
             <HandlingTitle>Handling (surcharge)</HandlingTitle>
-            <Scrollbars style={{ height: 300 }}>
+            <ScrollbarStyled {...{style: { height: 300 }}}>
                 <TableContainer className={classes.container} component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
@@ -127,7 +128,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </Scrollbars>
+            </ScrollbarStyled>
         </HandlingSurchargeContainer>
     )
 }

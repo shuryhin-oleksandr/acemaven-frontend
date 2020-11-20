@@ -13,6 +13,7 @@ import {
 } from "../../../../../_BLL/reducers/profileReducer";
 import {AppStateType} from "../../../../../_BLL/store";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const BankAccountsContainer:React.FC = () => {
     const [isAdd, setIsAdd] = useState(false)
@@ -44,20 +45,22 @@ const BankAccountsContainer:React.FC = () => {
     }, [addedBankSuccess])
 
     return (
-        <BanksContainer>
-            <BanksInner>
-                {!isAdd
-                ?  <AddNewButton setIsAdd={setIsAdd}/>
-                : <Form dispatch={dispatchHandler} setIsAdd={setIsAdd}/>
-                }
-                {banksList?.map(b => <BankCard b={b}
-                                                        key={b.id}
-                                                        deleteBank={deleteBankCallback}
-                                                        defaultBank={defaultBankCallback}
-                                                        max_width='611px'
-                                                        w='60%'/> )}
-            </BanksInner>
-        </BanksContainer>
+        <ScrollbarStyled {...{style: {height: "100%"}}}>
+            <BanksContainer>
+                <BanksInner>
+                    {!isAdd
+                    ?  <AddNewButton setIsAdd={setIsAdd}/>
+                    : <Form dispatch={dispatchHandler} setIsAdd={setIsAdd}/>
+                    }
+                    {banksList?.map(b => <BankCard b={b}
+                                                            key={b.id}
+                                                            deleteBank={deleteBankCallback}
+                                                            defaultBank={defaultBankCallback}
+                                                            max_width='611px'
+                                                            w='60%'/> )}
+                </BanksInner>
+            </BanksContainer>
+        </ScrollbarStyled>
     )
 }
 

@@ -16,7 +16,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useSelector} from "react-redux";
 import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import {Scrollbars} from "react-custom-scrollbars";
+import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 type PropsType = {
     rate: RateInfoType | null,
@@ -31,6 +31,7 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
+        paddingRight: "12px"
     },
     table: {
         "& .MuiTableHead-root": {},
@@ -86,7 +87,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
     return (
         <div style={{width: '100%', maxWidth: '1002px'}}>
             <HandlingTitle>RATES</HandlingTitle>
-            <Scrollbars style={{ height: 420 }}>
+            <ScrollbarStyled {...{style: { height: 420 }}}>
                 <TableContainer className={classes.container} component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
@@ -223,7 +224,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </Scrollbars>
+            </ScrollbarStyled>
         </div>
     )
 }

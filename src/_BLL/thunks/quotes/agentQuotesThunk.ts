@@ -7,11 +7,13 @@ import {QuoteForRateType, RateQuoteType} from "../../types/quotes/quotesTypes";
 export const getAgentQuotesListThunk = (type: string, field_name: string, search_column: string, search_value: string) => {
     return async (dispatch: Dispatch<commonQuotesAgentActions>) => {
         try {
+            dispatch(quotesAgentActions.setIsFetching(true))
             let res = await quotesAgentAPI.getList(type, field_name, search_column, search_value)
             dispatch(quotesAgentActions.setAgentQuotesList(res.data))
-            console.log(res.data)
+            dispatch(quotesAgentActions.setIsFetching(false))
         } catch (e) {
             console.log(e)
+            dispatch(quotesAgentActions.setIsFetching(false))
         }
     }
 }
@@ -21,8 +23,6 @@ export const getExactQuoteThunk = (id: number) => {
         try {
             let res = await quotesAgentAPI.getExactQuote(id)
             dispatch(quotesAgentActions.setExactQuoteInfo(res.data))
-            //history.push(`/quotes/${id}`)
-            console.log(res.data)
         } catch (e) {
             console.log(e)
         }

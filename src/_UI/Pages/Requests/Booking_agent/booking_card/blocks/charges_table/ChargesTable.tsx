@@ -87,7 +87,7 @@ const ChargesTable:React.FC<PropsType> = ({charges_cost}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {charges_cost?.cargo_groups.map(cc => <TableRow className={classes.row}>
+                    {charges_cost?.cargo_groups.map((cc, index) => <TableRow key={index} className={classes.row}>
                         <TableCell className={classes.innerCell} align="left">{cc.volume}</TableCell>
                         <TableCell className={classes.innerCell} align="left">{cc.cargo_type}</TableCell>
                         <TableCell className={classes.innerCell} align="left">??</TableCell>

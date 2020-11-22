@@ -70,7 +70,9 @@ const BookingCardContainer = () => {
             />}
             {isRejectPopupOpen && <RejectBookingByAgentPopup setRejectPopupOpen={setRejectPopupOpen}
             />}
-            {isAcceptPopup && <AcceptPopup openAcceptPopup={openAcceptPopup}/>}
+            {isAcceptPopup && <AcceptPopup openAcceptPopup={openAcceptPopup}
+                                           exact_booking_info={exact_booking_info ? exact_booking_info : null}
+            />}
             {isMovedToOperations && <MovedToOperationsPopup setMovedToOperations={setMovedToOperations}/>}
             <BookingCard setAssignAgent={setAssignAgent}
                          setRejectPopupOpen={setRejectPopupOpen}

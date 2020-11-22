@@ -14,26 +14,30 @@ import {IconButton} from "@material-ui/core";
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
 import OutlineButton from "../../_commonComponents/buttons/outline_button/OutlineButton";
 import LocationContainer from "./LocationContainer";
-
+import {BookingInfoType} from "../../../../_BLL/types/bookingTypes";
+import { useHistory } from 'react-router-dom';
 
 
 type PropsType = {
-    openAcceptPopup: (value: boolean) => void
+    openAcceptPopup: (value: boolean) => void,
+    exact_booking_info: BookingInfoType | null
 }
 
 
-const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup}) => {
+const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) => {
     const {control, errors, handleSubmit, setValue, register} = useForm({
         reValidateMode: 'onBlur'
     })
 
+    const history = useHistory()
     const onSubmit = (values: any) => {
         console.log(values)
+        history.push('/requests/booking/')
     }
 
-    let direction = 'export'
-    let shipping_mode = 'LCL'
-    let shipping_type = 'sea'
+    let direction = exact_booking_info?.freight_rate.origin.is_local ? 'export' : 'import'
+    let shipping_mode = exact_booking_info?.freight_rate?.shipping_mode.title
+    let shipping_type = exact_booking_info?.shipping_type
 
     return (
         <AcceptWrapper>
@@ -133,7 +137,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup}) => {
                         }
                         <LocationContainer errors={errors}
                                            register={register}
-                                           shipping_mode={shipping_mode}
+                                           shipping_mode={String(shipping_mode)}
                                            direction={direction}
                         />
                         {shipping_mode === 'FCL'

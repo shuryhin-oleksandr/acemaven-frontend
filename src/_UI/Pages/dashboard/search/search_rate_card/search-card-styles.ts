@@ -21,7 +21,22 @@ export const SearchWrapper = styled.div`
   //padding: 50px 80px 50px 30px;
 `;
 
+export const CardsAbsoluteWrapper = styled.div`
+position: absolute;
+top: 0;
+right: 0;
+left: 0;
+bottom: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, .3);
+display: flex;
+align-items: center;
+justify-content: center;
+`
+
 export const CardContainer = styled.div`
+  
   max-width: 800px;
   min-width: 500px;
   width: 100%;
@@ -33,9 +48,10 @@ export const CardContainer = styled.div`
 
 export const CardInner = styled.div`
   width: 100%;
-  padding: 25px;
+  padding: 50px 30px;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 export const UpperWrapper = styled.div`
   width: 100%;

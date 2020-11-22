@@ -45,7 +45,7 @@ export const SaveButton = styled.button`
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 115px;
+  width: 80px;
   margin-right: 15px;
   
   &:hover {
@@ -64,7 +64,7 @@ export const CancelButton = styled.button`
   justify-content: center;
   transition: .3s;
   height: 40px;
-  width: 115px;
+  width: 80px;
   
   &:hover {
     cursor: pointer;

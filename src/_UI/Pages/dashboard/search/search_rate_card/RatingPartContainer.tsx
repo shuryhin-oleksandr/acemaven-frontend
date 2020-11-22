@@ -14,11 +14,11 @@ const RatingPartContainer:React.FC<PropsType> = ({showRatingPopup}) => {
     let is_rating = false
 
     return (
-        <RatingPart onClick={() => showRatingPopup(true)}>
+        <RatingPart >
             {is_rating
                 ? <>
                <CompanyName>TransferCo.</CompanyName>
-               <RatingWrap>
+               <RatingWrap onClick={() => showRatingPopup(true)}>
                    <img src={blue_fill_star} alt=""/>
                    <img src={blue_fill_star} alt=""/>
                    <img src={blue_fill_star} alt=""/>

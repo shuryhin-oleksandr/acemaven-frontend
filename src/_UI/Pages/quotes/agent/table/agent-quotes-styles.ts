@@ -14,7 +14,7 @@ export const DoneIcon = styled.div`
   height: 19px;
   width: 19px;
   position: absolute;
-  left: 55px;
+  left: 30px;
 `
 export const SubmitQuoteButton = styled.button<{disabled?: boolean}>`
   width: 187px;

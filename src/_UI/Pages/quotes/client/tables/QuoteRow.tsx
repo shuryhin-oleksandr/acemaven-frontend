@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+//moment
+import moment from "moment";
 //material ui
 import IconButton from '@material-ui/core/IconButton';
 import TableRow from "@material-ui/core/TableRow";
@@ -19,7 +21,6 @@ import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_type from '../../../../assets/icons/rates&services/plane-surcharge.svg';
 import close_icon from '../../../../../_UI/assets/icons/close-icon.svg'
-import moment from "moment";
 
 
 const useStyles = makeStyles({
@@ -96,6 +97,8 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
     const classes = useStyles();
 
     const [isOpen, setIsOpen] = useState(false)
+    const [showRating, setShowRating] = useState(false)
+
     let a = moment(quote.date_from, 'DD/MM/YYYY').toDate()
     let day_from = moment(a).format('D')
     let c = moment(quote.date_to, 'DD/MM/YYYY').toDate()
@@ -125,7 +128,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                     <br/> <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>{day_from}{'-'}{date_to}</span>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="center" onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)}>
-                    <OffersSpan new_offer={true}>0</OffersSpan>
+                    <OffersSpan new_offer={!!quote.unchecked_offers}>{quote.offers}</OffersSpan>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="center">
                     <StatusSpan status={quote.is_active}>{quote.is_active ? 'Active' : 'Paused'}</StatusSpan>
@@ -151,7 +154,11 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                     </Tooltip>
                 </TableCell>
             </TableRow>
-           <OfferDescription isOpen={isOpen}/>
+           <OfferDescription isOpen={isOpen}
+                             offers={quote.statuses ? quote.statuses : []}
+                             setShowRating={setShowRating}
+           />
+
         </React.Fragment>
 
     )

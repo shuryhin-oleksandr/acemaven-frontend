@@ -30,7 +30,7 @@ type PropsType = {
     showRatingPopup: (value: boolean) => void
     setBookingPopupVisible?: (value: boolean) => void,
     setWidgetsVisible?: (value: boolean) => void,
-    search_result?: SearchResultType
+    search_result?: any//SearchResultType
 }
 
 const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result,setWidgetsVisible}) => {
@@ -64,7 +64,7 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
             </InfoPart>
             <TotalPart>
                 <CalculationWrap>
-                    {search_result?.cargo_groups.map(c => <CalculationLine marginBottom='10px'>
+                    {search_result?.cargo_groups.map((c: any, index: any) => <CalculationLine key={index} marginBottom='10px'>
                         <CalcName>Freight x {c.cargo_type}:</CalcName>
                         <CalcValue>{c.freight.currency} {c.freight.subtotal}</CalcValue>
                     </CalculationLine>)}
@@ -95,7 +95,7 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                     </CalculationLine>
                     <CalculationLine>
                         <CalcName>Acemaven Service Fee:</CalcName>
-                        <CalcValue>{search_result?.service_fee.currency} {search_result?.service_fee.subtotal}</CalcValue>
+                        <CalcValue>{search_result?.service_fee?.currency} {search_result?.service_fee?.subtotal}</CalcValue>
                     </CalculationLine>
                 </CalculationWrap>
                 <BookButton onClick={(e) => {

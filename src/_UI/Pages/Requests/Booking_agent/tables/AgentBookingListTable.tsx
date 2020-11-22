@@ -1,4 +1,11 @@
 import React from "react";
+//moment
+import moment from "moment";
+//react-redux
+import { useDispatch } from "react-redux";
+//react-router-dom
+import { useHistory } from "react-router-dom";
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -8,16 +15,16 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import TableBody from "@material-ui/core/TableBody";
+//types
+import {
+  BookingInfoType
+} from "../../../../../_BLL/types/bookingTypes";
+//styles
+import { ModeIcon } from "src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharges-style";
+//icons
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-import { useDispatch } from "react-redux";
-import { ModeIcon } from "src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharges-style";
-import { useHistory } from "react-router-dom";
-import {
-  BookingInfoType,
-  PostBookingData,
-} from "../../../../../_BLL/types/bookingTypes";
-import moment from "moment";
+
 
 type PropsType = {
   searchValue: string;
@@ -281,7 +288,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 component="th"
                 scope="row"
               >
-                <ModeIcon src={plane_surcharge} alt="" />
+                <ModeIcon src={row.shipping_mode === 'air' ? plane_surcharge : ship_surcharge} alt="" />
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
                 <span

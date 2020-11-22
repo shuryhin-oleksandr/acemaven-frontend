@@ -88,5 +88,6 @@ export type BookingInfoType = {
   client: string;
   client_contact_person: string;
   week_range: {week_from: number; week_to: number},
-  charges: CostBookingType
+  charges: CostBookingType,
+  is_assigned: boolean
 }

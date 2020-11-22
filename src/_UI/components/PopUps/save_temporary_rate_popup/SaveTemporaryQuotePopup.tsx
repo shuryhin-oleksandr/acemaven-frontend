@@ -64,8 +64,8 @@ const SaveTemporaryQuotePopup:React.FC<PropsType> = ({closePopup, freight, saveR
                 <TemporaryContent>
                     <Question>Do you want to save the rate and surcharges in your rates?</Question>
                     <ButtonsContainer>
-                        <SaveButton onClick={saveHandler}>SAVE</SaveButton>
-                        <CancelButton onClick={cancelHandler}>CANCEL</CancelButton>
+                        <SaveButton onClick={saveHandler}>YES</SaveButton>
+                        <CancelButton onClick={cancelHandler}>NO</CancelButton>
                     </ButtonsContainer>
                     {bad_saving_message && <HelperText style={{fontSize: '14px', textAlign: 'left'}}>{bad_saving_message}</HelperText>}
                 </TemporaryContent>

@@ -53,7 +53,7 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                         </BookingStatus>
                     </BookingInfo>
                     <ActionsButtons>
-                        {current_role && <AssignButton onClick={() => setAssignAgent(true)}>ASSIGN</AssignButton>}
+                        { !exact_booking_info?.is_assigned && current_role && <AssignButton onClick={() => setAssignAgent(true)}>ASSIGN</AssignButton>}
                         <AcceptButton onClick={() => openAcceptPopup(true)}>ACCEPT</AcceptButton>
                         <RejectButton onClick={() => setRejectPopupOpen(true)}>REJECT</RejectButton>
                     </ActionsButtons>

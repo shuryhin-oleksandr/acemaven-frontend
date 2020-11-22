@@ -17,11 +17,13 @@ export const postSearchQuoteThunk = (data:any, history: any) => {
 export const getClientQuotesThunk = (type: string, field_name: string, search_column: string, search_value: string) => {
     return async (dispatch: Dispatch<commonQuotesClientActions>) => {
         try {
+            dispatch(quotesClientActions.setIsFetching(true))
             let res = await quotesClientAPI.getQuotes(type, field_name, search_column, search_value)
             dispatch(quotesClientActions.setClientQuotesList(res.data))
-            console.log(res.data)
+            dispatch(quotesClientActions.setIsFetching(false))
         } catch (e) {
             console.log(e)
+            dispatch(quotesClientActions.setIsFetching(false))
         }
     }
 }

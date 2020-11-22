@@ -1,22 +1,29 @@
-import {QuoteType, RateQuoteType} from "../../types/quotes/quotesTypes";
+import {AgentQuoteType, RateQuoteType} from "../../types/quotes/quotesTypes";
 import {SurchargeInfoType} from "../../types/rates&surcharges/surchargesTypes";
 
 
+
 const initialState = {
-    agentsQuoteList: [] as QuoteType[],
-    exactQuoteInfo: null as QuoteType | null,
+    agentsQuoteList: [] as AgentQuoteType[],
+    exactQuoteInfo: null as AgentQuoteType | null,
     existing_rate: null as RateQuoteType | null,
     existing_surcharge_for_quote: null as SurchargeInfoType | null,
     checkedRateResult: '',
     saveRateResult: false,
     badSavingMessage: '',
-    finded_first: false
+    finded_first: false,
+    isFetching: false
 }
 
 type InitialStateType = typeof initialState
 
 export const quotesAgentReducer = (state = initialState, action: commonQuotesAgentActions):InitialStateType => {
     switch (action.type) {
+        case "SET_IS_FETCHING":
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
         case "SET_AGENT_QUOTES_LIST":
             return {
                 ...state,
@@ -81,8 +88,9 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : neve
 export type commonQuotesAgentActions = AC<typeof quotesAgentActions>;
 
 export const quotesAgentActions = {
-    setAgentQuotesList: (quotes: QuoteType[]) => ({type: 'SET_AGENT_QUOTES_LIST', quotes} as const),
-    setExactQuoteInfo: (quote_info: QuoteType | null) => ({type: 'SET_EXACT_QUOTE_INFO', quote_info} as const),
+    setIsFetching: (isFetching: boolean) => ({type: 'SET_IS_FETCHING', isFetching} as const),
+    setAgentQuotesList: (quotes: AgentQuoteType[]) => ({type: 'SET_AGENT_QUOTES_LIST', quotes} as const),
+    setExactQuoteInfo: (quote_info: AgentQuoteType | null) => ({type: 'SET_EXACT_QUOTE_INFO', quote_info} as const),
     setExistingRateForQuote: (rate: RateQuoteType | null) => ({type: 'SET_EXISTING_RATE', rate} as const),
     setExistingSurchargeForQuote: (surcharge: /*SurchargeInfoType*/any | null) => ({type: 'SET_EXISTING_SURCHARGE_FOR_QUOTE', surcharge} as const),
     setCheckedIsRateExist: (value: string) => ({type: 'SET_CHECK_IS_RATE_EXIST', value} as const),

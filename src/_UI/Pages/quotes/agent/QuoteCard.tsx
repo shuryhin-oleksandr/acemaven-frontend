@@ -318,7 +318,7 @@ const QuoteCard = ({...props}) => {
                                 }
                             </SurchargesInfo>
                         </>
-                        : <TotalCostCalculationContainer calculation={exact_quote_info.status?.charges ? exact_quote_info.status?.charges : null}/>
+                        : <TotalCostCalculationContainer calculation={exact_quote_info?.status?.charges ? exact_quote_info.status?.charges : null}/>
                     }
 
                 </QuoteCardInner>

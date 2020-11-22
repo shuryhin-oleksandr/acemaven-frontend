@@ -169,16 +169,16 @@ const Search: React.FC<PropsType> = ({
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
+     if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
-    // }
+     }
   };
   let onDestinationChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
+     if (value.value.length >= 3) {
     props.origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
-    // }
+    }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
@@ -207,7 +207,7 @@ const Search: React.FC<PropsType> = ({
         date_to: moment(dates[1]).format("DD/MM/YYYY"),
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
-        cargo_groups: values.cargo_groups.map((c: any, index: any) =>
+        cargo_groups: values.cargo_groups.map((c: any) =>
           c.frozen
             ? {
                 container_type: c.container_type,

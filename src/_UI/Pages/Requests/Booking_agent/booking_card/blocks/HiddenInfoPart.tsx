@@ -49,7 +49,7 @@ const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, 
                         {!isHiddenDocs && <InfoBlock>
                             <InfoRow margin_right='73px'>
                                 <InfoRowLabel>RELEASE TYPE</InfoRowLabel>
-                                <InfoRowValue>{release_type}</InfoRowValue>
+                                <InfoRowValue>{release_type.title}</InfoRowValue>
                             </InfoRow>
                             <InfoRow>
                                 <InfoRowLabel>NO. OF DOCUMENTS</InfoRowLabel>

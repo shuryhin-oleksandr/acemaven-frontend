@@ -31,6 +31,27 @@ export type CargoGroupQuoteType = {
     description?: any
 }
 
+export type StatusesQuoteType = {
+    id: number,
+    quote: number,
+    company: any,
+    status: string,
+    is_viewed: boolean,
+    freight_rate?: {
+        id: number,
+        carrier: CarrierType ,
+        carrier_disclosure: boolean,
+        origin: PortType,
+        destination: PortType,
+        transit_time: any,
+        is_active: boolean,
+        shipping_mode: ShippingModeType,
+        temporary: boolean,
+        shipping_type: string,
+        rates?: Rate[]
+    },
+    charges: ChargeCalculationType
+}
 export type QuoteType = {
     id?: number,
     origin: {
@@ -61,27 +82,44 @@ export type QuoteType = {
         week_from: number,
         week_to: number
     },
-    status?: {
+    statuses?: StatusesQuoteType[],
+    offers?: number,
+    unchecked_offers?: number
+}
+
+export type AgentQuoteType = {
+    id?: number,
+    origin: {
         id: number,
-        quote: number,
-        company: any,
-        status: string,
-        is_viewed: boolean,
-        freight_rate?: {
-            id: number,
-            carrier: CarrierType,
-            carrier_disclosure: boolean,
-            origin: PortType,
-            destination: PortType,
-            transit_time: any,
-            is_active: boolean,
-            shipping_mode: ShippingModeType,
-            temporary: boolean,
-            shipping_type: string,
-            rates?: Rate[]
-        },
-        charges?: ChargeCalculationType
-    }
+        code: string,
+        name: string,
+        display_name: string,
+        is_local?: boolean
+    },
+    destination: {
+        id: number,
+        code: string,
+        name: string,
+        display_name: string,
+        is_local?: boolean
+    },
+    shipping_mode: {
+        id: number,
+        title: string
+    },
+    date_from: string,
+    date_to: string,
+    is_active: boolean,
+    is_submitted?: boolean,
+    cargo_groups: CargoGroupQuoteType[],
+    shipping_type: string,
+    week_range: {
+        week_from: number,
+        week_to: number
+    },
+    status?: StatusesQuoteType,
+    offers?: number,
+    unchecked_offers?: number
 }
 
 export type CargoGroupQuoteNumberType = {
@@ -152,7 +190,7 @@ export type SurchargesForQuoteType = {
 }
 
 export type ChargeCalculationType = {
-    totals: {'BRL' : number},
+    totals: {BRL : number, USD: number},
     doc_fee?: {
         cost: number,
         currency: string,

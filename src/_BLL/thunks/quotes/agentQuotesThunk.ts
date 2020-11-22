@@ -52,7 +52,7 @@ export const submitQuoteThunk = (quote_id: number, freight_id: number, history: 
         try {
             await quotesAgentAPI.submitQuote(quote_id, freight_id)
             dispatch(quotesAgentActions.setSubmittedQuote(quote_id))
-            history.push('/quotes')
+            history.push('/general')
         } catch(e) {
             console.log(e)
         }
@@ -68,7 +68,7 @@ export const rejectQuoteThunk = (quote_id: number, history: any) => {
             dispatch(quotesAgentActions.setCheckedIsRateExist(''))
             dispatch(quotesAgentActions.setExistingRateForQuote(null))
             dispatch(quotesAgentActions.setExistingSurchargeForQuote(null))
-            history.push('/quotes')
+            history.push('/general')
         } catch(e) {
             console.log(e)
         }
@@ -81,7 +81,7 @@ export const withdrawOfferThunk = (quote_id: number, history: any) => {
             await quotesAgentAPI.rejectQuote(quote_id)
             dispatch(quotesAgentActions.deleteRejectedQuote(quote_id))
             dispatch(quotesAgentActions.setExactQuoteInfo(null))
-            history.push('/quotes')
+            history.push('/general')
         } catch (e) {
             console.log(e)
         }

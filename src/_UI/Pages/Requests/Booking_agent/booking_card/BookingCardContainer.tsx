@@ -2,14 +2,19 @@ import React, {useEffect, useState} from 'react'
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
 //react-router-dom
-import { useParams } from 'react-router-dom';
+import {useHistory, useParams } from 'react-router-dom';
 //BLL
 import {
     assignAgentThunk,
     getBookingInfoByIdThunk,
     getMyAgentsThunk
 } from "../../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
-import {getExactBookingInfo, getMyAgents} from "../../../../../_BLL/selectors/booking/bookingAgentSelector";
+import {
+    getExactBookingInfo,
+    getIsFetching,
+    getMyAgents
+} from "../../../../../_BLL/selectors/booking/bookingAgentSelector";
+import {agentBookingActions} from "../../../../../_BLL/reducers/booking/agentBookingReducer";
 //components
 import Layout from "../../../../components/BaseLayout/Layout";
 import BookingCard from './BookingCard';
@@ -18,18 +23,29 @@ import AssignConfirmationPopup from "../../../../components/PopUps/assign_master
 import RejectBookingByAgentPopup from "../../../../components/PopUps/reject_booking_by_agent/RejectBookingByAgentPopup";
 import AcceptPopup from "../../../../components/PopUps/accept_booking_popup/AcceptPopup";
 import MovedToOperationsPopup from "../../../../components/PopUps/moved_to_operations_popup/MovedToOperationsPopup";
+import QuoteBookingDetailsSkeleton from "../../../../skeleton/agent_quote&booking_skeleton/QuoteBookingDetailsSkeleton";
 
 
-const BookingCardContainer = () => {
+
+const BookingCardContainer:React.FC = () => {
 
     let query = useParams()
     // @ts-ignore
     let id = query.id
 
+    const history = useHistory()
     const dispatch = useDispatch()
+
+    const unmountHandler = () => {
+        dispatch(agentBookingActions.setExactBookingInfo(null))
+    }
+
     useEffect(() => {
        dispatch(getMyAgentsThunk())
        dispatch(getBookingInfoByIdThunk(Number(id)))
+        return () => {
+           unmountHandler()
+        }
     }, [dispatch])
 
     //thunk
@@ -47,38 +63,45 @@ const BookingCardContainer = () => {
     const [isMovedToOperations, setMovedToOperations] = useState(false)
 
     //data from store
-
     let agents_workers = useSelector(getMyAgents) //only users who have role = 'agent' can be assigned
     let exact_booking_info = useSelector(getExactBookingInfo)
+    let isFetching = useSelector(getIsFetching)
 
 
     return (
         <Layout>
-            {isAssignAgent && <AssignAgentPopup agents={agents_workers && agents_workers?.length > 0 ? agents_workers : null}
-                                                setAssignAgent={setAssignAgent}
-                                                setAgentFullName={setAgentFullName}
-                                                setAgentId={setAgentId}
-                                                setAssignConfirmation={setAssignConfirmation}
+            {isFetching || !exact_booking_info
+                ? <QuoteBookingDetailsSkeleton />
+                : <>
+                    {isAssignAgent && <AssignAgentPopup agents={agents_workers && agents_workers?.length > 0 ? agents_workers : null}
+                                                        setAssignAgent={setAssignAgent}
+                                                        setAgentFullName={setAgentFullName}
+                                                        setAgentId={setAgentId}
+                                                        setAssignConfirmation={setAssignConfirmation}
 
-            />
+                    />
+                    }
+                    {isAssignConfirmation && <AssignConfirmationPopup setAssignAgent={setAssignAgent}
+                                                                      setAssignConfirmation={setAssignConfirmation}
+                                                                      agent_full_name={agent_full_name}
+                                                                      assign_thunk={assignConfirmationFunction}
+
+                    />}
+                    {isRejectPopupOpen && <RejectBookingByAgentPopup setRejectPopupOpen={setRejectPopupOpen}
+                    />}
+                    {isAcceptPopup && <AcceptPopup openAcceptPopup={openAcceptPopup}
+                                                   exact_booking_info={exact_booking_info ? exact_booking_info : null}
+                    />}
+                    {isMovedToOperations && <MovedToOperationsPopup setMovedToOperations={setMovedToOperations}/>}
+                    <BookingCard setAssignAgent={setAssignAgent}
+                                 setRejectPopupOpen={setRejectPopupOpen}
+                                 openAcceptPopup={openAcceptPopup}
+                                 exact_booking_info={exact_booking_info}
+                                 history={history}
+                    />
+                </>
             }
-            {isAssignConfirmation && <AssignConfirmationPopup setAssignAgent={setAssignAgent}
-                                                              setAssignConfirmation={setAssignConfirmation}
-                                                              agent_full_name={agent_full_name}
-                                                              assign_thunk={assignConfirmationFunction}
 
-            />}
-            {isRejectPopupOpen && <RejectBookingByAgentPopup setRejectPopupOpen={setRejectPopupOpen}
-            />}
-            {isAcceptPopup && <AcceptPopup openAcceptPopup={openAcceptPopup}
-                                           exact_booking_info={exact_booking_info ? exact_booking_info : null}
-            />}
-            {isMovedToOperations && <MovedToOperationsPopup setMovedToOperations={setMovedToOperations}/>}
-            <BookingCard setAssignAgent={setAssignAgent}
-                         setRejectPopupOpen={setRejectPopupOpen}
-                         openAcceptPopup={openAcceptPopup}
-                         exact_booking_info={exact_booking_info}
-            />
         </Layout>
     )
 }

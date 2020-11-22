@@ -1,13 +1,24 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+
+const skelet_appear = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 export const CardWrapper = styled.div`
   width: 100%;
   height: 100%;
+  animation: ${skelet_appear} ease-in-out .2s;
 `
 export const CardContent = styled.div`
   width: 100%;
   height: 100%;
   padding: 50px 80px 50px 30px;
+  position: relative;
 `
 export const ContentHeader = styled.div`
   width: 100%;

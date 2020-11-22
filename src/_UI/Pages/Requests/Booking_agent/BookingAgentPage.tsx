@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+//types
+import { BookingInfoType } from "src/_BLL/types/bookingTypes";
+//components
+import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import AgentBookingListTable from "./tables/AgentBookingListTable";
+//styles
 import {
   BookingContent,
   BookingWrapper,
@@ -6,59 +12,50 @@ import {
   ContentTable,
   ContentTitle,
 } from "./booking-agent-styles";
-import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
-import AgentBookingListTable from "./tables/AgentBookingListTable";
-import { useDispatch, useSelector } from "react-redux";
-import { getBookingRequestListThunk } from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
-import { AppStateType } from "../../../../_BLL/store";
 
-type PropsType = {};
 
-const BookingAgentPage: React.FC<PropsType> = ({}) => {
-  const [mode, setMode] = useState("sea");
-  const [directory, setDirectory] = useState("");
-  const [searchValue, setSearchValue] = useState("");
-  const [search_column, setSearchColumn] = useState("");
+type PropsType = {
+  bookingList:  BookingInfoType[],
+  mode: string,
+  setMode: (value: string) => void,
+  directory: string,
+  setDirectory: (value: string) => void,
+  searchValue: string,
+  setSearchValue: (value: string) => void,
+  search_column: string,
+  setSearchColumn: (value: string) => void,
+  isSearchMode: boolean,
+  setSearchMode: (value: boolean) => void,
+  dispatch: any
+};
 
-  const [isSearchMode, setSearchMode] = useState(false);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getBookingRequestListThunk(mode, "", "", ""));
-  }, [dispatch]);
-
-  const bookingList = useSelector(
-    (state: AppStateType) => state.agent_booking.booking_request_list
-  );
-
-  console.log("bookingList", bookingList);
+const BookingAgentPage: React.FC<PropsType> = ({bookingList, ...props}) => {
   return (
     <BookingWrapper>
       <BookingContent>
         <ContentHeader>
           <ContentTitle>Bookings</ContentTitle>
           <OptionsDeliveryButtons
-            directory={directory}
-            mode={mode}
-            setMode={setMode}
-            searchColumn={search_column}
-            searchValue={searchValue}
+            directory={props.directory}
+            mode={props.mode}
+            setMode={props.setMode}
+            searchColumn={props.search_column}
+            searchValue={props.searchValue}
             thunkName="agent_booking"
-            dispatch={dispatch}
+            dispatch={props.dispatch}
           />
         </ContentHeader>
         <ContentTable>
           <AgentBookingListTable
-            mode={mode}
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            searchColumn={search_column}
-            setSearchColumn={setSearchColumn}
-            directory={directory}
-            setDirectory={setDirectory}
-            isSearchMode={isSearchMode}
-            setSearchMode={setSearchMode}
+            mode={props.mode}
+            searchValue={props.searchValue}
+            setSearchValue={props.setSearchValue}
+            searchColumn={props.search_column}
+            setSearchColumn={props.setSearchColumn}
+            directory={props.directory}
+            setDirectory={props.setDirectory}
+            isSearchMode={props.isSearchMode}
+            setSearchMode={props.setSearchMode}
             bookingList={bookingList}
           />
         </ContentTable>

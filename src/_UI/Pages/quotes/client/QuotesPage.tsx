@@ -8,9 +8,10 @@ import {QuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
 //components
 import NoQuotesCard from "../NoQuotesCard";
 import ClientQuotesTable from "./tables/ClientQuotesTable";
-import QuotesTableSkeleton from "../../../skeleton/quotes/QuotesTableSkeleton";
+import TableSkeleton from '../../../skeleton/general/TableSkeleton';
 //styles
 import {ClientQuotesInner, ClientQuotesOuter} from "./quotes-client-styles";
+
 
 
 type PropsType = {
@@ -31,7 +32,7 @@ type PropsType = {
 const QuotesPage:React.FC<PropsType> = ({my_quotes_list, activeInactiveQuote, deleteQuoteByClient, getQuotesByFilters, ...props}) => {
 
 
-    const text = "There are no active quotes at the moment.\n" +
+    const text = "There are no active general at the moment.\n" +
         "                If your searches don’t return any results,\n" +
         "                you will have the option to post them online for agents to bid on them.\n" +
         "                They will appear in this section."
@@ -40,7 +41,7 @@ const QuotesPage:React.FC<PropsType> = ({my_quotes_list, activeInactiveQuote, de
     return (
         <>
             {isFetching
-                ? <QuotesTableSkeleton />
+                ? <TableSkeleton />
                 : <ClientQuotesOuter>
                     <ClientQuotesInner>
                         {my_quotes_list.length === 0

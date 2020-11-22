@@ -10,6 +10,7 @@ const skelet_appear = keyframes`
 `
 
 export const SkeletonWrapper = styled.div`
-  padding: 50px 80px 50px 30px;
+  padding: 0 80px 50px 30px;
+  width: 100%;
   animation: ${skelet_appear} ease-in-out .2s;
 `

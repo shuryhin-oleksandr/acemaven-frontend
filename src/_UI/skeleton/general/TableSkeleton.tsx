@@ -2,7 +2,7 @@ import React from 'react'
 import { SkeletonWrapper } from '../rates&surcharges/rates/sekelton-styles'
 import Skeleton from "@material-ui/lab/Skeleton";
 
-const QuotesTableSkeleton:React.FC = () => {
+const TableSkeleton:React.FC = () => {
     return (
         <SkeletonWrapper>
             <Skeleton variant="text" height={57} style={{ marginBottom: '40px'}}/>
@@ -12,4 +12,4 @@ const QuotesTableSkeleton:React.FC = () => {
     )
 }
 
-export default QuotesTableSkeleton
+export default TableSkeleton

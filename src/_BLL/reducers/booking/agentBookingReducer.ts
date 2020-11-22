@@ -1,6 +1,7 @@
 import { BookingInfoType } from "../../types/bookingTypes";
 
 const initialState = {
+  isFetching: false,
   booking_request_list: [] as BookingInfoType[] ,
   exact_booking_info: null as BookingInfoType | null,
   my_agents_list: [] as any,
@@ -14,6 +15,11 @@ export const agentBookingReducer = (
   action: commonAgentBookingActions
 ): InitialStateType => {
   switch (action.type) {
+    case "SET_IS_FETCHING":
+      return {
+        ...state,
+        isFetching: action.isFetching
+      }
     case "SET_BOOKING_REQUESTS_LIST":
       return {
         ...state,
@@ -52,6 +58,7 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U }
 export type commonAgentBookingActions = AC<typeof agentBookingActions>;
 
 export const agentBookingActions = {
+  setIsFetching: (isFetching: boolean) => ({type: 'SET_IS_FETCHING', isFetching} as const),
   setBookingRequestsList: (list: BookingInfoType[]) =>
     ({ type: "SET_BOOKING_REQUESTS_LIST", list } as const),
   setExactBookingInfo: (booking_info: BookingInfoType | null) =>

@@ -1,17 +1,18 @@
 import React from 'react'
 //react-router-dom
 import { useHistory } from 'react-router-dom';
+//react-redux
+import {useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../../_BLL/store";
 //types
 import {QuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
 //components
 import NoQuotesCard from "../NoQuotesCard";
 import AgentQuotesTableContainer from "./table/AgentQuotesTableContainer";
+import TableSkeleton from "../../../skeleton/general/TableSkeleton";
 //styles
 import {ClientQuotesInner, ClientQuotesOuter} from "../client/quotes-client-styles";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../_BLL/store";
-import QuotesTableSkeleton from "../../../skeleton/quotes/QuotesTableSkeleton";
-
 
 
 type PropsType = {
@@ -40,11 +41,11 @@ const AgentQuotesPage:React.FC<PropsType> = ({searchValue,setSearchValue, mode, 
     return (
         <>
             {isFetching
-                ? <QuotesTableSkeleton />
+                ? <TableSkeleton />
                 : <ClientQuotesOuter>
                     <ClientQuotesInner>
                         {agent_quotes_list.length === 0
-                            ? <NoQuotesCard text={"There are no active quotes at the moment."}/>
+                            ? <NoQuotesCard text={"There are no active general at the moment."}/>
                             : <AgentQuotesTableContainer setCardOpen={setCardOpen}
                                                          setSearchMode={setSearchMode}
                                                          isSearchMode={isSearchMode}

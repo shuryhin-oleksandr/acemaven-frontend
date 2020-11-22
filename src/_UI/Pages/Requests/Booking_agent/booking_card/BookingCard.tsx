@@ -25,16 +25,19 @@ import {BookingInfoType} from "../../../../../_BLL/types/bookingTypes";
 import moment from 'moment';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
+import {IconButton} from "@material-ui/core";
+import close_icon from '../../../../assets/icons/close-icon.svg'
 
 
 type PropsType = {
     setAssignAgent: (value: boolean) => void,
     setRejectPopupOpen: (value:boolean) => void,
     openAcceptPopup: (value: boolean) => void,
-    exact_booking_info: BookingInfoType | null
+    exact_booking_info: BookingInfoType | null,
+    history: any
 }
 
-const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, openAcceptPopup, exact_booking_info}) => {
+const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, openAcceptPopup, exact_booking_info, history}) => {
 
     let current_user = useSelector((state: AppStateType) => state.profile.authUserInfo)
     let current_role = current_user?.roles?.includes(('master'))
@@ -43,6 +46,9 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
     return (
         <CardWrapper>
             <CardContent>
+                <IconButton style={{position: 'absolute', top: '10px', right: '30px'}} onClick={() => history.push('/requests/booking')}>
+                    <img src={close_icon} alt="" style={{width: '15px'}}/>
+                </IconButton>
                 <ContentHeader>
                     <BookingInfo>
                         <BookingNumber>

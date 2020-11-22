@@ -27,7 +27,7 @@ const QuotesContainer:React.FC = () => {
     const agent_quotes_list = useSelector(getAgentQuotesLIstSelector) //agent
 
 
-    //get quotes after mounting
+    //get general after mounting
     const dispatch = useDispatch()
     useEffect(() => {
         company_type?.type === 'client'
@@ -35,7 +35,7 @@ const QuotesContainer:React.FC = () => {
             : dispatch(getAgentQuotesListThunk(mode, '', '', ''))
     }, [dispatch, company_type])
 
-    //get quotes list sort by smth, filter by shipping type and search value
+    //get general list sort by smth, filter by shipping type and search value
     let getQuotesByFilters = (type: string, field_name: string, search_column: string, search_value: string) => {
         company_type.type === 'client'
             ? dispatch(getClientQuotesThunk(type, field_name, search_column, search_value))

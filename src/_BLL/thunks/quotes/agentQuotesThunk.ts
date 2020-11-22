@@ -78,6 +78,8 @@ export const withdrawOfferThunk = (quote_id: number, history: any) => {
     return async (dispatch: Dispatch<commonQuotesAgentActions>) => {
         try {
             await quotesAgentAPI.withdrawOffer(quote_id)
+            await quotesAgentAPI.rejectQuote(quote_id)
+            dispatch(quotesAgentActions.deleteRejectedQuote(quote_id))
             dispatch(quotesAgentActions.setExactQuoteInfo(null))
             history.push('/quotes')
         } catch (e) {

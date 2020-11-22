@@ -32,6 +32,9 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,
         setValue('date_to', to)
     }
 
+    let a = moment(before_date, 'DD/MM/YYYY').add(14, 'days').calendar();
+    let two_weeks_after = moment(a).toDate()
+
     return (
         <CalendarWrapper max_width='300px'
                          input_height='40px' margin_right='0px' margin_bottom='10px'>
@@ -57,7 +60,7 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,
                         onDayChange={handleDayChange}
                         ref={toInput}
                         dayPickerProps={{
-                            disabledDays: [{before: moment(before_date, 'DD/MM/YYYY').toDate()}],
+                            disabledDays: [{before: moment(two_weeks_after, 'DD/MM/YYYY').toDate()}],
                         }}
                     />
                 }

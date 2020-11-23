@@ -16,11 +16,11 @@ import RatesContainer from "../_UI/Pages/Services&Rates/rates/RatesContainer";
 import DashboardContainer from "../_UI/Pages/dashboard/DashboardContainer";
 import ExactRateContainer from "../_UI/Pages/Services&Rates/rates/rates_page/rate/ExactRateContainer";
 import QuotesContainer from "../_UI/Pages/quotes/QuotesContainer";
-import QuoteCard from "../_UI/Pages/quotes/agent/QuoteCard";
 import BookingAgentContainer from "../_UI/Pages/Requests/Booking_agent/BookingAgentContainer";
 import BookingCardContainer from "../_UI/Pages/Requests/Booking_agent/booking_card/BookingCardContainer";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../_BLL/store";
+import QuoteCardContainer from "../_UI/Pages/quotes/agent/QuoteCardContainer";
 
 
 
@@ -64,7 +64,7 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={GeneralSettingsContainer} path='/settings/general'/>
 
                 <Route exact component={QuotesContainer} path='/quotes'/>
-                <Route component={QuoteCard} path='/quotes/:id'/>
+                <Route component={QuoteCardContainer} path='/quotes/:id'/>
 
                 <Route component={SurchargesContainer} path='/services/surcharges'/>
                 <Route component={ExactSurchargeContainer} path='/services/surcharge/:id'/>

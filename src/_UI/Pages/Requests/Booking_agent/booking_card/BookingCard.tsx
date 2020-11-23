@@ -14,7 +14,7 @@ import {
     GeneralBookingContent,
     GeneralShipType,
     InfoRow,
-    InfoRowLabel, InfoRowValue, ValuesShipmentWrapper
+    InfoRowLabel, InfoRowValue, ValuesShipmentWrapper, CalendarIcon
 } from "./booking-card-style";
 import sea_icon from '../../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import air_icon from '../../../../assets/icons/rates&services/plane-surcharge.svg'
@@ -27,6 +27,7 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
 import {IconButton} from "@material-ui/core";
 import close_icon from '../../../../assets/icons/close-icon.svg'
+import calendar_icon from "../../../../assets/icons/date_1.svg";
 
 
 type PropsType = {
@@ -89,20 +90,19 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                                     </InfoRowValue>
                                 </InfoRow>
                             </div>
-                            <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
-                                <InfoRow >
-                                    <InfoRowLabel>DATES</InfoRowLabel>
-                                    <InfoRowValue>
-                                        ETD: {exact_booking_info?.date_from} <br/>
-                                        ETA: {exact_booking_info?.date_to}
-                                    </InfoRowValue>
-                                </InfoRow>
-                                <InfoRow>
-                                    <InfoRowLabel>???DEADLINES???</InfoRowLabel>
-                                    <InfoRowValue>
-                                        DOC: 04/11 12:00<br/>
-                                        GARGA: 04/11 18:00
-                                    </InfoRowValue>
+                            <div style={{display: 'flex'}}>
+                                <CalendarIcon style={{width: '87px', height: '96px'}}>
+                                    <img src={calendar_icon} alt=""/>
+                                </CalendarIcon>
+                                <InfoRow margin_right='50px' margin_bottom='0px'>
+                            <span style={{width: '100px', fontSize:'24px', color:'black',
+                                fontFamily:'Helvetica Light', marginTop: '15px', marginBottom: '13px'}}>
+                                {exact_booking_info?.week_range?.week_from === exact_booking_info?.week_range?.week_to
+                                    ? `WEEK ${exact_booking_info?.week_range?.week_from}`
+                                    : `WEEK ${exact_booking_info?.week_range?.week_from && exact_booking_info?.week_range?.week_from - exact_booking_info?.week_range?.week_to && exact_booking_info?.week_range?.week_to}`
+                                }
+                            </span>
+                                    <InfoRowValue>{exact_booking_info?.date_from} - {exact_booking_info?.date_to}</InfoRowValue>
                                 </InfoRow>
                             </div>
                             <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
@@ -117,9 +117,6 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, op
                 <ShipmentInfoBlock shipper={exact_booking_info?.shipper ? exact_booking_info?.shipper : null}
                                    client={String(exact_booking_info?.client)}
                                    client_contact={String(exact_booking_info?.client_contact_person)}
-                                   date_from={String(exact_booking_info?.date_from)}
-                                   date_to={String(exact_booking_info?.date_to)}
-                                   week_range={exact_booking_info?.week_range ? exact_booking_info?.week_range : null}
                 />
                 <HiddenInfoPart cargo_groups={exact_booking_info?.cargo_groups ? exact_booking_info.cargo_groups : []}
                                 number_of_documents={Number(exact_booking_info?.number_of_documents)}

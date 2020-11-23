@@ -56,7 +56,7 @@ export const registerNewFreightRateThunk = (freight_data: any, history: any) => 
       if(freight_data.hasOwnProperty('temporary')) {
         debugger
         dispatch(quotesAgentActions.setExistingRateForQuote(res.data))
-        dispatch(quotesAgentActions.setCheckedIsRateExist('success'))
+        //dispatch(quotesAgentActions.setCheckedIsRateExist('success'))
       } else {
         history.push('/services/rates/')
       }

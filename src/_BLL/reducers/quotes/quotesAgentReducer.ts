@@ -8,7 +8,7 @@ const initialState = {
     exactQuoteInfo: null as AgentQuoteType | null,
     existing_rate: null as RateQuoteType | null,
     existing_surcharge_for_quote: null as SurchargeInfoType | null,
-    checkedRateResult: '',
+    checkedSurchargeResult: '',
     saveRateResult: false,
     badSavingMessage: '',
     finded_first: false,
@@ -44,10 +44,10 @@ export const quotesAgentReducer = (state = initialState, action: commonQuotesAge
                 ...state,
                 existing_surcharge_for_quote: action.surcharge
             }
-        case "SET_CHECK_IS_RATE_EXIST":
+        case "SET_CHECK_IS_SURCHARGE_EXIST":
             return {
                 ...state,
-                checkedRateResult: action.value
+                checkedSurchargeResult: action.value
             }
         case "DELETE_REJECTED_QUOTE":
             return {
@@ -93,7 +93,7 @@ export const quotesAgentActions = {
     setExactQuoteInfo: (quote_info: AgentQuoteType | null) => ({type: 'SET_EXACT_QUOTE_INFO', quote_info} as const),
     setExistingRateForQuote: (rate: RateQuoteType | null) => ({type: 'SET_EXISTING_RATE', rate} as const),
     setExistingSurchargeForQuote: (surcharge: /*SurchargeInfoType*/any | null) => ({type: 'SET_EXISTING_SURCHARGE_FOR_QUOTE', surcharge} as const),
-    setCheckedIsRateExist: (value: string) => ({type: 'SET_CHECK_IS_RATE_EXIST', value} as const),
+    setCheckedIsSurchargeExist: (value: string) => ({type: 'SET_CHECK_IS_SURCHARGE_EXIST', value} as const),
     deleteRejectedQuote: (id: number) => ({type: 'DELETE_REJECTED_QUOTE', id} as const),
     setSubmittedQuote: (id: number) => ({type: 'SET_SUBMITTED_QUOTE', id} as const),
     setSaveRateToYourResult: (value: boolean) => ({type: 'SET_SAVE_RATE_TO_YOUR_LIST', value} as const),

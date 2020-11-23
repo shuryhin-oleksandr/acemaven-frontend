@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import { SearchField, SearchIcon, SearchWrap } from "./search-input-styles";
 import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import { filterByThunk } from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
@@ -7,6 +7,8 @@ import { getFilteredRateListThunk } from "../../../../_BLL/thunks/rates&surcharg
 import {getClientQuotesThunk} from "../../../../_BLL/thunks/quotes/clientQuotesThunk";
 import {getAgentQuotesListThunk} from "../../../../_BLL/thunks/quotes/agentQuotesThunk";
 import {getBookingRequestListThunk} from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
+import { IconButton } from "@material-ui/core";
+import close_icon from '../../../assets/icons/close-icon.svg'
 
 type PropsType = {
   setSearchMode: VoidFunctionType;
@@ -29,9 +31,16 @@ const SearchInput: React.FC<PropsType> = ({
   setSearchColumn,
   ...props
 }) => {
+
+
+    const [input_value, setInputValue] = useState('')
+
   let handleKeyPress = (event: any, value: any) => {
     if (event.key === "Enter") {
-      searchHandler(value.value);
+        //event.preventDefault()
+        //event.currentTarget.blur()
+        searchHandler(value.value);
+        setInputValue(value.value)
     }
   };
 
@@ -84,14 +93,29 @@ const SearchInput: React.FC<PropsType> = ({
     }
   };
 
+  let backToBasisHandler = () => {
+      searchHandler('')
+      setSearchMode(false)
+  }
+
+   let onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+      setInputValue(e.currentTarget.value)
+   }
+
   return (
     <SearchWrap>
       <SearchField
-        onBlur={() => setSearchMode(false)}
+        //onBlur={() => setSearchMode(false)}
         placeholder="Type..."
         onKeyPress={(event) => handleKeyPress(event, event.currentTarget)}
         onFocus={() => setSearchColumn(props.column_name)}
+        name={`search_input.${props.searchColumn}`}
+        value={input_value}
+        onChange={onChangeHandler}
       />
+      <IconButton onClick={backToBasisHandler} style={{position: 'absolute', right: '22px', top: '3px'}}>
+          <img src={close_icon} alt="" style={{width: '9px'}}/>
+      </IconButton>
       <SearchIcon>
         <img src={search_icon} alt="" />
       </SearchIcon>

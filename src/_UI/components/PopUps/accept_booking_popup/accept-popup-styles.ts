@@ -74,7 +74,7 @@ export const FormTextarea = styled.textarea<{error?: boolean}>`
   }
 `
 export const TimePicker = styled.input<{error?: boolean}>`
-  width: 71px; 
+  width: 75px; 
   height: 40px; 
   background-color: ${({error}) => error ? 'rgba(0,0,0,.08)' : 'transparent'};
   border: ${({error}) => error ? '1px solid rgba(0, 0, 0, .45)' : '1px solid #bdbdbd'};

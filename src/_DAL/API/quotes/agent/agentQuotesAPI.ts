@@ -22,7 +22,7 @@ export const quotesAgentAPI = {
         return instance.post(`/booking/quote/${quote_id}/withdraw/`, {})
     },
     getExistingRateForQuote (data: QuoteForRateType) {
-        return instance.post('/booking/quote/freight-rate-search/', data)
+        return instance.post('/booking/quote/surcharge-search/', data)
     },
     saveRateToYourList (freight_id: number, rate_data: RateQuoteType) {
         return instance.post(`/booking/freight-rate/${freight_id}/save/`, rate_data)

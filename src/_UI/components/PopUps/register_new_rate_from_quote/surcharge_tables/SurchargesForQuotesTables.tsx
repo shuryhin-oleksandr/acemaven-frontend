@@ -2,7 +2,10 @@ import React from 'react'
 //components
 import HandlingTable from "./HandlingTable";
 import AdditionalSurchargesPopupTable from "./AdditionalSurchargesPopupTable";
-import {AdditionalSurchargeType, ContainerType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {
+    AdditionalSurchargeType,
+    ContainerType
+} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 type PropsType = {
     containers: ContainerType[],
@@ -12,7 +15,7 @@ type PropsType = {
     quote_shipping_mode_id: number,
     control: any,
     register: any,
-    setValue: any
+    setValue: any,
 }
 
 

@@ -11,7 +11,8 @@ type PropsType = {
     error?: any,
     setIsDangerous?: (value: boolean) => void,
     isCheck? : boolean,
-    setIsCheck?: (value: boolean) => void
+    setIsCheck?: (value: boolean) => void,
+    span_text: string
 }
 
 const GeneralCustomCheckbox:React.FC<PropsType> = ({...props}) => {
@@ -22,7 +23,7 @@ const GeneralCustomCheckbox:React.FC<PropsType> = ({...props}) => {
 
     return (
         <Check className='label'>
-            <SpanLabel isCheck={props.isCheck} className='role'>Dangerous</SpanLabel>
+            <SpanLabel isCheck={props.isCheck} className='role'>{props.span_text}</SpanLabel>
             <InputBox onChange={changeHandler}
                       type="checkbox"
                       ref={props.inputRef}
@@ -107,5 +108,7 @@ const CheckMark = styled.span<PropsStyle>`
 `
 
 const SpanLabel = styled.span<PropsStyle>`
- color: ${({isCheck}) => !isCheck ? ' #4F4F4F' : '#115B86'}
+ color: ${({isCheck}) => !isCheck ? ' #4F4F4F' : '#115B86'};
+ font-family: "Helvetica Reg", sans-serif;
+ font-size: 14px;
 `

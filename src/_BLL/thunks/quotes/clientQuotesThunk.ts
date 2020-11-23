@@ -50,3 +50,12 @@ export const deleteQuoteFromClientListThunk = (id: number) => {
     }
 }
 
+export const makeOfferViewedThunk = (offer_id: number) => {
+    return async (dispatch: Dispatch<commonQuotesClientActions>) => {
+        try {
+            await quotesClientAPI.makeOfferViewed(offer_id)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}

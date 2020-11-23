@@ -4,6 +4,7 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 import {TimePicker} from "./accept-popup-styles";
 import styled from "styled-components";
 import {Controller} from "react-hook-form";
+import moment from "moment";
 
 
 type PropsType = {
@@ -27,34 +28,15 @@ type PropsType = {
     time_name_second: string,
     date_name_first: string,
     date_name_second: string,
-
+    start_shipment_date?: string
 }
 
 const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, required_dates, ...props}) => {
-
-    //const reservedDates = useSelector(getBookedDates)
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
         to:  ''
     })
-
-
-
-   /* useEffect(() => {
-        if(surcharge) {
-            setSelectedDay({from: moment(surcharge.start_date, 'DD/MM/YYYY').toDate(),
-                to: moment(surcharge.expiration_date, 'DD/MM/YYYY').toDate()})
-            setValue('from', surcharge.start_date)
-            setValue('to', surcharge.expiration_date)
-            console.log(new Date(surcharge.start_date))
-        }
-        if(props.rate_start_date) {
-            debugger
-            setSelectedDay({from: moment(props.rate_start_date, 'DD/MM/YYYY').toDate()})
-            setValue('from', props.rate_start_date)
-        }
-    }, [surcharge, props.rate_start_date])*/
 
     const handleFromChange = (from: string) => {
         props.setFormMode && props.setFormMode(true)
@@ -80,6 +62,9 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
         toInput?.current?.getInput().focus()
     }
 
+    const cut_off_dates = moment(props.start_shipment_date, 'DD/MM/YYYY').subtract(7, 'days').calendar();
+    const final_cut_off = moment(cut_off_dates).toDate()
+
 
     return (
         <AcceptDatesFilter >
@@ -99,7 +84,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
                     textTransform={props.textTransform}
                     //disabled={!reservedDates}
                     display_label={props.display_label}
-                    max_width='235px'
+                    max_width='230px'
                     margin_bottom={props.margin_bottom}
                     margin_right='5px'
                     input_height={props.input_height}
@@ -110,6 +95,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
                                 required: true
                             }}
                             name={props.time_name_first}
+                            defaultValue=''
                             as={
                                 <TimePicker type="time"
                                             step='300'
@@ -134,7 +120,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
                 textTransform={props.textTransform}
                 //disabled={!reservedDates}
                 display_label={props.display_label}
-                max_width='235px'
+                max_width='230px'
                 margin_bottom={props.margin_bottom}
                 margin_right='5px'
                 input_height={props.input_height}
@@ -145,6 +131,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
                                 required: true
                             }}
                             name={props.time_name_second}
+                            defaultValue=''
                             as={
                                 <TimePicker type="time"
                                             step='300'

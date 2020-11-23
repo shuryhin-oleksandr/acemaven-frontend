@@ -17,6 +17,7 @@ import TableCellContent from "../../../../components/_commonComponents/tables/Ta
 import QuoteRow from "./QuoteRow";
 //styles
 import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "./client-quotes-table-styles";
+import {makeOfferViewedThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 
 
 type PropsType = {
@@ -94,6 +95,9 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
     const classes = useStyles();
 
     const dispatch = useDispatch()
+    let offerViewedHandler = (offer_id: number) => {
+        dispatch(makeOfferViewedThunk(offer_id))
+    }
 
 
     return (
@@ -189,6 +193,7 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                                                             quote={q}
                                                             activeInactiveQuote={activeInactiveQuote}
                                                             deleteQuoteByClient={deleteQuoteByClient}
+                                                            offerViewedHandler={offerViewedHandler}
                         />)}
                     </TableBody>
                 </Table>

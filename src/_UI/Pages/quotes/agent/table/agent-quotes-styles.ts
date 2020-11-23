@@ -1,6 +1,15 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import done_icon from '../../../../../_UI/assets/icons/ant-design_check-circle-outlined.svg'
 import {RateQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+
+const skelet_appear = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 type PropsStyle = {
     no_rates?: RateQuoteType | null
@@ -35,10 +44,11 @@ export const SubmitQuoteButton = styled.button<{disabled?: boolean}>`
     
   }
 `
-export const QuoteCardContainer = styled.form`
+export const QuoteCardWrapperForm= styled.form`
   width: 100%;
   height: 100%;
   padding: 50px 80px 50px 30px;
+  animation: ${skelet_appear} ease-in-out .2s;
 `
 export const QuoteCardInner = styled.div`
   width: 100%;
@@ -207,4 +217,5 @@ export const AgentSurchargesTableWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 `

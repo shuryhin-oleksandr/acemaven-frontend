@@ -200,10 +200,10 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                                     }
                                 </TotalValue>
                             </TotalLine>
-                            <TotalLine>
-                                <TotalName>ACEMAVEN SERVICE FEE: IN {search_result.service_fee.currency}</TotalName>
-                                <TotalValue>{search_result.service_fee.cost}</TotalValue>
-                            </TotalLine>
+                            {search_result.service_fee &&  <TotalLine>
+                                <TotalName>ACEMAVEN SERVICE FEE: IN {search_result.service_fee?.currency}</TotalName>
+                                <TotalValue>{search_result.service_fee?.cost}</TotalValue>
+                            </TotalLine>}
                         </TableTotal>
                     </HiddenWrapper>}
                 </CardInner>

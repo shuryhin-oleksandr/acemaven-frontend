@@ -37,7 +37,7 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,
 
     return (
         <CalendarWrapper max_width='300px'
-                         input_height='40px' margin_right='0px' margin_bottom='10px'>
+                         input_height='40px' margin_right='0px' margin_bottom='25px'>
             <Controller
                 name='date_to'
                 control={control}

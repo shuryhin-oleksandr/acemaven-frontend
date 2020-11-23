@@ -1,16 +1,11 @@
 import React from 'react'
 //react-router-dom
 import { useHistory } from 'react-router-dom';
-//react-redux
-import {useSelector} from "react-redux";
-//BLL
-import {AppStateType} from "../../../../_BLL/store";
 //types
 import {QuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
 //components
 import NoQuotesCard from "../NoQuotesCard";
 import AgentQuotesTableContainer from "./table/AgentQuotesTableContainer";
-import TableSkeleton from "../../../skeleton/general/TableSkeleton";
 //styles
 import {ClientQuotesInner, ClientQuotesOuter} from "../client/quotes-client-styles";
 
@@ -31,7 +26,6 @@ type PropsType = {
 const AgentQuotesPage:React.FC<PropsType> = ({searchValue,setSearchValue, mode, setMode, getQuotesByFilters,
                                                  search_column, setSearchColumn, setSearchMode, isSearchMode, agent_quotes_list}) => {
 
-    const isFetching = useSelector((state: AppStateType) => state.agent_quotes.isFetching)
 
     const history = useHistory()
     let setCardOpen = (quote_id: number) => {
@@ -40,9 +34,7 @@ const AgentQuotesPage:React.FC<PropsType> = ({searchValue,setSearchValue, mode, 
 
     return (
         <>
-            {isFetching
-                ? <TableSkeleton />
-                : <ClientQuotesOuter>
+             <ClientQuotesOuter>
                     <ClientQuotesInner>
                         {agent_quotes_list.length === 0
                             ? <NoQuotesCard text={"There are no active general at the moment."}/>
@@ -61,7 +53,7 @@ const AgentQuotesPage:React.FC<PropsType> = ({searchValue,setSearchValue, mode, 
                         }
                     </ClientQuotesInner>
                 </ClientQuotesOuter>
-            }
+
         </>
 
     )

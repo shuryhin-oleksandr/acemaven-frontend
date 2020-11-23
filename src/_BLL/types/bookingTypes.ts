@@ -6,23 +6,6 @@ export type CargoDetailsValue = {
   description: string;
 };
 
-// export type CargoGroup = {
-//   container_type?: string;
-//   packaging_type?: string;
-//   volume?: number;
-//   weight?: number;
-//   length?: number;
-//   width?: number;
-//   height?: number;
-//   total_wm?: string;
-//   frozen?: string;
-//   dangerous?: boolean;
-//   weight_measurement?: string;
-//   length_measurement?: string;
-//   description?: string;
-//   id?: string;
-// };
-
 export type ChoiceType = {
   id: number;
   code?: string;
@@ -90,4 +73,27 @@ export type BookingInfoType = {
   week_range: {week_from: number; week_to: number},
   charges: CostBookingType,
   is_assigned: boolean
+}
+
+export type BookingShipmentDetailsType = {
+  booking_number: string,
+  booking_number_with_carrier?: string,
+  flight_number?: string,
+  vessel?: string,
+  voyage?: string,
+  container_number?:	string,
+  mawb?: string,
+  date_of_departure :string,
+  date_of_arrival: string,
+  document_cut_off_date?: string,
+  cargo_cut_off_date?: string,
+  cargo_pick_up_location?: string,
+  cargo_pick_up_location_address?: string
+  cargo_drop_off_location?: string,
+  cargo_drop_off_location_address?:	string,
+  empty_pick_up_location?: string,
+  empty_pick_up_location_address?: string,
+  container_free_time?:	number,
+  booking_notes: string,
+  booking: number
 }

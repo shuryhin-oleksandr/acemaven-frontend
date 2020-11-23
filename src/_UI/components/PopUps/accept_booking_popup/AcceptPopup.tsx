@@ -16,6 +16,9 @@ import OutlineButton from "../../_commonComponents/buttons/outline_button/Outlin
 import LocationContainer from "./LocationContainer";
 import {BookingInfoType} from "../../../../_BLL/types/bookingTypes";
 import { useHistory } from 'react-router-dom';
+import moment from 'moment';
+import {useDispatch} from "react-redux";
+import {acceptBookingByAgentThunk} from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
 
 
 type PropsType = {
@@ -29,10 +32,28 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
         reValidateMode: 'onBlur'
     })
 
+    const dispatch = useDispatch()
     const history = useHistory()
     const onSubmit = (values: any) => {
-        console.log(values)
-        history.push('/requests/booking/')
+        //console.log(values)
+        let obj_data = {
+            ...values,
+            booking: Number(exact_booking_info?.id),
+            container_free_time: Number(values.container_free_time),
+            document_cut_off_date: moment(values.documents_cut_off?.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off?.cut_off_time,
+            cargo_cut_off_date: moment(values.cargo_cut_off?.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off?.cut_off_time,
+            date_of_departure: moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time,
+            date_of_arrival: moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time,
+
+        }
+        delete obj_data.estimated_time
+        delete obj_data.documents_cut_off
+        delete obj_data.cargo_cut_off
+        !values.documents_cut_off?.cut_off_time && !values.cargo_cut_off?.cut_off_time && delete obj_data.cargo_cut_off_date && delete obj_data.document_cut_off_date
+        !values.container_free_time && delete obj_data.container_free_time
+        console.log(obj_data)
+        //dispatch(acceptBookingByAgentThunk(obj_data))
+        //history.push('/requests/booking/')
     }
 
     let direction = exact_booking_info?.freight_rate.origin.is_local ? 'export' : 'import'
@@ -52,8 +73,8 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
                                    placeholder='Placeholder'
                                    maxW='100%'
                                    name='booking_number'
+                                   defaultValue={exact_booking_info?.id}
                                    inputRef={register({required: 'Field is required'})}
-                                   booking_process={true}
                         />
                         {shipping_mode === 'LCL'
                         && <>
@@ -69,7 +90,6 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
                                        label='Container Number'
                                        placeholder='Placeholder'
                                        maxW='100%'
-                                       booking_process={true}
                                        inputRef={register({required: 'Field is required'})}
                                        name='container_number'
                             />
@@ -121,6 +141,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
                                           time_name_second={'estimated_time.arrival_time'}
                                           date_name_first={'estimated_time.from'}
                                           date_name_second={'estimated_time.to'}
+
                         />
                         {direction === 'export'
                             && <AcceptPopupDates control={control}
@@ -133,6 +154,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
                                                  time_name_second={'cargo_cut_off.cut_off_time'}
                                                  date_name_first={'documents_cut_off.from'}
                                                  date_name_second={'cargo_cut_off.to'}
+                                                 start_shipment_date={exact_booking_info?.date_from}
                             />
                         }
                         <LocationContainer errors={errors}
@@ -151,6 +173,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
                         }
                         <Controller name='booking_notes'
                                     control={control}
+                                    defaultValue=''
                                     rules={{
                                         required: 'Field is required'
                                     }}

@@ -15,7 +15,8 @@ import {CardsAbsoluteWrapper} from "../../../dashboard/search/search_rate_card/s
 type PropsType = {
     isOpen?: boolean,
     offers: StatusesQuoteType[],
-    setShowRating: (value: boolean) => void
+    setShowRating: (value: boolean) => void,
+    offerViewedHandler: (value: number) => void,
 }
 
 const useStyles = makeStyles({
@@ -46,12 +47,13 @@ const useStyles = makeStyles({
     }
 });
 
-const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating}) => {
+const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, offerViewedHandler}) => {
     const classes = useStyles();
     const [showTotals, setShowTotals] = useState(false)
     let [totalId, setTotalId] = useState(0);
 
     let totalsHandler = (id: number) => {
+        offerViewedHandler(id)
         setTotalId(id)
         setShowTotals(true)
     }

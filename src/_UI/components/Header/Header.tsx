@@ -8,8 +8,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../_BLL/store";
 import styled from "styled-components";
-import { useEffect } from "react";
-import { getAuthUserInfo } from "../../../_BLL/reducers/profileReducer";
 import { signOut } from "../../../_BLL/reducers/authReducer";
 import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
@@ -44,10 +42,6 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-
-  useEffect(() => {
-    localStorage.getItem("access_token") && dispatch(getAuthUserInfo());
-  }, [dispatch]);
 
   let profilePhoto = useSelector(
     (state: AppStateType) => state.profile.authUserInfo?.photo

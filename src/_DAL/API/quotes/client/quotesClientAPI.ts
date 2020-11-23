@@ -11,9 +11,9 @@ export const quotesClientAPI = {
     activateQuote (id: number, is_active: boolean) {
         return instance.patch(`/booking/quote/${id}/`, {is_active: is_active})
     },
-    /*filterSortClientQuotes (type: string, field_name: string, search_column: string, search_value: string) {
-        return instance.get(`/booking/quote/?shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`)
-    },*/
+    makeOfferViewed (offer_id: number) {
+        return instance.patch(`/booking/status/${offer_id}/`, {is_viewed : true})
+    },
     deleteQuoteFromClientList (id: number) {
         return instance.delete(`/booking/quote/${id}/`)
     }

@@ -21,7 +21,6 @@ export const LocationBlock:React.FC<PropsType> = ({register, errors, label, fiel
                        name={field_name}
                        placeholder='Placeholder'
                        maxW='100%'
-                       booking_process={true}
                        inputRef={register({required: 'Field is required'})}
             />
             <GoogleInput register={register}

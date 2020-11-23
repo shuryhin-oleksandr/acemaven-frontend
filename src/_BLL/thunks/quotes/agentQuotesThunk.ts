@@ -21,25 +21,28 @@ export const getAgentQuotesListThunk = (type: string, field_name: string, search
 export const getExactQuoteThunk = (id: number) => {
     return async (dispatch: Dispatch<commonQuotesAgentActions>) => {
         try {
+            //dispatch(quotesAgentActions.setIsFetching(true))
             let res = await quotesAgentAPI.getExactQuote(id)
             dispatch(quotesAgentActions.setExactQuoteInfo(res.data))
+            //dispatch(quotesAgentActions.setIsFetching(false))
         } catch (e) {
             console.log(e)
+            dispatch(quotesAgentActions.setIsFetching(false))
         }
     }
 }
-export const getExistingRatesForQuoteThunk = (quote_data: QuoteForRateType) => {
+export const getExistingSurchargesForQuoteThunk = (quote_data: QuoteForRateType) => {
     return async (dispatch: Dispatch<commonQuotesAgentActions>) => {
         try {
             let res = await quotesAgentAPI.getExistingRateForQuote(quote_data)
             dispatch(quotesAgentActions.setFindedFirst(false))
             if(JSON.stringify(res.data) === '{}') {
-                dispatch(quotesAgentActions.setExistingRateForQuote(null))
-                dispatch(quotesAgentActions.setCheckedIsRateExist('success'))
+                dispatch(quotesAgentActions.setExistingSurchargeForQuote(null))
+                dispatch(quotesAgentActions.setCheckedIsSurchargeExist('success'))
             } else {
                 dispatch(quotesAgentActions.setFindedFirst(true))
-                dispatch(quotesAgentActions.setExistingRateForQuote(res.data))
-                dispatch(quotesAgentActions.setCheckedIsRateExist('success'))
+                dispatch(quotesAgentActions.setExistingSurchargeForQuote(res.data))
+                dispatch(quotesAgentActions.setCheckedIsSurchargeExist('success'))
             }
         } catch (e) {
             console.log(e)
@@ -52,7 +55,11 @@ export const submitQuoteThunk = (quote_id: number, freight_id: number, history: 
         try {
             await quotesAgentAPI.submitQuote(quote_id, freight_id)
             dispatch(quotesAgentActions.setSubmittedQuote(quote_id))
-            history.push('/general')
+            dispatch(quotesAgentActions.setExistingRateForQuote(null))
+            dispatch(quotesAgentActions.setExistingSurchargeForQuote(null))
+            dispatch(quotesAgentActions.setSaveRateToYourResult(false))
+            dispatch(quotesAgentActions.setCheckedIsSurchargeExist(''))
+            history.push('/quotes')
         } catch(e) {
             console.log(e)
         }
@@ -65,7 +72,7 @@ export const rejectQuoteThunk = (quote_id: number, history: any) => {
             await quotesAgentAPI.rejectQuote(quote_id)
             dispatch(quotesAgentActions.deleteRejectedQuote(quote_id))
             dispatch(quotesAgentActions.setExactQuoteInfo(null))
-            dispatch(quotesAgentActions.setCheckedIsRateExist(''))
+            dispatch(quotesAgentActions.setCheckedIsSurchargeExist(''))
             dispatch(quotesAgentActions.setExistingRateForQuote(null))
             dispatch(quotesAgentActions.setExistingSurchargeForQuote(null))
             history.push('/general')

@@ -33,20 +33,26 @@ import {GeneralTitle} from "../../../Pages/quotes/agent/table/agent-quotes-style
 //icons
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
 import { useHistory } from 'react-router-dom';
+import {SurchargeInfoType} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import AgentSurchargesTable from "../../../Pages/quotes/agent/table/surcharge/AgentSurchargesTable";
+import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
+import {AppStateType} from "../../../../_BLL/store";
 
 
 type PropsType = {
     openCreatePopup: (value: boolean) => void,
     carrier_field: any,
     quote: QuoteType | null,
-    sea_carriers: CarrierType[],
-    air_carriers: CarrierType[],
+    carriers: CarrierType[],
     existing_rate_for_quote: RateQuoteType | null,
+    existing_surcharge_for_quote:  SurchargeInfoType | null,
     setIsTemporaryPopup: (value: boolean) => void,
-    save_rate_result: boolean
+    save_rate_result: boolean,
+    isCheck: boolean,
+    setIsCheck: (value: boolean) => void
 }
 
-const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, carrier_field, sea_carriers, air_carriers, quote, existing_rate_for_quote, ...props}) => {
+const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, carrier_field, carriers, quote, existing_rate_for_quote, ...props}) => {
 
     const history = useHistory()
     const {handleSubmit, errors, control, register, setValue} = useForm({
@@ -54,36 +60,38 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
     })
     const onSubmit = (values: any) => {
         //temporal surcharge registration
-        let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
-        let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+        if(!props.existing_surcharge_for_quote) {
+            let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
+            let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
 
-        let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
-            || !f.charge && {container_type: f.container_type, currency: f.currency}
-        )
+            let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
+                || !f.charge && {container_type: f.container_type, currency: f.currency}
+            )
 
-        let data = {
-            carrier: carrier_field,
-            direction: quote?.origin.is_local === true ? 'export' : 'import',
-            shipping_mode: quote?.shipping_mode.id,
-            start_date: quote?.date_from,
-            expiration_date: moment(values.date_to).format('DD/MM/YYYY'),
-            charges: charges_array,
-            usage_fees: usageFees_array,
-            location: quote?.origin.is_local === true ? quote?.origin.id : quote?.destination.id,
-            temporary: true
+            let data = {
+                carrier: carrier_field,
+                direction: quote?.origin.is_local === true ? 'export' : 'import',
+                shipping_mode: quote?.shipping_mode.id,
+                start_date: quote?.date_from,
+                expiration_date: moment(values.date_to).format('DD/MM/YYYY'),
+                charges: charges_array,
+                usage_fees: usageFees_array,
+                location: quote?.origin.is_local === true ? quote?.origin.id : quote?.destination.id,
+                temporary: true
+            }
+
+            let data_without_fees = {
+                start_date: quote?.date_from,
+                expiration_date: moment(values.date_to).format('DD/MM/YYYY'),
+                carrier: carrier_field,
+                direction: quote?.origin.is_local === true ? 'export' : 'import',
+                shipping_mode: quote?.shipping_mode.id,
+                charges: charges_array,
+                location: quote?.origin.is_local === true ? quote?.origin.id : quote?.destination.id,
+                temporary: true
+            }
+            usageFees_array !== null ? dispatch(addNewSurchargeForRate(data)) : dispatch(addNewSurchargeForRate(data_without_fees))
         }
-
-        let data_without_fees = {
-            start_date: quote?.date_from,
-            expiration_date: moment(values.date_to).format('DD/MM/YYYY'),
-            carrier: carrier_field,
-            direction: quote?.origin.is_local === true ? 'export' : 'import',
-            shipping_mode: quote?.shipping_mode.id,
-            charges: charges_array,
-            location: quote?.origin.is_local === true ? quote?.origin.id : quote?.destination.id,
-            temporary: true
-        }
-        usageFees_array !== null ? dispatch(addNewSurchargeForRate(data)) : dispatch(addNewSurchargeForRate(data_without_fees))
 
         //temporal rate registration
         let rates_array;
@@ -95,6 +103,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
             );
             let data = {
                 carrier: carrier_field,
+                carrier_disclosure: values.carrier_disclosure,
                 shipping_mode: quote?.shipping_mode.id,
                 //transit_time: Number(values.transit_time),
                 origin: Number(quote?.origin.id),
@@ -106,6 +115,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
         } else {
             let data_without_containers = {
                 carrier: carrier_field,
+                carrier_disclosure: values.carrier_disclosure,
                 shipping_mode: quote?.shipping_mode.id,
                 //transit_time: Number(values.transit_time),
                 origin: Number(quote?.origin.id),
@@ -122,6 +132,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
             };
             dispatch(registerNewFreightRateThunk(data_without_containers, history));
         }
+
     }
 
     //data from store
@@ -131,6 +142,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
     const additional = shippingModeOptions?.find(m => m.id === quote?.shipping_mode.id)?.additional_surcharges || []
     const additionalTableName = (quote?.shipping_type === ShippingTypesEnum.AIR) ? 'USAGE FEES' : 'HANDLING'
     const additionalType = (quote?.shipping_type === ShippingTypesEnum.AIR) ? 'ULD TYPES' : 'CONTAINER TYPE'
+    const finded_first = useSelector((state: AppStateType) => state.agent_quotes.finded_first)
 
 
     const dispatch = useDispatch()
@@ -154,21 +166,31 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                     </IconButton>
                     <RegisterRateContent>
                         <HeaderControllers>
-                            <div style={{display: "flex", flexDirection: 'column', maxWidth: '300px', width: '100%',marginRight: '35px'}}>
+                            <div style={{display: "flex", flexDirection: 'column', maxWidth: '350px', width: '100%',marginRight: '35px'}}>
                                 <GeneralTitle margin_bottom='10px'>CARRIER</GeneralTitle>
                                 <Controller name='carrier'
                                             control={control}
                                             defaultValue={carrier_field}
+                                            disabled={true}
                                             rules={{
                                                 required: 'Field is required'
                                             }}
                                             as={
                                                 <SurchargeRateSelect placeholder='Carrier company name'
                                                                      error={errors?.carrier?.message}
-                                                                     options={quote?.shipping_type === 'sea' ? sea_carriers : air_carriers}
+                                                                     options={carriers}
                                                                      margin_right='35px'
                                                 />
                                             }
+                                />
+                                <GeneralCustomCheckbox inputRef={register}
+                                                       name='carrier_disclosure'
+                                                       setValue={setValue}
+                                                       isCheck={props.isCheck}
+                                                       setIsCheck={props.setIsCheck}
+                                                       value={props.isCheck}
+                                                       span_text='I want to disclose the carrier info to the customers'
+
                                 />
                             </div>
                             <div style={{display: "flex", flexDirection: 'column', maxWidth: '300px', width: '100%',marginRight: '35px'}}>
@@ -185,15 +207,20 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                                              register={register}
                                              setValue={setValue}
                         />
-                        <SurchargesForQuotesTables containers={usageFees}
-                                                   additional={additional}
-                                                   quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
-                                                   additionalTableName={additionalTableName}
-                                                   additional_type={additionalType}
-                                                   control={control}
-                                                   register={register}
-                                                   setValue={setValue}
-                        />
+                        {props.existing_surcharge_for_quote && finded_first
+                            ? <AgentSurchargesTable surcharges={props.existing_surcharge_for_quote}
+                            />
+                            : <SurchargesForQuotesTables containers={usageFees}
+                                                         additional={additional}
+                                                         quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
+                                                         additionalTableName={additionalTableName}
+                                                         additional_type={additionalType}
+                                                         control={control}
+                                                         register={register}
+                                                         setValue={setValue}
+                            />
+                        }
+
                         <FormButtonsWrapper>
                             <FormButton type='submit'>SEND</FormButton>
                             <FormCancelButton type={'button'} onClick={() => openCreatePopup(false)}>CANCEL</FormCancelButton>

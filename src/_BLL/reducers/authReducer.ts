@@ -247,6 +247,6 @@ export const signOut = (history: History) => {
   return async (dispatch: Dispatch<commonAuthActions>) => {
     dispatch(authActions.setAuth(false)) &&  history.push("/acemaven");
     localStorage.removeItem("access_token")
-
+    sessionStorage.clear()
   };
 };

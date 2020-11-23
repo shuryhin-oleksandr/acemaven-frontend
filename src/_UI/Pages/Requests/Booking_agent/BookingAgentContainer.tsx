@@ -7,7 +7,6 @@ import {getBookingRequestListThunk} from "../../../../_BLL/thunks/booking_agent_
 import Layout from "../../../components/BaseLayout/Layout";
 import BookingAgentPage from "./BookingAgentPage";
 import {getBookingRequestListSelector, getIsFetching} from "../../../../_BLL/selectors/booking/bookingAgentSelector";
-import TableSkeleton from "../../../skeleton/general/TableSkeleton";
 
 
 const BookingAgentContainer:React.FC = () => {
@@ -25,13 +24,10 @@ const BookingAgentContainer:React.FC = () => {
     }, [dispatch]);
 
     const bookingList = useSelector(getBookingRequestListSelector);
-    const isFetching = useSelector(getIsFetching)
 
     return (
       <Layout>
-          {isFetching
-              ? <TableSkeleton />
-              : <BookingAgentPage bookingList={bookingList ? bookingList : []}
+              <BookingAgentPage bookingList={bookingList ? bookingList : []}
                                   mode={mode}
                                   setMode={setMode}
                                   directory={directory}
@@ -44,7 +40,6 @@ const BookingAgentContainer:React.FC = () => {
                                   setSearchMode={setSearchMode}
                                   dispatch={dispatch}
               />
-          }
       </Layout>
     )
 }

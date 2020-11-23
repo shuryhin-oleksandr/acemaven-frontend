@@ -21,6 +21,7 @@ import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "../../client
 
 
 
+
 type PropsType = {
     setCardOpen: (value: number) => void,
     setSearchMode: (value: boolean) => void
@@ -41,11 +42,6 @@ const useStyles = makeStyles({
         boxShadow: 'none',
         height: 400,
         overflowY: 'scroll',
-    },
-    table: {
-        '& .MuiTableHead-root' : {
-
-        }
     },
     shipping_cell: {
         width: '220px',
@@ -98,7 +94,6 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                                   setSearchColumn, setSearchMode, isSearchMode, agent_quotes_list}) => {
 
     const classes = useStyles();
-
     const dispatch = useDispatch()
 
 
@@ -116,7 +111,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                 />
             </QuotesTableHeader>
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="collapsible table">
+                <Table aria-label="collapsible table">
                     <TableHead>
                         <TableRow >
                             <TableCell className={classes.shipping_cell} align="left">
@@ -177,7 +172,6 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                         {agent_quotes_list.map(a => <AgentQuoteRow key={a.id}
                                                                    quote={a}
                                                                    setCardOpen={setCardOpen}
-
                         />)}
                     </TableBody>
                 </Table>

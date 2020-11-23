@@ -1,14 +1,9 @@
 import React from 'react'
-//react-redux
-import {useSelector} from "react-redux";
-//BLL
-import {AppStateType} from "../../../../_BLL/store";
 //types
 import {QuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
 //components
 import NoQuotesCard from "../NoQuotesCard";
 import ClientQuotesTable from "./tables/ClientQuotesTable";
-import TableSkeleton from '../../../skeleton/general/TableSkeleton';
 //styles
 import {ClientQuotesInner, ClientQuotesOuter} from "./quotes-client-styles";
 
@@ -31,18 +26,14 @@ type PropsType = {
 
 const QuotesPage:React.FC<PropsType> = ({my_quotes_list, activeInactiveQuote, deleteQuoteByClient, getQuotesByFilters, ...props}) => {
 
-
     const text = "There are no active general at the moment.\n" +
         "                If your searches don’t return any results,\n" +
         "                you will have the option to post them online for agents to bid on them.\n" +
         "                They will appear in this section."
-    const isFetching = useSelector((state: AppStateType) => state.client_quotes.isFetching)
 
     return (
         <>
-            {isFetching
-                ? <TableSkeleton />
-                : <ClientQuotesOuter>
+                 <ClientQuotesOuter>
                     <ClientQuotesInner>
                         {my_quotes_list.length === 0
                             ? <NoQuotesCard text={text}/>
@@ -63,8 +54,6 @@ const QuotesPage:React.FC<PropsType> = ({my_quotes_list, activeInactiveQuote, de
                         }
                     </ClientQuotesInner>
                 </ClientQuotesOuter>
-            }
-
         </>
 
     )

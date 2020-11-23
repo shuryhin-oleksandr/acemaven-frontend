@@ -327,6 +327,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
                                     //setIsDangerous={setIsDangerous}
                                                        setValue={setValue}
                                                        setIsCheck={setIsCheck}
+                                                       span_text='Dangerous'
                                 />
                             </CheckboxWrap>
                         </>

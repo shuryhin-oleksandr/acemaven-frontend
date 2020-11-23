@@ -89,10 +89,11 @@ const useStyles = makeStyles({
 type PropsType = {
     quote: QuoteType,
     activeInactiveQuote: (id: number, is_active: boolean) => void,
-    deleteQuoteByClient: (id: number) => void
+    deleteQuoteByClient: (id: number) => void,
+    offerViewedHandler: (value: number) =>  void
 }
 
-const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteByClient}) => {
+const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteByClient, offerViewedHandler}) => {
 
     const classes = useStyles();
 
@@ -157,6 +158,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
            <OfferDescription isOpen={isOpen}
                              offers={quote.statuses ? quote.statuses : []}
                              setShowRating={setShowRating}
+                             offerViewedHandler={offerViewedHandler}
            />
 
         </React.Fragment>

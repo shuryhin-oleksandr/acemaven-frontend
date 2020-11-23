@@ -22,13 +22,24 @@ import RootShippingForm from "./forms/RootShippingForm";
 import BaseButton from "../../base/BaseButton";
 import PaymentContainer from "./payment/PaymentContainer";
 //styles
-import { PopupContainer, PopupContent, Heading, CloseBtn } from "./client-popup-styles";
-import { HiddenTable, HiddenTitle, HiddenWrapper,
-  TableTotal, TotalLine, TotalName, TotalValue} from "../../../Pages/dashboard/search/search_rate_card/search-card-styles";
+import {
+  PopupContainer,
+  PopupContent,
+  Heading,
+  CloseBtn,
+} from "./client-popup-styles";
+import {
+  HiddenTable,
+  HiddenTitle,
+  HiddenWrapper,
+  TableTotal,
+  TotalLine,
+  TotalName,
+  TotalValue,
+} from "../../../Pages/dashboard/search/search_rate_card/search-card-styles";
 //icons
 import close from "../../../assets/icons/close-icon.svg";
 import BookingCard from "../../../Pages/dashboard/search/search_rate_card/BookingCard";
-
 
 const useStyles = makeStyles({
   container: {
@@ -66,6 +77,7 @@ type PropsType = {
   setWidgetsVisible: (value: boolean) => void;
   shippingValue: number;
   currentFreightRate: SearchResultType;
+  newSearch?: any;
 };
 
 const ClientBookingPopUp: React.FC<PropsType> = ({
@@ -73,6 +85,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
   shippingValue,
   currentFreightRate,
   setWidgetsVisible,
+  newSearch,
 }) => {
   const dispatch = useDispatch();
   const companyId = sessionStorage.getItem("u");
@@ -191,14 +204,8 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                       </TableRow>
                     ))}
                     <TableRow className={classes.info_row}>
-                      <TableCell
-                        className={classes.innerCell}
-                        scope="row"
-                      />
-                      <TableCell
-                        className={classes.innerCell}
-                        align="left"
-                      />
+                      <TableCell className={classes.innerCell} scope="row" />
+                      <TableCell className={classes.innerCell} align="left" />
                       <TableCell className={classes.innerCell} align="left">
                         DOC FEE
                       </TableCell>
@@ -240,6 +247,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
           <PaymentContainer
             setBookingPopupVisible={setBookingPopupVisible}
             setWidgetsVisible={setWidgetsVisible}
+            newSearch={newSearch}
           />
         )}
       </PopupContent>

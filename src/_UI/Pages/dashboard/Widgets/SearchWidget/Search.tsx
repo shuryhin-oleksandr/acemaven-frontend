@@ -62,6 +62,7 @@ import {
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
+import ClientBookingPopUp from "../../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
 
 type PropsType = {
   right?: string;
@@ -84,6 +85,16 @@ type PropsType = {
   frozen_choices: ChoiceType[];
   origin_port_value: PortType | null;
   container_types: ContainerType[];
+  handleSubmit: any;
+  register: any;
+  control: any;
+  reset: any;
+  errors: any;
+  getValues: any;
+  setValue: any;
+  watch: any;
+  dates: any;
+  setDates: any;
 };
 
 const Search: React.FC<PropsType> = ({
@@ -102,6 +113,16 @@ const Search: React.FC<PropsType> = ({
   duplicatedCargoError,
   setDuplicatedCargoError,
   shippingTypes,
+  handleSubmit,
+  register,
+  control,
+  reset,
+  errors,
+  getValues,
+  setValue,
+  watch,
+  dates,
+  setDates,
   ...props
 }) => {
   const dispatch = useDispatch();
@@ -120,7 +141,6 @@ const Search: React.FC<PropsType> = ({
     dispatch(searchActions.editChosenCargoGroup(edit_data));
   };
 
-  const [dates, setDates] = useState([]);
   useEffect(() => {
     dispatch(getShippingTypes(""));
   }, [dispatch]);
@@ -143,39 +163,14 @@ const Search: React.FC<PropsType> = ({
   let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
     ?.container_types;
 
-  const {
-    handleSubmit,
-    register,
+  const { fields, append, remove } = useFieldArray({
     control,
-    reset,
-    errors,
-    getValues,
-    setValue,
-    watch,
-  } = useForm({
-    reValidateMode: "onBlur",
-    defaultValues: {
-      shipping_mode: "",
-      origin: "",
-      destination: "",
-      cargo_groups: [
-        {
-          container_type: "",
-          volume: 0,
-          frozen: "",
-          dangerous: false,
-        },
-      ],
-    },
+    name: "cargo_groups",
   });
 
   const watchFields = watch(["shipping_mode", "origin", "destination"]);
   const watchResultArr = Object.values(watchFields).filter((val) => !!val);
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "cargo_groups",
-  });
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {

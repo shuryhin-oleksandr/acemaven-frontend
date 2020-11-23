@@ -5,11 +5,13 @@ import BaseButton from "../../../base/BaseButton";
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
   setWidgetsVisible: (value: boolean) => void;
+  newSearch?: any;
 };
 
 const PendingPayment: React.FC<PropsType> = ({
   setWidgetsVisible,
   setBookingPopupVisible,
+  newSearch,
 }) => {
   return (
     <Container>
@@ -26,6 +28,7 @@ const PendingPayment: React.FC<PropsType> = ({
           onClick={() => {
             setBookingPopupVisible(false);
             setWidgetsVisible(true);
+            newSearch && newSearch();
           }}
           type="button"
         >

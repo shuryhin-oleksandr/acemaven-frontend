@@ -27,8 +27,10 @@ import {
 import { CurrentShippingType } from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { PackagingType } from "../../../_BLL/types/rates&surcharges/surchargesTypes";
 import ClientBookingPopUp from "../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../_BLL/store";
+import { useForm } from "react-hook-form";
+import { searchActions } from "../../../_BLL/reducers/search_client/searchClientReducer";
 
 type PropsType = {
   setWidgetsVisible: any;
@@ -76,11 +78,49 @@ const DashboardPage: React.FC<PropsType> = ({
   frozen_choices,
   origin_port_value,
 }) => {
+  const dispatch = useDispatch();
+  const [dates, setDates] = useState([]);
   const currentBookingRate = useSelector(
     (state: AppStateType) => state.booking.current_booking_freight_rate
   );
   const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
-  const auth_user = useSelector((state:AppStateType) => state.profile.authUserInfo)
+  const auth_user = useSelector(
+    (state: AppStateType) => state.profile.authUserInfo
+  );
+
+  const {
+    handleSubmit,
+    register,
+    control,
+    reset,
+    errors,
+    getValues,
+    setValue,
+    watch,
+  } = useForm({
+    reValidateMode: "onBlur",
+    defaultValues: {
+      shipping_mode: "",
+      origin: "",
+      destination: "",
+      cargo_groups: [
+        {
+          container_type: "",
+          volume: 0,
+          frozen: "",
+          dangerous: false,
+        },
+      ],
+    },
+  });
+
+  let newSearch = () => {
+    dispatch(searchActions.setSearchSuccess(false));
+    dispatch(searchActions.clearCargoList([]));
+    setShippingValue(0);
+    reset();
+    setDates([]);
+  };
 
   return (
     <DashboardWrapper>
@@ -90,6 +130,7 @@ const DashboardPage: React.FC<PropsType> = ({
           setBookingPopupVisible={setBookingPopupVisible}
           currentFreightRate={currentBookingRate}
           setWidgetsVisible={setWidgetsVisible}
+          newSearch={newSearch}
         />
       )}
       <MapComponent
@@ -100,27 +141,38 @@ const DashboardPage: React.FC<PropsType> = ({
       />
       {search_success && <Back />}
       <SearchBox widgetsVisible={widgetsVisible}>
-        {auth_user?.companies && auth_user.companies[0].type === 'client' &&
-        <Search
-          setOpenCalcPopup={setOpenCalcPopup}
-          shippingValue={shippingValue}
-          setShippingValue={setShippingValue}
-          setMode={setMode}
-          mode={mode}
-          cargo_groups_list={cargo_groups}
-          packaging_types={packaging_types}
-          container_types={container_types}
-          disabled={search_success}
-          search_result={search_result}
-          search_success={search_success}
-          duplicatedCargoError={duplicatedCargoError}
-          setDuplicatedCargoError={setDuplicatedCargoError}
-          shippingTypes={shippingTypes}
-          origin_ports={origin_ports}
-          destination_ports={destination_ports}
-          frozen_choices={frozen_choices}
-          origin_port_value={origin_port_value}
-        />}
+        {auth_user?.companies && auth_user.companies[0].type === "client" && (
+          <Search
+            setOpenCalcPopup={setOpenCalcPopup}
+            shippingValue={shippingValue}
+            setShippingValue={setShippingValue}
+            setMode={setMode}
+            mode={mode}
+            cargo_groups_list={cargo_groups}
+            packaging_types={packaging_types}
+            container_types={container_types}
+            disabled={search_success}
+            search_result={search_result}
+            search_success={search_success}
+            duplicatedCargoError={duplicatedCargoError}
+            setDuplicatedCargoError={setDuplicatedCargoError}
+            shippingTypes={shippingTypes}
+            origin_ports={origin_ports}
+            destination_ports={destination_ports}
+            frozen_choices={frozen_choices}
+            origin_port_value={origin_port_value}
+            handleSubmit={handleSubmit}
+            register={register}
+            control={control}
+            reset={reset}
+            errors={errors}
+            getValues={getValues}
+            setValue={setValue}
+            watch={watch}
+            dates={dates}
+            setDates={setDates}
+          />
+        )}
         {search_success && (
           <SearchContainer
             search_result={search_result}

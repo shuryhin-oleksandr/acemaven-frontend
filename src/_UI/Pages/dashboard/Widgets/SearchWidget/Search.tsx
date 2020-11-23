@@ -47,8 +47,18 @@ import FCLFieldArray from "./FCLFieldArray/FCLFieldArray";
 import OtherModesFieldArray from "./Others_modes_fields_array/OtherModesFieldArray";
 import NoSearchResultCard from "../../search/search_rate_card/no_search_card/NoSearchResultCard";
 //styles
-import { Container, Heading, RelativeWrapper, ButtonGroup, AddImg,ErrorMessage } from "./searchWidgett-styles";
-import { Port, PortsList,} from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
+import {
+  Container,
+  Heading,
+  RelativeWrapper,
+  ButtonGroup,
+  AddImg,
+  ErrorMessage,
+} from "./searchWidgett-styles";
+import {
+  Port,
+  PortsList,
+} from "../../../Services&Rates/surcharge/register_new_surcharge/form-styles";
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
@@ -169,16 +179,16 @@ const Search: React.FC<PropsType> = ({
   const watchFieldArray = watch("cargo_groups");
 
   let onOriginChangeHandler = (value: any) => {
-     if (value.value.length >= 3) {
+    // if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
-     }
+    // }
   };
   let onDestinationChangeHandler = (value: any) => {
-     if (value.value.length >= 3) {
+    // if (value.value.length >= 3) {
     props.origin_port_value?.is_local
       ? dispatch(getPorts(false, value.value, "destination", mode))
       : dispatch(getPorts(true, value.value, "destination", mode));
-    }
+    // }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
@@ -504,7 +514,8 @@ const Search: React.FC<PropsType> = ({
             justify_content={
               dates.length > 0 &&
               watchResultArr.length === 3 &&
-              shippingValue !== 3 && !search_success
+              shippingValue !== 3 &&
+              !search_success
                 ? "space-between"
                 : "flex-end"
             }

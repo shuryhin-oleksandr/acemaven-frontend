@@ -18,6 +18,7 @@ type PropsType = {
   companyInfo: CompanyInfoType | null;
   currentUser: IAuthUserInfo | null;
   currentFreightRate: SearchResultType;
+  quote_dates?: {date_from: string, date_to: string}
 };
 
 const ShipperInfoContainer: React.FC<PropsType> = ({
@@ -26,6 +27,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
   companyInfo,
   currentUser,
   currentFreightRate,
+  quote_dates
 }) => {
   const {
     register,
@@ -56,14 +58,14 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
       release_type: firstStepData?.release_type,
       number_of_documents: firstStepData?.number_of_documents,
       shipper: values,
-      date_from: String(booking_dates?.date_from),
-      date_to: String(booking_dates?.date_to),
+      date_from: quote_dates?.date_from ? quote_dates?.date_from : String(booking_dates?.date_from),
+      date_to: quote_dates?.date_to ? quote_dates?.date_to : String(booking_dates?.date_to),
       freight_rate: Number(freight_rate_id),
     };
-
     dispatch(postBooking(finalData));
     dispatch(bookingActions.changeBookingStep("fee-table"));
   };
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { Wrapper } from "../client-popup-styles";
 import CargoDetails from "./CargoDetails";
 import ShipperInfoContainer from "./ShipperInfoContainer";
-import { useSelector } from "react-redux";
-import { AppStateType } from "../../../../../_BLL/store";
-import { useForm } from "react-hook-form";
 import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
 import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
@@ -14,6 +11,7 @@ type PropsType = {
   currentUser: IAuthUserInfo | null;
   shippingValue: number;
   currentFreightRate: SearchResultType;
+  quote_dates?: {date_from: string, date_to: string}
 };
 
 const RootShippingForm: React.FC<PropsType> = ({
@@ -21,6 +19,7 @@ const RootShippingForm: React.FC<PropsType> = ({
   currentUser,
   shippingValue,
   currentFreightRate,
+  quote_dates
 }) => {
   const [formStep, setFormStep] = useState(1);
 
@@ -43,6 +42,7 @@ const RootShippingForm: React.FC<PropsType> = ({
             companyInfo={companyInfo}
             currentUser={currentUser}
             currentFreightRate={currentFreightRate}
+            quote_dates={quote_dates}
           />
         )}
       </div>

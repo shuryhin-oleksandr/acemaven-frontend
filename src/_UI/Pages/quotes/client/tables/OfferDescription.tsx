@@ -12,7 +12,6 @@ import {QuoteType, StatusesQuoteType} from "../../../../../_BLL/types/quotes/quo
 import SearchCard from "../../../dashboard/search/search_rate_card/SearchCard";
 import {CardsAbsoluteWrapper} from "../../../dashboard/search/search_rate_card/search-card-styles";
 import ClientBookingPopUp from "../../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
-import {DashboardWrapper} from "../../../dashboard/dashboard-styles";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
 
@@ -68,7 +67,6 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
     }
 
     const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
-    console.log("bookingPopupVisible",bookingPopupVisible);
 
     const currentBookingRate = useSelector(
         (state: AppStateType) => state.booking.current_booking_freight_rate
@@ -142,9 +140,10 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                     }
                     {bookingPopupVisible && currentBookingRate && (
                         <ClientBookingPopUp
-                            shippingValue={Number(o.freight_rate?.shipping_mode.id)}
+                            shippingValue={Number(quote?.shipping_mode.id)}
                             setBookingPopupVisible={setBookingPopupVisible}
                             currentFreightRate={currentBookingRate}
+                            quote_dates={{date_from: String(quote?.date_from), date_to: String(quote?.date_to)}}
                         />
                     )}
 

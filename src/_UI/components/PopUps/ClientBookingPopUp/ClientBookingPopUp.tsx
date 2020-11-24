@@ -78,6 +78,7 @@ type PropsType = {
   shippingValue: number;
   currentFreightRate: SearchResultType;
   newSearch?: any;
+  quote_dates?: {date_from: string, date_to: string}
 };
 
 const ClientBookingPopUp: React.FC<PropsType> = ({
@@ -86,6 +87,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
   currentFreightRate,
   setWidgetsVisible,
   newSearch,
+    ...props
 }) => {
   const dispatch = useDispatch();
   const companyId = sessionStorage.getItem("u");
@@ -134,6 +136,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             currentUser={currentUser}
             shippingValue={shippingValue}
             currentFreightRate={currentFreightRate}
+            quote_dates={props.quote_dates}
           />
         )}
         {bookingStep === "fee-table" && (

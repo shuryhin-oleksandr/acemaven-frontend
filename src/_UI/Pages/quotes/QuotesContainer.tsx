@@ -17,6 +17,7 @@ import {
 import Layout from "../../components/BaseLayout/Layout";
 import QuotesPage from "./client/QuotesPage";
 import AgentQuotesPage from "./agent/AgentQuotesPage";
+import {getShippingTypes} from "../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 
 
 
@@ -26,16 +27,17 @@ const QuotesContainer:React.FC = () => {
     const my_quotes_list = useSelector(getClientQuotesListSelector) //client
     const agent_quotes_list = useSelector(getAgentQuotesLIstSelector) //agent
 
-
-    //get general after mounting
+    //get quotes after mounting
     const dispatch = useDispatch()
+
     useEffect(() => {
+        dispatch(getShippingTypes(''))
         company_type?.type === 'client'
             ? dispatch(getClientQuotesThunk( mode, '', '', ''))
             : dispatch(getAgentQuotesListThunk(mode, '', '', ''))
     }, [dispatch, company_type])
 
-    //get general list sort by smth, filter by shipping type and search value
+    //get quotes list sort by smth, filter by shipping type and search value
     let getQuotesByFilters = (type: string, field_name: string, search_column: string, search_value: string) => {
         company_type.type === 'client'
             ? dispatch(getClientQuotesThunk(type, field_name, search_column, search_value))

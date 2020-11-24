@@ -13,11 +13,10 @@ import {
 } from "../client-popup-styles";
 import { Controller, useForm } from "react-hook-form";
 import { Field } from "../../../_commonComponents/Input/input-styles";
-import React, { useEffect } from "react";
+import React from "react";
 import BaseButton from "../../../base/BaseButton";
 import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
-//import { bookingActions } from "../../../../../_BLL/reducers/bookingReducer";
 import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
 import FormField from "../../../_commonComponents/Input/FormField";
@@ -66,11 +65,12 @@ const CargoDetails: React.FC<PropsType> = ({
   const { register, handleSubmit, errors, control, getValues } = useForm();
 
   const shippingTypes = useSelector(getShippingTypesSelector);
-  const mode = useSelector(getCurrentShippingTypeSelector);
+
   const shippingModeOptions =
-    mode === ShippingTypesEnum.AIR
+    currentFreightRate.freight_rate.shipping_type === 'air'
       ? shippingTypes[0]?.shipping_modes
       : shippingTypes[1]?.shipping_modes;
+
 
   let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
     ?.container_types;
@@ -126,7 +126,7 @@ const CargoDetails: React.FC<PropsType> = ({
         </div>
       </FlexWrapper>
       <InputsWrapper>
-        {cargo_groups.map((item, index) => (
+        {cargo_groups.map(item => (
           <RowWrapper key={item.id}>
             <div style={{ width: 205 }}>
               <ContainerInfo>

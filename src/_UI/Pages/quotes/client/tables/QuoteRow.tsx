@@ -21,6 +21,9 @@ import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_type from '../../../../assets/icons/rates&services/plane-surcharge.svg';
 import close_icon from '../../../../../_UI/assets/icons/close-icon.svg'
+import {useDispatch} from "react-redux";
+import {bookingActions} from "../../../../../_BLL/reducers/booking/bookingReducer";
+
 
 
 const useStyles = makeStyles({
@@ -96,9 +99,27 @@ type PropsType = {
 const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteByClient, offerViewedHandler}) => {
 
     const classes = useStyles();
+    const dispatch = useDispatch()
 
     const [isOpen, setIsOpen] = useState(false)
     const [showRating, setShowRating] = useState(false)
+
+/*
+    let quotes_cargos = quote.shipping_mode.id === ShippingModeEnum.FCL
+       ? quote.cargo_groups.map(q => ({container_type: q.container_type?.id, volume: q.volume, frozen: q.frozen, dangerous: q.dangerous}))
+       : quote.cargo_groups.map(q => ({...q, container_type: q.container_type?.id, packaging_type: q.packaging_type?.id}))*/
+
+    let quotes_cargos = quote.cargo_groups.map((q, index) => ({...q, id: index, container_type: q.container_type?.id, packaging_type: q.packaging_type?.id}))
+
+    let getCargoGroupsFromQuote = () => {
+        if(isOpen) {
+            setIsOpen(false)
+            dispatch(bookingActions.set_current_booking_cargo_groups([]))
+        } else {
+            setIsOpen(true)
+            dispatch(bookingActions.set_current_booking_cargo_groups(quotes_cargos))
+        }
+    }
 
     let a = moment(quote.date_from, 'DD/MM/YYYY').toDate()
     let day_from = moment(a).format('D')
@@ -128,7 +149,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                     }
                     <br/> <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>{day_from}{'-'}{date_to}</span>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="center" onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)}>
+                <TableCell className={classes.innerCell} align="center" onClick={getCargoGroupsFromQuote}>
                     <OffersSpan new_offer={!!quote.unchecked_offers}>{quote.offers}</OffersSpan>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="center">

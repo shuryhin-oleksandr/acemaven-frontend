@@ -87,9 +87,9 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                                                     {o.id}
                                                 </TableCell>
                                                 <TableCell className={classes.collapseInnerCell} align="left">
-                                                    {o.charges.freight_rate?.carrier === 'disclosed'
+                                                    {o.freight_rate?.carrier_disclosure
                                                         ? 'Carrier is disclosed'
-                                                        : o.charges.freight_rate?.carrier
+                                                        : o.freight_rate?.carrier.title
                                                     }
                                                 </TableCell>
                                                 <TableCell align="left" className={classes.collapseInnerCell}>

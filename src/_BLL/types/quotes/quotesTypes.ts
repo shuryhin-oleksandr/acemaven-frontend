@@ -236,7 +236,8 @@ export type ChargeCalculationType = {
         }>,
     freight_rate?: {
         id: number,
-        carrier: string,
+        carrier: {id: number, title: string},
+        carrier_disclosure: boolean,
         company: string,
         is_active: boolean,
         transit_time: any,

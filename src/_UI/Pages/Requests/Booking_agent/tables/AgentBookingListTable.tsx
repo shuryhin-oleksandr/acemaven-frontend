@@ -173,22 +173,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
           <TableRow>
             <TableCell className={classes.shipping_cell} align="left" />
             <TableCell className={classes.cell} align="left">
-              <TableCellContent
-                setSearchValue={setSearchValue}
-                setSearchMode={setSearchMode}
-                dispatch={dispatch}
-                direction={directory}
-                type={mode}
-                column_name="ace_id"
-                searchValue={searchValue}
-                isSearchMode={isSearchMode}
-                title="ACE ID"
-                searchColumn={searchColumn}
-                setSearchColumn={setSearchColumn}
-                thunkName="agent_booking"
-                withoutSearch={true}
-                withoutOrdering={true}
-              />
+                ACE ID
             </TableCell>
             <TableCell className={classes.cell} align="left">
               <TableCellContent
@@ -257,21 +242,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
-              <TableCellContent
-                setSearchValue={setSearchValue}
-                setSearchMode={setSearchMode}
-                dispatch={dispatch}
-                direction={directory}
-                type={mode}
-                column_name="status"
-                searchValue={searchValue}
-                isSearchMode={isSearchMode}
-                title="STATUS"
-                searchColumn={searchColumn}
-                setSearchColumn={setSearchColumn}
-                thunkName="agent_booking"
-                withoutSearch={true}
-              />
+             STATUS
             </TableCell>
           </TableRow>
         </TableHead>

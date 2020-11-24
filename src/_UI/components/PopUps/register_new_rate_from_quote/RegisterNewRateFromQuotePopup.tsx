@@ -37,6 +37,7 @@ import {SurchargeInfoType} from "../../../../_BLL/types/rates&surcharges/surchar
 import AgentSurchargesTable from "../../../Pages/quotes/agent/table/surcharge/AgentSurchargesTable";
 import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
 import {AppStateType} from "../../../../_BLL/store";
+import FormField from "../../_commonComponents/Input/FormField";
 
 
 type PropsType = {
@@ -105,7 +106,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                 carrier: carrier_field,
                 carrier_disclosure: values.carrier_disclosure,
                 shipping_mode: quote?.shipping_mode.id,
-                //transit_time: Number(values.transit_time),
+                transit_time: Number(values.transit_time),
                 origin: Number(quote?.origin.id),
                 destination: Number(quote?.destination.id),
                 rates: rates_array,
@@ -117,7 +118,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                 carrier: carrier_field,
                 carrier_disclosure: values.carrier_disclosure,
                 shipping_mode: quote?.shipping_mode.id,
-                //transit_time: Number(values.transit_time),
+                transit_time: Number(values.transit_time),
                 origin: Number(quote?.origin.id),
                 destination: Number(quote?.destination.id),
                 temporary: true,
@@ -199,6 +200,15 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                                                           setValue={setValue}
                                                           before_date={String(quote?.date_to)}
                                 />
+                            </div>
+                            <div style={{display: "flex", flexDirection: 'column', maxWidth: '300px', width: '100%',marginRight: '35px'}}>
+                                <GeneralTitle margin_bottom='15px'>TRANSIT TIME</GeneralTitle>
+                                    <FormField name='transit_time'
+                                               error={errors?.transit_time}
+                                               inputRef={register({required: 'Field is required'})}
+                                               marginBottom='25px'
+                                               placeholder='0 days'
+                                    />
                             </div>
                         </HeaderControllers>
                         <RatesForQuotesTable usageFees={usageFees}

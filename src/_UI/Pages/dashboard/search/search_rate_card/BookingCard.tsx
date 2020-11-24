@@ -21,6 +21,7 @@ import {
 //icons
 import ship from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../assets/icons/rates&services/plane-surcharge.svg";
+import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 
 
 type PropsType = {
@@ -31,9 +32,10 @@ type PropsType = {
     setBookingPopupVisible?: (value: boolean) => void,
     setWidgetsVisible?: (value: boolean) => void,
     search_result?: any//SearchResultType
+    quote?: QuoteType,
 }
 
-const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result,setWidgetsVisible}) => {
+const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result,setWidgetsVisible,quote}) => {
     const dispatch = useDispatch();
     return (
         <UpperWrapper onClick={() => isTableShown ? showTable && showTable(false) : showTable && showTable(true)}>

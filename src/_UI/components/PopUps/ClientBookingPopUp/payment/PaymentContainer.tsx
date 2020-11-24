@@ -4,7 +4,7 @@ import ActivePayment from "./ActivePayment";
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
-  setWidgetsVisible: (value: boolean) => void;
+  setWidgetsVisible?: (value: boolean) => void;
   newSearch?: any;
 };
 

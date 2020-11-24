@@ -11,7 +11,7 @@ import TableBody from "@material-ui/core/TableBody";
 import {IconButton} from "@material-ui/core";
 //types
 import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
-import {ChargeCalculationType} from "../../../../../_BLL/types/quotes/quotesTypes";
+import {ChargeCalculationType, QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 //components
 import BookingCard from "./BookingCard";
@@ -69,10 +69,11 @@ type PropsType = {
     shippingValue?:number
     setBookingPopupVisible?:(value:boolean)=>void
     setWidgetsVisible?:(value:boolean)=>void,
-    closeTotals?: VoidFunctionType
+    closeTotals?: VoidFunctionType,
+    quote?: QuoteType,
 }
 
-const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBookingPopupVisible,setWidgetsVisible, closeTotals}) => {
+const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBookingPopupVisible,setWidgetsVisible, closeTotals,quote}) => {
     const classes = useStyles();
 
     const [isShown, setShow] = useState(false)
@@ -90,6 +91,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                                  setBookingPopupVisible={setBookingPopupVisible}
                                  search_result={search_result}
                                  setWidgetsVisible={setWidgetsVisible}
+                                 quote={quote}
                     />
                     {isShown && <HiddenWrapper>
                         <HiddenTitle>

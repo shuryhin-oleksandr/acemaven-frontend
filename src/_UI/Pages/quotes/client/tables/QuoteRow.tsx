@@ -159,6 +159,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                              offers={quote.statuses ? quote.statuses : []}
                              setShowRating={setShowRating}
                              offerViewedHandler={offerViewedHandler}
+                             quote={quote}
            />
 
         </React.Fragment>

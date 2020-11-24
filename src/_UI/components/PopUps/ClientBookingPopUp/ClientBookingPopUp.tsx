@@ -74,7 +74,7 @@ const useStyles = makeStyles({
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
-  setWidgetsVisible: (value: boolean) => void;
+  setWidgetsVisible?: (value: boolean) => void;
   shippingValue: number;
   currentFreightRate: SearchResultType;
   newSearch?: any;
@@ -118,7 +118,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
         <CloseBtn
           onClick={() => {
             setBookingPopupVisible(false);
-            setWidgetsVisible(true);
+            setWidgetsVisible && setWidgetsVisible(true);
           }}
         >
           <img src={close} alt="" />

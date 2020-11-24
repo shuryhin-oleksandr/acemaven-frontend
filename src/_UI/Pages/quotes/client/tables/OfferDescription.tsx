@@ -8,15 +8,20 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {BookLittleButton} from "../quotes-client-styles";
-import {StatusesQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+import {QuoteType, StatusesQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 import SearchCard from "../../../dashboard/search/search_rate_card/SearchCard";
 import {CardsAbsoluteWrapper} from "../../../dashboard/search/search_rate_card/search-card-styles";
+import ClientBookingPopUp from "../../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
+import {DashboardWrapper} from "../../../dashboard/dashboard-styles";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../../_BLL/store";
 
 type PropsType = {
     isOpen?: boolean,
     offers: StatusesQuoteType[],
     setShowRating: (value: boolean) => void,
     offerViewedHandler: (value: number) => void,
+    quote?: QuoteType,
 }
 
 const useStyles = makeStyles({
@@ -47,7 +52,7 @@ const useStyles = makeStyles({
     }
 });
 
-const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, offerViewedHandler}) => {
+const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, offerViewedHandler, quote}) => {
     const classes = useStyles();
     const [showTotals, setShowTotals] = useState(false)
     let [totalId, setTotalId] = useState(0);
@@ -62,6 +67,12 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
         setShowTotals(false)
     }
 
+    const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
+    console.log("bookingPopupVisible",bookingPopupVisible);
+
+    const currentBookingRate = useSelector(
+        (state: AppStateType) => state.booking.current_booking_freight_rate
+    );
 
     return (
         <>
@@ -123,10 +134,20 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                     <SearchCard showRatingPopup={setShowRating}
                                 search_result={o.charges}
                                 closeTotals={closeTotals}
+                                quote={quote}
+                                setBookingPopupVisible={setBookingPopupVisible}
 
                     />
                     </CardsAbsoluteWrapper>
                     }
+                    {bookingPopupVisible && currentBookingRate && (
+                        <ClientBookingPopUp
+                            shippingValue={Number(o.freight_rate?.shipping_mode.id)}
+                            setBookingPopupVisible={setBookingPopupVisible}
+                            currentFreightRate={currentBookingRate}
+                        />
+                    )}
+
             </>
             )}
 

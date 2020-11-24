@@ -11,6 +11,6 @@ export const searchAPI = {
         return instance.post('booking/freight-rate/search/', search_data)
     },
     getFrozenChoices(){
-        return instance.get("/core/choices?models=frozen_choices")
+        return instance.get("/core/choices/?models=frozen_choices")
     }
 }

@@ -3,7 +3,6 @@ import { CargoGroupType, SearchResultType } from "src/_BLL/types/search/search_t
 
 
 const initialState = {
-  cargo_details: null as CargoDetailsValue[] | null,
   booking_step: "shipping-form",
   current_booking_freight_rate_id: null as number | null,
   booking_dates: null as { date_from: string; date_to: string } | null,
@@ -20,11 +19,6 @@ export const bookingReducer = (
   action: commonBookingActions
 ):InitialStateType => {
   switch (action.type) {
-    case "SET_CARGO_DETAILS":
-      return {
-        ...state,
-        cargo_details: action.details,
-      };
     case "CHANGE_BOOKING_STEP":
       return {
         ...state,
@@ -71,8 +65,6 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U }
 export type commonBookingActions = AC<typeof bookingActions>;
 
 export const bookingActions = {
-  setCargoDetails: (details: CargoDetailsValue[]) =>
-    ({ type: "SET_CARGO_DETAILS", details } as const),
   changeBookingStep: (step: string) =>
     ({ type: "CHANGE_BOOKING_STEP", step } as const),
   set_current_booking_freight_rate_id: (id: number) =>

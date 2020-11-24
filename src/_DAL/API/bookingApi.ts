@@ -3,7 +3,7 @@ import {BookingShipmentDetailsType, PostBookingData } from "../../_BLL/types/boo
 
 export const bookingApi = {
   getReleaseTypeChoices() {
-    return instance.get("/core/choices?models=release_type");
+    return instance.get("/core/choices/?models=release_type");
   },
   postBooking(data: PostBookingData) {
     return instance.post("/booking/booking/", data);

@@ -1,11 +1,10 @@
 import React from "react";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import {ButtonWrap, Container, TextWrap} from "./edit-popup-styles";
 import styled from "styled-components";
 
 
 type PropsType = {
-    callback: VoidFunctionType
+    callback: (value: boolean) => void
 }
 
 const EditUserPopup:React.FC<PropsType> = ({callback}) => {

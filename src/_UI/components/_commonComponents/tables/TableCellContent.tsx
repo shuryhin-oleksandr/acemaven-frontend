@@ -2,12 +2,11 @@ import React from "react";
 import SearchInput from "../search_input/SearchInput";
 import TableSortButton from "../buttons/table_sort_button/TableSortButton";
 import TableSearchButton from "../buttons/table_search_button/TableSearchButton";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 
 
 type PropsType = {
-    setSearchValue: VoidFunctionType,
-    setSearchMode: VoidFunctionType,
+    setSearchValue: (value: any) => void,
+    setSearchMode: (value: boolean) => void,
     direction: string,
     type: string,
     column_name: string,
@@ -15,7 +14,7 @@ type PropsType = {
     isSearchMode: boolean,
     title: string,
     searchColumn: string,
-    setSearchColumn: VoidFunctionType,
+    setSearchColumn: (value: string) => void,
     thunkName?: string,
     withoutSearch?:boolean,
     withoutOrdering?:boolean

@@ -71,15 +71,16 @@ type PropsType = {
     setWidgetsVisible?:(value:boolean)=>void,
     closeTotals?: VoidFunctionType,
     quote?: QuoteType,
+    bookingPopupVisible?: boolean
 }
 
-const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBookingPopupVisible,setWidgetsVisible, closeTotals,quote}) => {
+const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBookingPopupVisible,setWidgetsVisible, closeTotals,quote, ...props}) => {
     const classes = useStyles();
 
     const [isShown, setShow] = useState(false)
 
     return (
-            <CardContainer>
+            <CardContainer bookingPopupVisible={props.bookingPopupVisible}>
                 <CardInner>
                     {closeTotals && <IconButton onClick={closeTotals} style={{position: 'absolute', top: '5px',  right: '5px'}}>
                         <img src={close_icon} alt=""/>

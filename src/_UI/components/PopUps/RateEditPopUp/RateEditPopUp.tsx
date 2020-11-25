@@ -7,10 +7,9 @@ import {
   ButtonGroup,
 } from "./rate-edit-styles";
 import CancelButton from "../../_commonComponents/buttons/navFormButtons/CancelButton";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 
 type PropsType = {
-  setRateEditPopUpVisible: VoidFunctionType;
+  setRateEditPopUpVisible: (value: boolean) => void;
 };
 
 const RateEditPopUp: React.FC<PropsType> = ({ setRateEditPopUpVisible }) => {

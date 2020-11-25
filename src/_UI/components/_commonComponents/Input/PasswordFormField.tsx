@@ -3,20 +3,19 @@ import FormField from "./FormField";
 import eye from "../../../assets/icons/mdi_eye.svg";
 import closeIcon from "../../../assets/icons/mdi_eye-off.svg";
 import styled from "styled-components";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 
 type PropsType = {
     placeholder?: string,
     name: string,
     value?: string,
-    onChange?: VoidFunctionType,
+    onChange?: (value: string) => void,
     inputRef?: React.Ref<HTMLInputElement>,
     errors?: any,
     label?: string,
     getValues: (key: string) => Record<string, unknown>,
     type?: string,
     register?: any,
-    setShowPassword: VoidFunctionType,
+    setShowPassword: (value: boolean) => void,
     showPassword: boolean
 }
 

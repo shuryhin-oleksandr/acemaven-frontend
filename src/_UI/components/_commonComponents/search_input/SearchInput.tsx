@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
 import { SearchField, SearchIcon, SearchWrap } from "./search-input-styles";
-import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import { filterByThunk } from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import search_icon from "../../../../_UI/assets/icons/rates&services/search_loop.svg";
 import { getFilteredRateListThunk } from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
@@ -12,15 +11,15 @@ import close_icon from '../../../assets/icons/close-icon.svg'
 import {useDispatch} from "react-redux";
 
 type PropsType = {
-  setSearchMode: VoidFunctionType;
-  setSearchValue: VoidFunctionType;
+  setSearchMode: (value: boolean) => void;
+  setSearchValue:(value: any) => void;
   direction: string;
   type: string;
   column_name: string;
   searchValue: string;
   searchColumn: string;
   thunkName?: string;
-  setSearchColumn: VoidFunctionType;
+  setSearchColumn: (value: string) => void;
 };
 
 const SearchInput: React.FC<PropsType> = ({

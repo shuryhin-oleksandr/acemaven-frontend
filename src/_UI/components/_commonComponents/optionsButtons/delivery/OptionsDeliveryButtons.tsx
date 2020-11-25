@@ -1,5 +1,4 @@
 import React from "react";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import {
   OptionButton,
   OptionButtonPlane,
@@ -15,11 +14,12 @@ import { getFilteredRateListThunk } from "../../../../../_BLL/thunks/rates&surch
 import { getAgentQuotesListThunk } from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
 import { getBookingRequestListThunk } from "../../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
 import {useDispatch} from "react-redux";
+import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 type PropsType = {
-  setMode?: VoidFunctionType;
+  setMode?: (value: CurrentShippingType) => void;
   mode: string;
-  dispatch?: VoidFunctionType;
+  dispatch?: any;
   directory: string;
   searchColumn: string;
   searchValue: string;
@@ -37,7 +37,7 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
 
   const dispatch = useDispatch()
 
-  let dispatchDeliveryHandler = (type: string) => {
+  let dispatchDeliveryHandler = (type: CurrentShippingType) => {
     setMode && setMode(type);
     props.setShippingValue && props.setShippingValue(0);
     if (props.thunkName === "quotes") {

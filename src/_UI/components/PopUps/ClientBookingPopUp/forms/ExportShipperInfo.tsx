@@ -4,26 +4,23 @@ import {
   InputGroupName,
   BackButton,
 } from "../client-popup-styles";
-
 import {
   InputsWrapper,
   InputColWrapper,
   IsShipperWrapper,
 } from "./shipper-styles";
 import SearchCheckbox from "../../../_commonComponents/customCheckbox/searchCheckbox";
-
 import React, { useEffect, useState } from "react";
 import BaseButton from "../../../base/BaseButton";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import FormField from "../../../_commonComponents/Input/FormField";
 import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
 import { useDispatch } from "react-redux";
-import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
+
 
 type PropsType = {
   control: any;
-  setFormStep: VoidFunctionType;
+  setFormStep: (value: number) => void;
   formStep: number;
   getValues: any;
   register: any;

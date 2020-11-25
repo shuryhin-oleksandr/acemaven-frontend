@@ -2,7 +2,6 @@ import * as React from 'react'
 import {LinkWrap, IconWrap, Name, Outer, NestedWrap, NestedName, NestedOuter} from './nav-styles'
 import { nestedLink } from 'src/_BLL/helpers/nestedMenu/menuLinnks';
 import {NavLink, useHistory} from "react-router-dom";
-import {VoidFunctionType} from "../../../_BLL/types/commonTypes";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../_BLL/store";
@@ -15,7 +14,7 @@ type IProps = {
     activeIcon?: string,
     path?: string,
     nestedLinks?: nestedLink[],
-    setChecked?: VoidFunctionType,
+    setChecked?: (value: string) => void,
     checkedLink?: string
 }
 
@@ -28,7 +27,7 @@ const MenuLink:React.FC<IProps> = ({   name, icon, activeIcon,  nestedLinks,
     const history = useHistory()
 
     let clickHandler = () => {
-        setChecked && setChecked(name)
+        setChecked && setChecked(String(name))
         !fullMenu ? setFullMenu(true) : setFullMenu(false)
         !nestedLinks && history.push(String(path))
     }

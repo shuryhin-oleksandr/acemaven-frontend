@@ -13,17 +13,20 @@ type PropsType = {
     search_result: SearchResultType[],
     shippingValue:number,
     setBookingPopupVisible?:(value:boolean)=>void
-    setWidgetsVisible?:(value:boolean)=>void
+    setWidgetsVisible?:(value:boolean)=>void,
+
 }
 
-const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup, search_result,shippingValue,setBookingPopupVisible,setWidgetsVisible}) => {
+const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup, search_result,shippingValue,setBookingPopupVisible,setWidgetsVisible, }) => {
 
     return (
         <SearchWrapper >
             {search_result.length > 0
-                ? search_result.map((s) => <SearchCard showRatingPopup={showRatingPopup}   shippingValue={shippingValue}
-
-                                                      search_result={s} setBookingPopupVisible={setBookingPopupVisible} setWidgetsVisible={setWidgetsVisible}
+                ? search_result.map((s) => <SearchCard showRatingPopup={showRatingPopup}
+                                                       shippingValue={shippingValue}
+                                                       search_result={s}
+                                                       setBookingPopupVisible={setBookingPopupVisible}
+                                                       setWidgetsVisible={setWidgetsVisible}
                 />
                 )
                 : null

@@ -7,11 +7,10 @@ import {
   PopupContainer,
   PopupContent,
 } from "./cancel-popup-styles";
-import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
-const close = require("../../../../_UI/assets/icons/close-icon.svg") as string;
+import close from "../../../../_UI/assets/icons/close-icon.svg";
 
 type PropsTypes = {
-  setIsOpen: VoidFunctionType;
+  setIsOpen: (value: boolean) => void;
   things: string
 };
 

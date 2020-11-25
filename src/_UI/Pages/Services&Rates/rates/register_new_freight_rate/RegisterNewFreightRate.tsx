@@ -23,7 +23,6 @@ import {
 import { registerNewFreightRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { useDispatch } from "react-redux";
 import { Outer } from "../../surcharge/register_new_surcharge/form-styles";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {RateForSurchargeType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import {ErrorServerMessage} from "../../../SignInPage";
 import { useHistory } from "react-router-dom";
@@ -49,7 +48,7 @@ type PropsType = {
   closePortsHandler: any;
   getBookedRatesDates: (p:PortType) => void;
   usageFees: ContainerType[];
-  setNewSurchargePopUpVisible: VoidFunctionType;
+  setNewSurchargePopUpVisible: (value: boolean) => void;
   existing_surcharge: any
   surcharge: SurchargeInfoType | null
   rate_data_for_surcharge: RateForSurchargeType | null

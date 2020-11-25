@@ -2,11 +2,10 @@ import React from "react";
 import CancelButton from "../../_commonComponents/buttons/navFormButtons/CancelButton";
 import {ButtonsWrapper, CloseButton, Inner, PopupContent, PopupOuter, TextWrap} from "./surcharge-styles";
 import BaseButton from "../../base/BaseButton";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import closeIcon from '../../../../_UI/assets/icons/close-icon.svg'
 
 type PropsType = {
-    setIsOpen?: VoidFunctionType
+    setIsOpen?: (value: boolean) => void
 }
 
 const SurchargePopup: React.FC<PropsType> = ({setIsOpen}) => {

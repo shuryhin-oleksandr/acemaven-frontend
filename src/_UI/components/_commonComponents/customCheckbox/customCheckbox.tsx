@@ -12,7 +12,7 @@ type PropsType = {
     error?: any,
     getValues: (key: string) => Record<string, unknown>,
     disabled: any,
-    setRole: VoidFunctionType,
+    setRole: (value: string) => void,
     roleValue: string,
     success_user?: boolean,
     worker?: IAddNewUserData,

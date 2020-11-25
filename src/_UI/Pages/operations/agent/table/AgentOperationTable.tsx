@@ -13,6 +13,7 @@ import {OperationType} from "../../../../../_BLL/types/operations/operationsType
 //components
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import OperationsRow from "./OperationsRow";
+import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 
 const useStyles = makeStyles({
@@ -73,7 +74,7 @@ type PropsType = {
     setSearchMode: (value: boolean) => void
     isSearchMode: boolean
     mode: string
-    setMode: (value: string) => void
+    setMode: (value: CurrentShippingType) => void
     searchValue: string
     setSearchValue: (value: string) => void
     search_column: string

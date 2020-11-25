@@ -69,9 +69,9 @@ const ChargesTable:React.FC<PropsType> = ({charges_cost}) => {
                         <TableCell className={classes.cell} align="left">
                             TYPE
                         </TableCell>
-                        <TableCell className={classes.cell} align="left">
+                        {/*<TableCell className={classes.cell} align="left">
                             CARGO DESCRIPTIONS
-                        </TableCell>
+                        </TableCell>*/}
                         <TableCell className={classes.cell} align="left">
                             CHARGE
                         </TableCell>
@@ -90,7 +90,7 @@ const ChargesTable:React.FC<PropsType> = ({charges_cost}) => {
                     {charges_cost?.cargo_groups.map((cc, index) => <TableRow key={index} className={classes.row}>
                         <TableCell className={classes.innerCell} align="left">{cc.volume}</TableCell>
                         <TableCell className={classes.innerCell} align="left">{cc.cargo_type}</TableCell>
-                        <TableCell className={classes.innerCell} align="left">??</TableCell>
+                        {/*<TableCell className={classes.innerCell} align="left"></TableCell>*/}
                         <TableCell className={classes.innerCell} align="left">
                             FREIGHT <br/>
                             HANDLING <br/>
@@ -115,7 +115,6 @@ const ChargesTable:React.FC<PropsType> = ({charges_cost}) => {
                     <TableRow className={classes.row}>
                         <TableCell className={classes.innerCell_doc} align="left"/>
                         <TableCell className={classes.innerCell_doc} align="left"/>
-                        <TableCell className={classes.innerCell_doc} align="left"/>
                         <TableCell className={classes.innerCell_doc} align="left">
                             DOC FEE
                         </TableCell>
@@ -130,7 +129,6 @@ const ChargesTable:React.FC<PropsType> = ({charges_cost}) => {
                         </TableCell>
                     </TableRow>
                     <TableRow className={classes.row}>
-                        <TableCell className={classes.innerCell} align="left"/>
                         <TableCell className={classes.innerCell} align="left"/>
                         <TableCell className={classes.innerCell} align="left"/>
                         <TableCell className={classes.innerCell} align="left"/>

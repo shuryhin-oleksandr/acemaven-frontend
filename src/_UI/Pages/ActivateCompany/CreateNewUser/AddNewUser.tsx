@@ -3,7 +3,6 @@ import {AddContainer, CancelButton, ContentWrap, NavigationWrap} from './add-new
 import AddUserForm from "./AddUserForm";
 import UsersList from "./UsersList/UsersLIst";
 import BaseNextButton from "../../../components/base/BaseNextButton/index";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import styled from "styled-components";
 import {NavLink} from "react-router-dom";
 import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
@@ -11,7 +10,7 @@ import {AddUserError} from "../../../../_BLL/reducers/profileReducer";
 
 
 type PropsType = {
-    setIsOpen: VoidFunctionType,
+    setIsOpen: (value: boolean) => void;
     list?: Array<IAddNewUserData> | null,
     server_error?: AddUserError | null
 }

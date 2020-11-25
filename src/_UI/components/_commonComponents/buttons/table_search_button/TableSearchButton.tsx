@@ -1,6 +1,4 @@
 import React from "react";
-//types
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 //styles
 import {SearchButton} from "./table-search-button-style";
 //icons
@@ -9,8 +7,8 @@ import search_icon from "../../../../assets/icons/rates&services/search_loop.svg
 
 
 type PropsType = {
-    setSearchMode: VoidFunctionType,
-    setSearchColumn: VoidFunctionType,
+    setSearchMode: (value: boolean) => void,
+    setSearchColumn: (value: string) => void,
     column_name: string
 }
 

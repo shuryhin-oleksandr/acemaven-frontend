@@ -5,7 +5,6 @@ import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
 import FinishFormButtons
     from "../../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
-import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {IAddNewBank} from "../../../../../../_BLL/types/addNewUserTypes";
 import {addBankAccount} from "../../../../../../_BLL/reducers/profileReducer";
 import {ErrorServerMessage} from "../../../../SignInPage";
@@ -15,8 +14,8 @@ import {AppStateType} from "../../../../../../_BLL/store";
 
 
 type PropsType = {
-    setIsAdd?: VoidFunctionType,
-    dispatch?: VoidFunctionType
+    setIsAdd?: any,
+    dispatch?: any
 }
 
 const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {

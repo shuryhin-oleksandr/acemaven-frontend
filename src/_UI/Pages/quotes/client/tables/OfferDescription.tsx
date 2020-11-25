@@ -53,7 +53,10 @@ const useStyles = makeStyles({
 
 const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, offerViewedHandler, quote}) => {
     const classes = useStyles();
+
+    //local state
     const [showTotals, setShowTotals] = useState(false)
+    const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
     let [totalId, setTotalId] = useState(0);
 
     let totalsHandler = (id: number) => {
@@ -66,11 +69,9 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
         setShowTotals(false)
     }
 
-    const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
 
-    const currentBookingRate = useSelector(
-        (state: AppStateType) => state.booking.current_booking_freight_rate
-    );
+    //data from store
+    const currentBookingRate = useSelector((state: AppStateType) => state.booking.current_booking_freight_rate);
 
     return (
         <>
@@ -134,6 +135,7 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                                 closeTotals={closeTotals}
                                 quote={quote}
                                 setBookingPopupVisible={setBookingPopupVisible}
+                                bookingPopupVisible={bookingPopupVisible}
 
                     />
                     </CardsAbsoluteWrapper>
@@ -144,6 +146,7 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                             setBookingPopupVisible={setBookingPopupVisible}
                             currentFreightRate={currentBookingRate}
                             quote_dates={{date_from: String(quote?.date_from), date_to: String(quote?.date_to)}}
+                            close_totals={closeTotals}
                         />
                     )}
 

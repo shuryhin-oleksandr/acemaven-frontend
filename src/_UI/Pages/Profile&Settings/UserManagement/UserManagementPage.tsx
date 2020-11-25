@@ -6,14 +6,13 @@ import UserPart from "../../ActivateCompany/CreateNewUser/UsersList/list/UserPar
 import EditUserCardForm from "./editUserCardForm/EditUserCardForm";
 import AddUserForm from "./AddUserForm/AddUserForm";
 import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import {deleteWorker, profileActions} from "../../../../_BLL/reducers/profileReducer";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../_BLL/store";
 
 type PropsType = {
     workersList?: Array<IAddNewUserData> | null,
-    dispatch: VoidFunctionType,
+    dispatch: any,
     my_id?: number
 }
 

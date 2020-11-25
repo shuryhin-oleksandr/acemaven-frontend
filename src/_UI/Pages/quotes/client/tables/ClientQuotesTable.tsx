@@ -8,16 +8,17 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+//types
+import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 //BLL
 import {useDispatch} from "react-redux";
-import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+import {makeOfferViewedThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 //components
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import QuoteRow from "./QuoteRow";
 //styles
 import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "./client-quotes-table-styles";
-import {makeOfferViewedThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 
 
 type PropsType = {

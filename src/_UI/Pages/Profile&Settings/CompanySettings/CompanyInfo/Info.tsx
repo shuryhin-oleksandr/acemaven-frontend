@@ -1,11 +1,10 @@
 import React from 'react'
 import {EditIcon, Field, FieldsContent, FieldsWrap, Label, TextWrap} from "./company-info-styles";
 import editIcon from "../../../../assets/icons/profile/editProfile.svg";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {CompanyInfoType} from "../../../../../_BLL/types/profileSettingsType";
 
 type PropsType = {
-    setEdit: VoidFunctionType,
+    setEdit: (value: boolean) => void,
     companyInfo?: CompanyInfoType | null,
     company_type: string
 }

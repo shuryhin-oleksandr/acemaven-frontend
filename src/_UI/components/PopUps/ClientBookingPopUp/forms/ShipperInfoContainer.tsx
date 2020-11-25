@@ -1,7 +1,6 @@
 import React from "react";
 import ExportShipperInfo from "./ExportShipperInfo";
 import ImportShipperInfo from "./ImportShipperInfo";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
 import { useForm } from "react-hook-form";
@@ -13,7 +12,7 @@ import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingRedu
 
 type PropsType = {
   direction: string;
-  setFormStep: VoidFunctionType;
+  setFormStep: (value: number) => void;
   formStep: number;
   companyInfo: CompanyInfoType | null;
   currentUser: IAuthUserInfo | null;

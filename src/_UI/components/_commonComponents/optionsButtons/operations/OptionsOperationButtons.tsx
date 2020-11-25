@@ -4,10 +4,11 @@ import {useDispatch} from "react-redux";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import styled from "styled-components";
 import {getAgentsOperationsThunk} from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 
 type PropsType = {
-    setMode?: VoidFunctionType;
+    setMode?: (value: CurrentShippingType) => void;
     mode: string;
     dispatch?: VoidFunctionType;
     directory: string;

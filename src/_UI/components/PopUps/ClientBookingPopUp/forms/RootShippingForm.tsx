@@ -31,6 +31,7 @@ const RootShippingForm: React.FC<PropsType> = ({
           formStep={formStep}
           shippingValue={shippingValue}
           currentFreightRate={currentFreightRate}
+          quotes_mode={true}
         />
       </div>
       <div style={{ display: formStep === 2 ? "block" : "none" }}>

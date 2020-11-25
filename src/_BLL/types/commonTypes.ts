@@ -1,2 +1,2 @@
-export type VoidFunctionType = (value: any) => void
+export type VoidFunctionType = () => void
 export type DateType = {from: string, to: string}

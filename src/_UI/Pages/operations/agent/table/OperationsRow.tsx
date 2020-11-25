@@ -97,8 +97,8 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
                     <div>{operation.freight_rate.destination.code}</div></TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <CargosOuter>
-                        {operation.cargo_groups.map(c => {
-                            return <span>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
+                        {operation.cargo_groups.map((c, index) => {
+                            return <span key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
                                 {c.total_wm && ` - ${c.total_wm}w/m`}</span>
                         })}
                     </CargosOuter>

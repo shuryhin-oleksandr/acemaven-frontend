@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {FormContainer, FormWrap} from "./add-user-form-styles";
 import FinishFormButtons from "../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
@@ -7,13 +6,13 @@ import {useForm} from "react-hook-form";
 import CustomCheckbox from "../../../../components/_commonComponents/customCheckbox/customCheckbox";
 import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 import styled from "styled-components";
-import {addNewWorker, AddUserError} from "../../../../../_BLL/reducers/profileReducer";
+import {addNewWorker} from "../../../../../_BLL/reducers/profileReducer";
 import {IAddNewUserData} from "../../../../../_BLL/types/addNewUserTypes";
 
 
 type PropsType = {
-    setIsAdd?: VoidFunctionType,
-    dispatch?: VoidFunctionType,
+    setIsAdd?: any,
+    dispatch?: any,
     server_error?: any
 }
 

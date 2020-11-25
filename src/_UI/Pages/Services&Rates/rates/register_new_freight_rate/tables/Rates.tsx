@@ -17,7 +17,6 @@ import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import DatesCells from "./DatesCells";
 import {getSurchargeForExactRateThunk} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import {RateForSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import styled from "styled-components";
@@ -70,7 +69,7 @@ type PropsType = {
     errors: any
     setValue: any
     register: any
-    setNewSurchargePopUpVisible: VoidFunctionType
+    setNewSurchargePopUpVisible: (value: boolean) => void
     getValues: any
     existing_surcharge: any
     surcharge: SurchargeInfoType | null

@@ -103,7 +103,7 @@ export const RowWrapper = styled.div`
 
 export const ContainerInfo = styled.div`
   font-family: "Helvetica Bold", sans-serif;
-  font-size: 18px;
+  font-size: 17px;
   color: #333333;
   padding-left: 25px;
 `;

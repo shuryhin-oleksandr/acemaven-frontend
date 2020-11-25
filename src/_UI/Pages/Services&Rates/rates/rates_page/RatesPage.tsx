@@ -17,7 +17,6 @@ import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
 import {FreightRateObjectType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useHistory } from "react-router-dom";
 import { setActiveOrPausedRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
@@ -81,14 +80,14 @@ const useStyles = makeStyles({
 
 type PropsType = {
   freight_rates_list: FreightRateObjectType[] | null;
-  dispatch: VoidFunctionType;
+  dispatch: any;
   directory: string;
   mode: string;
-  setSearchValue: VoidFunctionType;
+  setSearchValue: (value: any) => void;
   searchValue: string;
   searchColumn: string;
-  setSearchColumn: VoidFunctionType;
-  setNewRateMode: VoidFunctionType;
+  setSearchColumn: (value: string) => void;
+  setNewRateMode: (value: boolean) => void;
   setCheckedFreightRate: (rate: any) => void;
 };
 

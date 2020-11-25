@@ -14,13 +14,10 @@ import {TemplateIcon} from "../../../../components/_commonComponents/hover_messa
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import {Tooltip} from "@material-ui/core";
 import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { useHistory } from "react-router-dom";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
-import {useSelector} from "react-redux";
-import {getCurrentShippingTypeSelector} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
@@ -84,14 +81,14 @@ const useStyles = makeStyles({
 
 type PropsType = {
     surcharges_list: SurchargeObjectType[] | null,
-    dispatch: VoidFunctionType,
+    dispatch: any,
     directory: string,
     mode: string,
-    setSearchValue: VoidFunctionType,
+    setSearchValue: (value: any) => void,
     searchValue: string,
     searchColumn: string,
-    setSearchColumn: VoidFunctionType,
-    setNewSurchargeMode: VoidFunctionType
+    setSearchColumn: (value: string) => void,
+    setNewSurchargeMode: (value: boolean) => void
 }
 
 const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {

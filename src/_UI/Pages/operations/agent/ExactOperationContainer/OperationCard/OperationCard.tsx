@@ -1,4 +1,11 @@
 import React from "react";
+//material ui
+import { IconButton } from "@material-ui/core";
+//components
+import DocsAndNotesBlock from "./blocks/DocsAndNotesBlock";
+import ShipmentPartsBlock from "./blocks/ShipmentPartsBlock";
+import CargoBlock from "./blocks/CargoBlock";
+//styles
 import {
   AcceptButton,
   ActionsButtons,
@@ -7,6 +14,7 @@ import {
   CalendarIcon,
   CardContent,
   CardWrapper,
+  ConfirmButton,
   ContentHeader,
   GeneralBookingContent,
   GeneralShipType,
@@ -15,9 +23,7 @@ import {
   InfoRowValue,
   RejectButton,
   ValuesShipmentWrapper,
-} from "../../Requests/Booking_agent/booking_card/booking-card-style";
-import { IconButton } from "@material-ui/core";
-import close_icon from "../../../assets/icons/close-icon.svg";
+} from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {
   BookingTitle,
   NumberOfBooking,
@@ -25,30 +31,38 @@ import {
   SectionTitle,
   SectionWrapper,
 } from "./operation-card-style";
-import { GeneralTitle } from "../../quotes/agent/table/agent-quotes-styles";
-import sea_icon from "../../../assets/icons/rates&services/ship-surcharge.svg";
-import air_icon from "../../../assets/icons/rates&services/plane-surcharge.svg";
-import calendar_icon from "../../../assets/icons/date_1.svg";
-import down_arrow from "../../../assets/icons/rates&services/show_arrow.svg";
-import up_arrow from "../../../assets/icons/rates&services/hide_arrow.svg";
-import { DocumentsContent } from "../../Requests/Booking_agent/booking_card/blocks/hidden-part-styles";
-import DocsAndNotesBlock from "./blocks/DocsAndNotesBlock";
-import ShipmentPartsBlock from "./blocks/ShipmentPartsBlock";
-import CargoBlock from "./blocks/CargoBlock";
+import { GeneralTitle } from "../../../../quotes/agent/table/agent-quotes-styles";
+import { DocumentsContent } from "../../../../Requests/Booking_agent/booking_card/blocks/hidden-part-styles";
+//icons
+import close_icon from "../../../../../assets/icons/close-icon.svg";
+import sea_icon from "../../../../../assets/icons/rates&services/ship-surcharge.svg";
+import air_icon from "../../../../../assets/icons/rates&services/plane-surcharge.svg";
+import calendar_icon from "../../../../../assets/icons/date_1.svg";
+import down_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
+import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
 
-const OperationCard: React.FC = () => {
+
+type PropsType = {
+  operation_info: any,
+  history: any,
+  local_time: string,
+  openAcceptPopup: (value: boolean) => void,
+  my_name: string
+}
+
+const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time, openAcceptPopup, my_name}) => {
   return (
     <CardWrapper>
       <CardContent>
         <IconButton
           style={{ position: "absolute", top: "10px", right: "30px" }}
-          // onClick={() => history.push("/requests/booking")}
+          onClick={() => history.push("/operations")}
         >
           <img src={close_icon} alt="" style={{ width: "15px" }} />
         </IconButton>
         <ContentHeader>
           <BookingInfo>
-            <OperationNumber>0095VSL40</OperationNumber>
+            <OperationNumber>{operation_info?.aceid}</OperationNumber>
             <BookingTitle>
               Booking
               <NumberOfBooking>No ACY9087512</NumberOfBooking>
@@ -57,11 +71,16 @@ const OperationCard: React.FC = () => {
               <span style={{ color: "#1ab8e5", marginRight: "5px" }}>
                 STATUS
               </span>
-              05/11 21:00 BOOKING IS CONFIRMED LA LA LA LA
+              {local_time}{' '}{operation_info?.status}
             </BookingStatus>
           </BookingInfo>
           <ActionsButtons>
-            <AcceptButton>TAKE OVER</AcceptButton>
+            {operation_info?.status === "Booking Request in Progress" &&
+              (operation_info?.agent_contact_person === my_name
+                ? <ConfirmButton onClick={() => openAcceptPopup(true)}>CONFIRM OPERATION</ConfirmButton>
+                : <AcceptButton>TAKE OVER</AcceptButton>
+              )
+            }
             <RejectButton>CANCEL OPERATION</RejectButton>
           </ActionsButtons>
         </ContentHeader>

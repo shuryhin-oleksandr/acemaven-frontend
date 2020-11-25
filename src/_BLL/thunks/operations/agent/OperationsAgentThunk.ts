@@ -20,19 +20,22 @@ export const getAgentsOperationsThunk = (value: boolean | string) => {
 export const getAgentExactOperationThunk = (id: number) => {
     return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
         try {
+            dispatch(agentOperationsActions.setIsFetching(true))
             let res = await operationsAgentAPI.getAgentExactOperation(id)
             dispatch(agentOperationsActions.setAgentExactOperationInfo(res.data))
+            dispatch(agentOperationsActions.setIsFetching(false))
         } catch (e) {
             console.log(e)
+            dispatch(agentOperationsActions.setIsFetching(false))
         }
     }
 }
 
-export const confirmBookingRequestThunk = (data: BookingShipmentDetailsType) => {
+export const confirmBookingRequestThunk = (data: BookingShipmentDetailsType, history: any) => {
     return async (dispatch: Dispatch<any>) => {
         try {
-            let res = await operationsAgentAPI.confirmBookingRequest(data)
-
+            await operationsAgentAPI.confirmBookingRequest(data)
+            history.push('/operations')
         } catch (e) {
             console.log(e)
         }

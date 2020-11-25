@@ -1,4 +1,22 @@
 import React from 'react'
+//moments js
+import moment from 'moment';
+//react-redux
+import {useDispatch} from "react-redux";
+//react-hook-form
+import {Controller, useForm} from "react-hook-form";
+//react-router-om
+import { useHistory } from 'react-router-dom';
+//material ui
+import {IconButton} from "@material-ui/core";
+//BLL
+import {confirmBookingRequestThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+//components
+import FormField from "../../_commonComponents/Input/FormField";
+import AcceptPopupDates from "./AcceptPopupDates";
+import OutlineButton from "../../_commonComponents/buttons/outline_button/OutlineButton";
+import LocationContainer from "./LocationContainer";
+//styles
 import {
     AcceptContent,
     AcceptContentTitle,
@@ -7,27 +25,17 @@ import {
     AcceptWrapper,
     FormTextarea, TextareaLabel,
 } from "./accept-popup-styles";
-import {Controller, useForm} from "react-hook-form";
-import FormField from "../../_commonComponents/Input/FormField";
-import AcceptPopupDates from "./AcceptPopupDates";
-import {IconButton} from "@material-ui/core";
+//icons
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
-import OutlineButton from "../../_commonComponents/buttons/outline_button/OutlineButton";
-import LocationContainer from "./LocationContainer";
-import {BookingInfoType} from "../../../../_BLL/types/bookingTypes";
-import { useHistory } from 'react-router-dom';
-import moment from 'moment';
-import {useDispatch} from "react-redux";
-import {acceptBookingByAgentThunk} from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
 
 
 type PropsType = {
     openAcceptPopup: (value: boolean) => void,
-    exact_booking_info: BookingInfoType | null
+    exact_operation_info: any
 }
 
 
-const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) => {
+const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}) => {
     const {control, errors, handleSubmit, setValue, register} = useForm({
         reValidateMode: 'onBlur'
     })
@@ -35,10 +43,10 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
     const dispatch = useDispatch()
     const history = useHistory()
     const onSubmit = (values: any) => {
-        //console.log(values)
+
         let obj_data = {
             ...values,
-            booking: Number(exact_booking_info?.id),
+            booking: Number(exact_operation_info?.id),
             container_free_time: Number(values.container_free_time),
             document_cut_off_date: moment(values.documents_cut_off?.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off?.cut_off_time,
             cargo_cut_off_date: moment(values.cargo_cut_off?.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off?.cut_off_time,
@@ -52,13 +60,13 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
         !values.documents_cut_off?.cut_off_time && !values.cargo_cut_off?.cut_off_time && delete obj_data.cargo_cut_off_date && delete obj_data.document_cut_off_date
         !values.container_free_time && delete obj_data.container_free_time
         console.log(obj_data)
-        //dispatch(acceptBookingByAgentThunk(obj_data))
-        //history.push('/requests/booking/')
+        dispatch(confirmBookingRequestThunk(obj_data, history))
+
     }
 
-    let direction = exact_booking_info?.freight_rate.origin.is_local ? 'export' : 'import'
-    let shipping_mode = exact_booking_info?.freight_rate?.shipping_mode.title
-    let shipping_type = exact_booking_info?.shipping_type
+    let direction = exact_operation_info?.freight_rate.origin.is_local ? 'export' : 'import'
+    let shipping_mode = exact_operation_info?.freight_rate?.shipping_mode.title
+    let shipping_type = exact_operation_info?.shipping_type
 
     return (
         <AcceptWrapper>
@@ -73,7 +81,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
                                    placeholder='Placeholder'
                                    maxW='100%'
                                    name='booking_number'
-                                   defaultValue={exact_booking_info?.id}
+                                   defaultValue={exact_operation_info?.id}
                                    inputRef={register({required: 'Field is required'})}
                         />
                         {shipping_mode === 'LCL'
@@ -154,7 +162,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_booking_info}) 
                                                  time_name_second={'cargo_cut_off.cut_off_time'}
                                                  date_name_first={'documents_cut_off.from'}
                                                  date_name_second={'cargo_cut_off.to'}
-                                                 start_shipment_date={exact_booking_info?.date_from}
+                                                 start_shipment_date={exact_operation_info?.date_from}
                             />
                         }
                         <LocationContainer errors={errors}

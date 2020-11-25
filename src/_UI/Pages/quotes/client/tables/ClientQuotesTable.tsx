@@ -18,6 +18,7 @@ import QuoteRow from "./QuoteRow";
 //styles
 import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "./client-quotes-table-styles";
 import {makeOfferViewedThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 type PropsType = {
@@ -38,8 +39,7 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        height: 400,
-        overflowY: 'scroll',
+        paddingRight: "12px"
 
     },
     shipping_cell: {
@@ -112,87 +112,89 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                                         thunkName='quotes'
                 />
             </QuotesTableHeader>
-            <TableContainer className={classes.container} component={Paper}>
-                <Table aria-label="collapsible table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell className={classes.shipping_cell} align="left">
-                                <TableCellContent setSearchValue={props.setSearchValue}
-                                                  setSearchMode={props.setSearchMode}
-                                                  direction={''}
-                                                  type={props.mode}
-                                                  column_name='shipping_mode'
-                                                  searchValue={props.searchValue}
-                                                  isSearchMode={props.isSearchMode}
-                                                  title='SHIPPING MODE'
-                                                  searchColumn={props.search_column}
-                                                  setSearchColumn={props.setSearchColumn}
-                                                  thunkName='quotes'
-                                />
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                <TableCellContent setSearchValue={props.setSearchValue}
-                                                  setSearchMode={props.setSearchMode}
-                                                  direction={''}
-                                                  type={props.mode}
-                                                  column_name='route'
-                                                  searchValue={props.searchValue}
-                                                  isSearchMode={props.isSearchMode}
-                                                  title='ROUTE'
-                                                  searchColumn={props.search_column}
-                                                  setSearchColumn={props.setSearchColumn}
-                                                  thunkName='quotes'
-                                />
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                VOLUME
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                <TableCellContent setSearchValue={props.setSearchValue}
-                                                  setSearchMode={props.setSearchMode}
-                                                  direction={''}
-                                                  type={props.mode}
-                                                  column_name='date_from'
-                                                  searchValue={props.searchValue}
-                                                  isSearchMode={props.isSearchMode}
-                                                  title='SHIPMENT DATE'
-                                                  searchColumn={props.search_column}
-                                                  setSearchColumn={props.setSearchColumn}
-                                                  thunkName='quotes'
-                                />
-                            </TableCell>
-                            <TableCell className={classes.cell} align="center">
-                                OFFERS
-                            </TableCell>
-                            <TableCell className={classes.cell} align="right">
-                                <TableCellContent setSearchValue={props.setSearchValue}
-                                                  setSearchMode={props.setSearchMode}
-                                                  direction={''}
-                                                  type={props.mode}
-                                                  column_name='is_active'
-                                                  searchValue={props.searchValue}
-                                                  isSearchMode={props.isSearchMode}
-                                                  title='STATUS'
-                                                  searchColumn={props.search_column}
-                                                  setSearchColumn={props.setSearchColumn}
-                                                  thunkName='quotes'
-                                />
-                            </TableCell>
-                            <TableCell className={classes.cell} align="right">
-                               ACTIONS
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {my_quotes_list?.map(q => <QuoteRow key={q.id}
-                                                            quote={q}
-                                                            activeInactiveQuote={activeInactiveQuote}
-                                                            deleteQuoteByClient={deleteQuoteByClient}
-                                                            offerViewedHandler={offerViewedHandler}
-                        />)}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <ScrollbarStyled {...{style: {height: 400}}}>
+                <TableContainer className={classes.container} component={Paper}>
+                    <Table aria-label="collapsible table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className={classes.shipping_cell} align="left">
+                                    <TableCellContent setSearchValue={props.setSearchValue}
+                                                      setSearchMode={props.setSearchMode}
+                                                      direction={''}
+                                                      type={props.mode}
+                                                      column_name='shipping_mode'
+                                                      searchValue={props.searchValue}
+                                                      isSearchMode={props.isSearchMode}
+                                                      title='SHIPPING MODE'
+                                                      searchColumn={props.search_column}
+                                                      setSearchColumn={props.setSearchColumn}
+                                                      thunkName='quotes'
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    <TableCellContent setSearchValue={props.setSearchValue}
+                                                      setSearchMode={props.setSearchMode}
+                                                      direction={''}
+                                                      type={props.mode}
+                                                      column_name='route'
+                                                      searchValue={props.searchValue}
+                                                      isSearchMode={props.isSearchMode}
+                                                      title='ROUTE'
+                                                      searchColumn={props.search_column}
+                                                      setSearchColumn={props.setSearchColumn}
+                                                      thunkName='quotes'
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    VOLUME
+                                </TableCell>
+                                <TableCell className={classes.cell} align="left">
+                                    <TableCellContent setSearchValue={props.setSearchValue}
+                                                      setSearchMode={props.setSearchMode}
+                                                      direction={''}
+                                                      type={props.mode}
+                                                      column_name='date_from'
+                                                      searchValue={props.searchValue}
+                                                      isSearchMode={props.isSearchMode}
+                                                      title='SHIPMENT DATE'
+                                                      searchColumn={props.search_column}
+                                                      setSearchColumn={props.setSearchColumn}
+                                                      thunkName='quotes'
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.cell} align="center">
+                                    OFFERS
+                                </TableCell>
+                                <TableCell className={classes.cell} align="right">
+                                    <TableCellContent setSearchValue={props.setSearchValue}
+                                                      setSearchMode={props.setSearchMode}
+                                                      direction={''}
+                                                      type={props.mode}
+                                                      column_name='is_active'
+                                                      searchValue={props.searchValue}
+                                                      isSearchMode={props.isSearchMode}
+                                                      title='STATUS'
+                                                      searchColumn={props.search_column}
+                                                      setSearchColumn={props.setSearchColumn}
+                                                      thunkName='quotes'
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.cell} align="right">
+                                   ACTIONS
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {my_quotes_list?.map(q => <QuoteRow key={q.id}
+                                                                quote={q}
+                                                                activeInactiveQuote={activeInactiveQuote}
+                                                                deleteQuoteByClient={deleteQuoteByClient}
+                                                                offerViewedHandler={offerViewedHandler}
+                            />)}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </ScrollbarStyled>
         </QuotesTableContainer>
     )
 }

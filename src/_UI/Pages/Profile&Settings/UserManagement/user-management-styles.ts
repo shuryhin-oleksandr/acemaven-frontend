@@ -23,7 +23,7 @@ export const CardsOuter = styled.div<{editMode?: boolean}>`
   width: 100%;
   height: 100%;
   max-height: ${({editMode}) => editMode ? '700px' : '395px'};
-  overflow-y: auto;
+  // overflow-y: auto;
   ::-webkit-scrollbar { /* chrome based */
           width: 5px; /* ширина scrollbar'a */
           border-radius: 5px;

@@ -15,6 +15,7 @@ import billing from '../../assets/icons/sidebar/billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import activeSettings from '../../../_UI/assets/icons/sidebar/settingsActive.svg';
 import support from '../../assets/icons/sidebar/support.svg';
+import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 interface IProps {
@@ -26,6 +27,7 @@ const NavBar:React.FC<IProps> = () => {
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies)
 
     return (
+      <ScrollbarStyled {...{style: {height: "auto", minHeight: "calc(100vh - 60px)", width: "210px", flex: "none", backgroundColor: "black"}, navBar: true}}>
         <NavContainer>
             {
                 company_type && company_type[0].type !== 'agent'
@@ -73,6 +75,7 @@ const NavBar:React.FC<IProps> = () => {
             />
             <MenuLink icon={support} path='#' name='HELP AND SUPPORT'/>
         </NavContainer>
+      </ScrollbarStyled>
     )
 }
 

@@ -34,6 +34,35 @@ export const useStyles = makeStyles(() => ({
     cursor: "pointer",
     borderRadius: "inherit"
   },
+  trackVerticalNav: {
+    top: "2px",
+    bottom: "2px",
+    right: "2px",
+    borderRadius: "3px"
+  },
+  thumbVerticalNav: {
+    backgroundColor: `#FFFFFF`,
+    position: "relative",
+    display: "block",
+    width: "100%",
+    cursor: "pointer",
+    borderRadius: "inherit"
+  },
+  trackHorizontalNav: {
+    height: "6px",
+    left: "2px",
+    bottom: "2px",
+    right: "2px",
+    borderRadius: "3px"
+  },
+  thumbHorizontalNav: {
+    backgroundColor: `#FFFFFF`,
+    position: "relative",
+    display: "block",
+    width: "100%",
+    cursor: "pointer",
+    borderRadius: "inherit"
+  },
 }));
 
 type PropsType = {
@@ -41,12 +70,13 @@ type PropsType = {
 
 const ScrollbarStyled:React.FC<PropsType> = (props: any) => {
   const classes = useStyles();
+  const { navBar } = props;
   return (
       <Scrollbars
-        renderThumbHorizontal={props => <div {...props} className={classes.thumbHorizontal}/>}
-        renderThumbVertical={props => <div {...props} className={classes.thumbVertical}/>}
-        renderTrackHorizontal={props => <div {...props} className={classes.trackHorizontal}/>}
-        renderTrackVertical={props => <div {...props} className={classes.trackVertical}/>}
+        renderThumbHorizontal={props => <div {...props} className={navBar ? classes.thumbHorizontalNav : classes.thumbHorizontal}/>}
+        renderThumbVertical={props => <div {...props} className={navBar ? classes.thumbVerticalNav : classes.thumbVertical}/>}
+        renderTrackHorizontal={props => <div {...props} className={navBar ? classes.trackHorizontalNav : classes.trackHorizontal}/>}
+        renderTrackVertical={props => <div {...props} className={navBar ? classes.trackVerticalNav : classes.trackVertical}/>}
         style={props.style}
         hideTracksWhenNotNeeded={true}
       >

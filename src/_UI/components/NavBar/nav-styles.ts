@@ -23,7 +23,7 @@ flex-grow: 1;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
-padding-left: 15px;
+padding-left: 0px;
 padding-top: 30px;
 `
 

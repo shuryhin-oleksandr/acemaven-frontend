@@ -8,7 +8,6 @@ import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 type PropsType = {
     setSearchValue: VoidFunctionType,
     setSearchMode: VoidFunctionType,
-    dispatch: VoidFunctionType,
     direction: string,
     type: string,
     column_name: string,
@@ -28,7 +27,6 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...prop
             {props.isSearchMode && !props.withoutSearch
                 ? <SearchInput setSearchValue={setSearchValue}
                                setSearchMode={props.setSearchMode}
-                               dispatch={props.dispatch}
                                direction={props.direction}
                                type={props.type}
                                column_name={props.column_name}
@@ -43,8 +41,7 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...prop
                     {props.withoutOrdering?
                         null
                         :
-                        <TableSortButton dispatch={props.dispatch}
-                                         column_name={props.column_name}
+                        <TableSortButton column_name={props.column_name}
                                          direction={props.direction}
                                          mode={props.type}
                                          searchValue={props.searchValue}

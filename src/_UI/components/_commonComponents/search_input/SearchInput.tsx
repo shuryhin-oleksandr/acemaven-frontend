@@ -9,11 +9,11 @@ import {getAgentQuotesListThunk} from "../../../../_BLL/thunks/quotes/agentQuote
 import {getBookingRequestListThunk} from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
 import { IconButton } from "@material-ui/core";
 import close_icon from '../../../assets/icons/close-icon.svg'
+import {useDispatch} from "react-redux";
 
 type PropsType = {
   setSearchMode: VoidFunctionType;
   setSearchValue: VoidFunctionType;
-  dispatch: VoidFunctionType;
   direction: string;
   type: string;
   column_name: string;
@@ -26,13 +26,13 @@ type PropsType = {
 const SearchInput: React.FC<PropsType> = ({
   setSearchMode,
   setSearchValue,
-  dispatch,
   thunkName,
   setSearchColumn,
   ...props
 }) => {
 
 
+    const dispatch = useDispatch()
     const [input_value, setInputValue] = useState('')
 
   let handleKeyPress = (event: any, value: any) => {

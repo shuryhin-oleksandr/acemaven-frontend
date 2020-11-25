@@ -1,8 +1,6 @@
 import React from "react";
 //moment
 import moment from "moment";
-//react-redux
-import { useDispatch } from "react-redux";
 //react-router-dom
 import { useHistory } from "react-router-dom";
 //material ui
@@ -112,7 +110,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
   bookingList,
 }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
+
 
   const history = useHistory();
   let setCardOpen = (booking_id: number) => {
@@ -179,7 +177,6 @@ const AgentBookingListTable: React.FC<PropsType> = ({
               <TableCellContent
                 setSearchValue={setSearchValue}
                 setSearchMode={setSearchMode}
-                dispatch={dispatch}
                 direction={directory}
                 type={mode}
                 column_name="shipping_mode"
@@ -196,7 +193,6 @@ const AgentBookingListTable: React.FC<PropsType> = ({
               <TableCellContent
                 setSearchValue={setSearchValue}
                 setSearchMode={setSearchMode}
-                dispatch={dispatch}
                 direction={directory}
                 type={mode}
                 column_name="route"
@@ -212,7 +208,6 @@ const AgentBookingListTable: React.FC<PropsType> = ({
               <TableCellContent
                 setSearchValue={setSearchValue}
                 setSearchMode={setSearchMode}
-                dispatch={dispatch}
                 direction={directory}
                 type={mode}
                 column_name="client"
@@ -228,7 +223,6 @@ const AgentBookingListTable: React.FC<PropsType> = ({
               <TableCellContent
                 setSearchValue={setSearchValue}
                 setSearchMode={setSearchMode}
-                dispatch={dispatch}
                 direction={directory}
                 type={mode}
                 column_name="shipment_date"

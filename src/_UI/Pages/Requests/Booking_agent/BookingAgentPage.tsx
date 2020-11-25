@@ -42,7 +42,6 @@ const BookingAgentPage: React.FC<PropsType> = ({bookingList, ...props}) => {
             searchColumn={props.search_column}
             searchValue={props.searchValue}
             thunkName="agent_booking"
-            dispatch={props.dispatch}
           />
         </ContentHeader>
         <ContentTable>

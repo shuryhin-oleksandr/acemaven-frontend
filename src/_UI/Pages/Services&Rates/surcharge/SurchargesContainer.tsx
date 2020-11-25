@@ -64,7 +64,6 @@ const SurchargesContainer: React.FC = () => {
                 <OptionsDeliveryButtons mode={mode}
                                         directory={directory}
                                         setMode={setMode}
-                                        dispatch={dispatchHandler}
                                         searchColumn={search_column}
                                         searchValue={searchValue}
                 />
@@ -72,7 +71,6 @@ const SurchargesContainer: React.FC = () => {
                   directory={directory}
                   mode={mode}
                   setDirectory={setDirectory}
-                  dispatch={dispatchHandler}
                   searchColumn={search_column}
                   searchValue={searchValue}
                   margin_bottom='0'

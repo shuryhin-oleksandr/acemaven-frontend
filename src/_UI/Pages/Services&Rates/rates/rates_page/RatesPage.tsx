@@ -113,7 +113,6 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   <TableCellContent
                     setSearchValue={props.setSearchValue}
                     setSearchMode={setSearchMode}
-                    dispatch={props.dispatch}
                     direction={props.directory}
                     type={props.mode}
                     column_name="shipping_mode"
@@ -129,7 +128,6 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   <TableCellContent
                     setSearchValue={props.setSearchValue}
                     setSearchMode={setSearchMode}
-                    dispatch={props.dispatch}
                     direction={props.directory}
                     type={props.mode}
                     column_name="carrier"
@@ -145,7 +143,6 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   <TableCellContent
                     setSearchValue={props.setSearchValue}
                     setSearchMode={setSearchMode}
-                    dispatch={props.dispatch}
                     direction={props.directory}
                     type={props.mode}
                     column_name="origin"
@@ -161,7 +158,6 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   <TableCellContent
                     setSearchValue={props.setSearchValue}
                     setSearchMode={setSearchMode}
-                    dispatch={props.dispatch}
                     direction={props.directory}
                     type={props.mode}
                     column_name="destination"

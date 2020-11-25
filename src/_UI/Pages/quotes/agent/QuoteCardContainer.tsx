@@ -24,7 +24,7 @@ import {getCarriers} from "../../../../_BLL/thunks/rates&surcharge/surchargeThun
 import {quotesAgentActions} from "../../../../_BLL/reducers/quotes/quotesAgentReducer";
 //components
 import QuoteCard from "./QuoteCard";
-import QuoteBookingDetailsSkeleton from "../../../skeleton/agent_quote&booking_skeleton/QuoteBookingDetailsSkeleton";
+
 
 
 const QuoteCardContainer = ({...props}) => {
@@ -81,11 +81,8 @@ const QuoteCardContainer = ({...props}) => {
     }
 
     return (
-        <>
-            {isFetching || !exact_quote_info
-                ? <QuoteBookingDetailsSkeleton />
-                : <QuoteCard exact_quote_info={exact_quote_info ? exact_quote_info : null}
-                             carrier_list={exact_quote_info.shipping_type === 'sea' ? sea_carrier_list : air_carrier_list}
+                <QuoteCard exact_quote_info={exact_quote_info ? exact_quote_info : null}
+                             carrier_list={exact_quote_info?.shipping_type === 'sea' ? sea_carrier_list : air_carrier_list}
                              existing_rate_for_quote={existing_rate_for_quote}
                              existing_surcharge_for_quote={existing_surcharge_for_quote}
                              checked_surcharge_result={checked_surcharge_result}
@@ -98,9 +95,8 @@ const QuoteCardContainer = ({...props}) => {
                              isTemporaryPopup={isTemporaryPopup}
                              setIsTemporaryPopup={setIsTemporaryPopup}
                              history={history}
+                             isFetching={isFetching}
                 />
-            }
-        </>
     )
 }
 

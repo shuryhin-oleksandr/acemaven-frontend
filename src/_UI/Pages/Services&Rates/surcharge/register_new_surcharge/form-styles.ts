@@ -4,7 +4,8 @@ type PropsStyle = {
     mode?: string,
     w? : string,
     flex_direction?: string,
-    top?:string
+    top?:string,
+    belong_to?: string
 }
 
 export const Outer = styled.form`
@@ -98,6 +99,8 @@ export const OptionButton = styled.div<PropsStyle>`
   box-shadow: ${({ mode }) =>
     mode === "sea" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
   transition: 0.3s;
+  font-family: "Helvetica Reg", sans-serif;
+  
 
   &:hover {
     cursor: pointer;
@@ -116,6 +119,8 @@ export const OptionButtonPlane = styled.div<PropsStyle>`
   box-shadow: ${({ mode }) =>
     mode === "air" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
   transition: 0.3s;
+  font-family: "Helvetica Reg", sans-serif;
+  color: ${({ mode }) => mode === "air" ? "#1AB8E5" : "transparent"};
 
   &:hover {
     cursor: pointer;

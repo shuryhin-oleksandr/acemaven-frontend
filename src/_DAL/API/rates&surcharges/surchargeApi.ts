@@ -1,10 +1,10 @@
-import instance from "./axiosConfig";
+import instance from "../axiosConfig";
 import {
     editChargesType,
     editDatesType, editHandlingType,
     SurchargeCheckDateResponseType,
     SurchargeObjectType
-} from "../../_BLL/types/rates&surcharges/surchargesTypes";
+} from "../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 export const surchargeAPI = {
     getCarriersList () {

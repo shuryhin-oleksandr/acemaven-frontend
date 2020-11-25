@@ -7,8 +7,14 @@ const QuoteBookingDetailsSkeleton:React.FC = () => {
 
     return (
         <SkeletonWrapper>
-            <div style={{ width: '100%', marginBottom: '20px'}}>
-                <Skeleton variant="text" height={200} />
+            <div style={{ width: '100%', marginBottom: '20px', display: 'flex', justifyContent: 'space-between'}}>
+                <Skeleton variant="rect" height={57} width='490px'/>
+                <div style={{display: 'flex', alignItems: 'center', width: '400px', justifyContent: 'space-between'}}>
+                    <Skeleton variant="rect" height={40} width='120px'/>
+                    <Skeleton variant="rect" height={40} width='120px'/>
+                    <Skeleton variant="rect" height={40} width='120px'/>
+                </div>
+
             </div>
             <div style={{display: "flex", marginBottom: '40px', width: '100%'}}>
                 <Skeleton variant="rect" width={'18%'} height={200} style={{marginRight: '35px'}}/>

@@ -25,16 +25,13 @@ import {
   SectionTitle,
   SectionWrapper,
 } from "./operation-card-style";
-import { GeneralTitle } from "../../quotes/agent/table/agent-quotes-styles";
 import sea_icon from "../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_icon from "../../../assets/icons/rates&services/plane-surcharge.svg";
 import calendar_icon from "../../../assets/icons/date_1.svg";
-import down_arrow from "../../../assets/icons/rates&services/show_arrow.svg";
-import up_arrow from "../../../assets/icons/rates&services/hide_arrow.svg";
-import { DocumentsContent } from "../../Requests/Booking_agent/booking_card/blocks/hidden-part-styles";
 import DocsAndNotesBlock from "./blocks/DocsAndNotesBlock";
 import ShipmentPartsBlock from "./blocks/ShipmentPartsBlock";
 import CargoBlock from "./blocks/CargoBlock";
+import ShipmentTrackingBlock from "./blocks/ShipmentTrackingBlock";
 
 const OperationCard: React.FC = () => {
   return (
@@ -223,9 +220,7 @@ const OperationCard: React.FC = () => {
             </div>
           </GeneralBookingContent>
         </SectionWrapper>
-        <SectionWrapper>
-          <SectionTitle>SHIPMENT TRACKING</SectionTitle>
-        </SectionWrapper>
+        <ShipmentTrackingBlock />
         <SectionWrapper>
           <SectionTitle>CHARGES</SectionTitle>
           <div style={{ display: "flex" }}>

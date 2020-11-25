@@ -11,6 +11,7 @@ export const CreditCardsInner = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding-bottom: 5px;
 `
 export const CreditCardFormWrapper = styled.form`
  width: 638px;

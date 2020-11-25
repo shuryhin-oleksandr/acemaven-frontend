@@ -5,6 +5,7 @@ import CreditCardCard from "./CreditCardCard";
 import CreditCardForm from "./CreditCardForm";
 //styles
 import {CreditCardsInner, CreditCardsWrapper} from "./credit-cards-styles";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 type PropsType = {
@@ -15,6 +16,7 @@ const CreditCardsContainer:React.FC<PropsType> = ({credit_cards}) => {
     const [isAdd, setIsAdd] = useState(false)
 
     return (
+      <ScrollbarStyled {...{style: {height: "100%"}}}>
         <CreditCardsWrapper>
             <CreditCardsInner>
                 {!isAdd
@@ -24,6 +26,7 @@ const CreditCardsContainer:React.FC<PropsType> = ({credit_cards}) => {
                 {credit_cards.length > 0 && credit_cards.map(c => <CreditCardCard card={c}/>)}
             </CreditCardsInner>
         </CreditCardsWrapper>
+      </ScrollbarStyled>
     )
 }
 

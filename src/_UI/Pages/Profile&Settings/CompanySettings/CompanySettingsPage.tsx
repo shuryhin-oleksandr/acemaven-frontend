@@ -19,7 +19,6 @@ export const useStyles = makeStyles((theme: Theme) => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
         width: '100%',
-        height: 0,
     },
     header: {
         backgroundColor: 'white',

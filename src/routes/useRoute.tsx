@@ -21,7 +21,7 @@ import BookingCardContainer from "../_UI/Pages/Requests/Booking_agent/booking_ca
 import {useSelector} from "react-redux";
 import {AppStateType} from "../_BLL/store";
 import QuoteCardContainer from "../_UI/Pages/quotes/agent/QuoteCardContainer";
-import ExactOperationContainer from "../_UI/Pages/ExactOperationContainer/ExactOperationContainer";
+import ExactOperationContainer from "../_UI/Pages/operations/agent/ExactOperationContainer/ExactOperationContainer";
 import OperationsContainer from 'src/_UI/Pages/operations/OperationsContainer';
 
 

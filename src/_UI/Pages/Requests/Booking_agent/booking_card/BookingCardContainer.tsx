@@ -23,7 +23,6 @@ import BookingCard from './BookingCard';
 import AssignAgentPopup from "../../../../components/PopUps/assign_master_to_booking/AssignAgentPopup";
 import AssignConfirmationPopup from "../../../../components/PopUps/assign_master_to_booking/AssignConfirmationPopup";
 import RejectBookingByAgentPopup from "../../../../components/PopUps/reject_booking_by_agent/RejectBookingByAgentPopup";
-import AcceptPopup from "../../../../components/PopUps/accept_booking_popup/AcceptPopup";
 import MovedToOperationsPopup from "../../../../components/PopUps/moved_to_operations_popup/MovedToOperationsPopup";
 
 
@@ -64,7 +63,6 @@ const BookingCardContainer:React.FC = () => {
     const [agent_full_name, setAgentFullName] = useState('')
     const [agent_id, setAgentId] = useState(0)
     const [isRejectPopupOpen, setRejectPopupOpen] = useState(false)
-    const [isAcceptPopup, openAcceptPopup] = useState(false)
     const [isMovedToOperations, setMovedToOperations] = useState(false)
 
     //data from store
@@ -91,9 +89,6 @@ const BookingCardContainer:React.FC = () => {
                     />}
                     {isRejectPopupOpen && <RejectBookingByAgentPopup setRejectPopupOpen={setRejectPopupOpen}
                     />}
-                    {/*{isAcceptPopup && <AcceptPopup openAcceptPopup={openAcceptPopup}
-                                                   exact_booking_info={exact_booking_info ? exact_booking_info : null}
-                    />}*/}
                     {isMovedToOperations && <MovedToOperationsPopup setMovedToOperations={setMovedToOperations}/>}
                     <BookingCard setAssignAgent={setAssignAgent}
                                  setRejectPopupOpen={setRejectPopupOpen}

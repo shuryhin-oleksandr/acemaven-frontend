@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import Layout from "../../components/BaseLayout/Layout";
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//BLL
 import {AppStateType} from "../../../_BLL/store";
-import AgentOperationsListContainer from './agent/AgentOperationsListContainer';
 import {getAgentsOperationsThunk} from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {getAgentsOperationsListSelector} from "../../../_BLL/selectors/operations/agentOperationsSelector";
+//components
+import Layout from "../../components/BaseLayout/Layout";
+import AgentOperationsListContainer from './agent/AgentOperationsListContainer';
 
 
 const OperationsContainer:React.FC = () => {

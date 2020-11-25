@@ -8,10 +8,12 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//types
+import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
 //components
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import OperationsRow from "./OperationsRow";
-import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
+
 
 const useStyles = makeStyles({
     container: {

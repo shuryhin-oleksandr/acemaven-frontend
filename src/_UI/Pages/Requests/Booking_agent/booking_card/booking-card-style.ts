@@ -68,6 +68,24 @@ export const AcceptButton = styled.button`
     cursor: pointer;
   }
 `
+export const ConfirmButton = styled.button`
+  height: 40px;
+  width: 200px;
+  outline: none;
+  border: none;
+  background-color: black;
+  color: white;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+  
+  &:hover {
+    cursor: pointer;
+  }
+`
 export const AssignButton = styled(AcceptButton)``
 export const RejectButton = styled.button`
   height: 40px;

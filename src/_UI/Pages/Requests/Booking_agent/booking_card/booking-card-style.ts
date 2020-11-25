@@ -71,7 +71,7 @@ export const AcceptButton = styled.button`
 export const AssignButton = styled(AcceptButton)``
 export const RejectButton = styled.button`
   height: 40px;
-  width: 134px;
+  padding: 0 39px;
   outline: none;
   border: 1px solid #3b3b41;
   background: none;

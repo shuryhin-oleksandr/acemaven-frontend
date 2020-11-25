@@ -1,6 +1,6 @@
 import React from "react";
 import {SpinnerContainer, SpinnerContent} from "./spinner-styles";
-import spinner from '../../../../_UI/assets/icons/spinner.gif'
+import spinner from '../../../../_UI/assets/icons/fly_loading.gif'
 
 const Spinner:React.FC = () => {
     return (

@@ -1,0 +1,63 @@
+import React, {useEffect, useState} from "react";
+//moment js
+import moment from "moment";
+//react-router-dom
+import {useHistory, withRouter } from "react-router-dom";
+//react-redux
+import {useDispatch, useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../../../_BLL/store";
+import {getAgentExactOperationThunk} from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {
+    getExactOperationSelector,
+    getIsFetchingOperationSelector
+} from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
+//components
+import Layout from "../../../../components/BaseLayout/Layout";
+import OperationCard from "./OperationCard/OperationCard";
+import AcceptPopup from "../../../../components/PopUps/accept_booking_popup/AcceptPopup";
+import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+
+
+
+const ExactOperationContainer = ({...props}) => {
+
+    //local state
+    let operation_id = props.match.params.id;
+    let local_time = moment(new Date()).format(' DD/MM  h:mm a');
+    let first_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.first_name)
+    let last_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.last_name)
+    let my_name = first_name && first_name + last_name && last_name
+    const [isAcceptPopup, openAcceptPopup] = useState(false)
+
+    //data from store
+    let operation_info = useSelector(getExactOperationSelector)
+    let isFetching = useSelector(getIsFetchingOperationSelector)
+
+    //hooks
+    const history = useHistory()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAgentExactOperationThunk(operation_id))
+    }, [])
+
+  return (
+    <Layout>
+        {isAcceptPopup && <AcceptPopup openAcceptPopup={openAcceptPopup}
+                                       exact_operation_info={operation_info}
+                    />}
+        {isFetching || !operation_info
+            ? <SpinnerForAuthorizedPages />
+            : <OperationCard  operation_info={operation_info}
+                              history={history}
+                              local_time={local_time}
+                              openAcceptPopup={openAcceptPopup}
+                              my_name={String(my_name)}
+            />
+        }
+    </Layout>
+  );
+};
+
+export default withRouter(ExactOperationContainer);

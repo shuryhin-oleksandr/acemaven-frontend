@@ -17,6 +17,27 @@ z-index: 100;
 
 export const SpinnerContent = styled.div`
   img {
-    width: 100px;
+    width: 150px;
+  }
+`
+
+export const SpinnerAuthContainer = styled.div`
+width: 100%;
+height: 100%;
+min-height: 100vh;
+background-color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 100;
+`
+export const SpinnerAuthContent = styled.div`
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+  img {
+    width: 150px;
   }
 `

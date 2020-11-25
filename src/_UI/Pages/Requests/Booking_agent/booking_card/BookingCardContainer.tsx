@@ -4,7 +4,9 @@ import {useDispatch, useSelector} from "react-redux";
 //react-router-dom
 import {useHistory, useParams } from 'react-router-dom';
 //BLL
+import {AppStateType} from "../../../../../_BLL/store";
 import {
+    acceptBookingByAgentThunk,
     assignAgentThunk,
     getBookingInfoByIdThunk,
     getMyAgentsThunk
@@ -21,9 +23,7 @@ import BookingCard from './BookingCard';
 import AssignAgentPopup from "../../../../components/PopUps/assign_master_to_booking/AssignAgentPopup";
 import AssignConfirmationPopup from "../../../../components/PopUps/assign_master_to_booking/AssignConfirmationPopup";
 import RejectBookingByAgentPopup from "../../../../components/PopUps/reject_booking_by_agent/RejectBookingByAgentPopup";
-import AcceptPopup from "../../../../components/PopUps/accept_booking_popup/AcceptPopup";
 import MovedToOperationsPopup from "../../../../components/PopUps/moved_to_operations_popup/MovedToOperationsPopup";
-import QuoteBookingDetailsSkeleton from "../../../../skeleton/agent_quote&booking_skeleton/QuoteBookingDetailsSkeleton";
 
 
 
@@ -35,6 +35,7 @@ const BookingCardContainer:React.FC = () => {
 
     const history = useHistory()
     const dispatch = useDispatch()
+    const my_id = useSelector((state:AppStateType) => state.profile.authUserInfo?.id)
 
     const unmountHandler = () => {
         dispatch(agentBookingActions.setExactBookingInfo(null))
@@ -50,7 +51,10 @@ const BookingCardContainer:React.FC = () => {
 
     //thunk
     let assignConfirmationFunction = () => {
-        dispatch(assignAgentThunk(agent_id, Number(exact_booking_info?.id)))
+        dispatch(assignAgentThunk(agent_id, Number(exact_booking_info?.id), history))
+    }
+    let acceptBookingOnMe = () => {
+        dispatch(acceptBookingByAgentThunk(Number(my_id), Number(exact_booking_info?.id), history))
     }
 
     //conditions for popups
@@ -59,7 +63,6 @@ const BookingCardContainer:React.FC = () => {
     const [agent_full_name, setAgentFullName] = useState('')
     const [agent_id, setAgentId] = useState(0)
     const [isRejectPopupOpen, setRejectPopupOpen] = useState(false)
-    const [isAcceptPopup, openAcceptPopup] = useState(false)
     const [isMovedToOperations, setMovedToOperations] = useState(false)
 
     //data from store
@@ -70,9 +73,6 @@ const BookingCardContainer:React.FC = () => {
 
     return (
         <Layout>
-            {isFetching || !exact_booking_info
-                ? <QuoteBookingDetailsSkeleton />
-                : <>
                     {isAssignAgent && <AssignAgentPopup agents={agents_workers && agents_workers?.length > 0 ? agents_workers : null}
                                                         setAssignAgent={setAssignAgent}
                                                         setAgentFullName={setAgentFullName}
@@ -89,19 +89,14 @@ const BookingCardContainer:React.FC = () => {
                     />}
                     {isRejectPopupOpen && <RejectBookingByAgentPopup setRejectPopupOpen={setRejectPopupOpen}
                     />}
-                    {isAcceptPopup && <AcceptPopup openAcceptPopup={openAcceptPopup}
-                                                   exact_booking_info={exact_booking_info ? exact_booking_info : null}
-                    />}
                     {isMovedToOperations && <MovedToOperationsPopup setMovedToOperations={setMovedToOperations}/>}
                     <BookingCard setAssignAgent={setAssignAgent}
                                  setRejectPopupOpen={setRejectPopupOpen}
-                                 openAcceptPopup={openAcceptPopup}
+                                 acceptBookingOnMe={acceptBookingOnMe}
                                  exact_booking_info={exact_booking_info}
                                  history={history}
+                                 isFetching={isFetching}
                     />
-                </>
-            }
-
         </Layout>
     )
 }

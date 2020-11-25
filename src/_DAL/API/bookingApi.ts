@@ -1,5 +1,5 @@
 import instance from "./axiosConfig";
-import {BookingShipmentDetailsType, PostBookingData } from "../../_BLL/types/bookingTypes";
+import { PostBookingData } from "../../_BLL/types/bookingTypes";
 
 export const bookingApi = {
   getReleaseTypeChoices() {
@@ -26,8 +26,8 @@ export const bookingApi = {
   deleteBookingByAgent(id: number) {
     return instance.delete("");
   },
-  acceptBookingByAgent(data: BookingShipmentDetailsType) {
-    return instance.post("/booking/shipment-details/", data);
+  acceptBookingByAgent(my_id: number, booking_id: number, ) {
+    return instance.post(`/booking/booking/${booking_id}/assign/`, {user: my_id});
   },
   assignAnotherAgentToBooking(user_id: number, booking_id: number) {
     return instance.post(`/booking/booking/${booking_id}/assign/`, {user: user_id});

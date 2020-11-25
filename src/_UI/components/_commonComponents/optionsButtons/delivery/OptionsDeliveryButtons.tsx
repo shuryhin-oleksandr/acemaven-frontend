@@ -14,6 +14,7 @@ import { getClientQuotesThunk } from "../../../../../_BLL/thunks/quotes/clientQu
 import { getFilteredRateListThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { getAgentQuotesListThunk } from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
 import { getBookingRequestListThunk } from "../../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
+import {useDispatch} from "react-redux";
 
 type PropsType = {
   setMode?: VoidFunctionType;
@@ -33,12 +34,14 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
   disabled,
   ...props
 }) => {
+
+  const dispatch = useDispatch()
+
   let dispatchDeliveryHandler = (type: string) => {
     setMode && setMode(type);
     props.setShippingValue && props.setShippingValue(0);
     if (props.thunkName === "quotes") {
-      props.dispatch &&
-        props.dispatch(
+      dispatch(
           getClientQuotesThunk(type, "", props.searchColumn, props.searchValue)
         );
     } else if (props.thunkName === "quotes_agent") {
@@ -52,8 +55,7 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
           )
         );
     } else if (props.thunkName === "rates") {
-      props.dispatch &&
-        props.dispatch(
+     dispatch(
           getFilteredRateListThunk(
             props.directory,
             type,
@@ -63,8 +65,7 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
           )
         );
     } else if (props.thunkName === "agent_booking") {
-      props.dispatch &&
-        props.dispatch(
+      dispatch(
           getBookingRequestListThunk(
             type,
             "",
@@ -73,8 +74,7 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
           )
         );
     } else {
-      props.dispatch &&
-        props.dispatch(
+      dispatch(
           filterByThunk(
             props.directory,
             type,

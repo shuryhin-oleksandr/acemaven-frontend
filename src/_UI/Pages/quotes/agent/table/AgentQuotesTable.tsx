@@ -8,8 +8,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-//react-redux
-import {useDispatch} from "react-redux";
 //types
 import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 //components
@@ -94,8 +92,6 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                                   setSearchColumn, setSearchMode, isSearchMode, agent_quotes_list}) => {
 
     const classes = useStyles();
-    const dispatch = useDispatch()
-
 
     return (
         <QuotesTableContainer>
@@ -107,7 +103,6 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                         mode={mode}
                                         setMode={setMode}
                                         thunkName='quotes_agent'
-                                        dispatch={dispatch}
                 />
             </QuotesTableHeader>
             <TableContainer className={classes.container} component={Paper}>
@@ -117,7 +112,6 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                             <TableCell className={classes.shipping_cell} align="left">
                                 <TableCellContent setSearchValue={setSearchValue}
                                                   setSearchMode={setSearchMode}
-                                                  dispatch={dispatch}
                                                   direction={''}
                                                   type={mode}
                                                   column_name='origin'
@@ -132,7 +126,6 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                             <TableCell className={classes.cell} align="left">
                                 <TableCellContent setSearchValue={setSearchValue}
                                                   setSearchMode={setSearchMode}
-                                                  dispatch={dispatch}
                                                   direction={''}
                                                   type={mode}
                                                   column_name='destination'
@@ -147,7 +140,6 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                             <TableCell className={classes.cell} align="left">
                                 <TableCellContent setSearchValue={setSearchValue}
                                                   setSearchMode={setSearchMode}
-                                                  dispatch={dispatch}
                                                   direction={''}
                                                   type={mode}
                                                   column_name='shipping_mode'

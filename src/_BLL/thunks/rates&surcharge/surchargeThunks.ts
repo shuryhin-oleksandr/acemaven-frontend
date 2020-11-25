@@ -1,6 +1,6 @@
 import {commonSurchargeActions, surchargeActions} from "../../reducers/surcharge&rates/surchargeReducer";
 import {Dispatch} from "redux";
-import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
+import {surchargeAPI} from "../../../_DAL/API/rates&surcharges/surchargeApi";
 import {
     CarrierType,
     editChargesType,

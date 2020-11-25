@@ -3,10 +3,10 @@ import {
   commonRateActions,
   rateActions,
 } from "../../reducers/surcharge&rates/rateReducer";
-import { rateAPI } from "../../../_DAL/API/rateApi";
+import { rateAPI } from "../../../_DAL/API/rates&surcharges/rateApi";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../../store";
-import {surchargeAPI} from "../../../_DAL/API/surchargeApi";
+import {surchargeAPI} from "../../../_DAL/API/rates&surcharges/surchargeApi";
 import {quotesAgentActions} from "../../reducers/quotes/quotesAgentReducer";
 
 

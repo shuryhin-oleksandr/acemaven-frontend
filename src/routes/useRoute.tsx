@@ -21,6 +21,8 @@ import BookingCardContainer from "../_UI/Pages/Requests/Booking_agent/booking_ca
 import {useSelector} from "react-redux";
 import {AppStateType} from "../_BLL/store";
 import QuoteCardContainer from "../_UI/Pages/quotes/agent/QuoteCardContainer";
+import ExactOperationContainer from "../_UI/Pages/operations/agent/ExactOperationContainer/ExactOperationContainer";
+import OperationsContainer from 'src/_UI/Pages/operations/OperationsContainer';
 
 
 
@@ -72,6 +74,9 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={ExactRateContainer} path='/services/rate/:id'/>
                 <Route exact component={BookingAgentContainer} path='/requests/booking'/>
                 <Route component={BookingCardContainer} path='/requests/booking/:id'/>
+
+                <Route component={ExactOperationContainer} path='/operations/:id'/>
+                <Route exact component={OperationsContainer} path='/operations' />
 
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>

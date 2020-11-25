@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { SectionTitle, SectionWrapper } from "../operation-card-style";
 import { IconButton } from "@material-ui/core";
-import down_arrow from "../../../../assets/icons/rates&services/show_arrow.svg";
-import up_arrow from "../../../../assets/icons/rates&services/hide_arrow.svg";
-import { InfoRowLabel } from "../../../Requests/Booking_agent/booking_card/booking-card-style";
+import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow.svg";
+import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
+import { InfoRowLabel } from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
 
 const CargoBlock: React.FC = () => {
   const [isHidden, setHidden] = useState(false);

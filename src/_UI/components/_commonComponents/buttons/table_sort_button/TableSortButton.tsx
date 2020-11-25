@@ -1,16 +1,15 @@
 import React, {useRef } from "react";
 import sort_arrows from "../../../../assets/icons/rates&services/sort_arrows.svg";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { filterByThunk } from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { getFilteredRateListThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { SortButton } from "./table-sort-button-style";
 import {getClientQuotesThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 import {getAgentQuotesListThunk} from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
 import {getBookingRequestListThunk} from "../../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
+import {useDispatch} from "react-redux";
 
 type PropsType = {
   column_name: string;
-  dispatch: VoidFunctionType;
   direction: string;
   mode: string;
   searchValue: string;
@@ -20,12 +19,13 @@ type PropsType = {
 
 const TableSortButton: React.FC<PropsType> = ({
   column_name,
-  dispatch,
   direction,
   mode,
   thunkName,
   ...props
 }) => {
+
+    const dispatch = useDispatch()
   const descendingOrder = useRef(false);
 
   return (

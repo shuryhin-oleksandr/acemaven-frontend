@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import { bookingApi } from "../../../_DAL/API/bookingApi";
 import {agentBookingActions, commonAgentBookingActions} from "../../reducers/booking/agentBookingReducer";
-import {BookingShipmentDetailsType} from "../../types/bookingTypes";
+
 
 export const getBookingRequestListThunk = (type: string, field_name: string, search_column: string, search_value: string) => {
   return async (dispatch: Dispatch<commonAgentBookingActions>) => {
@@ -43,12 +43,11 @@ export const rejectAgentBookingByIdThunk = (id: number) => {
   };
 };
 
-export const acceptBookingByAgentThunk = (data: BookingShipmentDetailsType) => {
+export const acceptBookingByAgentThunk = (user_id: number, booking_id: number, history: any) => {
   return async (dispatch: Dispatch<commonAgentBookingActions>) => {
     try {
-      debugger
-      let res = await bookingApi.acceptBookingByAgent(data);
-      console.log(res.data);
+      await bookingApi.acceptBookingByAgent(user_id, booking_id);
+      history.push('/operations')
     } catch (e) {
       console.log(e)
     }
@@ -67,11 +66,12 @@ export const getMyAgentsThunk = () => {
   }
 }
 
-export const assignAgentThunk = (user_id: number, booking_id: number) => {
+export const assignAgentThunk = (user_id: number, booking_id: number, history: any) => {
   return async (dispatch: Dispatch<commonAgentBookingActions>) => {
     try {
       await bookingApi.assignAnotherAgentToBooking(user_id, booking_id)
       dispatch(agentBookingActions.setAssignSuccess('success'))
+      history.push('/requests/booking')
     }
     catch (e) {
       console.log(e)

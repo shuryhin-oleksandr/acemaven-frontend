@@ -101,7 +101,6 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
     let setMode = useCallback((mode: CurrentShippingType) => {
         props.dispatch(surchargeActions.setCurrentShippingType(mode))
     }, [props])
-    const mode = useSelector(getCurrentShippingTypeSelector)
 
     //material ui table
     const classes = useStyles();
@@ -139,7 +138,6 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                                 <TableCell className={classes.shipping_cell} align="left">
                                     <TableCellContent setSearchValue={props.setSearchValue}
                                                       setSearchMode={setSearchMode}
-                                                      dispatch={props.dispatch}
                                                       direction={props.directory}
                                                       type={props.mode}
                                                       column_name='shipping_mode'
@@ -153,7 +151,6 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                                 <TableCell className={classes.cell} align="left">
                                     <TableCellContent setSearchValue={props.setSearchValue}
                                                       setSearchMode={setSearchMode}
-                                                      dispatch={props.dispatch}
                                                       direction={props.directory}
                                                       type={props.mode}
                                                       column_name='carrier'
@@ -167,7 +164,6 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                                 <TableCell className={classes.cell} align="left">
                                     <TableCellContent setSearchValue={props.setSearchValue}
                                                       setSearchMode={setSearchMode}
-                                                      dispatch={props.dispatch}
                                                       direction={props.directory}
                                                       type={props.mode}
                                                       column_name='location'
@@ -184,7 +180,6 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                                 <TableCell className={classes.cell} align="left">
                                     <TableCellContent setSearchValue={props.setSearchValue}
                                                       setSearchMode={setSearchMode}
-                                                      dispatch={props.dispatch}
                                                       direction={props.directory}
                                                       type={props.mode}
                                                       column_name='start_date'
@@ -198,7 +193,6 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                                 <TableCell className={classes.cell} align="left">
                                     <TableCellContent setSearchValue={props.setSearchValue}
                                                       setSearchMode={setSearchMode}
-                                                      dispatch={props.dispatch}
                                                       direction={props.directory}
                                                       type={props.mode}
                                                       column_name='expiration_date'

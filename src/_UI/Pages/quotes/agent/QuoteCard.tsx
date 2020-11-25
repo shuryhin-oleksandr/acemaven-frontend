@@ -13,6 +13,7 @@ import {
      getExistingSurchargesForQuoteThunk,
     submitQuoteThunk,
 } from "../../../../_BLL/thunks/quotes/agentQuotesThunk";
+import {quotesAgentActions} from "../../../../_BLL/reducers/quotes/quotesAgentReducer";
 //types
 import {AgentQuoteType, RateQuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
 import {CarrierType} from "../../../../_BLL/types/rates&surcharges/ratesTypes";
@@ -29,6 +30,7 @@ import SurchargeRateSelect from "../../../components/_commonComponents/select/Su
 import AgentSurchargesTable from "./table/surcharge/AgentSurchargesTable";
 import SaveTemporaryQuotePopup from "../../../components/PopUps/save_temporary_rate_popup/SaveTemporaryQuotePopup";
 import TotalCostCalculationContainer from "./table/TotalCostCalculationContainer";
+import SpinnerForAuthorizedPages from "../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 //styles
 import {
     ActionsAgentWrap,
@@ -63,7 +65,7 @@ import {
 import sea_type from '../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import air_type from '../../../assets/icons/rates&services/plane-surcharge.svg'
 import dates_icon from '../../../../_UI/assets/icons/date_1.svg'
-import {quotesAgentActions} from "../../../../_BLL/reducers/quotes/quotesAgentReducer";
+
 
 
 const useStyles = makeStyles({
@@ -93,7 +95,8 @@ type PropsType = {
     openCreatePopup: (value:boolean) => void,
     isTemporaryPopup: boolean,
     setIsTemporaryPopup: (value:boolean) => void,
-    history: any
+    history: any,
+    isFetching: boolean
 }
 
 
@@ -162,122 +165,132 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                                                              isCheck={isCheck}
                                                              setIsCheck={setIsCheck}
             />}
-            <QuoteCardWrapperForm onSubmit={handleSubmit(onSubmit)}>
-                <QuoteCardInner>
-                    <CardHeader>
-                        <CardTitle>Quotes</CardTitle>
+            {props.isFetching || !props.exact_quote_info
+                ? <SpinnerForAuthorizedPages />
+                : <QuoteCardWrapperForm onSubmit={handleSubmit(onSubmit)}>
+                    <QuoteCardInner>
+                        <CardHeader>
+                            <CardTitle>Quotes</CardTitle>
+                            {!props.exact_quote_info?.is_submitted
+                                ? <ActionsAgentWrap>
+                                    <QuoteOpenStatus>Open</QuoteOpenStatus>
+                                    <SubmitQuoteButton disabled={!props.existing_rate_for_quote} type={'submit'}>SUBMIT
+                                        QUOTE</SubmitQuoteButton>
+                                    <Tooltip arrow
+                                             title='By clicking reject you will delete this quote from your list.'
+                                             classes={{tooltip: classes.customTooltip}}
+                                    >
+                                        <RejectButton onClick={props.rejectQuoteHandler}
+                                                      type={'button'}>REJECT</RejectButton>
+                                    </Tooltip>
+                                </ActionsAgentWrap>
+                                : <ActionsAgentWrap>
+                                    <QuoteOpenStatus>Offer submitted</QuoteOpenStatus>
+                                    <Tooltip arrow
+                                             title='By clicking withdraw offer you will delete your offer for this quote.'
+                                             classes={{tooltip: classes.customTooltip}}
+                                    >
+                                        <RejectButton type={'button'} onClick={props.withdrawOfferHandler}>WITHDRAW
+                                            OFFER</RejectButton>
+                                    </Tooltip>
+                                </ActionsAgentWrap>
+                            }
+                        </CardHeader>
+                        <QuoteInfo>
+                            <GeneralInfo>
+                                <GeneralTitle>GENERAL INFO</GeneralTitle>
+                                <GeneralInfoContent>
+                                    <ShipmentType>
+                                        <img src={props.exact_quote_info?.shipping_type === 'sea' ? sea_type : air_type}
+                                             alt=""/>
+                                    </ShipmentType>
+                                    <Content>
+                                        <ContentRow>
+                                            <RowTitle>SHIPPING MODE</RowTitle>
+                                            <RowValue>{props.exact_quote_info?.shipping_mode.title}</RowValue>
+                                        </ContentRow>
+                                        <ContentRow>
+                                            <RowTitle>ORIGIN</RowTitle>
+                                            <RowValue>{props.exact_quote_info?.origin.display_name}</RowValue>
+                                        </ContentRow>
+                                        <ContentRow>
+                                            <RowTitle>DESTINATION</RowTitle>
+                                            <RowValue>{props.exact_quote_info?.destination.display_name}</RowValue>
+                                        </ContentRow>
+                                    </Content>
+                                </GeneralInfoContent>
+                            </GeneralInfo>
+                            <ShipmentInfo>
+                                <GeneralTitle>SHIPMENT INFO</GeneralTitle>
+                                <GeneralInfoContent>
+                                    <ShipmentType margin_right='15.68px'>
+                                        <img src={dates_icon} alt=""/>
+                                    </ShipmentType>
+                                    <ShipmentRow>
+                                        <ShipmentRowTitle>SHIPMENT DATE</ShipmentRowTitle>
+                                        <ShipmentRowWeek>
+                                            {(props.exact_quote_info?.week_range.week_from !== props.exact_quote_info?.week_range.week_to)
+                                                ? `WEEK ${props.exact_quote_info?.week_range.week_from} - ${props.exact_quote_info?.week_range.week_to}`
+                                                : `WEEK ${props.exact_quote_info?.week_range.week_from}`
+                                            }
+                                        </ShipmentRowWeek>
+                                        <RowValue>{day_from}{'-'}{date_to}</RowValue>
+                                    </ShipmentRow>
+                                </GeneralInfoContent>
+                            </ShipmentInfo>
+                        </QuoteInfo>
+                        <CargoInfo>
+                            <GeneralTitle>CARGO</GeneralTitle>
+                            <CargoShippingModeWrap>
+                                {props.exact_quote_info?.shipping_mode.title}
+                            </CargoShippingModeWrap>
+                            <CargoContentWrapper>
+                                <CargoTable cargos={props.exact_quote_info?.cargo_groups}/>
+                            </CargoContentWrapper>
+                        </CargoInfo>
                         {!props.exact_quote_info?.is_submitted
-                            ? <ActionsAgentWrap>
-                                <QuoteOpenStatus>Open</QuoteOpenStatus>
-                                <SubmitQuoteButton disabled={!props.existing_rate_for_quote} type={'submit'}>SUBMIT QUOTE</SubmitQuoteButton>
-                                <Tooltip arrow
-                                         title='By clicking reject you will delete this quote from your list.'
-                                         classes={{ tooltip: classes.customTooltip }}
-                                >
-                                    <RejectButton onClick={props.rejectQuoteHandler} type={'button'}>REJECT</RejectButton>
-                                </Tooltip>
-                            </ActionsAgentWrap>
-                            : <ActionsAgentWrap>
-                                <QuoteOpenStatus>Offer submitted</QuoteOpenStatus>
-                                <Tooltip arrow
-                                         title='By clicking withdraw offer you will delete your offer for this quote.'
-                                         classes={{ tooltip: classes.customTooltip }}
-                                >
-                                <RejectButton type={'button'} onClick={props.withdrawOfferHandler}>WITHDRAW OFFER</RejectButton>
-                                </Tooltip>
-                            </ActionsAgentWrap>
+                            ? <>
+                                <CarrierInfo>
+                                    <CarrierWrap>
+                                        <GeneralTitle>CARRIER</GeneralTitle>
+                                        <Controller control={control}
+                                                    name='carrier'
+                                                    defaultValue={''}
+                                                    as={
+                                                        <SurchargeRateSelect error={errors?.carrier?.message}
+                                                                             maxW='500px'
+                                                                             placeholder='Carrier company name'
+                                                                             options={props.carrier_list}
+                                                        />
+                                                    }
+                                                    rules={{
+                                                        required: 'Field is required'
+                                                    }}
+                                        />
+                                    </CarrierWrap>
+                                    {props.existing_rate_for_quote && <CarrierWrap>
+                                        <GeneralTitle>FREIGHT RATES</GeneralTitle>
+                                        <FrateRatesTable rate={props.existing_rate_for_quote}
+                                        />
+                                    </CarrierWrap>}
+                                </CarrierInfo>
+                                <SurchargesInfo no_rates={props.existing_rate_for_quote}>
+                                    {props.checked_surcharge_result && !props.existing_rate_for_quote &&
+                                    <NoRateSurchargeCard openCreatePopup={props.openCreatePopup}/>}
+                                    {props.existing_rate_for_quote && props.existing_surcharge_for_quote
+                                    && <AgentSurchargesTable
+                                        surcharges={props.existing_surcharge_for_quote ? props.existing_surcharge_for_quote : null}
+                                    />
+                                    }
+                                </SurchargesInfo>
+                            </>
+                            : <TotalCostCalculationContainer
+                                calculation={props.exact_quote_info?.status?.charges ? props.exact_quote_info.status?.charges : null}/>
                         }
-                    </CardHeader>
-                    <QuoteInfo>
-                        <GeneralInfo>
-                            <GeneralTitle>GENERAL INFO</GeneralTitle>
-                            <GeneralInfoContent>
-                                <ShipmentType>
-                                    <img src={props.exact_quote_info?.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
-                                </ShipmentType>
-                                <Content>
-                                    <ContentRow>
-                                        <RowTitle>SHIPPING MODE</RowTitle>
-                                        <RowValue>{props.exact_quote_info?.shipping_mode.title}</RowValue>
-                                    </ContentRow>
-                                    <ContentRow>
-                                        <RowTitle>ORIGIN</RowTitle>
-                                        <RowValue>{props.exact_quote_info?.origin.display_name}</RowValue>
-                                    </ContentRow>
-                                    <ContentRow>
-                                        <RowTitle>DESTINATION</RowTitle>
-                                        <RowValue>{props.exact_quote_info?.destination.display_name}</RowValue>
-                                    </ContentRow>
-                                </Content>
-                            </GeneralInfoContent>
-                        </GeneralInfo>
-                        <ShipmentInfo>
-                            <GeneralTitle>SHIPMENT INFO</GeneralTitle>
-                            <GeneralInfoContent>
-                                <ShipmentType margin_right='15.68px'>
-                                    <img src={dates_icon} alt=""/>
-                                </ShipmentType>
-                                <ShipmentRow>
-                                    <ShipmentRowTitle>SHIPMENT DATE</ShipmentRowTitle>
-                                    <ShipmentRowWeek>
-                                        {(props.exact_quote_info?.week_range.week_from !== props.exact_quote_info?.week_range.week_to)
-                                            ? `WEEK ${props.exact_quote_info?.week_range.week_from} - ${props.exact_quote_info?.week_range.week_to}`
-                                            : `WEEK ${props.exact_quote_info?.week_range.week_from}`
-                                        }
-                                    </ShipmentRowWeek>
-                                    <RowValue>{day_from}{'-'}{date_to}</RowValue>
-                                </ShipmentRow>
-                            </GeneralInfoContent>
-                        </ShipmentInfo>
-                    </QuoteInfo>
-                    <CargoInfo>
-                        <GeneralTitle>CARGO</GeneralTitle>
-                        <CargoShippingModeWrap>
-                            {props.exact_quote_info?.shipping_mode.title}
-                        </CargoShippingModeWrap>
-                        <CargoContentWrapper>
-                            <CargoTable cargos={props.exact_quote_info?.cargo_groups}/>
-                        </CargoContentWrapper>
-                    </CargoInfo>
-                    {!props.exact_quote_info?.is_submitted
-                        ? <>
-                            <CarrierInfo>
-                                <CarrierWrap>
-                                    <GeneralTitle>CARRIER</GeneralTitle>
-                                    <Controller control={control}
-                                                name='carrier'
-                                                defaultValue={''}
-                                                as={
-                                                    <SurchargeRateSelect error={errors?.carrier?.message}
-                                                                         maxW='500px'
-                                                                         placeholder='Carrier company name'
-                                                                         options={props.carrier_list}
-                                                    />
-                                                }
-                                                rules={{
-                                                    required: 'Field is required'
-                                                }}
-                                    />
-                                </CarrierWrap>
-                                {props.existing_rate_for_quote && <CarrierWrap>
-                                    <GeneralTitle>FREIGHT RATES</GeneralTitle>
-                                    <FrateRatesTable rate={props.existing_rate_for_quote}
-                                    />
-                                </CarrierWrap>}
-                            </CarrierInfo>
-                            <SurchargesInfo no_rates={props.existing_rate_for_quote}>
-                                {props.checked_surcharge_result && !props.existing_rate_for_quote && <NoRateSurchargeCard openCreatePopup={props.openCreatePopup}/>}
-                                {props.existing_rate_for_quote && props.existing_surcharge_for_quote
-                                && <AgentSurchargesTable surcharges={props.existing_surcharge_for_quote ? props.existing_surcharge_for_quote : null}
-                                />
-                                }
-                            </SurchargesInfo>
-                        </>
-                        : <TotalCostCalculationContainer calculation={props.exact_quote_info?.status?.charges ? props.exact_quote_info.status?.charges : null}/>
-                    }
 
-                </QuoteCardInner>
-            </QuoteCardWrapperForm>
+                    </QuoteCardInner>
+                </QuoteCardWrapperForm>
+            }
         </Layout>
     )
 }

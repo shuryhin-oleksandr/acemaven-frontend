@@ -1,5 +1,5 @@
-import instance from "./axiosConfig";
-import { FreightRateType } from "../../_BLL/types/rates&surcharges/ratesTypes";
+import instance from "../axiosConfig";
+import { FreightRateType } from "../../../_BLL/types/rates&surcharges/ratesTypes";
 
 export const rateAPI = {
   getPortsList(local: any, q: string, type: string) {

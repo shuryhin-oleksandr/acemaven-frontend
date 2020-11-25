@@ -109,7 +109,6 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                                         searchValue={props.searchValue}
                                         mode={props.mode}
                                         setMode={props.setMode}
-                                        dispatch={dispatch}
                                         thunkName='quotes'
                 />
             </QuotesTableHeader>
@@ -120,7 +119,6 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                             <TableCell className={classes.shipping_cell} align="left">
                                 <TableCellContent setSearchValue={props.setSearchValue}
                                                   setSearchMode={props.setSearchMode}
-                                                  dispatch={dispatch}
                                                   direction={''}
                                                   type={props.mode}
                                                   column_name='shipping_mode'
@@ -135,7 +133,6 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                             <TableCell className={classes.cell} align="left">
                                 <TableCellContent setSearchValue={props.setSearchValue}
                                                   setSearchMode={props.setSearchMode}
-                                                  dispatch={dispatch}
                                                   direction={''}
                                                   type={props.mode}
                                                   column_name='route'
@@ -153,7 +150,6 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                             <TableCell className={classes.cell} align="left">
                                 <TableCellContent setSearchValue={props.setSearchValue}
                                                   setSearchMode={props.setSearchMode}
-                                                  dispatch={dispatch}
                                                   direction={''}
                                                   type={props.mode}
                                                   column_name='date_from'
@@ -171,7 +167,6 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                             <TableCell className={classes.cell} align="right">
                                 <TableCellContent setSearchValue={props.setSearchValue}
                                                   setSearchMode={props.setSearchMode}
-                                                  dispatch={dispatch}
                                                   direction={''}
                                                   type={props.mode}
                                                   column_name='is_active'

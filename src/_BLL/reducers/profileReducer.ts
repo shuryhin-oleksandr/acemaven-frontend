@@ -169,10 +169,9 @@ export const getAuthUserInfo = () => {
       dispatch(profileActions.setIsFetching(true));
       let res = await authAPI.getAuthUser();
       dispatch(profileActions.setAuthUserInfo(res.data));
-      sessionStorage.setItem("u", JSON.stringify(res.data.companies[0].id));
       dispatch(profileActions.setIsFetching(false));
     } catch (e) {
-      console.log("error", e.response);
+      console.log("error", e);
       dispatch(profileActions.setIsFetching(false));
     }
   };

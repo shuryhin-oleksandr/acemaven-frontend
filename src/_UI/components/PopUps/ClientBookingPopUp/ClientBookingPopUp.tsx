@@ -80,7 +80,8 @@ type PropsType = {
   currentFreightRate: SearchResultType;
   newSearch?: any;
   quote_dates?: {date_from: string, date_to: string}
-  close_totals?: VoidFunctionType
+  close_totals?: VoidFunctionType,
+  quotes_mode?: boolean
 };
 
 const ClientBookingPopUp: React.FC<PropsType> = ({
@@ -156,6 +157,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             shippingValue={shippingValue}
             currentFreightRate={currentFreightRate}
             quote_dates={props.quote_dates}
+            quotes_mode={props.quotes_mode}
           />
         )}
         {bookingStep === "fee-table" && (
@@ -195,13 +197,13 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {new_total?.charges.cargo_groups.map((s: any, index: number) => (
+                    {new_total?.charges?.cargo_groups?.map((s: any, index: number) => (
                       <TableRow key={index} className={classes.info_row}>
                         <TableCell className={classes.innerCell} scope="row">
-                          {s.volume}
+                          {s?.volume}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
-                          {s.cargo_type}
+                          {s?.cargo_type}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
                           <div>FREIGHT</div>
@@ -209,19 +211,19 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                           <div>OTHERS</div>
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
-                          <div>{s.freight.currency}</div>
-                          <div>{s.handling.currency}</div>
-                          <div>{s.other.currency}</div>
+                          <div>{s.freight?.currency}</div>
+                          <div>{s.handling?.currency}</div>
+                          <div>{s.other?.currency}</div>
                         </TableCell>
                         <TableCell className={classes.innerCell} align="right">
-                          <div>{s.freight.cost}</div>
-                          <div>{s.handling.cost}</div>
-                          <div>{s.other.cost}</div>
+                          <div>{s.freight?.cost}</div>
+                          <div>{s.handling?.cost}</div>
+                          <div>{s.other?.cost}</div>
                         </TableCell>
                         <TableCell className={classes.innerCell} align="right">
-                          <div>{s.freight.subtotal}</div>
-                          <div>{s.handling.subtotal}</div>
-                          <div>{s.other.subtotal}</div>
+                          <div>{s.freight?.subtotal}</div>
+                          <div>{s.handling?.subtotal}</div>
+                          <div>{s.other?.subtotal}</div>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -232,13 +234,13 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                         DOC FEE
                       </TableCell>
                       <TableCell className={classes.innerCell} align="left">
-                        {new_total?.doc_fee.currency}
+                        {new_total?.charges?.doc_fee?.currency}
                       </TableCell>
                       <TableCell className={classes.innerCell} align="right">
-                        {new_total?.doc_fee.cost}
+                        {new_total?.charges?.doc_fee?.cost}
                       </TableCell>
                       <TableCell className={classes.innerCell} align="right">
-                        {new_total?.doc_fee.subtotal}
+                        {new_total?.charges?.doc_fee?.subtotal}
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -247,35 +249,39 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             </HiddenTable>
             <TableTotal>
               <TotalLine>
-                <TotalName>TOTAL FREIGHT in {new_total?.total_freight_rate.BRL ? 'BRL' : 'USD'}</TotalName>
-                <TotalValue>{new_total?.total_freight_rate.BRL ? new_total?.total_freight_rate.BRL : new_total?.total_freight_rate.USD}</TotalValue>
+                <TotalName>TOTAL FREIGHT in {new_total?.charges?.total_freight_rate?.BRL ? 'BRL' : 'USD'}</TotalName>
+                <TotalValue>
+                  {new_total?.charges?.total_freight_rate?.BRL
+                      ? new_total?.charges?.total_freight_rate?.BRL
+                      : new_total?.charges?.total_freight_rate?.USD}
+                </TotalValue>
               </TotalLine>
-              {new_total?.total_surcharge.BRL
+              {new_total?.charges?.total_surcharge?.BRL
                 && <TotalLine>
                     <TotalName>CHARGES IN BRL</TotalName>
-                    <TotalValue>{new_total?.total_surcharge.BRL}</TotalValue>
+                    <TotalValue>{new_total?.charges?.total_surcharge?.BRL}</TotalValue>
                    </TotalLine>
               }
-              {new_total?.total_surcharge.USD
+              {new_total?.charges?.total_surcharge?.USD
               && <TotalLine>
                   <TotalName>CHARGES IN USD</TotalName>
-                  <TotalValue>{new_total?.total_surcharge.USD}</TotalValue>
+                  <TotalValue>{new_total?.charges?.total_surcharge?.USD}</TotalValue>
                 </TotalLine>
               }
               <TotalLine>
-                <TotalName>ACEMAVEN SERVICE FEE: IN {new_total?.service_fee?.currency === 'BRL' ? 'BRL' : 'USD'}</TotalName>
-                <TotalValue>{new_total?.service_fee?.subtotal}</TotalValue>
+                <TotalName>ACEMAVEN SERVICE FEE: IN {new_total?.charges?.service_fee?.currency === 'BRL' ? 'BRL' : 'USD'}</TotalName>
+                <TotalValue>{new_total?.charges?.service_fee?.subtotal}</TotalValue>
               </TotalLine>
-              {new_total?.totals?.BRL &&
+              {new_total?.charges?.totals?.BRL &&
                 <TotalLine>
                   <TotalName>SUBTOTAL IN BRL</TotalName>
-                  <TotalValue>{new_total?.totals?.BRL}</TotalValue>
+                  <TotalValue>{new_total?.charges?.totals?.BRL}</TotalValue>
                 </TotalLine>
               }
-              {new_total?.totals?.USD &&
+              {new_total?.charges?.totals?.USD &&
                 <TotalLine>
                   <TotalName>SUBTOTAL IN USD</TotalName>
-                  <TotalValue>{new_total?.totals?.USD}</TotalValue>
+                  <TotalValue>{new_total?.charges?.totals?.USD}</TotalValue>
                 </TotalLine>
               }
             </TableTotal>

@@ -11,20 +11,20 @@ export const AcceptWrapper = styled.div`
   bottom: 0;
   display: flex;
   justify-content: center;
+  align-items: baseline;
   padding-top: 70px;
   z-index: 70;
 `
 export const AcceptInner = styled.div`
   max-width: 800px;
   width: 100%;
-  max-height: 1200px;
   background-color: white;
   position: relative;
 `
 export const AcceptContent = styled.div`
   width: 100%;
   height: 100%;
-  padding: 40px 80px;
+  padding: 40px 80px 60px;
   display: flex;
   flex-direction: column;
 `
@@ -81,7 +81,7 @@ export const TimePicker = styled.input<{error?: boolean}>`
   border-radius: 4px; 
   font-family: 'Helvetica Light', sans-serif;
  padding: 3px;
- margin-top: ${({error}) => error ? '-10px' : '15px'};
+ margin-top: ${({error}) => error ? '-19px' : '24px'};
  outline: none;
 `
 export const AcceptPopupActions = styled.div`

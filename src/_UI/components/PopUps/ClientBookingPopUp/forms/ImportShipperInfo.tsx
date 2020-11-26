@@ -94,6 +94,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
             label="Email"
             inputRef={register({
               required: "Field is required",
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
             })}
             placeholder="Email"
             name="email"

@@ -31,7 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../_BLL/store";
 import { useForm } from "react-hook-form";
 import { searchActions } from "../../../_BLL/reducers/search_client/searchClientReducer";
-import {CostBookingType} from "../../../_BLL/types/bookingTypes";
+
 
 type PropsType = {
   setWidgetsVisible: any;
@@ -132,6 +132,7 @@ const DashboardPage: React.FC<PropsType> = ({
           currentFreightRate={currentBookingRate}
           setWidgetsVisible={setWidgetsVisible}
           newSearch={newSearch}
+          quotes_mode={false}
         />
       )}
       <MapComponent

@@ -1,4 +1,5 @@
 import {CargoGroupQuoteType, RateQuoteType} from "../quotes/quotesTypes";
+import {CostBookingType, ShipperType} from "../bookingTypes";
 
 export type WeekRangeType = {
     week_from: number,
@@ -16,5 +17,7 @@ export type OperationType = {
     status : string,
     cargo_groups: CargoGroupQuoteType[],
     freight_rate: RateQuoteType,
-    agent_contact_person: string
+    agent_contact_person: string,
+    shipper?: ShipperType,
+    charges?: CostBookingType
 }

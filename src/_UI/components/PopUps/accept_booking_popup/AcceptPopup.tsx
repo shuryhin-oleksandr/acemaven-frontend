@@ -83,7 +83,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                    placeholder='Placeholder'
                                    maxW='100%'
                                    name='booking_number'
-                                   defaultValue={exact_operation_info?.id}
+                                   defaultValue={exact_operation_info?.aceid}
                                    inputRef={register({required: 'Field is required'})}
                         />
                         {shipping_mode === 'LCL'

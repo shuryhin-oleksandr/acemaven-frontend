@@ -4,7 +4,7 @@ import {OperationType} from "../../../types/operations/operationsTypes";
 const initialState = {
     isFetching: false,
     agent_operations_list: [] as OperationType[],
-    agent_operation_info: null as any | null
+    agent_operation_info: null as OperationType | null
 }
 
 type InitialStateType = typeof initialState
@@ -34,5 +34,5 @@ export type commonAgentOperationsActions = AC<typeof agentOperationsActions>;
 export const agentOperationsActions = {
     setIsFetching: (isFetching: boolean) => ({type: 'SET_IS_FETCHING', isFetching} as const),
     setAgentOperationsList: (list: OperationType[]) => ({type: 'SET_AGENT_OPERATIONS_LIST', list} as const),
-    setAgentExactOperationInfo: (info: any) => ({type: 'SET_AGENT_EXACT_OPERATION_INFO', info} as const)
+    setAgentExactOperationInfo: (info: OperationType) => ({type: 'SET_AGENT_EXACT_OPERATION_INFO', info} as const)
 }

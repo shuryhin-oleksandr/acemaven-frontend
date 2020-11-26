@@ -20,6 +20,7 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
   
   .DayPickerInput {
     width: 100%;
+    margin-top: 9px;
     max-width: ${({max_width}) => max_width ? max_width : '420px'};
     height:${({input_height}) => input_height ? input_height : '40px'};
   }

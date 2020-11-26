@@ -11,7 +11,8 @@ type PropsType = {
   currentUser: IAuthUserInfo | null;
   shippingValue: number;
   currentFreightRate: SearchResultType;
-  quote_dates?: {date_from: string, date_to: string}
+  quote_dates?: {date_from: string, date_to: string},
+  quotes_mode?: boolean
 };
 
 const RootShippingForm: React.FC<PropsType> = ({
@@ -19,7 +20,8 @@ const RootShippingForm: React.FC<PropsType> = ({
   currentUser,
   shippingValue,
   currentFreightRate,
-  quote_dates
+  quote_dates,
+  ...props
 }) => {
   const [formStep, setFormStep] = useState(1);
 
@@ -31,7 +33,7 @@ const RootShippingForm: React.FC<PropsType> = ({
           formStep={formStep}
           shippingValue={shippingValue}
           currentFreightRate={currentFreightRate}
-          quotes_mode={true}
+          quotes_mode={props.quotes_mode}
         />
       </div>
       <div style={{ display: formStep === 2 ? "block" : "none" }}>

@@ -147,6 +147,7 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                             currentFreightRate={currentBookingRate}
                             quote_dates={{date_from: String(quote?.date_from), date_to: String(quote?.date_to)}}
                             close_totals={closeTotals}
+                            quotes_mode={true}
                         />
                     )}
 

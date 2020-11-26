@@ -41,10 +41,11 @@ import air_icon from "../../../../../assets/icons/rates&services/plane-surcharge
 import calendar_icon from "../../../../../assets/icons/date_1.svg";
 import down_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
 import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
+import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
 
 
 type PropsType = {
-  operation_info: any,
+  operation_info: OperationType,
   history: any,
   local_time: string,
   openAcceptPopup: (value: boolean) => void,
@@ -64,10 +65,6 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
         <ContentHeader>
           <BookingInfo>
             <OperationNumber>{operation_info?.aceid}</OperationNumber>
-            <BookingTitle>
-              Booking
-              <NumberOfBooking>No ACY9087512</NumberOfBooking>
-            </BookingTitle>
             <BookingStatus>
               <span style={{ color: "#1ab8e5", marginRight: "5px" }}>
                 STATUS
@@ -89,13 +86,13 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
           <SectionTitle>GENERAL INFO</SectionTitle>
           <GeneralBookingContent>
             <GeneralShipType>
-              <img src={"sea" === "sea" ? sea_icon : air_icon} alt="" />
+              <img src={operation_info?.shipping_type === "sea" ? sea_icon : air_icon} alt="" />
             </GeneralShipType>
             <InfoRow margin_right="27px">
               <InfoRowLabel>ROUTE</InfoRowLabel>
               <InfoRowValue font_size="36px">
-                RSZ
-                <br /> BCN
+                {operation_info?.freight_rate.origin.code}
+                <br /> {operation_info?.freight_rate.destination.code}
               </InfoRowValue>
             </InfoRow>
             <ValuesShipmentWrapper>
@@ -108,64 +105,52 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
               >
                 <InfoRow>
                   <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
-                  <InfoRowValue>Loose Cargo</InfoRowValue>
+                  <InfoRowValue>{operation_info?.freight_rate.shipping_mode.title}</InfoRowValue>
                 </InfoRow>
                 <InfoRow>
                   <InfoRowLabel>CARRIER</InfoRowLabel>
-                  <InfoRowValue>GreatTransfer Co.</InfoRowValue>
-                </InfoRow>
-              </div>
-              <div
-                style={{
-                  width: "15%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <InfoRow>
-                  <InfoRowLabel>VESSEL</InfoRowLabel>
-                  <InfoRowValue>Ronald Richards</InfoRowValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoRowLabel>TRIP</InfoRowLabel>
-                  <InfoRowValue>109MG0</InfoRowValue>
-                </InfoRow>
-              </div>
-              <div
-                style={{
-                  width: "15%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <InfoRow>
-                  <InfoRowLabel>DATES</InfoRowLabel>
-                  <InfoRowValue>ETD: 05/11</InfoRowValue>
-                  <InfoRowValue>ETA:25/11</InfoRowValue>
-                </InfoRow>
-              </div>
-              <div
-                style={{
-                  width: "25%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <InfoRow>
-                  <InfoRowLabel>Empty Pickup Location</InfoRowLabel>
                   <InfoRowValue>
-                    terminal: B, airport: Great Airport, 3891 Ranchview Dr.
-                    Richardson, California
-                  </InfoRowValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoRowLabel>Cargo Drop Off Location </InfoRowLabel>
-                  <InfoRowValue>
-                    terminal: B, airport: Great Airport, 3891 Ranchview Dr.
-                    Richardson, California
+                    {operation_info?.freight_rate.carrier.title}
                   </InfoRowValue>
                 </InfoRow>
               </div>
+              {operation_info?.status === "Booking Request Confirmed" &&
+                  <>
+                    <div style={{width: "15%", display: "flex", flexDirection: "column"}}>
+                      <InfoRow>
+                        <InfoRowLabel>VESSEL</InfoRowLabel>
+                        <InfoRowValue>Ronald Richards</InfoRowValue>
+                      </InfoRow>
+                      <InfoRow>
+                        <InfoRowLabel>TRIP</InfoRowLabel>
+                        <InfoRowValue>109MG0</InfoRowValue>
+                      </InfoRow>
+                    </div>
+                    <div style={{width: "15%", display: "flex", flexDirection: "column"}}>
+                      <InfoRow>
+                        <InfoRowLabel>DATES</InfoRowLabel>
+                        <InfoRowValue>ETD: 05/11</InfoRowValue>
+                        <InfoRowValue>ETA:25/11</InfoRowValue>
+                      </InfoRow>
+                    </div>
+                    <div style={{width: "25%", display: "flex", flexDirection: "column"}}>
+                      <InfoRow>
+                        <InfoRowLabel>Empty Pickup Location</InfoRowLabel>
+                        <InfoRowValue>
+                          terminal: B, airport: Great Airport, 3891 Ranchview Dr.
+                          Richardson, California
+                        </InfoRowValue>
+                      </InfoRow>
+                      <InfoRow>
+                        <InfoRowLabel>Cargo Drop Off Location </InfoRowLabel>
+                        <InfoRowValue>
+                          terminal: B, airport: Great Airport, 3891 Ranchview Dr.
+                          Richardson, California
+                        </InfoRowValue>
+                      </InfoRow>
+                    </div>
+                  </>
+              }
             </ValuesShipmentWrapper>
           </GeneralBookingContent>
         </SectionWrapper>

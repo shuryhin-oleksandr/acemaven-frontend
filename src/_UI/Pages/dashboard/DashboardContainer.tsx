@@ -83,7 +83,7 @@ const DashboardContainer:React.FC = () => {
 
 
             />}
-            <div style={{position:"relative", width:"100%", height: "100%", minHeight: 700}}>
+            <div style={{position:"relative", width:"100%"}}>
                 <DashboardPage widgetsVisible={widgetsVisible}
                                setWidgetsVisible={setWidgetsVisible}
                                shippingValue={shippingValue}

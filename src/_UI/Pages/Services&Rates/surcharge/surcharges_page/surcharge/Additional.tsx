@@ -1,4 +1,7 @@
 import React from "react";
+//react-hook-form
+import { Controller } from "react-hook-form";
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -7,20 +10,24 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+//types
+import { ChargesType } from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+//helpers
+import {
+  conditions,
+  currency,
+} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+//components
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import ConditionSelect from "../../../../../components/ConditionSelect/ConditionSelect";
+//styles
 import {
   Field,
   HandlingSurchargeContainer,
   HandlingTitle,
 } from "./sea-conteneraized-cargo-styles";
-import { ChargesType } from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
-import { Controller } from "react-hook-form";
 
-import {
-  conditions,
-  currency,
-} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
-import ConditionSelect from "../../../../../components/ConditionSelect/ConditionSelect";
+
 
 const useStyles = makeStyles({
   container: {

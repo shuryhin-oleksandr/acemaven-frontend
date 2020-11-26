@@ -1,9 +1,5 @@
 import React from "react";
-import {
-    Field,
-    HandlingSurchargeContainer,
-    HandlingTitle
-} from "./sea-conteneraized-cargo-styles";
+//material ui
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -12,12 +8,22 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-
-import { UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+//react-hook-form
 import {Controller} from "react-hook-form";
+//types
+import { UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+//helpers
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+//components
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+//styles
+import {
+    Field,
+    HandlingSurchargeContainer,
+    HandlingTitle
+} from "./sea-conteneraized-cargo-styles";
+
 
 const useStyles = makeStyles({
     container: {

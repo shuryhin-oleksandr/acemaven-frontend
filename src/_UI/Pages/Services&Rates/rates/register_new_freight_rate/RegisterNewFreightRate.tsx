@@ -1,4 +1,29 @@
 import React, { useEffect } from "react";
+//react-router-dom
+import { useHistory } from "react-router-dom";
+//react-redux
+import { useDispatch } from "react-redux";
+//BLL
+import { registerNewFreightRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+//types
+import {
+  CurrentShippingType,
+  ShippingModeType,
+} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {
+  CarrierType,
+  ContainerType,
+  PortType, SurchargeInfoType,
+} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {RateForSurchargeType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+//components
+import CancelButton from "../../../../components/_commonComponents/buttons/navFormButtons/CancelButton";
+import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import FreightRateForm from "./FreightRateForm";
+import Rates from "./tables/Rates";
+import SurchargesToRate from "./tables/SurchargesToRate";
+import {ErrorServerMessage} from "../../../SignInPage";
+//styles
 import {
   ActionsWrapper,
   FormTitle,
@@ -6,26 +31,9 @@ import {
   RegisterButton,
   UnderTitle,
 } from "./form-styles";
-import CancelButton from "../../../../components/_commonComponents/buttons/navFormButtons/CancelButton";
-import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
-import {
-  CurrentShippingType,
-  ShippingModeType,
-} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import FreightRateForm from "./FreightRateForm";
-import Rates from "./tables/Rates";
-import SurchargesToRate from "./tables/SurchargesToRate";
-import {
-  CarrierType,
-  ContainerType,
-  PortType, SurchargeInfoType,
-} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import { registerNewFreightRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import { useDispatch } from "react-redux";
 import { Outer } from "../../surcharge/register_new_surcharge/form-styles";
-import {RateForSurchargeType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import {ErrorServerMessage} from "../../../SignInPage";
-import { useHistory } from "react-router-dom";
+
+
 
 type PropsType = {
   handleSubmit: any;

@@ -66,15 +66,16 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    cargo_groups?: CargoGroupQuoteType[]
+    cargo_groups?: CargoGroupQuoteType[],
+    booking_shipping_mode: {id: number, title: string}
 }
 
-const ShippingModeTable:React.FC<PropsType> = ({cargo_groups}) => {
+const ShippingModeTable:React.FC<PropsType> = ({cargo_groups, booking_shipping_mode}) => {
     const classes = useStyles();
 
     return (
         <ShippingModeBlock>
-            <ShippingModeLabel>FCL</ShippingModeLabel>
+            <ShippingModeLabel>{booking_shipping_mode.title}</ShippingModeLabel>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="collapsible table">
                     <TableHead>

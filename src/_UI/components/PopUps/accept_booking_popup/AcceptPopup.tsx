@@ -43,7 +43,6 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
     const dispatch = useDispatch()
     const history = useHistory()
     const onSubmit = (values: any) => {
-
         let obj_data = {
             ...values,
             booking: Number(exact_operation_info?.id),
@@ -67,6 +66,9 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
     let direction = exact_operation_info?.freight_rate.origin.is_local ? 'export' : 'import'
     let shipping_mode = exact_operation_info?.freight_rate?.shipping_mode.title
     let shipping_type = exact_operation_info?.shipping_type
+
+    let after_estimated = moment(exact_operation_info.date_to, 'DD/MM/YYYY').add(7, 'days').calendar();
+    let after_estimated_date = moment(after_estimated).toDate()
 
     return (
         <AcceptWrapper>
@@ -109,7 +111,6 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                           label='MAWB'
                                           placeholder='Placeholder'
                                           maxW='100%'
-                                          booking_process={true}
                                           inputRef={register({required: 'Field is required'})}
                             />
                         }
@@ -149,6 +150,8 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                           time_name_second={'estimated_time.arrival_time'}
                                           date_name_first={'estimated_time.from'}
                                           date_name_second={'estimated_time.to'}
+                                          before={moment(exact_operation_info?.date_from, 'DD/MM/YYYY').toDate()}
+                                          after={moment(after_estimated_date, 'DD/MM/YYYY').toDate()}
 
                         />
                         {direction === 'export'
@@ -163,6 +166,9 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                                  date_name_first={'documents_cut_off.from'}
                                                  date_name_second={'cargo_cut_off.to'}
                                                  start_shipment_date={exact_operation_info?.date_from}
+                                                 before={new Date()}
+                                                 after={moment(exact_operation_info?.date_from, 'DD/MM/YYYY').toDate()}
+
                             />
                         }
                         <LocationContainer errors={errors}

@@ -145,6 +145,7 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, ac
                                         number_of_documents={Number(exact_booking_info?.number_of_documents)}
                                         release_type={exact_booking_info?.release_type}
                                         charges_cost={exact_booking_info?.charges ? exact_booking_info?.charges : null}
+                                        booking_shipping_mode={exact_booking_info?.freight_rate.shipping_mode}
                         />
                     </CardContent>
                 </CardWrapper>

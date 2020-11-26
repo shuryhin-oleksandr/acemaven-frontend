@@ -70,12 +70,37 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
     const dispatch = useDispatch()
 
     const onSubmit = (values: any) => {
-        setInvalidDate('')
         if(values.from <= values.to) {
             dispatch(surchargeActions.setAddingSurchargeError([]))
-            let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
-            let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
 
+            //additional charges
+            let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
+            let additional_charges_array = charges_array.map(a => {
+              if(a.charge && a.conditions) {
+                    return {
+                        additional_surcharge: a.additional_surcharge,
+                        charge: a.charge,
+                        conditions: a.conditions,
+                        currency: a.currency
+                    }
+                } else if(!a.charge && a.conditions) {
+                   return {
+                       additional_surcharge: a.additional_surcharge,
+                       conditions: a.conditions,
+                       currency: a.currency
+                   }
+                } else if(!a.charge && !a.conditions) {
+                  return {
+                      additional_surcharge: a.additional_surcharge,
+                      currency: a.currency
+                  }
+                } else {
+                  return a
+                }
+            })
+
+            //handling containers & packaging charges
+            let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
             let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
                 || !f.charge && {container_type: f.container_type, currency: f.currency}
             )
@@ -85,7 +110,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 shipping_mode: values.shipping_mode,
                 start_date: moment(values.from).format('DD/MM/YYYY'),
                 expiration_date: moment(values.to).format('DD/MM/YYYY'),
-                charges: charges_array,
+                charges: additional_charges_array,
                 usage_fees: usageFees_array,
                 location: location_id
             }
@@ -95,7 +120,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 carrier: values.carrier,
                 direction: values.direction,
                 shipping_mode: values.shipping_mode,
-                charges: charges_array,
+                charges: additional_charges_array,
                 location: location_id
             }
 

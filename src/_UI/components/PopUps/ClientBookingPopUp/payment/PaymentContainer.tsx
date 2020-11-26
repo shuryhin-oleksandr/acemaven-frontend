@@ -3,6 +3,7 @@ import PendingPayment from "./PendingPayment";
 import ActivePayment from "./ActivePayment";
 import { VoidFunctionType } from "src/_BLL/types/commonTypes";
 import {IAuthUserInfo} from "../../../../../_BLL/types/authTypes";
+import ActiveQRPayment from "./ActiveQRPayment";
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
@@ -18,7 +19,7 @@ const PaymentContainer: React.FC<PropsType> = ({
   setBookingPopupVisible,
   setWidgetsVisible,
   newSearch,
-    ...props
+  ...props
 }) => {
   return !props.new_total_paid /*&& props.current_user?.roles?.includes('client')*/ ? (
     <PendingPayment
@@ -28,7 +29,13 @@ const PaymentContainer: React.FC<PropsType> = ({
       close_totals={props.close_totals}
     />
   ) : (
-    <ActivePayment />
+    // <ActivePayment/>
+    <ActiveQRPayment
+      setBookingPopupVisible={setBookingPopupVisible}
+      setWidgetsVisible={setWidgetsVisible}
+      newSearch={newSearch}
+      close_totals={props.close_totals}
+    />
   );
 };
 

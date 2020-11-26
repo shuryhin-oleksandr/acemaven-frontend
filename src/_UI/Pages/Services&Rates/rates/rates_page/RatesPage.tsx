@@ -102,7 +102,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
 
   return (
     <Outer>
-      <ScrollbarStyled {...{style: {width: "100%", height: "100%"}}}>
+      <ScrollbarStyled {...{style: {width: "100%", height: 420}}}>
         <TableContainer className={classes.container} component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>

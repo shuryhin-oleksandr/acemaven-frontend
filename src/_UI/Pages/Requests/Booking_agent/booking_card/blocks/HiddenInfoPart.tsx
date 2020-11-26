@@ -28,10 +28,11 @@ type PropsType = {
     cargo_groups: CargoGroupQuoteType[],
     number_of_documents: number,
     release_type: any,
-    charges_cost: CostBookingType | null
+    charges_cost: CostBookingType | null,
+    booking_shipping_mode: {id: number, title: string}
 }
 
-const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, release_type, charges_cost}) => {
+const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, release_type, charges_cost, booking_shipping_mode}) => {
 
     const [isHiddenDocs, setHiddenDocs] = useState(false)
 
@@ -62,7 +63,9 @@ const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, 
             <CargoWrapper>
                 <DocumentsContent>
                     <GeneralTitle>CARGO</GeneralTitle>
-                    <ShippingModeTable cargo_groups={cargo_groups}/>
+                    <ShippingModeTable cargo_groups={cargo_groups}
+                                       booking_shipping_mode={booking_shipping_mode}
+                    />
                 </DocumentsContent>
             </CargoWrapper>
             <ChargesWrapper>

@@ -1,14 +1,20 @@
-import React, {useEffect} from "react";
-import {CardsOuter, ManagementContainer, ManagementInner, ManagTitle } from "./user-management-styles";
+import React, {useEffect, useState} from "react";
+//react-redux
+import {useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../../_BLL/store";
+import {deleteWorker, profileActions} from "../../../../_BLL/reducers/profileReducer";
+//types
+import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
+//components
 import AddNewButton from "../../../components/_commonComponents/buttons/addNewItemButton/addNewButton";
-import { useState } from "react";
 import UserPart from "../../ActivateCompany/CreateNewUser/UsersList/list/UserPart";
 import EditUserCardForm from "./editUserCardForm/EditUserCardForm";
 import AddUserForm from "./AddUserForm/AddUserForm";
-import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
-import {deleteWorker, profileActions} from "../../../../_BLL/reducers/profileReducer";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../_BLL/store";
+//styles
+import {CardsOuter, ManagementContainer, ManagementInner, ManagTitle } from "./user-management-styles";
+
+
 
 type PropsType = {
     workersList?: Array<IAddNewUserData> | null,
@@ -53,10 +59,6 @@ const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch, my_id}) 
                     : <AddUserForm server_error={error} dispatch={dispatch} setIsAdd={setIsAdd}/>
                 }
                 <CardsOuter editMode={editMode}>
-                    {/*{!editMode
-                        ? workersList?.map(chargable_weight => <UserPart deleteUser={deleteUser} u={chargable_weight} setEditMode={setEditMode} cardsMode={cardsMode} max_width='447px'/>)
-                        : <EditUserCardForm dispatch={dispatch} setEditMode={setEditMode}/>
-                    }*/}
                     {workersList?.map(w => editedUserId !== w?.id
                         ? <UserPart my_id={my_id} key={w.id} deleteUser={deleteUser} u={w}
                                     setEditMode={editHandler} cardsMode={cardsMode} max_width='447px'

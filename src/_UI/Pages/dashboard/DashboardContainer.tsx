@@ -56,6 +56,7 @@ const DashboardContainer:React.FC = () => {
     const frozen_choices = useSelector(getFrozenChoicesSelector);
     const origin_port_value = useSelector(getIsLocalPort);
 
+
     let setDuplicatedCargoError = (error: string) => {
         dispatch(searchActions.setDuplicatedError(error))
     }

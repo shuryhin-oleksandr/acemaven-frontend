@@ -48,6 +48,13 @@ export type CostBookingType = {
   total_freight_rate: {BRL?: number, USD?: number},
   total_surcharge: {BRL?: number, USD?: number},
   totals: {BRL?: number, USD?: number},
+  service_fee?: {cost : number, currency : string, subtotal : number},
+  pay_to_book?: {
+    currency : string
+    booking_fee : number,
+    pay_to_book : number,
+    service_fee : number
+  },
   cargo_groups: Array<{
     volume: number,
     cargo_type: string,

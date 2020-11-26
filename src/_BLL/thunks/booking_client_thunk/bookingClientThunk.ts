@@ -21,6 +21,7 @@ export const postBooking = (data: PostBookingData) => {
   return async (dispatch: Dispatch<commonBookingActions>) => {
     try {
       let res = await bookingApi.postBooking(data);
+      dispatch(bookingActions.setRecalculatedBooking(res.data))
     } catch (e) {
       console.log(e.response);
     }

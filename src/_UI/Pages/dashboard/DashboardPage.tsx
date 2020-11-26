@@ -31,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../_BLL/store";
 import { useForm } from "react-hook-form";
 import { searchActions } from "../../../_BLL/reducers/search_client/searchClientReducer";
+import {CostBookingType} from "../../../_BLL/types/bookingTypes";
 
 type PropsType = {
   setWidgetsVisible: any;
@@ -76,7 +77,7 @@ const DashboardPage: React.FC<PropsType> = ({
   origin_ports,
   destination_ports,
   frozen_choices,
-  origin_port_value,
+  origin_port_value
 }) => {
   const dispatch = useDispatch();
 
@@ -85,8 +86,7 @@ const DashboardPage: React.FC<PropsType> = ({
     (state: AppStateType) => state.booking.current_booking_freight_rate
   );
   const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
-  const auth_user = useSelector(
-    (state: AppStateType) => state.profile.authUserInfo
+  const auth_user = useSelector((state: AppStateType) => state.profile.authUserInfo
   );
 
   const {

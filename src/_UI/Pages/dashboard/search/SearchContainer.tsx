@@ -3,11 +3,12 @@ import RatingInfoPopup from "../../../components/PopUps/rating_info_popup/Rating
 import SearchCardsContainer from "./SearchCardsContainer";
 import {SearchResultType} from "../../../../_BLL/types/search/search_types";
 
+
 type PropsType = {
   search_result: SearchResultType[],
   shippingValue:number,
   setBookingPopupVisible?:(value:boolean)=>void
-  setWidgetsVisible?:(value:boolean)=>void
+  setWidgetsVisible?:(value:boolean)=>void,
 }
 
 const SearchContainer:React.FC<PropsType> = ({search_result,shippingValue,setBookingPopupVisible,setWidgetsVisible}) => {
@@ -16,7 +17,6 @@ const SearchContainer:React.FC<PropsType> = ({search_result,shippingValue,setBoo
 
   return (
     <>
-
       {isRatingPopup ? (
         <RatingInfoPopup showRatingPopup={showRatingPopup} />
       ) : (

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+
 
 type PropsType = {
-    setIsAdd: VoidFunctionType
+    setIsAdd: (value: boolean) => void
 }
 
 const AddNewButton:React.FC<PropsType> = ({setIsAdd}) => {

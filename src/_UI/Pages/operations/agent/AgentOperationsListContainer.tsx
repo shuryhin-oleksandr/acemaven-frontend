@@ -12,6 +12,7 @@ import OptionsOperationButtons from 'src/_UI/components/_commonComponents/option
 //icons
 import hide_map_icon from '../../../assets/icons/operations/hide_map.svg'
 import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
+import {CurrentShippingType} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 
 
@@ -19,7 +20,7 @@ type PropsType = {
     setSearchMode: (value: boolean) => void
     isSearchMode: boolean
     mode: string
-    setMode: (value: string) => void
+    setMode: (value: CurrentShippingType) => void
     searchValue: string
     setSearchValue: (value: string) => void
     search_column: string

@@ -3,14 +3,14 @@ import {IAddNewBank} from "../../../../../../_BLL/types/addNewUserTypes";
 import {CardContent, CardWrap, Data, DefaultIcon, DefaultText, DefaultWrap, DeleteButton, Label, LineWrap, SetDefaultButton, Wrapper} from "../bank-list-styles";
 import deleteIcon from '../../../../../assets/icons/delete.svg'
 import defaultIcon from '../../../../../assets/icons/defaultBank.svg'
-import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
+
 
 type PropsType = {
     b?: IAddNewBank,
     max_width?:string,
     w?: string,
-    deleteBank?: VoidFunctionType,
-    defaultBank?: VoidFunctionType
+    deleteBank?: (value: number) => void;
+    defaultBank?:(value: number) => void;
 }
 
 const BankCard:React.FC<PropsType> = ({max_width, w, b, deleteBank, defaultBank}) => {

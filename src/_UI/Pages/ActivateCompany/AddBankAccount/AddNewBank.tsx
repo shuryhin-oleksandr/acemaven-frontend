@@ -7,7 +7,6 @@ import {
   ListWrap,
   Title,
 } from "./add-bank-container-styles";
-import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import BankListContainer from "./BanksList/BankListContainer";
 import AddBankForm from "./AddBankForm";
 import BaseNextButton from "../../../components/base/BaseNextButton/index";
@@ -20,7 +19,7 @@ import RouteButton from "src/_UI/components/_commonComponents/buttons/route_butt
 import {CancelButton} from "../CreateNewUser/add-new-user-styles";
 
 type PropsType = {
-  setIsOpen: VoidFunctionType;
+  setIsOpen: (value: boolean) => void;
 };
 
 const AddNewBank: React.FC<PropsType> = ({ setIsOpen }) => {

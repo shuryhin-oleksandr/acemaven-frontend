@@ -12,7 +12,6 @@ import {
   HandlingSurchargeContainer,
   HandlingTitle,
 } from "./sea-conteneraized-cargo-styles";
-import { VoidFunctionType } from "../../../../../../_BLL/types/commonTypes";
 import { ChargesType } from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import { Controller } from "react-hook-form";
@@ -54,7 +53,7 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-  setFormMode?: VoidFunctionType;
+  setFormMode?: (value: boolean) => void
   charges?: ChargesType[];
   control: any;
   errors: any;

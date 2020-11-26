@@ -79,6 +79,7 @@ const DashboardPage: React.FC<PropsType> = ({
   origin_port_value,
 }) => {
   const dispatch = useDispatch();
+
   const [dates, setDates] = useState([]);
   const currentBookingRate = useSelector(
     (state: AppStateType) => state.booking.current_booking_freight_rate

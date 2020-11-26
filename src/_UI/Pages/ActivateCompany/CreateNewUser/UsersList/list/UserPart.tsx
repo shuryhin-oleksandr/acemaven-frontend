@@ -14,7 +14,6 @@ import {
     SpanName
 } from "./user-part-styles";
 import editIcon from '../../../../../../_UI/assets/icons/profile/editCard.svg'
-import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 import {IAddNewUserData} from "../../../../../../_BLL/types/addNewUserTypes";
 import {getColor} from "../../../../../../_BLL/helpers/colorWrapMaker";
 import deleteIcon from '../../../../../assets/icons/delete.svg';
@@ -27,7 +26,7 @@ type PropsType = {
     cardsMode : boolean,
     setEditMode? : (id: number, value: boolean) => void
     u?: IAddNewUserData,
-    deleteUser?: VoidFunctionType,
+    deleteUser?: (value: number) => void;
     my_id?: number
 }
 

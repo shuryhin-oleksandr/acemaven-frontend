@@ -3,7 +3,6 @@ import {ButtonsWrap, FormContainer, FormWrap, Role, Roles, RolesWrap} from './ed
 import {HeaderWrap, ProfileTitle} from "../profile-styles";
 import {InputWrap, SubmitButton} from 'src/_UI/Pages/ActivateCompany/CreateNewUser/AddUserForm';
 import CancelEditButton from 'src/_UI/components/_commonComponents/buttons/editFormButtons/CancelEditButton';
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {useForm} from "react-hook-form";
 import { Label } from 'src/_UI/components/_commonComponents/ProfileinfoBlock/profile-info-field-styles';
 import Close from "../../../../assets/icons/close-icon.svg";
@@ -22,12 +21,12 @@ import {profileSettingsAPI} from "../../../../../_DAL/API/profileSettingsAPI";
 
 type PropsType = {
     isEdit: boolean,
-    setIsEdit: VoidFunctionType,
+    setIsEdit: (value: boolean) => void,
     isChangeMode: boolean,
     setChangeMode: (value: boolean) => void
 }
 
-const EditProfileForm:React.FC<PropsType> = ({isEdit, setIsEdit, isChangeMode, setChangeMode}) => {
+const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChangeMode}) => {
     const {register, handleSubmit, errors, getValues, setValue} = useForm<IAuthUserInfo>()
     const dispatch = useDispatch()
     let userId = useSelector((state: AppStateType) => state.profile?.authUserInfo?.id)

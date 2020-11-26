@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import CancelEditButton from "src/_UI/components/_commonComponents/buttons/editFormButtons/CancelEditButton";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {ButtonsWrap, FormContainer, FormWrap} from "./company-info-styles";
 import {InputWrap, SubmitButton, Wrapper} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 import FormField from "src/_UI/components/_commonComponents/Input/FormField";
@@ -11,7 +10,7 @@ import {useDispatch} from "react-redux";
 import {editCompanyInfo} from "../../../../../_BLL/reducers/profileReducer";
 
 type PropsType = {
-    setEdit?: VoidFunctionType,
+    setEdit?: (value: boolean) => void,
     companyInfo?: CompanyInfoType | null,
     company_type: string
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   HeadingFormText,
   HeadingFormWrapper,
@@ -5,15 +6,12 @@ import {
   BackButton,
 } from "../client-popup-styles";
 import { InputsWrapper, InputColWrapper } from "./shipper-styles";
-
-import React from "react";
 import BaseButton from "../../../base/BaseButton";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import FormField from "../../../_commonComponents/Input/FormField";
 
 type PropsType = {
   control: any;
-  setFormStep: VoidFunctionType;
+  setFormStep: (value: number) => void;
   formStep: number;
   getValues: any;
   register: any;

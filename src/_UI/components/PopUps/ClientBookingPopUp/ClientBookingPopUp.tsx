@@ -40,6 +40,7 @@ import {
 //icons
 import close from "../../../assets/icons/close-icon.svg";
 import BookingCard from "../../../Pages/dashboard/search/search_rate_card/BookingCard";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 
 const useStyles = makeStyles({
   container: {
@@ -79,6 +80,7 @@ type PropsType = {
   currentFreightRate: SearchResultType;
   newSearch?: any;
   quote_dates?: {date_from: string, date_to: string}
+  close_totals?: VoidFunctionType
 };
 
 const ClientBookingPopUp: React.FC<PropsType> = ({
@@ -89,10 +91,11 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
   newSearch,
     ...props
 }) => {
+
   const dispatch = useDispatch();
-  const companyId = sessionStorage.getItem("u");
+  const company = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo.companies[0]);
   useEffect(() => {
-    dispatch(getCompanyInfo(Number(companyId)));
+    dispatch(getCompanyInfo(Number(company.id)));
     return () => {
       dispatch(bookingActions.changeBookingStep("shipping-form"));
     };
@@ -251,6 +254,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             setBookingPopupVisible={setBookingPopupVisible}
             setWidgetsVisible={setWidgetsVisible}
             newSearch={newSearch}
+            close_totals={props.close_totals}
           />
         )}
       </PopupContent>

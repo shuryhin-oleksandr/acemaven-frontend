@@ -5,12 +5,12 @@ import {
   CardTitle,
   SurchargeCardWrapper,
 } from "./form-styles";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
+
 
 import {ContainerType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 type PropsType = {
-  setNewSurchargePopUpVisible: VoidFunctionType;
+  setNewSurchargePopUpVisible: (value: boolean) => void;
   shippingValue: any,
   usageFees: ContainerType[] | null
 };

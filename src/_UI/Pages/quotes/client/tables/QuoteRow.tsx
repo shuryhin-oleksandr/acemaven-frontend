@@ -104,13 +104,8 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
     const [isOpen, setIsOpen] = useState(false)
     const [showRating, setShowRating] = useState(false)
 
-/*
-    let quotes_cargos = quote.shipping_mode.id === ShippingModeEnum.FCL
-       ? quote.cargo_groups.map(q => ({container_type: q.container_type?.id, volume: q.volume, frozen: q.frozen, dangerous: q.dangerous}))
-       : quote.cargo_groups.map(q => ({...q, container_type: q.container_type?.id, packaging_type: q.packaging_type?.id}))*/
 
     let quotes_cargos = quote.cargo_groups.map((q, index) => ({...q, id: index, container_type: q.container_type?.id, packaging_type: q.packaging_type?.id}))
-
     let getCargoGroupsFromQuote = () => {
         if(isOpen) {
             setIsOpen(false)
@@ -121,6 +116,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
         }
     }
 
+    //refactor dates
     let a = moment(quote.date_from, 'DD/MM/YYYY').toDate()
     let day_from = moment(a).format('D')
     let c = moment(quote.date_to, 'DD/MM/YYYY').toDate()

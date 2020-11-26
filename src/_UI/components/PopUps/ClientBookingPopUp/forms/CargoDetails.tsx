@@ -15,14 +15,12 @@ import { Controller, useForm } from "react-hook-form";
 import { Field } from "../../../_commonComponents/Input/input-styles";
 import React from "react";
 import BaseButton from "../../../base/BaseButton";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
 import FormField from "../../../_commonComponents/Input/FormField";
 import { AppStateType } from "../../../../../_BLL/store";
 import {
-  getCurrentShippingTypeSelector,
   getShippingTypesSelector,
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {
@@ -34,10 +32,11 @@ import { SearchResultType } from "../../../../../_BLL/types/search/search_types"
 import { getCargoGroupsListSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 
 type PropsType = {
-  setFormStep: VoidFunctionType;
+  setFormStep: (value: number) => void;
   formStep: number;
   shippingValue: number;
   currentFreightRate: SearchResultType;
+  quotes_mode?: boolean
 };
 
 
@@ -46,6 +45,7 @@ const CargoDetails: React.FC<PropsType> = ({
   formStep,
   shippingValue,
   currentFreightRate,
+  quotes_mode
 }) => {
   const dispatch = useDispatch();
   let release_type_choices = useSelector(
@@ -57,10 +57,9 @@ const CargoDetails: React.FC<PropsType> = ({
 
   const other_cargo_groups = useSelector(getCargoGroupsListSelector);
 
-  const cargo_groups =
-    shippingValue === ShippingModeEnum.FCL
-      ? fcl_cargo_groups
-      : other_cargo_groups;
+  const cargo_groups = !quotes_mode
+      ? (shippingValue === ShippingModeEnum.FCL) ? fcl_cargo_groups : other_cargo_groups
+      : fcl_cargo_groups
 
   const { register, handleSubmit, errors, control, getValues } = useForm();
 
@@ -136,7 +135,7 @@ const CargoDetails: React.FC<PropsType> = ({
                     )}`
                   : `${item.volume} ${findPackagingType(
                       Number(item.packaging_type)
-                    )} x  ${item.total_per_pack}w/m`}
+                    )} x  ${item.total_wm}w/m`}
               </ContainerInfo>
             </div>
             <div style={{ flex: 1 }}>

@@ -12,7 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
+
 import { UsageFeeType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Controller} from "react-hook-form";
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    setFormMode?: VoidFunctionType,
+    setFormMode?: (value: boolean) => void,
     containers: UsageFeeType[] | null,
     control: any,
     errors: any

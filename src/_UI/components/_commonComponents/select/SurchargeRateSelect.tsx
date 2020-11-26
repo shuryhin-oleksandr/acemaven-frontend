@@ -6,7 +6,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import { VoidFunctionType } from "src/_BLL/types/commonTypes";
 import { Tooltip } from "@material-ui/core";
 
 type IProps = {
@@ -14,7 +13,7 @@ type IProps = {
   error?: string;
   options?: any;
   placeholder?: string;
-  callback?: VoidFunctionType;
+  callback?: (value: any) => void;
   maxW?: string;
   hideLabel?: boolean;
   margin_bottom?: string;

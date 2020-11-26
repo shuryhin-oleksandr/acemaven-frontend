@@ -20,7 +20,7 @@ import EditUserPopup from "../../../../components/PopUps/editUser/EditUserPopup"
 
 type PropsType = {
     setEditMode?: (id: number, value: boolean) => void,
-    dispatch?: VoidFunctionType,
+    dispatch?: any,
     worker?: IAddNewUserData
 }
 

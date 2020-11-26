@@ -36,8 +36,7 @@ justify-content: center;
 z-index: 70;
 `
 
-export const CardContainer = styled.div`
-  
+export const CardContainer = styled.div<{bookingPopupVisible?: boolean}>`
   max-width: 800px;
   min-width: 500px;
   width: 100%;
@@ -45,6 +44,7 @@ export const CardContainer = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   margin-bottom: 20px;
   background-color: white;
+  display: ${({bookingPopupVisible}) => bookingPopupVisible ? 'none' : 'block'};
 `;
 
 export const CardInner = styled.div`

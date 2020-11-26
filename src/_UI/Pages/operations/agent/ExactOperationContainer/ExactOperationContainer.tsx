@@ -27,7 +27,7 @@ const ExactOperationContainer = ({...props}) => {
     let local_time = moment(new Date()).format(' DD/MM  h:mm a');
     let first_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.first_name)
     let last_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.last_name)
-    let my_name = first_name && first_name + last_name && last_name
+    let my_name = (first_name && first_name) + ' ' + (last_name && last_name)
     const [isAcceptPopup, openAcceptPopup] = useState(false)
 
     //data from store

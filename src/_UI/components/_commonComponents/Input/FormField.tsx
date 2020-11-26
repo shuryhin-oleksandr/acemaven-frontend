@@ -1,13 +1,12 @@
 import React from "react";
 import { Field, HelperText, InputOuter, Label } from "./input-styles";
-import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import {AgentComment} from "../../PopUps/accept_booking_popup/accept-popup-styles";
 
 type PropsType = {
   placeholder?: string;
   name?: string;
   value?: string | number;
-  onChange?: VoidFunctionType;
+  onChange?: (value: any) => void;
   inputRef?: React.Ref<HTMLInputElement>;
   error?: any;
   label?: string;
@@ -18,7 +17,7 @@ type PropsType = {
   maxW?: string;
   focusBack?: string;
   height?: string;
-  onBlur?: VoidFunctionType;
+  onBlur?: (value: any) => void;
   marginBottom?: string;
   server_error?: string;
   defaultValue?: any;

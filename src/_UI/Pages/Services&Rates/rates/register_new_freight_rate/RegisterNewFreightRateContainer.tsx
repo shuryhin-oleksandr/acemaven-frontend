@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import RegisterNewFreightRate from "./RegisterNewFreightRate";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import {
   CurrentShippingType,
   ShippingTypesEnum,
@@ -43,7 +42,7 @@ import NoSurchargeCard from "./NoSurchargeCard";
 
 
 type PropsType = {
-  setNewRateMode: VoidFunctionType;
+  setNewRateMode: (value: boolean) => void;
 };
 
 const RegisterNewFreightRateContainer: React.FC<PropsType> = ({

@@ -10,14 +10,13 @@ import {
 import editIcon from "../../../../assets/icons/profile/editProfile.svg";
 import photo from "../../../../assets/icons/profile/border-radius.svg";
 import ProfileInfoField from "../../../../components/_commonComponents/ProfileinfoBlock/ProfileInfoField";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
 
 
 
 type PropsType = {
-    setIsEdit: VoidFunctionType,
+    setIsEdit: (value: boolean) => void,
     isEdit: boolean
 }
 

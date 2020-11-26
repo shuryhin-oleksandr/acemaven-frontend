@@ -14,7 +14,6 @@ import {
   FieldsWrap,
   Label, Cancel,
 } from "./register-surcharge-styles";
-import { VoidFunctionType } from "../../../../_BLL/types/commonTypes";
 import closeIcon from "../../../../_UI/assets/icons/close-icon.svg";
 import ship from "../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../assets/icons/rates&services/plane-surcharge.svg";
@@ -37,7 +36,7 @@ import {ErrorServerMessage} from "../../../Pages/SignInPage";
 
 
 type PropsType = {
-  setIsOpen: VoidFunctionType;
+  setIsOpen: (value: boolean) => void;
   getValues?: any;
   popUpCarrier?: CarrierType;
   popUpShippingMode?: ShippingModeType | null;

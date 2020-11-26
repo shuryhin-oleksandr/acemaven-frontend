@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 import { useForm } from "react-hook-form";
 import { ChangePasswordButton } from "./EditProfileForm";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
 import {changeMyPassword, profileActions} from "../../../../../_BLL/reducers/profileReducer";
 import { AppStateType } from "../../../../../_BLL/store";
@@ -17,7 +16,7 @@ import {
 } from "./edit-form-styles";
 
 type PropsType = {
-  setChangeMode: VoidFunctionType;
+  setChangeMode: (value: boolean) => void
 };
 
 const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {

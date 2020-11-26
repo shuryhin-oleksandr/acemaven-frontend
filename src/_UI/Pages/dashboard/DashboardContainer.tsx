@@ -50,7 +50,6 @@ const DashboardContainer:React.FC = () => {
     const editable_cargo_group = useSelector(getEditableCargoSelector)
     const search_result = useSelector(getSearchResult)
     const search_success = useSelector(getSearchSuccess)
-
     const duplicatesError = useSelector((state: AppStateType) => state.search.duplicates_error)
     const origin_ports = useSelector(getOriginPorts);
     const destination_ports = useSelector(getDestinationPorts);
@@ -85,8 +84,8 @@ const DashboardContainer:React.FC = () => {
             />}
             <div style={{position:"relative", width:"100%", height: "100%", minHeight: 700}}>
                 <DashboardPage widgetsVisible={widgetsVisible}
-                                 setWidgetsVisible={setWidgetsVisible}
-                                 shippingValue={shippingValue}
+                               setWidgetsVisible={setWidgetsVisible}
+                               shippingValue={shippingValue}
                                setOpenCalcPopup={setOpenCalcPopup}
                                setShippingValue={setShippingValue}
                                setMode={setMode}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import RatingInfoPopup from "../../../components/PopUps/rating_info_popup/RatingInfoPopup";
 import SearchCardsContainer from "./SearchCardsContainer";
-import ClientBookingPopUp from "../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
 import {SearchResultType} from "../../../../_BLL/types/search/search_types";
 
 type PropsType = {
@@ -26,6 +25,7 @@ const SearchContainer:React.FC<PropsType> = ({search_result,shippingValue,setBoo
                               shippingValue={shippingValue}
                               setBookingPopupVisible={setBookingPopupVisible}
                               setWidgetsVisible={setWidgetsVisible}
+
         />
       )}
     </>

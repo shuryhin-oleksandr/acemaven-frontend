@@ -3,9 +3,9 @@ import React, {useState} from 'react'
 import AddNewButton from "../../../../components/_commonComponents/buttons/addNewItemButton/addNewButton";
 import CreditCardCard from "./CreditCardCard";
 import CreditCardForm from "./CreditCardForm";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 //styles
 import {CreditCardsInner, CreditCardsWrapper} from "./credit-cards-styles";
-import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 type PropsType = {

@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from "react";
-import {ModeIcon, Outer, SpanMode} from "./surcharges-style";
+import { useHistory } from "react-router-dom";
+import {Tooltip} from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -8,18 +9,17 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import plane_surcharge from '../../../../assets/icons/rates&services/plane-surcharge.svg'
-import ship_surcharge from '../../../../assets/icons/rates&services/ship-surcharge.svg'
-import {TemplateIcon} from "../../../../components/_commonComponents/hover_message/hover-message-styles";
+import plane_surcharge from '../../../../assets/icons/rates&services/plane-surcharge.svg';
+import ship_surcharge from '../../../../assets/icons/rates&services/ship-surcharge.svg';
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
-import {Tooltip} from "@material-ui/core";
-import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {TemplateIcon} from "../../../../components/_commonComponents/hover_message/hover-message-styles";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
-import { useHistory } from "react-router-dom";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {ModeIcon, Outer, SpanMode} from "./surcharges-style";
 
 const useStyles = makeStyles({
     container: {

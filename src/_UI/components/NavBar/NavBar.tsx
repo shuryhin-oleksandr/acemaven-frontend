@@ -1,10 +1,11 @@
 import * as React from "react";
-import { NavContainer } from "./nav-styles";
-import MenuLink from "./MenuLink";
-import {operationsLinks, profileLinks, ratesLinks, requestLinks} from "../../../_BLL/helpers/nestedMenu/menuLinnks";
 import { useState } from "react";
 import {useSelector} from "react-redux";
+import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import MenuLink from "./MenuLink";
+import {operationsLinks, profileLinks, ratesLinks, requestLinks} from "../../../_BLL/helpers/nestedMenu/menuLinnks";
 import {AppStateType} from "../../../_BLL/store";
+import activeSettings from '../../../_UI/assets/icons/sidebar/settingsActive.svg';
 import requests from '../../assets/icons/sidebar/requests.svg';
 import active_requests from '../../assets/icons/sidebar/active_requests.svg';
 import operations from '../../assets/icons/sidebar/operations(small).svg';
@@ -13,10 +14,8 @@ import rates from '../../assets/icons/sidebar/rates.svg';
 import activeRates from '../../assets/icons/sidebar/rates-active.svg';
 import billing from '../../assets/icons/sidebar/billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
-import activeSettings from '../../../_UI/assets/icons/sidebar/settingsActive.svg';
 import support from '../../assets/icons/sidebar/support.svg';
-import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyled";
-
+import { NavContainer } from "./nav-styles";
 
 interface IProps {
     setFull?: (value: boolean) => void

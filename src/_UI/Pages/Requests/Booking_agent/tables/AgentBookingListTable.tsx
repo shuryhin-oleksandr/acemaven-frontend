@@ -17,12 +17,13 @@ import TableBody from "@material-ui/core/TableBody";
 import {
   BookingInfoType
 } from "../../../../../_BLL/types/bookingTypes";
+//components
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 //styles
 import { ModeIcon } from "src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharges-style";
 //icons
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 type PropsType = {

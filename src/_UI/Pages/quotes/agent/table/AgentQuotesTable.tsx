@@ -13,10 +13,11 @@ import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 //components
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import AgentQuoteRow from "./AgentQuoteRow";
 //styles
 import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "../../client/tables/client-quotes-table-styles";
-import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+
 
 
 

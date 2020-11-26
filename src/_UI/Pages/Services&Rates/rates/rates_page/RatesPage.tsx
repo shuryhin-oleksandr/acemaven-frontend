@@ -17,9 +17,9 @@ import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
 import {FreightRateObjectType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import { useHistory } from "react-router-dom";
 import { setActiveOrPausedRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const useStyles = makeStyles({
   container: {

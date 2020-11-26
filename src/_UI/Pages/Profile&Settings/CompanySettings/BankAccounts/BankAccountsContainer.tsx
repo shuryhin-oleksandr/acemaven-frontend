@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {BanksContainer, BanksInner} from "./bank-accounts-styles";
 import AddNewButton from "../../../../components/_commonComponents/buttons/addNewItemButton/addNewButton";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import BankCard from "../../../ActivateCompany/AddBankAccount/BanksList/list/bankCard";
 import { useState } from "react";
 import Form from "./addBankForm/Form";
@@ -13,7 +14,6 @@ import {
 } from "../../../../../_BLL/reducers/profileReducer";
 import {AppStateType} from "../../../../../_BLL/store";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const BankAccountsContainer:React.FC = () => {
     const [isAdd, setIsAdd] = useState(false)

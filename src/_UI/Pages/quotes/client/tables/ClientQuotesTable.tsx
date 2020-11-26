@@ -16,8 +16,8 @@ import {makeOfferViewedThunk} from "../../../../../_BLL/thunks/quotes/clientQuot
 //components
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
-import QuoteRow from "./QuoteRow";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import QuoteRow from "./QuoteRow";
 //styles
 import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "./client-quotes-table-styles";
 

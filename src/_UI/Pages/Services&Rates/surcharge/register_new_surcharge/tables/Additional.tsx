@@ -159,7 +159,7 @@ const Additional: React.FC<PropsType> = ({
                     name={`charges.${charge.id}.charge`}
                     control={control}
                     defaultValue={0}
-                    rules={{required: true}}
+                    //rules={{required: true}}
                     as={
                         <Field maxW="100px" placeholder="0.00$" type="number"  />
                     }

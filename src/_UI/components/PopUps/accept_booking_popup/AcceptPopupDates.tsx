@@ -180,7 +180,8 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
 
 export default AcceptPopupDates
 
- const AcceptDatesFilter = styled.div`
+
+const AcceptDatesFilter = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -190,6 +191,6 @@ export default AcceptPopupDates
 const Wrapper = styled.div<{justify_content?: string}>`
   width: 49%;
   display: flex;
- align-items: center;
- justify-content: ${({justify_content}) => justify_content ? justify_content : 'flex-end'};
+  align-items: center;
+  justify-content: ${({justify_content}) => justify_content ? justify_content : 'flex-end'};
 `

@@ -69,13 +69,20 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, ac
                         <ContentHeader>
                             <BookingInfo>
                                 <BookingNumber>
-                                    Booking ????
+                                    Booking {exact_booking_info?.aceid}
                                 </BookingNumber>
                                 <BookingStatus>
                                 <span style={{
                                     color: '#1ab8e5',
                                     marginRight: '5px'
-                                }}>STATUS</span> {local_time} {exact_booking_info?.status}
+                                }}>STATUS</span>
+                                  <span style={{fontFamily: 'Helvetica Light', fontSize: '18px', textTransform: 'lowercase'}}>
+                                      {local_time}
+                                  </span>
+                                    {' '}
+                                  <span style={{textTransform: 'uppercase'}}>
+                                    {exact_booking_info?.status}
+                                  </span>
                                 </BookingStatus>
                             </BookingInfo>
                             <ActionsButtons>
@@ -131,7 +138,11 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, ac
                                     <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
                                         <InfoRow>
                                             <InfoRowLabel>STATUS</InfoRowLabel>
-                                            <InfoRowValue>{local_time}<br/> {exact_booking_info?.status}</InfoRowValue>
+                                            <InfoRowValue>{local_time}<br/>
+                                            <span style={{textTransform: 'uppercase',}}>
+                                                {exact_booking_info?.status}
+                                            </span>
+                                            </InfoRowValue>
                                         </InfoRow>
                                     </div>
                                 </ValuesShipmentWrapper>

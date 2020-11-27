@@ -12,7 +12,7 @@ type PropsType = {
   shippingValue: number;
   currentFreightRate: SearchResultType;
   quote_dates?: {date_from: string, date_to: string},
-  quotes_mode?: boolean
+  quotes_mode?: boolean,
 };
 
 const RootShippingForm: React.FC<PropsType> = ({
@@ -46,6 +46,7 @@ const RootShippingForm: React.FC<PropsType> = ({
             currentUser={currentUser}
             currentFreightRate={currentFreightRate}
             quote_dates={quote_dates}
+            quotes_mode={props.quotes_mode}
           />
         )}
       </div>

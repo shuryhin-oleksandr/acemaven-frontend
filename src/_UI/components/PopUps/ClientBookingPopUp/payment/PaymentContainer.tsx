@@ -11,7 +11,8 @@ type PropsType = {
   newSearch?: any;
   close_totals?: VoidFunctionType,
   current_user: IAuthUserInfo | null,
-  new_total_paid: boolean
+  new_total_paid: boolean,
+  quotes_mode?: boolean
 };
 
 
@@ -35,6 +36,7 @@ const PaymentContainer: React.FC<PropsType> = ({
       setWidgetsVisible={setWidgetsVisible}
       newSearch={newSearch}
       close_totals={props.close_totals}
+      quotes_mode={props.quotes_mode}
     />
   );
 };

@@ -237,7 +237,10 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
         <ShipmentPartsBlock shipper_info={operation_info?.shipper ? operation_info?.shipper : null}
                             client_info={{company: operation_info?.client as string, contact_person: operation_info?.client_contact_person as string}}
         />
-        <CargoBlock operation_shipping_type={operation_info?.shipping_type as string}/>
+        <CargoBlock operation_shipping_type={operation_info?.shipping_type as string}
+                    operation_cargo_groups={operation_info?.cargo_groups}
+                    operation_shipping_mode={operation_info?.freight_rate?.shipping_mode}
+        />
       </CardContent>
     </CardWrapper>
   );

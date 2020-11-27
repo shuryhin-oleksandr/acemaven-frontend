@@ -12,8 +12,9 @@ import {QuoteType, StatusesQuoteType} from "../../../../../_BLL/types/quotes/quo
 import SearchCard from "../../../dashboard/search/search_rate_card/SearchCard";
 import {CardsAbsoluteWrapper} from "../../../dashboard/search/search_rate_card/search-card-styles";
 import ClientBookingPopUp from "../../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
+import {quotesClientActions} from "../../../../../_BLL/reducers/quotes/quotesClientReducer";
 
 type PropsType = {
     isOpen?: boolean,
@@ -52,21 +53,26 @@ const useStyles = makeStyles({
 });
 
 const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, offerViewedHandler, quote}) => {
+    //HOOKS
     const classes = useStyles();
+    const dispatch = useDispatch()
 
     //local state
     const [showTotals, setShowTotals] = useState(false)
     const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
     let [totalId, setTotalId] = useState(0);
 
-    let totalsHandler = (id: number) => {
+    let totalsHandler = (id: number, quote_id: number) => {
         offerViewedHandler(id)
         setTotalId(id)
         setShowTotals(true)
+        dispatch(quotesClientActions.setFutureArchiveQuoteId(quote_id))
     }
     let closeTotals = () => {
         setTotalId(0)
         setShowTotals(false)
+        dispatch(quotesClientActions.setFutureArchiveQuoteId(0))
+
     }
 
 
@@ -120,7 +126,7 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                                                     }
                                                 </TableCell>
                                                 <TableCell align="left" className={classes.collapseInnerCell}>
-                                                    <BookLittleButton onClick={() => totalsHandler(o.id)}>BOOK</BookLittleButton>
+                                                    <BookLittleButton onClick={() => totalsHandler(o.id, quote?.id as number)}>BOOK</BookLittleButton>
                                                 </TableCell>
                                             </TableRow>
                                         </TableBody>

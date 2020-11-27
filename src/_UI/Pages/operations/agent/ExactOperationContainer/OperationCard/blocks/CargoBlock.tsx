@@ -5,7 +5,11 @@ import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow
 import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
 import { InfoRowLabel } from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
 
-const CargoBlock: React.FC = () => {
+type PropsType = {
+    operation_shipping_type: string
+}
+
+const CargoBlock: React.FC<PropsType> = ({operation_shipping_type}) => {
   const [isHidden, setHidden] = useState(false);
   return (
     <SectionWrapper
@@ -30,10 +34,11 @@ const CargoBlock: React.FC = () => {
         />
       </IconButton>
       <div>
-        <SectionTitle>Cargo</SectionTitle>
+        <SectionTitle>CARGO</SectionTitle>
         {!isHidden && (
+            operation_shipping_type === 'sea' &&
           <div style={{ display: "flex" }}>
-            <InfoRowLabel>Container Free time:</InfoRowLabel>
+            <InfoRowLabel>CONTAINER FREE TIME:</InfoRowLabel>
             <span style={{ marginLeft: "5px" }}>5 DAYS</span>
           </div>
         )}

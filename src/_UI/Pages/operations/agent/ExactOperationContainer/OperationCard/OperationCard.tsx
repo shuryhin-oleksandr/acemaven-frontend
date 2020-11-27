@@ -26,8 +26,6 @@ import {
   ValuesShipmentWrapper,
 } from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {
-  BookingTitle,
-  NumberOfBooking,
   OperationNumber,
   SectionTitle,
   SectionWrapper,
@@ -42,6 +40,7 @@ import calendar_icon from "../../../../../assets/icons/date_1.svg";
 import down_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
 import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
 import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
+import moment from "moment";
 
 
 type PropsType = {
@@ -53,6 +52,13 @@ type PropsType = {
 }
 
 const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time, openAcceptPopup, my_name}) => {
+
+  //refactoring dates
+  let a = moment(operation_info?.date_from, 'DD/MM/YYYY').toDate()
+  let date_from = moment(a).format('DD/MM')
+  let c = moment(operation_info?.date_to, 'DD/MM/YYYY').toDate()
+  let date_to = moment(c).format('DD/MM')
+
   return (
     <CardWrapper>
       <CardContent>
@@ -69,7 +75,11 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
               <span style={{ color: "#1ab8e5", marginRight: "5px" }}>
                 STATUS
               </span>
-              {local_time}{' '}{operation_info?.status}
+              <span style={{fontFamily: 'Helvetica Light', fontSize: '18px', textTransform: 'lowercase'}}>{local_time}</span>
+              {' '}
+              <span style={{textTransform: 'uppercase'}}>
+                {operation_info?.status}
+              </span>
             </BookingStatus>
           </BookingInfo>
           <ActionsButtons>
@@ -162,84 +172,72 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
                 <img src={calendar_icon} alt="" />
               </CalendarIcon>
               <InfoRow margin_right="50px" margin_bottom="0px">
-                <InfoRowLabel>Shipment Date</InfoRowLabel>
-                <span
-                  style={{
-                    width: "100px",
-                    fontSize: "24px",
-                    color: "black",
-                    fontFamily: "Helvetica Light",
-                    marginTop: "15px",
-                    marginBottom: "13px",
-                  }}
-                >
-                  WEEK 42
+                <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
+                <span style={{width: "100px", fontSize: "24px", color: "black", fontFamily: "Helvetica Light", marginBottom: "5px",}}>
+                  {(operation_info?.week_range?.week_from !== operation_info?.week_range?.week_to)
+                      ? `WEEK ${operation_info?.week_range?.week_from} - ${operation_info?.week_range?.week_to}`
+                      : `WEEK ${operation_info?.week_range?.week_from}`
+                  }
                 </span>
-                <InfoRowValue>01/11 - 07/11</InfoRowValue>
+                <InfoRowValue>{date_from} - {date_to}</InfoRowValue>
               </InfoRow>
             </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>Estimated Time of Departure</InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>Estimated Time of Arrival</InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-            </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>Cargo Cut Off </InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>Documents Cut Off </InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-            </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>Actual Time of Departure</InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>Actual Time of Arrival</InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-            </div>
+            {operation_info?.status === "Booking Request Confirmed" &&
+            <>
+              <div style={{width: "20%", display: "flex", flexDirection: "column"}}>
+                <InfoRow>
+                  <InfoRowLabel>ESTIMATED TIME OF DEPARTURE</InfoRowLabel>
+                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoRowLabel>ESTIMATED TIME OF ARRIVAL</InfoRowLabel>
+                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
+                </InfoRow>
+              </div>
+              <div style={{width: "20%", display: "flex", flexDirection: "column",}}>
+                <InfoRow>
+                  <InfoRowLabel>CARGO CUT OFF </InfoRowLabel>
+                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoRowLabel>DOCUMENTS CUT OFF </InfoRowLabel>
+                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
+                </InfoRow>
+              </div>
+              <div style={{width: "20%", display: "flex", flexDirection: "column",}}>
+                <InfoRow>
+                  <InfoRowLabel>ACTUAL TIME OF DEPARTURE</InfoRowLabel>
+                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoRowLabel>ACTUAL TIME OF ARRIVAL</InfoRowLabel>
+                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
+                </InfoRow>
+              </div>
+            </>
+            }
           </GeneralBookingContent>
         </SectionWrapper>
-        <ShipmentTrackingBlock />
+        {operation_info?.status === "Booking Request Confirmed"
+          && <ShipmentTrackingBlock/>
+        }
         <SectionWrapper>
           <SectionTitle>CHARGES</SectionTitle>
           <div style={{ display: "flex" }}>
-            <InfoRowLabel>Payment Due by:</InfoRowLabel>
+            <InfoRowLabel>PAYMENT DUE BY:</InfoRowLabel>
             <span style={{ marginLeft: "5px" }}>22/07/2020</span>
           </div>
         </SectionWrapper>
+        {(operation_info?.release_type || operation_info?.shipment_details.length > 0) &&
+           <DocsAndNotesBlock notes={operation_info?.shipment_details}
+                           docs={{release_type: operation_info?.release_type, number_of_documents: operation_info?.number_of_documents}}
+           />
+        }
 
-        <DocsAndNotesBlock />
-        <ShipmentPartsBlock />
-        <CargoBlock />
+        <ShipmentPartsBlock shipper_info={operation_info?.shipper ? operation_info?.shipper : null}
+                            client_info={{company: operation_info?.client as string, contact_person: operation_info?.client_contact_person as string}}
+        />
+        <CargoBlock operation_shipping_type={operation_info?.shipping_type as string}/>
       </CardContent>
     </CardWrapper>
   );

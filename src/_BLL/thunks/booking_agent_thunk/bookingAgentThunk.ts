@@ -47,7 +47,8 @@ export const acceptBookingByAgentThunk = (user_id: number, booking_id: number, h
   return async (dispatch: Dispatch<commonAgentBookingActions>) => {
     try {
       await bookingApi.acceptBookingByAgent(user_id, booking_id);
-      history.push('/operations')
+      dispatch(agentBookingActions.setAcceptSuccess('success'))
+      history.push('/requests/booking')
     } catch (e) {
       console.log(e)
     }

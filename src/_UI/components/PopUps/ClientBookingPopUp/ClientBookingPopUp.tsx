@@ -41,6 +41,7 @@ import {
 import close from "../../../assets/icons/close-icon.svg";
 import BookingCard from "../../../Pages/dashboard/search/search_rate_card/BookingCard";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {quotesClientActions} from "../../../../_BLL/reducers/quotes/quotesClientReducer";
 
 const useStyles = makeStyles({
   container: {
@@ -141,6 +142,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
           onClick={() => {
             setBookingPopupVisible(false);
             setWidgetsVisible && setWidgetsVisible(true);
+            props.quotes_mode && dispatch(quotesClientActions.setFutureArchiveQuoteId(0))
           }}
         >
           <img src={close} alt="" />
@@ -249,9 +251,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             </HiddenTable>
             <TableTotal>
               <TotalLine>
-                <TotalName>TOTAL FREIGHT in {new_total?.charges?.total_freight_rate?.BRL ? 'BRL' : 'USD'}</TotalName>
+                <TotalName>TOTAL FREIGHT in {new_total?.charges?.total_freight_rate?.BRL >= 0 ? 'BRL' : 'USD'}</TotalName>
                 <TotalValue>
-                  {new_total?.charges?.total_freight_rate?.BRL
+                  {new_total?.charges?.total_freight_rate?.BRL >= 0
                       ? new_total?.charges?.total_freight_rate?.BRL
                       : new_total?.charges?.total_freight_rate?.USD}
                 </TotalValue>
@@ -272,18 +274,10 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                 <TotalName>ACEMAVEN SERVICE FEE: IN {new_total?.charges?.service_fee?.currency === 'BRL' ? 'BRL' : 'USD'}</TotalName>
                 <TotalValue>{new_total?.charges?.service_fee?.subtotal}</TotalValue>
               </TotalLine>
-              {new_total?.charges?.totals?.BRL &&
                 <TotalLine>
-                  <TotalName>SUBTOTAL IN BRL</TotalName>
-                  <TotalValue>{new_total?.charges?.totals?.BRL}</TotalValue>
+                  <TotalName>SUBTOTAL IN {new_total?.charges?.pay_to_book?.currency}</TotalName>
+                  <TotalValue>{new_total?.charges?.pay_to_book?.pay_to_book}</TotalValue>
                 </TotalLine>
-              }
-              {new_total?.charges?.totals?.USD &&
-                <TotalLine>
-                  <TotalName>SUBTOTAL IN USD</TotalName>
-                  <TotalValue>{new_total?.charges?.totals?.USD}</TotalValue>
-                </TotalLine>
-              }
             </TableTotal>
           </HiddenWrapper>
         )}
@@ -295,6 +289,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             close_totals={props.close_totals}
             current_user={currentUser}
             new_total_paid={new_total.is_paid}
+            quotes_mode={props.quotes_mode}
           />
         )}
       </PopupContent>

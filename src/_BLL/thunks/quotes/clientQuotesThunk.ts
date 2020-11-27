@@ -59,3 +59,5 @@ export const makeOfferViewedThunk = (offer_id: number) => {
         }
     }
 }
+
+

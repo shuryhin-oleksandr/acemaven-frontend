@@ -9,7 +9,12 @@ import {
   InfoRowValue,
 } from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
 
-const DocsAndNotesBlock: React.FC = () => {
+type PropsType = {
+    notes: any,
+    docs: {release_type: any, number_of_documents: any}
+}
+
+const DocsAndNotesBlock:React.FC<PropsType> = ({notes, docs}) => {
   const [isHidden, setHidden] = useState(false);
   return (
     <SectionWrapper
@@ -35,49 +40,47 @@ const DocsAndNotesBlock: React.FC = () => {
           style={{ width: "14px" }}
         />
       </IconButton>
-      <div style={{ width: "45%" }}>
-        <SectionTitle>NOTES</SectionTitle>
-        {!isHidden && (
-          <InfoRow>
-            <InfoRowLabel>Your comment to the client</InfoRowLabel>
-            <InfoRowValue>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet int. Velit officia consequat duis enim velit mollit.
-            </InfoRowValue>
-          </InfoRow>
-        )}
-      </div>
-      <div style={{ width: "45%" }}>
-        <SectionTitle>DOCUMENTS</SectionTitle>
-        {!isHidden && (
-          <div style={{ display: "flex" }}>
-            <div
-              style={{
-                width: "40%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>Release type</InfoRowLabel>
-                <InfoRowValue>Document release type</InfoRowValue>
-              </InfoRow>
+        {docs.release_type &&
+            <div style={{width: "45%"}}>
+            <SectionTitle>DOCUMENTS</SectionTitle>
+            {!isHidden && (
+                <div style={{display: "flex"}}>
+                    <div style={{width: "40%", display: "flex", flexDirection: "column",}}>
+                        <InfoRow>
+                            <InfoRowLabel>Release type</InfoRowLabel>
+                            <InfoRowValue>{docs.release_type}</InfoRowValue>
+                        </InfoRow>
+                    </div>
+                    <div
+                        style={{
+                            width: "40%",
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
+                        <InfoRow>
+                            <InfoRowLabel>No. of Documents</InfoRowLabel>
+                            <InfoRowValue>{docs.number_of_documents}</InfoRowValue>
+                        </InfoRow>
+                    </div>
+                </div>
+            )}
+        </div>
+        }
+        {notes.length > 0
+            && <div style={{ width: "45%" }}>
+            <SectionTitle>NOTES</SectionTitle>
+             {!isHidden && (
+            <InfoRow>
+                <InfoRowLabel>Your comment to the client</InfoRowLabel>
+                <InfoRowValue>
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+                amet int. Velit officia consequat duis enim velit mollit.
+                </InfoRowValue>
+             </InfoRow>
+            )}
             </div>
-            <div
-              style={{
-                width: "40%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>No. of Documents</InfoRowLabel>
-                <InfoRowValue>12</InfoRowValue>
-              </InfoRow>
-            </div>
-          </div>
-        )}
-      </div>
+        }
     </SectionWrapper>
   );
 };

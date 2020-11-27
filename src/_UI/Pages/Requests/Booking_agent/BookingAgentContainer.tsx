@@ -6,7 +6,11 @@ import {getBookingRequestListThunk} from "../../../../_BLL/thunks/booking_agent_
 //components
 import Layout from "../../../components/BaseLayout/Layout";
 import BookingAgentPage from "./BookingAgentPage";
-import {getBookingRequestListSelector, getIsFetching} from "../../../../_BLL/selectors/booking/bookingAgentSelector";
+import {
+    getAcceptSuccess,
+    getBookingRequestListSelector
+} from "../../../../_BLL/selectors/booking/bookingAgentSelector";
+import MovedToOperationsPopup from "../../../components/PopUps/moved_to_operations_popup/MovedToOperationsPopup";
 
 
 const BookingAgentContainer:React.FC = () => {
@@ -16,6 +20,7 @@ const BookingAgentContainer:React.FC = () => {
     const [searchValue, setSearchValue] = useState("");
     const [search_column, setSearchColumn] = useState("");
     const [isSearchMode, setSearchMode] = useState(false);
+    const [movedPopup, setMovedPopup] = useState(false)
 
     const dispatch = useDispatch();
 
@@ -24,9 +29,17 @@ const BookingAgentContainer:React.FC = () => {
     }, [dispatch]);
 
     const bookingList = useSelector(getBookingRequestListSelector);
+    const accept_success = useSelector(getAcceptSuccess)
+
+    useEffect(() => {
+        if(accept_success) {
+            setMovedPopup(true)
+        }
+    },[accept_success])
 
     return (
       <Layout>
+              {movedPopup && <MovedToOperationsPopup setMovedToOperations={setMovedPopup}/>}
               <BookingAgentPage bookingList={bookingList ? bookingList : []}
                                   mode={mode}
                                   setMode={setMode}

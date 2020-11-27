@@ -16,11 +16,15 @@ export const BookingTitle = styled.span`
   margin-bottom: 13px;
 `;
 
-export const NumberOfBooking = styled.span`
+export const NumberOfBooking = styled.div`
   text-transform: none;
-  margin-left: 5px;
+  margin-left: 10px;
   color: #333333;
-  font-family: "Helvetica Reg ", sans-serif;
+  font-family: "Helvetica Light", sans-serif;
+  font-size: 24px;
+  line-height: 28px;
+  display: flex;
+  align-items: baseline;
 `;
 
 export const SectionWrapper = styled.div`

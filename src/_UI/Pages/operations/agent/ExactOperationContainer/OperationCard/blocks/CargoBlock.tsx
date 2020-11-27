@@ -10,10 +10,11 @@ import {CargoGroupQuoteType} from "../../../../../../../_BLL/types/quotes/quotes
 type PropsType = {
     operation_shipping_type: string,
     operation_cargo_groups: CargoGroupQuoteType[],
-    operation_shipping_mode: {id: number, title: string}
+    operation_shipping_mode: {id: number, title: string},
+    free_time?: number
 }
 
-const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_cargo_groups, operation_shipping_mode}) => {
+const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_cargo_groups, operation_shipping_mode, free_time}) => {
   const [isHidden, setHidden] = useState(false);
   return (
     <SectionWrapper
@@ -43,7 +44,7 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
             <>
             {operation_shipping_type === 'sea' && <div style={{ display: "flex", marginBottom: '20px' }}>
                     <InfoRowLabel>CONTAINER FREE TIME:</InfoRowLabel>
-                    <span style={{ marginLeft: "5px" }}>5 DAYS</span>
+                    <span style={{ marginLeft: "5px" }}>{free_time} DAYS</span>
                 </div>}
                 <CargoGroupsTable cargo_groups={operation_cargo_groups}
                                   object_shipping_mode={operation_shipping_mode}

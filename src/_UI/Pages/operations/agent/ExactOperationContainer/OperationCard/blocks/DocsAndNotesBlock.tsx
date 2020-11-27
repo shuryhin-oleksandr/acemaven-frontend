@@ -8,9 +8,10 @@ import {
   InfoRowLabel,
   InfoRowValue,
 } from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+import {ShipmentDetailsType} from "../../../../../../../_BLL/types/operations/operationsTypes";
 
 type PropsType = {
-    notes: any,
+    notes: ShipmentDetailsType[],
     docs: {release_type: any, number_of_documents: any}
 }
 
@@ -74,8 +75,7 @@ const DocsAndNotesBlock:React.FC<PropsType> = ({notes, docs}) => {
             <InfoRow>
                 <InfoRowLabel>Your comment to the client</InfoRowLabel>
                 <InfoRowValue>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet int. Velit officia consequat duis enim velit mollit.
+                    {notes[0].booking_notes}
                 </InfoRowValue>
              </InfoRow>
             )}

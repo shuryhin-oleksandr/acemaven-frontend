@@ -10,7 +10,8 @@ export const TemporaryWrapper = styled.div`
   width: 100%;
   background-color: rgba(0, 0, 0, .3);
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  padding-top: 150px;
   justify-content: center;
   z-index: 100;
 `

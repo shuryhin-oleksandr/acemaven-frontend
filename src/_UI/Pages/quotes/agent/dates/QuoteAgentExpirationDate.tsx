@@ -36,7 +36,7 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,
     let two_weeks_after = moment(a).toDate()
 
     return (
-        <CalendarWrapper max_width='300px'
+        <CalendarWrapper max_width='300px' margin_top='0px'
                          input_height='40px' margin_right='0px' margin_bottom='25px'>
             <Controller
                 name='date_to'

@@ -12,8 +12,8 @@ export const RegisterRateWrapper = styled.form`
   bottom: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 70px 0;
+  align-items: baseline;
+  padding-top: 50px;
   background-color: rgba(0, 0, 0, .3);
 `
 export const RegisterRateInner = styled.div`

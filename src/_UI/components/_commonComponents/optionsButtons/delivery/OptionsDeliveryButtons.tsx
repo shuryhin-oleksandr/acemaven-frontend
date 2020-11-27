@@ -46,8 +46,7 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
         getClientQuotesThunk(type, "", props.searchColumn, props.searchValue)
       );
     } else if (props.thunkName === "quotes_agent") {
-      props.dispatch &&
-        props.dispatch(
+      dispatch(
           getAgentQuotesListThunk(
             type,
             "",

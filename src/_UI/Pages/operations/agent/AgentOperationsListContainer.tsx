@@ -62,7 +62,6 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
                                                     directory=''
                                                     thunkName="operations"
                                                     my_operations={props.my_operations}
-
                             />
                         </div>
                     </AgentOperationHeader>

@@ -11,10 +11,11 @@ type PropsType = {
     operation_shipping_type: string,
     operation_cargo_groups: CargoGroupQuoteType[],
     operation_shipping_mode: {id: number, title: string},
-    free_time?: number
+    free_time?: number,
+    status: string
 }
 
-const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_cargo_groups, operation_shipping_mode, free_time}) => {
+const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_cargo_groups, operation_shipping_mode, free_time, status}) => {
   const [isHidden, setHidden] = useState(false);
   return (
     <SectionWrapper
@@ -42,7 +43,8 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
         <SectionTitle>CARGO</SectionTitle>
         {!isHidden && (
             <>
-            {operation_shipping_type === 'sea' && <div style={{ display: "flex", marginBottom: '20px' }}>
+            {operation_shipping_type === 'sea' && status === "Booking Confirmed" &&
+                <div style={{ display: "flex", marginBottom: '20px' }}>
                     <InfoRowLabel>CONTAINER FREE TIME:</InfoRowLabel>
                     <span style={{ marginLeft: "5px" }}>{free_time} DAYS</span>
                 </div>}

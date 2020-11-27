@@ -1,21 +1,28 @@
 import React, {useEffect, useState} from 'react'
+//react-hook-form
+import { useForm} from "react-hook-form";
+//types
+import {IAddNewUserData} from "../../../../../_BLL/types/addNewUserTypes";
+//helpers
+import {getColor} from "../../../../../_BLL/helpers/colorWrapMaker";
+//BLL
+import {editWorker} from "../../../../../_BLL/reducers/profileReducer";
+//components
 import FormField from 'src/_UI/components/_commonComponents/Input/FormField';
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
-import {EditCardContainer, FormContainer, Label, PhotoWrap} from "./edit-card-styles";
-import {useForm} from "react-hook-form";
+import EditUserPopup from "../../../../components/PopUps/editUser/EditUserPopup";
 import {
     ActionsWrap,
     CloseButton, DoneButton
 } from "../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
-import user from '../../../../../_UI/assets/icons/profile/defaultUserPhoto.svg'
 import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 import CustomCheckbox from "../../../../components/_commonComponents/customCheckbox/customCheckbox";
-import {editWorker} from "../../../../../_BLL/reducers/profileReducer";
-import {IAddNewUserData} from "../../../../../_BLL/types/addNewUserTypes";
-import {getColor} from "../../../../../_BLL/helpers/colorWrapMaker";
+//styles
+import {EditCardContainer, FormContainer, Label, PhotoWrap} from "./edit-card-styles";
+//icons
+import user from '../../../../../_UI/assets/icons/profile/defaultUserPhoto.svg'
 import closeIcon from "../../../../assets/icons/profile/closeForm.svg";
 import done from "../../../../assets/icons/profile/add.svg";
-import EditUserPopup from "../../../../components/PopUps/editUser/EditUserPopup";
+
 
 
 type PropsType = {
@@ -25,7 +32,10 @@ type PropsType = {
 }
 
 const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) => {
-    const {register, errors, handleSubmit, getValues, setValue} = useForm<IAddNewUserData>()
+    const {register, errors, handleSubmit, getValues, setValue} = useForm<IAddNewUserData>({
+        mode: 'onBlur',
+        reValidateMode: 'onBlur'
+    })
     const [isOpenPopup, setIsOpen] = useState(false)
 
     const onSubmit = (values:IAddNewUserData) => {
@@ -139,12 +149,12 @@ const EditUserCardForm:React.FC<PropsType> = ({setEditMode, dispatch, worker}) =
                                    placeholder='Email'
                                    label='Email'
                                    inputRef={register({
-                                       required: 'Field is required'
+                                       required: 'Field is required',
+                                       pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                                    })}
                                    error={errors?.email?.message}
                                    getValues={getValues}
                         />
-
                 </FormContainer>
 
 

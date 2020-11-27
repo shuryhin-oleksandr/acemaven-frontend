@@ -127,7 +127,7 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                             VOLUME
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
-                            <TableCellContent setSearchValue={props.setSearchValue}
+                            {/*<TableCellContent setSearchValue={props.setSearchValue}
                                               setSearchMode={props.setSearchMode}
                                               direction={''}
                                               type={props.mode}
@@ -141,7 +141,8 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                               my_operations={props.my_operations}
                                               //search should be done at backend later
                                               withoutSearch={true}
-                            />
+                            />*/}
+                            DATES
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
                             <TableCellContent setSearchValue={props.setSearchValue}

@@ -154,16 +154,16 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                                                           saveRateResult={props.save_rate_result}
                                                           bad_saving_message={props.bad_saving_message}
             />}
-            {props.isCreatePopup && <RegisterNewRateFromQuotePopup openCreatePopup={props.openCreatePopup}
-                                                             setIsTemporaryPopup={props.setIsTemporaryPopup}
-                                                             carrier_field={carrier_field}
-                                                             quote={props.exact_quote_info}
-                                                             carriers={props.carrier_list ? props.carrier_list : []}
-                                                             existing_rate_for_quote={props.existing_rate_for_quote}
-                                                             existing_surcharge_for_quote={props.existing_surcharge_for_quote}
-                                                             save_rate_result={props.save_rate_result}
-                                                             isCheck={isCheck}
-                                                             setIsCheck={setIsCheck}
+            {props.isCreatePopup && <RegisterNewRateFromQuotePopup  openCreatePopup={props.openCreatePopup}
+                                                                    setIsTemporaryPopup={props.setIsTemporaryPopup}
+                                                                    carrier_field={carrier_field}
+                                                                    quote={props.exact_quote_info}
+                                                                    carriers={props.carrier_list ? props.carrier_list : []}
+                                                                    existing_rate_for_quote={props.existing_rate_for_quote}
+                                                                    existing_surcharge_for_quote={props.existing_surcharge_for_quote}
+                                                                    save_rate_result={props.save_rate_result}
+                                                                    isCheck={isCheck}
+                                                                    setIsCheck={setIsCheck}
             />}
             {props.isFetching || !props.exact_quote_info
                 ? <SpinnerForAuthorizedPages />

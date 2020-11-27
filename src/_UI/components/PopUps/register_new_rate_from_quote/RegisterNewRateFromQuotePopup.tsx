@@ -38,6 +38,7 @@ import AgentSurchargesTable from "../../../Pages/quotes/agent/table/surcharge/Ag
 import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
 import {AppStateType} from "../../../../_BLL/store";
 import FormField from "../../_commonComponents/Input/FormField";
+import _ from "lodash";
 
 
 type PropsType = {
@@ -171,6 +172,21 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
     const finded_first = useSelector((state: AppStateType) => state.agent_quotes.finded_first)
 
 
+
+    let quote_containers = quote?.cargo_groups.map(c =>{
+        return {id: c.container_type?.id,
+            code: c.container_type?.code,
+            shipping_mode: c.container_type?.shipping_mode,
+            is_frozen: c.container_type?.is_frozen,
+            can_be_dangerous: c.container_type?.can_be_dangerous
+        }
+    })
+
+
+    let exact_usageFees = quote_containers && (_.intersectionWith(usageFees, quote_containers, _.isEqual))
+    console.log(exact_usageFees)
+
+
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getShippingTypes(''))
@@ -183,7 +199,6 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
     }, [existing_rate_for_quote, props.save_rate_result])
 
     return(
-
             <RegisterRateWrapper onSubmit={handleSubmit(onSubmit)}>
                 <RegisterRateInner>
                     <IconButton onClick={() => openCreatePopup(false)}
@@ -236,7 +251,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                                     />
                             </div>
                         </HeaderControllers>
-                        <RatesForQuotesTable usageFees={usageFees}
+                        <RatesForQuotesTable usageFees={exact_usageFees ? exact_usageFees : usageFees}
                                              quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
                                              control={control}
                                              register={register}
@@ -245,7 +260,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                         {props.existing_surcharge_for_quote && finded_first
                             ? <AgentSurchargesTable surcharges={props.existing_surcharge_for_quote}
                             />
-                            : <SurchargesForQuotesTables containers={usageFees}
+                            : <SurchargesForQuotesTables containers={exact_usageFees ? exact_usageFees : usageFees}
                                                          additional={additional}
                                                          quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
                                                          additionalTableName={additionalTableName}

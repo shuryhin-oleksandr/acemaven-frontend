@@ -132,8 +132,8 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                 <TableCell className={classes.innerCell} align="left"><div>{quote.origin.code}</div><div>{quote.destination.code}</div></TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <CargosOuter>
-                        {quote.cargo_groups.map(c => {
-                           return <span>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
+                        {quote.cargo_groups.map((c, index) => {
+                           return <span key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
                            {c.total_wm && ` - ${c.total_wm}w/m`}</span>
                         })}
                     </CargosOuter>

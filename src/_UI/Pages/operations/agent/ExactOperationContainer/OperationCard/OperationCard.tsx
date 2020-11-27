@@ -42,6 +42,7 @@ import down_arrow from "../../../../../assets/icons/rates&services/show_arrow.sv
 import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
 import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
 import moment from "moment";
+import PaymentDueByDates from "./PaymentDueByDates";
 
 
 type PropsType = {
@@ -74,10 +75,12 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
         <ContentHeader>
           <BookingInfo>
             <OperationNumber>{operation_info?.aceid}</OperationNumber>
-            <div style={{display: 'flex'}}>
-              <BookingTitle>BOOKING</BookingTitle>
-              <NumberOfBooking>No {operation_info?.booking_number}</NumberOfBooking>
-            </div>
+            {shipment?.booking_number &&
+              <div style={{display: 'flex'}}>
+                <BookingTitle>BOOKING</BookingTitle>
+                <NumberOfBooking>No {shipment?.booking_number}</NumberOfBooking>
+              </div>
+            }
             <BookingStatus>
               <span style={{ color: "#1ab8e5", marginRight: "5px" }}>
                 STATUS
@@ -92,7 +95,7 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
           <ActionsButtons>
             {operation_info?.status === "Booking Request in Progress" &&
               (operation_info?.agent_contact_person === my_name
-                ? <ConfirmButton onClick={() => openAcceptPopup(true)}>CONFIRM OPERATION</ConfirmButton>
+                ? <ConfirmButton onClick={() => openAcceptPopup(true)}>CONFIRM BOOKING</ConfirmButton>
                 : <AcceptButton>TAKE OVER</AcceptButton>
               )
             }
@@ -235,15 +238,12 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
             }
           </GeneralBookingContent>
         </SectionWrapper>
-        {operation_info?.status === "Booking Request Confirmed"
+        {operation_info?.status === "Booking Confirmed"
           && <ShipmentTrackingBlock/>
         }
         <SectionWrapper>
           <SectionTitle>CHARGES</SectionTitle>
-          <div style={{ display: "flex" }}>
-            <InfoRowLabel>PAYMENT DUE BY:</InfoRowLabel>
-            <span style={{ marginLeft: "5px" }}>22/07/2020</span>
-          </div>
+          <PaymentDueByDates />
         </SectionWrapper>
            <DocsAndNotesBlock notes={operation_info?.shipment_details ? operation_info?.shipment_details : []}
                               docs={{release_type: operation_info?.release_type, number_of_documents: operation_info?.number_of_documents}}
@@ -255,6 +255,7 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
                     operation_cargo_groups={operation_info?.cargo_groups}
                     operation_shipping_mode={operation_info?.freight_rate?.shipping_mode}
                     free_time={shipment?.container_free_time}
+                    status={operation_info?.status}
         />
       </CardContent>
     </CardWrapper>

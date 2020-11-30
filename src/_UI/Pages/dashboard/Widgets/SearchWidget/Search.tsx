@@ -480,6 +480,7 @@ const Search: React.FC<PropsType> = ({
               extraDateNumber={mode === "sea" ? 9 : 2}
               dates={dates}
               disabled={disabled}
+              shippingValueReset={shippingValueReset}
             />
           </div>
           {!!duplicatedCargoError ? (

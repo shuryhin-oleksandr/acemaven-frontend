@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-export const AgentOperationsWrapper = styled.div`
+export const OperationsWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
  flex-direction: column;
  align-items: center;
 `
-export const AgentOperationsInner = styled.div`
+export const OperationsInner = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -15,14 +15,14 @@ export const AgentOperationsInner = styled.div`
   border-radius: 10px 10px 0 0 ;
   box-shadow: 4px 0 0 rgba(0, 0, 0, 0.1);
 `
-export const AgentOperationsContent = styled.div`
+export const OperationsContent = styled.div`
   width: 100%;
   height: 100%;
   padding: 20px 80px 50px 30px;
    display: flex;
   flex-direction: column;
 `
-export const AgentOperationHeader = styled.div`
+export const OperationHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

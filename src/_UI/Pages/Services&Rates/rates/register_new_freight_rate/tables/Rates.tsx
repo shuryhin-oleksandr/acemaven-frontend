@@ -32,6 +32,7 @@ const useStyles = makeStyles({
         overflowX: 'unset'
     },
     table: {
+        "& .MuiTableHead-root": {},
     },
     row: {
         width: '100%',

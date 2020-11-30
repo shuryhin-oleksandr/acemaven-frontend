@@ -83,7 +83,7 @@ const DashboardContainer:React.FC = () => {
                                        editable_cargo_group={editable_cargo_group}
                 />
             </ModalWindow>
-            <div style={{position:"relative", width:"100%"}}>
+            <div style={{position:"relative", width:"100%", minHeight: 700}}>
                 <DashboardPage widgetsVisible={widgetsVisible}
                                setWidgetsVisible={setWidgetsVisible}
                                shippingValue={shippingValue}

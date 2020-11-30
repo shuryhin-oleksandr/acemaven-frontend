@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 //components
 import {
-    AgentOperationHeader, AgentOperationsContent,
-    AgentOperationsInner,
-    AgentOperationsWrapper, HideButton,
+    OperationHeader, OperationsContent,
+    OperationsInner,
+    OperationsWrapper, HideButton,
     OperationTitle
 } from './agent-operations-list-container'
 import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
@@ -35,14 +35,14 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
     const [isHide, setIsHide] = useState(true);
 
     return (
-        <AgentOperationsWrapper>
+        <OperationsWrapper>
             {!isHide && <div style={{width: '100%', height: '490px', backgroundColor: 'rgba(0, 0, 0, .07'}}/>}
-            <AgentOperationsInner>
+            <OperationsInner>
                 <HideButton isHide={isHide} onClick={() => isHide ? setIsHide((false)) : setIsHide(true)}>
                     <img src={hide_map_icon} alt=""/>
                 </HideButton>
-                <AgentOperationsContent>
-                    <AgentOperationHeader>
+                <OperationsContent>
+                    <OperationHeader>
                         <OperationTitle>
                             Operations
                         </OperationTitle>
@@ -64,7 +64,7 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
                                                     my_operations={props.my_operations}
                             />
                         </div>
-                    </AgentOperationHeader>
+                    </OperationHeader>
                     <AgentOperationTable setSearchMode={setSearchMode}
                                          isSearchMode={props.isSearchMode}
                                          mode={props.mode}
@@ -76,9 +76,9 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
                                          operations_list={props.operations_list}
                                          my_operations={props.my_operations}
                     />
-                </AgentOperationsContent>
-            </AgentOperationsInner>
-        </AgentOperationsWrapper>
+                </OperationsContent>
+            </OperationsInner>
+        </OperationsWrapper>
     )
 }
 

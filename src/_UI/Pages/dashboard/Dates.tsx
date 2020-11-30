@@ -8,6 +8,7 @@ type PropsType = {
   extraDateNumber: number;
   dates: any;
   disabled?: any;
+  shippingValueReset: any;
 };
 
 const Dates: React.FC<PropsType> = ({
@@ -15,6 +16,7 @@ const Dates: React.FC<PropsType> = ({
   extraDateNumber,
   dates,
   disabled,
+  shippingValueReset,
 }) => {
   const { combine, before, after } = DateRangePicker;
   const tillTheEnd =
@@ -39,7 +41,10 @@ const Dates: React.FC<PropsType> = ({
       }}
       disabledDate={combine(before(disabledDate), after(maxDate))}
       value={dates}
-      onClean={() => setDates([])}
+      onClean={() => {
+        setDates([]);
+        shippingValueReset();
+      }}
     />
   );
 };

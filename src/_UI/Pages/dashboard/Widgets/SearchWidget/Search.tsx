@@ -63,7 +63,6 @@ import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
 
-
 type PropsType = {
   right?: string;
   bottom?: string;
@@ -173,6 +172,12 @@ const Search: React.FC<PropsType> = ({
 
   const watchFieldArray = watch("cargo_groups");
 
+  useEffect(() => {
+    if (watchResultArr.length === 3 && dates.length > 0) {
+      setDuplicatedCargoError("");
+    }
+  }, [watchResultArr, dates]);
+
   let onOriginChangeHandler = (value: any) => {
     // if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
@@ -204,119 +209,124 @@ const Search: React.FC<PropsType> = ({
 
   const onSubmit = (values: any) => {
     let finalData;
-    //FCL
-    if (values.shipping_mode === ShippingModeEnum.FCL) {
-      finalData = {
-        shipping_mode: values.shipping_mode,
-        date_from: moment(dates[0]).format("DD/MM/YYYY"),
-        date_to: moment(dates[1]).format("DD/MM/YYYY"),
-        destination: Number(sessionStorage.getItem("destination_id")),
-        origin: Number(sessionStorage.getItem("origin_id")),
-        cargo_groups: values.cargo_groups.map((c: any) =>
-          c.frozen
-            ? {
-                container_type: c.container_type,
-                frozen: c.frozen,
-                volume: Number(c.volume),
-              }
-            : {
-                container_type: c.container_type,
-                dangerous: c.dangerous,
-                volume: Number(c.volume),
-              }
-        ),
-      };
+    if (dates.length > 0) {
+      setDuplicatedCargoError("");
+      //FCL
+      if (values.shipping_mode === ShippingModeEnum.FCL) {
+        finalData = {
+          shipping_mode: values.shipping_mode,
+          date_from: moment(dates[0]).format("DD/MM/YYYY"),
+          date_to: moment(dates[1]).format("DD/MM/YYYY"),
+          destination: Number(sessionStorage.getItem("destination_id")),
+          origin: Number(sessionStorage.getItem("origin_id")),
+          cargo_groups: values.cargo_groups.map((c: any) =>
+            c.frozen
+              ? {
+                  container_type: c.container_type,
+                  frozen: c.frozen,
+                  volume: Number(c.volume),
+                }
+              : {
+                  container_type: c.container_type,
+                  dangerous: c.dangerous,
+                  volume: Number(c.volume),
+                }
+          ),
+        };
 
-      // checking if there are duplicated cargo groups
-      const arrWithoutValues = finalData.cargo_groups.map((c: any) => {
-        const copyObj = { ...c };
-        delete copyObj.volume;
-        return copyObj;
-      });
-      const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
-      //if there are no duplicates
-      if (uniqCargoArr.length === finalData.cargo_groups.length) {
-        const arrWithDescription = finalData.cargo_groups.map(
-          (c: any, index: number) => ({
-            ...c,
-            description: "",
-            id: index + 1,
-          })
-        );
-        dispatch(
-          bookingActions.set_current_booking_cargo_groups(arrWithDescription)
-        );
-        setDuplicatedCargoError("");
-        search_result.length === 0 && search_success
-          ? dispatch(postSearchQuoteThunk(finalData, history))
-          : // @ts-ignore
-            dispatch(searchRatesOffersThunk(finalData));
+        // checking if there are duplicated cargo groups
+        const arrWithoutValues = finalData.cargo_groups.map((c: any) => {
+          const copyObj = { ...c };
+          delete copyObj.volume;
+          return copyObj;
+        });
+        const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
+        //if there are no duplicates
+        if (uniqCargoArr.length === finalData.cargo_groups.length) {
+          const arrWithDescription = finalData.cargo_groups.map(
+            (c: any, index: number) => ({
+              ...c,
+              description: "",
+              id: index + 1,
+            })
+          );
+          dispatch(
+            bookingActions.set_current_booking_cargo_groups(arrWithDescription)
+          );
+          setDuplicatedCargoError("");
+          search_result.length === 0 && search_success
+            ? dispatch(postSearchQuoteThunk(finalData, history))
+            : // @ts-ignore
+              dispatch(searchRatesOffersThunk(finalData));
+        } else {
+          //if there are duplicates
+          setDuplicatedCargoError("You have duplicated cargo groups");
+        }
       } else {
-        //if there are duplicates
-        setDuplicatedCargoError("You have duplicated cargo groups");
+        //chargeable weight shipping modes
+        finalData = {
+          shipping_mode: values.shipping_mode,
+          date_from: moment(dates[0]).format("DD/MM/YYYY"),
+          date_to: moment(dates[1]).format("DD/MM/YYYY"),
+          destination: Number(sessionStorage.getItem("destination_id")),
+          origin: Number(sessionStorage.getItem("origin_id")),
+          cargo_groups: cargo_groups_list?.map((c) =>
+            c.packaging_type
+              ? {
+                  packaging_type: c.packaging_type,
+                  dangerous: c.dangerous,
+                  volume: Number(c.volume),
+                  weight: Number(c.weight),
+                  length: Number(c.length),
+                  width: Number(c.width),
+                  height: Number(c.height),
+                  total_wm: c.total_wm,
+                  length_measurement: c.length_measurement,
+                  weight_measurement: c.weight_measurement,
+                }
+              : {
+                  container_type: c.container_type,
+                  dangerous: c.dangerous,
+                  volume: Number(c.volume),
+                  weight: Number(c.weight),
+                  length: Number(c.length),
+                  width: Number(c.width),
+                  height: Number(c.height),
+                  total_wm: c.total_wm,
+                  length_measurement: c.length_measurement,
+                  weight_measurement: c.weight_measurement,
+                }
+          ),
+        };
+        const arrWithoutValues = finalData.cargo_groups?.map((c: any) => {
+          const copyObj = { ...c };
+          delete copyObj.volume;
+          return copyObj;
+        });
+        const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
+        //if there are no duplicates
+        if (uniqCargoArr.length === finalData.cargo_groups?.length) {
+          dispatch(searchActions.setDuplicatedError(""));
+          search_result.length === 0 && search_success
+            ? dispatch(postSearchQuoteThunk(finalData, history))
+            : // @ts-ignore
+              dispatch(searchRatesOffersThunk(finalData));
+        } else {
+          dispatch(
+            searchActions.setDuplicatedError("You have duplicated cargo groups")
+          );
+        }
       }
+
+      dispatch(
+        bookingActions.set_booking_dates({
+          date_from: finalData.date_from,
+          date_to: finalData.date_to,
+        })
+      );
     } else {
-      //chargeable weight shipping modes
-      finalData = {
-        shipping_mode: values.shipping_mode,
-        date_from: moment(dates[0]).format("DD/MM/YYYY"),
-        date_to: moment(dates[1]).format("DD/MM/YYYY"),
-        destination: Number(sessionStorage.getItem("destination_id")),
-        origin: Number(sessionStorage.getItem("origin_id")),
-        cargo_groups: cargo_groups_list?.map((c) =>
-          c.packaging_type
-            ? {
-                packaging_type: c.packaging_type,
-                dangerous: c.dangerous,
-                volume: Number(c.volume),
-                weight: Number(c.weight),
-                length: Number(c.length),
-                width: Number(c.width),
-                height: Number(c.height),
-                total_wm: c.total_wm,
-                length_measurement: c.length_measurement,
-                weight_measurement: c.weight_measurement,
-              }
-            : {
-                container_type: c.container_type,
-                dangerous: c.dangerous,
-                volume: Number(c.volume),
-                weight: Number(c.weight),
-                length: Number(c.length),
-                width: Number(c.width),
-                height: Number(c.height),
-                total_wm: c.total_wm,
-                length_measurement: c.length_measurement,
-                weight_measurement: c.weight_measurement,
-              }
-        ),
-      };
-      const arrWithoutValues = finalData.cargo_groups?.map((c: any) => {
-        const copyObj = { ...c };
-        delete copyObj.volume;
-        return copyObj;
-      });
-      const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
-      //if there are no duplicates
-      if (uniqCargoArr.length === finalData.cargo_groups?.length) {
-        dispatch(searchActions.setDuplicatedError(""));
-        search_result.length === 0 && search_success
-          ? dispatch(postSearchQuoteThunk(finalData, history))
-          : // @ts-ignore
-            dispatch(searchRatesOffersThunk(finalData));
-      } else {
-        dispatch(
-          searchActions.setDuplicatedError("You have duplicated cargo groups")
-        );
-      }
+      setDuplicatedCargoError("Please, enter dates");
     }
-
-    dispatch(
-      bookingActions.set_booking_dates({
-        date_from: finalData.date_from,
-        date_to: finalData.date_to,
-      })
-    );
   };
 
   const shippingValueReset = () => {
@@ -470,6 +480,7 @@ const Search: React.FC<PropsType> = ({
               extraDateNumber={mode === "sea" ? 9 : 2}
               dates={dates}
               disabled={disabled}
+              shippingValueReset={shippingValueReset}
             />
           </div>
           {!!duplicatedCargoError ? (

@@ -13,8 +13,9 @@ import { getClientQuotesThunk } from "../../../../../_BLL/thunks/quotes/clientQu
 import { getFilteredRateListThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import { getAgentQuotesListThunk } from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
 import { getBookingRequestListThunk } from "../../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
-import {useDispatch} from "react-redux";
-import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import { getAgentsOperationsThunk } from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import { useDispatch } from "react-redux";
+import { CurrentShippingType } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 type PropsType = {
   setMode?: (value: CurrentShippingType) => void;
@@ -26,6 +27,7 @@ type PropsType = {
   setShippingValue?: (shippingModeId: number) => void;
   disabled?: boolean;
   thunkName?: string;
+  my_operations?: string;
 };
 
 const OptionsDeliveryButtons: React.FC<PropsType> = ({
@@ -34,19 +36,17 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
   disabled,
   ...props
 }) => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   let dispatchDeliveryHandler = (type: CurrentShippingType) => {
     setMode && setMode(type);
     props.setShippingValue && props.setShippingValue(0);
     if (props.thunkName === "quotes") {
       dispatch(
-          getClientQuotesThunk(type, "", props.searchColumn, props.searchValue)
-        );
+        getClientQuotesThunk(type, "", props.searchColumn, props.searchValue)
+      );
     } else if (props.thunkName === "quotes_agent") {
-      props.dispatch &&
-        props.dispatch(
+      dispatch(
           getAgentQuotesListThunk(
             type,
             "",
@@ -55,34 +55,54 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
           )
         );
     } else if (props.thunkName === "rates") {
-     dispatch(
-          getFilteredRateListThunk(
-            props.directory,
-            type,
-            "",
-            props.searchColumn,
-            props.searchValue
+      dispatch(
+        getFilteredRateListThunk(
+          props.directory,
+          type,
+          "",
+          props.searchColumn,
+          props.searchValue
+        )
+      );
+    } else if (props.thunkName === "operations") {
+      props.my_operations === "mine"
+        ? dispatch(
+            getAgentsOperationsThunk(
+              type,
+              true,
+              "",
+              props.searchColumn,
+              props.searchValue
+            )
           )
-        );
+        : dispatch(
+            getAgentsOperationsThunk(
+              type,
+              "",
+              "",
+              props.searchColumn,
+              props.searchValue
+            )
+          );
     } else if (props.thunkName === "agent_booking") {
       dispatch(
-          getBookingRequestListThunk(
-            type,
-            "",
-            props.searchColumn,
-            props.searchValue
-          )
-        );
+        getBookingRequestListThunk(
+          type,
+          "",
+          props.searchColumn,
+          props.searchValue
+        )
+      );
     } else {
       dispatch(
-          filterByThunk(
-            props.directory,
-            type,
-            "",
-            props.searchColumn,
-            props.searchValue
-          )
-        );
+        filterByThunk(
+          props.directory,
+          type,
+          "",
+          props.searchColumn,
+          props.searchValue
+        )
+      );
     }
   };
 

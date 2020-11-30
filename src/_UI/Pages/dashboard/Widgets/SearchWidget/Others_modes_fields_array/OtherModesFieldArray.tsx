@@ -22,8 +22,9 @@ const OtherModesFieldArray:React.FC<PropsType> = ({cargo_groups, packaging_types
                                                       setEditableCargoGroupToState, editCargoGroup, setOpenCalcPopup, ...props}) => {
     return (
         <>
-            {cargo_groups?.map(c =>
-            <OneField cargo={c}
+            {cargo_groups?.map((c, index) =>
+            <OneField key={index}
+                      cargo={c}
                       packaging_types={packaging_types}
                       container_types={props.container_types}
                       deleteCargoGroup={deleteCargoGroup}

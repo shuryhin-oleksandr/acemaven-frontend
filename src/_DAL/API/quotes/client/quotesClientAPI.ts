@@ -16,5 +16,8 @@ export const quotesClientAPI = {
     },
     deleteQuoteFromClientList (id: number) {
         return instance.delete(`/booking/quote/${id}/`)
+    },
+    archiveQuote (quote_id: number) {
+        return instance.post(`/booking/quote/${quote_id}/archive/`, {})
     }
 };

@@ -33,6 +33,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../_BLL/store";
 import { searchActions } from "../../../_BLL/reducers/search_client/searchClientReducer";
 
+
 type PropsType = {
   setWidgetsVisible: any;
   widgetsVisible: boolean;
@@ -77,7 +78,7 @@ const DashboardPage: React.FC<PropsType> = ({
   origin_ports,
   destination_ports,
   frozen_choices,
-  origin_port_value,
+  origin_port_value
 }) => {
   const dispatch = useDispatch();
 
@@ -86,8 +87,7 @@ const DashboardPage: React.FC<PropsType> = ({
     (state: AppStateType) => state.booking.current_booking_freight_rate
   );
   const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
-  const auth_user = useSelector(
-    (state: AppStateType) => state.profile.authUserInfo
+  const auth_user = useSelector((state: AppStateType) => state.profile.authUserInfo
   );
 
   const {
@@ -134,6 +134,7 @@ const DashboardPage: React.FC<PropsType> = ({
             currentFreightRate={currentBookingRate}
             setWidgetsVisible={setWidgetsVisible}
             newSearch={newSearch}
+            quotes_mode={false}
           />
         </ModalWindow>
       }

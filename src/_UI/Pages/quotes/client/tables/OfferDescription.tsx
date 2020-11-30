@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {TableRow} from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -11,6 +11,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {BookLittleButton} from "../quotes-client-styles";
 import {QuoteType, StatusesQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 import {AppStateType} from "../../../../../_BLL/store";
+import {quotesClientActions} from "../../../../../_BLL/reducers/quotes/quotesClientReducer";
 import SearchCard from "../../../dashboard/search/search_rate_card/SearchCard";
 import {CardsAbsoluteWrapper} from "../../../dashboard/search/search_rate_card/search-card-styles";
 import ClientBookingPopUp from "../../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
@@ -53,21 +54,26 @@ const useStyles = makeStyles({
 });
 
 const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, offerViewedHandler, quote}) => {
+    //HOOKS
     const classes = useStyles();
+    const dispatch = useDispatch()
 
     //local state
     const [showTotals, setShowTotals] = useState(false)
     const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
     let [totalId, setTotalId] = useState(0);
 
-    let totalsHandler = (id: number) => {
+    let totalsHandler = (id: number, quote_id: number) => {
         offerViewedHandler(id)
         setTotalId(id)
         setShowTotals(true)
+        dispatch(quotesClientActions.setFutureArchiveQuoteId(quote_id))
     }
     let closeTotals = () => {
         setTotalId(0)
         setShowTotals(false)
+        dispatch(quotesClientActions.setFutureArchiveQuoteId(0))
+
     }
 
 
@@ -121,7 +127,7 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                                                     }
                                                 </TableCell>
                                                 <TableCell align="left" className={classes.collapseInnerCell}>
-                                                    <BookLittleButton onClick={() => totalsHandler(o.id)}>BOOK</BookLittleButton>
+                                                    <BookLittleButton onClick={() => totalsHandler(o.id, quote?.id as number)}>BOOK</BookLittleButton>
                                                 </TableCell>
                                             </TableRow>
                                         </TableBody>
@@ -149,6 +155,7 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                                 currentFreightRate={currentBookingRate}
                                 quote_dates={{date_from: String(quote?.date_from), date_to: String(quote?.date_to)}}
                                 close_totals={closeTotals}
+                                quotes_mode={true}
                             />
                         </ModalWindow>
                     }

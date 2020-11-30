@@ -20,8 +20,6 @@ import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "../../client
 
 
 
-
-
 type PropsType = {
     setCardOpen: (value: number) => void,
     setSearchMode: (value: boolean) => void
@@ -93,6 +91,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                                   setSearchColumn, setSearchMode, isSearchMode, agent_quotes_list}) => {
 
     const classes = useStyles();
+
 
     return (
         <QuotesTableContainer>

@@ -4,8 +4,8 @@ export const OperationsPopupOuter = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 150px;
-  padding-bottom: 150px;
+  padding: 150px 0;
+  z-index: 70;
 `
 export const OperationsPopupInner = styled.div`
   max-width: 800px;

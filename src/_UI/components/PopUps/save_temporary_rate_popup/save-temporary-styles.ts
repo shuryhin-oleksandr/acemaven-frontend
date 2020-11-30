@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const TemporaryWrapper = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  padding-top: 150px;
   justify-content: center;
   padding: 100px 0;
   z-index: 100;

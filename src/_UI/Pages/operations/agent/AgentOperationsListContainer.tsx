@@ -32,7 +32,7 @@ type PropsType = {
 
 const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...props}) => {
 
-    const [isHide, setIsHide] = useState(true)
+    const [isHide, setIsHide] = useState(true);
 
     return (
         <AgentOperationsWrapper>
@@ -60,7 +60,8 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
                                                     searchValue={props.searchValue}
                                                     searchColumn={props.search_column}
                                                     directory=''
-
+                                                    thunkName="operations"
+                                                    my_operations={props.my_operations}
                             />
                         </div>
                     </AgentOperationHeader>
@@ -73,6 +74,7 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
                                          search_column={props.search_column}
                                          setSearchColumn={props.setSearchColumn}
                                          operations_list={props.operations_list}
+                                         my_operations={props.my_operations}
                     />
                 </AgentOperationsContent>
             </AgentOperationsInner>

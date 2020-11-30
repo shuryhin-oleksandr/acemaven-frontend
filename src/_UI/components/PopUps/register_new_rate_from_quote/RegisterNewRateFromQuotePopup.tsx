@@ -38,6 +38,7 @@ import AgentSurchargesTable from "../../../Pages/quotes/agent/table/surcharge/Ag
 import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
 import {AppStateType} from "../../../../_BLL/store";
 import FormField from "../../_commonComponents/Input/FormField";
+import _ from "lodash";
 
 
 type PropsType = {
@@ -62,9 +63,34 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
     const onSubmit = (values: any) => {
         //temporal surcharge registration
         if(!props.existing_surcharge_for_quote) {
+            //additional charges
             let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
-            let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
+            let additional_charges_array = charges_array.map(a => {
+                if(a.charge && a.conditions) {
+                    return {
+                        additional_surcharge: a.additional_surcharge,
+                        charge: a.charge,
+                        conditions: a.conditions,
+                        currency: a.currency
+                    }
+                } else if(!a.charge && a.conditions) {
+                    return {
+                        additional_surcharge: a.additional_surcharge,
+                        conditions: a.conditions,
+                        currency: a.currency
+                    }
+                } else if(!a.charge && !a.conditions) {
+                    return {
+                        additional_surcharge: a.additional_surcharge,
+                        currency: a.currency
+                    }
+                } else {
+                    return a
+                }
+            })
 
+            //containers & packaging charges
+            let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
             let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
                 || !f.charge && {container_type: f.container_type, currency: f.currency}
             )
@@ -75,7 +101,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                 shipping_mode: quote?.shipping_mode.id,
                 start_date: quote?.date_from,
                 expiration_date: moment(values.date_to).format('DD/MM/YYYY'),
-                charges: charges_array,
+                charges: additional_charges_array,
                 usage_fees: usageFees_array,
                 location: quote?.origin.is_local === true ? quote?.origin.id : quote?.destination.id,
                 temporary: true
@@ -87,7 +113,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                 carrier: carrier_field,
                 direction: quote?.origin.is_local === true ? 'export' : 'import',
                 shipping_mode: quote?.shipping_mode.id,
-                charges: charges_array,
+                charges: additional_charges_array,
                 location: quote?.origin.is_local === true ? quote?.origin.id : quote?.destination.id,
                 temporary: true
             }
@@ -146,6 +172,21 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
     const finded_first = useSelector((state: AppStateType) => state.agent_quotes.finded_first)
 
 
+
+    let quote_containers = quote?.cargo_groups.map(c =>{
+        return {id: c.container_type?.id,
+            code: c.container_type?.code,
+            shipping_mode: c.container_type?.shipping_mode,
+            is_frozen: c.container_type?.is_frozen,
+            can_be_dangerous: c.container_type?.can_be_dangerous
+        }
+    })
+
+
+    let exact_usageFees = quote_containers && (_.intersectionWith(usageFees, quote_containers, _.isEqual))
+    console.log(exact_usageFees)
+
+
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getShippingTypes(''))
@@ -158,7 +199,6 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
     }, [existing_rate_for_quote, props.save_rate_result])
 
     return(
-
             <RegisterRateWrapper onSubmit={handleSubmit(onSubmit)}>
                 <RegisterRateInner>
                     <IconButton onClick={() => openCreatePopup(false)}
@@ -211,7 +251,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                                     />
                             </div>
                         </HeaderControllers>
-                        <RatesForQuotesTable usageFees={usageFees}
+                        <RatesForQuotesTable usageFees={exact_usageFees ? exact_usageFees : usageFees}
                                              quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
                                              control={control}
                                              register={register}
@@ -220,7 +260,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                         {props.existing_surcharge_for_quote && finded_first
                             ? <AgentSurchargesTable surcharges={props.existing_surcharge_for_quote}
                             />
-                            : <SurchargesForQuotesTables containers={usageFees}
+                            : <SurchargesForQuotesTables containers={exact_usageFees ? exact_usageFees : usageFees}
                                                          additional={additional}
                                                          quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
                                                          additionalTableName={additionalTableName}

@@ -5,6 +5,7 @@ import {SearchResultType} from "../../../../_BLL/types/search/search_types";
 import SearchCard from "./search_rate_card/SearchCard";
 //styles
 import {SearchWrapper} from "./search_rate_card/search-card-styles";
+import {CostBookingType} from "../../../../_BLL/types/bookingTypes";
 
 
 
@@ -14,10 +15,9 @@ type PropsType = {
     shippingValue:number,
     setBookingPopupVisible?:(value:boolean)=>void
     setWidgetsVisible?:(value:boolean)=>void,
-
 }
 
-const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup, search_result,shippingValue,setBookingPopupVisible,setWidgetsVisible, }) => {
+const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup, search_result,shippingValue,setBookingPopupVisible,setWidgetsVisible}) => {
 
     return (
         <SearchWrapper >
@@ -27,6 +27,7 @@ const SearchCardsContainer:React.FC<PropsType> = ({showRatingPopup, search_resul
                                                        search_result={s}
                                                        setBookingPopupVisible={setBookingPopupVisible}
                                                        setWidgetsVisible={setWidgetsVisible}
+
                 />
                 )
                 : null

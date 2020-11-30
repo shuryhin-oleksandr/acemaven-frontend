@@ -41,6 +41,7 @@ import {
 import close from "../../../assets/icons/close-icon.svg";
 import BookingCard from "../../../Pages/dashboard/search/search_rate_card/BookingCard";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {quotesClientActions} from "../../../../_BLL/reducers/quotes/quotesClientReducer";
 
 const useStyles = makeStyles({
   container: {
@@ -80,7 +81,8 @@ type PropsType = {
   currentFreightRate: SearchResultType;
   newSearch?: any;
   quote_dates?: {date_from: string, date_to: string}
-  close_totals?: VoidFunctionType
+  close_totals?: VoidFunctionType,
+  quotes_mode?: boolean
 };
 
 const ClientBookingPopUp: React.FC<PropsType> = ({
@@ -94,6 +96,8 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
 
   const dispatch = useDispatch();
   const company = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo.companies[0]);
+  const new_total = useSelector((state: AppStateType) => state.booking.recalculated_cost)
+
   useEffect(() => {
     dispatch(getCompanyInfo(Number(company.id)));
     return () => {
@@ -116,6 +120,20 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
   );
   const classes = useStyles();
 
+  //change step depends on 'paid' or 'not paid' & role
+  let setNextStep = () => {
+    if(new_total.is_paid) {
+      dispatch(bookingActions.changeBookingStep("payment"))
+    } else {
+      if(currentUser?.roles?.includes('client')) {
+        dispatch(bookingActions.changeBookingStep("payment"))
+      } else {
+        dispatch(bookingActions.changeBookingStep("payment"))
+        //qr code
+      }
+    }
+  }
+
   return (
     <PopupContainer>
       <PopupContent>
@@ -124,6 +142,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
           onClick={() => {
             setBookingPopupVisible(false);
             setWidgetsVisible && setWidgetsVisible(true);
+            props.quotes_mode && dispatch(quotesClientActions.setFutureArchiveQuoteId(0))
           }}
         >
           <img src={close} alt="" />
@@ -140,6 +159,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             shippingValue={shippingValue}
             currentFreightRate={currentFreightRate}
             quote_dates={props.quote_dates}
+            quotes_mode={props.quotes_mode}
           />
         )}
         {bookingStep === "fee-table" && (
@@ -179,13 +199,13 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {currentFreightRate.cargo_groups.map((s) => (
-                      <TableRow key={s.cargo_type} className={classes.info_row}>
+                    {new_total?.charges?.cargo_groups?.map((s: any, index: number) => (
+                      <TableRow key={index} className={classes.info_row}>
                         <TableCell className={classes.innerCell} scope="row">
-                          {s.volume}
+                          {s?.volume}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
-                          {s.cargo_type}
+                          {s?.cargo_type}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
                           <div>FREIGHT</div>
@@ -193,19 +213,19 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                           <div>OTHERS</div>
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
-                          <div>{s.freight.currency}</div>
-                          <div>{s.handling.currency}</div>
-                          <div>{s.other.currency}</div>
+                          <div>{s.freight?.currency}</div>
+                          <div>{s.handling?.currency}</div>
+                          <div>{s.other?.currency}</div>
                         </TableCell>
                         <TableCell className={classes.innerCell} align="right">
-                          <div>{s.freight.cost}</div>
-                          <div>{s.handling.cost}</div>
-                          <div>{s.other.cost}</div>
+                          <div>{s.freight?.cost}</div>
+                          <div>{s.handling?.cost}</div>
+                          <div>{s.other?.cost}</div>
                         </TableCell>
                         <TableCell className={classes.innerCell} align="right">
-                          <div>{s.freight.subtotal}</div>
-                          <div>{s.handling.subtotal}</div>
-                          <div>{s.other.subtotal}</div>
+                          <div>{s.freight?.subtotal}</div>
+                          <div>{s.handling?.subtotal}</div>
+                          <div>{s.other?.subtotal}</div>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -216,13 +236,13 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                         DOC FEE
                       </TableCell>
                       <TableCell className={classes.innerCell} align="left">
-                        {currentFreightRate.doc_fee.currency}
+                        {new_total?.charges?.doc_fee?.currency}
                       </TableCell>
                       <TableCell className={classes.innerCell} align="right">
-                        {currentFreightRate.doc_fee.cost}
+                        {new_total?.charges?.doc_fee?.cost}
                       </TableCell>
                       <TableCell className={classes.innerCell} align="right">
-                        {currentFreightRate.doc_fee.subtotal}
+                        {new_total?.charges?.doc_fee?.subtotal}
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -231,21 +251,33 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             </HiddenTable>
             <TableTotal>
               <TotalLine>
-                <TotalName>TOTAL FREIGHT</TotalName>
-                <TotalValue>8.802</TotalValue>
+                <TotalName>TOTAL FREIGHT in {new_total?.charges?.total_freight_rate?.BRL >= 0 ? 'BRL' : 'USD'}</TotalName>
+                <TotalValue>
+                  {new_total?.charges?.total_freight_rate?.BRL >= 0
+                      ? new_total?.charges?.total_freight_rate?.BRL
+                      : new_total?.charges?.total_freight_rate?.USD}
+                </TotalValue>
               </TotalLine>
+              {new_total?.charges?.total_surcharge?.BRL
+                && <TotalLine>
+                    <TotalName>CHARGES IN BRL</TotalName>
+                    <TotalValue>{new_total?.charges?.total_surcharge?.BRL}</TotalValue>
+                   </TotalLine>
+              }
+              {new_total?.charges?.total_surcharge?.USD
+              && <TotalLine>
+                  <TotalName>CHARGES IN USD</TotalName>
+                  <TotalValue>{new_total?.charges?.total_surcharge?.USD}</TotalValue>
+                </TotalLine>
+              }
               <TotalLine>
-                <TotalName>CHARGES IN BRL</TotalName>
-                <TotalValue>3000</TotalValue>
+                <TotalName>ACEMAVEN SERVICE FEE: IN {new_total?.charges?.service_fee?.currency === 'BRL' ? 'BRL' : 'USD'}</TotalName>
+                <TotalValue>{new_total?.charges?.service_fee?.subtotal}</TotalValue>
               </TotalLine>
-              <TotalLine>
-                <TotalName>CHARGES IN BRL</TotalName>
-                <TotalValue>100</TotalValue>
-              </TotalLine>
-              <TotalLine>
-                <TotalName>ACEMAVEN SERVICE FEE: IN BRL</TotalName>
-                <TotalValue>50</TotalValue>
-              </TotalLine>
+                <TotalLine>
+                  <TotalName>SUBTOTAL IN {new_total?.charges?.pay_to_book?.currency}</TotalName>
+                  <TotalValue>{new_total?.charges?.pay_to_book?.pay_to_book}</TotalValue>
+                </TotalLine>
             </TableTotal>
           </HiddenWrapper>
         )}
@@ -255,6 +287,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             setWidgetsVisible={setWidgetsVisible}
             newSearch={newSearch}
             close_totals={props.close_totals}
+            current_user={currentUser}
+            new_total_paid={new_total.is_paid}
+            quotes_mode={props.quotes_mode}
           />
         )}
       </PopupContent>

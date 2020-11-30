@@ -26,9 +26,12 @@ const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) 
     const dispatch = useDispatch()
 
     let dispatchOperationsHandler = (belong_to_mine: string) => {
-       belong_to_mine === 'mine' ? props.setMyOperations('mine') : props.setMyOperations('all')
+       belong_to_mine === 'mine' ? props.setMyOperations('mine') : props.setMyOperations('all');
         //props.setShippingValue && props.setShippingValue(0);
-        belong_to_mine === 'mine' ? dispatch(getAgentsOperationsThunk(true)) : dispatch(getAgentsOperationsThunk(''))
+        belong_to_mine === 'mine' ?
+            dispatch(getAgentsOperationsThunk(mode,true,"",props.searchColumn,props.searchValue))
+            :
+            dispatch(getAgentsOperationsThunk(mode,'',"",props.searchColumn,props.searchValue))
     };
 
     return (

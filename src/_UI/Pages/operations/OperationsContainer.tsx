@@ -18,7 +18,7 @@ const OperationsContainer:React.FC = () => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getAgentsOperationsThunk(true))
+        dispatch(getAgentsOperationsThunk(mode,true,"","",""))
     }, [])
 
     const [isSearchMode, setSearchMode] = useState(false)

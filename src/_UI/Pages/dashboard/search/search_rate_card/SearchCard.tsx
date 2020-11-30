@@ -29,6 +29,7 @@ import {
 } from "./search-card-styles";
 //icons
 import close_icon from '../../../../assets/icons/close-icon.svg'
+import {CostBookingType} from "../../../../../_BLL/types/bookingTypes";
 
 
 const useStyles = makeStyles({
@@ -72,6 +73,7 @@ type PropsType = {
     closeTotals?: VoidFunctionType,
     quote?: QuoteType,
     bookingPopupVisible?: boolean
+
 }
 
 const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBookingPopupVisible,setWidgetsVisible, closeTotals,quote, ...props}) => {

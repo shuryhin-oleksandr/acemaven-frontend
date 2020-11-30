@@ -12,8 +12,14 @@ import {
   InfoRowLabel,
   InfoRowValue,
 } from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+import {ShipperType} from "../../../../../../../_BLL/types/bookingTypes";
 
-const ShipmentPartsBlock: React.FC = () => {
+type PropsType = {
+    shipper_info: ShipperType | null,
+    client_info: {company: string, contact_person: string}
+}
+
+const ShipmentPartsBlock: React.FC<PropsType> = ({shipper_info, client_info}) => {
   const [isHidden, setHidden] = useState(false);
   return (
     <SectionWrapper
@@ -44,50 +50,18 @@ const ShipmentPartsBlock: React.FC = () => {
           <ShipmentPartsRow>
             <div
               style={{
-                width: "20%",
                 display: "flex",
-                flexDirection: "column",
+                  width: '58.5%',
+                  justifyContent: 'space-between'
               }}
             >
-              <InfoRow>
+              <InfoRow >
                 <InfoRowLabel>CLIENT</InfoRowLabel>
-                <InfoRowValue>CocaCola. Inc</InfoRowValue>
+                <InfoRowValue>{client_info.company}</InfoRowValue>
               </InfoRow>
               <InfoRow>
-                <InfoRowLabel>Contact person</InfoRowLabel>
-                <InfoRowValue>Ronald Richards</InfoRowValue>
-              </InfoRow>
-            </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>ADDRESS</InfoRowLabel>
-                <InfoRowValue>CocaCola. Inc</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>EMAIL</InfoRowLabel>
-                <InfoRowValue>Ronald Richards</InfoRowValue>
-              </InfoRow>
-            </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>PHONE NUMBER 1</InfoRowLabel>
-                <InfoRowValue>CocaCola. Inc</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>PHONE NUMBER 2</InfoRowLabel>
-                <InfoRowValue>Ronald Richards</InfoRowValue>
+                <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                <InfoRowValue>{client_info.contact_person}</InfoRowValue>
               </InfoRow>
             </div>
           </ShipmentPartsRow>
@@ -101,11 +75,11 @@ const ShipmentPartsBlock: React.FC = () => {
             >
               <InfoRow>
                 <InfoRowLabel>SHIPPER</InfoRowLabel>
-                <InfoRowValue>CocaCola. Inc</InfoRowValue>
+                <InfoRowValue>{shipper_info?.name}</InfoRowValue>
               </InfoRow>
               <InfoRow>
-                <InfoRowLabel>Contact person</InfoRowLabel>
-                <InfoRowValue>Ronald Richards</InfoRowValue>
+                <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                <InfoRowValue>{shipper_info?.contact_name}</InfoRowValue>
               </InfoRow>
             </div>
             <div
@@ -115,13 +89,15 @@ const ShipmentPartsBlock: React.FC = () => {
                 flexDirection: "column",
               }}
             >
-              <InfoRow>
-                <InfoRowLabel>ADDRESS</InfoRowLabel>
-                <InfoRowValue>CocaCola. Inc</InfoRowValue>
-              </InfoRow>
+                {shipper_info?.address_line_first &&
+                <InfoRow>
+                    <InfoRowLabel>ADDRESS</InfoRowLabel>
+                    <InfoRowValue>{shipper_info?.address_line_first}{','}{shipper_info?.address_line_second}</InfoRowValue>
+                </InfoRow>}
+
               <InfoRow>
                 <InfoRowLabel>EMAIL</InfoRowLabel>
-                <InfoRowValue>Ronald Richards</InfoRowValue>
+                <InfoRowValue>{shipper_info?.email}</InfoRowValue>
               </InfoRow>
             </div>
             <div
@@ -133,12 +109,13 @@ const ShipmentPartsBlock: React.FC = () => {
             >
               <InfoRow>
                 <InfoRowLabel>PHONE NUMBER 1</InfoRowLabel>
-                <InfoRowValue>CocaCola. Inc</InfoRowValue>
+                <InfoRowValue>{shipper_info?.phone}</InfoRowValue>
               </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>PHONE NUMBER 2</InfoRowLabel>
-                <InfoRowValue>Ronald Richards</InfoRowValue>
-              </InfoRow>
+                {shipper_info?.phone_additional && <InfoRow>
+                    <InfoRowLabel>PHONE NUMBER 2</InfoRowLabel>
+                    <InfoRowValue>{shipper_info?.phone_additional}</InfoRowValue>
+                </InfoRow>
+                }
             </div>
           </ShipmentPartsRow>
         </div>

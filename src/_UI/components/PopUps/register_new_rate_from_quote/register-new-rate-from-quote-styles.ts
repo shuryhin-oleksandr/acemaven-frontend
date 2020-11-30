@@ -4,8 +4,8 @@ import styled from 'styled-components'
 export const RegisterRateWrapper = styled.form`
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 70px 0;
+  align-items: baseline;
+  padding-top: 50px;
   background-color: rgba(0, 0, 0, .3);
 `
 export const RegisterRateInner = styled.div`

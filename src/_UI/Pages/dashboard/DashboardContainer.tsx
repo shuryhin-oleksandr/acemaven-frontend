@@ -72,17 +72,6 @@ const DashboardContainer:React.FC = () => {
 
     return (
         <Layout>
-            {/*{isOpenCalcPopup && <ChargeableWeightPopup calc_success={calc_success}*/}
-            {/*                                           setOpenCalcPopup={setOpenCalcPopup}*/}
-            {/*                                           packaging_types={packaging_types}*/}
-            {/*                                           container_types={usageFees}*/}
-            {/*                                           shippingValue={shippingValue}*/}
-            {/*                                           getCalculation={getCalculation}*/}
-            {/*                                           current_shipping_type={current_shipping_type}*/}
-            {/*                                           editable_cargo_group={editable_cargo_group}*/}
-
-
-            {/*/>}*/}
             <ModalWindow isOpen={isOpenCalcPopup}>
                 <ChargeableWeightPopup calc_success={calc_success}
                                        setOpenCalcPopup={setOpenCalcPopup}
@@ -94,7 +83,7 @@ const DashboardContainer:React.FC = () => {
                                        editable_cargo_group={editable_cargo_group}
                 />
             </ModalWindow>
-            <div style={{position:"relative", width:"100%", height: "100%", minHeight: 700, zIndex: 0}}>
+            <div style={{position:"relative", width:"100%"}}>
                 <DashboardPage widgetsVisible={widgetsVisible}
                                setWidgetsVisible={setWidgetsVisible}
                                shippingValue={shippingValue}

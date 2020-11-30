@@ -4,8 +4,18 @@ import { IconButton } from "@material-ui/core";
 import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow.svg";
 import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
 import { InfoRowLabel } from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+import CargoGroupsTable from "./Tables/CargoGroupsTable";
+import {CargoGroupQuoteType} from "../../../../../../../_BLL/types/quotes/quotesTypes";
 
-const CargoBlock: React.FC = () => {
+type PropsType = {
+    operation_shipping_type: string,
+    operation_cargo_groups: CargoGroupQuoteType[],
+    operation_shipping_mode: {id: number, title: string},
+    free_time?: number,
+    status: string
+}
+
+const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_cargo_groups, operation_shipping_mode, free_time, status}) => {
   const [isHidden, setHidden] = useState(false);
   return (
     <SectionWrapper
@@ -30,12 +40,18 @@ const CargoBlock: React.FC = () => {
         />
       </IconButton>
       <div>
-        <SectionTitle>Cargo</SectionTitle>
+        <SectionTitle>CARGO</SectionTitle>
         {!isHidden && (
-          <div style={{ display: "flex" }}>
-            <InfoRowLabel>Container Free time:</InfoRowLabel>
-            <span style={{ marginLeft: "5px" }}>5 DAYS</span>
-          </div>
+            <>
+            {operation_shipping_type === 'sea' && status === "Booking Confirmed" &&
+                <div style={{ display: "flex", marginBottom: '20px' }}>
+                    <InfoRowLabel>CONTAINER FREE TIME:</InfoRowLabel>
+                    <span style={{ marginLeft: "5px" }}>{free_time} DAYS</span>
+                </div>}
+                <CargoGroupsTable cargo_groups={operation_cargo_groups}
+                                  object_shipping_mode={operation_shipping_mode}
+                />
+            </>
         )}
       </div>
     </SectionWrapper>

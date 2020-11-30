@@ -85,6 +85,8 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
         history.push(`/operations/${operation.id}`)
     }
 
+    let shipment = operation?.shipment_details && operation?.shipment_details[0]
+
     return (
         <React.Fragment>
             <TableRow className={classes.root} onClick={goToPageHandler}>
@@ -104,9 +106,13 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
                     </CargosOuter>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>
-                        ETD: 15/12/2020 <br/> ETA: 15/12/2020
-                    </span>
+                    {operation?.status === 'Booking Confirmed'
+                        ? <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>
+                            ETD: {shipment?.date_of_departure} <br/> ETA: {shipment?.date_of_departure}
+                          </span>
+                        : '-'
+                    }
+
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     {!operation.freight_rate.carrier_disclosure ? operation.freight_rate.carrier.title : 'Carrier is disclosed'}

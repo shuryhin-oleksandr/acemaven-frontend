@@ -26,8 +26,7 @@ import {
   ValuesShipmentWrapper,
 } from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {
-  BookingTitle,
-  NumberOfBooking,
+  BookingTitle, NumberOfBooking,
   OperationNumber,
   SectionTitle,
   SectionWrapper,
@@ -41,10 +40,13 @@ import air_icon from "../../../../../assets/icons/rates&services/plane-surcharge
 import calendar_icon from "../../../../../assets/icons/date_1.svg";
 import down_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
 import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
+import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
+import moment from "moment";
+import PaymentDueByDates from "./PaymentDueByDates";
 
 
 type PropsType = {
-  operation_info: any,
+  operation_info: OperationType,
   history: any,
   local_time: string,
   openAcceptPopup: (value: boolean) => void,
@@ -52,6 +54,15 @@ type PropsType = {
 }
 
 const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time, openAcceptPopup, my_name}) => {
+
+  //refactoring dates
+  let a = moment(operation_info?.date_from, 'DD/MM/YYYY').toDate()
+  let date_from = moment(a).format('DD/MM')
+  let c = moment(operation_info?.date_to, 'DD/MM/YYYY').toDate()
+  let date_to = moment(c).format('DD/MM')
+
+  let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
+
   return (
     <CardWrapper>
       <CardContent>
@@ -64,21 +75,27 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
         <ContentHeader>
           <BookingInfo>
             <OperationNumber>{operation_info?.aceid}</OperationNumber>
-            <BookingTitle>
-              Booking
-              <NumberOfBooking>No ACY9087512</NumberOfBooking>
-            </BookingTitle>
+            {shipment?.booking_number &&
+              <div style={{display: 'flex'}}>
+                <BookingTitle>BOOKING</BookingTitle>
+                <NumberOfBooking>No {shipment?.booking_number}</NumberOfBooking>
+              </div>
+            }
             <BookingStatus>
               <span style={{ color: "#1ab8e5", marginRight: "5px" }}>
                 STATUS
               </span>
-              {local_time}{' '}{operation_info?.status}
+              <span style={{fontFamily: 'Helvetica Light', fontSize: '18px', textTransform: 'lowercase'}}>{local_time}</span>
+              {' '}
+              <span style={{textTransform: 'uppercase'}}>
+                {operation_info?.status}
+              </span>
             </BookingStatus>
           </BookingInfo>
           <ActionsButtons>
             {operation_info?.status === "Booking Request in Progress" &&
               (operation_info?.agent_contact_person === my_name
-                ? <ConfirmButton onClick={() => openAcceptPopup(true)}>CONFIRM OPERATION</ConfirmButton>
+                ? <ConfirmButton onClick={() => openAcceptPopup(true)}>CONFIRM BOOKING</ConfirmButton>
                 : <AcceptButton>TAKE OVER</AcceptButton>
               )
             }
@@ -89,83 +106,78 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
           <SectionTitle>GENERAL INFO</SectionTitle>
           <GeneralBookingContent>
             <GeneralShipType>
-              <img src={"sea" === "sea" ? sea_icon : air_icon} alt="" />
+              <img src={operation_info?.shipping_type === "sea" ? sea_icon : air_icon} alt="" />
             </GeneralShipType>
             <InfoRow margin_right="27px">
               <InfoRowLabel>ROUTE</InfoRowLabel>
               <InfoRowValue font_size="36px">
-                RSZ
-                <br /> BCN
+                {operation_info?.freight_rate.origin.code}
+                <br /> {operation_info?.freight_rate.destination.code}
               </InfoRowValue>
             </InfoRow>
             <ValuesShipmentWrapper>
               <div
                 style={{
-                  width: "15%",
+                  marginRight:'35px',
                   display: "flex",
                   flexDirection: "column",
                 }}
               >
                 <InfoRow>
                   <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
-                  <InfoRowValue>Loose Cargo</InfoRowValue>
+                  <InfoRowValue>{operation_info?.freight_rate.shipping_mode.title}</InfoRowValue>
                 </InfoRow>
                 <InfoRow>
                   <InfoRowLabel>CARRIER</InfoRowLabel>
-                  <InfoRowValue>GreatTransfer Co.</InfoRowValue>
-                </InfoRow>
-              </div>
-              <div
-                style={{
-                  width: "15%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <InfoRow>
-                  <InfoRowLabel>VESSEL</InfoRowLabel>
-                  <InfoRowValue>Ronald Richards</InfoRowValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoRowLabel>TRIP</InfoRowLabel>
-                  <InfoRowValue>109MG0</InfoRowValue>
-                </InfoRow>
-              </div>
-              <div
-                style={{
-                  width: "15%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <InfoRow>
-                  <InfoRowLabel>DATES</InfoRowLabel>
-                  <InfoRowValue>ETD: 05/11</InfoRowValue>
-                  <InfoRowValue>ETA:25/11</InfoRowValue>
-                </InfoRow>
-              </div>
-              <div
-                style={{
-                  width: "25%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <InfoRow>
-                  <InfoRowLabel>Empty Pickup Location</InfoRowLabel>
                   <InfoRowValue>
-                    terminal: B, airport: Great Airport, 3891 Ranchview Dr.
-                    Richardson, California
-                  </InfoRowValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoRowLabel>Cargo Drop Off Location </InfoRowLabel>
-                  <InfoRowValue>
-                    terminal: B, airport: Great Airport, 3891 Ranchview Dr.
-                    Richardson, California
+                    {operation_info?.freight_rate.carrier.title}
                   </InfoRowValue>
                 </InfoRow>
               </div>
+              {operation_info?.status === "Booking Confirmed" &&
+                  <>
+                    {shipment?.vessel
+                        ? <div style={{ display: "flex", flexDirection: "column", marginRight:'26px'}}>
+                          <InfoRow>
+                            <InfoRowLabel>VESSEL</InfoRowLabel>
+                            <InfoRowValue>{shipment?.vessel}</InfoRowValue>
+                          </InfoRow>
+                          <InfoRow>
+                            <InfoRowLabel>VOYAGE</InfoRowLabel>
+                            <InfoRowValue>{shipment?.voyage}</InfoRowValue>
+                          </InfoRow>
+                        </div>
+                        : <div style={{display: "flex", flexDirection: "column", marginRight:'26px'}}>
+                          <InfoRow>
+                            <InfoRowLabel>MAWB</InfoRowLabel>
+                            <InfoRowValue>{shipment?.mawb}</InfoRowValue>
+                          </InfoRow>
+                          <InfoRow>
+                            <InfoRowLabel>FLIGHT NUMBER</InfoRowLabel>
+                            <InfoRowValue>{shipment?.flight_number}</InfoRowValue>
+                          </InfoRow>
+                        </div>
+                    }
+                    <div style={{width: "25%", display: "flex", flexDirection: "column"}}>
+                      {shipment?.empty_pick_up_location &&
+                      <InfoRow>
+                        <InfoRowLabel>Empty Pickup Location</InfoRowLabel>
+                        <InfoRowValue>
+                          terminal: {shipment?.empty_pick_up_location}, airport: {shipment?.empty_pick_up_location_address}
+                        </InfoRowValue>
+                      </InfoRow>
+                      }
+                      {shipment?.cargo_drop_off_location &&
+                      <InfoRow>
+                        <InfoRowLabel>Cargo Drop Off Location </InfoRowLabel>
+                        <InfoRowValue>
+                          terminal: {shipment?.cargo_drop_off_location}, airport: {shipment?.cargo_drop_off_location_address}
+                        </InfoRowValue>
+                      </InfoRow>}
+
+                    </div>
+                  </>
+              }
             </ValuesShipmentWrapper>
           </GeneralBookingContent>
         </SectionWrapper>
@@ -177,84 +189,74 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
                 <img src={calendar_icon} alt="" />
               </CalendarIcon>
               <InfoRow margin_right="50px" margin_bottom="0px">
-                <InfoRowLabel>Shipment Date</InfoRowLabel>
-                <span
-                  style={{
-                    width: "100px",
-                    fontSize: "24px",
-                    color: "black",
-                    fontFamily: "Helvetica Light",
-                    marginTop: "15px",
-                    marginBottom: "13px",
-                  }}
-                >
-                  WEEK 42
+                <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
+                <span style={{width: "100px", fontSize: "24px", color: "black", fontFamily: "Helvetica Light", marginBottom: "5px",}}>
+                  {(operation_info?.week_range?.week_from !== operation_info?.week_range?.week_to)
+                      ? `WEEK ${operation_info?.week_range?.week_from} - ${operation_info?.week_range?.week_to}`
+                      : `WEEK ${operation_info?.week_range?.week_from}`
+                  }
                 </span>
-                <InfoRowValue>01/11 - 07/11</InfoRowValue>
+                <InfoRowValue>{date_from} - {date_to}</InfoRowValue>
               </InfoRow>
             </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>Estimated Time of Departure</InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>Estimated Time of Arrival</InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-            </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>Cargo Cut Off </InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>Documents Cut Off </InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-            </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>Actual Time of Departure</InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>Actual Time of Arrival</InfoRowLabel>
-                <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-              </InfoRow>
-            </div>
+            {operation_info?.status === "Booking Confirmed" &&
+            <>
+              <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
+                <InfoRow>
+                  <InfoRowLabel>ESTIMATED TIME OF DEPARTURE</InfoRowLabel>
+                  <InfoRowValue>{shipment?.date_of_departure}</InfoRowValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoRowLabel>ESTIMATED TIME OF ARRIVAL</InfoRowLabel>
+                  <InfoRowValue>{shipment?.date_of_arrival}</InfoRowValue>
+                </InfoRow>
+              </div>
+              {shipment?.cargo_cut_off_date &&
+              <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
+                <InfoRow>
+                  <InfoRowLabel>CARGO CUT OFF </InfoRowLabel>
+                  <InfoRowValue>{shipment?.cargo_cut_off_date}</InfoRowValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoRowLabel>DOCUMENTS CUT OFF </InfoRowLabel>
+                  <InfoRowValue>{shipment?.document_cut_off_date}</InfoRowValue>
+                </InfoRow>
+              </div>
+              }
+
+              {/*<div style={{width: "20%", display: "flex", flexDirection: "column",}}>
+                <InfoRow>
+                  <InfoRowLabel>ACTUAL TIME OF DEPARTURE</InfoRowLabel>
+                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoRowLabel>ACTUAL TIME OF ARRIVAL</InfoRowLabel>
+                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
+                </InfoRow>
+              </div>*/}
+            </>
+            }
           </GeneralBookingContent>
         </SectionWrapper>
-        <ShipmentTrackingBlock />
+        {operation_info?.status === "Booking Confirmed"
+          && <ShipmentTrackingBlock/>
+        }
         <SectionWrapper>
           <SectionTitle>CHARGES</SectionTitle>
-          <div style={{ display: "flex" }}>
-            <InfoRowLabel>Payment Due by:</InfoRowLabel>
-            <span style={{ marginLeft: "5px" }}>22/07/2020</span>
-          </div>
+          <PaymentDueByDates />
         </SectionWrapper>
-
-        <DocsAndNotesBlock />
-        <ShipmentPartsBlock />
-        <CargoBlock />
+           <DocsAndNotesBlock notes={operation_info?.shipment_details ? operation_info?.shipment_details : []}
+                              docs={{release_type: operation_info?.release_type, number_of_documents: operation_info?.number_of_documents}}
+           />
+        <ShipmentPartsBlock shipper_info={operation_info?.shipper ? operation_info?.shipper : null}
+                            client_info={{company: operation_info?.client as string, contact_person: operation_info?.client_contact_person as string}}
+        />
+        <CargoBlock operation_shipping_type={operation_info?.shipping_type as string}
+                    operation_cargo_groups={operation_info?.cargo_groups}
+                    operation_shipping_mode={operation_info?.freight_rate?.shipping_mode}
+                    free_time={shipment?.container_free_time}
+                    status={operation_info?.status}
+        />
       </CardContent>
     </CardWrapper>
   );

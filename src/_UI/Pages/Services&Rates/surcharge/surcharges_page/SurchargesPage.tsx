@@ -123,8 +123,6 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
     }
 
 
-
-
     return (
         <Outer>
             <ScrollbarStyled {...{style: {width: "100%", height: 420}}}>

@@ -67,7 +67,35 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
   const dispatch = useDispatch()
 
   const onSubmit = (values: any) => {
+
+    //additional charges
     let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
+    let additional_charges_array = charges_array.map(a => {
+      if(a.charge && a.conditions) {
+        return {
+          additional_surcharge: a.additional_surcharge,
+          charge: a.charge,
+          conditions: a.conditions,
+          currency: a.currency
+        }
+      } else if(!a.charge && a.conditions) {
+        return {
+          additional_surcharge: a.additional_surcharge,
+          conditions: a.conditions,
+          currency: a.currency
+        }
+      } else if(!a.charge && !a.conditions) {
+        return {
+          additional_surcharge: a.additional_surcharge,
+          currency: a.currency
+        }
+      } else {
+        return a
+      }
+    })
+
+
+    //handling containers&packaging
     let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
 
     let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
@@ -80,7 +108,8 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
       shipping_mode: values.shipping_mode,
       start_date: values.from,
       expiration_date: moment(values.to).format('DD/MM/YYYY'),
-      charges: charges_array, usage_fees: usageFees_array,
+      charges: additional_charges_array,
+      usage_fees: usageFees_array,
       location: is_local_port?.is_local === true ? is_local_port?.id : destination_port_value?.id
     }
 
@@ -90,7 +119,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
       carrier: values.carrier,
       direction: is_local_port?.is_local === true ? 'export' : 'import',
       shipping_mode: values.shipping_mode,
-      charges: charges_array,
+      charges: additional_charges_array,
       location: is_local_port?.is_local === true ? is_local_port?.id : destination_port_value?.id
     }
     usageFees_array !== null ? createNewSurcharge(data) : createNewSurcharge(data_without_fees)

@@ -79,7 +79,8 @@ type PropsType = {
     setSearchValue: (value: string) => void
     search_column: string
     setSearchColumn: (value: string) => void,
-    operations_list: OperationType[]
+    operations_list: OperationType[],
+    my_operations?:string
 }
 
 const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
@@ -96,13 +97,14 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                               setSearchMode={props.setSearchMode}
                                               direction={''}
                                               type={props.mode}
-                                              column_name='id'
+                                              column_name='aceid'
                                               searchValue={props.searchValue}
                                               isSearchMode={props.isSearchMode}
                                               title="IDs"
                                               searchColumn={props.search_column}
                                               setSearchColumn={props.setSearchColumn}
-                                              //thunkName='quotes'
+                                              thunkName='operations'
+                                              my_operations={props.my_operations}
                             />
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
@@ -116,14 +118,16 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                               title='ROUTE'
                                               searchColumn={props.search_column}
                                               setSearchColumn={props.setSearchColumn}
-                                              //thunkName='quotes'
+                                              withoutSearch={true}
+                                              thunkName='operations'
+                                              my_operations={props.my_operations}
                             />
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
                             VOLUME
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
-                            <TableCellContent setSearchValue={props.setSearchValue}
+                            {/*<TableCellContent setSearchValue={props.setSearchValue}
                                               setSearchMode={props.setSearchMode}
                                               direction={''}
                                               type={props.mode}
@@ -133,8 +137,12 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                               title='DATES'
                                               searchColumn={props.search_column}
                                               setSearchColumn={props.setSearchColumn}
-                                //thunkName='quotes'
-                            />
+                                              thunkName='operations'
+                                              my_operations={props.my_operations}
+                                              //search should be done at backend later
+                                              withoutSearch={true}
+                            />*/}
+                            DATES
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
                             <TableCellContent setSearchValue={props.setSearchValue}
@@ -147,12 +155,29 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                               title='CARRIER'
                                               searchColumn={props.search_column}
                                               setSearchColumn={props.setSearchColumn}
-                                //thunkName='quotes'
+                                              thunkName='operations'
+                                              my_operations={props.my_operations}
                             />
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
-                            STATUS
+                            <TableCellContent setSearchValue={props.setSearchValue}
+                                              setSearchMode={props.setSearchMode}
+                                              direction={''}
+                                              type={props.mode}
+                                              column_name='status'
+                                              searchValue={props.searchValue}
+                                              isSearchMode={props.isSearchMode}
+                                              title='STATUS'
+                                              searchColumn={props.search_column}
+                                              setSearchColumn={props.setSearchColumn}
+                                              withoutSearch={true}
+                                              thunkName='operations'
+                                              my_operations={props.my_operations}
+                            />
                         </TableCell>
+                        {/*<TableCell className={classes.cell} align="left">*/}
+                        {/*    STATUS*/}
+                        {/*</TableCell>*/}
                         <TableCell className={classes.cell} align="right">
                         <TableCellContent setSearchValue={props.setSearchValue}
                                           setSearchMode={props.setSearchMode}
@@ -165,7 +190,8 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                           searchColumn={props.search_column}
                                           setSearchColumn={props.setSearchColumn}
                                           withoutSearch={true}
-                            //thunkName='quotes'
+                                          thunkName='operations'
+                                          my_operations={props.my_operations}
                         />
                         </TableCell>
                     </TableRow>

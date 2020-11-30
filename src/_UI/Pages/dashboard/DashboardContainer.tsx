@@ -25,6 +25,7 @@ import {surchargeActions} from "../../../_BLL/reducers/surcharge&rates/surcharge
 import Layout from "../../components/BaseLayout/Layout";
 import DashboardPage from "./DashboardPage";
 import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/ChargeableWeightPopup";
+import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
 
 
 const DashboardContainer:React.FC = () => {
@@ -71,18 +72,29 @@ const DashboardContainer:React.FC = () => {
 
     return (
         <Layout>
-            {isOpenCalcPopup && <ChargeableWeightPopup calc_success={calc_success}
-                                                       setOpenCalcPopup={setOpenCalcPopup}
-                                                       packaging_types={packaging_types}
-                                                       container_types={usageFees}
-                                                       shippingValue={shippingValue}
-                                                       getCalculation={getCalculation}
-                                                       current_shipping_type={current_shipping_type}
-                                                       editable_cargo_group={editable_cargo_group}
+            {/*{isOpenCalcPopup && <ChargeableWeightPopup calc_success={calc_success}*/}
+            {/*                                           setOpenCalcPopup={setOpenCalcPopup}*/}
+            {/*                                           packaging_types={packaging_types}*/}
+            {/*                                           container_types={usageFees}*/}
+            {/*                                           shippingValue={shippingValue}*/}
+            {/*                                           getCalculation={getCalculation}*/}
+            {/*                                           current_shipping_type={current_shipping_type}*/}
+            {/*                                           editable_cargo_group={editable_cargo_group}*/}
 
 
-            />}
-            <div style={{position:"relative", width:"100%", height: "100%", minHeight: 700}}>
+            {/*/>}*/}
+            <ModalWindow isOpen={isOpenCalcPopup}>
+                <ChargeableWeightPopup calc_success={calc_success}
+                                       setOpenCalcPopup={setOpenCalcPopup}
+                                       packaging_types={packaging_types}
+                                       container_types={usageFees}
+                                       shippingValue={shippingValue}
+                                       getCalculation={getCalculation}
+                                       current_shipping_type={current_shipping_type}
+                                       editable_cargo_group={editable_cargo_group}
+                />
+            </ModalWindow>
+            <div style={{position:"relative", width:"100%", height: "100%", minHeight: 700, zIndex: 0}}>
                 <DashboardPage widgetsVisible={widgetsVisible}
                                setWidgetsVisible={setWidgetsVisible}
                                shippingValue={shippingValue}

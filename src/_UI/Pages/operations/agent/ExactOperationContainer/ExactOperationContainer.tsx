@@ -17,6 +17,7 @@ import Layout from "../../../../components/BaseLayout/Layout";
 import OperationCard from "./OperationCard/OperationCard";
 import AcceptPopup from "../../../../components/PopUps/accept_booking_popup/AcceptPopup";
 import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+import ModalWindow from "../../../../components/_commonComponents/ModalWindow/ModalWindow";
 
 
 
@@ -44,9 +45,11 @@ const ExactOperationContainer = ({...props}) => {
 
   return (
     <Layout>
-        {isAcceptPopup && <AcceptPopup openAcceptPopup={openAcceptPopup}
-                                       exact_operation_info={operation_info}
-                    />}
+        <ModalWindow isOpen={isAcceptPopup}>
+            <AcceptPopup openAcceptPopup={openAcceptPopup}
+                         exact_operation_info={operation_info}
+            />
+        </ModalWindow>
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />
             : <OperationCard  operation_info={operation_info}

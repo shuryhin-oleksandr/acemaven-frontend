@@ -1,17 +1,10 @@
 import styled from 'styled-components'
 
 export const TemporaryWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, .3);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 100px 0;
   z-index: 100;
 `
 export const TemporaryInner = styled.div`

@@ -130,8 +130,11 @@ export const SurchargeCardWrapper = styled.div<PropsStyle>`
   max-width: 758px;
   width: 100%;
   background: #FFFFFF;
-  //border: 1px solid #BDBDBD;
-  margin-top: ${({usageFees}) => usageFees?.length === 0 ? '-300px' : '0'};
+  ${({usageFees}) => usageFees?.length === 0 ? '' +
+  `
+    position: absolute;
+    bottom: 100px;
+  ` : ''};
 `
 export const CardInner = styled.div`
   display: flex;

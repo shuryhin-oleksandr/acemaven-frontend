@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import CancelPopup from "../../../components/PopUps/Cancel/CancelPopup";
-import AddNewBank from "./AddNewBank";
 import styled from "styled-components";
+import AddNewBank from "./AddNewBank";
+import CancelPopup from "../../../components/PopUps/Cancel/CancelPopup";
 import LayoutWithoutNav from "../../../components/BaseLayout/LayoutWithoutNav";
+import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
 
 const AddBankAccountContainer: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Outer>
-      {isOpen && <CancelPopup things={'bank accounts'} setIsOpen={setIsOpen} />}
+      <ModalWindow isOpen={isOpen}>
+        <CancelPopup things={'bank accounts'} setIsOpen={setIsOpen} />
+      </ModalWindow>
       <LayoutWithoutNav>
         <AddNewBank setIsOpen={setIsOpen} />
       </LayoutWithoutNav>

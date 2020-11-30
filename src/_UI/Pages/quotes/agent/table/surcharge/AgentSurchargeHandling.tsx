@@ -8,6 +8,8 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//components
+import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 type PropsType = {
@@ -17,9 +19,7 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        width: 450,
-        height: 280,
-        overflowY: 'scroll'
+        paddingRight: 12
     },
     cell: {
         color: '#115B86',
@@ -48,6 +48,7 @@ const AgentSurchargeHandling:React.FC<PropsType> = ({usage_fees}) => {
     const classes = useStyles();
 
     return (
+      <ScrollbarStyled {...{style: {width: 450, height: 280}}}>
         <TableContainer className={classes.container} component={Paper}>
             <Table aria-label="simple table">
                 <TableHead>
@@ -73,6 +74,7 @@ const AgentSurchargeHandling:React.FC<PropsType> = ({usage_fees}) => {
                 </TableBody>
             </Table>
         </TableContainer>
+      </ScrollbarStyled>
     )
 }
 

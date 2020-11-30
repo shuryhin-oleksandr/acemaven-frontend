@@ -13,7 +13,8 @@ import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateR
 //COMPONENTS
 import ExistingRatesTable from "./ExistingRatesTable";
 import SurchargesToRate from "../../register_new_freight_rate/tables/SurchargesToRate";
-import RateEditPopUp from "../../../../../components/PopUps/RateEditPopUp/RateEditPopUp"
+import RateEditPopUp from "../../../../../components/PopUps/RateEditPopUp/RateEditPopUp";
+import ModalWindow from "../../../../../components/_commonComponents/ModalWindow/ModalWindow";
 //styles
 import {
   RateContainer,
@@ -95,7 +96,9 @@ const dispatch = useDispatch()
 
   return (
     <RateContainer onSubmit={handleSubmit(onSubmit)}>
-      {rateEditPopUpVisible &&<RateEditPopUp setRateEditPopUpVisible={setRateEditPopUpVisible}/>}
+      <ModalWindow isOpen={rateEditPopUpVisible}>
+        <RateEditPopUp setRateEditPopUpVisible={setRateEditPopUpVisible}/>
+      </ModalWindow>
       <Wrap>
         <RateTitle>Freight Rate</RateTitle>
         <ButtonsWrap>

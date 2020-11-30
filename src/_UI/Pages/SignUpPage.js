@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
+import styled from "styled-components";
 import RegisterHead from "../components/RegisterHead";
 import RegisterFormTemplate from "../templates/RegisterFormTemplate";
-import styled from "styled-components";
-import { Form, Formik } from "formik";
 import BaseFormikRadioButton from "../components/base/BaseFormikRadioButton";
 import PartTwo from "../components/SignUpFormParts/PartTwo";
 import PartOne from "../components/SignUpFormParts/PartOne";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import ModalWindow from "../components/_commonComponents/ModalWindow/ModalWindow";
 import {authActions, companySignUp} from "../../_BLL/reducers/authReducer";
 
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
@@ -87,79 +88,81 @@ const SignUpPage = () => {
   const [firstPage, changePage] = useState(true);
 
   return (
-    <RegisterFormTemplate openFlow={() => dispatch(authActions.setOpenSignUp(false))} isShow={isSignUp && !finishPopup}>
-      <RegisterHead
-        title="Register"
-        buttonText="Log in"
-        popupCallback={() => popupCallback()}
-      />
-      <FormWrapper>
-        <Formik
-          validationSchema={() =>
-            Yup.lazy((values) =>
-              values.type === "agent"
-                ? AgentValidationSchema
-                : ClientValidationSchema
-            )
-          }
-          initialValues={{
-            type: "client",
-            name: "",
-            address_line_first: "",
-            address_line_second: "",
-            state: "",
-            city: "",
-            zip_code: "",
-            phone: "",
-            tax_id: "",
-            employees_number: 1,
-            website: "",
-            master_email: "",
-            first_name: "",
-            last_name: "",
-            email: "",
-            master_phone: "",
-            position: "",
-          }}
-          onSubmit={(values) => {
-            dispatch(companySignUp(values));
-            console.log("submit", values);
-          }}
-        >
-          {({ values }) => {
-            return (
-              <Form>
-                {firstPage && (
-                  <div style={{ marginBottom: "46px" }}>
-                    <div style={{ marginBottom: 10 }}>
-                      <BaseFormikRadioButton
-                        label="Client"
-                        value="client"
-                        name="type"
-                        formikValues={values}
-                      />
+    <ModalWindow isOpen={isSignUp && !finishPopup}>
+      <RegisterFormTemplate openFlow={() => dispatch(authActions.setOpenSignUp(false))}>
+        <RegisterHead
+          title="Register"
+          buttonText="Log in"
+          popupCallback={() => popupCallback()}
+        />
+        <FormWrapper>
+          <Formik
+            validationSchema={() =>
+              Yup.lazy((values) =>
+                values.type === "agent"
+                  ? AgentValidationSchema
+                  : ClientValidationSchema
+              )
+            }
+            initialValues={{
+              type: "client",
+              name: "",
+              address_line_first: "",
+              address_line_second: "",
+              state: "",
+              city: "",
+              zip_code: "",
+              phone: "",
+              tax_id: "",
+              employees_number: 1,
+              website: "",
+              master_email: "",
+              first_name: "",
+              last_name: "",
+              email: "",
+              master_phone: "",
+              position: "",
+            }}
+            onSubmit={(values) => {
+              dispatch(companySignUp(values));
+              console.log("submit", values);
+            }}
+          >
+            {({ values }) => {
+              return (
+                <Form>
+                  {firstPage && (
+                    <div style={{ marginBottom: "46px" }}>
+                      <div style={{ marginBottom: 10 }}>
+                        <BaseFormikRadioButton
+                          label="Client"
+                          value="client"
+                          name="type"
+                          formikValues={values}
+                        />
+                      </div>
+                      <div>
+                        <BaseFormikRadioButton
+                          label="Agent"
+                          value="agent"
+                          name="type"
+                          formikValues={values}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <BaseFormikRadioButton
-                        label="Agent"
-                        value="agent"
-                        name="type"
-                        formikValues={values}
-                      />
-                    </div>
-                  </div>
-                )}
-                {firstPage ? (
-                  <PartOne error={error} changePage={changePage} />
-                ) : (
-                  <PartTwo error={error} changePage={changePage} />
-                )}
-              </Form>
-            );
-          }}
-        </Formik>
-      </FormWrapper>
-    </RegisterFormTemplate>
+                  )}
+                  {firstPage ? (
+                    <PartOne error={error} changePage={changePage} />
+                  ) : (
+                    <PartTwo error={error} changePage={changePage} />
+                  )}
+                </Form>
+              );
+            }}
+          </Formik>
+        </FormWrapper>
+      </RegisterFormTemplate>
+    </ModalWindow>
   );
 };
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import {
   WidgetButton,
   DashboardWrapper,
@@ -12,6 +13,8 @@ import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
 import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
 import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
 import MapComponent from "./MapComponent/MapComponent";
+import ClientBookingPopUp from "../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
+import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
 import SearchContainer from "./search/SearchContainer";
 import {
   CargoGroupType,
@@ -26,10 +29,8 @@ import {
 } from "../../../_BLL/types/rates&surcharges/ratesTypes";
 import { CurrentShippingType } from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { PackagingType } from "../../../_BLL/types/rates&surcharges/surchargesTypes";
-import ClientBookingPopUp from "../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../_BLL/store";
-import { useForm } from "react-hook-form";
 import { searchActions } from "../../../_BLL/reducers/search_client/searchClientReducer";
 
 type PropsType = {
@@ -125,15 +126,17 @@ const DashboardPage: React.FC<PropsType> = ({
 
   return (
     <DashboardWrapper>
-      {bookingPopupVisible && currentBookingRate && (
-        <ClientBookingPopUp
-          shippingValue={shippingValue}
-          setBookingPopupVisible={setBookingPopupVisible}
-          currentFreightRate={currentBookingRate}
-          setWidgetsVisible={setWidgetsVisible}
-          newSearch={newSearch}
-        />
-      )}
+      {bookingPopupVisible && currentBookingRate &&
+        <ModalWindow isOpen={bookingPopupVisible && !!currentBookingRate}>
+          <ClientBookingPopUp
+            shippingValue={shippingValue}
+            setBookingPopupVisible={setBookingPopupVisible}
+            currentFreightRate={currentBookingRate}
+            setWidgetsVisible={setWidgetsVisible}
+            newSearch={newSearch}
+          />
+        </ModalWindow>
+      }
       <MapComponent
         isMarkerShown
         loadingElement={<div style={{ height: `100%` }} />}

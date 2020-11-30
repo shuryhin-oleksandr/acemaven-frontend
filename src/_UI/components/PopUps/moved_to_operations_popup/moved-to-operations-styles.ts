@@ -1,18 +1,11 @@
 import styled from 'styled-components'
 
 export const OperationsPopupOuter = styled.div`
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, .3);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding-top: 150px;
+  padding-bottom: 150px;
 `
 export const OperationsPopupInner = styled.div`
   max-width: 800px;

@@ -5,17 +5,10 @@ type PropsStyle = {
 }
 
 export const PopupWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   padding-top: 100px;
-  background-color: rgba(0, 0, 0, .3);
+  padding-bottom: 100px;
   z-index: 70;
 `
 

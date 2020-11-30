@@ -1,6 +1,7 @@
 //Core
 import React from "react";
 import styled from "styled-components";
+import {withRouter} from "react-router";
 
 //Instruments
 import { Formik, Form } from "formik";
@@ -14,7 +15,7 @@ import BaseInputGroup from "../components/base/BaseInputGroup";
 import {useDispatch, useSelector} from "react-redux";
 import {authActions, signIn} from "../../_BLL/reducers/authReducer";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
-import {withRouter} from "react-router";
+import ModalWindow from "../components/_commonComponents/ModalWindow/ModalWindow";
 
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
@@ -36,61 +37,63 @@ const SignInPage = ({history}) => {
     let isSignIn = useSelector(state => state.auth.isSignIn)
 
   return (
-    <RegisterFormTemplate openFlow={() => dispatch(authActions.setOpenSignIn(false))} isShow={isSignIn}>
-        {isFetching && <Spinner />}
-      <RegisterHead
-        title="Log in"
-        buttonText="Register"
-        popupCallback={() => popupCallback()}
+    <ModalWindow isOpen={isSignIn}>
+      <RegisterFormTemplate openFlow={() => dispatch(authActions.setOpenSignIn(false))}>
+          {isFetching && <Spinner />}
+        <RegisterHead
+          title="Log in"
+          buttonText="Register"
+          popupCallback={() => popupCallback()}
 
-      />
-      <FormWrapper>
-        <Formik
-          validationSchema={ValidationSchema}
-          initialValues={{ email: "", password: "" }}
-          onSubmit={(values, { }) => {
-            console.log("submit", values);
-            dispatch(authActions.setLoginError(''))
-            dispatch(signIn(values, history))
-          }}
-        >
-          {({ values, touched, errors }) => {
-            const hasErrors = Object.keys(errors).length > 0;
-            return (
-              <Form>
-                <BaseInputGroup
-                  name="email"
-                  placeholder="Email"
-                  values={values}
-                  labelText="Email"
-                  marginBot={46}
-                  valid={touched.email && !errors.email}
-                  error={touched.email && errors.email}
-                />
-                <BaseInputGroup
-                  name="password"
-                  placeholder="Password"
-                  values={values}
-                  labelText="Password"
-                  type="password"
-                  valid={touched.password && !errors.password}
-                  error={touched.password && errors.password}
-                />
-                  {loginFail && <ErrorServerMessage>{loginFail}</ErrorServerMessage>}
-                <ButtonWrapper>
-                  <BaseButton
-                    type="submit"
-                    disabled={!values.password || !values.email || hasErrors}
-                  >
-                    LOG IN
-                  </BaseButton>
-                </ButtonWrapper>
-              </Form>
-            );
-          }}
-        </Formik>
-      </FormWrapper>
-    </RegisterFormTemplate>
+        />
+        <FormWrapper>
+          <Formik
+            validationSchema={ValidationSchema}
+            initialValues={{ email: "", password: "" }}
+            onSubmit={(values, { }) => {
+              console.log("submit", values);
+              dispatch(authActions.setLoginError(''))
+              dispatch(signIn(values, history))
+            }}
+          >
+            {({ values, touched, errors }) => {
+              const hasErrors = Object.keys(errors).length > 0;
+              return (
+                <Form>
+                  <BaseInputGroup
+                    name="email"
+                    placeholder="Email"
+                    values={values}
+                    labelText="Email"
+                    marginBot={46}
+                    valid={touched.email && !errors.email}
+                    error={touched.email && errors.email}
+                  />
+                  <BaseInputGroup
+                    name="password"
+                    placeholder="Password"
+                    values={values}
+                    labelText="Password"
+                    type="password"
+                    valid={touched.password && !errors.password}
+                    error={touched.password && errors.password}
+                  />
+                    {loginFail && <ErrorServerMessage>{loginFail}</ErrorServerMessage>}
+                  <ButtonWrapper>
+                    <BaseButton
+                      type="submit"
+                      disabled={!values.password || !values.email || hasErrors}
+                    >
+                      LOG IN
+                    </BaseButton>
+                  </ButtonWrapper>
+                </Form>
+              );
+            }}
+          </Formik>
+        </FormWrapper>
+      </RegisterFormTemplate>
+    </ModalWindow>
   );
 };
 

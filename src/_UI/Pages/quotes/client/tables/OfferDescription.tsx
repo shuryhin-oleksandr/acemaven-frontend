@@ -136,17 +136,18 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                             </Collapse>
                         </TableCell>
                     </TableRow>
-                    {showTotals && (totalId === o.id) && <CardsAbsoluteWrapper>
-                    <SearchCard showRatingPopup={setShowRating}
-                                search_result={o.charges}
-                                closeTotals={closeTotals}
-                                quote={quote}
-                                setBookingPopupVisible={setBookingPopupVisible}
-                                bookingPopupVisible={bookingPopupVisible}
+                    <ModalWindow isOpen={showTotals && (totalId === o.id)}>
+                        <CardsAbsoluteWrapper>
+                            <SearchCard showRatingPopup={setShowRating}
+                                        search_result={o.charges}
+                                        closeTotals={closeTotals}
+                                        quote={quote}
+                                        setBookingPopupVisible={setBookingPopupVisible}
+                                        bookingPopupVisible={bookingPopupVisible}
 
-                    />
-                    </CardsAbsoluteWrapper>
-                    }
+                            />
+                        </CardsAbsoluteWrapper>
+                    </ModalWindow>
                     {bookingPopupVisible && currentBookingRate &&
                         <ModalWindow isOpen={bookingPopupVisible && !!currentBookingRate}>
                             <ClientBookingPopUp

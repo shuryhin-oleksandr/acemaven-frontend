@@ -150,13 +150,6 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
 
     return (
         <Layout>
-            <ModalWindow isOpen={props.isTemporaryPopup}>
-                <SaveTemporaryQuotePopup closePopup={props.setIsTemporaryPopup}
-                                         freight={props.existing_rate_for_quote}
-                                         saveRateResult={props.save_rate_result}
-                                         bad_saving_message={props.bad_saving_message}
-                />
-            </ModalWindow>
             <ModalWindow isOpen={props.isCreatePopup}>
                 <RegisterNewRateFromQuotePopup openCreatePopup={props.openCreatePopup}
                                                setIsTemporaryPopup={props.setIsTemporaryPopup}
@@ -168,6 +161,13 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                                                save_rate_result={props.save_rate_result}
                                                isCheck={isCheck}
                                                setIsCheck={setIsCheck}
+                />
+            </ModalWindow>
+            <ModalWindow isOpen={props.isTemporaryPopup}>
+                <SaveTemporaryQuotePopup closePopup={props.setIsTemporaryPopup}
+                                         freight={props.existing_rate_for_quote}
+                                         saveRateResult={props.save_rate_result}
+                                         bad_saving_message={props.bad_saving_message}
                 />
             </ModalWindow>
             {props.isFetching || !props.exact_quote_info

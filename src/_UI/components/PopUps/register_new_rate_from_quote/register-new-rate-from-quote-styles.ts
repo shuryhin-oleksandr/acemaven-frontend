@@ -5,8 +5,7 @@ export const RegisterRateWrapper = styled.form`
   display: flex;
   justify-content: center;
   align-items: baseline;
-  padding-top: 50px;
-  background-color: rgba(0, 0, 0, .3);
+  padding: 100px;
 `
 export const RegisterRateInner = styled.div`
   max-width: 1275px;

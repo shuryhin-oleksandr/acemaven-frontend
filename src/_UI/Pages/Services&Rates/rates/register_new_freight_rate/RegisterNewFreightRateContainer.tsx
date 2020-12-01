@@ -46,6 +46,8 @@ type PropsType = {
   setNewRateMode: (value: boolean) => void;
 };
 
+let timerOrigin:any,timerDestination:any;
+
 const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   setNewRateMode,
 }) => {
@@ -115,7 +117,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   let closePortsHandler = (port: PortType, field: string) => {
     setValue(field, port.display_name);
     dispatch(rateActions.setOriginPortValue(port))
-     sessionStorage.setItem("origin_id", JSON.stringify(port.id));
+     sessionStorage.setItem("origin_id", JSON.stringify(port));
     dispatch(rateActions.setOriginPortsList([]));
   };
 
@@ -125,13 +127,13 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     let carrier = getValues("carrier");
     let shipping_mode = getValues("shipping_mode");
     setValue("destination", p.display_name);
-    sessionStorage.setItem('destination_id', JSON.stringify(p.id))
+    sessionStorage.setItem('destination_id', JSON.stringify(p))
     dispatch(rateActions.setDestinationPortsList([]));
     dispatch(
       checkRatesDatesThunk({
         carrier: carrier,
         shipping_mode: shipping_mode,
-        origin: Number(sessionStorage.getItem("origin_id")),
+        origin: Number(JSON.parse(JSON.stringify(sessionStorage.getItem("origin_id"))).id),
         destination: p.id,
       })
     );
@@ -149,16 +151,22 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
 
   //посимвольный поиск портов
   let onOriginChangeHandler = (value: any) => {
-    // if(value.value.length >= 3) {
+    clearTimeout(timerOrigin);
+    timerOrigin = setTimeout(() => {
+      // if(value.value.length >= 3) {
       dispatch(getPorts('', value.value, "origin", currentShippingType));
-    // }
+      // }
+    } , 500);
   };
   let onDestinationChangeHandler = (value: any) => {
+    clearTimeout(timerDestination);
+    timerDestination = setTimeout(() => {
     // if(value.value.length >= 3) {
       !is_local_port?.is_local
       ? dispatch(getPorts(true, value.value, "destination", currentShippingType))
       : dispatch(getPorts(false, value.value, "destination", currentShippingType))
     // }
+    } , 500);
   };
 
 
@@ -177,14 +185,15 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     dispatch(addNewSurchargeForRate(surcharge_data))
   }
 
-/*  let clearStorage = () => {
+  let clearStorage = () => {
     sessionStorage.removeItem('origin_id')
     sessionStorage.removeItem('destination_id')
-  }*/
+  }
 
   useEffect(() => {
+    clearStorage();
     return () => {
-      sessionStorage.removeItem('origin_id')
+      clearStorage();
     }
   }, [])
   //сетаем значения, когда используем как шаблон

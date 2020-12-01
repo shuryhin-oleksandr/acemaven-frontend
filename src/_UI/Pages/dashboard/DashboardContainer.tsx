@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 //types
 import {AppStateType} from "../../../_BLL/store";
 import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
@@ -69,6 +69,18 @@ const DashboardContainer:React.FC = () => {
     const getCalculation = ( data: CargoGroupType) => {
         dispatch(getWMCalculationThunk(data))
     }
+
+    let clearStorage = () => {
+        sessionStorage.removeItem('origin_id')
+        sessionStorage.removeItem('destination_id')
+    }
+
+    useEffect(() => {
+        clearStorage();
+        return () => {
+            clearStorage();
+        }
+    }, [])
 
     return (
         <Layout>

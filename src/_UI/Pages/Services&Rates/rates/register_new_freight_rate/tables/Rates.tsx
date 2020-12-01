@@ -91,8 +91,14 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
             expiration_date: moment(to).format('DD/MM/YYYY'),
             carrier: getValues('carrier'),
             shipping_mode: getValues('shipping_mode'),
-            origin: Number(sessionStorage.getItem('origin_id')),
-            destination: Number(sessionStorage.getItem('destination_id')),
+            destination: Number(JSON.parse(
+              // @ts-ignore
+              sessionStorage.getItem("destination_id")
+            ).id),
+            origin: Number(JSON.parse(
+              // @ts-ignore
+              sessionStorage.getItem("origin_id")
+            ).id),
             transit_time: Number(getValues('transit_time'))
         }
         dispatch(rateActions.setRateDataForSurcharge(surcharge_to_rate))

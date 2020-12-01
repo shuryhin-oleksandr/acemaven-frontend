@@ -7,6 +7,8 @@ import { Controller, useFieldArray } from "react-hook-form";
 import moment from "moment";
 //Lodash
 import { uniqWith, isEqual } from "lodash";
+//react-custom-scrollbars
+import { Scrollbars } from "react-custom-scrollbars";
 //types
 import {
   CurrentShippingType,
@@ -96,6 +98,8 @@ type PropsType = {
   setDates: any;
 };
 
+let timerOrigin:any,timerDestination:any;
+
 const Search: React.FC<PropsType> = ({
   bottom,
   right,
@@ -179,22 +183,28 @@ const Search: React.FC<PropsType> = ({
   }, [watchResultArr, dates]);
 
   let onOriginChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
-    dispatch(getPorts("", value.value, "origin", mode));
-    // }
+    clearTimeout(timerOrigin);
+    timerOrigin = setTimeout(() => {
+      // if (value.value.length >= 3) {
+      dispatch(getPorts("", value.value, "origin", mode))
+      // }
+    }, 500);
   };
   let onDestinationChangeHandler = (value: any) => {
-    // if (value.value.length >= 3) {
-    props.origin_port_value?.is_local
-      ? dispatch(getPorts(false, value.value, "destination", mode))
-      : dispatch(getPorts(true, value.value, "destination", mode));
-    // }
+    clearTimeout(timerDestination);
+    timerDestination = setTimeout(() => {
+      // if (value.value.length >= 3) {
+      props.origin_port_value?.is_local
+        ? dispatch(getPorts(false, value.value, "destination", mode))
+        : dispatch(getPorts(true, value.value, "destination", mode))
+      // }
+    }, 500);
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
     dispatch(rateActions.setOriginPortValue(port));
     setValue(field, port.display_name);
-    sessionStorage.setItem(`${field}_id`, JSON.stringify(port.id));
+    sessionStorage.setItem(`${field}_id`, JSON.stringify(port));
     dispatch(rateActions.setOriginPortsList([]));
     dispatch(rateActions.setDestinationPortsList([]));
   };
@@ -217,8 +227,14 @@ const Search: React.FC<PropsType> = ({
           shipping_mode: values.shipping_mode,
           date_from: moment(dates[0]).format("DD/MM/YYYY"),
           date_to: moment(dates[1]).format("DD/MM/YYYY"),
-          destination: Number(sessionStorage.getItem("destination_id")),
-          origin: Number(sessionStorage.getItem("origin_id")),
+          destination: Number(JSON.parse(
+            // @ts-ignore
+            sessionStorage.getItem("destination_id")
+          ).id),
+          origin: Number(JSON.parse(
+            // @ts-ignore
+            sessionStorage.getItem("origin_id")
+          ).id),
           cargo_groups: values.cargo_groups.map((c: any) =>
             c.frozen
               ? {
@@ -264,12 +280,19 @@ const Search: React.FC<PropsType> = ({
         }
       } else {
         //chargeable weight shipping modes
+
         finalData = {
           shipping_mode: values.shipping_mode,
           date_from: moment(dates[0]).format("DD/MM/YYYY"),
           date_to: moment(dates[1]).format("DD/MM/YYYY"),
-          destination: Number(sessionStorage.getItem("destination_id")),
-          origin: Number(sessionStorage.getItem("origin_id")),
+          destination: Number(JSON.parse(
+            // @ts-ignore
+            sessionStorage.getItem("destination_id")
+          ).id),
+          origin: Number(JSON.parse(
+            // @ts-ignore
+            sessionStorage.getItem("origin_id")
+          ).id),
           cargo_groups: cargo_groups_list?.map((c) =>
             c.packaging_type
               ? {
@@ -415,12 +438,20 @@ const Search: React.FC<PropsType> = ({
               <FormField
                 inputRef={register({
                   required: "Field is required",
+                  validate: () => sessionStorage.getItem("origin_id") ? true : "Choose from the list"
                 })}
                 name="origin"
                 placeholder="Origin"
                 error={errors?.origin}
                 getValues={getValues}
                 onChange={onOriginChangeHandler}
+                onBlur={() => {
+                  if (!!sessionStorage.getItem("origin_id")) {
+                    // @ts-ignore
+                    setValue("origin", JSON.parse(sessionStorage.getItem("origin_id")).display_name);
+                    dispatch(rateActions.setOriginPortsList([]));
+                  }
+                }}
                 background="#ECECEC"
                 marginBottom="0"
                 messagePaddingTop="4px"
@@ -428,16 +459,28 @@ const Search: React.FC<PropsType> = ({
                 disabled={disabled}
               />
               {props.origin_ports && props.origin_ports?.length > 0 && (
-                <PortsList top="45px">
-                  {props.origin_ports?.map((p: PortType) => (
-                    <Port
-                      onClick={() => closePortsHandler(p, "origin")}
-                      key={p?.id}
-                    >
-                      {p?.display_name}
-                    </Port>
-                  ))}
-                </PortsList>
+                <Scrollbars
+                  style={{
+                    position: "absolute",
+                    zIndex: 10,
+                    borderRadius: 5,
+                    border: "1px solid rgba(0,0,0,0.5)",
+                    top: 45
+                  }}
+                  autoHeight={true}
+                  autoHeightMax={110}
+                >
+                  <PortsList>
+                    {props.origin_ports?.map((p: PortType) => (
+                      <Port
+                        onClick={() => closePortsHandler(p, "origin")}
+                        key={p?.id}
+                      >
+                        {p?.display_name}
+                      </Port>
+                    ))}
+                  </PortsList>
+                </Scrollbars>
               )}
             </div>
             <div
@@ -451,12 +494,20 @@ const Search: React.FC<PropsType> = ({
               <FormField
                 inputRef={register({
                   required: "Field is required",
+                  validate: () => sessionStorage.getItem("destination_id") ? true : "Choose from the list"
                 })}
                 name="destination"
                 placeholder="Destination"
                 error={errors?.destination}
                 getValues={getValues}
                 onChange={onDestinationChangeHandler}
+                onBlur={() => {
+                  if (sessionStorage.getItem("destination_id"))
+                    { // @ts-ignore
+                      setValue("destination", JSON.parse(sessionStorage.getItem("destination_id")).display_name);
+                      dispatch(rateActions.setDestinationPortsList([]));
+                    }
+                }}
                 background="#ECECEC"
                 marginBottom="0"
                 messagePaddingTop="4px"
@@ -464,16 +515,28 @@ const Search: React.FC<PropsType> = ({
                 //onBlur={blurHandler}
               />
               {props.destination_ports && props.destination_ports?.length > 0 && (
-                <PortsList top="45px">
-                  {props.destination_ports?.map((p: PortType) => (
-                    <Port
-                      onClick={() => closePortsHandler(p, "destination")}
-                      key={p?.id}
-                    >
-                      {p?.display_name}
-                    </Port>
-                  ))}
-                </PortsList>
+                <Scrollbars
+                  style={{
+                    position: "absolute",
+                    zIndex: 10,
+                    borderRadius: 5,
+                    border: "1px solid rgba(0,0,0,0.5)",
+                    top: 45
+                  }}
+                  autoHeight={true}
+                  autoHeightMax={110}
+                >
+                  <PortsList>
+                    {props.destination_ports?.map((p: PortType) => (
+                      <Port
+                        onClick={() => closePortsHandler(p, "destination")}
+                        key={p?.id}
+                      >
+                        {p?.display_name}
+                      </Port>
+                    ))}
+                  </PortsList>
+                </Scrollbars>
               )}
             </div>
             <Dates

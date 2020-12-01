@@ -1,6 +1,7 @@
 import React from 'react'
 import {FormWrap, GroupWrap} from "./form-styles";
 import {Controller} from "react-hook-form";
+import {Scrollbars} from "react-custom-scrollbars";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 import {Port, PortsList} from "../../surcharge/register_new_surcharge/form-styles";
@@ -93,16 +94,28 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             // onBlur={blurHandler}
                         />
                         {origin_ports && origin_ports?.length > 0 && (
-                            <PortsList>
-                                {origin_ports?.map((p: PortType) => (
-                                    <Port
-                                        onClick={() => closePortsHandler(p, "origin")}
-                                        key={p?.id}
-                                    >
-                                        {p?.display_name}
-                                    </Port>
-                                ))}
-                            </PortsList>
+                            <Scrollbars
+                                style={{
+                                    position: "absolute",
+                                    zIndex: 10,
+                                    borderRadius: 5,
+                                    border: "1px solid rgba(0,0,0,0.5)",
+                                    top: 64
+                                }}
+                                autoHeight={true}
+                                autoHeightMax={110}
+                            >
+                                <PortsList>
+                                    {origin_ports?.map((p: PortType) => (
+                                        <Port
+                                            onClick={() => closePortsHandler(p, "origin")}
+                                            key={p?.id}
+                                        >
+                                            {p?.display_name}
+                                        </Port>
+                                    ))}
+                                </PortsList>
+                            </Scrollbars>
                         )}
                     </div>
 
@@ -128,16 +141,28 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             //onBlur={blurHandler}
                         />
                         {destination_ports && destination_ports?.length > 0 && (
-                            <PortsList>
-                                {destination_ports?.map((p: PortType) => (
-                                    <Port
-                                        onClick={() => getBookedRatesDates(p)}
-                                        key={p?.id}
-                                    >
-                                        {p?.display_name}
-                                    </Port>
-                                ))}
-                            </PortsList>
+                            <Scrollbars
+                                style={{
+                                    position: "absolute",
+                                    zIndex: 10,
+                                    borderRadius: 5,
+                                    border: "1px solid rgba(0,0,0,0.5)",
+                                    top: 64
+                                }}
+                                autoHeight={true}
+                                autoHeightMax={110}
+                            >
+                                <PortsList>
+                                    {destination_ports?.map((p: PortType) => (
+                                        <Port
+                                            onClick={() => getBookedRatesDates(p)}
+                                            key={p?.id}
+                                        >
+                                            {p?.display_name}
+                                        </Port>
+                                    ))}
+                                </PortsList>
+                            </Scrollbars>
                         )}
                     </div>
 

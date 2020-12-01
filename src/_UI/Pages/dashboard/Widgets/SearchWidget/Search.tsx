@@ -212,7 +212,7 @@ const Search: React.FC<PropsType> = ({
         date_to: moment(dates[1]).format("DD/MM/YYYY"),
         destination: Number(sessionStorage.getItem("destination_id")),
         origin: Number(sessionStorage.getItem("origin_id")),
-        cargo_groups: values.cargo_groups.map((c: any) =>
+        cargo_groups: values.cargo_groups?.map((c: any) =>
           c.frozen
             ? {
                 container_type: c.container_type,
@@ -228,15 +228,15 @@ const Search: React.FC<PropsType> = ({
       };
 
       // checking if there are duplicated cargo groups
-      const arrWithoutValues = finalData.cargo_groups.map((c: any) => {
+      const arrWithoutValues = finalData.cargo_groups?.map((c: any) => {
         const copyObj = { ...c };
         delete copyObj.volume;
         return copyObj;
       });
       const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
       //if there are no duplicates
-      if (uniqCargoArr.length === finalData.cargo_groups.length) {
-        const arrWithDescription = finalData.cargo_groups.map(
+      if (uniqCargoArr.length === finalData.cargo_groups?.length) {
+        const arrWithDescription = finalData.cargo_groups?.map(
           (c: any, index: number) => ({
             ...c,
             description: "",
@@ -311,8 +311,7 @@ const Search: React.FC<PropsType> = ({
       }
     }
 
-    dispatch(
-      bookingActions.set_booking_dates({
+    dispatch(bookingActions.set_booking_dates({
         date_from: finalData.date_from,
         date_to: finalData.date_to,
       })

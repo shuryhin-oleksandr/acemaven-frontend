@@ -5,7 +5,6 @@ import GoogleInput from "../../_commonComponents/Input/google_autocomplete_input
 
 
 type PropsType = {
-
     register: any,
     errors: any,
     label: string,

@@ -43,6 +43,8 @@ import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg"
 import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
 import moment from "moment";
 import PaymentDueByDates from "./PaymentDueByDates";
+import ChargesBlock from "./blocks/ChargesBlock";
+import GeneralBlockContainer from "./blocks/general_info/GeneralBlockContainer";
 
 
 type PropsType = {
@@ -102,85 +104,9 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
             <RejectButton>CANCEL OPERATION</RejectButton>
           </ActionsButtons>
         </ContentHeader>
-        <SectionWrapper>
-          <SectionTitle>GENERAL INFO</SectionTitle>
-          <GeneralBookingContent>
-            <GeneralShipType>
-              <img src={operation_info?.shipping_type === "sea" ? sea_icon : air_icon} alt="" />
-            </GeneralShipType>
-            <InfoRow margin_right="27px">
-              <InfoRowLabel>ROUTE</InfoRowLabel>
-              <InfoRowValue font_size="36px">
-                {operation_info?.freight_rate.origin.code}
-                <br /> {operation_info?.freight_rate.destination.code}
-              </InfoRowValue>
-            </InfoRow>
-            <ValuesShipmentWrapper>
-              <div
-                style={{
-                  marginRight:'35px',
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <InfoRow>
-                  <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
-                  <InfoRowValue>{operation_info?.freight_rate.shipping_mode.title}</InfoRowValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoRowLabel>CARRIER</InfoRowLabel>
-                  <InfoRowValue>
-                    {operation_info?.freight_rate.carrier.title}
-                  </InfoRowValue>
-                </InfoRow>
-              </div>
-              {operation_info?.status === "Booking Confirmed" &&
-                  <>
-                    {shipment?.vessel
-                        ? <div style={{ display: "flex", flexDirection: "column", marginRight:'26px'}}>
-                          <InfoRow>
-                            <InfoRowLabel>VESSEL</InfoRowLabel>
-                            <InfoRowValue>{shipment?.vessel}</InfoRowValue>
-                          </InfoRow>
-                          <InfoRow>
-                            <InfoRowLabel>VOYAGE</InfoRowLabel>
-                            <InfoRowValue>{shipment?.voyage}</InfoRowValue>
-                          </InfoRow>
-                        </div>
-                        : <div style={{display: "flex", flexDirection: "column", marginRight:'26px'}}>
-                          <InfoRow>
-                            <InfoRowLabel>MAWB</InfoRowLabel>
-                            <InfoRowValue>{shipment?.mawb}</InfoRowValue>
-                          </InfoRow>
-                          <InfoRow>
-                            <InfoRowLabel>FLIGHT NUMBER</InfoRowLabel>
-                            <InfoRowValue>{shipment?.flight_number}</InfoRowValue>
-                          </InfoRow>
-                        </div>
-                    }
-                    <div style={{width: "25%", display: "flex", flexDirection: "column"}}>
-                      {shipment?.empty_pick_up_location &&
-                      <InfoRow>
-                        <InfoRowLabel>Empty Pickup Location</InfoRowLabel>
-                        <InfoRowValue>
-                          terminal: {shipment?.empty_pick_up_location}, airport: {shipment?.empty_pick_up_location_address}
-                        </InfoRowValue>
-                      </InfoRow>
-                      }
-                      {shipment?.cargo_drop_off_location &&
-                      <InfoRow>
-                        <InfoRowLabel>Cargo Drop Off Location </InfoRowLabel>
-                        <InfoRowValue>
-                          terminal: {shipment?.cargo_drop_off_location}, airport: {shipment?.cargo_drop_off_location_address}
-                        </InfoRowValue>
-                      </InfoRow>}
-
-                    </div>
-                  </>
-              }
-            </ValuesShipmentWrapper>
-          </GeneralBookingContent>
-        </SectionWrapper>
+        <GeneralBlockContainer operation_info={operation_info}
+                               shipment={shipment ? shipment : null}
+        />
         <SectionWrapper>
           <SectionTitle>DATES</SectionTitle>
           <GeneralBookingContent>
@@ -244,6 +170,7 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
         <SectionWrapper>
           <SectionTitle>CHARGES</SectionTitle>
           <PaymentDueByDates />
+          <ChargesBlock operation_charges={operation_info?.charges ? operation_info?.charges : null}/>
         </SectionWrapper>
            <DocsAndNotesBlock notes={operation_info?.shipment_details ? operation_info?.shipment_details : []}
                               docs={{release_type: operation_info?.release_type, number_of_documents: operation_info?.number_of_documents}}
@@ -256,6 +183,7 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
                     operation_shipping_mode={operation_info?.freight_rate?.shipping_mode}
                     free_time={shipment?.container_free_time}
                     status={operation_info?.status}
+                    shipment_id={shipment?.id as number}
         />
       </CardContent>
     </CardWrapper>

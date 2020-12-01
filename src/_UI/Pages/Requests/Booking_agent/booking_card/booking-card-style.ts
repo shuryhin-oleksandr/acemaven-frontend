@@ -119,6 +119,26 @@ export const GeneralBookingContent = styled.div`
   width: 100%;
   justify-content: flex-start;
 `
+export const GeneralBookingContentForm = styled.form`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+`
+export const EditButtonsWrapper = styled.div<{top?: string, right?: string}>`
+display: flex;
+position: absolute;
+right: ${({right}) => right ? right : '0px'};
+top: ${({top}) => top ? top : '18px'};
+animation: ${skelet_appear} ease-in-out .2s;
+`
+export const FormOperationButton = styled.button`
+  outline: none;
+  border: none;
+  background: none;
+  &:hover {
+    cursor: pointer
+  }
+`
 export const GeneralShipType = styled.div<{margin_top?: string}>`
   width: 99px;
   height: 99px;

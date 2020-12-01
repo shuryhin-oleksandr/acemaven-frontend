@@ -7,6 +7,7 @@ export type WeekRangeType = {
 }
 
 export type ShipmentDetailsType = {
+    id: number,
     booking_number : string,
     booking_number_with_carrier?: any,
     flight_number?: string | number,

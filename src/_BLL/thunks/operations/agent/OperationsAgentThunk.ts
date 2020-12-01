@@ -56,3 +56,15 @@ export const confirmBookingRequestThunk = (
     }
   };
 };
+
+export const editOperationByAgentThunk = (data: any, id: number) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      let res = await operationsAgentAPI.editOperationByAgent(data, id)
+      dispatch(agentOperationsActions.setEditedShipmentDetails(res.data))
+      dispatch(agentOperationsActions.setEditSuccess('success'))
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

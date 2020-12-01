@@ -33,6 +33,7 @@ export const SectionWrapper = styled.div`
   flex-direction: column;
   padding: 18px 0 40px;
   border-bottom: 1px solid #bdbdbd;
+  position: relative;
 `;
 
 export const SectionTitle = styled.div<{ margin_bottom?: string }>`

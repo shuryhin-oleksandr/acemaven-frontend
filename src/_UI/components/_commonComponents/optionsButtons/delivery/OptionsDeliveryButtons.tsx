@@ -47,13 +47,8 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
       );
     } else if (props.thunkName === "quotes_agent") {
       dispatch(
-          getAgentQuotesListThunk(
-            type,
-            "",
-            props.searchColumn,
-            props.searchValue
-          )
-        );
+        getAgentQuotesListThunk(type, "", props.searchColumn, props.searchValue)
+      );
     } else if (props.thunkName === "rates") {
       dispatch(
         getFilteredRateListThunk(
@@ -93,6 +88,8 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
           props.searchValue
         )
       );
+    } else if (props.thunkName === "search_widget") {
+      return;
     } else {
       dispatch(
         filterByThunk(

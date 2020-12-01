@@ -8,6 +8,8 @@ import {CargosOuter} from "../../../quotes/client/quotes-client-styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
 import { useHistory } from 'react-router-dom';
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../../_BLL/store";
 
 
 const useStyles = makeStyles({
@@ -87,6 +89,12 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
 
     let shipment = operation?.shipment_details && operation?.shipment_details[0]
 
+    let company_type = useSelector(
+        (state: AppStateType) =>
+            state.profile.authUserInfo?.companies &&
+            state.profile.authUserInfo?.companies[0]
+    );
+
     return (
         <React.Fragment>
             <TableRow className={classes.root} onClick={goToPageHandler}>
@@ -99,10 +107,11 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
                     <div>{operation.freight_rate.destination.code}</div></TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <CargosOuter>
-                        {operation.cargo_groups.map((c, index) => {
+
+                        {company_type ==="agent"?operation.cargo_groups.map((c, index) => {
                             return <span key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
                                 {c.total_wm && ` - ${c.total_wm}w/m`}</span>
-                        })}
+                        }):operation.freight_rate.shipping_mode.title}
                     </CargosOuter>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

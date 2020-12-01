@@ -380,6 +380,7 @@ const Search: React.FC<PropsType> = ({
               searchColumn=""
               searchValue=""
               disabled={disabled}
+              thunkName="search_widget"
             />
             <Controller
               name="shipping_mode"

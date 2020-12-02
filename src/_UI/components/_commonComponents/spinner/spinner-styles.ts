@@ -21,10 +21,10 @@ export const SpinnerContent = styled.div`
   }
 `
 
-export const SpinnerAuthContainer = styled.div`
+export const SpinnerAuthContainer = styled.div<{min_height?: string}>`
 width: 100%;
 height: 100%;
-min-height: calc(100vh - 60px);
+min-height: ${({min_height}) => min_height ? min_height : 'calc(100vh - 60px)'};
 background-color: white;
 display: flex;
 align-items: center;

@@ -27,12 +27,12 @@ type PropsType = {
     setEditMode? : (id: number, value: boolean) => void
     u?: IAddNewUserData,
     deleteUser?: (value: number) => void;
-    my_id?: number
+    my_id?: number,
+    current_user_roles?: string[]
 }
 
 
-const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser,
-                                          setEditMode, u, my_id}) => {
+const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser, setEditMode, u, my_id, current_user_roles}) => {
 
     const [colorWrap, setColorWrap] = useState('')
     useEffect(() => {
@@ -50,14 +50,18 @@ const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser,
                 <InfoWrap>
                     <ActionWrap>
                         <Name>{u?.first_name + ' ' + u?.last_name}</Name>
+                        {current_user_roles?.includes('master') &&
                         <div>
                             {my_id !== u?.id &&
                             <DeleteButton onClick={() => deleteUser && deleteUser(u?.id as number)}>
                                 <img src={deleteIcon} alt=""/>
                             </DeleteButton>
                             }
-                            {cardsMode && <EditButton onClick={() => setEditMode && setEditMode(Number(u?.id), true)}><img src={editIcon} alt=""/></EditButton>}
+                            {cardsMode && <EditButton onClick={() => setEditMode && setEditMode(Number(u?.id), true)}>
+                                <img src={editIcon} alt=""/>
+                            </EditButton>}
                         </div>
+                        }
                     </ActionWrap>
                     <Role>Roles: {u?.roles?.map(r => <SpanName key={r} role={r}>{r}</SpanName>)}</Role>
                     <Email>Email: <SpanEmail>{u?.email}</SpanEmail></Email>

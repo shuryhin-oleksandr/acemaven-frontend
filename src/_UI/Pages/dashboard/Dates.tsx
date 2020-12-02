@@ -9,6 +9,8 @@ type PropsType = {
   dates: any;
   disabled?: any;
   shippingValueReset?: any;
+  placeholder?: string;
+  width?: string;
 };
 
 const Dates: React.FC<PropsType> = ({
@@ -17,6 +19,8 @@ const Dates: React.FC<PropsType> = ({
   dates,
   disabled,
   shippingValueReset,
+  placeholder,
+  width,
 }) => {
   const { combine, before, after } = DateRangePicker;
   const tillTheEnd =
@@ -31,8 +35,8 @@ const Dates: React.FC<PropsType> = ({
       isoWeek={true}
       showOneCalendar={true}
       showWeekNumbers={true}
-      placeholder={"Shipment date"}
-      style={{ width: "150px" }}
+      placeholder={placeholder}
+      style={{ width: width ? width : "150px" }}
       size={"lg"}
       hoverRange="week"
       ranges={[]}

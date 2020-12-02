@@ -55,7 +55,9 @@ const ExactOperationContainer = ({...props}) => {
         {isAcceptPopup && <AcceptPopup openAcceptPopup={openAcceptPopup}
                                        exact_operation_info={operation_info}
                     />}
-        {clientChangRequestPopupVisible && <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible}/>}
+        {clientChangRequestPopupVisible && operation_info &&
+        <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible} operation_info={operation_info}/>
+        }
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />
             : <OperationCard  operation_info={operation_info}

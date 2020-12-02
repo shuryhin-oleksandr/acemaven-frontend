@@ -27,7 +27,6 @@ const CompanyInfoContainer:React.FC<PropsType> = ({company_type, current_user_ro
 
     let companyInfo = useSelector((state: AppStateType) => state.profile.companyInfo)
 
-
     return (
         <>
             {isFetching

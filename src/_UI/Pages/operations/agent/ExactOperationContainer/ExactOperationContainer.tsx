@@ -37,11 +37,7 @@ const ExactOperationContainer = ({...props}) => {
     //data from store
     let operation_info = useSelector(getExactOperationSelector)
     let isFetching = useSelector(getIsFetchingOperationSelector)
-    let company_type = useSelector(
-        (state: AppStateType) =>
-            state.profile.authUserInfo?.companies &&
-            state.profile.authUserInfo?.companies[0]
-    );
+    let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies);
 
     //hooks
     const history = useHistory()
@@ -68,8 +64,9 @@ const ExactOperationContainer = ({...props}) => {
                               local_time={local_time}
                               openAcceptPopup={openAcceptPopup}
                               my_name={String(my_name)}
-                              company_type={company_type}
+                              company_type={company_type && company_type[0]}
                               setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
+
             />
         }
     </Layout>

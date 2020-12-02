@@ -190,9 +190,6 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                 my_operations={props.my_operations}
               />
             </TableCell>
-            {/*<TableCell className={classes.cell} align="left">*/}
-            {/*    STATUS*/}
-            {/*</TableCell>*/}
             <TableCell className={classes.cell} align="right">
               <TableCellContent
                 setSearchValue={props.setSearchValue}

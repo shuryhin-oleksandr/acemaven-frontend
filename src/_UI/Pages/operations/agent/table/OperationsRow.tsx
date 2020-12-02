@@ -10,6 +10,7 @@ import {OperationType} from "../../../../../_BLL/types/operations/operationsType
 import { useHistory } from 'react-router-dom';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
+import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 
 
 const useStyles = makeStyles({
@@ -89,11 +90,8 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
 
     let shipment = operation?.shipment_details && operation?.shipment_details[0]
 
-    let company_type = useSelector(
-        (state: AppStateType) =>
-            state.profile.authUserInfo?.companies &&
-            state.profile.authUserInfo?.companies[0]
-    );
+    let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo?.companies[0]);
+
 
     return (
         <React.Fragment>
@@ -107,11 +105,12 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
                     <div>{operation.freight_rate.destination.code}</div></TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <CargosOuter>
-
-                        {company_type ==="agent"?operation.cargo_groups.map((c, index) => {
-                            return <span key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
+                        {company_type?.type === AppCompaniesTypes.AGENT
+                            ? operation.cargo_groups.map((c, index) => {
+                                return <span key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
                                 {c.total_wm && ` - ${c.total_wm}w/m`}</span>
-                        }):operation.freight_rate.shipping_mode.title}
+                            })
+                            :operation.freight_rate.shipping_mode.title}
                     </CargosOuter>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

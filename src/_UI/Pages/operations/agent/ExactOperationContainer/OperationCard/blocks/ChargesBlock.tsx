@@ -50,7 +50,8 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    operation_charges: CostBookingType | null
+    operation_charges: CostBookingType | null,
+
 }
 
 const ChargesBlock:React.FC<PropsType> = ({operation_charges}) => {

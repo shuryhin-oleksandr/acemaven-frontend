@@ -12,7 +12,6 @@ import OptionsOperationButtons from "../../../components/_commonComponents/optio
 import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import { CurrentShippingType } from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { OperationType } from "../../../../_BLL/types/operations/operationsTypes";
-import AgentOperationTable from "../agent/table/AgentOperationTable";
 import ClientOperationTable from "./table/ClientOperationTable";
 
 type PropsType = {
@@ -33,6 +32,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
   ...props
 }) => {
   const [isHide, setIsHide] = useState(true);
+
 
   return (
     <OperationsWrapper>

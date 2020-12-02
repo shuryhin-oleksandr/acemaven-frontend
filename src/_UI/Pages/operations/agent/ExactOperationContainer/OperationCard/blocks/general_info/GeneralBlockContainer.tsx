@@ -13,14 +13,16 @@ import edit_icon from '../../../../../../../assets/icons/profile/editCard.svg'
 import {useDispatch, useSelector} from "react-redux";
 import {getEditOperationSuccessSelector} from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
 
 
 type PropsType = {
     operation_info: OperationType,
-    shipment: ShipmentDetailsType | null
+    shipment: ShipmentDetailsType | null,
+    company_type: string
 }
 
-const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) => {
+const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment, company_type}) => {
 
     const [isEdit, setIsEdit] = useState(false)
 
@@ -37,7 +39,8 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) =
     return (
         <SectionWrapper>
             {operation_info?.status === "Booking Confirmed" && (
-                !isEdit && <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: 0}}>
+                !isEdit && company_type === AppCompaniesTypes.AGENT
+                    && <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: 0}}>
                 <img src={edit_icon} alt=""/>
                 </IconButton>
             )}

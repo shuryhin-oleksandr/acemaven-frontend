@@ -99,7 +99,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
   const new_total = useSelector((state: AppStateType) => state.booking.recalculated_cost)
 
   useEffect(() => {
-    dispatch(getCompanyInfo(Number(company.id)));
+    dispatch(getCompanyInfo(Number(company?.id)));
     return () => {
       dispatch(bookingActions.changeBookingStep("shipping-form"));
     };

@@ -20,13 +20,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {editOperationByAgentThunk} from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {getEditOperationSuccessSelector} from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
 
 type PropsType = {
     shipment: ShipmentDetailsType | null,
-    operation_info: OperationType
+    operation_info: OperationType,
+    company_type: string
 }
 
-const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_info}) => {
+const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_info, company_type}) => {
 
     let dispatch = useDispatch()
     const {control, errors, setValue,handleSubmit} = useForm()
@@ -60,18 +62,20 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
                     <SectionWrapper>
                         <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
                             <SectionTitle>DATES</SectionTitle>
-                            {!isEdit
-                                ? <IconButton onClick={() => setIsEdit(true)}>
-                                    <img src={edit_icon} alt=""/>
-                                  </IconButton>
-                                : <EditButtonsWrapper>
+                            {company_type === AppCompaniesTypes.AGENT &&
+                                (!isEdit
+                                    ? <IconButton onClick={() => setIsEdit(true)}>
+                                        <img src={edit_icon} alt=""/>
+                                    </IconButton>
+                                    : <EditButtonsWrapper>
                                     <FormOperationButton type='button' onClick={() => setIsEdit(false)} style={{padding: '5px'}}>
                                         <img src={close_icon} alt=""/>
                                     </FormOperationButton>
                                     <FormOperationButton type='submit' style={{padding: '5px'}}>
                                         <img src={save_icon} alt=""/>
                                     </FormOperationButton>
-                                  </EditButtonsWrapper>
+                                    </EditButtonsWrapper>
+                                )
                             }
                         </div>
                         <GeneralBookingContent>

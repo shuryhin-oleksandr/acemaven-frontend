@@ -22,11 +22,11 @@ type PropsType = {
 const CompanyInfoContainer:React.FC<PropsType> = ({company_type}) => {
     const [edit, setEdit] = useState(false)
     const dispatch = useDispatch()
-    const companyId = sessionStorage.getItem('u')
     let companyInfo = useSelector((state: AppStateType) => state.profile.companyInfo)
+    let authUserInfo = useSelector((state: AppStateType) => state.profile.authUserInfo)
 
     useEffect(() => {
-        dispatch(getCompanyInfo(Number(companyId)))
+        dispatch(getCompanyInfo(Number(authUserInfo?.companies && authUserInfo.companies[0].id)))
     }, [dispatch])
 
 

@@ -1,4 +1,5 @@
 import React from "react";
+import {useSelector} from "react-redux";
 //material ui
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,9 +10,12 @@ import TabPanel from '@material-ui/lab/TabPanel';
 //components
 import CompanyInfoContainer from "./CompanyInfo/CompanyInfoContainer";
 import BankAccountsContainer from "./BankAccounts/BankAccountsContainer";
+import Spinner from "../../../../_UI/components/_commonComponents/spinner/Spinner";
 //styles
 import {CompanyInner, CompanySettingsContainer, PageTitle} from "./company-settings-styles";
 import CreditCardsContainer from "./credit_cards/CreditCardsContainer";
+//_BIL
+import {AppStateType} from "../../../../_BLL/store";
 
 
 export const useStyles = makeStyles((theme: Theme) => ({
@@ -78,6 +82,7 @@ type PropsType = {
 const CompanySettingsPage:React.FC<PropsType> = ({company_type}) => {
     const classes = useStyles();
     const [value, setValue] = React.useState('1');
+    const authUserInfo = useSelector((state: AppStateType) => state.profile.authUserInfo)
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
         setValue(newValue);
@@ -96,7 +101,9 @@ const CompanySettingsPage:React.FC<PropsType> = ({company_type}) => {
                                 <Tab className={classes.tabButton} label="Credit Cards" value="3" />
                             </TabList>
                         </AppBar>
-                        <TabPanel value="1"><CompanyInfoContainer company_type={company_type}/></TabPanel>
+                        <TabPanel value="1">
+                            {!!authUserInfo ? <CompanyInfoContainer company_type={company_type}/> : <Spinner/>}
+                        </TabPanel>
                         <TabPanel value="2" className={classes.tabContent}><BankAccountsContainer /></TabPanel>
                         <TabPanel value="3" className={classes.tabContent}><CreditCardsContainer credit_cards={[]}/></TabPanel>
                     </TabContext>

@@ -98,7 +98,6 @@ type PropsType = {
   setDates: any;
 };
 
-let timerOrigin:any,timerDestination:any;
 
 const Search: React.FC<PropsType> = ({
   bottom,
@@ -183,37 +182,22 @@ const Search: React.FC<PropsType> = ({
   }, [watchResultArr, dates]);
 
   let onOriginChangeHandler = (value: any) => {
-    clearTimeout(timerOrigin);
-    timerOrigin = setTimeout(() => {
-      // if (value.value.length >= 3) {
-      // @ts-ignore
-      let destination = JSON.parse(sessionStorage.getItem("destination_id"));
-      destination
-        ? destination.is_local ? dispatch(getPorts("", value.value, "origin", mode))
-        : dispatch(getPorts(true, value.value, "origin", mode))
-        : dispatch(getPorts("", value.value, "origin", mode))
-
-      // }
-    }, 500);
+   if (value.value.length >= 3) {
+    dispatch(getPorts("", value.value, "origin", mode));
+     }
   };
   let onDestinationChangeHandler = (value: any) => {
-    clearTimeout(timerDestination);
-    timerDestination = setTimeout(() => {
-      // if (value.value.length >= 3) {
-      // @ts-ignore
-      let origin = JSON.parse(sessionStorage.getItem("origin_id"));
-      origin
-        ? origin.is_local ? dispatch(getPorts("", value.value, "destination", mode))
-        : dispatch(getPorts(true, value.value, "destination", mode))
-        : dispatch(getPorts("", value.value, "destination", mode))
-      // }
-    }, 500);
+    if (value.value.length >= 3) {
+    props.origin_port_value?.is_local
+        ? dispatch(getPorts(false, value.value, "destination", mode))
+        : dispatch(getPorts(true, value.value, "destination", mode));
+    }
   };
 
   let closePortsHandler = (port: PortType, field: string) => {
     dispatch(rateActions.setOriginPortValue(port));
     setValue(field, port.display_name);
-    sessionStorage.setItem(`${field}_id`, JSON.stringify(port));
+    sessionStorage.setItem(`${field}_id`, JSON.stringify(port.id));
     dispatch(rateActions.setOriginPortsList([]));
     dispatch(rateActions.setDestinationPortsList([]));
   };
@@ -236,14 +220,8 @@ const Search: React.FC<PropsType> = ({
           shipping_mode: values.shipping_mode,
           date_from: moment(dates[0]).format("DD/MM/YYYY"),
           date_to: moment(dates[1]).format("DD/MM/YYYY"),
-          destination: Number(JSON.parse(
-            // @ts-ignore
-            sessionStorage.getItem("destination_id")
-          ).id),
-          origin: Number(JSON.parse(
-            // @ts-ignore
-            sessionStorage.getItem("origin_id")
-          ).id),
+          destination: Number(sessionStorage.getItem("destination_id")),
+          origin: Number(sessionStorage.getItem("origin_id")),
           cargo_groups: values.cargo_groups.map((c: any) =>
             c.frozen
               ? {
@@ -289,19 +267,12 @@ const Search: React.FC<PropsType> = ({
         }
       } else {
         //chargeable weight shipping modes
-
         finalData = {
           shipping_mode: values.shipping_mode,
           date_from: moment(dates[0]).format("DD/MM/YYYY"),
           date_to: moment(dates[1]).format("DD/MM/YYYY"),
-          destination: Number(JSON.parse(
-            // @ts-ignore
-            sessionStorage.getItem("destination_id")
-          ).id),
-          origin: Number(JSON.parse(
-            // @ts-ignore
-            sessionStorage.getItem("origin_id")
-          ).id),
+          destination: Number(sessionStorage.getItem("destination_id")),
+          origin: Number(sessionStorage.getItem("origin_id")),
           cargo_groups: cargo_groups_list?.map((c) =>
             c.packaging_type
               ? {
@@ -447,14 +418,14 @@ const Search: React.FC<PropsType> = ({
               <FormField
                 inputRef={register({
                   required: "Field is required",
-                  validate: () => sessionStorage.getItem("origin_id") ? true : "Choose from the list"
+                  //validate: () => sessionStorage.getItem("origin_id") ? true : "Choose from the list"
                 })}
                 name="origin"
                 placeholder="Origin"
                 error={errors?.origin}
                 getValues={getValues}
                 onChange={onOriginChangeHandler}
-                onBlur={() => {
+                /*onBlur={() => {
                   setTimeout(() => {
                     if (!!sessionStorage.getItem("origin_id")) {
                       // @ts-ignore
@@ -462,7 +433,7 @@ const Search: React.FC<PropsType> = ({
                       dispatch(rateActions.setOriginPortsList([]));
                     }
                   }, 200)
-                }}
+                }}*/
                 background="#ECECEC"
                 marginBottom="0"
                 messagePaddingTop="4px"
@@ -505,14 +476,14 @@ const Search: React.FC<PropsType> = ({
               <FormField
                 inputRef={register({
                   required: "Field is required",
-                  validate: () => sessionStorage.getItem("destination_id") ? true : "Choose from the list"
+                  //validate: () => sessionStorage.getItem("destination_id") ? true : "Choose from the list"
                 })}
                 name="destination"
                 placeholder="Destination"
                 error={errors?.destination}
                 getValues={getValues}
                 onChange={onDestinationChangeHandler}
-                onBlur={() => {
+                /*onBlur={() => {
                   setTimeout(() => {
                     if (sessionStorage.getItem("destination_id"))
                       { // @ts-ignore
@@ -520,7 +491,7 @@ const Search: React.FC<PropsType> = ({
                         dispatch(rateActions.setDestinationPortsList([]));
                       }
                   }, 200)
-                }}
+                }}*/
                 background="#ECECEC"
                 marginBottom="0"
                 messagePaddingTop="4px"

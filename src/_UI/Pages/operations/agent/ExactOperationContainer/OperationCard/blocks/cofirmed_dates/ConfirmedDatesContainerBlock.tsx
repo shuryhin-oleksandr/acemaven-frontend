@@ -85,7 +85,7 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
                                 </CalendarIcon>
                                 <InfoRow margin_right="50px" margin_bottom="0px">
                                     <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
-                                    <span style={{width: "100px", fontSize: "24px", color: "black", fontFamily: "Helvetica Light", marginBottom: "5px",}}>
+                                    <span style={{width: "150px", fontSize: "24px", color: "black", fontFamily: "Helvetica Light", marginBottom: "5px",}}>
                   {(operation_info?.week_range?.week_from !== operation_info?.week_range?.week_to)
                       ? `WEEK ${operation_info?.week_range?.week_from} - ${operation_info?.week_range?.week_to}`
                       : `WEEK ${operation_info?.week_range?.week_from}`

@@ -193,11 +193,12 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
                              textTransform='uppercase'
                              textColor='#115B86'
                              textFont='Helvetica Bold'
-                             max_width='110px'
-                             margin_bottom='0'
+                             max_width='135px'
+                             margin_bottom='12px'
                              input_height='33px'
                              rate_start_date={rate_start_date}
                              required_dates={true}
+                             label_margin_bottom='0px'
             />
           </FieldsWrap>
         </InfoWrap>

@@ -131,7 +131,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                 column_name="shipping_mode"
                 searchValue={props.searchValue}
                 isSearchMode={props.isSearchMode}
-                title="Shipping Mode"
+                title="SHIPPING MODE"
                 searchColumn={props.search_column}
                 setSearchColumn={props.setSearchColumn}
                 withoutSearch={true}

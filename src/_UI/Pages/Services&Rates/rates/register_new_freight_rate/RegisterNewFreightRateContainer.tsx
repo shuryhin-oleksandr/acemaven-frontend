@@ -128,12 +128,14 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     let shipping_mode = getValues("shipping_mode");
     setValue("destination", p.display_name);
     sessionStorage.setItem('destination_id', JSON.stringify(p))
+    //@ts-ignore
+    let origin = JSON.parse(sessionStorage.getItem("origin_id"))
     dispatch(rateActions.setDestinationPortsList([]));
     dispatch(
       checkRatesDatesThunk({
         carrier: carrier,
         shipping_mode: shipping_mode,
-        origin: Number(JSON.parse(JSON.stringify(sessionStorage.getItem("origin_id"))).id),
+        origin: Number(origin.id),
         destination: p.id,
       })
     );

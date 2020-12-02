@@ -1,29 +1,28 @@
 import React from "react";
 //material ui
 import { IconButton } from "@material-ui/core";
+//types
+import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
 //components
 import DocsAndNotesBlock from "./blocks/DocsAndNotesBlock";
 import ShipmentPartsBlock from "./blocks/ShipmentPartsBlock";
 import CargoBlock from "./blocks/CargoBlock";
 import ShipmentTrackingBlock from "./blocks/ShipmentTrackingBlock";
+import PaymentDueByDates from "./PaymentDueByDates";
+import ChargesBlock from "./blocks/ChargesBlock";
+import GeneralBlockContainer from "./blocks/general_info/GeneralBlockContainer";
+import ConfirmedDatesContainerBlock from "./blocks/cofirmed_dates/ConfirmedDatesContainerBlock";
 //styles
 import {
   AcceptButton,
   ActionsButtons,
   BookingInfo,
   BookingStatus,
-  CalendarIcon,
   CardContent,
   CardWrapper,
   ConfirmButton,
   ContentHeader,
-  GeneralBookingContent,
-  GeneralShipType,
-  InfoRow,
-  InfoRowLabel,
-  InfoRowValue,
   RejectButton,
-  ValuesShipmentWrapper,
 } from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {
   BookingTitle, NumberOfBooking,
@@ -31,20 +30,9 @@ import {
   SectionTitle,
   SectionWrapper,
 } from "./operation-card-style";
-import { GeneralTitle } from "../../../../quotes/agent/table/agent-quotes-styles";
-import { DocumentsContent } from "../../../../Requests/Booking_agent/booking_card/blocks/hidden-part-styles";
 //icons
 import close_icon from "../../../../../assets/icons/close-icon.svg";
-import sea_icon from "../../../../../assets/icons/rates&services/ship-surcharge.svg";
-import air_icon from "../../../../../assets/icons/rates&services/plane-surcharge.svg";
-import calendar_icon from "../../../../../assets/icons/date_1.svg";
-import down_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
-import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
-import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
-import moment from "moment";
-import PaymentDueByDates from "./PaymentDueByDates";
-import ChargesBlock from "./blocks/ChargesBlock";
-import GeneralBlockContainer from "./blocks/general_info/GeneralBlockContainer";
+
 
 
 type PropsType = {
@@ -56,12 +44,6 @@ type PropsType = {
 }
 
 const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time, openAcceptPopup, my_name}) => {
-
-  //refactoring dates
-  let a = moment(operation_info?.date_from, 'DD/MM/YYYY').toDate()
-  let date_from = moment(a).format('DD/MM')
-  let c = moment(operation_info?.date_to, 'DD/MM/YYYY').toDate()
-  let date_to = moment(c).format('DD/MM')
 
   let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
 
@@ -107,69 +89,17 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
         <GeneralBlockContainer operation_info={operation_info}
                                shipment={shipment ? shipment : null}
         />
-        <SectionWrapper>
-          <SectionTitle>DATES</SectionTitle>
-          <GeneralBookingContent>
-            <div style={{ display: "flex" }}>
-              <CalendarIcon style={{ width: "87px", height: "96px" }}>
-                <img src={calendar_icon} alt="" />
-              </CalendarIcon>
-              <InfoRow margin_right="50px" margin_bottom="0px">
-                <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
-                <span style={{width: "100px", fontSize: "24px", color: "black", fontFamily: "Helvetica Light", marginBottom: "5px",}}>
-                  {(operation_info?.week_range?.week_from !== operation_info?.week_range?.week_to)
-                      ? `WEEK ${operation_info?.week_range?.week_from} - ${operation_info?.week_range?.week_to}`
-                      : `WEEK ${operation_info?.week_range?.week_from}`
-                  }
-                </span>
-                <InfoRowValue>{date_from} - {date_to}</InfoRowValue>
-              </InfoRow>
-            </div>
-            {operation_info?.status === "Booking Confirmed" &&
-            <>
-              <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
-                <InfoRow>
-                  <InfoRowLabel>ESTIMATED TIME OF DEPARTURE</InfoRowLabel>
-                  <InfoRowValue>{shipment?.date_of_departure}</InfoRowValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoRowLabel>ESTIMATED TIME OF ARRIVAL</InfoRowLabel>
-                  <InfoRowValue>{shipment?.date_of_arrival}</InfoRowValue>
-                </InfoRow>
-              </div>
-              {shipment?.cargo_cut_off_date &&
-              <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
-                <InfoRow>
-                  <InfoRowLabel>CARGO CUT OFF </InfoRowLabel>
-                  <InfoRowValue>{shipment?.cargo_cut_off_date}</InfoRowValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoRowLabel>DOCUMENTS CUT OFF </InfoRowLabel>
-                  <InfoRowValue>{shipment?.document_cut_off_date}</InfoRowValue>
-                </InfoRow>
-              </div>
-              }
-
-              {/*<div style={{width: "20%", display: "flex", flexDirection: "column",}}>
-                <InfoRow>
-                  <InfoRowLabel>ACTUAL TIME OF DEPARTURE</InfoRowLabel>
-                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoRowLabel>ACTUAL TIME OF ARRIVAL</InfoRowLabel>
-                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-                </InfoRow>
-              </div>*/}
-            </>
-            }
-          </GeneralBookingContent>
-        </SectionWrapper>
+        <ConfirmedDatesContainerBlock shipment={shipment ? shipment : null}
+                                      operation_info={operation_info}
+        />
         {operation_info?.status === "Booking Confirmed"
           && <ShipmentTrackingBlock/>
         }
         <SectionWrapper>
           <SectionTitle>CHARGES</SectionTitle>
-          <PaymentDueByDates />
+          <PaymentDueByDates payment_due_by={operation_info?.payment_due_by}
+                              operation_id={operation_info.id}
+          />
           <ChargesBlock operation_charges={operation_info?.charges ? operation_info?.charges : null}/>
         </SectionWrapper>
            <DocsAndNotesBlock notes={operation_info?.shipment_details ? operation_info?.shipment_details : []}

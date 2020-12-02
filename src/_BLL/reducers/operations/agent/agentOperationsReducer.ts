@@ -41,6 +41,12 @@ export const agentOperationsReducer = (state = initialState, action: commonAgent
                     })
                 } : null
             }
+        case "SET_EDITED_PAYMENT_DUE_BY":
+            return {
+                ...state,
+                //@ts-ignore
+                agent_operation_info: {...state.agent_operation_info, payment_due_by: action.value}
+            }
         default: return state
     }
 }
@@ -52,6 +58,7 @@ export const agentOperationsActions = {
     setIsFetching: (isFetching: boolean) => ({type: 'SET_IS_FETCHING', isFetching} as const),
     setAgentOperationsList: (list: OperationType[]) => ({type: 'SET_AGENT_OPERATIONS_LIST', list} as const),
     setAgentExactOperationInfo: (info: OperationType) => ({type: 'SET_AGENT_EXACT_OPERATION_INFO', info} as const),
+    setEditedPaymentDueBy: (value: string) => ({type: 'SET_EDITED_PAYMENT_DUE_BY', value} as const),
     setEditSuccess: (success: string) => ({type: 'SET_EDIT_SUCCESS', success} as const),
     setEditedShipmentDetails: (data: ShipmentDetailsType) => ({type: 'SET_EDITED_SHIPMENT_DETAILS', data} as const)
 }

@@ -10,8 +10,9 @@ import {OperationType, ShipmentDetailsType} from "../../../../../../../../_BLL/t
 import GeneralBlockEditForm from "./GeneralBlockEditForm";
 import { IconButton } from '@material-ui/core';
 import edit_icon from '../../../../../../../assets/icons/profile/editCard.svg'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getEditOperationSuccessSelector} from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
+import {agentOperationsActions} from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 
 
 type PropsType = {
@@ -24,10 +25,12 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) =
     const [isEdit, setIsEdit] = useState(false)
 
     let edit_success = useSelector(getEditOperationSuccessSelector)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if(edit_success) {
             setIsEdit(false)
+            dispatch(agentOperationsActions.setEditSuccess(''))
         }
     }, [edit_success])
 
@@ -52,8 +55,8 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) =
                     <InfoRow margin_right="27px">
                         <InfoRowLabel>ROUTE</InfoRowLabel>
                         <InfoRowValue font_size="36px">
-                            {operation_info?.freight_rate.origin.code}
-                            <br /> {operation_info?.freight_rate.destination.code}
+                            {operation_info?.freight_rate?.origin?.code}
+                            <br /> {operation_info?.freight_rate?.destination?.code}
                         </InfoRowValue>
                     </InfoRow>
                     <ValuesShipmentWrapper>
@@ -66,12 +69,12 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) =
                         >
                             <InfoRow>
                                 <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
-                                <InfoRowValue>{operation_info?.freight_rate.shipping_mode.title}</InfoRowValue>
+                                <InfoRowValue>{operation_info?.freight_rate?.shipping_mode?.title}</InfoRowValue>
                             </InfoRow>
                             <InfoRow>
                                 <InfoRowLabel>CARRIER</InfoRowLabel>
                                 <InfoRowValue>
-                                    {operation_info?.freight_rate.carrier.title}
+                                    {operation_info?.freight_rate?.carrier?.title}
                                 </InfoRowValue>
                             </InfoRow>
                         </div>

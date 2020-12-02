@@ -49,5 +49,6 @@ export type OperationType = {
     charges?: CostBookingType,
     client_contact_person?: string,
     client?: string,
-    shipment_details?: ShipmentDetailsType[]
+    shipment_details?: ShipmentDetailsType[],
+    payment_due_by: string | null
 }

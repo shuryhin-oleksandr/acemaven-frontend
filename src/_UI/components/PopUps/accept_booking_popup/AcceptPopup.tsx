@@ -152,6 +152,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                           date_name_second={'estimated_time.to'}
                                           before={moment(exact_operation_info?.date_from, 'DD/MM/YYYY').toDate()}
                                           after={moment(after_estimated_date, 'DD/MM/YYYY').toDate()}
+                                          justify_content='flex-start'
 
                         />
                         {direction === 'export'
@@ -168,6 +169,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                                  start_shipment_date={exact_operation_info?.date_from}
                                                  before={new Date()}
                                                  after={moment(exact_operation_info?.date_from, 'DD/MM/YYYY').toDate()}
+                                                 justify_content='flex-start'
 
                             />
                         }

@@ -75,7 +75,7 @@ const CargoGroupsTable:React.FC<PropsType> = ({cargo_groups, object_shipping_mod
 
     return (
         <ShippingModeBlock>
-            <ShippingModeLabel>{object_shipping_mode.title}</ShippingModeLabel>
+            <ShippingModeLabel>{object_shipping_mode?.title}</ShippingModeLabel>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="collapsible table">
                     <TableHead>

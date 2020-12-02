@@ -18,6 +18,7 @@ import {useForm} from "react-hook-form";
 import {editOperationByAgentThunk} from "../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {useDispatch, useSelector} from "react-redux";
 import {getEditOperationSuccessSelector} from "../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
+import {agentOperationsActions} from "../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 
 type PropsType = {
     operation_shipping_type: string,
@@ -35,7 +36,7 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
     let edit_success = useSelector(getEditOperationSuccessSelector)
 
     const dispatch = useDispatch()
-    const {register, handleSubmit, errors, setValue} = useForm()
+    const {register, handleSubmit, errors} = useForm()
    const onSubmit = (values: any) => {
        dispatch(editOperationByAgentThunk(values, props.shipment_id as number))
    }
@@ -43,6 +44,7 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
     useEffect(() => {
         if(edit_success) {
             setIsEdit(false)
+            dispatch(agentOperationsActions.setEditSuccess(''))
         }
     }, [edit_success])
 

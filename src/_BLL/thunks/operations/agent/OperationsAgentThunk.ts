@@ -68,3 +68,15 @@ export const editOperationByAgentThunk = (data: any, id: number) => {
     }
   };
 };
+
+export const editOperationPaymentDueByAgentThunk = (data: any, id: number) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      let res = await operationsAgentAPI.editOperationPaymentDueByAgent(data, id)
+      dispatch(agentOperationsActions.setEditedPaymentDueBy(res.data.payment_due_by))
+      dispatch(agentOperationsActions.setEditSuccess('success'))
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

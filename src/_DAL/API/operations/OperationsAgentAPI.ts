@@ -22,6 +22,9 @@ export const operationsAgentAPI = {
   editOperationByAgent(data: any, id: number) {
     return instance.patch(`/booking/shipment-details/${id}/`, data);
   },
+  editOperationPaymentDueByAgent (data: any, id: number) {
+    return instance.patch(`/booking/operation/${id}/`, data);
+  }
 };
 
 // `/booking/booking/?shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`

@@ -19,10 +19,11 @@ import {CardsOuter, ManagementContainer, ManagementInner, ManagTitle } from "./u
 type PropsType = {
     workersList?: Array<IAddNewUserData> | null,
     dispatch: any,
-    my_id?: number
+    my_id?: number,
+    current_user_roles: string[]
 }
 
-const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch, my_id}) => {
+const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch, my_id, current_user_roles}) => {
     const [isAdd, setIsAdd] = useState(false)
     const [editMode, setEditMode] = useState(false)
 
@@ -54,14 +55,21 @@ const UserManagementPage:React.FC<PropsType> = ({workersList, dispatch, my_id}) 
                 <ManagTitle>
                     User Management
                 </ManagTitle>
-                {!isAdd
-                    ? !editMode && <div style={{maxWidth: '447px', width: '100%'}}><AddNewButton setIsAdd={setIsAdd}/></div>
-                    : <AddUserForm server_error={error} dispatch={dispatch} setIsAdd={setIsAdd}/>
+                {current_user_roles.includes('master') &&
+                    (!isAdd
+                        ? !editMode && <div style={{maxWidth: '447px', width: '100%'}}><AddNewButton setIsAdd={setIsAdd}/></div>
+                        : <AddUserForm server_error={error} dispatch={dispatch} setIsAdd={setIsAdd}/>
+                    )
                 }
                 <CardsOuter editMode={editMode}>
                     {workersList?.map(w => editedUserId !== w?.id
-                        ? <UserPart my_id={my_id} key={w.id} deleteUser={deleteUser} u={w}
-                                    setEditMode={editHandler} cardsMode={cardsMode} max_width='447px'
+                        ? <UserPart my_id={my_id} key={w.id}
+                                    deleteUser={deleteUser}
+                                    u={w}
+                                    setEditMode={editHandler}
+                                    cardsMode={cardsMode}
+                                    max_width='447px'
+                                    current_user_roles={current_user_roles ? current_user_roles : []}
                         />
                         : <EditUserCardForm key={w.id} worker={w} dispatch={dispatch} setEditMode={editHandler}/>
                     )}

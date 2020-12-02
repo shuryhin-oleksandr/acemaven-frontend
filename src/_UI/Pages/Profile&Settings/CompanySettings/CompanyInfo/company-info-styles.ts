@@ -1,8 +1,18 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+
+let show_skelet = keyframes`
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+`
 
 export const InfoContainer = styled.div`
   width: 100%;
   height: 100%;
+  animation: ${show_skelet} ease-in-out .2s;
 `
 
 export const InfoInner = styled.div`
@@ -40,7 +50,7 @@ export const FieldsWrap = styled.div`
   padding-top: 30px;
   display: flex;
   width: 100%;
-  height: 100%;
+ 
   justify-content: space-between;
 `
 export const FieldsContent = styled.div`

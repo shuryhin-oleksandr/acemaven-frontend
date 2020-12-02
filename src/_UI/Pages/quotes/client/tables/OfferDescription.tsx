@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import {TableRow} from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -9,12 +10,12 @@ import TableHead from '@material-ui/core/TableHead';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {BookLittleButton} from "../quotes-client-styles";
 import {QuoteType, StatusesQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+import {AppStateType} from "../../../../../_BLL/store";
+import {quotesClientActions} from "../../../../../_BLL/reducers/quotes/quotesClientReducer";
 import SearchCard from "../../../dashboard/search/search_rate_card/SearchCard";
 import {CardsAbsoluteWrapper} from "../../../dashboard/search/search_rate_card/search-card-styles";
 import ClientBookingPopUp from "../../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../../../_BLL/store";
-import {quotesClientActions} from "../../../../../_BLL/reducers/quotes/quotesClientReducer";
+import ModalWindow from "../../../../components/_commonComponents/ModalWindow/ModalWindow";
 
 type PropsType = {
     isOpen?: boolean,
@@ -135,27 +136,30 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                             </Collapse>
                         </TableCell>
                     </TableRow>
-                    {showTotals && (totalId === o.id) && <CardsAbsoluteWrapper>
-                    <SearchCard showRatingPopup={setShowRating}
-                                search_result={o.charges}
-                                closeTotals={closeTotals}
-                                quote={quote}
-                                setBookingPopupVisible={setBookingPopupVisible}
-                                bookingPopupVisible={bookingPopupVisible}
+                    <ModalWindow isOpen={showTotals && (totalId === o.id)}>
+                        <CardsAbsoluteWrapper>
+                            <SearchCard showRatingPopup={setShowRating}
+                                        search_result={o.charges}
+                                        closeTotals={closeTotals}
+                                        quote={quote}
+                                        setBookingPopupVisible={setBookingPopupVisible}
+                                        bookingPopupVisible={bookingPopupVisible}
 
-                    />
-                    </CardsAbsoluteWrapper>
+                            />
+                        </CardsAbsoluteWrapper>
+                    </ModalWindow>
+                    {bookingPopupVisible && currentBookingRate &&
+                        <ModalWindow isOpen={bookingPopupVisible && !!currentBookingRate}>
+                            <ClientBookingPopUp
+                                shippingValue={Number(quote?.shipping_mode.id)}
+                                setBookingPopupVisible={setBookingPopupVisible}
+                                currentFreightRate={currentBookingRate}
+                                quote_dates={{date_from: String(quote?.date_from), date_to: String(quote?.date_to)}}
+                                close_totals={closeTotals}
+                                quotes_mode={true}
+                            />
+                        </ModalWindow>
                     }
-                    {bookingPopupVisible && currentBookingRate && (
-                        <ClientBookingPopUp
-                            shippingValue={Number(quote?.shipping_mode.id)}
-                            setBookingPopupVisible={setBookingPopupVisible}
-                            currentFreightRate={currentBookingRate}
-                            quote_dates={{date_from: String(quote?.date_from), date_to: String(quote?.date_to)}}
-                            close_totals={closeTotals}
-                            quotes_mode={true}
-                        />
-                    )}
 
             </>
             )}

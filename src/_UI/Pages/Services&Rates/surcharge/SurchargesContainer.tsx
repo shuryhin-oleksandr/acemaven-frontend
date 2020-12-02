@@ -1,4 +1,5 @@
 import React, { useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import Layout from "src/_UI/components/BaseLayout/Layout";
 import SurchargePopup from "src/_UI/components/PopUps/Surcharge/SurchargePopup";
 import {
@@ -8,18 +9,17 @@ import {
   MainTitle,
   RegisterButton,
 } from "./surcharge-styles";
-import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
-
 import SurchargesPage from "./surcharges_page/SurchargesPage";
-import {useDispatch, useSelector} from "react-redux";
 import {
   filterByThunk
 } from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {AppStateType} from "../../../../_BLL/store";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import RegisterNewSurchargeContainer from "./register_new_surcharge/RegisterNewSurchargeContainer";
+import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import OptionsDirectoryButtons
   from "../../../components/_commonComponents/optionsButtons/directory/OptionsDirectoryButtons";
+import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
 
 
 
@@ -49,7 +49,9 @@ const SurchargesContainer: React.FC = () => {
 
   return (
     <>
-      {isOpen && <SurchargePopup setIsOpen={setIsOpen} />}
+      <ModalWindow isOpen={isOpen}>
+        <SurchargePopup setIsOpen={setIsOpen} />
+      </ModalWindow>
       <Layout>
         {newSurchargeMode ? (
             <RegisterNewSurchargeContainer setNewSurchargeMode={setNewSurchargeMode} />

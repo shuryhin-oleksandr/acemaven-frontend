@@ -1,6 +1,7 @@
 import React from 'react'
 import {FormContent, FormWrap, GroupWrap, Port, PortsList} from "./form-styles";
-import { Controller } from 'react-hook-form'
+import { Controller } from 'react-hook-form';
+import {Scrollbars} from "react-custom-scrollbars";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
 import {CarrierType, PortType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
@@ -110,13 +111,25 @@ const SurchargeForm: React.FC<PropsType> = (
                         disabled={watchResultArr.length !== 3}
                     />
                     {ports && ports?.length > 0 && (
-                        <PortsList>
-                            {ports?.map((p: PortType) => (
-                                <Port onClick={() => getDisabledSurchargesDates(p.display_name, p.id)} key={p?.id}>
-                                    {p?.display_name}
-                                </Port>
-                            ))}
-                        </PortsList>
+                        <Scrollbars
+                            style={{
+                                position: "absolute",
+                                zIndex: 10,
+                                borderRadius: 5,
+                                border: "1px solid rgba(0,0,0,0.5)",
+                                top: 64
+                            }}
+                            autoHeight={true}
+                            autoHeightMax={110}
+                        >
+                            <PortsList>
+                                {ports?.map((p: PortType) => (
+                                    <Port onClick={() => getDisabledSurchargesDates(p.display_name, p.id)} key={p?.id}>
+                                        {p?.display_name}
+                                    </Port>
+                                ))}
+                            </PortsList>
+                        </Scrollbars>
                     )}
                     </div>
                 <SurchargesDates

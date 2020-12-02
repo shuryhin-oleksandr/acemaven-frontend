@@ -16,6 +16,7 @@ import {ContainerType} from "../../../../../_BLL/types/rates&surcharges/ratesTyp
 import {currency} from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 //components
 import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
+import ScrollbarStyled from "../../../_commonComponents/ScrollbarStyled/ScrollbarStyled";
 //styles
 import {
     HandlingSurchargeContainer,
@@ -65,50 +66,52 @@ const HandlingTable:React.FC<PropsType> = ({containers, ...props}) => {
     return (
         <HandlingSurchargeContainer max_height={'380px'} style={{maxWidth: '450px', marginRight: '20px'}}>
             <HandlingTitle margin_bottom='0px'>{props.table_name}</HandlingTitle>
-            <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell className={classes.cell} align="left">{props.package_type}</TableCell>
-                            <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                            <TableCell className={classes.cell} align="right">CHARGE</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody className={classes.body}>
-                        {containers?.map(c => (
-                            <TableRow key={c.id}>
-                                <TableCell className={classes.innerCell}  component="th" scope="row">
-                                    <Controller name={`usage_fees.${c.id}.container_type`}
-                                                control={props.control}
-                                                defaultValue={c.id}
-                                                as={
-                                                    <span>{c?.code}</span>
-                                                }
-                                    />
-                                </TableCell>
-                                <TableCell className={classes.innerCell} align="left">
-                                    <Controller name={`usage_fees.${c.id}.currency`}
-                                                control={props.control}
-                                                defaultValue={currency[0].id}
-                                                as={
-                                                    <SurchargeRateSelect options={currency}
-                                                                         maxW={'80px'}
-                                                    />
-                                                }
-                                    />
-                                </TableCell>
-                                <TableCell className={classes.innerCell} align="right">
-                                    <Field name={`usage_fees.${c.id}.charge`}
-                                           ref={props.register}
-                                           placeholder={'0.00$'}
-                                           maxW='102px'
-                                    />
-                                </TableCell>
+            <ScrollbarStyled {...{style: {height: "calc(100% - 28px)"}}}>
+                <TableContainer className={classes.container} component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className={classes.cell} align="left">{props.package_type}</TableCell>
+                                <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
+                                <TableCell className={classes.cell} align="right">CHARGE</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody className={classes.body}>
+                            {containers?.map(c => (
+                                <TableRow key={c.id}>
+                                    <TableCell className={classes.innerCell}  component="th" scope="row">
+                                        <Controller name={`usage_fees.${c.id}.container_type`}
+                                                    control={props.control}
+                                                    defaultValue={c.id}
+                                                    as={
+                                                        <span>{c?.code}</span>
+                                                    }
+                                        />
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left">
+                                        <Controller name={`usage_fees.${c.id}.currency`}
+                                                    control={props.control}
+                                                    defaultValue={currency[0].id}
+                                                    as={
+                                                        <SurchargeRateSelect options={currency}
+                                                                             maxW={'80px'}
+                                                        />
+                                                    }
+                                        />
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="right">
+                                        <Field name={`usage_fees.${c.id}.charge`}
+                                               ref={props.register}
+                                               placeholder={'0.00$'}
+                                               maxW='102px'
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </ScrollbarStyled>
         </HandlingSurchargeContainer>
     )
 }

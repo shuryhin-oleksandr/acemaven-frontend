@@ -10,6 +10,8 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 //types
 import {ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+//components
+import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 type PropsType = {
     charges:  ChargesType[]
@@ -18,7 +20,7 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        width: 620
+        paddingRight: 12
     },
     table: {
         '& .MuiTableHead-root' : {
@@ -53,6 +55,7 @@ const AgentSurchargeAdditional:React.FC<PropsType> = ({charges}) => {
     const classes = useStyles();
 
     return (
+      <ScrollbarStyled {...{style: { width: 800, height: 620}}}>
         <TableContainer className={classes.container} component={Paper}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
@@ -84,6 +87,7 @@ const AgentSurchargeAdditional:React.FC<PropsType> = ({charges}) => {
                 </TableBody>
             </Table>
         </TableContainer>
+      </ScrollbarStyled>
     )
 }
 

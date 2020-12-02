@@ -10,14 +10,14 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 //types
 import {RateQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+//components
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        width: 700,
-        height: 280,
-        overflowY: 'scroll'
+        paddingRight: 12
     },
     cell: {
         color: '#115B86',
@@ -51,36 +51,38 @@ const FrateRatesTable:React.FC<PropsType> = ({rate}) => {
 
 
     return (
-        <TableContainer className={classes.container} component={Paper}>
-            <Table aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        {rate?.rates && rate.rates[0].container_type && <TableCell className={classes.cell} align="left">CONTAINER TYPE</TableCell>}
-                        <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                        <TableCell className={classes.cell} align="left">FREIGHT RATE</TableCell>
-                        <TableCell className={classes.cell} align="left">EXPIRATION DATE</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rate?.rates?.map((r, index) => <TableRow key={index}>
-                        {r.container_type && <TableCell className={classes.innerMainCell} component="th" scope="row">
-                            {r.container_type.code}
-                        </TableCell>
-                        }
-                        <TableCell className={classes.innerCell} align="left" >
-                            {r.currency.code}
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left" >
-                            {r.rate}
-                        </TableCell>
-                        <TableCell className={classes.innerCell} align="left">
-                            {r.expiration_date}
-                        </TableCell>
-                    </TableRow>)}
+        <ScrollbarStyled {...{style: {width: "100%", height: 280}}}>
+            <TableContainer className={classes.container} component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            {rate?.rates && rate.rates[0].container_type && <TableCell className={classes.cell} align="left">CONTAINER TYPE</TableCell>}
+                            <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
+                            <TableCell className={classes.cell} align="left">FREIGHT RATE</TableCell>
+                            <TableCell className={classes.cell} align="left">EXPIRATION DATE</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rate?.rates?.map((r, index) => <TableRow key={index}>
+                            {r.container_type && <TableCell className={classes.innerMainCell} component="th" scope="row">
+                                {r.container_type.code}
+                            </TableCell>
+                            }
+                            <TableCell className={classes.innerCell} align="left" >
+                                {r.currency.code}
+                            </TableCell>
+                            <TableCell className={classes.innerCell} align="left" >
+                                {r.rate}
+                            </TableCell>
+                            <TableCell className={classes.innerCell} align="left">
+                                {r.expiration_date}
+                            </TableCell>
+                        </TableRow>)}
 
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </ScrollbarStyled>
     )
 }
 

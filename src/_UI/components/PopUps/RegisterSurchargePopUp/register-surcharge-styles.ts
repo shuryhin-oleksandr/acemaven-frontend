@@ -16,20 +16,12 @@ const openPopup = keyframes`
 `;
 
 export const PopupOuter = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
   z-index: 50;
   animation: ${openPopup} ease-in-out 0.3s;
-  padding: 130px;
+  padding: 100px 0;
 `;
 
 export const PopupContent = styled.form`

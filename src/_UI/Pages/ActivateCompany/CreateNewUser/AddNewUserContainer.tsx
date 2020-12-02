@@ -6,8 +6,9 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../_BLL/store";
 import { getEmployees} from "../../../../_BLL/reducers/employeesAndBanksReducer";
-import LayoutWithoutNav from "../../../components/BaseLayout/LayoutWithoutNav";
 import {authActions} from "../../../../_BLL/reducers/authReducer";
+import LayoutWithoutNav from "../../../components/BaseLayout/LayoutWithoutNav";
+import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
 
 interface IProps {
 
@@ -31,7 +32,9 @@ const AddNewUserContainer:React.FC<IProps> = () => {
 
     return (
         <Outer>
-            {isOpen && <CancelPopup things={'users'} setIsOpen={setIsOpen}/>}
+            <ModalWindow isOpen={isOpen}>
+                <CancelPopup things={'users'} setIsOpen={setIsOpen}/>
+            </ModalWindow>
             <LayoutWithoutNav>
                 <AddNewUser server_error={server_error} list={employeesList ? employeesList : null} setIsOpen={setIsOpen}/>
             </LayoutWithoutNav>

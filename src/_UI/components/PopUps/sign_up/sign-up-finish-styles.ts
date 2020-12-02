@@ -1,18 +1,9 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  position: fixed;
-  z-index: 640;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   padding-top: 40px;
-  background-color: rgba(0, 0, 0, .3);
 `
 export const Inner = styled.div`
 max-width: 700px;

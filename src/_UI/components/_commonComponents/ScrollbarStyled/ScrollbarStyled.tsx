@@ -70,7 +70,7 @@ type PropsType = {
 
 const ScrollbarStyled:React.FC<PropsType> = (props: any) => {
   const classes = useStyles();
-  const { navBar } = props;
+  const { navBar, autoHeight, autoHeightMin, autoHeightMax } = props;
   return (
       <Scrollbars
         renderThumbHorizontal={props => <div {...props} className={navBar ? classes.thumbHorizontalNav : classes.thumbHorizontal}/>}
@@ -79,6 +79,9 @@ const ScrollbarStyled:React.FC<PropsType> = (props: any) => {
         renderTrackVertical={props => <div {...props} className={navBar ? classes.trackVerticalNav : classes.trackVertical}/>}
         style={props.style}
         hideTracksWhenNotNeeded={true}
+        autoHeight={autoHeight}
+        autoHeightMin={autoHeightMin}
+        autoHeightMax={autoHeightMax}
       >
         {props.children}
       </Scrollbars>

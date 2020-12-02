@@ -16,7 +16,6 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        overflowY: 'scroll',
         maxWidth: 1020,
         minWidth: 650
     },

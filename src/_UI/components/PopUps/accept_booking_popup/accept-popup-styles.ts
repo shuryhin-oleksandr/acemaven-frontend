@@ -1,18 +1,11 @@
 import styled from 'styled-components'
 
 export const AcceptWrapper = styled.div`
- height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, .3);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: baseline;
-  padding-top: 70px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   z-index: 70;
 `
 export const AcceptInner = styled.div`

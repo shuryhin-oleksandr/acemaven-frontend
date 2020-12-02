@@ -18,6 +18,7 @@ import white_fill_star from '../../../../_UI/assets/icons/search/white_fill_star
 import white_part_fill_star from '../../../../_UI/assets/icons/search/white_part_fill_star.svg'
 import white_empty_star from '../../../../_UI/assets/icons/search/white_empty_star.svg'
 import ReviewCard from "./ReviewCard";
+import ScrollbarStyled from "../../_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 type PropsType = {
     showRatingPopup: (value: boolean) => void
@@ -64,15 +65,17 @@ const RatingInfoPopup:React.FC<PropsType> = ({showRatingPopup}) => {
                 </RatingHeader>
                 <ReviewWrapper>
                     <ReviewTitle>REVIEWS (7)</ReviewTitle>
-                    <ReviewsInner>
-                        <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard />
-                    </ReviewsInner>
+                    <ScrollbarStyled {...{style: {height: 640}}}>
+                        <ReviewsInner>
+                            <ReviewCard />
+                            <ReviewCard />
+                            <ReviewCard />
+                            <ReviewCard />
+                            <ReviewCard />
+                            <ReviewCard />
+                            <ReviewCard />
+                        </ReviewsInner>
+                    </ScrollbarStyled>
                 </ReviewWrapper>
             </RatingInner>
         </RatingPopupContainer>

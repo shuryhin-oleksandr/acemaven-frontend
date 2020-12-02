@@ -25,7 +25,8 @@ import {
   RejectButton,
 } from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {
-  BookingTitle, NumberOfBooking,
+  BookingTitle,
+  NumberOfBooking,
   OperationNumber,
   SectionTitle,
   SectionWrapper,
@@ -34,16 +35,25 @@ import {
 import close_icon from "../../../../../assets/icons/close-icon.svg";
 
 
-
 type PropsType = {
   operation_info: OperationType,
   history: any,
   local_time: string,
   openAcceptPopup: (value: boolean) => void,
-  my_name: string
+  my_name: string,
+  company_type: string,
+  setClientChangRequestPopupVisible:(value: boolean) => void,
 }
 
-const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time, openAcceptPopup, my_name}) => {
+const OperationCard:React.FC<PropsType> = ({
+                                             operation_info,
+                                             history,
+                                             local_time,
+                                             openAcceptPopup,
+                                             my_name,
+                                             company_type,
+                                             setClientChangRequestPopupVisible
+}) => {
 
   let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
 
@@ -59,30 +69,41 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
         <ContentHeader>
           <BookingInfo>
             <OperationNumber>{operation_info?.aceid}</OperationNumber>
-            {shipment?.booking_number &&
-              <div style={{display: 'flex'}}>
+            {shipment?.booking_number && (
+              <div style={{ display: "flex" }}>
                 <BookingTitle>BOOKING</BookingTitle>
                 <NumberOfBooking>No {shipment?.booking_number}</NumberOfBooking>
               </div>
-            }
+            )}
             <BookingStatus>
               <span style={{ color: "#1ab8e5", marginRight: "5px" }}>
                 STATUS
               </span>
-              <span style={{fontFamily: 'Helvetica Light', fontSize: '18px', textTransform: 'lowercase'}}>{local_time}</span>
-              {' '}
-              <span style={{textTransform: 'uppercase'}}>
+              <span
+                style={{
+                  fontFamily: "Helvetica Light",
+                  fontSize: "18px",
+                  textTransform: "lowercase",
+                }}
+              >
+                {local_time}
+              </span>{" "}
+              <span style={{ textTransform: "uppercase" }}>
                 {operation_info?.status}
               </span>
             </BookingStatus>
           </BookingInfo>
           <ActionsButtons>
-            {operation_info?.status === "Booking Request in Progress" &&
-              (operation_info?.agent_contact_person === my_name
-                ? <ConfirmButton onClick={() => openAcceptPopup(true)}>CONFIRM BOOKING</ConfirmButton>
-                : <AcceptButton>TAKE OVER</AcceptButton>
-              )
-            }
+            {company_type ==="agent"?operation_info?.status === "Booking Request in Progress" &&
+              (operation_info?.agent_contact_person === my_name ? (
+                <ConfirmButton onClick={() => openAcceptPopup(true)}>
+                  CONFIRM BOOKING
+                </ConfirmButton>
+              ) : (
+                <AcceptButton>TAKE OVER</AcceptButton>
+              )): <ConfirmButton onClick={() => setClientChangRequestPopupVisible(true)}>
+                    REQUEST CHANGE
+                  </ConfirmButton>}
             <RejectButton>CANCEL OPERATION</RejectButton>
           </ActionsButtons>
         </ContentHeader>
@@ -102,11 +123,30 @@ const OperationCard:React.FC<PropsType> = ({operation_info, history, local_time,
           />
           <ChargesBlock operation_charges={operation_info?.charges ? operation_info?.charges : null}/>
         </SectionWrapper>
-           <DocsAndNotesBlock notes={operation_info?.shipment_details ? operation_info?.shipment_details : []}
-                              docs={{release_type: operation_info?.release_type, number_of_documents: operation_info?.number_of_documents}}
-           />
-        <ShipmentPartsBlock shipper_info={operation_info?.shipper ? operation_info?.shipper : null}
-                            client_info={{company: operation_info?.client as string, contact_person: operation_info?.client_contact_person as string}}
+        {(operation_info?.shipment_details &&
+          operation_info?.shipment_details.length > 0) ||
+          (operation_info?.release_type && (
+            <DocsAndNotesBlock
+              notes={
+                operation_info?.shipment_details
+                  ? operation_info?.shipment_details
+                  : []
+              }
+              docs={{
+                release_type: operation_info?.release_type,
+                number_of_documents: operation_info?.number_of_documents,
+              }}
+            />
+          ))}
+
+        <ShipmentPartsBlock
+          shipper_info={
+            operation_info?.shipper ? operation_info?.shipper : null
+          }
+          client_info={{
+            company: operation_info?.client as string,
+            contact_person: operation_info?.client_contact_person as string,
+          }}
         />
         <CargoBlock operation_shipping_type={operation_info?.shipping_type as string}
                     operation_cargo_groups={operation_info?.cargo_groups}

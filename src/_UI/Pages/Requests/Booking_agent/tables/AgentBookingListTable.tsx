@@ -168,7 +168,12 @@ const AgentBookingListTable: React.FC<PropsType> = ({
       : null;
 
   return (
-    <ScrollbarStyled {...{style: {width: "100%",  height: "calc(100vh - 253px)", minHeight: 507 }}}>
+    <ScrollbarStyled {...{
+      style: {width: "100%"},
+      autoHeightMin: 507,
+      autoHeightMax: "calc(100vh - 253px)",
+      autoHeight: true
+    }}>
       <TableContainer className={classes.container} component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>

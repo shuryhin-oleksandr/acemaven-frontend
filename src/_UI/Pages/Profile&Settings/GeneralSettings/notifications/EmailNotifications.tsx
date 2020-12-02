@@ -8,7 +8,7 @@ import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarS
 
 const EmailNotifications = () => {
     return (
-      <ScrollbarStyled {...{style: {width: "100%",  height: "calc(100vh - 341px)", minHeight: 419 }}}>
+      <ScrollbarStyled {...{style: {width: "100%"},autoHeightMin: 419, autoHeightMax: "calc(100vh - 341px)",autoHeight: true}}>
         <SettingsWrap>
             <SettingsNotificationCard title='Surcharge Expiration'
                                       subtitle='Number of days to notify before a surcharge expires'

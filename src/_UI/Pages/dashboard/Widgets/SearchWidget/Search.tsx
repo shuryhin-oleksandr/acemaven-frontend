@@ -186,7 +186,13 @@ const Search: React.FC<PropsType> = ({
     clearTimeout(timerOrigin);
     timerOrigin = setTimeout(() => {
       // if (value.value.length >= 3) {
-      dispatch(getPorts("", value.value, "origin", mode))
+      // @ts-ignore
+      let destination = JSON.parse(sessionStorage.getItem("destination_id"));
+      destination
+        ? destination.is_local ? dispatch(getPorts("", value.value, "origin", mode))
+        : dispatch(getPorts(true, value.value, "origin", mode))
+        : dispatch(getPorts("", value.value, "origin", mode))
+
       // }
     }, 500);
   };
@@ -194,9 +200,12 @@ const Search: React.FC<PropsType> = ({
     clearTimeout(timerDestination);
     timerDestination = setTimeout(() => {
       // if (value.value.length >= 3) {
-      props.origin_port_value?.is_local
-        ? dispatch(getPorts(false, value.value, "destination", mode))
+      // @ts-ignore
+      let origin = JSON.parse(sessionStorage.getItem("origin_id"));
+      origin
+        ? origin.is_local ? dispatch(getPorts("", value.value, "destination", mode))
         : dispatch(getPorts(true, value.value, "destination", mode))
+        : dispatch(getPorts("", value.value, "destination", mode))
       // }
     }, 500);
   };
@@ -446,11 +455,13 @@ const Search: React.FC<PropsType> = ({
                 getValues={getValues}
                 onChange={onOriginChangeHandler}
                 onBlur={() => {
-                  if (!!sessionStorage.getItem("origin_id")) {
-                    // @ts-ignore
-                    setValue("origin", JSON.parse(sessionStorage.getItem("origin_id")).display_name);
-                    dispatch(rateActions.setOriginPortsList([]));
-                  }
+                  setTimeout(() => {
+                    if (!!sessionStorage.getItem("origin_id")) {
+                      // @ts-ignore
+                      setValue("origin", JSON.parse(sessionStorage.getItem("origin_id")).display_name);
+                      dispatch(rateActions.setOriginPortsList([]));
+                    }
+                  }, 200)
                 }}
                 background="#ECECEC"
                 marginBottom="0"
@@ -502,11 +513,13 @@ const Search: React.FC<PropsType> = ({
                 getValues={getValues}
                 onChange={onDestinationChangeHandler}
                 onBlur={() => {
-                  if (sessionStorage.getItem("destination_id"))
-                    { // @ts-ignore
-                      setValue("destination", JSON.parse(sessionStorage.getItem("destination_id")).display_name);
-                      dispatch(rateActions.setDestinationPortsList([]));
-                    }
+                  setTimeout(() => {
+                    if (sessionStorage.getItem("destination_id"))
+                      { // @ts-ignore
+                        setValue("destination", JSON.parse(sessionStorage.getItem("destination_id")).display_name);
+                        dispatch(rateActions.setDestinationPortsList([]));
+                      }
+                  }, 200)
                 }}
                 background="#ECECEC"
                 marginBottom="0"

@@ -8,7 +8,7 @@ type PropsType = {
   extraDateNumber: number;
   dates: any;
   disabled?: any;
-  shippingValueReset: any;
+  shippingValueReset?: any;
 };
 
 const Dates: React.FC<PropsType> = ({
@@ -43,7 +43,7 @@ const Dates: React.FC<PropsType> = ({
       value={dates}
       onClean={() => {
         setDates([]);
-        shippingValueReset();
+        shippingValueReset && shippingValueReset();
       }}
     />
   );

@@ -55,7 +55,7 @@ const AgentSurchargeAdditional:React.FC<PropsType> = ({charges}) => {
     const classes = useStyles();
 
     return (
-      <ScrollbarStyled {...{style: { height: 620}}}>
+      <ScrollbarStyled {...{style: { width: 800, height: 620}}}>
         <TableContainer className={classes.container} component={Paper}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>

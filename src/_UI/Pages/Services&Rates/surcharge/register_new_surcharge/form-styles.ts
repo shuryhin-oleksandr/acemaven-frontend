@@ -163,15 +163,10 @@ export const UnderTitle = styled.div`
 export const PortsList = styled.div<PropsStyle>`
   display: flex;
   flex-direction: column;
-  max-height: 110px;
-  overflow-y: scroll;
   width: 100%;
   background-color: white;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
   padding: 5px 2px;
-  position: absolute;
-  top: ${({top})=>top?top:"64px"};
+  word-break: break-word;
   z-index: 10;
 `;
 

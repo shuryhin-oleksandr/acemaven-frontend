@@ -26,7 +26,12 @@ const NavBar:React.FC<IProps> = () => {
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies)
 
     return (
-      <ScrollbarStyled {...{style: {height: "auto", minHeight: "calc(100vh - 60px)", width: "210px", flex: "none", backgroundColor: "black"}, navBar: true}}>
+      <ScrollbarStyled {...{
+          style: {height: "auto", width: "210px", flex: "none", backgroundColor: "black"},
+          autoHeightMin: "calc(100vh - 60px)",
+          autoHeight: true,
+          navBar: true
+      }}>
         <NavContainer>
             {
                 company_type && company_type[0].type !== 'agent'

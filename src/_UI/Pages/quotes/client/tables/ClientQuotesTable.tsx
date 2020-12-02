@@ -17,6 +17,7 @@ import {makeOfferViewedThunk} from "../../../../../_BLL/thunks/quotes/clientQuot
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import QuoteRow from "./QuoteRow";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 //styles
 import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "./client-quotes-table-styles";
 
@@ -40,8 +41,6 @@ const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
         paddingRight: "12px",
-        height: 420,
-        overflowY: 'scroll'
     },
     shipping_cell: {
         width: '220px',
@@ -112,6 +111,7 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                                         thunkName='quotes'
                 />
             </QuotesTableHeader>
+            <ScrollbarStyled {...{style: {width: "100%", height: 420}}}>
                 <TableContainer className={classes.container} component={Paper}>
                     <Table aria-label="collapsible table">
                         <TableHead>
@@ -193,6 +193,7 @@ const ClientQuotesTable:React.FC<PropsType> = ({my_quotes_list, activeInactiveQu
                         </TableBody>
                     </Table>
                 </TableContainer>
+            </ScrollbarStyled>
         </QuotesTableContainer>
     )
 }

@@ -24,6 +24,7 @@ import AssignAgentPopup from "../../../../components/PopUps/assign_master_to_boo
 import AssignConfirmationPopup from "../../../../components/PopUps/assign_master_to_booking/AssignConfirmationPopup";
 import RejectBookingByAgentPopup from "../../../../components/PopUps/reject_booking_by_agent/RejectBookingByAgentPopup";
 import MovedToOperationsPopup from "../../../../components/PopUps/moved_to_operations_popup/MovedToOperationsPopup";
+import ModalWindow from '../../../../../_UI/components/_commonComponents/ModalWindow/ModalWindow';
 
 
 
@@ -73,23 +74,29 @@ const BookingCardContainer:React.FC = () => {
 
     return (
         <Layout>
-                    {isAssignAgent && <AssignAgentPopup agents={agents_workers && agents_workers?.length > 0 ? agents_workers : null}
-                                                        setAssignAgent={setAssignAgent}
-                                                        setAgentFullName={setAgentFullName}
-                                                        setAgentId={setAgentId}
-                                                        setAssignConfirmation={setAssignConfirmation}
+                    <ModalWindow isOpen={isAssignAgent}>
+                        <AssignAgentPopup agents={agents_workers && agents_workers?.length > 0 ? agents_workers : null}
+                                          setAssignAgent={setAssignAgent}
+                                          setAgentFullName={setAgentFullName}
+                                          setAgentId={setAgentId}
+                                          setAssignConfirmation={setAssignConfirmation}
 
-                    />
-                    }
-                    {isAssignConfirmation && <AssignConfirmationPopup setAssignAgent={setAssignAgent}
-                                                                      setAssignConfirmation={setAssignConfirmation}
-                                                                      agent_full_name={agent_full_name}
-                                                                      assign_thunk={assignConfirmationFunction}
+                        />
+                    </ModalWindow>
+                    <ModalWindow isOpen={isAssignConfirmation}>
+                        <AssignConfirmationPopup setAssignAgent={setAssignAgent}
+                                                 setAssignConfirmation={setAssignConfirmation}
+                                                 agent_full_name={agent_full_name}
+                                                 assign_thunk={assignConfirmationFunction}
 
-                    />}
-                    {isRejectPopupOpen && <RejectBookingByAgentPopup setRejectPopupOpen={setRejectPopupOpen}
-                    />}
-                    {isMovedToOperations && <MovedToOperationsPopup setMovedToOperations={setMovedToOperations}/>}
+                        />
+                    </ModalWindow>
+                    <ModalWindow isOpen={isRejectPopupOpen}>
+                      <RejectBookingByAgentPopup setRejectPopupOpen={setRejectPopupOpen}/>
+                    </ModalWindow>
+                    <ModalWindow isOpen={isMovedToOperations}>
+                      <MovedToOperationsPopup setMovedToOperations={setMovedToOperations}/>
+                    </ModalWindow>
                     <BookingCard setAssignAgent={setAssignAgent}
                                  setRejectPopupOpen={setRejectPopupOpen}
                                  acceptBookingOnMe={acceptBookingOnMe}

@@ -1,4 +1,4 @@
-import React, { useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import {TimePicker} from "./accept-popup-styles";
 import styled from "styled-components";
@@ -7,6 +7,8 @@ import {Controller} from "react-hook-form";
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
 import {CalendarWrapper} from "../../_commonComponents/calendar/calendar-styles";
 import {HelperText} from "../../_commonComponents/Input/input-styles";
+import moment from "moment";
+
 
 
 type PropsType = {
@@ -33,15 +35,23 @@ type PropsType = {
     start_shipment_date?: string,
     operation_dates?: {from: string, to: string},
     before?: any,
-    after?: any
+    after?: any,
+    wrapper_width?: string,
+    justify_content?: string,
+    arrival_date?: string,
+    departure_date?: string,
+    first_time?: string,
+    second_time?: string,
+    register?: any
 }
 
-const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, required_dates, ...props}) => {
+const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, register, required_dates, ...props}) => {
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
         to:  ''
     })
+
 
     const handleFromChange = (from: string) => {
         props.setFormMode && props.setFormMode(true)
@@ -67,14 +77,32 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
         toInput?.current?.getInput().focus()
     }
 
+    useEffect(() => {
+        if(props.departure_date && props.arrival_date) {
+            setSelectedDay({
+                from: moment(props.departure_date, 'DD/MM/YYYY').toDate(),
+                to: moment(props.arrival_date, 'DD/MM/YYYY').toDate()
+            })
+            setValue(props.date_name_first, moment(props.departure_date, 'DD/MM/YYYY').toDate())
+            setValue(props.date_name_second, moment(props.arrival_date, 'DD/MM/YYYY').toDate())
+        }
+        if(props.first_time && props.second_time) {
+            setValue(props.time_name_first, props.first_time)
+            setValue(props.time_name_second, props.second_time)
+        }
+    }, [props.departure_date,props.arrival_date, props.second_time, props.first_time])
 
 
     return (
-        <AcceptDatesFilter >
-            <Wrapper justify_content='flex-start'>
-                <CalendarWrapper max_width='225px'
+        <AcceptDatesFilter flex_direction={props.flex_direction}>
+            <Wrapper justify_content={props.justify_content} wrapper_width={props.wrapper_width} >
+                <CalendarWrapper max_width={!props.first_time ? '225px' : '235px'}
                                  input_height='40px' margin_right='10px' margin_bottom='5px'>
-                    <span style={{fontFamily: 'Helvetica Reg', fontSize: '14px', color: 'black'}}>
+                    <span style={{fontFamily: !props.first_time ? 'Helvetica Reg' : 'Helvetica Bold',
+                                fontSize: '14px',
+                                color: !props.first_time ? 'black' : '#115b86',
+                                textTransform: !props.first_time ? 'none' : 'uppercase'
+                    }}>
                         {props.label1}
                     </span>
                     <Controller
@@ -108,24 +136,26 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
                         <HelperText>Field is required</HelperText>
                     )}
                 </CalendarWrapper>
-                <Controller control={control}
-                            rules={{
-                                required: true
-                            }}
-                            name={props.time_name_first}
-                            defaultValue=''
-                            as={
-                                <TimePicker type="time"
-                                            step='300'
-                                            error={!!errors?.departure_time}
-                                />
-                            }
+                    <Controller name={props.time_name_first}
+                                control={control}
+                                rules={{required: true}}
+                                defaultValue=''
+                                as={
+                                    <TimePicker type="time"
+                                                step='300'
+                                                error={!!errors?.departure_time}
+                                    />
+                                }
                     />
             </Wrapper>
-            <Wrapper>
-                <CalendarWrapper max_width='225px'
+            <Wrapper justify_content={props.justify_content} wrapper_width={props.wrapper_width}>
+                <CalendarWrapper max_width={!props.second_time ? '225px' : '235px'}
                                  input_height='40px' margin_right='10px' margin_bottom='5px'>
-                     <span style={{fontFamily: 'Helvetica Reg', fontSize: '14px', color: 'black'}}>
+                     <span style={{fontFamily: !props.second_time ? 'Helvetica Reg' : 'Helvetica Bold',
+                         fontSize: '14px',
+                         color: !props.second_time ? 'black' : '#115b86',
+                         textTransform: !props.second_time ? 'none' : 'uppercase'
+                     }}>
                         {props.label2}
                     </span>
                     <Controller
@@ -181,15 +211,15 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, requi
 export default AcceptPopupDates
 
 
-const AcceptDatesFilter = styled.div`
+const AcceptDatesFilter = styled.div<{flex_direction?: string}>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${({flex_direction}) => flex_direction ? flex_direction : 'row'};
   width: 100%;
   justify-content: space-between;
   margin-bottom: 10px;
 `
-const Wrapper = styled.div<{justify_content?: string}>`
-  width: 49%;
+const Wrapper = styled.div<{justify_content?: string, wrapper_width?: string}>`
+  width: ${({wrapper_width}) => wrapper_width ? wrapper_width : '49%'};
   display: flex;
   align-items: center;
   justify-content: ${({justify_content}) => justify_content ? justify_content : 'flex-end'};

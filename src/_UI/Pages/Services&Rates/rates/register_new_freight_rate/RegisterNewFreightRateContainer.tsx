@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
 import RegisterNewFreightRate from "./RegisterNewFreightRate";
 import {
   CurrentShippingType,
@@ -37,13 +38,15 @@ import {
 import { PortType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import RegisterSurchargePopUp from "../../../../components/PopUps/RegisterSurchargePopUp/RegisterSurchargePopUp";
-import styled from "styled-components";
 import NoSurchargeCard from "./NoSurchargeCard";
+import ModalWindow from "../../../../components/_commonComponents/ModalWindow/ModalWindow";
 
 
 type PropsType = {
   setNewRateMode: (value: boolean) => void;
 };
+
+let timerOrigin:any,timerDestination:any;
 
 const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   setNewRateMode,
@@ -114,7 +117,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   let closePortsHandler = (port: PortType, field: string) => {
     setValue(field, port.display_name);
     dispatch(rateActions.setOriginPortValue(port))
-     sessionStorage.setItem("origin_id", JSON.stringify(port.id));
+     sessionStorage.setItem("origin_id", JSON.stringify(port));
     dispatch(rateActions.setOriginPortsList([]));
   };
 
@@ -124,13 +127,13 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     let carrier = getValues("carrier");
     let shipping_mode = getValues("shipping_mode");
     setValue("destination", p.display_name);
-    sessionStorage.setItem('destination_id', JSON.stringify(p.id))
+    sessionStorage.setItem('destination_id', JSON.stringify(p))
     dispatch(rateActions.setDestinationPortsList([]));
     dispatch(
       checkRatesDatesThunk({
         carrier: carrier,
         shipping_mode: shipping_mode,
-        origin: Number(sessionStorage.getItem("origin_id")),
+        origin: Number(JSON.parse(JSON.stringify(sessionStorage.getItem("origin_id"))).id),
         destination: p.id,
       })
     );
@@ -148,16 +151,22 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
 
   //посимвольный поиск портов
   let onOriginChangeHandler = (value: any) => {
-    // if(value.value.length >= 3) {
+    clearTimeout(timerOrigin);
+    timerOrigin = setTimeout(() => {
+      // if(value.value.length >= 3) {
       dispatch(getPorts('', value.value, "origin", currentShippingType));
-    // }
+      // }
+    } , 500);
   };
   let onDestinationChangeHandler = (value: any) => {
+    clearTimeout(timerDestination);
+    timerDestination = setTimeout(() => {
     // if(value.value.length >= 3) {
       !is_local_port?.is_local
       ? dispatch(getPorts(true, value.value, "destination", currentShippingType))
       : dispatch(getPorts(false, value.value, "destination", currentShippingType))
     // }
+    } , 500);
   };
 
 
@@ -176,14 +185,15 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     dispatch(addNewSurchargeForRate(surcharge_data))
   }
 
-/*  let clearStorage = () => {
+  let clearStorage = () => {
     sessionStorage.removeItem('origin_id')
     sessionStorage.removeItem('destination_id')
-  }*/
+  }
 
   useEffect(() => {
+    clearStorage();
     return () => {
-      sessionStorage.removeItem('origin_id')
+      clearStorage();
     }
   }, [])
   //сетаем значения, когда используем как шаблон
@@ -199,7 +209,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
 
   return (
     <RatesWrapper>
-      {newSurchargePopUpVisible && (
+      <ModalWindow isOpen={newSurchargePopUpVisible}>
         <RegisterSurchargePopUp
           mode={currentShippingType}
           setIsOpen={setNewSurchargePopUpVisible}
@@ -217,7 +227,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
           adding_surcharge_error={adding_surcharge_error}
 
         />
-      )}
+      </ModalWindow>
       <RegisterNewFreightRate
         handleSubmit={handleSubmit}
         register={register}
@@ -264,6 +274,5 @@ export default RegisterNewFreightRateContainer;
 
 export const RatesWrapper = styled.div`
   width: 100%;
-  min-height: 100vh;
-  height: 100%;
+  position: relative;
 `

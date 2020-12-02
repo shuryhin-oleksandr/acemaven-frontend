@@ -52,6 +52,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
       />
         {props.booking_process && <AgentComment>For shipment tracking purposes, won’t be shown to the client.</AgentComment>}
         {error?.type === "required" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}
+        {error?.type === "validate" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}
       {error?.type === "pattern" && (
         <HelperText>
           {props.pattern_message ? props.pattern_message : "Value is not valid"}

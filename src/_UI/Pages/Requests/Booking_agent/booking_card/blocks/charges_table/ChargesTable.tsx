@@ -12,7 +12,6 @@ import {CostBookingType} from "../../../../../../../_BLL/types/bookingTypes";
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        overflowY: 'scroll',
         maxWidth: 700,
         minWidth: 650
     },

@@ -56,3 +56,27 @@ export const confirmBookingRequestThunk = (
     }
   };
 };
+
+export const editOperationByAgentThunk = (data: any, id: number) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      let res = await operationsAgentAPI.editOperationByAgent(data, id)
+      dispatch(agentOperationsActions.setEditedShipmentDetails(res.data))
+      dispatch(agentOperationsActions.setEditSuccess('success'))
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const editOperationPaymentDueByAgentThunk = (data: any, id: number) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      let res = await operationsAgentAPI.editOperationPaymentDueByAgent(data, id)
+      dispatch(agentOperationsActions.setEditedPaymentDueBy(res.data.payment_due_by))
+      dispatch(agentOperationsActions.setEditSuccess('success'))
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

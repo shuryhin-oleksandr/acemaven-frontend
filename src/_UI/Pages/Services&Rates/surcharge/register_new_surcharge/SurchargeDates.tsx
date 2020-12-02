@@ -50,7 +50,6 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
                 to: moment(surcharge.expiration_date, 'DD/MM/YYYY').toDate()})
             setValue('from', surcharge.start_date)
             setValue('to', surcharge.expiration_date)
-            console.log(new Date(surcharge.start_date))
         }
         if(props.rate_start_date) {
             setSelectedDay({from: moment(props.rate_start_date, 'DD/MM/YYYY').toDate()})

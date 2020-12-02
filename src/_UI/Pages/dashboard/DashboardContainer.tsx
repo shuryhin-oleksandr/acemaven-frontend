@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 //types
 import {AppStateType} from "../../../_BLL/store";
 import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
@@ -25,6 +25,7 @@ import {surchargeActions} from "../../../_BLL/reducers/surcharge&rates/surcharge
 import Layout from "../../components/BaseLayout/Layout";
 import DashboardPage from "./DashboardPage";
 import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/ChargeableWeightPopup";
+import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
 
 
 const DashboardContainer:React.FC = () => {
@@ -56,7 +57,6 @@ const DashboardContainer:React.FC = () => {
     const frozen_choices = useSelector(getFrozenChoicesSelector);
     const origin_port_value = useSelector(getIsLocalPort);
 
-
     let setDuplicatedCargoError = (error: string) => {
         dispatch(searchActions.setDuplicatedError(error))
     }
@@ -70,20 +70,32 @@ const DashboardContainer:React.FC = () => {
         dispatch(getWMCalculationThunk(data))
     }
 
+    let clearStorage = () => {
+        sessionStorage.removeItem('origin_id')
+        sessionStorage.removeItem('destination_id')
+    }
+
+    useEffect(() => {
+        clearStorage();
+        return () => {
+            clearStorage();
+        }
+    }, [])
+
     return (
         <Layout>
-            {isOpenCalcPopup && <ChargeableWeightPopup calc_success={calc_success}
-                                                       setOpenCalcPopup={setOpenCalcPopup}
-                                                       packaging_types={packaging_types}
-                                                       container_types={usageFees}
-                                                       shippingValue={shippingValue}
-                                                       getCalculation={getCalculation}
-                                                       current_shipping_type={current_shipping_type}
-                                                       editable_cargo_group={editable_cargo_group}
-
-
-            />}
-            <div style={{position:"relative", width:"100%"}}>
+            <ModalWindow isOpen={isOpenCalcPopup}>
+                <ChargeableWeightPopup calc_success={calc_success}
+                                       setOpenCalcPopup={setOpenCalcPopup}
+                                       packaging_types={packaging_types}
+                                       container_types={usageFees}
+                                       shippingValue={shippingValue}
+                                       getCalculation={getCalculation}
+                                       current_shipping_type={current_shipping_type}
+                                       editable_cargo_group={editable_cargo_group}
+                />
+            </ModalWindow>
+            <div style={{position:"relative", width:"100%", height: "100%", minHeight: 700, zIndex: 0}}>
                 <DashboardPage widgetsVisible={widgetsVisible}
                                setWidgetsVisible={setWidgetsVisible}
                                shippingValue={shippingValue}

@@ -114,9 +114,7 @@ export const ReviewTitle = styled.div`
 export const ReviewsInner = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: 640px;
   width: 100%;
-  overflow-y: scroll;
   padding-right: 30px;
 `
 export const ReviewCardWrap = styled.div`

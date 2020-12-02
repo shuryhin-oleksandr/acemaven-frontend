@@ -31,6 +31,7 @@ import AgentSurchargesTable from "./table/surcharge/AgentSurchargesTable";
 import SaveTemporaryQuotePopup from "../../../components/PopUps/save_temporary_rate_popup/SaveTemporaryQuotePopup";
 import TotalCostCalculationContainer from "./table/TotalCostCalculationContainer";
 import SpinnerForAuthorizedPages from "../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
 //styles
 import {
     ActionsAgentWrap,
@@ -149,22 +150,26 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
 
     return (
         <Layout>
-            {props.isTemporaryPopup && <SaveTemporaryQuotePopup closePopup={props.setIsTemporaryPopup}
-                                                          freight={props.existing_rate_for_quote}
-                                                          saveRateResult={props.save_rate_result}
-                                                          bad_saving_message={props.bad_saving_message}
-            />}
-            {props.isCreatePopup && <RegisterNewRateFromQuotePopup  openCreatePopup={props.openCreatePopup}
-                                                                    setIsTemporaryPopup={props.setIsTemporaryPopup}
-                                                                    carrier_field={carrier_field}
-                                                                    quote={props.exact_quote_info}
-                                                                    carriers={props.carrier_list ? props.carrier_list : []}
-                                                                    existing_rate_for_quote={props.existing_rate_for_quote}
-                                                                    existing_surcharge_for_quote={props.existing_surcharge_for_quote}
-                                                                    save_rate_result={props.save_rate_result}
-                                                                    isCheck={isCheck}
-                                                                    setIsCheck={setIsCheck}
-            />}
+            <ModalWindow isOpen={props.isCreatePopup}>
+                <RegisterNewRateFromQuotePopup openCreatePopup={props.openCreatePopup}
+                                               setIsTemporaryPopup={props.setIsTemporaryPopup}
+                                               carrier_field={carrier_field}
+                                               quote={props.exact_quote_info}
+                                               carriers={props.carrier_list ? props.carrier_list : []}
+                                               existing_rate_for_quote={props.existing_rate_for_quote}
+                                               existing_surcharge_for_quote={props.existing_surcharge_for_quote}
+                                               save_rate_result={props.save_rate_result}
+                                               isCheck={isCheck}
+                                               setIsCheck={setIsCheck}
+                />
+            </ModalWindow>
+            <ModalWindow isOpen={props.isTemporaryPopup}>
+                <SaveTemporaryQuotePopup closePopup={props.setIsTemporaryPopup}
+                                         freight={props.existing_rate_for_quote}
+                                         saveRateResult={props.save_rate_result}
+                                         bad_saving_message={props.bad_saving_message}
+                />
+            </ModalWindow>
             {props.isFetching || !props.exact_quote_info
                 ? <SpinnerForAuthorizedPages />
                 : <QuoteCardWrapperForm onSubmit={handleSubmit(onSubmit)}>

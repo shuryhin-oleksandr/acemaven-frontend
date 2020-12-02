@@ -10,20 +10,12 @@ const shownPopup = keyframes`
 `;
 
 export const PopupContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   z-index: 600;
   animation: ${shownPopup} ease-in-out 0.3s;
-  padding-top: 60px;
+  padding: 100px 0;
 `;
 
 export const PopupContent = styled.div`

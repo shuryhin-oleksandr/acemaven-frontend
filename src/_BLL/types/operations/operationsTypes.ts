@@ -7,6 +7,7 @@ export type WeekRangeType = {
 }
 
 export type ShipmentDetailsType = {
+    id: number,
     booking_number : string,
     booking_number_with_carrier?: any,
     flight_number?: string | number,
@@ -48,5 +49,6 @@ export type OperationType = {
     charges?: CostBookingType,
     client_contact_person?: string,
     client?: string,
-    shipment_details?: ShipmentDetailsType[]
+    shipment_details?: ShipmentDetailsType[],
+    payment_due_by: string | null
 }

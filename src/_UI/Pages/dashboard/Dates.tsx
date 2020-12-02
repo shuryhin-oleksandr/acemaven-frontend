@@ -21,8 +21,8 @@ const Dates: React.FC<PropsType> = ({
   const { combine, before, after } = DateRangePicker;
   const tillTheEnd =
     moment().endOf("week").diff(moment(), "days") + extraDateNumber;
-  const disabledDate = moment().add(tillTheEnd, "days").format("MM-DD-YYYY");
-  const maxDate = moment().add(90, "days").format("MM-DD-YYYY");
+    const disabledDate = moment().add(tillTheEnd, "days").format("MM-DD-YYYY");
+    const maxDate = moment().add(90, "days").format("MM-DD-YYYY");
 
   return (
     <DateRangePicker

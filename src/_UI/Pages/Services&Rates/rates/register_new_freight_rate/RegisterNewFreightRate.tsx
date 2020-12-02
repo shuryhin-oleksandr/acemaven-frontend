@@ -53,8 +53,8 @@ type PropsType = {
   destination_ports: any;
   onOriginChangeHandler: (value: any) => void;
   onDestinationChangeHandler: (value: any) => void;
-  closePortsHandler: any;
-  getBookedRatesDates: (p:PortType) => void;
+  closePortsHandlerOrigin: any;
+  closePortsHandlerDestination: any;
   usageFees: ContainerType[];
   setNewSurchargePopUpVisible: (value: boolean) => void;
   existing_surcharge: any
@@ -74,7 +74,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
   getValues, setValue, closeRateRegistration, setMode,
   mode, carrierOptions, shippingModeOptions, shippingValue, adding_rate_error, rate_transit_error,
   setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
-  onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, usageFees, origin_port_value, destination_port_value,
+  onDestinationChangeHandler, closePortsHandlerOrigin, closePortsHandlerDestination, usageFees, origin_port_value, destination_port_value,
   setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge, registration_success, rate_info, watchResultArr
 }) => {
 
@@ -156,8 +156,8 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
                              destination_ports={destination_ports}
                              onOriginChangeHandler={onOriginChangeHandler}
                              onDestinationChangeHandler={onDestinationChangeHandler}
-                             closePortsHandler={closePortsHandler}
-                             getBookedRatesDates={getBookedRatesDates}
+                             closePortsHandlerOrigin={closePortsHandlerOrigin}
+                             closePortsHandlerDestination={closePortsHandlerDestination}
                               rate_info={rate_info}
                              setValue={setValue}
                              watchResultArr={watchResultArr}

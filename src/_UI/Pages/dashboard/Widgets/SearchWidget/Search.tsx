@@ -192,7 +192,6 @@ const Search: React.FC<PropsType> = ({
         ? destination.is_local ? dispatch(getPorts("", value.value, "origin", mode))
         : dispatch(getPorts(true, value.value, "origin", mode))
         : dispatch(getPorts("", value.value, "origin", mode))
-
       // }
     }, 500);
   };

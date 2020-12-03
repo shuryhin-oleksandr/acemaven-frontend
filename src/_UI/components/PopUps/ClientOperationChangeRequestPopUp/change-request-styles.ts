@@ -15,7 +15,7 @@ export const PopupContainer = styled.div`
   justify-content: center;
   z-index: 600;
   animation: ${shownPopup} ease-in-out 0.3s;
-  padding: 100px 0;
+  padding: 70px 0;
 `;
 
 export const PopupContent = styled.div`
@@ -51,6 +51,7 @@ export const ButtonsWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  padding-top: 30px;
 `;
 export const CancelButton = styled.button`
   height: 40px;
@@ -62,13 +63,31 @@ export const CancelButton = styled.button`
   transition: 0.3s;
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
-  margin: 0 15px;
   outline: none;
 
   &:hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.07);
     transition: 0.3s;
+  }
+`;
+export const ConfirmButton = styled.button`
+  height: 40px;
+  width: 100%;
+  max-width: 165px;
+  outline: none;
+  border: none;
+  background-color: black;
+  color: white;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -88,4 +107,11 @@ export const HeadingWrap = styled.div`
   flex-direction: column;
   justify-items: center;
   align-items: center;
+`;
+
+export const ShippingModeText = styled.div`
+  font-size: 18px;
+  font-family: "Helvetica Bold", sans-serif;
+  text-transform: uppercase;
+  color: #000000;
 `;

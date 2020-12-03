@@ -12,4 +12,7 @@ export const operationsClientAPI = {
       `/booking/operation/?shipping_type=${type}&my_operations=${is_mine}&ordering=${field_name}&${search_column}=${search_value}`
     );
   },
+  editOperationByClient(data: any) {
+    return instance.post(`/booking/operation/`, data);
+  },
 };

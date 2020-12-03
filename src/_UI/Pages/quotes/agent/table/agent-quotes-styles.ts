@@ -110,6 +110,7 @@ export const QuoteInfo = styled.div`
   border-bottom: 1px solid #bdbdbd;
   padding-top: 13.72px;
   padding-bottom: 33.28px;
+  min-height: 231px;
 `
 export const GeneralInfo = styled.div`
   display: flex;
@@ -183,6 +184,8 @@ export const CargoInfo = styled.div`
   padding-top: 28px;
   padding-bottom: 30px;
   border-bottom: 1px solid #bdbdbd;
+  min-height: 231px;
+  overflow-y: scroll;
 `
 export const CargoShippingModeWrap = styled.div`
    font-family: "Helvetica Bold", sans-serif;
@@ -201,6 +204,7 @@ export const CarrierInfo = styled.div`
   padding-bottom: 30px;
   border-bottom: 1px solid #bdbdbd;
   justify-content: space-between;
+  min-height: 329px;
 `
 export const CarrierWrap = styled.div`
   display: flex;

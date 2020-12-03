@@ -30,6 +30,7 @@ const NoRatesOuter = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  min-height: 230px;
 `
 const NoRatesContent = styled.div`
   color: #4f4f4f;

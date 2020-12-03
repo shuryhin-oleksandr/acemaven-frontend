@@ -30,6 +30,14 @@ export type ShipmentDetailsType = {
     booking : number
 }
 
+export type AgentBankAccountType = {
+    id: number,
+    bank_name: string,
+    bank_number: string,
+    branch: string,
+    number: string
+}
+
 export type OperationType = {
     id: number,
     aceid: string,
@@ -45,6 +53,7 @@ export type OperationType = {
     cargo_groups: CargoGroupQuoteType[],
     freight_rate: RateQuoteType,
     agent_contact_person: string,
+    agent_bank_account?: AgentBankAccountType
     shipper?: ShipperType,
     charges?: CostBookingType,
     client_contact_person?: string,

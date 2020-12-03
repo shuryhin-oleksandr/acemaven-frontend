@@ -84,7 +84,7 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment, co
                         {operation_info?.status === "Booking Confirmed" &&
                         <>
                             {shipment?.vessel
-                                ? <div style={{ display: "flex", flexDirection: "column", marginRight:'26px'}}>
+                                ? <div style={{ display: "flex", flexDirection: "column", marginRight:'46px'}}>
                                     <InfoRow>
                                         <InfoRowLabel>VESSEL</InfoRowLabel>
                                         <InfoRowValue>{shipment?.vessel}</InfoRowValue>
@@ -94,7 +94,7 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment, co
                                         <InfoRowValue>{shipment?.voyage}</InfoRowValue>
                                     </InfoRow>
                                 </div>
-                                : <div style={{display: "flex", flexDirection: "column", marginRight:'26px'}}>
+                                : <div style={{display: "flex", flexDirection: "column", marginRight:'46px'}}>
                                     <InfoRow>
                                         <InfoRowLabel>MAWB</InfoRowLabel>
                                         <InfoRowValue>{shipment?.mawb}</InfoRowValue>
@@ -108,17 +108,19 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment, co
                             <div style={{width: "25%", display: "flex", flexDirection: "column"}}>
                                 {shipment?.empty_pick_up_location &&
                                 <InfoRow>
-                                    <InfoRowLabel>Empty Pickup Location</InfoRowLabel>
+                                    <InfoRowLabel>EMPTY PICKUP LOCATION</InfoRowLabel>
                                     <InfoRowValue>
-                                        terminal: {shipment?.empty_pick_up_location}, airport: {shipment?.empty_pick_up_location_address}
+                                        <span style={{color: '#115B86'}}>terminal/depot:</span> {shipment?.empty_pick_up_location},
+                                        <br/> <span style={{color: '#115B86'}}>airport/seaport:</span> {shipment?.empty_pick_up_location_address}
                                     </InfoRowValue>
                                 </InfoRow>
                                 }
                                 {shipment?.cargo_drop_off_location &&
                                 <InfoRow>
-                                    <InfoRowLabel>Cargo Drop Off Location </InfoRowLabel>
+                                    <InfoRowLabel>CARGO DROP OFF LOCATION </InfoRowLabel>
                                     <InfoRowValue>
-                                        terminal: {shipment?.cargo_drop_off_location}, airport: {shipment?.cargo_drop_off_location_address}
+                                        <span style={{color: '#115B86'}}>terminal/depot:</span> {shipment?.cargo_drop_off_location},
+                                        <br/> <span style={{color: '#115B86'}}>airport/seaport:</span> {shipment?.cargo_drop_off_location_address}
                                     </InfoRowValue>
                                 </InfoRow>}
 

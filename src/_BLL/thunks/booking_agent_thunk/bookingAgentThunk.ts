@@ -20,11 +20,13 @@ export const getBookingRequestListThunk = (type: string, field_name: string, sea
 export const getBookingInfoByIdThunk = (id: number) => {
   return async (dispatch: Dispatch<commonAgentBookingActions>) => {
     try {
+      debugger
       dispatch(agentBookingActions.setIsFetching(true))
       let res = await bookingApi.getAgentBookingInfoById(id);
       dispatch(agentBookingActions.setExactBookingInfo(res.data));
       dispatch(agentBookingActions.setIsFetching(false))
     } catch (e) {
+      debugger
       console.log(e)
       dispatch(agentBookingActions.setIsFetching(false))
     }

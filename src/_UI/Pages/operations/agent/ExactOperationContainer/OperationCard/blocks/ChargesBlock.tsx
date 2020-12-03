@@ -51,10 +51,10 @@ const useStyles = makeStyles({
 
 type PropsType = {
     operation_charges: CostBookingType | null,
-
+    number_of_docs: number | null
 }
 
-const ChargesBlock:React.FC<PropsType> = ({operation_charges}) => {
+const ChargesBlock:React.FC<PropsType> = ({operation_charges, number_of_docs}) => {
 
     const classes = useStyles();
 
@@ -113,6 +113,7 @@ const ChargesBlock:React.FC<PropsType> = ({operation_charges}) => {
                             )}
                             <TableRow className={classes.info_row}>
                                 <TableCell className={classes.innerCell} scope="row">
+                                    {number_of_docs ? number_of_docs : '1'}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" >
                                 </TableCell>

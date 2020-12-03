@@ -26,7 +26,7 @@ type PropsType = {
 
 const QuotesPage:React.FC<PropsType> = ({my_quotes_list, activeInactiveQuote, deleteQuoteByClient, getQuotesByFilters, ...props}) => {
 
-    const text = "There are no active general at the moment.\n" +
+    const text = "There are no active quotes at the moment.\n" +
         "                If your searches don’t return any results,\n" +
         "                you will have the option to post them online for agents to bid on them.\n" +
         "                They will appear in this section."

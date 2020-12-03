@@ -127,10 +127,15 @@ const OperationCard: React.FC<PropsType> = ({
                         ? <PaymentDueByDates payment_due_by={operation_info?.payment_due_by}
                                              operation_id={operation_info.id}
                           />
-                        : (operation_info?.payment_due_by && <PaymentDueByForClient payment_due_by={String(operation_info?.payment_due_by)}/>)
+                        : (operation_info?.payment_due_by &&
+                            <PaymentDueByForClient payment_due_by={String(operation_info?.payment_due_by)}
+                                                   agent_bank_account={operation_info?.agent_bank_account}
+                                                   agent_name={operation_info?.agent_contact_person}
+                            />
+                            )
                     }
                     <ChargesBlock operation_charges={operation_info?.charges ? operation_info?.charges : null}
-
+                                  number_of_docs={operation_info?.number_of_documents}
                     />
                 </SectionWrapper>
                 {(operation_info?.shipment_details &&

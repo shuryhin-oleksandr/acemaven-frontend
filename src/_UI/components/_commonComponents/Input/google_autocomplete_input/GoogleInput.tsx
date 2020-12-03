@@ -16,6 +16,7 @@ type PropsType = {
     register: any,
     google_field_name: string,
     errors: any,
+    google_label: boolean | undefined
 }
 
 const useStyles = makeStyles({
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
     },
 });
 
-const GoogleInput:React.FC<PropsType> = ({register, google_field_name,errors}) => {
+const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, google_label}) => {
 
     const classes = useStyles();
 
@@ -58,7 +59,7 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name,errors}) =
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <div>
                     <GoogleInputOuter>
-                        <LabelGoogleInput>Address</LabelGoogleInput>
+                        {google_label && <LabelGoogleInput>Address</LabelGoogleInput>}
                         <GoogleInputWrapper error={errors?.google_field_name?.message}>
                             <input
                                 {...getInputProps({

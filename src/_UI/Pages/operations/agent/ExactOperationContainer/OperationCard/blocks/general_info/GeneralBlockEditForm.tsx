@@ -141,23 +141,27 @@ const GeneralBlockEditForm:React.FC<PropsType> = ({operation_info, shipment, set
                         <div style={{width: "25%", display: "flex", flexDirection: "column"}}>
                             {shipment?.empty_pick_up_location &&
                             <InfoRow>
-                                <InfoRowLabel>Empty Pickup Location</InfoRowLabel>
+                                <InfoRowLabel>EMPTY PICKUP LOCATION</InfoRowLabel>
                                 <LocationBlock register={register}
                                                errors={errors}
-                                               label='Empty Pickup Location'
+                                               //label='Empty Pickup Location'
                                                field_name='empty_pick_up_location'
                                                google_field_name='empty_pick_up_location_address'
+                                               google_label={false}
+                                               margin_bottom='30px'
                                 />
                             </InfoRow>
                             }
                             {shipment?.cargo_drop_off_location &&
                             <InfoRow>
-                                <InfoRowLabel>Cargo Drop Off Location </InfoRowLabel>
+                                <InfoRowLabel>CARGO DROP OFF LOCATION </InfoRowLabel>
                                 <LocationBlock register={register}
                                                errors={errors}
-                                               label='Cargo Drop Off Location'
+                                               //label='Cargo Drop Off Location'
                                                field_name='cargo_drop_off_location'
                                                google_field_name='cargo_drop_off_location_address'
+                                               google_label={false}
+                                               margin_bottom='30px'
                                 />
                             </InfoRow>}
 

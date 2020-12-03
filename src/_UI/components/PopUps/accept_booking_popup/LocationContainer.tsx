@@ -19,6 +19,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                                       label={'Empty Pick Up Location'}
                                       field_name={'empty_pickup_location'}
                                       google_field_name={'empty_pickup_location_address'}
+                                      google_label={true}
                     />
                     }
                     <LocationBlock register={register}
@@ -26,6 +27,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                                    label={'Cargo Drop Off Location'}
                                    field_name={'cargo_drop_off_location'}
                                    google_field_name={'cargo_drop_off_location_address'}
+                                   google_label={true}
                     />
                 </>
                 : <LocationBlock register={register}
@@ -33,6 +35,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                                  label={'Cargo Pick Up Location'}
                                  field_name={'cargo_pick_up_location'}
                                  google_field_name={'cargo_pick_up_location_address'}
+                                 google_label={true}
                 />
             }
         </>

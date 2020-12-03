@@ -27,6 +27,7 @@ export const ContentHeader = styled.div`
   align-items: flex-start;
   padding-bottom: 20px;
   border-bottom: 1px solid #bdbdbd;
+  position: relative;
 `
 export const BookingInfo = styled.div`
   display: flex;

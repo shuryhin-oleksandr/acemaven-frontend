@@ -14,6 +14,7 @@ export const BookingTitle = styled.span`
   color: #828282;
   font-size: 24px;
   margin-bottom: 13px;
+  margin-right: 7px;
 `;
 
 export const NumberOfBooking = styled.div`
@@ -25,6 +26,7 @@ export const NumberOfBooking = styled.div`
   line-height: 28px;
   display: flex;
   align-items: baseline;
+  
 `;
 
 export const SectionWrapper = styled.div`

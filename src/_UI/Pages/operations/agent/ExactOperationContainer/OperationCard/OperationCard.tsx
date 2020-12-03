@@ -3,6 +3,8 @@ import React from "react";
 import {IconButton} from "@material-ui/core";
 //types
 import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
+import {userCompaniesType} from "../../../../../../_BLL/types/authTypes";
+import {AppCompaniesTypes} from "../../../../../../_BLL/types/commonTypes";
 //components
 import DocsAndNotesBlock from "./blocks/DocsAndNotesBlock";
 import ShipmentPartsBlock from "./blocks/ShipmentPartsBlock";
@@ -12,6 +14,8 @@ import PaymentDueByDates from "./PaymentDueByDates";
 import ChargesBlock from "./blocks/ChargesBlock";
 import GeneralBlockContainer from "./blocks/general_info/GeneralBlockContainer";
 import ConfirmedDatesContainerBlock from "./blocks/cofirmed_dates/ConfirmedDatesContainerBlock";
+import PaymentDueByForClient from "./PaymentDueByForClient";
+import BookingNumberBlockContainer from "./blocks/BookingNumberBlockContainer";
 //styles
 import {
     AcceptButton,
@@ -25,17 +29,12 @@ import {
     RejectButton,
 } from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {
-    BookingTitle,
-    NumberOfBooking,
     OperationNumber,
     SectionTitle,
     SectionWrapper,
 } from "./operation-card-style";
 //icons
 import close_icon from "../../../../../assets/icons/close-icon.svg";
-import {userCompaniesType} from "../../../../../../_BLL/types/authTypes";
-import {AppCompaniesTypes} from "../../../../../../_BLL/types/commonTypes";
-import PaymentDueByForClient from "./PaymentDueByForClient";
 
 
 type PropsType = {
@@ -72,12 +71,9 @@ const OperationCard: React.FC<PropsType> = ({
                 <ContentHeader>
                     <BookingInfo>
                         <OperationNumber>{operation_info?.aceid}</OperationNumber>
-                        {shipment?.booking_number && (
-                            <div style={{display: "flex"}}>
-                                <BookingTitle>BOOKING</BookingTitle>
-                                <NumberOfBooking>No {shipment?.booking_number}</NumberOfBooking>
-                            </div>
-                        )}
+                        <BookingNumberBlockContainer shipment={shipment}
+                                                     company_type={String(company_type?.type)}
+                        />
                         <BookingStatus>
               <span style={{color: "#1ab8e5", marginRight: "5px"}}>
                 STATUS

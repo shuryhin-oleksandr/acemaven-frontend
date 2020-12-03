@@ -22,7 +22,7 @@ const initialState = {
   isFetching: false,
   authUserInfo: null as IAuthUserInfo | null,
   companyInfo: null as CompanyInfoType | null,
-  banksList: null as Array<IAddNewBank> | null,
+  banksList: [] as Array<IAddNewBank> ,
   workersList: null as Array<IAddNewUserData> | null,
   addUserError: null as AddUserError | null,
   addUserSuccess: false,
@@ -229,7 +229,7 @@ export const getBankAccounts = () => {
       dispatch(profileActions.setBanksList(res.data));
       dispatch(profileActions.setIsFetching(false));
     } catch (e) {
-      console.log("error", e.response);
+      console.log("error", e);
       dispatch(profileActions.setIsFetching(false));
     }
   };
@@ -253,7 +253,7 @@ export const deleteBank = (bankId: number) => {
     try {
       dispatch(profileActions.setIsFetching(true));
       let res = await profileSettingsAPI.deleteBank(bankId);
-      res && dispatch(getBankAccounts());
+      res && await dispatch(getBankAccounts());
       dispatch(profileActions.setIsFetching(false));
     } catch (e) {
       console.log("error", e.response);
@@ -266,7 +266,7 @@ export const makeBankDefault = (bankId: number, changes: any) => {
     try {
       dispatch(profileActions.setIsFetching(true));
       let res = await profileSettingsAPI.defaultBank(bankId, changes);
-      res && dispatch(getBankAccounts());
+      res && await dispatch(getBankAccounts());
       dispatch(profileActions.setIsFetching(false));
     } catch (e) {
       console.log("error", e.response);

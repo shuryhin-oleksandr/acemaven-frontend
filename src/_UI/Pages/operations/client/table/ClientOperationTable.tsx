@@ -14,12 +14,12 @@ import { OperationType } from "../../../../../_BLL/types/operations/operationsTy
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import OperationsRow from "../../agent/table/OperationsRow";
 import { CurrentShippingType } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
-    height: 400,
-    overflowY: "scroll",
+    paddingRight: 12
   },
   shipping_cell: {
     width: "220px",
@@ -85,140 +85,142 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
   const classes = useStyles();
 
   return (
-    <TableContainer className={classes.container} component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell className={classes.shipping_cell} align="left">
-              <TableCellContent
-                setSearchValue={props.setSearchValue}
-                setSearchMode={props.setSearchMode}
-                direction={""}
-                type={props.mode}
-                column_name="aceid"
-                searchValue={props.searchValue}
-                isSearchMode={props.isSearchMode}
-                title="IDs"
-                searchColumn={props.search_column}
-                setSearchColumn={props.setSearchColumn}
-                thunkName="operations"
-                my_operations={props.my_operations}
-              />
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              <TableCellContent
-                setSearchValue={props.setSearchValue}
-                setSearchMode={props.setSearchMode}
-                direction={""}
-                type={props.mode}
-                column_name="route"
-                searchValue={props.searchValue}
-                isSearchMode={props.isSearchMode}
-                title="ROUTE"
-                searchColumn={props.search_column}
-                setSearchColumn={props.setSearchColumn}
-                withoutSearch={true}
-                thunkName="operations"
-                my_operations={props.my_operations}
-              />
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              <TableCellContent
-                setSearchValue={props.setSearchValue}
-                setSearchMode={props.setSearchMode}
-                direction={""}
-                type={props.mode}
-                column_name="shipping_mode"
-                searchValue={props.searchValue}
-                isSearchMode={props.isSearchMode}
-                title="Shipping Mode"
-                searchColumn={props.search_column}
-                setSearchColumn={props.setSearchColumn}
-                withoutSearch={true}
-                thunkName="operations"
-                my_operations={props.my_operations}
-              />
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              {/*<TableCellContent setSearchValue={props.setSearchValue}
-                                              setSearchMode={props.setSearchMode}
-                                              direction={''}
-                                              type={props.mode}
-                                              column_name='date_from'
-                                              searchValue={props.searchValue}
-                                              isSearchMode={props.isSearchMode}
-                                              title='DATES'
-                                              searchColumn={props.search_column}
-                                              setSearchColumn={props.setSearchColumn}
-                                              thunkName='operations'
-                                              my_operations={props.my_operations}
-                                              //search should be done at backend later
-                                              withoutSearch={true}
-                            />*/}
-              DATES
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              <TableCellContent
-                setSearchValue={props.setSearchValue}
-                setSearchMode={props.setSearchMode}
-                direction={""}
-                type={props.mode}
-                column_name="carrier"
-                searchValue={props.searchValue}
-                isSearchMode={props.isSearchMode}
-                title="CARRIER"
-                searchColumn={props.search_column}
-                setSearchColumn={props.setSearchColumn}
-                thunkName="operations"
-                my_operations={props.my_operations}
-              />
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              <TableCellContent
-                setSearchValue={props.setSearchValue}
-                setSearchMode={props.setSearchMode}
-                direction={""}
-                type={props.mode}
-                column_name="status"
-                searchValue={props.searchValue}
-                isSearchMode={props.isSearchMode}
-                title="STATUS"
-                searchColumn={props.search_column}
-                setSearchColumn={props.setSearchColumn}
-                withoutSearch={true}
-                thunkName="operations"
-                my_operations={props.my_operations}
-              />
-            </TableCell>
-            {/*<TableCell className={classes.cell} align="left">*/}
-            {/*    STATUS*/}
-            {/*</TableCell>*/}
-            <TableCell className={classes.cell} align="right">
-              <TableCellContent
-                setSearchValue={props.setSearchValue}
-                setSearchMode={props.setSearchMode}
-                direction={""}
-                type={props.mode}
-                column_name="agent"
-                searchValue={props.searchValue}
-                isSearchMode={props.isSearchMode}
-                title="AGENT"
-                searchColumn={props.search_column}
-                setSearchColumn={props.setSearchColumn}
-                withoutSearch={true}
-                thunkName="operations"
-                my_operations={props.my_operations}
-              />
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.operations_list.map((operation, index) => (
-            <OperationsRow key={index} operation={operation} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <ScrollbarStyled {...{style: {width: "100%", height: 400}}}>
+      <TableContainer className={classes.container} component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.shipping_cell} align="left">
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={props.setSearchMode}
+                  direction={""}
+                  type={props.mode}
+                  column_name="aceid"
+                  searchValue={props.searchValue}
+                  isSearchMode={props.isSearchMode}
+                  title="IDs"
+                  searchColumn={props.search_column}
+                  setSearchColumn={props.setSearchColumn}
+                  thunkName="operations"
+                  my_operations={props.my_operations}
+                />
+              </TableCell>
+              <TableCell className={classes.cell} align="left">
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={props.setSearchMode}
+                  direction={""}
+                  type={props.mode}
+                  column_name="route"
+                  searchValue={props.searchValue}
+                  isSearchMode={props.isSearchMode}
+                  title="ROUTE"
+                  searchColumn={props.search_column}
+                  setSearchColumn={props.setSearchColumn}
+                  withoutSearch={true}
+                  thunkName="operations"
+                  my_operations={props.my_operations}
+                />
+              </TableCell>
+              <TableCell className={classes.cell} align="left">
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={props.setSearchMode}
+                  direction={""}
+                  type={props.mode}
+                  column_name="shipping_mode"
+                  searchValue={props.searchValue}
+                  isSearchMode={props.isSearchMode}
+                  title="Shipping Mode"
+                  searchColumn={props.search_column}
+                  setSearchColumn={props.setSearchColumn}
+                  withoutSearch={true}
+                  thunkName="operations"
+                  my_operations={props.my_operations}
+                />
+              </TableCell>
+              <TableCell className={classes.cell} align="left">
+                {/*<TableCellContent setSearchValue={props.setSearchValue}
+                                                setSearchMode={props.setSearchMode}
+                                                direction={''}
+                                                type={props.mode}
+                                                column_name='date_from'
+                                                searchValue={props.searchValue}
+                                                isSearchMode={props.isSearchMode}
+                                                title='DATES'
+                                                searchColumn={props.search_column}
+                                                setSearchColumn={props.setSearchColumn}
+                                                thunkName='operations'
+                                                my_operations={props.my_operations}
+                                                //search should be done at backend later
+                                                withoutSearch={true}
+                              />*/}
+                DATES
+              </TableCell>
+              <TableCell className={classes.cell} align="left">
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={props.setSearchMode}
+                  direction={""}
+                  type={props.mode}
+                  column_name="carrier"
+                  searchValue={props.searchValue}
+                  isSearchMode={props.isSearchMode}
+                  title="CARRIER"
+                  searchColumn={props.search_column}
+                  setSearchColumn={props.setSearchColumn}
+                  thunkName="operations"
+                  my_operations={props.my_operations}
+                />
+              </TableCell>
+              <TableCell className={classes.cell} align="left">
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={props.setSearchMode}
+                  direction={""}
+                  type={props.mode}
+                  column_name="status"
+                  searchValue={props.searchValue}
+                  isSearchMode={props.isSearchMode}
+                  title="STATUS"
+                  searchColumn={props.search_column}
+                  setSearchColumn={props.setSearchColumn}
+                  withoutSearch={true}
+                  thunkName="operations"
+                  my_operations={props.my_operations}
+                />
+              </TableCell>
+              {/*<TableCell className={classes.cell} align="left">*/}
+              {/*    STATUS*/}
+              {/*</TableCell>*/}
+              <TableCell className={classes.cell} align="right">
+                <TableCellContent
+                  setSearchValue={props.setSearchValue}
+                  setSearchMode={props.setSearchMode}
+                  direction={""}
+                  type={props.mode}
+                  column_name="agent"
+                  searchValue={props.searchValue}
+                  isSearchMode={props.isSearchMode}
+                  title="AGENT"
+                  searchColumn={props.search_column}
+                  setSearchColumn={props.setSearchColumn}
+                  withoutSearch={true}
+                  thunkName="operations"
+                  my_operations={props.my_operations}
+                />
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.operations_list.map((operation, index) => (
+              <OperationsRow key={index} operation={operation} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </ScrollbarStyled>
   );
 };
 

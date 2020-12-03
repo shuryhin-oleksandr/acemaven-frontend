@@ -1,6 +1,6 @@
 import React from "react";
 //material ui
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import {makeStyles, Theme} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
@@ -12,11 +12,14 @@ import BankAccountsContainer from "./BankAccounts/BankAccountsContainer";
 //styles
 import {CompanyInner, CompanySettingsContainer, PageTitle} from "./company-settings-styles";
 import CreditCardsContainer from "./credit_cards/CreditCardsContainer";
+import {AppCompaniesTypes} from "../../../../_BLL/types/commonTypes";
 
 
 export const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
         backgroundColor: theme.palette.background.paper,
         width: '100%',
     },
@@ -61,27 +64,36 @@ export const useStyles = makeStyles((theme: Theme) => ({
         }
     },
     tabButton: {
-        '& .MuiTab-root' : {
+        '& .MuiTab-root': {
             fontFamily: 'Helvetica Reg',
             fontSize: '14px',
         }
     },
     tabContent: {
-        height: "calc(100% - 50px)"
+        height: '100%',
+        flexGrow: 1
     }
 }));
 
 type PropsType = {
-    company_type: string
+    company_type: string,
+    current_user_role: string[],
+    isFetching: boolean
 }
 
-const CompanySettingsPage:React.FC<PropsType> = ({company_type}) => {
+const CompanySettingsPage: React.FC<PropsType> = ({company_type, current_user_role, isFetching}) => {
     const classes = useStyles();
     const [value, setValue] = React.useState('1');
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
         setValue(newValue);
     };
+
+    const tabs = [
+        <Tab className={classes.tabButton} label="Company info" value="1" key={1}/>,
+        <Tab className={classes.tabButton} label="Bank Accounts" value="2" key={2}/>,
+        <Tab className={classes.tabButton} label="Credit Cards" value="3" key={3}/>
+    ]
 
     return (
         <CompanySettingsContainer>
@@ -90,15 +102,32 @@ const CompanySettingsPage:React.FC<PropsType> = ({company_type}) => {
                 <div className={classes.root}>
                     <TabContext value={value}>
                         <AppBar className={classes.header} position="static">
-                            <TabList onChange={handleChange} aria-label="simple tabs example">
-                                <Tab className={classes.tabButton} label="Company info" value="1" />
-                                <Tab className={classes.tabButton} label="Bank Accounts" value="2" />
-                                <Tab className={classes.tabButton} label="Credit Cards" value="3" />
-                            </TabList>
+                            {(company_type === AppCompaniesTypes.CLIENT)
+                                ? <TabList onChange={handleChange} aria-label="simple tabs example">
+                                    {tabs[0]}
+                                  </TabList>
+                                : <TabList onChange={handleChange} aria-label="simple tabs example">
+                                    {tabs}
+                                  </TabList>
+                            }
                         </AppBar>
-                        <TabPanel value="1"><CompanyInfoContainer company_type={company_type}/></TabPanel>
-                        <TabPanel value="2" className={classes.tabContent}><BankAccountsContainer /></TabPanel>
-                        <TabPanel value="3" className={classes.tabContent}><CreditCardsContainer credit_cards={[]}/></TabPanel>
+                        <TabPanel value="1" className={classes.tabContent}>
+                            <CompanyInfoContainer company_type={company_type}
+                                                  current_user_role={current_user_role}
+                                                  isFetching={isFetching}
+                            />
+                        </TabPanel>
+                        <TabPanel value="2" className={classes.tabContent}>
+                            <BankAccountsContainer current_user_role={current_user_role}
+                                                   isFetching={isFetching}
+                            />
+                        </TabPanel>
+                        <TabPanel value="3" className={classes.tabContent}>
+                            <CreditCardsContainer credit_cards={[]}
+                                                  current_user_role={current_user_role}
+                                                  isFetching={isFetching}
+                            />
+                        </TabPanel>
                     </TabContext>
                 </div>
             </CompanyInner>

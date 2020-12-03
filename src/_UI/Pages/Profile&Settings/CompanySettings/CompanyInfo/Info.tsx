@@ -6,10 +6,11 @@ import {CompanyInfoType} from "../../../../../_BLL/types/profileSettingsType";
 type PropsType = {
     setEdit: (value: boolean) => void,
     companyInfo?: CompanyInfoType | null,
-    company_type: string
+    company_type: string,
+    current_user_role: string[]
 }
 
-const Info:React.FC<PropsType> = ({setEdit, companyInfo, company_type}) => {
+const Info:React.FC<PropsType> = ({setEdit, companyInfo, company_type, current_user_role}) => {
 
     return (
         <FieldsWrap>
@@ -39,7 +40,7 @@ const Info:React.FC<PropsType> = ({setEdit, companyInfo, company_type}) => {
                     <TextWrap>{companyInfo?.website}</TextWrap>
                 </Field>}
             </FieldsContent>
-            <EditIcon onClick={() => setEdit(true)}><img src={editIcon} alt=""/></EditIcon>
+            {current_user_role.includes('master') && <EditIcon onClick={() => setEdit(true)}><img src={editIcon} alt=""/></EditIcon>}
         </FieldsWrap>
     )
 }

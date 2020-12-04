@@ -34,9 +34,24 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
     const {control, errors, setValue,handleSubmit} = useForm()
 
     const onSubmit = (values: any) => {
+
        let date_of_departure = moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time
        let date_of_arrival = moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time
-       dispatch(editOperationByAgentThunk({date_of_departure: date_of_departure, date_of_arrival: date_of_arrival}, shipment?.id as number))
+
+        let document_cut_off_date = moment(values.documents_cut_off.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off.cut_off_time
+        let cargo_cut_off_date = moment(values.cargo_cut_off.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off.cut_off_time
+        if(document_cut_off_date && cargo_cut_off_date) {
+            dispatch(editOperationByAgentThunk({
+                date_of_departure: date_of_departure,
+                date_of_arrival: date_of_arrival,
+                document_cut_off_date: document_cut_off_date,
+                cargo_cut_off_date: cargo_cut_off_date
+            },
+                shipment?.id as number
+            ))
+        } else {
+            dispatch(editOperationByAgentThunk({date_of_departure: date_of_departure, date_of_arrival: date_of_arrival}, shipment?.id as number))
+        }
     }
 
     //refactoring dates
@@ -116,12 +131,12 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
                                     {shipment?.cargo_cut_off_date &&
                                     <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
                                         <InfoRow>
-                                            <InfoRowLabel>CARGO CUT OFF </InfoRowLabel>
-                                            <InfoRowValue>{shipment?.cargo_cut_off_date}</InfoRowValue>
-                                        </InfoRow>
-                                        <InfoRow>
                                             <InfoRowLabel>DOCUMENTS CUT OFF </InfoRowLabel>
                                             <InfoRowValue>{shipment?.document_cut_off_date}</InfoRowValue>
+                                        </InfoRow>
+                                        <InfoRow>
+                                            <InfoRowLabel>CARGO CUT OFF </InfoRowLabel>
+                                            <InfoRowValue>{shipment?.cargo_cut_off_date}</InfoRowValue>
                                         </InfoRow>
                                     </div>
                                     }

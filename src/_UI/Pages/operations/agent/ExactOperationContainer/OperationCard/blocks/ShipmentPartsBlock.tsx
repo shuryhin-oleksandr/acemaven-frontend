@@ -47,24 +47,26 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({shipper_info, client_info}) =>
       <SectionTitle>SHIPMENT PARTS</SectionTitle>
       {!isHidden && (
         <div>
-          <ShipmentPartsRow>
-            <div
-              style={{
-                display: "flex",
-                  width: '58.5%',
-                  justifyContent: 'space-between'
-              }}
-            >
-              <InfoRow >
-                <InfoRowLabel>CLIENT</InfoRowLabel>
-                <InfoRowValue>{client_info.company}</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
-                <InfoRowValue>{client_info.contact_person}</InfoRowValue>
-              </InfoRow>
-            </div>
-          </ShipmentPartsRow>
+            {client_info.company !== shipper_info?.name &&
+            <ShipmentPartsRow>
+                <div
+                    style={{
+                        display: "flex",
+                        width: '58.5%',
+                        justifyContent: 'space-between'
+                    }}
+                >
+                    <InfoRow >
+                        <InfoRowLabel>CLIENT</InfoRowLabel>
+                        <InfoRowValue>{client_info.company}</InfoRowValue>
+                    </InfoRow>
+                    <InfoRow>
+                        <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                        <InfoRowValue>{client_info.contact_person}</InfoRowValue>
+                    </InfoRow>
+                </div>
+            </ShipmentPartsRow>
+            }
           <ShipmentPartsRow style={{ marginBottom: 0, borderBottom: "none" }}>
             <div
               style={{

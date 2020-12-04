@@ -54,7 +54,7 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
    <GeneralBookingContentForm onSubmit={handleSubmit(onSubmit)}>
     <SectionWrapper style={{position: "relative"}}>
         {props.company_type === AppCompaniesTypes.AGENT &&
-            (status === "Booking Confirmed"  && (
+            (status === "Booking Confirmed"  && free_time &&(
             !isEdit
                 ? <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: '18px', top: '65px'}}>
                     <img src={edit_icon} alt=""/>
@@ -78,7 +78,7 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
         <SectionTitle>CARGO</SectionTitle>
         {!isHidden && (
             <>
-            {operation_shipping_type === 'sea' && status === "Booking Confirmed" &&
+            {operation_shipping_type === 'sea' && status === "Booking Confirmed" && free_time &&
                 <div style={{ display: "flex", marginBottom: '20px' }}>
                     <InfoRowLabel style={{marginRight: '5px'}}>CONTAINER FREE TIME:</InfoRowLabel>
                     {isEdit

@@ -1,21 +1,21 @@
 import React, {useEffect, useState} from 'react'
-import {BookingTitle, NumberOfBooking} from "../operation-card-style";
-import {ShipmentDetailsType} from "../../../../../../../_BLL/types/operations/operationsTypes";
-import {AppCompaniesTypes} from "../../../../../../../_BLL/types/commonTypes";
-import FormField from "../../../../../../components/_commonComponents/Input/FormField";
+import {BookingTitle, NumberOfBooking} from "../../operation-card-style";
+import {ShipmentDetailsType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
+import FormField from "../../../../../../../components/_commonComponents/Input/FormField";
 import {useForm} from "react-hook-form";
-import edit_icon from "../../../../../../assets/icons/profile/editCard.svg";
+import edit_icon from "../../../../../../../assets/icons/profile/editCard.svg";
 import {IconButton} from "@material-ui/core";
 import {
     EditButtonsWrapper,
     FormOperationButton
-} from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
-import close_icon from "../../../../../../assets/icons/profile/closeForm.svg";
-import save_icon from "../../../../../../assets/icons/profile/add.svg";
+} from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+import close_icon from "../../../../../../../assets/icons/profile/closeForm.svg";
+import save_icon from "../../../../../../../assets/icons/profile/add.svg";
 import {useDispatch, useSelector} from "react-redux";
-import {editOperationByAgentThunk} from "../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
-import {agentOperationsActions} from "../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
-import {getEditOperationSuccessSelector} from "../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
+import {editOperationByAgentThunk} from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {agentOperationsActions} from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {getEditOperationSuccessSelector} from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
 
 
 type PropsType = {
@@ -78,7 +78,7 @@ const BookingNumberBlockContainer: React.FC<PropsType> = ({shipment, company_typ
                             </div>
 
                             {!isEdit
-                                ? <NumberOfBooking>No {shipment?.booking_number}</NumberOfBooking>
+                                ? <NumberOfBooking>No: {shipment?.booking_number}</NumberOfBooking>
                                 : <FormField name='booking_number'
                                              inputRef={register({required: 'Field is required'})}
                                              error={errors?.booking_number}

@@ -75,11 +75,11 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
                     <SectionWrapper>
-                        <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+
                             <SectionTitle>DATES</SectionTitle>
-                            {company_type === AppCompaniesTypes.AGENT &&
+                            {company_type === AppCompaniesTypes.AGENT && shipment?.date_of_departure &&
                                 (!isEdit
-                                    ? <IconButton onClick={() => setIsEdit(true)}>
+                                    ? <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: 0}}>
                                         <img src={edit_icon} alt=""/>
                                     </IconButton>
                                     : <EditButtonsWrapper>
@@ -92,7 +92,7 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
                                     </EditButtonsWrapper>
                                 )
                             }
-                        </div>
+
                         <GeneralBookingContent>
                             <div style={{ display: "flex" }}>
                                 <CalendarIcon style={{ width: "87px", height: "96px" }}>

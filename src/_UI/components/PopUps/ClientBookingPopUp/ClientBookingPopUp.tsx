@@ -230,7 +230,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                       </TableRow>
                     ))}
                     <TableRow className={classes.info_row}>
-                      <TableCell className={classes.innerCell} scope="row" />
+                      <TableCell className={classes.innerCell} scope="row" >
+                        {new_total?.charges?.doc_fee?.volume}
+                      </TableCell>
                       <TableCell className={classes.innerCell} align="left" />
                       <TableCell className={classes.innerCell} align="left">
                         DOC FEE

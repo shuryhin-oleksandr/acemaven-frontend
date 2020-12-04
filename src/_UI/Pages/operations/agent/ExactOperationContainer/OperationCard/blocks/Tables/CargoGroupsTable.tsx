@@ -134,7 +134,10 @@ const CargoGroupsTable:React.FC<PropsType> = ({cargo_groups, object_shipping_mod
                                             {c.packaging_type?.description}
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="left">
-                                            {c.height}, {c.width}, {c.length}, {c.weight}
+                                            {c.height + c.length_measurement},{' '}
+                                            {c.width + c.length_measurement}, {' '}
+                                            {c.length + c.length_measurement}, {' '}
+                                            {c.weight + c.weight_measurement}
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="left">
                                             {c.description}

@@ -86,6 +86,10 @@ export const ConfirmButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  &:disabled {
+    background-color: rgba(0, 0, 0, .6);
+    cursor: not-allowed;
+  }
 `
 export const AssignButton = styled(AcceptButton)``
 export const RejectButton = styled.button`

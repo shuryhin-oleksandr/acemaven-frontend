@@ -112,7 +112,9 @@ const ChargesTable:React.FC<PropsType> = ({charges_cost}) => {
                     </TableRow>
                     )}
                     <TableRow className={classes.row}>
-                        <TableCell className={classes.innerCell_doc} align="left"/>
+                        <TableCell className={classes.innerCell_doc} align="left">
+                            {charges_cost?.doc_fee.volume}
+                        </TableCell>
                         <TableCell className={classes.innerCell_doc} align="left"/>
                         <TableCell className={classes.innerCell_doc} align="left">
                             DOC FEE

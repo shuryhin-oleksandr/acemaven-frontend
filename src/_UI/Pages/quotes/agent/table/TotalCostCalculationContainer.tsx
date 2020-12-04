@@ -120,6 +120,7 @@ const TotalCostCalculationContainer:React.FC<PropsType> = ({calculation}) => {
                             )}
                             <TableRow className={classes.info_row}>
                                 <TableCell className={classes.innerCell} scope="row">
+                                    {calculation?.doc_fee?.volume}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" >
                                 </TableCell>

@@ -15,7 +15,7 @@ import ChargesBlock from "./blocks/ChargesBlock";
 import GeneralBlockContainer from "./blocks/general_info/GeneralBlockContainer";
 import ConfirmedDatesContainerBlock from "./blocks/cofirmed_dates/ConfirmedDatesContainerBlock";
 import PaymentDueByForClient from "./PaymentDueByForClient";
-import BookingNumberBlockContainer from "./blocks/BookingNumberBlockContainer";
+import BookingNumberBlockContainer from "./blocks/booking_number/BookingNumberBlockContainer";
 //styles
 import {
     AcceptButton,
@@ -35,6 +35,7 @@ import {
 } from "./operation-card-style";
 //icons
 import close_icon from "../../../../../assets/icons/close-icon.svg";
+import BookingNumberWithCarrierBlockContainer from "./blocks/booking_number/BookingNumberWithCarrierBlockContainer";
 
 
 type PropsType = {
@@ -74,6 +75,11 @@ const OperationCard: React.FC<PropsType> = ({
                         <BookingNumberBlockContainer shipment={shipment}
                                                      company_type={String(company_type?.type)}
                         />
+                        {shipment?.booking_number_with_carrier &&
+                        <BookingNumberWithCarrierBlockContainer shipment={shipment}
+                                                                company_type={String(company_type?.type)}
+                        />
+                        }
                         <BookingStatus>
               <span style={{color: "#1ab8e5", marginRight: "5px"}}>
                 STATUS
@@ -95,7 +101,7 @@ const OperationCard: React.FC<PropsType> = ({
                     <ActionsButtons>
                         {company_type?.type === AppCompaniesTypes.AGENT ? operation_info?.status === "Booking Request in Progress" &&
                             (operation_info?.agent_contact_person === my_name ? (
-                                <ConfirmButton onClick={() => openAcceptPopup(true)}>
+                                <ConfirmButton onClick={() => openAcceptPopup(true)} disabled={!operation_info?.payment_due_by}>
                                     CONFIRM BOOKING
                                 </ConfirmButton>
                             ) : (

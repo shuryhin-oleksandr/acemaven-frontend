@@ -158,6 +158,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                                         )}
                                         <TableRow className={classes.info_row}>
                                             <TableCell className={classes.innerCell} scope="row">
+                                                {search_result.doc_fee.volume}
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left" >
                                             </TableCell>

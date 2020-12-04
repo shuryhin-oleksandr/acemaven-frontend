@@ -60,11 +60,14 @@ export const confirmBookingRequestThunk = (
 export const editOperationByAgentThunk = (data: any, id: number) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
+      dispatch(agentOperationsActions.setIsFetching(true))
       let res = await operationsAgentAPI.editOperationByAgent(data, id)
       dispatch(agentOperationsActions.setEditedShipmentDetails(res.data))
       dispatch(agentOperationsActions.setEditSuccess('success'))
+      dispatch(agentOperationsActions.setIsFetching(false))
     } catch (e) {
       console.log(e);
+      dispatch(agentOperationsActions.setIsFetching(false))
     }
   };
 };
@@ -72,11 +75,14 @@ export const editOperationByAgentThunk = (data: any, id: number) => {
 export const editOperationPaymentDueByAgentThunk = (data: any, id: number) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
+      dispatch(agentOperationsActions.setIsFetching(true))
       let res = await operationsAgentAPI.editOperationPaymentDueByAgent(data, id)
       dispatch(agentOperationsActions.setEditedPaymentDueBy(res.data.payment_due_by))
       dispatch(agentOperationsActions.setEditSuccess('success'))
+      dispatch(agentOperationsActions.setIsFetching(false))
     } catch (e) {
       console.log(e);
+      dispatch(agentOperationsActions.setIsFetching(false))
     }
   };
 };

@@ -22,7 +22,6 @@ import {
   InfoRow,
   InfoRowLabel,
   InfoRowValue,
-  RejectButton,
 } from "../../../Pages/Requests/Booking_agent/booking_card/booking-card-style";
 import SurchargeRateSelect from "../../_commonComponents/select/SurchargeRateSelect";
 import FormField from "../../_commonComponents/Input/FormField";
@@ -42,10 +41,15 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../_BLL/store";
 import { getReleaseTypeChoices } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
-import { editOperationByClientThunk } from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {
+  editOperationByClientThunk,
+  getPackageTypesChoices,
+} from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import { AddImg } from "../../../Pages/dashboard/Widgets/SearchWidget/searchWidgett-styles";
 import AddIcon from "../../../assets/icons/widgets/add-icon.svg";
-import BaseTooltip from "../../_commonComponents/baseTooltip/BaseTooltip";
+import { clientOperationsActions } from "../../../../_BLL/reducers/operations/client/clientOperationsReducer";
+import { getShippingTypes } from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import AddingGroupsForm from "./AddingGroupsForm/AddingGroupsForm";
 
 const useStyles = makeStyles({
   container: {
@@ -119,12 +123,24 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
   const dispatch = useDispatch();
   const classes = useStyles();
   const [dates, setDates] = useState([]);
+  const [addGroupMode, setAddGroupMode] = useState(false);
 
   useEffect(() => {
     dispatch(getReleaseTypeChoices());
+    dispatch(getPackageTypesChoices());
   }, []);
 
-  console.log("operation_info", operation_info);
+  useEffect(() => {
+    dispatch(
+      clientOperationsActions.setOperationCargoGroups(
+        operation_info.cargo_groups
+      )
+    );
+  }, []);
+
+  useEffect(() => {
+    dispatch(getShippingTypes(""));
+  }, [dispatch]);
 
   //refactoring dates
   let a =
@@ -142,22 +158,15 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
     (state: AppStateType) => state.booking.release_type_choices
   );
 
-  const {
-    handleSubmit,
-    register,
-    control,
-    reset,
-    errors,
-    getValues,
-    setValue,
-    watch,
-  } = useForm({
-    defaultValues: {},
-  });
+  let cargo_groups = useSelector(
+    (state: AppStateType) => state.client_operations.operationCargoGroups
+  );
+
+  const { handleSubmit, register, control, getValues } = useForm();
 
   const onSubmit = (values: any) => {
     console.log(values);
-    let new_groups = operation_info.cargo_groups.map((c, index) => ({
+    let new_groups = cargo_groups.map((c, index) => ({
       ...c,
       volume: values.volume[0],
       container_type: c.container_type?.id,
@@ -177,7 +186,6 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
       original_booking: operation_info.id,
     };
 
-    console.log("patchObj", patchObj);
     dispatch(editOperationByClientThunk(patchObj));
     setIsOpen(false);
   };
@@ -265,8 +273,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
             <TableContainer className={classes.container} component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
-                  {operation_info.cargo_groups &&
-                  operation_info.cargo_groups[0]?.container_type ? (
+                  {cargo_groups[0]?.container_type ? (
                     <TableRow>
                       <TableCell className={classes.cell} align="left">
                         VOLUME
@@ -284,19 +291,13 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                         VOLUME
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
+                        TOTAL W/M
+                      </TableCell>
+                      <TableCell className={classes.cell} align="left">
                         PACKAGING TYPE
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                        HEIGHT
-                      </TableCell>
-                      <TableCell className={classes.cell} align="left">
-                        WIDTH
-                      </TableCell>
-                      <TableCell className={classes.cell} align="left">
-                        LENGTH
-                      </TableCell>
-                      <TableCell className={classes.cell} align="left">
-                        WEIGHT
+                        HEIGHT, WIDTH, LENGTH, WEIGHT
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
                         CARGO DESCRIPTIONS
@@ -305,7 +306,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                   )}
                 </TableHead>
                 <TableBody>
-                  {operation_info.cargo_groups?.map((c, index) => (
+                  {cargo_groups.map((c, index) => (
                     <TableRow key={index} className={classes.row}>
                       {c.container_type ? (
                         <>
@@ -337,19 +338,16 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                             />
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
+                            {c.total_wm}w/m
+                          </TableCell>
+                          <TableCell className={classes.innerCell} align="left">
                             {c.packaging_type?.description}
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
-                            {c.height}
-                          </TableCell>
-                          <TableCell className={classes.innerCell} align="left">
-                            {c.width}
-                          </TableCell>
-                          <TableCell className={classes.innerCell} align="left">
-                            {c.length}
-                          </TableCell>
-                          <TableCell className={classes.innerCell} align="left">
-                            {c.weight}
+                            {`${c.height}${c.length_measurement}/
+                            ${c.width}${c.length_measurement}/
+                            ${c.length}${c.length_measurement}/
+                            ${c.weight}${c.weight_measurement}`}
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
                             {c.description}
@@ -362,16 +360,33 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
               </Table>
             </TableContainer>
           </SectionWrapper>
-          {operation_info.freight_rate.shipping_mode.id !== 3 && (
+          {operation_info.freight_rate.shipping_mode.id !== 3 && !addGroupMode && (
             <div style={{ marginTop: "15px" }}>
-              <AddImg onClick={() => alert("123")} src={AddIcon} alt="add" />
+              <AddImg
+                onClick={() => {
+                  setAddGroupMode(true);
+                }}
+                src={AddIcon}
+                alt="add"
+              />
             </div>
           )}
-          <ButtonsWrap>
-            <ConfirmButton type="submit">REQUEST</ConfirmButton>
-            <CancelButton onClick={() => setIsOpen(false)}>CANCEL</CancelButton>
-          </ButtonsWrap>
+          {!addGroupMode && (
+            <ButtonsWrap>
+              <ConfirmButton type="submit">REQUEST</ConfirmButton>
+              <CancelButton onClick={() => setIsOpen(false)}>
+                CANCEL
+              </CancelButton>
+            </ButtonsWrap>
+          )}
         </form>
+        {addGroupMode && (
+          <AddingGroupsForm
+            setAddGroupMode={setAddGroupMode}
+            shipping_mode={operation_info.freight_rate.shipping_mode.id}
+            shipping_type={operation_info.shipping_type}
+          />
+        )}
       </PopupContent>
     </PopupContainer>
   );

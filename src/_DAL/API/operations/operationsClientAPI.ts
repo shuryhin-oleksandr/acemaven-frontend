@@ -15,4 +15,12 @@ export const operationsClientAPI = {
   editOperationByClient(data: any) {
     return instance.post(`/booking/operation/`, data);
   },
+  getPackageChoices() {
+    return instance.get(
+      "/core/choices/?models=packaging_type,container_type_air"
+    );
+  },
+  calculateWM(calculation_values: any) {
+    return instance.post("/booking/calculate/", calculation_values);
+  },
 };

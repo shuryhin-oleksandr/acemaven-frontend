@@ -10,6 +10,8 @@ import Layout from "../../components/BaseLayout/Layout";
 import AgentOperationsListContainer from "./agent/AgentOperationsListContainer";
 import ClientOperationsListContainer from "./client/ClientOperationsListContainer";
 import { getClientOperationsThunk } from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
+import AgentChangeRequestPopup from "../../components/PopUps/change_request_agent_popup/AgentChangeRequestPopup";
 
 const OperationsContainer: React.FC = () => {
   //data from store
@@ -33,8 +35,14 @@ const OperationsContainer: React.FC = () => {
   const [search_column, setSearchColumn] = useState("");
   const [my_operations, setMyOperations] = useState("mine");
 
+  //const [isChangeRequestPopup, setChangeRequestPopup] = useState(true)
+
   return (
     <Layout>
+      {/*<ModalWindow isOpen={isChangeRequestPopup}>*/}
+      {/*  <AgentChangeRequestPopup setChangeRequestPopup={setChangeRequestPopup}*/}
+      {/*  />*/}
+      {/*</ModalWindow>*/}
       {company_type?.type === "agent" ? (
         <AgentOperationsListContainer
           setSearchMode={setSearchMode}

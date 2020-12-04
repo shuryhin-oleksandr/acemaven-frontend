@@ -21,7 +21,6 @@ const useStyles = makeStyles({
     },
     table: {
         '& .MuiTableHead-root' : {
-
         }
     },
     shipping_cell: {
@@ -32,7 +31,6 @@ const useStyles = makeStyles({
         borderBottom: '1px solid transparent',
         paddingLeft: '63px',
         padding: '0'
-
     },
     row: {
         verticalAlign: 'top'

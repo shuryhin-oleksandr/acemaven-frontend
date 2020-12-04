@@ -42,7 +42,7 @@ type PropsType = {
     departure_date?: string,
     first_time?: string,
     second_time?: string,
-    register?: any
+    register?: any,
 }
 
 const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, register, required_dates, ...props}) => {
@@ -94,7 +94,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
 
 
     return (
-        <AcceptDatesFilter flex_direction={props.flex_direction}>
+        <AcceptDatesFilter flex_direction={props.flex_direction} max_width={props.max_width}>
             <Wrapper justify_content={props.justify_content} wrapper_width={props.wrapper_width} >
                 <CalendarWrapper max_width={!props.first_time ? '225px' : '235px'}
                                  input_height='40px' margin_right='10px' margin_bottom='5px'>
@@ -211,10 +211,11 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
 export default AcceptPopupDates
 
 
-const AcceptDatesFilter = styled.div<{flex_direction?: string}>`
+const AcceptDatesFilter = styled.div<{flex_direction?: string, max_width?: string}>`
   display: flex;
   flex-direction: ${({flex_direction}) => flex_direction ? flex_direction : 'row'};
   width: 100%;
+  max-width: ${({max_width}) => max_width ? max_width : '100%'};
   justify-content: space-between;
   margin-bottom: 10px;
 `

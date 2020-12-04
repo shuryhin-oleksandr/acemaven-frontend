@@ -9,7 +9,9 @@ type PropsStyle = {
   marginBottom?: string;
   background?: string;
   messagePaddingTop?: string;
-  color_label? : string
+  color_label? : string,
+  font_weight?: string,
+  label_uppercase?: boolean
 };
 
 export const InputOuter = styled.div<PropsStyle>`
@@ -62,11 +64,12 @@ export const Field = styled.input<PropsStyle>`
 `;
 
 export const Label = styled.div<PropsStyle>`
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: ${({font_weight}) => font_weight ? "Helvetica Bold, sans-serif" : "Helvetica Reg, sans-serif" } ;
   font-size: 14px;
   color: ${({color_label}) => color_label ? color_label : 'black'};
   margin-bottom: 9px;
   opacity: 1;
+  text-transform: ${({label_uppercase}) => label_uppercase ? 'uppercase' : 'capitalize'};
 `;
 export const HelperText = styled.div<PropsStyle>`
   padding-top: ${({ messagePaddingTop }) =>

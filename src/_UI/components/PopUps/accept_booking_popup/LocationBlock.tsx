@@ -11,10 +11,13 @@ type PropsType = {
     field_name: string,
     google_field_name: string,
     google_label?: boolean,
-    margin_bottom?: string
+    margin_bottom?: string,
+    color_label?: string,
+    font_weight?: string,
+    label_uppercase?: boolean
 }
 
-export const LocationBlock:React.FC<PropsType> = ({register, errors, label, field_name, google_field_name, google_label, margin_bottom}) => {
+export const LocationBlock:React.FC<PropsType> = ({register, errors, label, field_name, google_field_name, google_label, margin_bottom, color_label, ...props}) => {
     return (
         <>
             <FormField error={errors?.empty_pickup_location}
@@ -24,11 +27,17 @@ export const LocationBlock:React.FC<PropsType> = ({register, errors, label, fiel
                        maxW='100%'
                        inputRef={register({required: 'Field is required'})}
                        marginBottom={margin_bottom}
+                       color_label={color_label}
+                       font_weight={props.font_weight}
+                       label_uppercase={props.label_uppercase}
             />
             <GoogleInput register={register}
                          google_field_name={google_field_name}
                          errors={errors}
                          google_label={google_label ? google_label : undefined}
+                         color_label={color_label}
+                         font_weight={props.font_weight}
+                         label_uppercase={props.label_uppercase}
             />
         </>
     )

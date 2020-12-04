@@ -31,7 +31,6 @@ export const CargoWrapper = styled(DocumentsWrapper)`
   
 `
 export const ShippingModeBlock = styled.div`
- 
   width: 100%;
 `
 export const ShippingModeLabel = styled.div`

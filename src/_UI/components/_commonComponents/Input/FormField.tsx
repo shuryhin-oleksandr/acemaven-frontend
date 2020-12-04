@@ -26,13 +26,21 @@ type PropsType = {
   background?: string;
   messagePaddingTop?: string;
   color_label?: string,
-  booking_process?: boolean
+  booking_process?: boolean,
+  font_weight?: string,
+  label_uppercase?: boolean
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
   return (
     <InputOuter maxW={props.maxW} marginBottom={props.marginBottom}>
-      {!!label && <Label color_label={props.color_label}>{label}</Label>}
+      {!!label &&
+      <Label font_weight={props.font_weight}
+             color_label={props.color_label}
+             label_uppercase={props.label_uppercase}
+      >
+        {label}
+      </Label>}
       <Field
         height={props.height}
         focusBack={props.focusBack}

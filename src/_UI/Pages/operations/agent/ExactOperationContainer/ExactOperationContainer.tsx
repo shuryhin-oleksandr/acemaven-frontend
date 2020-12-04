@@ -34,6 +34,7 @@ const ExactOperationContainer = ({...props}) => {
     const [isAcceptPopup, openAcceptPopup] = useState(false)
     const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
 
+
     //data from store
     let operation_info = useSelector(getExactOperationSelector)
     let isFetching = useSelector(getIsFetchingOperationSelector)

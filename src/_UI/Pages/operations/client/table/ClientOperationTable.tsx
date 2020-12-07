@@ -14,6 +14,7 @@ import { OperationType } from "../../../../../_BLL/types/operations/operationsTy
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import OperationsRow from "../../agent/table/OperationsRow";
 import { CurrentShippingType } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const useStyles = makeStyles({
   container: {

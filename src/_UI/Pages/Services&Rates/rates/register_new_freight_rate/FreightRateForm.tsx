@@ -24,8 +24,7 @@ type PropsType = {
     destination_ports: Array<PortType> | null
     onOriginChangeHandler: (value: any) => void
     onDestinationChangeHandler: (value: any) => void
-    closePortsHandlerOrigin: any
-    closePortsHandlerDestination: any
+    closePortsHandler: any;
     rate_info: RateInfoType | null,
     watchResultArr: number[],
     rate_transit_error: any
@@ -33,7 +32,7 @@ type PropsType = {
 
 const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValues, carrierOptions, shippingModeOptions,
                                             setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, rate_transit_error,
-                                             onDestinationChangeHandler, closePortsHandlerOrigin, closePortsHandlerDestination,  watchResultArr}) => {
+                                             onDestinationChangeHandler, closePortsHandler,  watchResultArr}) => {
 
     return (
         <FormWrap>
@@ -108,7 +107,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                                 <PortsList>
                                     {origin_ports?.map((p: PortType) => (
                                         <Port
-                                            onClick={() => closePortsHandlerOrigin(p)}
+                                            onClick={() => closePortsHandler(p)}
                                             key={p?.id}
                                         >
                                             {p?.display_name}
@@ -155,7 +154,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                                 <PortsList>
                                     {destination_ports?.map((p: PortType) => (
                                         <Port
-                                            onClick={() => closePortsHandlerDestination(p)}
+                                            onClick={() => closePortsHandler(p)}
                                             key={p?.id}
                                         >
                                             {p?.display_name}

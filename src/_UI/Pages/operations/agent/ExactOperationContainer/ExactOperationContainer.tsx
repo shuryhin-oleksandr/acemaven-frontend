@@ -23,6 +23,8 @@ import ClientOperationChangeRequestPopUp
 import CompleteOperationPopup from "../../../../components/PopUps/complete_operation_by_agent/CompleteOperationPopup";
 import CancelOperationByAgentPopup
     from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
+import CancelOperationByClientPopup
+    from "../../../../components/PopUps/CancelOperationByClientPopup/CancelOperationByClientPopup";
 
 
 
@@ -37,7 +39,8 @@ const ExactOperationContainer = ({...props}) => {
     const [isAcceptPopup, openAcceptPopup] = useState(false)
     const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
     const [isCompleteOperation, setCompleteOperationPopup] = useState(false)
-    const [isCancelByAgent, setIsCancelByAgent] = useState(true)
+    const [isCancelByAgent, setIsCancelByAgent] = useState(false)
+    const [isCancelByClient, setIsCancelByClient] = useState(false)
 
 
     //data from store
@@ -66,6 +69,9 @@ const ExactOperationContainer = ({...props}) => {
         <ModalWindow isOpen={isCancelByAgent}>
             <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}/>
         </ModalWindow>
+        <ModalWindow isOpen={isCancelByClient}>
+            <CancelOperationByClientPopup setIsCancelByClient={setIsCancelByClient} id={operation_info?.id}/>
+        </ModalWindow>
         {operation_info &&  <ModalWindow isOpen={clientChangRequestPopupVisible}>
             <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible} operation_info={operation_info}/>
         </ModalWindow>}
@@ -79,6 +85,7 @@ const ExactOperationContainer = ({...props}) => {
                               my_name={String(my_name)}
                               company_type={company_type && company_type[0]}
                               setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
+                              setIsCancelByClient={setIsCancelByClient}
 
             />
         }

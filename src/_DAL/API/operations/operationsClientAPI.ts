@@ -23,4 +23,7 @@ export const operationsClientAPI = {
   calculateWM(calculation_values: any) {
     return instance.post("/booking/calculate/", calculation_values);
   },
+  cancelOperation(id: number) {
+    return instance.post(`/booking/operation/${id}/cancel/`);
+  },
 };

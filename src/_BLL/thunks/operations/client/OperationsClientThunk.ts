@@ -98,3 +98,14 @@ export const calculateAdditionalCargoGroup = (
     }
   };
 };
+
+export const cancelClientOperation = (id: number, history: any) => {
+  return async (dispatch: Dispatch<commonClientOperationsActions>) => {
+    try {
+      let res = await operationsClientAPI.cancelOperation(id);
+      history.push("/operations/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

@@ -26,4 +26,7 @@ export const operationsClientAPI = {
   cancelOperation(id: number) {
     return instance.post(`/booking/operation/${id}/cancel/`);
   },
+  recalculateCharges(id: number, data: any) {
+    return instance.post(`/booking/operation/${id}/recalculate/`, data);
+  },
 };

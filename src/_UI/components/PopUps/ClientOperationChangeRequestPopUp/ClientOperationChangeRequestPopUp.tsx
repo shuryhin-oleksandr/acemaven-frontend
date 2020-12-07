@@ -44,12 +44,14 @@ import { getReleaseTypeChoices } from "../../../../_BLL/thunks/booking_client_th
 import {
   editOperationByClientThunk,
   getPackageTypesChoices,
+  recalculateCharges,
 } from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import { AddImg } from "../../../Pages/dashboard/Widgets/SearchWidget/searchWidgett-styles";
 import AddIcon from "../../../assets/icons/widgets/add-icon.svg";
 import { clientOperationsActions } from "../../../../_BLL/reducers/operations/client/clientOperationsReducer";
 import { getShippingTypes } from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import AddingGroupsForm from "./AddingGroupsForm/AddingGroupsForm";
+import { log } from "util";
 
 const useStyles = makeStyles({
   container: {
@@ -151,7 +153,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
   let c =
     dates.length > 0
       ? moment(dates[1], "DD/MM/YYYY").toDate()
-      : moment(operation_info?.date_from, "DD/MM/YYYY").toDate();
+      : moment(operation_info?.date_to, "DD/MM/YYYY").toDate();
   let date_to = moment(c).format("DD/MM");
 
   let release_type_choices = useSelector(
@@ -162,13 +164,12 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
     (state: AppStateType) => state.client_operations.operationCargoGroups
   );
 
-  const { handleSubmit, register, control, getValues } = useForm();
+  const { handleSubmit, register, control, getValues, errors } = useForm();
 
   const onSubmit = (values: any) => {
     console.log(values);
-    let new_groups = cargo_groups.map((c, index) => ({
+    let new_groups = cargo_groups.map((c) => ({
       ...c,
-      volume: values.volume[0],
       container_type: c.container_type?.id,
       packaging_type: c.packaging_type?.id,
     }));
@@ -176,8 +177,14 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
     let patchObj = {
       aceid: operation_info.aceid,
       cargo_groups: new_groups,
-      date_from: moment(dates[0]).format("DD/MM/YYYY"),
-      date_to: moment(dates[1]).format("DD/MM/YYYY"),
+      date_from:
+        dates.length > 0
+          ? moment(dates[0]).format("DD/MM/YYYY")
+          : operation_info.date_from,
+      date_to:
+        dates.length > 0
+          ? moment(dates[1]).format("DD/MM/YYYY")
+          : operation_info.date_to,
       payment_due_by: operation_info.payment_due_by,
       release_type: values.release_type,
       number_of_documents: values.number_of_documents,
@@ -188,6 +195,61 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
 
     dispatch(editOperationByClientThunk(patchObj));
     setIsOpen(false);
+  };
+
+  const reCalcOnVolumeChange = (vol: string, index: number) => {
+    let edited_groups = cargo_groups.map((c, i) => {
+      if (i === index) {
+        c.volume = Number(vol);
+        return c;
+      } else {
+        return c;
+      }
+    });
+
+    dispatch(clientOperationsActions.setOperationCargoGroups(edited_groups));
+
+    let pack_id_groups = edited_groups.map((group) => ({
+      ...group,
+      container_type: group.container_type?.id,
+      packaging_type: group.packaging_type?.id,
+    }));
+
+    dispatch(
+      recalculateCharges(operation_info.id, {
+        number_of_documents: getValues("number_of_documents"),
+        cargo_groups: pack_id_groups,
+      })
+    );
+  };
+
+  const reCalcOnGroupsAmountChange = (newCargoData: any) => {
+    let pack_id_groups = newCargoData.map((group: any) => ({
+      ...group,
+      container_type: group.container_type?.id,
+      packaging_type: group.packaging_type?.id,
+    }));
+    dispatch(
+      recalculateCharges(operation_info.id, {
+        number_of_documents: getValues("number_of_documents"),
+        cargo_groups: pack_id_groups,
+      })
+    );
+  };
+
+  const reCalcOnDocumentChange = () => {
+    let pack_id_groups = cargo_groups.map((group: any) => ({
+      ...group,
+      container_type: group.container_type?.id,
+      packaging_type: group.packaging_type?.id,
+    }));
+
+    dispatch(
+      recalculateCharges(operation_info.id, {
+        number_of_documents: getValues("number_of_documents"),
+        cargo_groups: pack_id_groups,
+      })
+    );
   };
 
   return (
@@ -213,7 +275,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                   <Controller
                     name="release_type"
                     control={control}
-                    defaultValue={operation_info.release_type}
+                    defaultValue={operation_info.release_type?.id}
                     as={
                       <SurchargeRateSelect
                         options={release_type_choices}
@@ -226,12 +288,18 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                   <InfoRowLabel>NUMBER OF DOCUMENTS</InfoRowLabel>
                   <div style={{ paddingTop: "9px" }}>
                     <FormField
-                      inputRef={register}
+                      inputRef={register({
+                        required: "Field is required",
+                        min: 1,
+                      })}
                       placeholder="No. of Documents"
                       name="number_of_documents"
                       getValues={getValues}
                       defaultValue={operation_info.number_of_documents}
-                      // error={errors?.number_of_documents}
+                      error={errors?.number_of_documents}
+                      onBlur={() => {
+                        reCalcOnDocumentChange();
+                      }}
                     />
                   </div>
                 </InfoRow>
@@ -317,6 +385,12 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                               getValues={getValues}
                               defaultValue={c.volume}
                               maxW={"100px"}
+                              onBlur={() => {
+                                reCalcOnVolumeChange(
+                                  getValues(`volume.${index}`),
+                                  index
+                                );
+                              }}
                             />
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
@@ -335,6 +409,12 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                               getValues={getValues}
                               defaultValue={c.volume}
                               maxW={"100px"}
+                              onBlur={() => {
+                                reCalcOnVolumeChange(
+                                  getValues(`volume.${index}`),
+                                  index
+                                );
+                              }}
                             />
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
@@ -385,6 +465,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
             setAddGroupMode={setAddGroupMode}
             shipping_mode={operation_info.freight_rate.shipping_mode.id}
             shipping_type={operation_info.shipping_type}
+            reCalcOnGroupsAmountChange={reCalcOnGroupsAmountChange}
           />
         )}
       </PopupContent>

@@ -61,7 +61,8 @@ export const getPackageTypesChoices = () => {
 
 export const calculateAdditionalCargoGroup = (
   data: any,
-  shipping_mode: number
+  shipping_mode: number,
+  reCalcOnGroupsAmountChange: any
 ) => {
   return async (
     dispatch: Dispatch<commonClientOperationsActions>,
@@ -82,6 +83,9 @@ export const calculateAdditionalCargoGroup = (
           container_type: c,
         };
         dispatch(clientOperationsActions.addNewCargoGroup(newCargoData));
+        const groups = getState().client_operations.operationCargoGroups;
+
+        reCalcOnGroupsAmountChange(groups);
       } else {
         const p = packaging_types.find(
           (pack) => pack.id === data.packaging_type
@@ -92,6 +96,8 @@ export const calculateAdditionalCargoGroup = (
           packaging_type: p,
         };
         dispatch(clientOperationsActions.addNewCargoGroup(newCargoData));
+        const groups = getState().client_operations.operationCargoGroups;
+        reCalcOnGroupsAmountChange(groups);
       }
     } catch (e) {
       console.log(e);
@@ -104,6 +110,17 @@ export const cancelClientOperation = (id: number, history: any) => {
     try {
       let res = await operationsClientAPI.cancelOperation(id);
       history.push("/operations/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const recalculateCharges = (id: number, data: any) => {
+  return async (dispatch: Dispatch<commonClientOperationsActions>) => {
+    try {
+      let res = await operationsClientAPI.recalculateCharges(id, data);
+      console.log("RRR", res.data);
     } catch (e) {
       console.log(e);
     }

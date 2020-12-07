@@ -1,5 +1,5 @@
 import {CargoGroupQuoteType, RateQuoteType} from "../quotes/quotesTypes";
-import {CostBookingType, ShipperType} from "../bookingTypes";
+import {ChoiceType, CostBookingType, ShipperType} from "../bookingTypes";
 
 export type WeekRangeType = {
     week_from: number,
@@ -46,7 +46,7 @@ export type OperationType = {
     date_from : string,
     date_to : string,
     week_range?: WeekRangeType,
-    release_type : null | string | number,
+    release_type : any,
     number_of_documents : null | number,
     shipping_type : string,
     status : string,

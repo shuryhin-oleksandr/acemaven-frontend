@@ -290,7 +290,8 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                                 </SurchargesInfo>
                             </>
                             : <TotalCostCalculationContainer
-                                calculation={props.exact_quote_info?.status?.charges ? props.exact_quote_info.status?.charges : null}/>
+                                calculation={props.exact_quote_info?.status?.charges ? props.exact_quote_info.status?.charges : null}
+                            />
                         }
 
                     </QuoteCardInner>

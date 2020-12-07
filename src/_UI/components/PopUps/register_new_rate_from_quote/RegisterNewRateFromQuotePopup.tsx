@@ -184,7 +184,6 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
 
 
     let exact_usageFees = quote_containers && (_.intersectionWith(usageFees, quote_containers, _.isEqual))
-    console.log(exact_usageFees)
 
 
     const dispatch = useDispatch()

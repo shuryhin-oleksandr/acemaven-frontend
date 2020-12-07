@@ -33,7 +33,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
         '& .MuiTab-textColorInherit': {
             opacity: 1,
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Reg',
+            fontFamily: 'Helvetica Bold',
             fontSize: '14px',
             border: '2px solid #7C7C89',
             borderBottom: 0,

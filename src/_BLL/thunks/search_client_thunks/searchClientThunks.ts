@@ -50,8 +50,6 @@ export const searchRatesOffersThunk = (search_data: SearchDataType) => {
       console.log('search', res.data)
       dispatch(searchActions.setSearchSuccess(true))
       dispatch(searchActions.setSearchResult(res.data));
-      sessionStorage.removeItem("origin_id");
-      sessionStorage.removeItem("destination_id");
     } catch (e) {
       console.log(e);
       console.log('server_errors', e.response);

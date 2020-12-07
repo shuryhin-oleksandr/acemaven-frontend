@@ -61,7 +61,7 @@ export interface IMasterSignUpError {
   email?: string[];
 }
 
-type userCompaniesType = {
+export type userCompaniesType = {
     id: number,
     type: string
 }
@@ -75,7 +75,7 @@ export interface IAuthUserInfo {
   position?: string;
   photo?: "";
   roles?: string[];
-  companies?: userCompaniesType;
+  companies?: userCompaniesType[];
   password?: string;
   confirm_password?: string;
 }

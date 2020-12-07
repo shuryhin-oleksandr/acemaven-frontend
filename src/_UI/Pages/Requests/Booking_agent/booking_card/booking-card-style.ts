@@ -27,6 +27,7 @@ export const ContentHeader = styled.div`
   align-items: flex-start;
   padding-bottom: 20px;
   border-bottom: 1px solid #bdbdbd;
+  position: relative;
 `
 export const BookingInfo = styled.div`
   display: flex;
@@ -84,6 +85,10 @@ export const ConfirmButton = styled.button`
   
   &:hover {
     cursor: pointer;
+  }
+  &:disabled {
+    background-color: rgba(0, 0, 0, .6);
+    cursor: not-allowed;
   }
 `
 export const AssignButton = styled(AcceptButton)``
@@ -181,4 +186,27 @@ export const ShipmentInfo = styled.div`
   border-bottom: 1px solid #bdbdbd;
 `
 export const CalendarIcon = styled(GeneralShipType)`
+`
+export const AgentBankWrapper = styled.div`
+  display: flex;
+  margin-top: 15px;
+  position: relative;
+`
+export const AgentBankColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 20px 0 0;
+`
+export const AgentBankLabel = styled.div`
+  font-family: "Helvetica Bold", sans-serif;
+  color: #115b86;
+  font-size: 14px;
+  text-transform: uppercase;
+`
+export const AgentBankValue = styled.div`
+  font-family: "Helvetica Light", sans-serif;
+  color: black;
+  font-size: 14px;
+  text-transform: capitalize;
 `

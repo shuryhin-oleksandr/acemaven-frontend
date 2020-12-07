@@ -21,6 +21,7 @@ const initialState: InitialStateType = {
   checkedUser: null,
   finishPopup: false,
   passwordError: "",
+  additionalUserEmailError: '',
   isSignUp: false,
   isSignIn: false,
 };
@@ -38,6 +39,7 @@ type InitialStateType = {
   checkedUser: any;
   finishPopup: boolean;
   passwordError: string;
+  additionalUserEmailError: string;
   isSignUp: boolean;
   isSignIn: boolean;
 };
@@ -105,6 +107,11 @@ export const authReducer = (
         passwordError: action.error,
       };
     }
+    case "SET_ADDITIONAL_USER_EMAIL_ERROR":
+      return {
+        ...state,
+        additionalUserEmailError: action.error
+      }
     case "SET_OPEN_SIGN_UP": {
       return {
         ...state,
@@ -149,6 +156,7 @@ export const authActions = {
     ({ type: "OPEN_FINISH_POPUP", value } as const),
   setPasswordError: (error: string) =>
     ({ type: "SET_PASSWORD_ERROR", error } as const),
+  setAdditionalUserEmailError: (error: string) => ({type: 'SET_ADDITIONAL_USER_EMAIL_ERROR', error} as const),
   setOpenSignUp: (value: boolean) =>
     ({ type: "SET_OPEN_SIGN_UP", value } as const),
   setOpenSignIn: (value: boolean) =>
@@ -226,7 +234,8 @@ export const completeAdditionalUser = (
 ) => {
   return async (dispatch: Dispatch<commonAuthActions>) => {
     try {
-      debugger;
+      dispatch(authActions.setPasswordError(''));
+      dispatch(authActions.setAdditionalUserEmailError(''));
       dispatch(authActions.setIsLoading(true));
       let res = await authAPI.signUp(token, wholeData);
       res.data && localStorage.setItem("access_token", res.data.token);
@@ -234,9 +243,11 @@ export const completeAdditionalUser = (
       res.data.token && history.push("/");
       dispatch(authActions.setIsLoading(false));
     } catch (e) {
-      debugger;
-      console.log("error", e.response);
-      dispatch(authActions.setPasswordError(e.response.data.password[0]));
+      if(e.response.data.password) {
+        dispatch(authActions.setPasswordError(e.response.data.password[0]));
+      } else {
+        dispatch(authActions.setAdditionalUserEmailError(e.response.data.email[0]));
+      }
       /*dispatch(authActions.setCheckTokenError(e.response));*/
       dispatch(authActions.setIsLoading(false));
     }

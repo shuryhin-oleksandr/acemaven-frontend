@@ -44,7 +44,7 @@ export type PostBookingData = {
 
 export type CostBookingType = {
   freight_rate?: any,
-  doc_fee: {currency: string, cost: number, subtotal: number},
+  doc_fee: {currency: string, cost: number, subtotal: number, volume?: number},
   total_freight_rate: {BRL?: number, USD?: number},
   total_surcharge: {BRL?: number, USD?: number},
   totals: {BRL?: number, USD?: number},

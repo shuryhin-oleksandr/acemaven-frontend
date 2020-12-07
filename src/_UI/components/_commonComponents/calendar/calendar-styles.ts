@@ -9,7 +9,8 @@ type PropsStyle = {
     margin_bottom?: string
     input_height?: string
     margin_right?: string
-    margin_top?: string
+    margin_top?: string,
+    label_margin_bottom?: string
 }
 
 export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, margin_bottom?: string, input_height?: string, margin_right?: string, margin_top?: string}>`
@@ -114,7 +115,7 @@ export const CalendarLabel = styled.div<PropsStyle>`
   line-height: 17px;
   color: ${({textColor}) => textColor ? textColor : '#1B1B25'};
   text-transform: ${({textTransform}) => textTransform ? textTransform : 'capitalize'};
-  margin-bottom: 9px;
+  margin-bottom: ${({label_margin_bottom}) => label_margin_bottom ? label_margin_bottom : '9px'};
   display: ${({display_label}) => display_label ? display_label : 'block'}
 `
 

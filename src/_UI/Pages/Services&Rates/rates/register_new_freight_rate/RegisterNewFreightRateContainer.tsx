@@ -113,38 +113,30 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     dispatch(rateActions.setAddingRateError(null))
   };
 
-  //закрывает выборку портов origin
-  let closePortsHandlerOrigin = (port: PortType) => {
-    setValue("origin", port.display_name);
+  //закрывает выборку портов
+  let closePortsHandler = (port: PortType, field: string) => {
+    setValue(field, port.display_name);
     dispatch(rateActions.setOriginPortValue(port))
-    sessionStorage.setItem("origin_id", JSON.stringify(port));
+     sessionStorage.setItem("origin_id", JSON.stringify(port));
     dispatch(rateActions.setOriginPortsList([]));
-    if (sessionStorage.getItem("destination_id")) getRatesBookedDates()
-  };
-
-  //закрывает выборку портов destination
-  let closePortsHandlerDestination = (port: PortType) => {
-    setValue("destination", port.display_name);
-    dispatch(rateActions.setDestinationPortValue(port));
-    sessionStorage.setItem('destination_id', JSON.stringify(port))
-    dispatch(rateActions.setDestinationPortsList([]));
-    if (sessionStorage.getItem("origin_id")) getRatesBookedDates()
   };
 
   //достаем занятые даты
-  let getRatesBookedDates = useCallback(() => {
+  let getRatesBookedDates = useCallback((p: PortType) => {
+    dispatch(rateActions.setDestinationPortValue(p))
     let carrier = getValues("carrier");
     let shipping_mode = getValues("shipping_mode");
+    setValue("destination", p.display_name);
+    sessionStorage.setItem('destination_id', JSON.stringify(p))
+    //@ts-ignore
+    let origin = JSON.parse(sessionStorage.getItem("origin_id"))
+    dispatch(rateActions.setDestinationPortsList([]));
     dispatch(
       checkRatesDatesThunk({
         carrier: carrier,
         shipping_mode: shipping_mode,
-        origin: Number(JSON.parse(// @ts-ignore
-          sessionStorage.getItem("origin_id")
-        ).id),
-        destination: Number(JSON.parse(// @ts-ignore
-          sessionStorage.getItem("destination_id")
-        ).id),
+        origin: Number(origin.id),
+        destination: p.id,
       })
     );
 
@@ -164,12 +156,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     clearTimeout(timerOrigin);
     timerOrigin = setTimeout(() => {
       // if(value.value.length >= 3) {
-      // @ts-ignore
-      let destination = JSON.parse(sessionStorage.getItem("destination_id"));
-      destination
-        ? destination.is_local ? dispatch(getPorts("", value.value, "origin", currentShippingType))
-        : dispatch(getPorts(true, value.value, "origin", currentShippingType))
-        : dispatch(getPorts("", value.value, "origin", currentShippingType))
+      dispatch(getPorts('', value.value, "origin", currentShippingType));
       // }
     } , 500);
   };
@@ -177,12 +164,9 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     clearTimeout(timerDestination);
     timerDestination = setTimeout(() => {
     // if(value.value.length >= 3) {
-      // @ts-ignore
-      let origin = JSON.parse(sessionStorage.getItem("origin_id"));
-      origin
-        ? origin.is_local ? dispatch(getPorts("", value.value, "destination", currentShippingType))
-        : dispatch(getPorts(true, value.value, "destination", currentShippingType))
-        : dispatch(getPorts("", value.value, "destination", currentShippingType))
+      !is_local_port?.is_local
+      ? dispatch(getPorts(true, value.value, "destination", currentShippingType))
+      : dispatch(getPorts(false, value.value, "destination", currentShippingType))
     // }
     } , 500);
   };
@@ -264,8 +248,8 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         destination_ports={destination_ports}
         onOriginChangeHandler={onOriginChangeHandler}
         onDestinationChangeHandler={onDestinationChangeHandler}
-        closePortsHandlerOrigin={closePortsHandlerOrigin}
-        closePortsHandlerDestination={closePortsHandlerDestination}
+        closePortsHandler={closePortsHandler}
+        getBookedRatesDates={getRatesBookedDates}
         usageFees={usageFees}
         setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}
         existing_surcharge={existing_surcharge}

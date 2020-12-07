@@ -8,6 +8,8 @@ export const postSearchQuoteThunk = (data:any, history: any) => {
         try {
             await quotesClientAPI.postSearchQuote(data);
             history.push(`/quotes`)
+            sessionStorage.removeItem("origin_id");
+            sessionStorage.removeItem("destination_id")
         }catch (e) {
             console.log(e);
         }

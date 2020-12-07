@@ -21,13 +21,15 @@ import PasswordFormField from "../../../components/_commonComponents/Input/Passw
 import { useHistory} from "react-router-dom";
 import {ErrorServerMessage} from "../../SignInPage";
 import {getFilesFormData} from "../../../../_BLL/helpers/MultipartFormDataHelper";
+import {HelperText} from "../../../components/_commonComponents/Input/input-styles";
 
 
 type PropsType = {
   token: string;
+  email_error?: string
 };
 
-const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
+const UserCompleteForm: React.FC<PropsType> = ({ token, email_error }) => {
   const { register, handleSubmit, errors, getValues, setValue } = useForm<IAdditionalUserCompleteData>();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -81,6 +83,7 @@ const UserCompleteForm: React.FC<PropsType> = ({ token }) => {
         <FillOuter>
           <Label>Email</Label>
           <TextWrap>{checkedUser?.email}</TextWrap>
+          {email_error && <HelperText>Email already exists.</HelperText>}
         </FillOuter>
         <FillOuter>
           <Label>Roles</Label>

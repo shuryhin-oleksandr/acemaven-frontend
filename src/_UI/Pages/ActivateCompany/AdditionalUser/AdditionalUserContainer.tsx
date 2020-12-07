@@ -8,7 +8,10 @@ import {checkToken} from "../../../../_BLL/reducers/authReducer";
 import CheckedTokenPopup from "../../../components/PopUps/checked_token/checkedTokenPopup";
 
 const AdditionalUserContainer:React.FC = () => {
+
     const checkedTokenError = useSelector((state: AppStateType) => state.auth.checkTokenError)
+    const email_error = useSelector((state: AppStateType) => state.auth.additionalUserEmailError)
+
     const dispatch = useDispatch()
     const location = useLocation()
     useEffect(() => {
@@ -23,7 +26,9 @@ const AdditionalUserContainer:React.FC = () => {
                : <Wrapper>
                    <Inner>
                        <Title>Complete Profile</Title>
-                       <UserCompleteForm token={location.search.substr(7)}/>
+                       <UserCompleteForm token={location.search.substr(7)}
+                                         email_error={email_error}
+                       />
                    </Inner>
                </Wrapper>
            }

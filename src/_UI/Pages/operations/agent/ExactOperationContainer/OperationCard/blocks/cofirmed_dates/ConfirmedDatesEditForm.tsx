@@ -20,12 +20,17 @@ const ConfirmedDatesEditForm:React.FC<PropsType> = ({control, errors, setValue, 
 
 
     let shipment = exact_operation_info?.shipment_details && exact_operation_info?.shipment_details[0]
-
+    //estimated time
     let arrival_date = moment(shipment?.date_of_arrival.slice(6)).format('DD/MM/YYYY')
     let arrival_time = shipment?.date_of_arrival.slice(0,5)
     let departure_date = moment(shipment?.date_of_departure.slice(6)).format('DD/MM/YYYY')
     let departure_time = shipment?.date_of_departure.slice(0,5)
 
+    //cargo cut off + documents cut off
+    let documents_cut_off_date = moment(shipment?.document_cut_off_date?.slice(6)).format('DD/MM/YYYY')
+    let documents_cut_off_time = shipment?.document_cut_off_date?.slice(0,5)
+    let cargo_cut_off_date = moment(shipment?.cargo_cut_off_date?.slice(6)).format('DD/MM/YYYY')
+    let cargo_cut_off_time = shipment?.cargo_cut_off_date?.slice(0,5)
 
     return(
         <div style={{display: 'flex', width: '100%'}}>
@@ -67,6 +72,10 @@ const ConfirmedDatesEditForm:React.FC<PropsType> = ({control, errors, setValue, 
                                  flex_direction='column'
                                  wrapper_width='100%'
                                  justify_content='flex-start'
+                                 departure_date={documents_cut_off_date}
+                                 first_time={documents_cut_off_time}
+                                 arrival_date={cargo_cut_off_date}
+                                 second_time={cargo_cut_off_time}
             />
             }
         </div>

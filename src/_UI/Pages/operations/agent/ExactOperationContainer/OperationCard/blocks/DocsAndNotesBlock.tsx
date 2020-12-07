@@ -49,7 +49,7 @@ const DocsAndNotesBlock:React.FC<PropsType> = ({notes, docs}) => {
                     <div style={{width: "40%", display: "flex", flexDirection: "column",}}>
                         <InfoRow>
                             <InfoRowLabel>Release type</InfoRowLabel>
-                            <InfoRowValue>{docs.release_type}</InfoRowValue>
+                            <InfoRowValue>{docs.release_type.title}</InfoRowValue>
                         </InfoRow>
                     </div>
                     <div

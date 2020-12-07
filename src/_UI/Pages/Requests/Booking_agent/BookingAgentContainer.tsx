@@ -11,6 +11,7 @@ import {
     getBookingRequestListSelector
 } from "../../../../_BLL/selectors/booking/bookingAgentSelector";
 import MovedToOperationsPopup from "../../../components/PopUps/moved_to_operations_popup/MovedToOperationsPopup";
+import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
 
 
 const BookingAgentContainer:React.FC = () => {
@@ -39,7 +40,10 @@ const BookingAgentContainer:React.FC = () => {
 
     return (
       <Layout>
-              {movedPopup && <MovedToOperationsPopup setMovedToOperations={setMovedPopup}/>}
+              {movedPopup && <ModalWindow isOpen={movedPopup}>
+                                <MovedToOperationsPopup setMovedToOperations={setMovedPopup}/>
+                             </ModalWindow>
+              }
               <BookingAgentPage bookingList={bookingList ? bookingList : []}
                                   mode={mode}
                                   setMode={setMode}

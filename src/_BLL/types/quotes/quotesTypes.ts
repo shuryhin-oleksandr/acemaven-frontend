@@ -195,6 +195,7 @@ export type ChargeCalculationType = {
         cost: number,
         currency: string,
         subtotal: number,
+        volume?: number
     },
     pay_to_book?: {
         currency: string,

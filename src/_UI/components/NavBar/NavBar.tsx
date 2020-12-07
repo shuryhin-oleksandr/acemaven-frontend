@@ -24,6 +24,7 @@ interface IProps {
 const NavBar:React.FC<IProps> = () => {
     let [checkedLink, setChecked] = useState('')
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies)
+    let current_user_role = useSelector((state: AppStateType) => state.profile.authUserInfo?.roles)
 
     return (
       <ScrollbarStyled {...{
@@ -42,14 +43,14 @@ const NavBar:React.FC<IProps> = () => {
                                 setChecked={setChecked}
                                 checkedLink={checkedLink}
                     />
-                    : <MenuLink icon={requests}
+                    : (!current_user_role?.includes('billing') && <MenuLink icon={requests}
                                 activeIcon={active_requests}
                                 // path='/requests'
                                 name='REQUESTS'
                                 setChecked={setChecked}
                                 checkedLink={checkedLink}
                                 nestedLinks={requestLinks}
-                    />
+                    />)
             }
             <MenuLink icon={operations}
                       activeIcon={active_operations}

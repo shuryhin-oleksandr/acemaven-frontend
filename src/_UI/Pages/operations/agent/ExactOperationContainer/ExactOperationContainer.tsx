@@ -20,6 +20,9 @@ import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/
 import ModalWindow from "../../../../components/_commonComponents/ModalWindow/ModalWindow";
 import ClientOperationChangeRequestPopUp
     from "../../../../components/PopUps/ClientOperationChangeRequestPopUp/ClientOperationChangeRequestPopUp";
+import CompleteOperationPopup from "../../../../components/PopUps/complete_operation_by_agent/CompleteOperationPopup";
+import CancelOperationByAgentPopup
+    from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
 
 
 
@@ -33,15 +36,14 @@ const ExactOperationContainer = ({...props}) => {
     let my_name = (first_name && first_name) + ' ' + (last_name && last_name)
     const [isAcceptPopup, openAcceptPopup] = useState(false)
     const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
+    const [isCompleteOperation, setCompleteOperationPopup] = useState(false)
+    const [isCancelByAgent, setIsCancelByAgent] = useState(true)
+
 
     //data from store
     let operation_info = useSelector(getExactOperationSelector)
     let isFetching = useSelector(getIsFetchingOperationSelector)
-    let company_type = useSelector(
-        (state: AppStateType) =>
-            state.profile.authUserInfo?.companies &&
-            state.profile.authUserInfo?.companies[0]
-    );
+    let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies);
 
     //hooks
     const history = useHistory()
@@ -58,6 +60,12 @@ const ExactOperationContainer = ({...props}) => {
                          exact_operation_info={operation_info}
             />
         </ModalWindow>
+        <ModalWindow isOpen={isCompleteOperation }>
+            <CompleteOperationPopup setCompleteOperationPopup={setCompleteOperationPopup}/>
+        </ModalWindow>
+        <ModalWindow isOpen={isCancelByAgent}>
+            <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}/>
+        </ModalWindow>
         {operation_info &&  <ModalWindow isOpen={clientChangRequestPopupVisible}>
             <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible} operation_info={operation_info}/>
         </ModalWindow>}
@@ -69,8 +77,9 @@ const ExactOperationContainer = ({...props}) => {
                               local_time={local_time}
                               openAcceptPopup={openAcceptPopup}
                               my_name={String(my_name)}
-                              company_type={company_type}
+                              company_type={company_type && company_type[0]}
                               setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
+
             />
         }
     </Layout>

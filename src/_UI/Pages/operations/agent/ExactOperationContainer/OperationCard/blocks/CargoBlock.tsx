@@ -19,6 +19,7 @@ import {editOperationByAgentThunk} from "../../../../../../../_BLL/thunks/operat
 import {useDispatch, useSelector} from "react-redux";
 import {getEditOperationSuccessSelector} from "../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {AppCompaniesTypes} from "../../../../../../../_BLL/types/commonTypes";
 
 type PropsType = {
     operation_shipping_type: string,
@@ -26,7 +27,8 @@ type PropsType = {
     operation_shipping_mode: {id: number, title: string},
     free_time?: number,
     status: string,
-    shipment_id: number
+    shipment_id: number,
+    company_type?: string
 }
 
 const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_cargo_groups, operation_shipping_mode, free_time, status, ...props}) => {
@@ -51,22 +53,23 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
   return (
    <GeneralBookingContentForm onSubmit={handleSubmit(onSubmit)}>
     <SectionWrapper style={{position: "relative"}}>
-        {status === "Booking Confirmed" && (
+        {props.company_type === AppCompaniesTypes.AGENT &&
+            (status === "Booking Confirmed"  && free_time &&(
             !isEdit
-            ? <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: '18px', top: '65px'}}>
-            <img src={edit_icon} alt=""/>
-            </IconButton>
-            :  <EditButtonsWrapper top='65px' right='18px'>
-            <FormOperationButton type='button' onClick={() => setIsEdit(false)} style={{padding: '5px'}}>
-            <img src={close_icon} alt=""/>
-            </FormOperationButton>
-            <FormOperationButton type='submit' style={{padding: '5px'}}>
-            <img src={save_icon} alt="" />
-            </FormOperationButton>
-            </EditButtonsWrapper>
+                ? <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: '18px', top: '65px'}}>
+                    <img src={edit_icon} alt=""/>
+                </IconButton>
+                :  <EditButtonsWrapper top='65px' right='18px'>
+                    <FormOperationButton type='button' onClick={() => setIsEdit(false)} style={{padding: '5px'}}>
+                        <img src={close_icon} alt=""/>
+                    </FormOperationButton>
+                    <FormOperationButton type='submit' style={{padding: '5px'}}>
+                        <img src={save_icon} alt="" />
+                    </FormOperationButton>
+                </EditButtonsWrapper>
+            )
             )
         }
-
       <IconButton style={{padding: "0px", height: "35px", width: "35px", position: "absolute", right: "20px"}}
                   onClick={() => (isHidden ? setHidden(false) : setHidden(true))}>
         <img src={isHidden ? down_arrow : up_arrow} alt="" style={{ width: "14px" }}/>
@@ -75,7 +78,7 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
         <SectionTitle>CARGO</SectionTitle>
         {!isHidden && (
             <>
-            {operation_shipping_type === 'sea' && status === "Booking Confirmed" &&
+            {operation_shipping_type === 'sea' && status === "Booking Confirmed" && free_time &&
                 <div style={{ display: "flex", marginBottom: '20px' }}>
                     <InfoRowLabel style={{marginRight: '5px'}}>CONTAINER FREE TIME:</InfoRowLabel>
                     {isEdit

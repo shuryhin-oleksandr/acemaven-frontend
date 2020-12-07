@@ -37,7 +37,7 @@ const AgentQuotesPage:React.FC<PropsType> = ({searchValue,setSearchValue, mode, 
              <ClientQuotesOuter>
                     <ClientQuotesInner>
                         {agent_quotes_list.length === 0
-                            ? <NoQuotesCard text={"There are no active general at the moment."}/>
+                            ? <NoQuotesCard text={"There are no active quotes at the moment."}/>
                             : <AgentQuotesTableContainer setCardOpen={setCardOpen}
                                                          setSearchMode={setSearchMode}
                                                          isSearchMode={isSearchMode}

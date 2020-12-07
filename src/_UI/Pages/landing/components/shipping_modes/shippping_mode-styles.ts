@@ -46,7 +46,6 @@ export const Block = styled.div<PropsStyle>`
 display:flex;
 flex-direction: column;
 align-items: center;
-justify-content: space-between;
 padding: 90px 50px 60px;
   max-width: 450px;
   min-width: 450px;
@@ -61,21 +60,18 @@ line-height: 57.26px;
 font-family: "Helvetica Bold", sans-serif;
 text-transform: uppercase;
 text-align: end;
-position: absolute;
-right: 14%;
-top: 51%;
 max-width: 416px;
 min-width: 416px;
 width: 100%;
-
+margin-right: 340px;
 `
 export const AirTitle = styled(MarineTitle)`
 max-width: 396px;
 min-width: 396px;
 width: 100%;
 text-align: start;
-left: 16.5%;
-
+margin-left: 340px;
+margin-right: 0;
 `
 export const Description = styled.div`
 color: white;
@@ -85,4 +81,5 @@ font-family: "Helvetica Light", sans-serif;
 text-align: start;
 max-width: 349px;
 width: 100%;
+margin-bottom: 46px;
 `

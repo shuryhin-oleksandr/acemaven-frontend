@@ -13,14 +13,16 @@ import edit_icon from '../../../../../../../assets/icons/profile/editCard.svg'
 import {useDispatch, useSelector} from "react-redux";
 import {getEditOperationSuccessSelector} from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
 
 
 type PropsType = {
     operation_info: OperationType,
-    shipment: ShipmentDetailsType | null
+    shipment: ShipmentDetailsType | null,
+    company_type: string
 }
 
-const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) => {
+const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment, company_type}) => {
 
     const [isEdit, setIsEdit] = useState(false)
 
@@ -37,7 +39,8 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) =
     return (
         <SectionWrapper>
             {operation_info?.status === "Booking Confirmed" && (
-                !isEdit && <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: 0}}>
+                !isEdit && company_type === AppCompaniesTypes.AGENT
+                    && <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: 0}}>
                 <img src={edit_icon} alt=""/>
                 </IconButton>
             )}
@@ -81,7 +84,7 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) =
                         {operation_info?.status === "Booking Confirmed" &&
                         <>
                             {shipment?.vessel
-                                ? <div style={{ display: "flex", flexDirection: "column", marginRight:'26px'}}>
+                                ? <div style={{ display: "flex", flexDirection: "column", marginRight:'46px'}}>
                                     <InfoRow>
                                         <InfoRowLabel>VESSEL</InfoRowLabel>
                                         <InfoRowValue>{shipment?.vessel}</InfoRowValue>
@@ -91,7 +94,7 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) =
                                         <InfoRowValue>{shipment?.voyage}</InfoRowValue>
                                     </InfoRow>
                                 </div>
-                                : <div style={{display: "flex", flexDirection: "column", marginRight:'26px'}}>
+                                : <div style={{display: "flex", flexDirection: "column", marginRight:'46px'}}>
                                     <InfoRow>
                                         <InfoRowLabel>MAWB</InfoRowLabel>
                                         <InfoRowValue>{shipment?.mawb}</InfoRowValue>
@@ -105,17 +108,19 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment}) =
                             <div style={{width: "25%", display: "flex", flexDirection: "column"}}>
                                 {shipment?.empty_pick_up_location &&
                                 <InfoRow>
-                                    <InfoRowLabel>Empty Pickup Location</InfoRowLabel>
+                                    <InfoRowLabel>EMPTY PICKUP LOCATION</InfoRowLabel>
                                     <InfoRowValue>
-                                        terminal: {shipment?.empty_pick_up_location}, airport: {shipment?.empty_pick_up_location_address}
+                                        <span style={{color: '#115B86'}}>terminal/depot:</span> {shipment?.empty_pick_up_location},
+                                        <br/> <span style={{color: '#115B86'}}>airport/seaport:</span> {shipment?.empty_pick_up_location_address}
                                     </InfoRowValue>
                                 </InfoRow>
                                 }
                                 {shipment?.cargo_drop_off_location &&
                                 <InfoRow>
-                                    <InfoRowLabel>Cargo Drop Off Location </InfoRowLabel>
+                                    <InfoRowLabel>CARGO DROP OFF LOCATION </InfoRowLabel>
                                     <InfoRowValue>
-                                        terminal: {shipment?.cargo_drop_off_location}, airport: {shipment?.cargo_drop_off_location_address}
+                                        <span style={{color: '#115B86'}}>terminal/depot:</span> {shipment?.cargo_drop_off_location},
+                                        <br/> <span style={{color: '#115B86'}}>airport/seaport:</span> {shipment?.cargo_drop_off_location_address}
                                     </InfoRowValue>
                                 </InfoRow>}
 

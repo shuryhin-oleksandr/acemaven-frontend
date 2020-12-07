@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 //types
 import {AppStateType} from "../../../_BLL/store";
 import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
@@ -75,13 +75,13 @@ const DashboardContainer:React.FC = () => {
         sessionStorage.removeItem('destination_id')
     }
 
-    useEffect(() => {
+   /* useEffect(() => {
         clearStorage();
         return () => {
             clearStorage();
         }
     }, [])
-
+*/
     return (
         <Layout>
             <ModalWindow isOpen={isOpenCalcPopup}>

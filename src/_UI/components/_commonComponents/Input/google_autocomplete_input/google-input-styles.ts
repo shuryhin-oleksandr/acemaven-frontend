@@ -29,9 +29,10 @@ export const GoogleInputWrapper = styled.div<{error?: string}>`
   }
 `
 
-export const LabelGoogleInput = styled.div`
-  color: #1b1b25;
-  font-family: "Helvetica Reg", sans-serif;
+export const LabelGoogleInput = styled.div<{color_label?: string, font_weight?: string, label_uppercase?: boolean}>`
+  color: ${({color_label}) => color_label ? color_label : '#1b1b25'} ;
+  font-family: ${({font_weight}) => font_weight ? font_weight : 'Helvetica Reg, sans-serif'};
   font-size: 14px;
   margin-bottom: 9px;
+  text-transform: ${({label_uppercase}) => label_uppercase ? 'uppercase' : 'capitalize'};
 `

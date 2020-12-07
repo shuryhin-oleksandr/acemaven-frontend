@@ -31,12 +31,13 @@ export const getBookingInfoByIdThunk = (id: number) => {
   };
 };
 
-export const rejectAgentBookingByIdThunk = (id: number) => {
+export const rejectAgentBookingByIdThunk = (id: number, message: string, history: any) => {
   return async (dispatch: Dispatch<commonAgentBookingActions>) => {
     try {
-      let res = await bookingApi.deleteBookingByAgent(id);
+      let res = await bookingApi.rejectBookingByAgent(id, {message: message});
       console.log(res.data);
       dispatch(agentBookingActions.setRejectBookingRequest(id));
+      history.push('/requests/booking')
     } catch (e) {
       console.log(e)
     }

@@ -529,6 +529,7 @@ const Search: React.FC<PropsType> = ({
               dates={dates}
               disabled={disabled}
               shippingValueReset={shippingValueReset}
+              placeholder={"Shipment Dates"}
             />
           </div>
           {!!duplicatedCargoError ? (

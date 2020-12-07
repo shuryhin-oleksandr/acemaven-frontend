@@ -8,11 +8,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { surchargeReducer } from "./reducers/surcharge&rates/surchargeReducer";
 import { rateReducer } from "./reducers/surcharge&rates/rateReducer";
 import { bookingReducer } from "./reducers/booking/bookingReducer";
-import {searchClientReducer} from "./reducers/search_client/searchClientReducer";
-import {quotesClientReducer} from "./reducers/quotes/quotesClientReducer";
-import {quotesAgentReducer} from "./reducers/quotes/quotesAgentReducer";
-import {agentBookingReducer} from "./reducers/booking/agentBookingReducer";
-import {agentOperationsReducer} from "./reducers/operations/agent/agentOperationsReducer";
+import { searchClientReducer } from "./reducers/search_client/searchClientReducer";
+import { quotesClientReducer } from "./reducers/quotes/quotesClientReducer";
+import { quotesAgentReducer } from "./reducers/quotes/quotesAgentReducer";
+import { agentBookingReducer } from "./reducers/booking/agentBookingReducer";
+import { agentOperationsReducer } from "./reducers/operations/agent/agentOperationsReducer";
+import { clientOperationsReducer } from "./reducers/operations/client/clientOperationsReducer";
 
 let reducers = combineReducers({
   auth: authReducer,
@@ -26,7 +27,8 @@ let reducers = combineReducers({
   search: searchClientReducer,
   client_quotes: quotesClientReducer,
   agent_quotes: quotesAgentReducer,
-  agent_operations: agentOperationsReducer
+  agent_operations: agentOperationsReducer,
+  client_operations: clientOperationsReducer,
 });
 
 export const store = createStore(

@@ -60,15 +60,16 @@ const ExactOperationContainer = ({...props}) => {
                          exact_operation_info={operation_info}
             />
         </ModalWindow>
-        <ModalWindow isOpen={clientChangRequestPopupVisible}>
-            <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible}/>
-        </ModalWindow>
         <ModalWindow isOpen={isCompleteOperation }>
             <CompleteOperationPopup setCompleteOperationPopup={setCompleteOperationPopup}/>
         </ModalWindow>
         <ModalWindow isOpen={isCancelByAgent}>
             <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}/>
         </ModalWindow>
+        {operation_info &&  <ModalWindow isOpen={clientChangRequestPopupVisible}>
+            <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible} operation_info={operation_info}/>
+        </ModalWindow>}
+
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />
             : <OperationCard  operation_info={operation_info}

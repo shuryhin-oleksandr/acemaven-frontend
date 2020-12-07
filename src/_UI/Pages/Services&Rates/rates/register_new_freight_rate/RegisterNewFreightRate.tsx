@@ -54,7 +54,7 @@ type PropsType = {
   onOriginChangeHandler: (value: any) => void;
   onDestinationChangeHandler: (value: any) => void;
   closePortsHandler: any;
-  getBookedRatesDates: (p:PortType) => void;
+  getBookedRatesDates: (p: PortType) => void;
   usageFees: ContainerType[];
   setNewSurchargePopUpVisible: (value: boolean) => void;
   existing_surcharge: any
@@ -158,7 +158,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
                              onDestinationChangeHandler={onDestinationChangeHandler}
                              closePortsHandler={closePortsHandler}
                              getBookedRatesDates={getBookedRatesDates}
-                              rate_info={rate_info}
+                             rate_info={rate_info}
                              setValue={setValue}
                              watchResultArr={watchResultArr}
                              rate_transit_error={rate_transit_error}

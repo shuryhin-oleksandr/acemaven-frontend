@@ -23,17 +23,17 @@ type PropsType = {
     origin_ports: Array<PortType> | null
     destination_ports: Array<PortType> | null
     onOriginChangeHandler: (value: any) => void
-    onDestinationChangeHandler: (value: any) => void
-    closePortsHandler: any
-    getBookedRatesDates: any  /*(portName: string, portId: number) => void*/
+    onDestinationChangeHandler: (value: any) => void,
+    getBookedRatesDates: any,
+    closePortsHandler: any;
     rate_info: RateInfoType | null,
     watchResultArr: number[],
     rate_transit_error: any
 }
 
-const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValues, carrierOptions, shippingModeOptions,
+const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValues, carrierOptions, shippingModeOptions, getBookedRatesDates,
                                             setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, rate_transit_error,
-                                             onDestinationChangeHandler, closePortsHandler, getBookedRatesDates,  watchResultArr}) => {
+                                             onDestinationChangeHandler, closePortsHandler,  watchResultArr}) => {
 
     return (
         <FormWrap>
@@ -108,7 +108,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                                 <PortsList>
                                     {origin_ports?.map((p: PortType) => (
                                         <Port
-                                            onClick={() => closePortsHandler(p, "origin")}
+                                            onClick={() => closePortsHandler(p, 'origin')}
                                             key={p?.id}
                                         >
                                             {p?.display_name}

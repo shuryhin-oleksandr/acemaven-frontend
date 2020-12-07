@@ -153,22 +153,22 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
 
   //посимвольный поиск портов
   let onOriginChangeHandler = (value: any) => {
-    clearTimeout(timerOrigin);
-    timerOrigin = setTimeout(() => {
+    //clearTimeout(timerOrigin);
+   // timerOrigin = setTimeout(() => {
     if(value.value.length >= 3) {
       dispatch(getPorts('', value.value, "origin", currentShippingType));
       }
-    } , 500);
+    //} , 500);
   };
   let onDestinationChangeHandler = (value: any) => {
-    clearTimeout(timerDestination);
-    timerDestination = setTimeout(() => {
+    //clearTimeout(timerDestination);
+   /* timerDestination = setTimeout(() => {*/
     if(value.value.length >= 3) {
       !is_local_port?.is_local
       ? dispatch(getPorts(true, value.value, "destination", currentShippingType))
       : dispatch(getPorts(false, value.value, "destination", currentShippingType))
     }
-    } , 500);
+    /*} , 500);*/
   };
 
 

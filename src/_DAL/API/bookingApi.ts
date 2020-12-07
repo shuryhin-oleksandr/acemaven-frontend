@@ -23,8 +23,8 @@ export const bookingApi = {
   getAgentBookingInfoById(id: number) {
     return instance.get(`/booking/booking/${id}`);
   },
-  deleteBookingByAgent(id: number) {
-    return instance.delete("");
+  rejectBookingByAgent(id: number, message: { message: string }) {
+    return instance.post(`/booking/booking/${id}/reject/`, message);
   },
   acceptBookingByAgent(my_id: number, booking_id: number, ) {
     return instance.post(`/booking/booking/${booking_id}/assign/`, {user: my_id});

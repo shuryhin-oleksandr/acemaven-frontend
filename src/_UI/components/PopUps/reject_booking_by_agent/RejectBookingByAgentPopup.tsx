@@ -13,6 +13,9 @@ import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
 import {IconButton} from "@material-ui/core";
 import {Controller, useForm} from "react-hook-form";
 import {HelperText} from "../../_commonComponents/Input/input-styles";
+import {useDispatch} from "react-redux";
+import {rejectAgentBookingByIdThunk} from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
+import {useHistory, useParams} from "react-router-dom";
 
 type PropsType = {
     setRejectPopupOpen: (value:boolean) => void
@@ -20,12 +23,19 @@ type PropsType = {
 
 const RejectBookingByAgentPopup:React.FC<PropsType> = ({setRejectPopupOpen}) => {
 
+    const dispatch = useDispatch()
+    const history = useHistory()
+    let query = useParams()
+    // @ts-ignore
+    let id = query.id
+
+
     const  {control, errors, handleSubmit} = useForm<{reason: string}>({
       reValidateMode: 'onBlur'
   })
 
     const onSubmit = (values: {reason: string}) => {
-        console.log(values)
+        dispatch(rejectAgentBookingByIdThunk(id, values.reason, history))
     }
 
     return (

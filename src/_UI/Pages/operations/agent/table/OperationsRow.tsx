@@ -1,9 +1,10 @@
 import React from 'react'
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import {ModeIcon, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
+import {ModeIcon, ModeIconBlue, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_type from "../../../../assets/icons/rates&services/plane-surcharge.svg";
+import blue_sea_type from '../../../../assets/icons/operations/blue_ship.svg';
 import {CargosOuter} from "../../../quotes/client/quotes-client-styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
@@ -97,7 +98,9 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
         <React.Fragment>
             <TableRow className={classes.root} onClick={goToPageHandler}>
                 <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
-                    <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
+                    {/*<ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>*/}
+                    <ModeIcon src={sea_type} alt=""/>
+                    <ModeIconBlue src={blue_sea_type} alt=""/>
                     <SpanMode>{operation.aceid}</SpanMode>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
@@ -116,11 +119,10 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
                 <TableCell className={classes.innerCell} align="left">
                     {operation?.status === 'Booking Confirmed'
                         ? <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>
-                            ETD: {shipment?.date_of_departure} <br/> ETA: {shipment?.date_of_departure}
+                            ETD: {shipment?.date_of_departure} <br/> ETA: {shipment?.date_of_arrival}
                           </span>
                         : '-'
                     }
-
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     {!operation.freight_rate.carrier_disclosure ? operation.freight_rate.carrier.title : 'Carrier is disclosed'}

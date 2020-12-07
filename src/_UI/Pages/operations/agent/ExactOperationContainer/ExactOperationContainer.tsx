@@ -20,6 +20,9 @@ import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/
 import ModalWindow from "../../../../components/_commonComponents/ModalWindow/ModalWindow";
 import ClientOperationChangeRequestPopUp
     from "../../../../components/PopUps/ClientOperationChangeRequestPopUp/ClientOperationChangeRequestPopUp";
+import CompleteOperationPopup from "../../../../components/PopUps/complete_operation_by_agent/CompleteOperationPopup";
+import CancelOperationByAgentPopup
+    from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
 
 
 
@@ -33,6 +36,8 @@ const ExactOperationContainer = ({...props}) => {
     let my_name = (first_name && first_name) + ' ' + (last_name && last_name)
     const [isAcceptPopup, openAcceptPopup] = useState(false)
     const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
+    const [isCompleteOperation, setCompleteOperationPopup] = useState(false)
+    const [isCancelByAgent, setIsCancelByAgent] = useState(true)
 
 
     //data from store
@@ -57,6 +62,12 @@ const ExactOperationContainer = ({...props}) => {
         </ModalWindow>
         <ModalWindow isOpen={clientChangRequestPopupVisible}>
             <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible}/>
+        </ModalWindow>
+        <ModalWindow isOpen={isCompleteOperation }>
+            <CompleteOperationPopup setCompleteOperationPopup={setCompleteOperationPopup}/>
+        </ModalWindow>
+        <ModalWindow isOpen={isCancelByAgent}>
+            <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}/>
         </ModalWindow>
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />

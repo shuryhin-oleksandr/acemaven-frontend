@@ -20,25 +20,24 @@ export const getBookingRequestListThunk = (type: string, field_name: string, sea
 export const getBookingInfoByIdThunk = (id: number) => {
   return async (dispatch: Dispatch<commonAgentBookingActions>) => {
     try {
-      debugger
       dispatch(agentBookingActions.setIsFetching(true))
       let res = await bookingApi.getAgentBookingInfoById(id);
       dispatch(agentBookingActions.setExactBookingInfo(res.data));
       dispatch(agentBookingActions.setIsFetching(false))
     } catch (e) {
-      debugger
       console.log(e)
       dispatch(agentBookingActions.setIsFetching(false))
     }
   };
 };
 
-export const rejectAgentBookingByIdThunk = (id: number) => {
+export const rejectAgentBookingByIdThunk = (id: number, message: string, history: any) => {
   return async (dispatch: Dispatch<commonAgentBookingActions>) => {
     try {
-      let res = await bookingApi.deleteBookingByAgent(id);
+      let res = await bookingApi.rejectBookingByAgent(id, {message: message});
       console.log(res.data);
       dispatch(agentBookingActions.setRejectBookingRequest(id));
+      history.push('/requests/booking')
     } catch (e) {
       console.log(e)
     }

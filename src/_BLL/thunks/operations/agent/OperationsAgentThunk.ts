@@ -6,6 +6,7 @@ import {
 } from "../../../reducers/operations/agent/agentOperationsReducer";
 import { BookingShipmentDetailsType } from "../../../types/bookingTypes";
 
+
 export const getAgentsOperationsThunk = (
   type: string,
   is_mine: boolean | string,
@@ -86,3 +87,14 @@ export const editOperationPaymentDueByAgentThunk = (data: any, id: number) => {
     }
   };
 };
+
+export const getCancellationChoicesThunk = () => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      let res = await operationsAgentAPI.getCancellationChoices()
+      dispatch(agentOperationsActions.setCancellationChoices(res.data.cancellation_reason))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}

@@ -24,6 +24,9 @@ export const operationsAgentAPI = {
   },
   editOperationPaymentDueByAgent (data: any, id: number) {
     return instance.patch(`/booking/operation/${id}/`, data);
+  },
+  getCancellationChoices(){
+    return instance.get("/core/choices/?models=cancellation_reason")
   }
 };
 

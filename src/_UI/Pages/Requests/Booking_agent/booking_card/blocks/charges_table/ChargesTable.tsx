@@ -135,8 +135,8 @@ const ChargesTable:React.FC<PropsType> = ({charges_cost}) => {
                         <TableCell className={classes.innerCell} align="left"/>
                         <TableCell className={classes.innerCell} align="center"/>
                         <TableCell className={classes.innerCell} align="right">
-                            {charges_cost?.total_surcharge.BRL && 'CHARGES IN BRL'}
-                            {charges_cost?.total_surcharge.USD && 'CHARGES IN USD'}
+                            <div>CHARGES IN BRL</div>
+                            <div>CHARGES IN USD</div>
                         </TableCell>
                         <TableCell className={classes.innerCell} align="right">
                             {charges_cost?.total_surcharge.BRL && charges_cost?.total_surcharge.BRL}

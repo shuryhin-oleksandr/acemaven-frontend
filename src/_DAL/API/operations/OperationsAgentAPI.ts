@@ -27,6 +27,9 @@ export const operationsAgentAPI = {
   },
   getCancellationChoices(){
     return instance.get("/core/choices/?models=cancellation_reason")
+  },
+  cancelOperationByAgent (id: number, data: {reason: string, comment?: string}) {
+    return instance.post(`/booking/operation/${id}/cancel/`, data)
   }
 };
 

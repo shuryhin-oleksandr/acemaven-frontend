@@ -20,8 +20,8 @@ export const CancelOperationByAgentInner = styled.div`
   background-color: white;
   position: relative;
 `
-export const CancelOperationByAgentContent = styled.form`
-  padding: 60px 99px;
+export const CancelOperationByAgentContent = styled.form<{content_padding?: string}>`
+  padding: ${({content_padding}) => content_padding ? content_padding : '60px 99px'};
   display: flex;
   flex-direction: column;
 `

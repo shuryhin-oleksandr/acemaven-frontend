@@ -14,20 +14,29 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCancellationChoicesSelector} from "../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {getCancellationChoicesThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import FormSelect from "../../_commonComponents/select/FormSelect";
+import {HelperText} from "../../_commonComponents/Input/input-styles";
+import {
+    CompleteButtonsWrapper,
+    CompleteCancelButton,
+    CompleteConfirmButton
+} from "../complete_operation_by_agent/complete-operation-styles";
 
 
 type PropsType = {
-    setIsCancelByAgent: (value: boolean) => void
+    setIsCancelByAgent: (value: boolean) => void,
+    cancelOperationByAgentHandler: (value: {reason: string, comment: string}) => void,
 }
 
-const CancelOperationByAgentPopup:React.FC<PropsType> = ({setIsCancelByAgent}) => {
+const CancelOperationByAgentPopup:React.FC<PropsType> = ({setIsCancelByAgent, cancelOperationByAgentHandler}) => {
 
     const dispatch = useDispatch()
 
-    const {handleSubmit, errors, control} = useForm()
+    const {handleSubmit, errors, control, watch} = useForm()
     const onSubmit = (values: any) => {
-        console.log(values)
+        cancelOperationByAgentHandler(values)
     }
+
+    let choice = watch('reason')
 
     useEffect(() => {
         dispatch(getCancellationChoicesThunk())
@@ -72,21 +81,28 @@ const CancelOperationByAgentPopup:React.FC<PropsType> = ({setIsCancelByAgent}) =
                                 control={control}
                                 defaultValue=''
                                 rules={{
-                                    /*validate: () => {
-
-                                    }*/
-                                    //required: 'Field is required'
+                                    validate : (value: any) => {
+                                        if(!value && choice === 'dates') {
+                                            return false
+                                        } else if (!value && choice === 'client_requested') {
+                                            return false
+                                        } else return !(!value && choice === 'other');
+                                    }
                                 }}
                                 as={
-                                    <div style={{width: '100%'}}>
+                                    <div style={{width: '100%', marginBottom: '50px'}}>
                                         <TextareaLabel>Your comments</TextareaLabel>
                                         <FormTextarea error={!!errors?.comment}
                                                       placeholder='Comments..'
                                         />
+                                        {errors?.comment && <HelperText messagePaddingTop='4px'>Field is required</HelperText>}
                                     </div>
                                 }
                     />
-                    <button type='submit'> SUBMIT</button>
+                    <CompleteButtonsWrapper>
+                        <CompleteConfirmButton>confirm</CompleteConfirmButton>
+                        <CompleteCancelButton onClick={() => setIsCancelByAgent(false)}>cancel</CompleteCancelButton>
+                    </CompleteButtonsWrapper>
                 </CancelOperationByAgentContent>
             </CancelOperationByAgentInner>
         </CancelOperationByAgentWrapper>

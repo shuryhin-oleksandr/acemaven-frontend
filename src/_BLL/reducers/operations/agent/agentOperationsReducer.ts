@@ -6,7 +6,8 @@ const initialState = {
     agent_operations_list: [] as OperationType[],
     agent_operation_info: null as OperationType | null,
     edit_success: '',
-    cancellation_choices: [] as any[]
+    cancellation_choices: [] as any[],
+    cancellation_confirmation: ''
 }
 
 type InitialStateType = typeof initialState
@@ -53,6 +54,11 @@ export const agentOperationsReducer = (state = initialState, action: commonAgent
                 ...state,
                 cancellation_choices: action.choices
             }
+        case "SET_CANCELLATION_CONFIRMATION":
+            return {
+                ...state,
+                cancellation_confirmation: action.value
+            }
         default: return state
     }
 }
@@ -67,5 +73,6 @@ export const agentOperationsActions = {
     setEditedPaymentDueBy: (value: string) => ({type: 'SET_EDITED_PAYMENT_DUE_BY', value} as const),
     setEditSuccess: (success: string) => ({type: 'SET_EDIT_SUCCESS', success} as const),
     setEditedShipmentDetails: (data: ShipmentDetailsType) => ({type: 'SET_EDITED_SHIPMENT_DETAILS', data} as const),
-    setCancellationChoices: (choices: any) => ({type: 'SET_CANCELLATION_CHOICES', choices} as const)
+    setCancellationChoices: (choices: any) => ({type: 'SET_CANCELLATION_CHOICES', choices} as const),
+    setCancellationConfirmation: (value: string) => ({type: 'SET_CANCELLATION_CONFIRMATION', value} as const)
 }

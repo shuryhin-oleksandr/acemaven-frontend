@@ -5,6 +5,7 @@ import {ModeIcon, ModeIconBlue, SpanMode} from "../../../Services&Rates/surcharg
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_type from "../../../../assets/icons/rates&services/plane-surcharge.svg";
 import blue_sea_type from '../../../../assets/icons/operations/blue_ship.svg';
+import blue_air_type from '../../../../assets/icons/operations/blue_plane.svg';
 import {CargosOuter} from "../../../quotes/client/quotes-client-styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
@@ -98,9 +99,18 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
         <React.Fragment>
             <TableRow className={classes.root} onClick={goToPageHandler}>
                 <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
-                    {/*<ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>*/}
-                    <ModeIcon src={sea_type} alt=""/>
-                    <ModeIconBlue src={blue_sea_type} alt=""/>
+                    {company_type?.type === AppCompaniesTypes.AGENT
+                        ? (!operation?.has_change_request
+                            ? <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
+                            : <>
+                                <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
+                                <ModeIconBlue src={operation.shipping_type === 'sea' ? blue_sea_type : blue_air_type} alt=""/>
+                            </>
+
+                        )
+                        : <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
+                    }
+
                     <SpanMode>{operation.aceid}</SpanMode>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

@@ -98,3 +98,15 @@ export const getCancellationChoicesThunk = () => {
     }
   }
 }
+
+export const cancelOperationByAgentThunk = (id: number, data: {reason: string, comment: string}, history: any) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      let res = await operationsAgentAPI.cancelOperationByAgent(id, data)
+      dispatch(agentOperationsActions.setCancellationConfirmation('cancelled'))
+      history.push('/operations')
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}

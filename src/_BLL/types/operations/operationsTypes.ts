@@ -59,5 +59,6 @@ export type OperationType = {
     client_contact_person?: string,
     client?: string,
     shipment_details?: ShipmentDetailsType[],
-    payment_due_by: string | null
+    payment_due_by: string | null,
+    has_change_request?: boolean
 }

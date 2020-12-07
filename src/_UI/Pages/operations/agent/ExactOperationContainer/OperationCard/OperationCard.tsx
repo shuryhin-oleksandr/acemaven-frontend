@@ -46,6 +46,7 @@ type PropsType = {
     my_name: string,
     company_type: userCompaniesType | undefined,
     setClientChangRequestPopupVisible: (value: boolean) => void,
+    setIsCancelByAgent: (value: boolean) => void
 }
 
 const OperationCard: React.FC<PropsType> = ({
@@ -55,7 +56,8 @@ const OperationCard: React.FC<PropsType> = ({
                                                 openAcceptPopup,
                                                 my_name,
                                                 company_type,
-                                                setClientChangRequestPopupVisible
+                                                setClientChangRequestPopupVisible,
+                                                setIsCancelByAgent
                                             }) => {
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
@@ -101,7 +103,8 @@ const OperationCard: React.FC<PropsType> = ({
                     <ActionsButtons>
                         {company_type?.type === AppCompaniesTypes.AGENT ? operation_info?.status === "Booking Request in Progress" &&
                             (operation_info?.agent_contact_person === my_name ? (
-                                <ConfirmButton onClick={() => openAcceptPopup(true)} disabled={!operation_info?.payment_due_by}>
+                                <ConfirmButton onClick={() => openAcceptPopup(true)}
+                                               disabled={!operation_info?.payment_due_by}>
                                     CONFIRM BOOKING
                                 </ConfirmButton>
                             ) : (
@@ -113,7 +116,11 @@ const OperationCard: React.FC<PropsType> = ({
                                 </ConfirmButton>
                             )
                         }
-                        <RejectButton>CANCEL OPERATION</RejectButton>
+                        {company_type?.type === AppCompaniesTypes.AGENT
+                            ? (operation_info?.status === 'Booking Confirmed' && <RejectButton onClick={() => setIsCancelByAgent(true)}>CANCEL OPERATION</RejectButton>)
+                            : <RejectButton>CANCEL OPERATION</RejectButton>
+                        }
+
                     </ActionsButtons>
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}
@@ -132,13 +139,13 @@ const OperationCard: React.FC<PropsType> = ({
                     {company_type?.type === AppCompaniesTypes.AGENT
                         ? <PaymentDueByDates payment_due_by={operation_info?.payment_due_by}
                                              operation_id={operation_info.id}
-                          />
+                        />
                         : (operation_info?.payment_due_by &&
                             <PaymentDueByForClient payment_due_by={String(operation_info?.payment_due_by)}
                                                    agent_bank_account={operation_info?.agent_bank_account}
                                                    agent_name={operation_info?.agent_contact_person}
                             />
-                            )
+                        )
                     }
                     <ChargesBlock operation_charges={operation_info?.charges ? operation_info?.charges : null}
                                   number_of_docs={operation_info?.number_of_documents}

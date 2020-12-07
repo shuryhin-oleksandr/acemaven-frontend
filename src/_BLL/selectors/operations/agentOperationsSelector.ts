@@ -5,3 +5,4 @@ export const getExactOperationSelector = (state: AppStateType) => state.agent_op
 export const getIsFetchingOperationSelector = (state: AppStateType) => state.agent_operations.isFetching
 export const getEditOperationSuccessSelector = (state: AppStateType) => state.agent_operations.edit_success
 export const getCancellationChoicesSelector = (state: AppStateType) => state.agent_operations.cancellation_choices
+export const getCancellationConfirmationSelector = (state: AppStateType) => state.agent_operations.cancellation_confirmation

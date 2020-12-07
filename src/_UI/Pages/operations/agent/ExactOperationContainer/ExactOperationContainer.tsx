@@ -2,13 +2,17 @@ import React, {useEffect, useState} from "react";
 //moment js
 import moment from "moment";
 //react-router-dom
-import {useHistory, withRouter } from "react-router-dom";
+import {useHistory, useParams, withRouter} from "react-router-dom";
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
 //BLL
 import {AppStateType} from "../../../../../_BLL/store";
-import {getAgentExactOperationThunk} from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {
+    cancelOperationByAgentThunk,
+    getAgentExactOperationThunk
+} from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {
+    getCancellationConfirmationSelector,
     getExactOperationSelector,
     getIsFetchingOperationSelector
 } from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
@@ -26,6 +30,7 @@ import CancelOperationByAgentPopup
 
 
 
+
 const ExactOperationContainer = ({...props}) => {
 
     //local state
@@ -37,21 +42,37 @@ const ExactOperationContainer = ({...props}) => {
     const [isAcceptPopup, openAcceptPopup] = useState(false)
     const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
     const [isCompleteOperation, setCompleteOperationPopup] = useState(false)
-    const [isCancelByAgent, setIsCancelByAgent] = useState(true)
+    const [isCancelByAgent, setIsCancelByAgent] = useState(false)
 
 
     //data from store
     let operation_info = useSelector(getExactOperationSelector)
     let isFetching = useSelector(getIsFetchingOperationSelector)
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies);
+    let cancellation_success = useSelector(getCancellationConfirmationSelector)
 
     //hooks
     const history = useHistory()
     const dispatch = useDispatch()
+    let query = useParams()
+    // @ts-ignore
+    let id = query.id
+
 
     useEffect(() => {
         dispatch(getAgentExactOperationThunk(operation_id))
     }, [])
+
+    let cancelOperationByAgentHandler = (data: {reason: string, comment: string}) => {
+        dispatch(cancelOperationByAgentThunk(id, data, history))
+    }
+
+    useEffect(() => {
+        if(cancellation_success) {
+            setIsCancelByAgent(false)
+        }
+    }, [cancellation_success])
+
 
   return (
     <Layout>
@@ -64,11 +85,14 @@ const ExactOperationContainer = ({...props}) => {
             <CompleteOperationPopup setCompleteOperationPopup={setCompleteOperationPopup}/>
         </ModalWindow>
         <ModalWindow isOpen={isCancelByAgent}>
-            <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}/>
+            <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}
+                                         cancelOperationByAgentHandler={cancelOperationByAgentHandler}
+            />
         </ModalWindow>
         {operation_info &&  <ModalWindow isOpen={clientChangRequestPopupVisible}>
             <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible} operation_info={operation_info}/>
         </ModalWindow>}
+
 
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />
@@ -79,7 +103,7 @@ const ExactOperationContainer = ({...props}) => {
                               my_name={String(my_name)}
                               company_type={company_type && company_type[0]}
                               setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
-
+                              setIsCancelByAgent={setIsCancelByAgent}
             />
         }
     </Layout>

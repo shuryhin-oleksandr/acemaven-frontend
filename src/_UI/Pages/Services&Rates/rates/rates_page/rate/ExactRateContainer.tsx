@@ -11,6 +11,8 @@ import {
 } from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {useForm} from "react-hook-form";
 import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import {getRatesIsFetching} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+import SpinnerForAuthorizedPages from "../../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 
 
 const ExactRateContainer = ({...props}) => {
@@ -22,6 +24,7 @@ const ExactRateContainer = ({...props}) => {
     //data from store
     const rate = useSelector((state: AppStateType) => state.rate.rate_info);
     let existing_surcharge = useSelector((state: AppStateType) => state.rate.existing_surcharge)
+    let isFetching = useSelector(getRatesIsFetching)
     const is_active = rate?.is_active
     let id = props.match.params.id;
 
@@ -82,18 +85,22 @@ const ExactRateContainer = ({...props}) => {
 
     return (
     <Layout>
-      <Rate rate={rate}
-            is_active={is_active}
-            id={id}
-            handleSubmit={handleSubmit}
-            errors={errors}
-            setValue={setValue}
-            control={control}
-            getValues={getValues}
-            activateRateHandler={activateRateHandler}
-            getSurchargeForRate={getSurchargeForRate}
-            existing_surcharge={existing_surcharge}
-      />
+        {(isFetching || !rate)
+            ? <SpinnerForAuthorizedPages />
+            : <Rate rate={rate}
+                    is_active={is_active}
+                    id={id}
+                    handleSubmit={handleSubmit}
+                    errors={errors}
+                    setValue={setValue}
+                    control={control}
+                    getValues={getValues}
+                    activateRateHandler={activateRateHandler}
+                    getSurchargeForRate={getSurchargeForRate}
+                    existing_surcharge={existing_surcharge}
+            />
+        }
+
     </Layout>
   );
 };

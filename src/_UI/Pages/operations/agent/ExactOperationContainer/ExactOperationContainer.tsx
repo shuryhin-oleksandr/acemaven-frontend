@@ -27,6 +27,7 @@ import ClientOperationChangeRequestPopUp
 import CompleteOperationPopup from "../../../../components/PopUps/complete_operation_by_agent/CompleteOperationPopup";
 import CancelOperationByAgentPopup
     from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
+import AgentChangeRequestPopup from "../../../../components/PopUps/change_request_agent_popup/AgentChangeRequestPopup";
 
 
 
@@ -36,13 +37,12 @@ const ExactOperationContainer = ({...props}) => {
     //local state
     let operation_id = props.match.params.id;
     let local_time = moment(new Date()).format(' DD/MM  h:mm a');
-    let first_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.first_name)
-    let last_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.last_name)
-    let my_name = (first_name && first_name) + ' ' + (last_name && last_name)
+
     const [isAcceptPopup, openAcceptPopup] = useState(false)
     const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
     const [isCompleteOperation, setCompleteOperationPopup] = useState(false)
     const [isCancelByAgent, setIsCancelByAgent] = useState(false)
+    const [isChangeRequestPopup, setChangeRequestPopup] = useState(false)
 
 
     //data from store
@@ -50,6 +50,9 @@ const ExactOperationContainer = ({...props}) => {
     let isFetching = useSelector(getIsFetchingOperationSelector)
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies);
     let cancellation_success = useSelector(getCancellationConfirmationSelector)
+    let first_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.first_name)
+    let last_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.last_name)
+    let my_name = (first_name && first_name) + ' ' + (last_name && last_name)
 
     //hooks
     const history = useHistory()
@@ -73,6 +76,14 @@ const ExactOperationContainer = ({...props}) => {
         }
     }, [cancellation_success])
 
+    useEffect(() => {
+        if(operation_info?.has_change_request) {
+            setChangeRequestPopup(true)
+        }
+    }, [operation_info?.has_change_request])
+
+
+
 
   return (
     <Layout>
@@ -92,7 +103,11 @@ const ExactOperationContainer = ({...props}) => {
         {operation_info &&  <ModalWindow isOpen={clientChangRequestPopupVisible}>
             <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible} operation_info={operation_info}/>
         </ModalWindow>}
-
+        <ModalWindow isOpen={isChangeRequestPopup}>
+          <AgentChangeRequestPopup setChangeRequestPopup={setChangeRequestPopup}
+                                   operation_info={operation_info ? operation_info : null}
+          />
+        </ModalWindow>
 
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />

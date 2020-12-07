@@ -9,12 +9,16 @@ import {IconButton} from "@material-ui/core";
 import close_icon from '../../../assets/icons/close-icon.svg'
 import ChangeRequestForm from "./ChangeRequestForm";
 import ChangedInfoBlock from "./ChangedInfoBlock";
+import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
 
 type PropsType = {
-    setChangeRequestPopup: (value: boolean) => void
+    setChangeRequestPopup: (value: boolean) => void,
+    operation_info: OperationType | null
 }
 
-const AgentChangeRequestPopup:React.FC<PropsType> = ({setChangeRequestPopup}) => {
+const AgentChangeRequestPopup:React.FC<PropsType> = ({setChangeRequestPopup, operation_info}) => {
+
+
     return (
         <ChangeRequestWrapper>
             <ChangeRequestInner>
@@ -25,7 +29,7 @@ const AgentChangeRequestPopup:React.FC<PropsType> = ({setChangeRequestPopup}) =>
                     <ChangeRequestTitle>
                         The client has requested the following changes
                     </ChangeRequestTitle>
-                    <ChangedInfoBlock />
+                    <ChangedInfoBlock operation_info={operation_info ? operation_info : null}/>
                     <ChangeRequestForm />
                 </ChangeRequestContent>
             </ChangeRequestInner>

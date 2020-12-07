@@ -83,7 +83,8 @@ const dispatch = useDispatch()
           start_date: values.rates[key].from,
           expiration_date: values.rates[key].to
         }))))
-      console.log('values', values)
+
+      //console.log('values', values)
   }
 
   useEffect(() => {
@@ -96,13 +97,13 @@ const dispatch = useDispatch()
 
   return (
     <RateContainer onSubmit={handleSubmit(onSubmit)}>
-      <ModalWindow isOpen={rateEditPopUpVisible}>
+      {/*<ModalWindow isOpen={rateEditPopUpVisible} >
         <RateEditPopUp setRateEditPopUpVisible={setRateEditPopUpVisible}/>
-      </ModalWindow>
+      </ModalWindow>*/}
       <Wrap>
         <RateTitle>Freight Rate</RateTitle>
         <ButtonsWrap>
-          {formMode && <SaveButton type="button" onClick={()=>{setRateEditPopUpVisible(true)}}>SAVE CHANGES</SaveButton>}
+          {formMode && <SaveButton type="submit">SAVE CHANGES</SaveButton>}
           <PauseButton type='button' onClick={() => activateRateHandler(rate?.id, !rate?.is_active)}>
             <PauseImg src={is_active ? pause : play} alt="" />
           </PauseButton>

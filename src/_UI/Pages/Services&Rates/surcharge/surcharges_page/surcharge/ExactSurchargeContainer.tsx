@@ -8,9 +8,9 @@ import {
     getEditSurchargeSelector, getIsFetchingSelector,
     getSurcharge
 } from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
-import {checkSurchargeDates, getSurchargeInfo} from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import {getSurchargeInfo} from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {surchargeActions} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
-import SurchargeDetailsSkeleton from "../../../../../skeleton/rates&surcharges/rates/SurchargeDetailsSkeleton";
+import SpinnerForAuthorizedPages from "../../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 
 
 const ExactSurchargeContainer = ({...props}) => {
@@ -62,7 +62,7 @@ const ExactSurchargeContainer = ({...props}) => {
     return (
         <Layout>
             {isFetching && !surcharge
-                ? <SurchargeDetailsSkeleton />
+                ? <SpinnerForAuthorizedPages/>
                 : <Surcharge handleSubmit={handleSubmit}
                        setValue={setValue}
                        surcharge={surcharge}

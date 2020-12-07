@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 
 type PropsStyle = {
     c?: string,
@@ -6,10 +6,20 @@ type PropsStyle = {
     w?: string
 }
 
+let show_skeleton = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
 export const SurchargeContainer = styled.form`
 padding: 50px 80px 80px 30px;
 height: 100% ;
 width: 100%;
+animation: ${show_skeleton} ease-in-out .2s;
 `
 export const SurchargeContent = styled.div`
 display: flex;

@@ -11,6 +11,7 @@ import {CurrentShippingType} from "../../types/rates&surcharges/newSurchargesTyp
 
 
 const initialState = {
+  isFetching: false,
   current_shipping_type: 'sea' as CurrentShippingType | 'sea',
   shipping_type: null as ShippingTypeType[] | null,
   sea_carriers: null as CarrierType[] | null,
@@ -40,6 +41,11 @@ export const rateReducer = (
   action: commonRateActions
 ): InitialStateType => {
   switch (action.type) {
+    case "SET_IS_FETCHING":
+      return {
+        ...state,
+        isFetching: action.value
+      }
     case "SET_CURRENT_SHIPPING_TYPE":
       return {
         ...state,
@@ -151,17 +157,40 @@ export const rateReducer = (
         ...state,
        rate_transit_error: action.error
       }
+    case "SET_EDITED_RATE_INFO":
+      debugger
+      return {
+        ...state,
+        rate_info: {...state.rate_info, rates: state.rate_info.rates.map((r: any) => {
+            if (r.container_type && (r.container_type.id === action.value.container_type)) {
+              return {
+                ...r,
+                rate: action.value.rate,
+                start_date: action.value.start_date,
+                expiration_date: action.value.expiration_date
+              }
+            } else if(!r.container_type) {
+              return {
+                ...r,
+                rate: action.value.rate,
+                start_date: action.value.start_date,
+                expiration_date: action.value.expiration_date
+              }
+            } else {
+              return r
+            }
+          })}
+      }
     default:
       return state;
   }
 };
 
-type AC<T> = T extends { [key: string]: (...args: any[]) => infer U }
-  ? U
-  : never;
+type AC<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never;
 export type commonRateActions = AC<typeof rateActions>;
 
 export const rateActions = {
+  setIsFetching: (value: boolean) => ({type: 'SET_IS_FETCHING', value} as const),
   setCurrentShippingType: (current_type: CurrentShippingType) => ({type: 'SET_CURRENT_SHIPPING_TYPE', current_type} as const),
   setOriginPortsList: (ports: PortType[]) =>
     ({ type: "SET_ORIGIN_PORTS", ports } as const),
@@ -199,5 +228,6 @@ export const rateActions = {
   setEditSuccess: (success: string) => ({type: 'SET_EDIT_RATE_SUCCESS', success} as const),
   setAddingPopupError: (error: any) => ({type: 'SET_ADDING_POPUP_ERROR', error} as const),
   setAddingRateError: (error: any) => ({type: 'SET_ADDING_RATE_ERROR', error} as const),
-  setTransitError: (error: any) => ({type: 'SET_TRANSIT_ERROR', error} as const)
+  setTransitError: (error: any) => ({type: 'SET_TRANSIT_ERROR', error} as const),
+  setEditedRateInfo: (value: any) => ({type: 'SET_EDITED_RATE_INFO', value} as const)
 };

@@ -38,6 +38,7 @@ export type AgentBankAccountType = {
     number: string
 }
 
+
 export type OperationType = {
     id: number,
     aceid: string,
@@ -60,5 +61,6 @@ export type OperationType = {
     client?: string,
     shipment_details?: ShipmentDetailsType[],
     payment_due_by: string | null,
-    has_change_request?: boolean
+    has_change_request?: boolean,
+    change_request?: Array<OperationType>
 }

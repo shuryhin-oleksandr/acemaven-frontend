@@ -10,7 +10,7 @@ const Layout: React.FC = ({ children }) => {
       <Header />
       <Content>
         <NavBar />
-        <Scrollbars {...{style: { height: "calc(100vh - 60px)" }}}>
+        <Scrollbars {...{style: { height: "calc(100vh - 60px)"}}}>
           {children}
         </Scrollbars>
       </Content>

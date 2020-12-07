@@ -8,11 +8,27 @@ import {
     InfoBlockLabel,
     InfoBlockOuter, InfoBlockValue, ValuesWrapper
 } from "./change-request-agent-styles";
+import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
 
 
-const ChangedInfoBlock = () => {
+type PropsType = {
+    operation_info: OperationType | null
+}
+
+const ChangedInfoBlock:React.FC<PropsType> = ({operation_info}) => {
+
+    let initial_date = {start: operation_info?.date_from, to: operation_info?.date_to}
+    let changed_date = {
+        start: operation_info?.change_request && operation_info?.change_request[0].date_from,
+        to: operation_info?.change_request && operation_info?.change_request[0].date_to
+    }
+
+    console.log(initial_date === changed_date)
+
+
     return (
         <ChangedInfoBlockWrapper>
+            {operation_info?.number_of_documents &&
             <InfoBlockOuter>
                 <GeneralTitle>DOCUMENTS</GeneralTitle>
                 <InfoBlockInner>
@@ -25,7 +41,14 @@ const ChangedInfoBlock = () => {
                             <InfoBlockLabel>Number of documents</InfoBlockLabel>
                             <InfoBlockValue>12</InfoBlockValue>
                         </ValuesWrapper>
-                        <div style={{fontFamily: 'Helvetica Bold', fontSize: '16px', color: '#1B1B25', display: 'flex', alignItems: 'flex-end', margin: ' 0 40px '}}>
+                        <div style={{
+                            fontFamily: 'Helvetica Bold',
+                            fontSize: '16px',
+                            color: '#1B1B25',
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            margin: ' 0 40px '
+                        }}>
                             to
                         </div>
                         <ValuesWrapper back_color='rgba(17, 91, 134, .05)'>
@@ -39,6 +62,7 @@ const ChangedInfoBlock = () => {
                     </InfoBlockContent>
                 </InfoBlockInner>
             </InfoBlockOuter>
+            }
             <InfoBlockOuter>
                 <GeneralTitle>DATES</GeneralTitle>
                 <InfoBlockInner>

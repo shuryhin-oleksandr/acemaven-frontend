@@ -1,5 +1,7 @@
 import {AppStateType} from "../../store";
 
+
+export const getRatesIsFetching = (state: AppStateType) => state.rate.isFetching
 export const getFreightRatesList = ((state: AppStateType) => state.rate.freight_rates_list)
 export const getOriginPorts = ((state: AppStateType) => state.rate.origin_ports)
 export const getDestinationPorts = ((state: AppStateType) => state.rate.destination_ports)

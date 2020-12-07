@@ -31,7 +31,7 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
-        paddingRight: "12px"
+        paddingRight: "12px", height: '100%'
     },
     table: {
         "& .MuiTableHead-root": {},

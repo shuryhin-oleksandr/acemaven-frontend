@@ -9,7 +9,6 @@ import {PortType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges
 import {CarrierType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {ShippingModeType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
-import {getBookedDates} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 
 type PropsType = {
     control: any
@@ -109,7 +108,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                                 <PortsList>
                                     {origin_ports?.map((p: PortType) => (
                                         <Port
-                                            onClick={() => closePortsHandler(p)}
+                                            onClick={() => closePortsHandler(p, 'origin')}
                                             key={p?.id}
                                         >
                                             {p?.display_name}

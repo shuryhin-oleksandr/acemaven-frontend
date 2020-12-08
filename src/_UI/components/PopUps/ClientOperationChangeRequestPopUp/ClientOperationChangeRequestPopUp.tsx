@@ -138,7 +138,12 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
         operation_info.cargo_groups
       )
     );
+    return () => clearRecalculatedCharges();
   }, []);
+
+  const clearRecalculatedCharges = () => {
+    dispatch(clientOperationsActions.setRecalculatedCharges(null));
+  };
 
   useEffect(() => {
     dispatch(getShippingTypes(""));
@@ -158,6 +163,10 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
 
   let release_type_choices = useSelector(
     (state: AppStateType) => state.booking.release_type_choices
+  );
+
+  let recalculated_charges = useSelector(
+    (state: AppStateType) => state.client_operations.recalculated_charges
   );
 
   let cargo_groups = useSelector(
@@ -318,8 +327,9 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                   <div style={{ marginBottom: "7px" }}>
                     <Dates
                       setDates={setDates}
-                      // extraDateNumber={}
-                      extraDateNumber={"sea" === "sea" ? 9 : 2}
+                      extraDateNumber={
+                        operation_info.shipping_type === "sea" ? 9 : 2
+                      }
                       dates={dates}
                       disabled={false}
                       placeholder={`Week ${operation_info.week_range?.week_from} - Week ${operation_info.week_range?.week_to}`}
@@ -451,6 +461,44 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
               />
             </div>
           )}
+          {recalculated_charges &&
+            recalculated_charges?.total_surcharge.BRL !==
+              operation_info.charges?.total_surcharge.BRL && (
+              <SectionWrapper>
+                <SectionTitle>Charges</SectionTitle>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <div style={{ padding: "12px 18px 12px 0" }}>
+                    <InfoRow margin_right="25px">
+                      <InfoRowLabel>BEFORE REQUEST</InfoRowLabel>
+                      <InfoRowValue>
+                        Charges in BRL
+                        <span style={{ marginLeft: "20px" }}>
+                          {operation_info.charges?.total_surcharge.BRL}
+                        </span>
+                      </InfoRowValue>
+                    </InfoRow>
+                  </div>
+                  <div
+                    style={{
+                      border: "1px solid #1AB8E5",
+                      padding: "12px 18px",
+                      marginLeft: "200px",
+                    }}
+                  >
+                    <InfoRow margin_right="25px">
+                      <InfoRowLabel>AFTER REQUEST</InfoRowLabel>
+                      <InfoRowValue>
+                        Charges in BRL
+                        <span style={{ marginLeft: "20px" }}>
+                          {recalculated_charges?.total_surcharge.BRL}
+                        </span>
+                      </InfoRowValue>
+                    </InfoRow>
+                  </div>
+                </div>
+              </SectionWrapper>
+            )}
+
           {!addGroupMode && (
             <ButtonsWrap>
               <ConfirmButton type="submit">REQUEST</ConfirmButton>

@@ -120,6 +120,7 @@ export const recalculateCharges = (id: number, data: any) => {
   return async (dispatch: Dispatch<commonClientOperationsActions>) => {
     try {
       let res = await operationsClientAPI.recalculateCharges(id, data);
+      dispatch(clientOperationsActions.setRecalculatedCharges(res.data));
       console.log("RRR", res.data);
     } catch (e) {
       console.log(e);

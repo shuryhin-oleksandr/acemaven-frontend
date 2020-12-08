@@ -1,10 +1,11 @@
 import { CargoGroupQuoteType } from "../../../types/quotes/quotesTypes";
-import { ChoiceType } from "../../../types/bookingTypes";
+import { ChoiceType, CostBookingType } from "../../../types/bookingTypes";
 
 const initialState = {
   operationCargoGroups: [] as CargoGroupQuoteType[],
   packaging_types: [] as ChoiceType[],
   container_types_air: [] as ChoiceType[],
+  recalculated_charges: null as CostBookingType | null,
 };
 
 type InitialStateType = typeof initialState;
@@ -36,7 +37,11 @@ export const clientOperationsReducer = (
         ...state,
         operationCargoGroups: [...state.operationCargoGroups, action.group],
       };
-
+    case "SET_RECALCULATED_CHARGES":
+      return {
+        ...state,
+        recalculated_charges: action.charges,
+      };
     default:
       return state;
   }
@@ -62,4 +67,9 @@ export const clientOperationsActions = {
     } as const),
   addNewCargoGroup: (group: CargoGroupQuoteType) =>
     ({ type: "ADD_OPERATION_CARGO_GROUPS", group } as const),
+  setRecalculatedCharges: (charges: CostBookingType | null) =>
+    ({
+      type: "SET_RECALCULATED_CHARGES",
+      charges,
+    } as const),
 };

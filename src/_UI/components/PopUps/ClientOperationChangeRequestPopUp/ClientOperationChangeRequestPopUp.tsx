@@ -133,16 +133,22 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
   }, []);
 
   useEffect(() => {
-    dispatch(
-      clientOperationsActions.setOperationCargoGroups(
-        operation_info.cargo_groups
-      )
-    );
-    return () => clearRecalculatedCharges();
+    const obj = [...operation_info.cargo_groups];
+    dispatch(clientOperationsActions.setOperationCargoGroups(obj));
+    console.log("SETTING", operation_info.cargo_groups);
+    return () => {
+      clearRecalculatedCharges();
+      clearOperationCargoGroups();
+      reset();
+    };
   }, []);
 
   const clearRecalculatedCharges = () => {
     dispatch(clientOperationsActions.setRecalculatedCharges(null));
+  };
+
+  const clearOperationCargoGroups = () => {
+    dispatch(clientOperationsActions.setOperationCargoGroups([]));
   };
 
   useEffect(() => {
@@ -173,7 +179,14 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
     (state: AppStateType) => state.client_operations.operationCargoGroups
   );
 
-  const { handleSubmit, register, control, getValues, errors } = useForm();
+  const {
+    handleSubmit,
+    register,
+    control,
+    getValues,
+    errors,
+    reset,
+  } = useForm();
 
   const onSubmit = (values: any) => {
     console.log(values);
@@ -461,43 +474,61 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
               />
             </div>
           )}
-          {recalculated_charges &&
-            recalculated_charges?.total_surcharge.BRL !==
-              operation_info.charges?.total_surcharge.BRL && (
-              <SectionWrapper>
-                <SectionTitle>Charges</SectionTitle>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <div style={{ padding: "12px 18px 12px 0" }}>
-                    <InfoRow margin_right="25px">
-                      <InfoRowLabel>BEFORE REQUEST</InfoRowLabel>
+          {recalculated_charges && !addGroupMode && (
+            <SectionWrapper>
+              <SectionTitle>Charges</SectionTitle>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ padding: "12px 18px 12px 0" }}>
+                  <InfoRow margin_right="25px">
+                    <InfoRowLabel>BEFORE REQUEST</InfoRowLabel>
+                    {operation_info.charges?.totals.BRL && (
                       <InfoRowValue>
                         Charges in BRL
                         <span style={{ marginLeft: "20px" }}>
-                          {operation_info.charges?.total_surcharge.BRL}
+                          {operation_info.charges?.totals.BRL}
                         </span>
                       </InfoRowValue>
-                    </InfoRow>
-                  </div>
-                  <div
-                    style={{
-                      border: "1px solid #1AB8E5",
-                      padding: "12px 18px",
-                      marginLeft: "200px",
-                    }}
-                  >
-                    <InfoRow margin_right="25px">
-                      <InfoRowLabel>AFTER REQUEST</InfoRowLabel>
+                    )}
+                    {operation_info.charges?.totals.USD && (
                       <InfoRowValue>
-                        Charges in BRL
+                        Charges in USD
                         <span style={{ marginLeft: "20px" }}>
-                          {recalculated_charges?.total_surcharge.BRL}
+                          {operation_info.charges?.totals.USD}
                         </span>
                       </InfoRowValue>
-                    </InfoRow>
-                  </div>
+                    )}
+                  </InfoRow>
                 </div>
-              </SectionWrapper>
-            )}
+                <div
+                  style={{
+                    border: "1px solid #1AB8E5",
+                    padding: "12px 18px",
+                    marginLeft: "200px",
+                  }}
+                >
+                  <InfoRow margin_right="25px">
+                    <InfoRowLabel>AFTER REQUEST</InfoRowLabel>
+                    {recalculated_charges?.totals.BRL && (
+                      <InfoRowValue>
+                        Charges in BRL
+                        <span style={{ marginLeft: "20px" }}>
+                          {recalculated_charges?.totals.BRL}
+                        </span>
+                      </InfoRowValue>
+                    )}
+                    {recalculated_charges?.totals.USD && (
+                      <InfoRowValue>
+                        Charges in USD
+                        <span style={{ marginLeft: "20px" }}>
+                          {recalculated_charges?.totals.USD}
+                        </span>
+                      </InfoRowValue>
+                    )}
+                  </InfoRow>
+                </div>
+              </div>
+            </SectionWrapper>
+          )}
 
           {!addGroupMode && (
             <ButtonsWrap>

@@ -1,7 +1,11 @@
 import { CargoGroupQuoteType } from "../../../types/quotes/quotesTypes";
 import { ChoiceType, CostBookingType } from "../../../types/bookingTypes";
+import { OperationType } from "../../../types/operations/operationsTypes";
 
 const initialState = {
+  isFetching: false,
+  client_operations_list: [] as OperationType[],
+  client_operation_info: null as OperationType | null,
   operationCargoGroups: [] as CargoGroupQuoteType[],
   packaging_types: [] as ChoiceType[],
   container_types_air: [] as ChoiceType[],
@@ -15,6 +19,22 @@ export const clientOperationsReducer = (
   action: commonClientOperationsActions
 ): InitialStateType => {
   switch (action.type) {
+    case "SET_IS_FETCHING":
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      };
+    case "SET_CLIENT_OPERATIONS_LIST":
+      return {
+        ...state,
+        client_operations_list: action.list,
+      };
+    case "SET_CLIENT_EXACT_OPERATION_INFO":
+      return {
+        ...state,
+        client_operation_info: action.info,
+      };
+
     case "SET_OPERATION_CARGO_GROUPS":
       return {
         ...state,
@@ -53,6 +73,15 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U }
 export type commonClientOperationsActions = AC<typeof clientOperationsActions>;
 
 export const clientOperationsActions = {
+  setIsFetching: (isFetching: boolean) =>
+    ({ type: "SET_IS_FETCHING", isFetching } as const),
+
+  setAgentExactOperationInfo: (info: OperationType) =>
+    ({ type: "SET_CLIENT_EXACT_OPERATION_INFO", info } as const),
+
+  setClientOperationsList: (list: OperationType[]) =>
+    ({ type: "SET_CLIENT_OPERATIONS_LIST", list } as const),
+
   setOperationCargoGroups: (groups: CargoGroupQuoteType[]) =>
     ({ type: "SET_OPERATION_CARGO_GROUPS", groups } as const),
   setContainerTypeAir: (choices: ChoiceType[]) =>

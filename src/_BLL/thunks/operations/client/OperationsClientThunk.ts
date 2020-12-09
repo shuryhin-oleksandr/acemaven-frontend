@@ -9,6 +9,7 @@ import {
   clientOperationsActions,
 } from "../../../reducers/operations/client/clientOperationsReducer";
 import { AppStateType } from "../../../store";
+import {operationsAgentAPI} from "../../../../_DAL/API/operations/OperationsAgentAPI";
 
 export const getClientOperationsThunk = (
   type: string,
@@ -17,7 +18,7 @@ export const getClientOperationsThunk = (
   search_column: string,
   search_value: string
 ) => {
-  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+  return async (dispatch: Dispatch<commonClientOperationsActions>) => {
     try {
       let res = await operationsClientAPI.getClientOperations(
         type,
@@ -26,7 +27,7 @@ export const getClientOperationsThunk = (
         search_column,
         search_value
       );
-      dispatch(agentOperationsActions.setAgentOperationsList(res.data));
+      dispatch(clientOperationsActions.setClientOperationsList(res.data));
     } catch (e) {
       console.log(e);
     }
@@ -61,7 +62,8 @@ export const getPackageTypesChoices = () => {
 
 export const calculateAdditionalCargoGroup = (
   data: any,
-  shipping_mode: number
+  shipping_mode: number,
+  reCalcOnGroupsAmountChange: any
 ) => {
   return async (
     dispatch: Dispatch<commonClientOperationsActions>,
@@ -82,6 +84,9 @@ export const calculateAdditionalCargoGroup = (
           container_type: c,
         };
         dispatch(clientOperationsActions.addNewCargoGroup(newCargoData));
+        const groups = getState().client_operations.operationCargoGroups;
+
+        reCalcOnGroupsAmountChange(groups);
       } else {
         const p = packaging_types.find(
           (pack) => pack.id === data.packaging_type
@@ -92,9 +97,50 @@ export const calculateAdditionalCargoGroup = (
           packaging_type: p,
         };
         dispatch(clientOperationsActions.addNewCargoGroup(newCargoData));
+        const groups = getState().client_operations.operationCargoGroups;
+        reCalcOnGroupsAmountChange(groups);
       }
     } catch (e) {
       console.log(e);
+    }
+  };
+};
+
+export const cancelClientOperation = (id: number, history: any) => {
+  return async (dispatch: Dispatch<commonClientOperationsActions>) => {
+    try {
+      let res = await operationsClientAPI.cancelOperation(id);
+      history.push("/operations/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const recalculateCharges = (id: number, data: any) => {
+  return async (
+    dispatch: Dispatch<commonClientOperationsActions>,
+    getState: () => AppStateType
+  ) => {
+    try {
+      let res = await operationsClientAPI.recalculateCharges(id, data);
+      dispatch(clientOperationsActions.setRecalculatedCharges(res.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const getClientExactOperationThunk = (id: number) => {
+  return async (dispatch: Dispatch<commonClientOperationsActions>) => {
+    try {
+      dispatch(clientOperationsActions.setIsFetching(true));
+      let res = await operationsAgentAPI.getAgentExactOperation(id);
+      dispatch(clientOperationsActions.setAgentExactOperationInfo(res.data));
+      dispatch(clientOperationsActions.setIsFetching(false));
+    } catch (e) {
+      console.log(e);
+      dispatch(clientOperationsActions.setIsFetching(false));
     }
   };
 };

@@ -51,12 +51,14 @@ type PropsType = {
   setAddGroupMode: (value: boolean) => void;
   shipping_mode: number;
   shipping_type: string;
+  reCalcOnGroupsAmountChange: any;
 };
 
 const AddingGroupsForm: React.FC<PropsType> = ({
   setAddGroupMode,
   shipping_mode,
   shipping_type,
+  reCalcOnGroupsAmountChange,
 }) => {
   const [selectedValueWeight, setSelectedValueWeight] = React.useState("t");
   const [selectedValueLength, setSelectedValueLength] = React.useState("m");
@@ -78,18 +80,13 @@ const AddingGroupsForm: React.FC<PropsType> = ({
     (state: AppStateType) => state.client_operations.packaging_types
   );
 
-  const {
-    handleSubmit,
-    register,
-    control,
-    errors,
-    setValue,
-  } = useForm();
+  const { handleSubmit, register, control, errors, setValue } = useForm();
   const onSubmit = (values: any) => {
     dispatch(
       calculateAdditionalCargoGroup(
         { ...values, shipping_type: shipping_type },
-        shipping_mode
+        shipping_mode,
+        reCalcOnGroupsAmountChange
       )
     );
     setAddGroupMode(false);

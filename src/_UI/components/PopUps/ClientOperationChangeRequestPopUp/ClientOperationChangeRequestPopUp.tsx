@@ -133,9 +133,12 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
   }, []);
 
   useEffect(() => {
-    const obj = [...operation_info.cargo_groups];
-    dispatch(clientOperationsActions.setOperationCargoGroups(obj));
-    console.log("SETTING", operation_info.cargo_groups);
+    dispatch(
+      clientOperationsActions.setOperationCargoGroups(
+        operation_info.cargo_groups
+      )
+    );
+
     return () => {
       clearRecalculatedCharges();
       clearOperationCargoGroups();
@@ -221,11 +224,12 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
 
   const reCalcOnVolumeChange = (vol: string, index: number) => {
     let edited_groups = cargo_groups.map((c, i) => {
+      const newObj = { ...c };
       if (i === index) {
-        c.volume = Number(vol);
-        return c;
+        newObj.volume = Number(vol);
+        return newObj;
       } else {
-        return c;
+        return newObj;
       }
     });
 

@@ -6,9 +6,9 @@ export const profileLinks = [
 ]
 
 export const operationsLinks = [
-    {name: 'ACTIVE', path: '/operations/active'},
-    {name: 'COMPLETED', path: '/operations/completed'},
-    {name: 'CANCELED', path: '/operations/canceled'},
+    {name: 'ACTIVE', path: '/operations_active'},
+    {name: 'COMPLETED', path: '/operations_completed'},
+    {name: 'CANCELED', path: '/operations_cancelled'},
 ]
 
 

@@ -16,7 +16,8 @@ export const getClientOperationsThunk = (
   is_mine: boolean | string,
   field_name: string,
   search_column: string,
-  search_value: string
+  search_value: string,
+  status?: string
 ) => {
   return async (dispatch: Dispatch<commonClientOperationsActions>) => {
     try {
@@ -25,7 +26,8 @@ export const getClientOperationsThunk = (
         is_mine,
         field_name,
         search_column,
-        search_value
+        search_value,
+        status
       );
       dispatch(clientOperationsActions.setClientOperationsList(res.data));
     } catch (e) {
@@ -110,7 +112,7 @@ export const cancelClientOperation = (id: number, history: any) => {
   return async (dispatch: Dispatch<commonClientOperationsActions>) => {
     try {
       let res = await operationsClientAPI.cancelOperation(id);
-      history.push("/operations/");
+      history.push("/operations_cancelled");
     } catch (e) {
       console.log(e);
     }

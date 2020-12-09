@@ -74,7 +74,7 @@ const ExactOperationContainer = ({...props}) => {
     //handlers
     const closeHandler = () => {
         dispatch(agentOperationsActions.setAgentExactOperationInfo(null))
-        history.push("/operations")
+        history.push("/operations_active")
     }
     const unmountHandler = () => {
         dispatch(agentOperationsActions.setAgentExactOperationInfo(null))

@@ -18,7 +18,8 @@ type PropsType = {
     thunkName?: string,
     withoutSearch?:boolean,
     withoutOrdering?:boolean,
-    my_operations?:string
+    my_operations?:string,
+    operation_status?:string,
 }
 
 const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...props}) => {
@@ -35,6 +36,7 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...prop
                                thunkName={thunkName}
                                setSearchColumn={props.setSearchColumn}
                                my_operations={props.my_operations}
+                               operation_status={props.operation_status}
 
                 />
                 : <div style={{display: 'flex'}}>
@@ -49,6 +51,7 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...prop
                                          searchColumn={props.searchColumn}
                                          thunkName={thunkName}
                                          my_operations={props.my_operations}
+                                         operation_status={props.operation_status}
                         />
                     }
 

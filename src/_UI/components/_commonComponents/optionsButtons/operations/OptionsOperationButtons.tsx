@@ -19,7 +19,8 @@ type PropsType = {
     disabled?: boolean;
     thunkName?: string;
     my_operations: string,
-    setMyOperations: (value: string) => void
+    setMyOperations: (value: string) => void,
+    operation_status?: string
 }
 
 const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) => {
@@ -30,18 +31,18 @@ const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) 
        belong_to_mine === 'mine' ? props.setMyOperations('mine') : props.setMyOperations('all');
         //props.setShippingValue && props.setShippingValue(0);
         belong_to_mine === 'mine' ?
-            dispatch(getAgentsOperationsThunk(mode,true,"",props.searchColumn,props.searchValue))
+            dispatch(getAgentsOperationsThunk(mode,true,"",props.searchColumn,props.searchValue, props.operation_status))
             :
-            dispatch(getAgentsOperationsThunk(mode,'',"",props.searchColumn,props.searchValue))
+            dispatch(getAgentsOperationsThunk(mode,'',"",props.searchColumn,props.searchValue, props.operation_status))
     };
 
     let dispatchOperationsClientHandler = (belong_to_mine: string) => {
         belong_to_mine === 'mine' ? props.setMyOperations('mine') : props.setMyOperations('all');
         //props.setShippingValue && props.setShippingValue(0);
         belong_to_mine === 'mine' ?
-            dispatch(getClientOperationsThunk(mode,true,"",props.searchColumn,props.searchValue))
+            dispatch(getClientOperationsThunk(mode,true,"",props.searchColumn,props.searchValue, props.operation_status))
             :
-            dispatch(getClientOperationsThunk(mode,'',"",props.searchColumn,props.searchValue))
+            dispatch(getClientOperationsThunk(mode,'',"",props.searchColumn,props.searchValue, props.operation_status))
     };
 
     return (

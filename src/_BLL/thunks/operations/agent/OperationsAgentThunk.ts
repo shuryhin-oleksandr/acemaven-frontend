@@ -13,7 +13,8 @@ export const getAgentsOperationsThunk = (
   is_mine: boolean | string,
   field_name: string,
   search_column: string,
-  search_value: string
+  search_value: string,
+  status?: string
 ) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
@@ -22,7 +23,8 @@ export const getAgentsOperationsThunk = (
         is_mine,
         field_name,
         search_column,
-        search_value
+        search_value,
+        status
       );
       dispatch(agentOperationsActions.setAgentOperationsList(res.data));
     } catch (e) {
@@ -52,7 +54,7 @@ export const confirmBookingRequestThunk = (
   return async (dispatch: Dispatch<any>) => {
     try {
       await operationsAgentAPI.confirmBookingRequest(data);
-      history.push("/operations");
+      history.push("/operations_active");
     } catch (e) {
       console.log(e);
     }
@@ -105,7 +107,7 @@ export const cancelOperationByAgentThunk = (id: number, data: {reason: string, c
     try {
       let res = await operationsAgentAPI.cancelOperationByAgent(id, data)
       dispatch(agentOperationsActions.setCancellationConfirmation('cancelled'))
-      history.push('/operations')
+      history.push('/operations_active')
     } catch (e) {
       console.log(e)
     }

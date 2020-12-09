@@ -1,31 +1,27 @@
-import React, {useEffect, useState} from "react";
-//react-redux
+import React, {useEffect, useState} from 'react'
+import Layout from "../../../components/BaseLayout/Layout";
+import AgentOperationsListContainer from "../agent/AgentOperationsListContainer";
+import ClientOperationsListContainer from "../client/ClientOperationsListContainer";
 import {useDispatch, useSelector} from "react-redux";
-//BLL
-import { AppStateType } from "../../../_BLL/store";
-import { getAgentsOperationsThunk } from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
-import { getAgentsOperationsListSelector, getCancellationConfirmationSelector,getClientOperationsListSelector } from "../../../_BLL/selectors/operations/agentOperationsSelector";
-//components
-import Layout from "../../components/BaseLayout/Layout";
-import AgentOperationsListContainer from "./agent/AgentOperationsListContainer";
-import ClientOperationsListContainer from "./client/ClientOperationsListContainer";
-import { getClientOperationsThunk } from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
-import {agentOperationsActions} from "../../../_BLL/reducers/operations/agent/agentOperationsReducer";
-import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
-import AgentCancellationBadReviewPopup
-    from "../../components/PopUps/agent_bad_review_popup/AgentCancellationBadReviewPopup";
-import {clientOperationsActions} from "../../../_BLL/reducers/operations/client/clientOperationsReducer";
+import {AppStateType} from "../../../../_BLL/store";
+import {
+    getAgentsOperationsListSelector, getClientOperationsListSelector
+} from "../../../../_BLL/selectors/operations/agentOperationsSelector";
+import {getAgentsOperationsThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {getClientOperationsThunk} from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+
+import {agentOperationsActions} from "../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {clientOperationsActions} from "../../../../_BLL/reducers/operations/client/clientOperationsReducer";
 
 
 
-const OperationsContainer: React.FC = () => {
-    //local state
+
+const CancelledOperationsContainer = () => {
     const [isSearchMode, setSearchMode] = useState(false);
     const [mode, setMode] = useState("sea"); //shipping_type
     const [searchValue, setSearchValue] = useState("");
     const [search_column, setSearchColumn] = useState("");
     const [my_operations, setMyOperations] = useState("mine");
-    const [isBadReview, setBadReview] = useState(false)
 
 
     //data from store
@@ -36,8 +32,8 @@ const OperationsContainer: React.FC = () => {
     );
     let agent_operations_list = useSelector(getAgentsOperationsListSelector);
     let client_operations_list = useSelector(getClientOperationsListSelector);
-    let cancellation_success = useSelector(getCancellationConfirmationSelector)
-    let operation_status = 'active'
+    let operation_status = 'canceled'
+
 
     //hooks
     const dispatch = useDispatch();
@@ -51,26 +47,9 @@ const OperationsContainer: React.FC = () => {
         }
     }, [operation_status]);
 
-    useEffect(() => {
-        if (cancellation_success) {
-            setBadReview(true)
-        }
-    }, [cancellation_success])
-
-
-    //handlers
-    let setBadReviewHandler = () => {
-        setBadReview(false)
-        dispatch(agentOperationsActions.setCancellationConfirmation(''))
-    }
-
 
     return (
         <Layout>
-            <ModalWindow isOpen={isBadReview}>
-                <AgentCancellationBadReviewPopup setBadReviewHandler={setBadReviewHandler}
-                />
-            </ModalWindow>
             {company_type?.type === "agent" ? (
                 <AgentOperationsListContainer
                     setSearchMode={setSearchMode}
@@ -98,12 +77,13 @@ const OperationsContainer: React.FC = () => {
                     setSearchColumn={setSearchColumn}
                     my_operations={my_operations}
                     setMyOperations={setMyOperations}
-                    operation_status={operation_status}
                     operations_list={client_operations_list}
+                    operation_status={operation_status}
                 />
             )}
         </Layout>
-    );
-};
+    )
+}
 
-export default OperationsContainer;
+
+export default CancelledOperationsContainer

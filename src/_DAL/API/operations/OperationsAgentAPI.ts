@@ -8,10 +8,11 @@ export const operationsAgentAPI = {
     is_mine: boolean | string,
     field_name: string,
     search_column: string,
-    search_value: string
+    search_value: string,
+    status?: string
   ) {
     return instance.get(
-      `/booking/operation/?shipping_type=${type}&my_operations=${is_mine}&ordering=${field_name}&${search_column}=${search_value}`
+      `/booking/operation/?shipping_type=${type}&my_operations=${is_mine}&ordering=${field_name}&${search_column}=${search_value}&status=${status}`
     );
   },
   getAgentExactOperation(id: number) {

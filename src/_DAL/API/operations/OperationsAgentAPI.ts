@@ -37,7 +37,8 @@ export const operationsAgentAPI = {
   },
   cancelChangeRequest (id: number) {
     return instance.post(`/booking/operation/${id}/cancel_change_request/`, {})
-  }
+  },
+
 };
 
 // `/booking/booking/?shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`

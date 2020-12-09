@@ -9,12 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
 import {
     cancelOperationByAgentThunk,
-    getAgentExactOperationThunk
+    getAgentExactOperationThunk, takeOverThunk
 } from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {
     getCancellationConfirmationSelector, getChangeRequestConfirmationSelector,
     getExactOperationSelector,
-    getIsFetchingOperationSelector,getExactClientOperationSelector
+    getIsFetchingOperationSelector, getTakedOverSelector,
+    getExactClientOperationSelector
 } from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 //components
@@ -32,6 +33,10 @@ import AgentChangeRequestPopup from "../../../../components/PopUps/change_reques
 import CancelOperationByClientPopup from "../../../../components/PopUps/CancelOperationByClientPopup/CancelOperationByClientPopup";
 import {getClientExactOperationThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
+import TakeOverOperationPopup from "../../../../components/PopUps/take_over_operation_popup/TakeOverOperationPopup";
+
+
+
 
 const ExactOperationContainer = ({...props}) => {
 
@@ -45,6 +50,7 @@ const ExactOperationContainer = ({...props}) => {
     const [isCancelByAgent, setIsCancelByAgent] = useState(false)
     const [isChangeRequestPopup, setChangeRequestPopup] = useState(false)
     const [isCancelByClient, setIsCancelByClient] = useState(false);
+    const [isTakeOverPopup, setTakeOver] = useState(false)
 
 
     //data from store
@@ -61,7 +67,9 @@ const ExactOperationContainer = ({...props}) => {
     let first_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.first_name)
     let last_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.last_name)
     let my_name = (first_name && first_name) + ' ' + (last_name && last_name)
+    let my_id = useSelector((state: AppStateType) => state.profile.authUserInfo?.id)
     let change_request_reaction = useSelector(getChangeRequestConfirmationSelector)
+    let taked_over = useSelector(getTakedOverSelector)
 
     //handlers
     const closeHandler = () => {
@@ -71,8 +79,9 @@ const ExactOperationContainer = ({...props}) => {
     const unmountHandler = () => {
         dispatch(agentOperationsActions.setAgentExactOperationInfo(null))
     }
-
-
+    const takeOverAsyncHandler = () => {
+        dispatch(takeOverThunk(Number(my_id), Number(operation_info?.id)))
+    }
 
     //hooks
     const history = useHistory()
@@ -113,6 +122,12 @@ const ExactOperationContainer = ({...props}) => {
             dispatch(agentOperationsActions.setChangeRequestConfirmation(''))
         }
     }, [change_request_reaction])
+    useEffect(() => {
+        if(taked_over) {
+            setTakeOver(false)
+            dispatch(agentOperationsActions.setTakedOver(''))
+        }
+    }, [taked_over])
 
 
   return (
@@ -151,7 +166,12 @@ const ExactOperationContainer = ({...props}) => {
           <AgentChangeRequestPopup setChangeRequestPopup={setChangeRequestPopup}
           operation_info={operation_info ? operation_info : null}
           />
-          </ModalWindow>
+        </ModalWindow>
+        <ModalWindow isOpen={isTakeOverPopup}>
+            <TakeOverOperationPopup setTakeOver={setTakeOver}
+                                    takeOverAsyncHandler={takeOverAsyncHandler}
+            />
+        </ModalWindow>
 
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />
@@ -164,7 +184,7 @@ const ExactOperationContainer = ({...props}) => {
                               setIsCancelByAgent={setIsCancelByAgent}
                               setIsCancelByClient={setIsCancelByClient}
                               closeHandler={closeHandler}
-
+                              setTakeOver={setTakeOver}
             />
         }
     </Layout>

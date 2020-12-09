@@ -60,20 +60,21 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
             date_of_departure: date_of_departure,
             date_of_arrival: date_of_arrival,
             document_cut_off_date: document_cut_off_date,
-            cargo_cut_off_date: cargo_cut_off_date,
-            //payment_due_by: moment(values.payment_due_by).format('DD/MM/YYYY')
+            cargo_cut_off_date: cargo_cut_off_date
         }
         delete final_data.estimated_time
         delete final_data.documents_cut_off
         delete final_data.cargo_cut_off_date
+        delete final_data.payment_due_by
+
 
         let final_data_without_cargo_cut_off = {
             ...values,
             date_of_departure: date_of_departure,
             date_of_arrival: date_of_arrival,
-            //payment_due_by: moment(values.payment_due_by).format('DD/MM/YYYY')
         }
         delete final_data_without_cargo_cut_off.estimated_time
+        delete final_data_without_cargo_cut_off.payment_due_by
 
         if(document_cut_off_date && values.documents_cut_off?.cut_off_time) {
             dispatch(confirmChangeRequestThunk(Number(operation_info?.id), final_data, Number(shipment?.id)))

@@ -17,11 +17,13 @@ type PropsType = {
 
 const ChangedInfoBlock: React.FC<PropsType> = ({operation_info}) => {
 
-    /*let initial_date = {start: operation_info?.date_from, to: operation_info?.date_to}
+    let initial_date = {start: operation_info?.date_from, to: operation_info?.date_to}
     let changed_date = {
-        start: (operation_info?.change_requests && operation_info?.change_requests?.length > 0 && operation_info?.change_requests?[0]) ? operation_info?.change_requests?[0].date_from : '',
+        start: operation_info?.change_requests && operation_info?.change_requests[0].date_from,
         to: operation_info?.change_requests ? operation_info?.change_requests[0].date_to : ''
-    }*/
+    }
+    console.log(initial_date)
+    console.log('change', changed_date)
 
     return (
         <ChangedInfoBlockWrapper>
@@ -60,7 +62,7 @@ const ChangedInfoBlock: React.FC<PropsType> = ({operation_info}) => {
                 </InfoBlockInner>
             </InfoBlockOuter>
             }
-
+            {((initial_date.start !== changed_date.start) || (initial_date.to !== changed_date.to) ) &&
             <InfoBlockOuter>
                 <GeneralTitle>DATES</GeneralTitle>
                 <InfoBlockInner>
@@ -92,7 +94,7 @@ const ChangedInfoBlock: React.FC<PropsType> = ({operation_info}) => {
                     </InfoBlockContent>
                 </InfoBlockInner>
             </InfoBlockOuter>
-
+            }
             <Cargos operation_info={operation_info ? operation_info : null}/>
         </ChangedInfoBlockWrapper>
     )

@@ -25,10 +25,11 @@ import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes"
 type PropsType = {
     shipment: ShipmentDetailsType | null,
     operation_info: OperationType,
-    company_type: string
+    company_type: string,
+    my_name: string
 }
 
-const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_info, company_type}) => {
+const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_info, company_type, my_name}) => {
 
     let dispatch = useDispatch()
     const {control, errors, setValue,handleSubmit} = useForm()

@@ -20,10 +20,12 @@ import {getEditOperationSuccessSelector} from "../../../../../../../../_BLL/sele
 
 type PropsType = {
     shipment: ShipmentDetailsType | undefined,
-    company_type: string
+    company_type: string,
+    my_name: string,
+    agent_name: string
 }
 
-const BookingNumberBlockContainer: React.FC<PropsType> = ({shipment, company_type}) => {
+const BookingNumberBlockContainer: React.FC<PropsType> = ({shipment, company_type, my_name, agent_name}) => {
     const [isEdit, setIsEdit] = useState(false)
 
     const edit_success = useSelector(getEditOperationSuccessSelector)
@@ -58,6 +60,7 @@ const BookingNumberBlockContainer: React.FC<PropsType> = ({shipment, company_typ
                         <div style={{display: "flex"}}>
                             <div>
                                 <BookingTitle>BOOKING</BookingTitle>
+                                {my_name === agent_name &&
                                 <>
                                     {!isEdit
                                         ? <IconButton onClick={() => setIsEdit(true)}
@@ -75,6 +78,7 @@ const BookingNumberBlockContainer: React.FC<PropsType> = ({shipment, company_typ
                                         </EditButtonsWrapper>
                                     }
                                 </>
+                                }
                             </div>
 
                             {!isEdit

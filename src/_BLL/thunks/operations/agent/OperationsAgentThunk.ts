@@ -110,3 +110,32 @@ export const cancelOperationByAgentThunk = (id: number, data: {reason: string, c
     }
   }
 }
+
+export const confirmChangeRequestThunk = (id: number, new_shipment_data: any, shipment_id: number) => {
+  return async (dispatch: Dispatch<any>) => {
+    try {
+      debugger
+      await operationsAgentAPI.editOperationByAgent(new_shipment_data, shipment_id,)
+      let res = await operationsAgentAPI.confirmChangeRequest(id)
+      dispatch(agentOperationsActions.setChangeRequestConfirmation('reaction'))
+      let response = await operationsAgentAPI.getAgentExactOperation(res.data.id)
+      dispatch(agentOperationsActions.setAgentExactOperationInfo(response.data))
+      console.log(res.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export const cancelChangeRequestThunk = (id: number) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      debugger
+      let res = await operationsAgentAPI.cancelChangeRequest(id)
+      dispatch(agentOperationsActions.setChangeRequestConfirmation('reaction'))
+      console.log(res.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}

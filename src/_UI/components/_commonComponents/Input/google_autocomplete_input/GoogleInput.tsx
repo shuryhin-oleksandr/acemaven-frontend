@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 //material ui
 import {Tooltip} from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -19,7 +19,8 @@ type PropsType = {
     google_label: boolean | undefined,
     color_label?: string,
     font_weight?: string,
-    label_uppercase?: boolean
+    label_uppercase?: boolean,
+    defaultValue?: string
 }
 
 const useStyles = makeStyles({
@@ -53,6 +54,12 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, g
             .catch(error => console.error('Error', error));
     };
 
+    useEffect(() => {
+        if(props.defaultValue) {
+            handleChange(props.defaultValue)
+        }
+    }, [props.defaultValue])
+
     return (
         <PlacesAutocomplete
             value={address}
@@ -80,7 +87,6 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, g
                                     required: 'Field is required'
                                 })
                                 }
-
                             />
                             <Tooltip title='You can use automatic address search'
                                      arrow

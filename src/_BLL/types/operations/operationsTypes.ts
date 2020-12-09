@@ -62,5 +62,5 @@ export type OperationType = {
     shipment_details?: ShipmentDetailsType[],
     payment_due_by: string | null,
     has_change_request?: boolean,
-    change_request?: Array<OperationType>
+    change_requests?: Array<OperationType>
 }

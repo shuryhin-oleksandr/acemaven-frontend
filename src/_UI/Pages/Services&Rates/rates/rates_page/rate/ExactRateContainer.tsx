@@ -13,6 +13,7 @@ import {useForm} from "react-hook-form";
 import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import {getRatesIsFetching} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import SpinnerForAuthorizedPages from "../../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+import moment from "moment";
 
 
 const ExactRateContainer = ({...props}) => {
@@ -81,6 +82,21 @@ const ExactRateContainer = ({...props}) => {
         }
         dispatch(getSurchargeForExactRateThunk(rate_data))
     }
+    //if we edit an existing one or add new one
+    let getSurchargeForNewRate = (id: number,start_date: Date, expiration_date: Date) => {
+        let rate_data = {
+            carrier: rate.carrier.id,
+            shipping_mode: rate.shipping_mode.id,
+            transit_time: rate.transit_time,
+            origin: rate.origin.id,
+            destination: rate.destination.id,
+            start_date: moment(start_date).format('DD/MM/YYYY'),
+            expiration_date: moment(expiration_date).format('DD/MM/YYYY')
+        }
+        dispatch(getSurchargeForExactRateThunk(rate_data))
+        //dispatch()
+    }
+
 
 
     return (
@@ -98,6 +114,7 @@ const ExactRateContainer = ({...props}) => {
                     activateRateHandler={activateRateHandler}
                     getSurchargeForRate={getSurchargeForRate}
                     existing_surcharge={existing_surcharge}
+                    //getSurchargeForNewRate={getSurchargeForNewRate}
             />
         }
 

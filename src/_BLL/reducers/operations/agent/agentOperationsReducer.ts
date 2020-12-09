@@ -7,7 +7,8 @@ const initialState = {
     agent_operation_info: null as OperationType | null,
     edit_success: '',
     cancellation_choices: [] as any[],
-    cancellation_confirmation: ''
+    cancellation_confirmation: '',
+    change_request_confirmation: ''
 }
 
 type InitialStateType = typeof initialState
@@ -59,6 +60,11 @@ export const agentOperationsReducer = (state = initialState, action: commonAgent
                 ...state,
                 cancellation_confirmation: action.value
             }
+        case "SET_CHANGE_REQUEST_CONFIRMATION":
+            return {
+                ...state,
+                change_request_confirmation: action.value
+            }
         default: return state
     }
 }
@@ -69,10 +75,11 @@ export type commonAgentOperationsActions = AC<typeof agentOperationsActions>;
 export const agentOperationsActions = {
     setIsFetching: (isFetching: boolean) => ({type: 'SET_IS_FETCHING', isFetching} as const),
     setAgentOperationsList: (list: OperationType[]) => ({type: 'SET_AGENT_OPERATIONS_LIST', list} as const),
-    setAgentExactOperationInfo: (info: OperationType) => ({type: 'SET_AGENT_EXACT_OPERATION_INFO', info} as const),
+    setAgentExactOperationInfo: (info: OperationType | null) => ({type: 'SET_AGENT_EXACT_OPERATION_INFO', info} as const),
     setEditedPaymentDueBy: (value: string) => ({type: 'SET_EDITED_PAYMENT_DUE_BY', value} as const),
     setEditSuccess: (success: string) => ({type: 'SET_EDIT_SUCCESS', success} as const),
     setEditedShipmentDetails: (data: ShipmentDetailsType) => ({type: 'SET_EDITED_SHIPMENT_DETAILS', data} as const),
     setCancellationChoices: (choices: any) => ({type: 'SET_CANCELLATION_CHOICES', choices} as const),
-    setCancellationConfirmation: (value: string) => ({type: 'SET_CANCELLATION_CONFIRMATION', value} as const)
+    setCancellationConfirmation: (value: string) => ({type: 'SET_CANCELLATION_CONFIRMATION', value} as const),
+    setChangeRequestConfirmation: (value: string) => ({type: 'SET_CHANGE_REQUEST_CONFIRMATION', value} as const)
 }

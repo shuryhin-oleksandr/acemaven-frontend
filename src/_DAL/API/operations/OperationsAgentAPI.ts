@@ -1,6 +1,7 @@
 import instance from "../axiosConfig";
 import { BookingShipmentDetailsType } from "../../../_BLL/types/bookingTypes";
 
+
 export const operationsAgentAPI = {
   getAgentsOperations(
     type: string,
@@ -30,6 +31,12 @@ export const operationsAgentAPI = {
   },
   cancelOperationByAgent (id: number, data: {reason: string, comment?: string}) {
     return instance.post(`/booking/operation/${id}/cancel/`, data)
+  },
+  confirmChangeRequest (id: number) {
+    return instance.post(`/booking/operation/${id}/confirm_change_request/`)
+  },
+  cancelChangeRequest (id: number) {
+    return instance.post(`/booking/operation/${id}/cancel_change_request/`, {})
   }
 };
 

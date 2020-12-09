@@ -4,7 +4,7 @@ import {IconButton} from "@material-ui/core";
 //types
 import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
 import {userCompaniesType} from "../../../../../../_BLL/types/authTypes";
-import {AppCompaniesTypes} from "../../../../../../_BLL/types/commonTypes";
+import {AppCompaniesTypes, VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 //components
 import DocsAndNotesBlock from "./blocks/DocsAndNotesBlock";
 import ShipmentPartsBlock from "./blocks/ShipmentPartsBlock";
@@ -40,34 +40,35 @@ import BookingNumberWithCarrierBlockContainer from "./blocks/booking_number/Book
 
 type PropsType = {
     operation_info: OperationType,
-    history: any,
     local_time: string,
     openAcceptPopup: (value: boolean) => void,
     my_name: string,
     company_type: userCompaniesType | undefined,
     setClientChangRequestPopupVisible: (value: boolean) => void,
-    setIsCancelByAgent: (value: boolean) => void
+    setIsCancelByAgent: (value: boolean) => void,
+    closeHandler:VoidFunctionType
 }
 
 const OperationCard: React.FC<PropsType> = ({
                                                 operation_info,
-                                                history,
                                                 local_time,
                                                 openAcceptPopup,
                                                 my_name,
                                                 company_type,
                                                 setClientChangRequestPopupVisible,
-                                                setIsCancelByAgent
+                                                setIsCancelByAgent,
+                                                closeHandler
                                             }) => {
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
+
 
     return (
         <CardWrapper>
             <CardContent>
                 <IconButton
                     style={{position: "absolute", top: "10px", right: "30px"}}
-                    onClick={() => history.push("/operations")}
+                    onClick={closeHandler}
                 >
                     <img src={close_icon} alt="" style={{width: "15px"}}/>
                 </IconButton>

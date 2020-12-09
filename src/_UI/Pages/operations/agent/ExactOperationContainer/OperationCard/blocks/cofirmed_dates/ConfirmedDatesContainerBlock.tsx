@@ -38,9 +38,9 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
        let date_of_departure = moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time
        let date_of_arrival = moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time
 
-        let document_cut_off_date = moment(values.documents_cut_off.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off.cut_off_time
-        let cargo_cut_off_date = moment(values.cargo_cut_off.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off.cut_off_time
-        if(document_cut_off_date && cargo_cut_off_date) {
+        let document_cut_off_date = moment(values.documents_cut_off?.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off?.cut_off_time
+        let cargo_cut_off_date = moment(values.cargo_cut_off?.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off?.cut_off_time
+        if(document_cut_off_date && values.documents_cut_off?.cut_off_time) {
             dispatch(editOperationByAgentThunk({
                 date_of_departure: date_of_departure,
                 date_of_arrival: date_of_arrival,
@@ -49,7 +49,7 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
             },
                 shipment?.id as number
             ))
-        } else {
+        } else if(document_cut_off_date && !values.documents_cut_off?.cut_off_time){
             dispatch(editOperationByAgentThunk({date_of_departure: date_of_departure, date_of_arrival: date_of_arrival}, shipment?.id as number))
         }
     }

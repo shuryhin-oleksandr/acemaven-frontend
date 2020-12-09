@@ -13,16 +13,17 @@ type PropsType = {
     classes: any
     reservedDates?: Array<{from: Date, to: Date} | {before: Date}>
     id: any
-    getSurchargeToRateHandle: (id: number, from: string, to: string) => void
+    getSurchargeToRateHandle: any/*(id: number, from: string, to: string) => void*/
     currentDates?: {from: string, to: string}
     setFormMode?: (value: boolean) => void
     required_dates: boolean,
     disabled?: boolean,
     invalidDate?: string,
     setInvalidDate?: (value: string) => void
+    getSurchargeForNewRate?: any
 }
 
-const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, errors, classes, reservedDates,
+const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, errors, classes, reservedDates,getSurchargeForNewRate,
                                              id, getSurchargeToRateHandle, setFormMode, required_dates, disabled, setInvalidDate}) => {
 
     const [selectedDay, setSelectedDay] = useState<any>({
@@ -61,7 +62,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
         setValue(`rates.${id}.to`, moment(to).format('DD/MM/YYYY'))
 
         //запрос за существующими сюрчарджами для этого контейнера
-        //getSurchargeToRateHandle(0, selectedDay.from, to)
+        //getSurchargeForNewRate(selectedDay.from, to)
     }
 
     const toInput = useRef<DayPickerInput>(null)

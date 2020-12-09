@@ -12,10 +12,11 @@ import {
     getAgentExactOperationThunk
 } from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {
-    getCancellationConfirmationSelector,
+    getCancellationConfirmationSelector, getChangeRequestConfirmationSelector,
     getExactOperationSelector,
     getIsFetchingOperationSelector
 } from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
+import {agentOperationsActions} from "../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 //components
 import Layout from "../../../../components/BaseLayout/Layout";
 import OperationCard from "./OperationCard/OperationCard";
@@ -28,6 +29,8 @@ import CompleteOperationPopup from "../../../../components/PopUps/complete_opera
 import CancelOperationByAgentPopup
     from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
 import AgentChangeRequestPopup from "../../../../components/PopUps/change_request_agent_popup/AgentChangeRequestPopup";
+
+
 
 
 
@@ -53,6 +56,18 @@ const ExactOperationContainer = ({...props}) => {
     let first_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.first_name)
     let last_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.last_name)
     let my_name = (first_name && first_name) + ' ' + (last_name && last_name)
+    let change_request_reaction = useSelector(getChangeRequestConfirmationSelector)
+
+    //handlers
+    const closeHandler = () => {
+        dispatch(agentOperationsActions.setAgentExactOperationInfo(null))
+        history.push("/operations")
+    }
+    const unmountHandler = () => {
+        dispatch(agentOperationsActions.setAgentExactOperationInfo(null))
+    }
+
+
 
     //hooks
     const history = useHistory()
@@ -64,6 +79,9 @@ const ExactOperationContainer = ({...props}) => {
 
     useEffect(() => {
         dispatch(getAgentExactOperationThunk(operation_id))
+        return () => {
+            unmountHandler()
+        }
     }, [])
 
     let cancelOperationByAgentHandler = (data: {reason: string, comment: string}) => {
@@ -82,7 +100,12 @@ const ExactOperationContainer = ({...props}) => {
         }
     }, [operation_info?.has_change_request])
 
-
+    useEffect(() => {
+        if(change_request_reaction) {
+            setChangeRequestPopup(false)
+            dispatch(agentOperationsActions.setChangeRequestConfirmation(''))
+        }
+    }, [change_request_reaction])
 
 
   return (
@@ -112,7 +135,7 @@ const ExactOperationContainer = ({...props}) => {
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />
             : <OperationCard  operation_info={operation_info}
-                              history={history}
+                              closeHandler={closeHandler}
                               local_time={local_time}
                               openAcceptPopup={openAcceptPopup}
                               my_name={String(my_name)}

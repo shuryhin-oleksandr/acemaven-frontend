@@ -4,7 +4,7 @@ import {ContainerType} from "../../../../../_BLL/types/rates&surcharges/ratesTyp
 type PropsStyle = {
   mode?: string;
   length?: any,
-  usageFees: ContainerType[] | null
+  usageFees: ContainerType[] | undefined
 };
 
 
@@ -40,6 +40,10 @@ export const RegisterButton = styled.button`
 
   &:hover {
     cursor: pointer;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: rgba(0, 0, 0, .5);
   }
 `;
 export const FormTitle = styled.div`

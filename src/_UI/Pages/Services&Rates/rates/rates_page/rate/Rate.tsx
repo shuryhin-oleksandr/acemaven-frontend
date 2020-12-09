@@ -8,7 +8,10 @@ import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesT
 import {SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 //BLL
 import {editRates} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import {getEditSuccess} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+import {
+  getEditSuccess,
+  getEmptyExistingSurcharge
+} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 //COMPONENTS
 import ExistingRatesTable from "./ExistingRatesTable";
@@ -36,6 +39,8 @@ import pause from "../../../../../assets/icons/rates&services/pause.svg";
 import play from "../../../../../assets/icons/rates&services/play_icon.svg";
 import ship from "../../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../../assets/icons/rates&services/plane-surcharge.svg";
+import NoSurchargeCard from "../../register_new_freight_rate/NoSurchargeCard";
+import {RatesWrapper} from "../../register_new_freight_rate/RegisterNewFreightRateContainer";
 
 
 type PropsType = {
@@ -49,19 +54,26 @@ type PropsType = {
   getValues: any,
   activateRateHandler: (id: any, value: boolean) => void
   getSurchargeForRate: any
+  //getSurchargeForNewRate: any
   existing_surcharge: SurchargeInfoType | null
 }
 
 const Rate:React.FC<PropsType> = ({ is_active, rate, handleSubmit, errors, setValue,
                                     control, getValues, activateRateHandler, getSurchargeForRate,
-                                    existing_surcharge
+                                    existing_surcharge,
                                   }) => {
   const [formMode, setFormMode] = useState(false);
   const [rateEditPopUpVisible, setRateEditPopUpVisible] = useState(false);
+  //попап для нового сюрчарджа
+  const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(false);
+
+  //data from store
   let edit_success = useSelector(getEditSuccess)
+  const empty_surcharge = useSelector(getEmptyExistingSurcharge)
 
   useEffect(() => {
     if(rate && rate.rates.length > 1) {
+      debugger
       rate.rates.map((r) => {
         setValue(`rates.${r.id}.from`, r.start_date)
         setValue(`rates.${r.id}.to`, r.expiration_date)
@@ -176,9 +188,15 @@ const dispatch = useDispatch()
                                 errors={errors}
                                 getSurchargeForRate={getSurchargeForRate}
                                 setFormMode={setFormMode}
+                                //getSurchargeForNewRate={getSurchargeForNewRate}
             />
           )}
           {existing_surcharge && <SurchargesToRate existing_surcharge={existing_surcharge}/>}
+          {/*{empty_surcharge === 'empty' && <NoSurchargeCard usageFees={[]}
+                                                           shippingValue={rate.shipping_mode.id}
+                                                           setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}
+          />
+          }*/}
         </>
       )}
     </RateContainer>

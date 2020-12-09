@@ -73,6 +73,8 @@ export const registerNewFreightRateThunk = (freight_data: any, history: any) => 
 export const getSurchargeForExactRateThunk = (rate_data: any) => {
     return async (dispatch: Dispatch<commonRateActions>) => {
         try {
+            debugger
+            dispatch(rateActions.setExistingSurchargeByRate(null));
             dispatch(rateActions.setRateStartDate(rate_data.start_date));
             let res = await rateAPI.getSurchargeToRate(rate_data);
             if (Object.keys(res.data).length === 0) {

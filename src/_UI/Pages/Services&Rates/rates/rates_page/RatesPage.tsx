@@ -92,10 +92,14 @@ type PropsType = {
 };
 
 const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
+  //hooks
   const classes = useStyles();
-
-  const [isSearchMode, setSearchMode] = useState(false);
   let history = useHistory();
+
+  //local state
+  const [isSearchMode, setSearchMode] = useState(false);
+
+  //handlers
   let goToPage = (id: number) => {
     history.push(`/services/rate/${id}`);
   };

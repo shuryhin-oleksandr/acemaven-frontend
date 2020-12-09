@@ -1,5 +1,6 @@
 import React from 'react'
 import LocationBlock from "./LocationBlock";
+import {ShipmentDetailsType} from "../../../../_BLL/types/operations/operationsTypes";
 
 type PropsType = {
     register: any,
@@ -8,7 +9,8 @@ type PropsType = {
     shipping_mode: string,
     color_label?: string,
     font_weight?: string,
-    label_uppercase?: boolean
+    label_uppercase?: boolean,
+    shipment_details?:  ShipmentDetailsType | null
 }
 
 const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, shipping_mode, color_label, font_weight, ...props}) => {
@@ -26,6 +28,8 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                                       color_label={color_label}
                                       font_weight={font_weight}
                                       label_uppercase={props.label_uppercase}
+                                      default_location={props.shipment_details?.empty_pick_up_location}
+                                      default_address={props.shipment_details?.empty_pick_up_location_address}
                     />
                     }
                     <LocationBlock register={register}
@@ -37,6 +41,8 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                                    color_label={color_label}
                                    font_weight={font_weight}
                                    label_uppercase={props.label_uppercase}
+                                   default_location={props.shipment_details?.cargo_drop_off_location}
+                                   default_address={props.shipment_details?.cargo_drop_off_location_address}
                     />
                 </>
                 : <LocationBlock register={register}
@@ -48,6 +54,8 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                                  color_label={color_label}
                                  font_weight={font_weight}
                                  label_uppercase={props.label_uppercase}
+                                 default_location={props.shipment_details?.cargo_pick_up_location}
+                                 default_address={props.shipment_details?.cargo_pick_up_location_address}
                 />
             }
         </>

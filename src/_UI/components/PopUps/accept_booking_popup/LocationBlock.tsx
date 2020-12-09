@@ -14,13 +14,15 @@ type PropsType = {
     margin_bottom?: string,
     color_label?: string,
     font_weight?: string,
-    label_uppercase?: boolean
+    label_uppercase?: boolean,
+    default_location?: string,
+    default_address?: string
 }
 
 export const LocationBlock:React.FC<PropsType> = ({register, errors, label, field_name, google_field_name, google_label, margin_bottom, color_label, ...props}) => {
     return (
         <>
-            <FormField error={errors?.empty_pickup_location}
+            <FormField error={errors?.field_name}
                        label={label ? label : ''}
                        name={field_name}
                        placeholder='Placeholder'
@@ -30,6 +32,7 @@ export const LocationBlock:React.FC<PropsType> = ({register, errors, label, fiel
                        color_label={color_label}
                        font_weight={props.font_weight}
                        label_uppercase={props.label_uppercase}
+                       defaultValue={props.default_location ? props.default_location : ''}
             />
             <GoogleInput register={register}
                          google_field_name={google_field_name}
@@ -38,6 +41,7 @@ export const LocationBlock:React.FC<PropsType> = ({register, errors, label, fiel
                          color_label={color_label}
                          font_weight={props.font_weight}
                          label_uppercase={props.label_uppercase}
+                         defaultValue={props.default_address}
             />
         </>
     )

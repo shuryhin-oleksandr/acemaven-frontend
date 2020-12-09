@@ -1,12 +1,6 @@
 import React from "react";
 import {GeneralTitle} from "../../../../Pages/quotes/agent/table/agent-quotes-styles";
-import {
-    InfoBlockContent,
-    InfoBlockInner,
-    InfoBlockLabel, InfoBlockOuter, InfoBlockValue,
-    ShippingModeValue,
-    ValuesWrapper
-} from "../change-request-agent-styles";
+import {InfoBlockOuter} from "../change-request-agent-styles";
 import {
     ShippingModeBlock,
     ShippingModeLabel
@@ -19,6 +13,9 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
+import {ShippingModeEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+
 
 
 const useStyles = makeStyles({
@@ -85,8 +82,18 @@ const useStyles = makeStyles({
     },
 });
 
-const Cargos:React.FC = () => {
+type PropsType = {
+    operation_info: OperationType | null
+}
+
+const Cargos:React.FC<PropsType> = ({operation_info}) => {
     const classes = useStyles();
+
+    const change_requests_cargos = operation_info?.change_requests ? operation_info?.change_requests[0].cargo_groups : []
+
+    let b = new Set(operation_info?.cargo_groups);
+    let difference = [...change_requests_cargos].filter(x => !b.has(x));
+
 
     return (
         <InfoBlockOuter>
@@ -96,7 +103,7 @@ const Cargos:React.FC = () => {
                 <TableContainer className={classes.container} component={Paper}>
                     <Table className={classes.table} aria-label="collapsible table">
                         <TableHead>
-                            {true
+                            {operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL
                                 ? <TableRow>
                                     <TableCell className={classes.cell} align="left">
                                         VOLUME
@@ -127,23 +134,8 @@ const Cargos:React.FC = () => {
                                 </TableRow>
                             }
                         </TableHead>
-                        <TableRow  className={classes.row}>
-
-                                <>
-                                    <TableCell className={classes.innerCell} align="left">
-                                        40DV
-                                    </TableCell>
-                                    <TableCell className={classes.innerCell} align="left">
-                                       3
-                                    </TableCell>
-                                    <TableCell className={classes.innerCell} align="left">
-                                        ORANGES
-                                    </TableCell>
-                                </>
-
-                        </TableRow>
-                       {/* <TableBody>
-                            {cargo_groups?.map((c, index) => <TableRow key={index} className={classes.row}>
+                        <TableBody>
+                            {operation_info?.cargo_groups?.map((c, index) => <TableRow key={index} className={classes.row}>
                                     {c.container_type
                                         ? <>
                                             <TableCell className={classes.innerCell} align="left">
@@ -179,7 +171,7 @@ const Cargos:React.FC = () => {
                                     }
                                 </TableRow>
                             )}
-                        </TableBody>*/}
+                        </TableBody>
                     </Table>
                 </TableContainer>
             </ShippingModeBlock>
@@ -189,7 +181,7 @@ const Cargos:React.FC = () => {
             <TableContainer className={classes.changed_container} component={Paper}>
                 <Table className={classes.table} aria-label="collapsible table">
                     <TableHead>
-                        {true
+                        {operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL
                             ? <TableRow>
                                 <TableCell className={classes.cell} align="left">
                                     VOLUME
@@ -220,59 +212,44 @@ const Cargos:React.FC = () => {
                             </TableRow>
                         }
                     </TableHead>
-                    <TableRow  className={classes.row}>
-
-                        <>
-                            <TableCell className={classes.innerCellBlue} align="left">
-                                40DV
-                            </TableCell>
-                            <TableCell className={classes.innerCellBlue} align="left">
-                                3
-                            </TableCell>
-                            <TableCell className={classes.innerCellBlue} align="left">
-                                ORANGES
-                            </TableCell>
-                        </>
-
-                    </TableRow>
-                    {/* <TableBody>
-                            {cargo_groups?.map((c, index) => <TableRow key={index} className={classes.row}>
+                     <TableBody>
+                            {change_requests_cargos?.map((c, index) => <TableRow key={index} className={classes.row}>
                                     {c.container_type
                                         ? <>
-                                            <TableCell className={classes.innerCell} align="left">
+                                            <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.container_type?.code}
                                             </TableCell>
-                                            <TableCell className={classes.innerCell} align="left">
+                                            <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.volume}
                                             </TableCell>
-                                            <TableCell className={classes.innerCell} align="left">
+                                            <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.description}
                                             </TableCell>
                                         </>
                                         : <>
-                                            <TableCell className={classes.innerCell} align="left">
+                                            <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.total_wm}
                                             </TableCell>
-                                            <TableCell className={classes.innerCell} align="left">
+                                            <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.volume}
                                             </TableCell>
-                                            <TableCell className={classes.innerCell} align="left">
+                                            <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.packaging_type?.description}
                                             </TableCell>
-                                            <TableCell className={classes.innerCell} align="left">
+                                            <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.height + c.length_measurement},{' '}
                                                 {c.width + c.length_measurement}, {' '}
                                                 {c.length + c.length_measurement}, {' '}
                                                 {c.weight + c.weight_measurement}
                                             </TableCell>
-                                            <TableCell className={classes.innerCell} align="left">
+                                            <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.description}
                                             </TableCell>
                                         </>
                                     }
                                 </TableRow>
                             )}
-                        </TableBody>*/}
+                        </TableBody>
                 </Table>
             </TableContainer>
         </InfoBlockOuter>

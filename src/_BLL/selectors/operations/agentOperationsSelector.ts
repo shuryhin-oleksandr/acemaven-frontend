@@ -6,3 +6,4 @@ export const getIsFetchingOperationSelector = (state: AppStateType) => state.age
 export const getEditOperationSuccessSelector = (state: AppStateType) => state.agent_operations.edit_success
 export const getCancellationChoicesSelector = (state: AppStateType) => state.agent_operations.cancellation_choices
 export const getCancellationConfirmationSelector = (state: AppStateType) => state.agent_operations.cancellation_confirmation
+export const getChangeRequestConfirmationSelector = (state: AppStateType) => state.agent_operations.change_request_confirmation

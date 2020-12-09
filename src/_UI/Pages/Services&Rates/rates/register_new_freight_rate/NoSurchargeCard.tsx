@@ -11,8 +11,8 @@ import {ContainerType} from "../../../../../_BLL/types/rates&surcharges/surcharg
 
 type PropsType = {
   setNewSurchargePopUpVisible: (value: boolean) => void;
-  shippingValue: any,
-  usageFees: ContainerType[] | null
+  shippingValue?: any,
+  usageFees?: ContainerType[] | null
 };
 
 const NoSurchargeCard: React.FC<PropsType> = ({
@@ -22,7 +22,7 @@ const NoSurchargeCard: React.FC<PropsType> = ({
 
 
   return (
-    <SurchargeCardWrapper usageFees={usageFees} >
+    <SurchargeCardWrapper usageFees={usageFees ? usageFees : undefined} >
       <CardInner>
         <CardTitle>
           There are no surcharges. <br />

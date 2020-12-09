@@ -79,10 +79,14 @@ const OperationCard: React.FC<PropsType> = ({
                         <OperationNumber>{operation_info?.aceid}</OperationNumber>
                         <BookingNumberBlockContainer shipment={shipment}
                                                      company_type={String(company_type?.type)}
+                                                     my_name={my_name}
+                                                     agent_name={operation_info?.agent_contact_person}
                         />
                         {shipment?.booking_number_with_carrier &&
                         <BookingNumberWithCarrierBlockContainer shipment={shipment}
                                                                 company_type={String(company_type?.type)}
+                                                                my_name={my_name}
+                                                                agent_name={operation_info?.agent_contact_person}
                         />
                         }
                         <BookingStatus>
@@ -134,6 +138,7 @@ const OperationCard: React.FC<PropsType> = ({
                 <ConfirmedDatesContainerBlock shipment={shipment ? shipment : null}
                                               operation_info={operation_info}
                                               company_type={String(company_type?.type)}
+                                              my_name={my_name}
                 />
                 {operation_info?.status === "Booking Confirmed"
                 && <ShipmentTrackingBlock/>

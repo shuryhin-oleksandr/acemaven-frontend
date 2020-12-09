@@ -114,7 +114,7 @@ const ExactOperationContainer = ({...props}) => {
             setTakeOver(false)
             dispatch(agentOperationsActions.setTakedOver(''))
         }
-    }, [])
+    }, [taked_over])
 
 
   return (

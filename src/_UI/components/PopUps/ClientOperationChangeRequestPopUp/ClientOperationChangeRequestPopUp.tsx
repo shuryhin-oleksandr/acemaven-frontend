@@ -240,10 +240,14 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
     }));
 
     dispatch(
-      recalculateCharges(operation_info.id, {
-        number_of_documents: getValues("number_of_documents"),
-        cargo_groups: pack_id_groups,
-      })
+      recalculateCharges(
+        operation_info.id,
+        {
+          number_of_documents: getValues("number_of_documents"),
+          cargo_groups: pack_id_groups,
+        },
+        Number(operation_info.shipping_type)
+      )
     );
   };
 
@@ -254,10 +258,14 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
       packaging_type: group.packaging_type?.id,
     }));
     dispatch(
-      recalculateCharges(operation_info.id, {
-        number_of_documents: getValues("number_of_documents"),
-        cargo_groups: pack_id_groups,
-      })
+      recalculateCharges(
+        operation_info.id,
+        {
+          number_of_documents: getValues("number_of_documents"),
+          cargo_groups: pack_id_groups,
+        },
+        Number(operation_info.shipping_type)
+      )
     );
   };
 
@@ -269,10 +277,14 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
     }));
 
     dispatch(
-      recalculateCharges(operation_info.id, {
-        number_of_documents: getValues("number_of_documents"),
-        cargo_groups: pack_id_groups,
-      })
+      recalculateCharges(
+        operation_info.id,
+        {
+          number_of_documents: getValues("number_of_documents"),
+          cargo_groups: pack_id_groups,
+        },
+        Number(operation_info.shipping_type)
+      )
     );
   };
 
@@ -483,7 +495,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                 <div style={{ padding: "12px 18px 12px 0" }}>
                   <InfoRow margin_right="25px">
                     <InfoRowLabel>BEFORE REQUEST</InfoRowLabel>
-                    {operation_info.charges?.totals.BRL && (
+                    {!!operation_info.charges?.totals.BRL && (
                       <InfoRowValue>
                         Charges in BRL
                         <span style={{ marginLeft: "20px" }}>
@@ -491,7 +503,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                         </span>
                       </InfoRowValue>
                     )}
-                    {operation_info.charges?.totals.USD && (
+                    {!!operation_info.charges?.totals.USD && (
                       <InfoRowValue>
                         Charges in USD
                         <span style={{ marginLeft: "20px" }}>
@@ -510,7 +522,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                 >
                   <InfoRow margin_right="25px">
                     <InfoRowLabel>AFTER REQUEST</InfoRowLabel>
-                    {recalculated_charges?.totals.BRL && (
+                    {!!recalculated_charges?.totals.BRL && (
                       <InfoRowValue>
                         Charges in BRL
                         <span style={{ marginLeft: "20px" }}>
@@ -518,7 +530,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                         </span>
                       </InfoRowValue>
                     )}
-                    {recalculated_charges?.totals.USD && (
+                    {!!recalculated_charges?.totals.USD && (
                       <InfoRowValue>
                         Charges in USD
                         <span style={{ marginLeft: "20px" }}>

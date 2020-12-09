@@ -119,7 +119,11 @@ export const cancelClientOperation = (id: number, history: any) => {
   };
 };
 
-export const recalculateCharges = (id: number, data: any) => {
+export const recalculateCharges = (
+  id: number,
+  data: any,
+  shipping_mode: number
+) => {
   return async (
     dispatch: Dispatch<commonClientOperationsActions>,
     getState: () => AppStateType
@@ -136,17 +140,35 @@ export const recalculateCharges = (id: number, data: any) => {
         (item: any) => item.cargo_group
       );
 
-      const new_caro_groups_with_typeObj = new_caro_groups.map((group: any) => {
-        let packageObj = packaging_types.find(
-          (pack) => pack.id === group.packaging_type
+      if (shipping_mode === 2) {
+        const new_caro_groups_with_typeObj = new_caro_groups.map(
+          (group: any) => {
+            let containerObj = container_types_air.find(
+              (cont) => cont.id === group.container_type
+            );
+            return { ...group, packaging_type: containerObj };
+          }
         );
-        return { ...group, packaging_type: packageObj };
-      });
-      dispatch(
-        clientOperationsActions.setOperationCargoGroups(
-          new_caro_groups_with_typeObj
-        )
-      );
+        dispatch(
+          clientOperationsActions.setOperationCargoGroups(
+            new_caro_groups_with_typeObj
+          )
+        );
+      } else {
+        const new_caro_groups_with_typeObj = new_caro_groups.map(
+          (group: any) => {
+            let packageObj = packaging_types.find(
+              (pack) => pack.id === group.packaging_type
+            );
+            return { ...group, packaging_type: packageObj };
+          }
+        );
+        dispatch(
+          clientOperationsActions.setOperationCargoGroups(
+            new_caro_groups_with_typeObj
+          )
+        );
+      }
     } catch (e) {
       console.log(e);
     }

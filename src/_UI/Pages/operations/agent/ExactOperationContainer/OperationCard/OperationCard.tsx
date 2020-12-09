@@ -18,25 +18,24 @@ import PaymentDueByForClient from "./PaymentDueByForClient";
 import BookingNumberBlockContainer from "./blocks/booking_number/BookingNumberBlockContainer";
 //styles
 import {
-    AcceptButton,
-    ActionsButtons,
-    BookingInfo,
-    BookingStatus,
-    CardContent,
-    CardWrapper,
-    ConfirmButton,
-    ContentHeader,
-    RejectButton,
+  AcceptButton,
+  ActionsButtons,
+  BookingInfo,
+  BookingStatus,
+  CardContent,
+  CardWrapper,
+  ConfirmButton,
+  ContentHeader,
+  RejectButton,
 } from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {
-    OperationNumber,
-    SectionTitle,
-    SectionWrapper,
+  OperationNumber,
+  SectionTitle,
+  SectionWrapper,
 } from "./operation-card-style";
 //icons
 import close_icon from "../../../../../assets/icons/close-icon.svg";
 import BookingNumberWithCarrierBlockContainer from "./blocks/booking_number/BookingNumberWithCarrierBlockContainer";
-
 
 type PropsType = {
     operation_info: OperationType,
@@ -46,6 +45,7 @@ type PropsType = {
     company_type: userCompaniesType | undefined,
     setClientChangRequestPopupVisible: (value: boolean) => void,
     setIsCancelByAgent: (value: boolean) => void,
+    setIsCancelByClient: (value: boolean) => void;
     closeHandler:VoidFunctionType,
     setTakeOver: (value: boolean) => void
 }
@@ -59,6 +59,7 @@ const OperationCard: React.FC<PropsType> = ({
                                                 setClientChangRequestPopupVisible,
                                                 setIsCancelByAgent,
                                                 closeHandler,
+                                                setIsCancelByClient,
                                                 setTakeOver
                                             }) => {
 
@@ -93,16 +94,16 @@ const OperationCard: React.FC<PropsType> = ({
               <span style={{color: "#1ab8e5", marginRight: "5px"}}>
                 STATUS
               </span>
-                            <span
-                                style={{
-                                    fontFamily: "Helvetica Light",
-                                    fontSize: "18px",
-                                    textTransform: "lowercase",
-                                }}
-                            >
+              <span
+                style={{
+                  fontFamily: "Helvetica Light",
+                  fontSize: "18px",
+                  textTransform: "lowercase",
+                }}
+              >
                 {local_time}
               </span>{" "}
-                            <span style={{textTransform: "uppercase"}}>
+              <span style={{ textTransform: "uppercase" }}>
                 {operation_info?.status}
               </span>
                         </BookingStatus>
@@ -110,8 +111,7 @@ const OperationCard: React.FC<PropsType> = ({
                     <ActionsButtons>
                         {company_type?.type === AppCompaniesTypes.AGENT ? operation_info?.status === "Booking Request in Progress" &&
                             (operation_info?.agent_contact_person === my_name ? (
-                                <ConfirmButton onClick={() => openAcceptPopup(true)}
-                                               disabled={!operation_info?.payment_due_by}>
+                                <ConfirmButton onClick={() => openAcceptPopup(true)} disabled={!operation_info?.payment_due_by}>
                                     CONFIRM BOOKING
                                 </ConfirmButton>
                             ) : (
@@ -125,9 +125,8 @@ const OperationCard: React.FC<PropsType> = ({
                         }
                         {company_type?.type === AppCompaniesTypes.AGENT
                             ? (operation_info?.status === 'Booking Confirmed' && <RejectButton onClick={() => setIsCancelByAgent(true)}>CANCEL OPERATION</RejectButton>)
-                            : <RejectButton>CANCEL OPERATION</RejectButton>
+                            : <RejectButton  onClick={() => {setIsCancelByClient(true)}}>CANCEL OPERATION</RejectButton>
                         }
-
                     </ActionsButtons>
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}
@@ -155,7 +154,7 @@ const OperationCard: React.FC<PropsType> = ({
                                                    agent_bank_account={operation_info?.agent_bank_account}
                                                    agent_name={operation_info?.agent_contact_person}
                             />
-                        )
+                            )
                     }
                     <ChargesBlock operation_charges={operation_info?.charges ? operation_info?.charges : null}
                                   number_of_docs={operation_info?.number_of_documents}
@@ -177,26 +176,27 @@ const OperationCard: React.FC<PropsType> = ({
                     />
                 ))}
 
-                <ShipmentPartsBlock
-                    shipper_info={
-                        operation_info?.shipper ? operation_info?.shipper : null
-                    }
-                    client_info={{
-                        company: operation_info?.client as string,
-                        contact_person: operation_info?.client_contact_person as string,
-                    }}
-                />
-                <CargoBlock operation_shipping_type={operation_info?.shipping_type as string}
-                            operation_cargo_groups={operation_info?.cargo_groups}
-                            operation_shipping_mode={operation_info?.freight_rate?.shipping_mode}
-                            free_time={shipment?.container_free_time}
-                            status={operation_info?.status}
-                            shipment_id={shipment?.id as number}
-                            company_type={String(company_type?.type)}
-                />
-            </CardContent>
-        </CardWrapper>
-    );
+        <ShipmentPartsBlock
+          shipper_info={
+            operation_info?.shipper ? operation_info?.shipper : null
+          }
+          client_info={{
+            company: operation_info?.client as string,
+            contact_person: operation_info?.client_contact_person as string,
+          }}
+        />
+        <CargoBlock
+          operation_shipping_type={operation_info?.shipping_type as string}
+          operation_cargo_groups={operation_info?.cargo_groups}
+          operation_shipping_mode={operation_info?.freight_rate?.shipping_mode}
+          free_time={shipment?.container_free_time}
+          status={operation_info?.status}
+          shipment_id={shipment?.id as number}
+          company_type={String(company_type?.type)}
+        />
+      </CardContent>
+    </CardWrapper>
+  );
 };
 
 export default OperationCard;

@@ -4,7 +4,7 @@ import moment from "moment";
 //react-router-dom
 import {useHistory, useParams, withRouter} from "react-router-dom";
 //react-redux
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 //BLL
 import {AppStateType} from "../../../../../_BLL/store";
 import {
@@ -14,7 +14,8 @@ import {
 import {
     getCancellationConfirmationSelector, getChangeRequestConfirmationSelector,
     getExactOperationSelector,
-    getIsFetchingOperationSelector, getTakedOverSelector
+    getIsFetchingOperationSelector, getTakedOverSelector,
+    getExactClientOperationSelector
 } from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 //components
@@ -23,12 +24,15 @@ import OperationCard from "./OperationCard/OperationCard";
 import AcceptPopup from "../../../../components/PopUps/accept_booking_popup/AcceptPopup";
 import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 import ModalWindow from "../../../../components/_commonComponents/ModalWindow/ModalWindow";
-import ClientOperationChangeRequestPopUp
-    from "../../../../components/PopUps/ClientOperationChangeRequestPopUp/ClientOperationChangeRequestPopUp";
+import ClientOperationChangeRequestPopUp from "../../../../components/PopUps/ClientOperationChangeRequestPopUp/ClientOperationChangeRequestPopUp";
 import CompleteOperationPopup from "../../../../components/PopUps/complete_operation_by_agent/CompleteOperationPopup";
 import CancelOperationByAgentPopup
     from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
 import AgentChangeRequestPopup from "../../../../components/PopUps/change_request_agent_popup/AgentChangeRequestPopup";
+
+import CancelOperationByClientPopup from "../../../../components/PopUps/CancelOperationByClientPopup/CancelOperationByClientPopup";
+import {getClientExactOperationThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 import TakeOverOperationPopup from "../../../../components/PopUps/take_over_operation_popup/TakeOverOperationPopup";
 
 
@@ -45,13 +49,20 @@ const ExactOperationContainer = ({...props}) => {
     const [isCompleteOperation, setCompleteOperationPopup] = useState(false)
     const [isCancelByAgent, setIsCancelByAgent] = useState(false)
     const [isChangeRequestPopup, setChangeRequestPopup] = useState(false)
+    const [isCancelByClient, setIsCancelByClient] = useState(false);
     const [isTakeOverPopup, setTakeOver] = useState(false)
 
 
     //data from store
-    let operation_info = useSelector(getExactOperationSelector)
+    let company_type = useSelector(
+        (state: AppStateType) =>
+            state.profile.authUserInfo?.companies &&
+            state.profile.authUserInfo?.companies[0]
+    );
+    let agent_operation_info = useSelector(getExactOperationSelector);
+    let client_operation_info = useSelector(getExactClientOperationSelector);
+    let operation_info=company_type?.type==='agent'?agent_operation_info:client_operation_info;
     let isFetching = useSelector(getIsFetchingOperationSelector)
-    let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies);
     let cancellation_success = useSelector(getCancellationConfirmationSelector)
     let first_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.first_name)
     let last_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.last_name)
@@ -81,7 +92,9 @@ const ExactOperationContainer = ({...props}) => {
 
 
     useEffect(() => {
-        dispatch(getAgentExactOperationThunk(operation_id))
+        company_type?.type === "agent"
+            ? dispatch(getAgentExactOperationThunk(operation_id))
+            : dispatch(getClientExactOperationThunk(operation_id));
         return () => {
             unmountHandler()
         }
@@ -98,7 +111,7 @@ const ExactOperationContainer = ({...props}) => {
     }, [cancellation_success])
 
     useEffect(() => {
-        if(operation_info?.has_change_request) {
+        if(operation_info?.has_change_request && company_type?.type===AppCompaniesTypes.AGENT) {
             setChangeRequestPopup(true)
         }
     }, [operation_info?.has_change_request])
@@ -119,25 +132,39 @@ const ExactOperationContainer = ({...props}) => {
 
   return (
     <Layout>
-        <ModalWindow isOpen={isAcceptPopup}>
-            <AcceptPopup openAcceptPopup={openAcceptPopup}
-                         exact_operation_info={operation_info}
-            />
-        </ModalWindow>
-        <ModalWindow isOpen={isCompleteOperation }>
-            <CompleteOperationPopup setCompleteOperationPopup={setCompleteOperationPopup}/>
-        </ModalWindow>
-        <ModalWindow isOpen={isCancelByAgent}>
-            <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}
-                                         cancelOperationByAgentHandler={cancelOperationByAgentHandler}
-            />
-        </ModalWindow>
+      <ModalWindow isOpen={isAcceptPopup}>
+        <AcceptPopup
+          openAcceptPopup={openAcceptPopup}
+          exact_operation_info={operation_info}
+        />
+      </ModalWindow>
+      <ModalWindow isOpen={isCompleteOperation}>
+        <CompleteOperationPopup
+          setCompleteOperationPopup={setCompleteOperationPopup}
+        />
+      </ModalWindow>
+      <ModalWindow isOpen={isCancelByAgent}>
+        <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent} cancelOperationByAgentHandler={cancelOperationByAgentHandler} />
+      </ModalWindow>
+      <ModalWindow isOpen={isCancelByClient}>
+        <CancelOperationByClientPopup
+          setIsCancelByClient={setIsCancelByClient}
+          id={operation_info?.id}
+        />
+      </ModalWindow>
+      {operation_info && (
+        <ModalWindow isOpen={clientChangRequestPopupVisible}>
+          <ClientOperationChangeRequestPopUp
+            setIsOpen={setClientChangRequestPopupVisible}
+            operation_info={operation_info}
+          />
+        </ModalWindow>)}
         {operation_info &&  <ModalWindow isOpen={clientChangRequestPopupVisible}>
             <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible} operation_info={operation_info}/>
         </ModalWindow>}
-        <ModalWindow isOpen={isChangeRequestPopup}>
+          <ModalWindow isOpen={isChangeRequestPopup}>
           <AgentChangeRequestPopup setChangeRequestPopup={setChangeRequestPopup}
-                                   operation_info={operation_info ? operation_info : null}
+          operation_info={operation_info ? operation_info : null}
           />
         </ModalWindow>
         <ModalWindow isOpen={isTakeOverPopup}>
@@ -149,13 +176,14 @@ const ExactOperationContainer = ({...props}) => {
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />
             : <OperationCard  operation_info={operation_info}
-                              closeHandler={closeHandler}
                               local_time={local_time}
                               openAcceptPopup={openAcceptPopup}
                               my_name={String(my_name)}
-                              company_type={company_type && company_type[0]}
+                              company_type={company_type}
                               setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
                               setIsCancelByAgent={setIsCancelByAgent}
+                              setIsCancelByClient={setIsCancelByClient}
+                              closeHandler={closeHandler}
                               setTakeOver={setTakeOver}
             />
         }

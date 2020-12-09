@@ -104,7 +104,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   title="IDs"
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
-                  thunkName="operations"
+                  thunkName="operations_client"
                   my_operations={props.my_operations}
                   operation_status={props.operation_status}
                 />
@@ -122,7 +122,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   withoutSearch={true}
-                  thunkName="operations"
+                  thunkName="operations_client"
                   my_operations={props.my_operations}
                   operation_status={props.operation_status}
                 />
@@ -140,7 +140,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   withoutSearch={true}
-                  thunkName="operations"
+                  thunkName="operations_client"
                   my_operations={props.my_operations}
                   operation_status={props.operation_status}
                 />
@@ -175,7 +175,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   title="CARRIER"
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
-                  thunkName="operations"
+                  thunkName="operations_client"
                   my_operations={props.my_operations}
                   operation_status={props.operation_status}
                 />
@@ -193,7 +193,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   withoutSearch={true}
-                  thunkName="operations"
+                  thunkName="operations_client"
                   my_operations={props.my_operations}
                   operation_status={props.operation_status}
                 />
@@ -214,7 +214,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   withoutSearch={true}
-                  thunkName="operations"
+                  thunkName="operations_client"
                   my_operations={props.my_operations}
                   operation_status={props.operation_status}
                 />

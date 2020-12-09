@@ -2,18 +2,15 @@ import React, {useEffect, useState} from "react";
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
 //BLL
-import {AppStateType} from "../../../_BLL/store";
-import {getAgentsOperationsThunk} from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
-import {
-    getAgentsOperationsListSelector,
-    getCancellationConfirmationSelector
-} from "../../../_BLL/selectors/operations/agentOperationsSelector";
-import {agentOperationsActions} from "../../../_BLL/reducers/operations/agent/agentOperationsReducer";
-import {getClientOperationsThunk} from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import { AppStateType } from "../../../_BLL/store";
+import { getAgentsOperationsThunk } from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import { getAgentsOperationsListSelector, getCancellationConfirmationSelector,getClientOperationsListSelector } from "../../../_BLL/selectors/operations/agentOperationsSelector";
 //components
 import Layout from "../../components/BaseLayout/Layout";
 import AgentOperationsListContainer from "./agent/AgentOperationsListContainer";
 import ClientOperationsListContainer from "./client/ClientOperationsListContainer";
+import { getClientOperationsThunk } from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {agentOperationsActions} from "../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
 import AgentCancellationBadReviewPopup
     from "../../components/PopUps/agent_bad_review_popup/AgentCancellationBadReviewPopup";
@@ -36,7 +33,8 @@ const OperationsContainer: React.FC = () => {
             state.profile.authUserInfo?.companies &&
             state.profile.authUserInfo?.companies[0]
     );
-    let operations_list = useSelector(getAgentsOperationsListSelector);
+    let agent_operations_list = useSelector(getAgentsOperationsListSelector);
+    let client_operations_list = useSelector(getClientOperationsListSelector);
     let cancellation_success = useSelector(getCancellationConfirmationSelector)
     let operation_status = 'active'
 
@@ -83,7 +81,7 @@ const OperationsContainer: React.FC = () => {
                     setSearchColumn={setSearchColumn}
                     my_operations={my_operations}
                     setMyOperations={setMyOperations}
-                    operations_list={operations_list}
+                    operations_list={agent_operations_list}
                     operation_status={operation_status}
                 />
             ) : (
@@ -98,8 +96,8 @@ const OperationsContainer: React.FC = () => {
                     setSearchColumn={setSearchColumn}
                     my_operations={my_operations}
                     setMyOperations={setMyOperations}
-                    operations_list={operations_list}
                     operation_status={operation_status}
+                    operations_list={client_operations_list}
                 />
             )}
         </Layout>

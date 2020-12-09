@@ -10,6 +10,7 @@ import { IconButton } from "@material-ui/core";
 import close_icon from "../../../assets/icons/close-icon.svg";
 import { useDispatch } from "react-redux";
 import { getAgentsOperationsThunk } from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import { getClientOperationsThunk } from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 
 type PropsType = {
   setSearchMode: (value: boolean) => void;
@@ -103,6 +104,26 @@ const SearchInput: React.FC<PropsType> = ({
               props.searchColumn,
               value,
               props.operation_status
+            )
+          );
+    } else if (thunkName === "operations_client") {
+      props.my_operations === "mine"
+        ? dispatch(
+            getClientOperationsThunk(
+              props.type,
+              true,
+              props.column_name,
+              props.searchColumn,
+              value
+            )
+          )
+        : dispatch(
+            getClientOperationsThunk(
+              props.type,
+              "",
+              props.column_name,
+              props.searchColumn,
+              value
             )
           );
     } else {

@@ -19,10 +19,12 @@ import FormField from "../../../../../../../components/_commonComponents/Input/F
 
 type PropsType = {
     shipment: ShipmentDetailsType | undefined,
-    company_type: string
+    company_type: string,
+    my_name: string,
+    agent_name: string
 }
 
-const BookingNumberWithCarrierBlockContainer:React.FC<PropsType> = ({shipment, company_type}) => {
+const BookingNumberWithCarrierBlockContainer:React.FC<PropsType> = ({shipment, company_type, my_name, agent_name}) => {
 
     const [isEdit, setIsEdit] = useState(false)
 
@@ -58,6 +60,7 @@ const BookingNumberWithCarrierBlockContainer:React.FC<PropsType> = ({shipment, c
                         <div style={{display: "flex"}}>
                             <div style={{display: 'flex', alignItems: 'center'}}>
                                 <BookingTitle style={{fontSize: '18px', marginBottom: 0}}>BOOKING WITH CARRIER</BookingTitle>
+                                {agent_name === my_name &&
                                 <>
                                     {!isEdit
                                         ? <IconButton onClick={() => setIsEdit(true)}
@@ -75,6 +78,7 @@ const BookingNumberWithCarrierBlockContainer:React.FC<PropsType> = ({shipment, c
                                         </EditButtonsWrapper>
                                     }
                                 </>
+                                }
                             </div>
 
                             {!isEdit

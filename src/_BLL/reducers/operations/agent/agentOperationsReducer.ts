@@ -8,7 +8,9 @@ const initialState = {
     edit_success: '',
     cancellation_choices: [] as any[],
     cancellation_confirmation: '',
-    change_request_confirmation: ''
+    change_request_confirmation: '',
+    taked_over: ''
+
 }
 
 type InitialStateType = typeof initialState
@@ -65,6 +67,11 @@ export const agentOperationsReducer = (state = initialState, action: commonAgent
                 ...state,
                 change_request_confirmation: action.value
             }
+        case "SET_TAKED_OVER":
+            return {
+                ...state,
+                taked_over: action.value
+            }
         default: return state
     }
 }
@@ -81,5 +88,6 @@ export const agentOperationsActions = {
     setEditedShipmentDetails: (data: ShipmentDetailsType) => ({type: 'SET_EDITED_SHIPMENT_DETAILS', data} as const),
     setCancellationChoices: (choices: any) => ({type: 'SET_CANCELLATION_CHOICES', choices} as const),
     setCancellationConfirmation: (value: string) => ({type: 'SET_CANCELLATION_CONFIRMATION', value} as const),
-    setChangeRequestConfirmation: (value: string) => ({type: 'SET_CHANGE_REQUEST_CONFIRMATION', value} as const)
+    setChangeRequestConfirmation: (value: string) => ({type: 'SET_CHANGE_REQUEST_CONFIRMATION', value} as const),
+    setTakedOver: (value: string) => ({type: 'SET_TAKED_OVER', value} as const)
 }

@@ -5,6 +5,7 @@ import {
   commonAgentOperationsActions,
 } from "../../../reducers/operations/agent/agentOperationsReducer";
 import { BookingShipmentDetailsType } from "../../../types/bookingTypes";
+import {bookingApi} from "../../../../_DAL/API/bookingApi";
 
 
 export const getAgentsOperationsThunk = (
@@ -115,7 +116,8 @@ export const confirmChangeRequestThunk = (id: number, new_shipment_data: any, sh
   return async (dispatch: Dispatch<any>) => {
     try {
       debugger
-      await operationsAgentAPI.editOperationByAgent(new_shipment_data, shipment_id,)
+      await operationsAgentAPI.editOperationByAgent(new_shipment_data, shipment_id)
+      //await operationsAgentAPI.editOperationPaymentDueByAgent({payment_due_by: payment_due_by}, id)
       let res = await operationsAgentAPI.confirmChangeRequest(id)
       dispatch(agentOperationsActions.setChangeRequestConfirmation('reaction'))
       let response = await operationsAgentAPI.getAgentExactOperation(res.data.id)
@@ -134,6 +136,19 @@ export const cancelChangeRequestThunk = (id: number) => {
       let res = await operationsAgentAPI.cancelChangeRequest(id)
       dispatch(agentOperationsActions.setChangeRequestConfirmation('reaction'))
       console.log(res.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export const takeOverThunk = (user_id: number, booking_id: number) => {
+  return async (dispatch: Dispatch<any>) => {
+    try {
+      await bookingApi.assignAnotherAgentToBooking(user_id, booking_id)
+      dispatch(agentOperationsActions.setTakedOver('taked'))
+      let res = await operationsAgentAPI.getAgentExactOperation(booking_id)
+      dispatch(agentOperationsActions.setAgentExactOperationInfo(res.data))
     } catch (e) {
       console.log(e)
     }

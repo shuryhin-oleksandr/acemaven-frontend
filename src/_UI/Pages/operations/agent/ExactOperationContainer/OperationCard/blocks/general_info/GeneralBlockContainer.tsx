@@ -19,10 +19,11 @@ import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes"
 type PropsType = {
     operation_info: OperationType,
     shipment: ShipmentDetailsType | null,
-    company_type: string
+    company_type: string,
+    my_name: string
 }
 
-const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment, company_type}) => {
+const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment, company_type, my_name}) => {
 
     const [isEdit, setIsEdit] = useState(false)
 
@@ -39,7 +40,7 @@ const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment, co
     return (
         <SectionWrapper>
             {operation_info?.status === "Booking Confirmed" && (
-                !isEdit && company_type === AppCompaniesTypes.AGENT
+                !isEdit && company_type === AppCompaniesTypes.AGENT && (my_name === operation_info?.agent_contact_person)
                     && <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: 0}}>
                 <img src={edit_icon} alt=""/>
                 </IconButton>

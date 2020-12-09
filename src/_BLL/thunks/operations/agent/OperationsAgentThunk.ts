@@ -54,7 +54,7 @@ export const confirmBookingRequestThunk = (
   return async (dispatch: Dispatch<any>) => {
     try {
       await operationsAgentAPI.confirmBookingRequest(data);
-      history.push("/operations");
+      history.push("/operations_active");
     } catch (e) {
       console.log(e);
     }
@@ -107,7 +107,7 @@ export const cancelOperationByAgentThunk = (id: number, data: {reason: string, c
     try {
       let res = await operationsAgentAPI.cancelOperationByAgent(id, data)
       dispatch(agentOperationsActions.setCancellationConfirmation('cancelled'))
-      history.push('/operations')
+      history.push('/operations_active')
     } catch (e) {
       console.log(e)
     }

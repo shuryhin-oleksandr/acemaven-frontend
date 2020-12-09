@@ -91,7 +91,8 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
               true,
               "",
               props.searchColumn,
-              props.searchValue
+              props.searchValue,
+                props.operation_status
             )
           )
         : dispatch(
@@ -100,7 +101,8 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
               "",
               "",
               props.searchColumn,
-              props.searchValue
+              props.searchValue,
+                props.operation_status
             )
           );
     } else if (props.thunkName === "agent_booking") {

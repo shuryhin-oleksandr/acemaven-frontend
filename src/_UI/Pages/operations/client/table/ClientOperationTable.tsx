@@ -136,7 +136,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   column_name="shipping_mode"
                   searchValue={props.searchValue}
                   isSearchMode={props.isSearchMode}
-                  title="Shipping Mode"
+                  title="SHIPPING MODE"
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   withoutSearch={true}
@@ -223,7 +223,10 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
           </TableHead>
           <TableBody>
             {props.operations_list.map((operation, index) => (
-              <OperationsRow key={index} operation={operation} />
+              <OperationsRow key={index}
+                             operation={operation}
+                             operation_status={props.operation_status}
+              />
             ))}
           </TableBody>
         </Table>

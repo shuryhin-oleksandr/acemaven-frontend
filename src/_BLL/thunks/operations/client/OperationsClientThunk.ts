@@ -112,7 +112,7 @@ export const cancelClientOperation = (id: number, history: any) => {
   return async (dispatch: Dispatch<commonClientOperationsActions>) => {
     try {
       let res = await operationsClientAPI.cancelOperation(id);
-      history.push("/operations/");
+      history.push("/operations_cancelled");
     } catch (e) {
       console.log(e);
     }

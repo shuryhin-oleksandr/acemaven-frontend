@@ -23,6 +23,7 @@ import {AppStateType} from "../_BLL/store";
 import QuoteCardContainer from "../_UI/Pages/quotes/agent/QuoteCardContainer";
 import ExactOperationContainer from "../_UI/Pages/operations/agent/ExactOperationContainer/ExactOperationContainer";
 import OperationsContainer from 'src/_UI/Pages/operations/OperationsContainer';
+import CancelledOperationsContainer from "../_UI/Pages/operations/CANCELLED/CancelledOperationsContainer";
 
 
 
@@ -76,7 +77,8 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={BookingCardContainer} path='/requests/booking/:id'/>
 
                 <Route component={ExactOperationContainer} path='/operations/:id'/>
-                <Route exact component={OperationsContainer} path='/operations' />
+                <Route exact component={OperationsContainer} path='/operations_active' />
+                <Route component={CancelledOperationsContainer} path='/operations_cancelled'/>
 
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>

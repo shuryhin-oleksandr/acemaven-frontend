@@ -80,6 +80,7 @@ type PropsType = {
   setSearchColumn: (value: string) => void;
   operations_list: OperationType[];
   my_operations?: string;
+  operation_status?: string
 };
 
 const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
@@ -105,6 +106,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   setSearchColumn={props.setSearchColumn}
                   thunkName="operations"
                   my_operations={props.my_operations}
+                  operation_status={props.operation_status}
                 />
               </TableCell>
               <TableCell className={classes.cell} align="left">
@@ -122,6 +124,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   withoutSearch={true}
                   thunkName="operations"
                   my_operations={props.my_operations}
+                  operation_status={props.operation_status}
                 />
               </TableCell>
               <TableCell className={classes.cell} align="left">
@@ -139,6 +142,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   withoutSearch={true}
                   thunkName="operations"
                   my_operations={props.my_operations}
+                  operation_status={props.operation_status}
                 />
               </TableCell>
               <TableCell className={classes.cell} align="left">
@@ -173,6 +177,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   setSearchColumn={props.setSearchColumn}
                   thunkName="operations"
                   my_operations={props.my_operations}
+                  operation_status={props.operation_status}
                 />
               </TableCell>
               <TableCell className={classes.cell} align="left">
@@ -190,6 +195,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   withoutSearch={true}
                   thunkName="operations"
                   my_operations={props.my_operations}
+                  operation_status={props.operation_status}
                 />
               </TableCell>
               {/*<TableCell className={classes.cell} align="left">*/}
@@ -210,6 +216,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   withoutSearch={true}
                   thunkName="operations"
                   my_operations={props.my_operations}
+                  operation_status={props.operation_status}
                 />
               </TableCell>
             </TableRow>

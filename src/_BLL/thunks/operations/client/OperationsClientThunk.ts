@@ -15,7 +15,8 @@ export const getClientOperationsThunk = (
   is_mine: boolean | string,
   field_name: string,
   search_column: string,
-  search_value: string
+  search_value: string,
+  status?: string
 ) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
@@ -24,7 +25,8 @@ export const getClientOperationsThunk = (
         is_mine,
         field_name,
         search_column,
-        search_value
+        search_value,
+        status
       );
       dispatch(agentOperationsActions.setAgentOperationsList(res.data));
     } catch (e) {

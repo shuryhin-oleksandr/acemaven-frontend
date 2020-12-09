@@ -1,6 +1,7 @@
 
 const initialState = {
-    currentNavPath: ''
+    currentNavPath: '',
+    operation_status: ''
 }
 
 type InitialStateType = typeof initialState
@@ -12,6 +13,7 @@ export const commonReducer = (state = initialState, action: commonActionsType):I
                 ...state,
                 currentNavPath: action.path
             }
+
     }
     return state
 }
@@ -23,5 +25,5 @@ type commonActionsType = AC<typeof commonActions>
 
 export const commonActions = {
     setCurrentNavPath: (path: string) => ({type: 'SET_CURRENT_PATH', path} as const),
-    saveFirstData: (values: Array<string>) => ({type: 'SAVE_FIRST_DATA', values} as const)
+    saveFirstData: (values: Array<string>) => ({type: 'SAVE_FIRST_DATA', values} as const),
 }

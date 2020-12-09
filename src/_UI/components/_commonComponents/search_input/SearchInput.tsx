@@ -22,6 +22,7 @@ type PropsType = {
   thunkName?: string;
   setSearchColumn: (value: string) => void;
   my_operations?: string;
+  operation_status?:string,
 };
 
 const SearchInput: React.FC<PropsType> = ({
@@ -90,7 +91,8 @@ const SearchInput: React.FC<PropsType> = ({
               true,
               props.column_name,
               props.searchColumn,
-              value
+              value,
+              props.operation_status
             )
           )
         : dispatch(
@@ -99,7 +101,8 @@ const SearchInput: React.FC<PropsType> = ({
               "",
               props.column_name,
               props.searchColumn,
-              value
+              value,
+              props.operation_status
             )
           );
     } else {

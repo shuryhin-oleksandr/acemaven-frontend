@@ -17,6 +17,7 @@ type PropsType = {
   searchColumn: string;
   thunkName?: string;
   my_operations?: string;
+  operation_status?: string
 };
 
 const TableSortButton: React.FC<PropsType> = ({
@@ -77,7 +78,8 @@ const TableSortButton: React.FC<PropsType> = ({
                   true,
                   descendingOrder.current ? `-${column_name}` : column_name,
                   props.searchColumn,
-                  props.searchValue
+                  props.searchValue,
+                    props.operation_status
                 )
               )
             : dispatch(
@@ -86,7 +88,8 @@ const TableSortButton: React.FC<PropsType> = ({
                   true,
                   descendingOrder.current ? `-${column_name}` : column_name,
                   props.searchColumn,
-                  props.searchValue
+                  props.searchValue,
+                    props.operation_status
                 )
               );
         } else {

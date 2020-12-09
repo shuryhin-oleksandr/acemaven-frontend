@@ -26,6 +26,7 @@ type PropsType = {
   my_operations: string;
   setMyOperations: (value: string) => void;
   operations_list: OperationType[];
+  operation_status: string
 };
 const ClientOperationsListContainer: React.FC<PropsType> = ({
   setSearchMode,
@@ -70,6 +71,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
                 directory=""
                 my_operations={props.my_operations}
                 setMyOperations={props.setMyOperations}
+                operation_status={props.operation_status}
               />
               <OptionsDeliveryButtons
                 mode={props.mode}
@@ -79,6 +81,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
                 directory=""
                 thunkName="operations"
                 my_operations={props.my_operations}
+                operation_status={props.operation_status}
               />
             </div>
           </OperationHeader>
@@ -93,6 +96,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
             setSearchColumn={props.setSearchColumn}
             operations_list={props.operations_list}
             my_operations={props.my_operations}
+            operation_status={props.operation_status}
           />
         </OperationsContent>
       </OperationsInner>

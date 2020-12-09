@@ -9,12 +9,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
 import {
     cancelOperationByAgentThunk,
-    getAgentExactOperationThunk
+    getAgentExactOperationThunk, takeOverThunk
 } from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {
     getCancellationConfirmationSelector, getChangeRequestConfirmationSelector,
     getExactOperationSelector,
-    getIsFetchingOperationSelector
+    getIsFetchingOperationSelector, getTakedOverSelector
 } from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 //components
@@ -29,6 +29,7 @@ import CompleteOperationPopup from "../../../../components/PopUps/complete_opera
 import CancelOperationByAgentPopup
     from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
 import AgentChangeRequestPopup from "../../../../components/PopUps/change_request_agent_popup/AgentChangeRequestPopup";
+import TakeOverOperationPopup from "../../../../components/PopUps/take_over_operation_popup/TakeOverOperationPopup";
 
 
 
@@ -44,6 +45,7 @@ const ExactOperationContainer = ({...props}) => {
     const [isCompleteOperation, setCompleteOperationPopup] = useState(false)
     const [isCancelByAgent, setIsCancelByAgent] = useState(false)
     const [isChangeRequestPopup, setChangeRequestPopup] = useState(false)
+    const [isTakeOverPopup, setTakeOver] = useState(false)
 
 
     //data from store
@@ -54,7 +56,9 @@ const ExactOperationContainer = ({...props}) => {
     let first_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.first_name)
     let last_name = useSelector((state: AppStateType) => state.profile.authUserInfo?.last_name)
     let my_name = (first_name && first_name) + ' ' + (last_name && last_name)
+    let my_id = useSelector((state: AppStateType) => state.profile.authUserInfo?.id)
     let change_request_reaction = useSelector(getChangeRequestConfirmationSelector)
+    let taked_over = useSelector(getTakedOverSelector)
 
     //handlers
     const closeHandler = () => {
@@ -63,6 +67,9 @@ const ExactOperationContainer = ({...props}) => {
     }
     const unmountHandler = () => {
         dispatch(agentOperationsActions.setAgentExactOperationInfo(null))
+    }
+    const takeOverAsyncHandler = () => {
+        dispatch(takeOverThunk(Number(my_id), Number(operation_info?.id)))
     }
 
     //hooks
@@ -102,6 +109,12 @@ const ExactOperationContainer = ({...props}) => {
             dispatch(agentOperationsActions.setChangeRequestConfirmation(''))
         }
     }, [change_request_reaction])
+    useEffect(() => {
+        if(taked_over) {
+            setTakeOver(false)
+            dispatch(agentOperationsActions.setTakedOver(''))
+        }
+    }, [])
 
 
   return (
@@ -127,6 +140,11 @@ const ExactOperationContainer = ({...props}) => {
                                    operation_info={operation_info ? operation_info : null}
           />
         </ModalWindow>
+        <ModalWindow isOpen={isTakeOverPopup}>
+            <TakeOverOperationPopup setTakeOver={setTakeOver}
+                                    takeOverAsyncHandler={takeOverAsyncHandler}
+            />
+        </ModalWindow>
 
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />
@@ -138,6 +156,7 @@ const ExactOperationContainer = ({...props}) => {
                               company_type={company_type && company_type[0]}
                               setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
                               setIsCancelByAgent={setIsCancelByAgent}
+                              setTakeOver={setTakeOver}
             />
         }
     </Layout>

@@ -46,7 +46,8 @@ type PropsType = {
     company_type: userCompaniesType | undefined,
     setClientChangRequestPopupVisible: (value: boolean) => void,
     setIsCancelByAgent: (value: boolean) => void,
-    closeHandler:VoidFunctionType
+    closeHandler:VoidFunctionType,
+    setTakeOver: (value: boolean) => void
 }
 
 const OperationCard: React.FC<PropsType> = ({
@@ -57,7 +58,8 @@ const OperationCard: React.FC<PropsType> = ({
                                                 company_type,
                                                 setClientChangRequestPopupVisible,
                                                 setIsCancelByAgent,
-                                                closeHandler
+                                                closeHandler,
+                                                setTakeOver
                                             }) => {
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
@@ -109,7 +111,7 @@ const OperationCard: React.FC<PropsType> = ({
                                     CONFIRM BOOKING
                                 </ConfirmButton>
                             ) : (
-                                <AcceptButton>TAKE OVER</AcceptButton>
+                                <AcceptButton onClick={() => setTakeOver(true)}>TAKE OVER</AcceptButton>
                             ))
                             : (company_type?.type === AppCompaniesTypes.CLIENT &&
                                 <ConfirmButton onClick={() => setClientChangRequestPopupVisible(true)}>
@@ -127,6 +129,7 @@ const OperationCard: React.FC<PropsType> = ({
                 <GeneralBlockContainer operation_info={operation_info}
                                        shipment={shipment ? shipment : null}
                                        company_type={String(company_type?.type)}
+                                       my_name={my_name}
                 />
                 <ConfirmedDatesContainerBlock shipment={shipment ? shipment : null}
                                               operation_info={operation_info}
@@ -138,9 +141,10 @@ const OperationCard: React.FC<PropsType> = ({
                 <SectionWrapper>
                     <SectionTitle>CHARGES</SectionTitle>
                     {company_type?.type === AppCompaniesTypes.AGENT
-                        ? <PaymentDueByDates payment_due_by={operation_info?.payment_due_by}
+                        ? (my_name === operation_info?.agent_contact_person && <PaymentDueByDates payment_due_by={operation_info?.payment_due_by}
                                              operation_id={operation_info.id}
-                        />
+
+                        />)
                         : (operation_info?.payment_due_by &&
                             <PaymentDueByForClient payment_due_by={String(operation_info?.payment_due_by)}
                                                    agent_bank_account={operation_info?.agent_bank_account}

@@ -51,7 +51,6 @@ import AddIcon from "../../../assets/icons/widgets/add-icon.svg";
 import { clientOperationsActions } from "../../../../_BLL/reducers/operations/client/clientOperationsReducer";
 import { getShippingTypes } from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import AddingGroupsForm from "./AddingGroupsForm/AddingGroupsForm";
-import { log } from "util";
 
 const useStyles = makeStyles({
   container: {
@@ -192,7 +191,6 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
   } = useForm();
 
   const onSubmit = (values: any) => {
-    console.log(values);
     let new_groups = cargo_groups.map((c) => ({
       ...c,
       container_type: c.container_type?.id,

@@ -31,6 +31,7 @@ import AgentChangeRequestPopup from "../../../../components/PopUps/change_reques
 
 import CancelOperationByClientPopup from "../../../../components/PopUps/CancelOperationByClientPopup/CancelOperationByClientPopup";
 import {getClientExactOperationThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 
 const ExactOperationContainer = ({...props}) => {
 
@@ -101,7 +102,7 @@ const ExactOperationContainer = ({...props}) => {
     }, [cancellation_success])
 
     useEffect(() => {
-        if(operation_info?.has_change_request) {
+        if(operation_info?.has_change_request && company_type?.type===AppCompaniesTypes.AGENT) {
             setChangeRequestPopup(true)
         }
     }, [operation_info?.has_change_request])

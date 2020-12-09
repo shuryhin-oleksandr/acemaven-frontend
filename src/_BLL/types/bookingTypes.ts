@@ -61,6 +61,7 @@ export type CostBookingType = {
     freight: {currency: string, cost: number, subtotal: number},
     other: {currency: string, cost: number, subtotal: number},
     handling: {currency: string, cost: number, subtotal: number}
+    cargo_group?: CargoGroupQuoteType
   }>
 }
 export type BookingInfoType = {

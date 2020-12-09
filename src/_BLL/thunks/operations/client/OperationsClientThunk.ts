@@ -9,7 +9,7 @@ import {
   clientOperationsActions,
 } from "../../../reducers/operations/client/clientOperationsReducer";
 import { AppStateType } from "../../../store";
-import {operationsAgentAPI} from "../../../../_DAL/API/operations/OperationsAgentAPI";
+import { operationsAgentAPI } from "../../../../_DAL/API/operations/OperationsAgentAPI";
 
 export const getClientOperationsThunk = (
   type: string,
@@ -123,8 +123,28 @@ export const recalculateCharges = (id: number, data: any) => {
     getState: () => AppStateType
   ) => {
     try {
+      const packaging_types = getState().client_operations.packaging_types;
+      const container_types_air = getState().client_operations
+        .container_types_air;
+
       let res = await operationsClientAPI.recalculateCharges(id, data);
       dispatch(clientOperationsActions.setRecalculatedCharges(res.data));
+
+      const new_caro_groups = res.data.cargo_groups.map(
+        (item: any) => item.cargo_group
+      );
+
+      const new_caro_groups_with_typeObj = new_caro_groups.map((group: any) => {
+        let packageObj = packaging_types.find(
+          (pack) => pack.id === group.packaging_type
+        );
+        return { ...group, packaging_type: packageObj };
+      });
+      dispatch(
+        clientOperationsActions.setOperationCargoGroups(
+          new_caro_groups_with_typeObj
+        )
+      );
     } catch (e) {
       console.log(e);
     }

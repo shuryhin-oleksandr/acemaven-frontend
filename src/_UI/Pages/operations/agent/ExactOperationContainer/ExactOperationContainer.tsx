@@ -33,8 +33,6 @@ import AgentChangeRequestPopup from "../../../../components/PopUps/change_reques
 
 
 
-
-
 const ExactOperationContainer = ({...props}) => {
 
     //local state
@@ -66,8 +64,6 @@ const ExactOperationContainer = ({...props}) => {
     const unmountHandler = () => {
         dispatch(agentOperationsActions.setAgentExactOperationInfo(null))
     }
-
-
 
     //hooks
     const history = useHistory()

@@ -115,7 +115,8 @@ export const confirmChangeRequestThunk = (id: number, new_shipment_data: any, sh
   return async (dispatch: Dispatch<any>) => {
     try {
       debugger
-      await operationsAgentAPI.editOperationByAgent(new_shipment_data, shipment_id,)
+      await operationsAgentAPI.editOperationByAgent(new_shipment_data, shipment_id)
+      //await operationsAgentAPI.editOperationPaymentDueByAgent({payment_due_by: payment_due_by}, id)
       let res = await operationsAgentAPI.confirmChangeRequest(id)
       dispatch(agentOperationsActions.setChangeRequestConfirmation('reaction'))
       let response = await operationsAgentAPI.getAgentExactOperation(res.data.id)

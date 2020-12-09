@@ -11,6 +11,7 @@ import {getAgentsOperationsThunk} from "../../../../_BLL/thunks/operations/agent
 import {getClientOperationsThunk} from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 
 import {agentOperationsActions} from "../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {clientOperationsActions} from "../../../../_BLL/reducers/operations/client/clientOperationsReducer";
 
 
 
@@ -21,7 +22,6 @@ const CancelledOperationsContainer = () => {
     const [searchValue, setSearchValue] = useState("");
     const [search_column, setSearchColumn] = useState("");
     const [my_operations, setMyOperations] = useState("mine");
-
 
 
     //data from store
@@ -38,7 +38,7 @@ const CancelledOperationsContainer = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(agentOperationsActions.setAgentOperationsList([]))
-        //dispatch(clientOperationsActions.)
+        dispatch(clientOperationsActions.setClientOperationsList([]))
         if(operation_status) {
             company_type?.type === "agent"
                 ? dispatch(getAgentsOperationsThunk(mode, true, "", "", "", operation_status))

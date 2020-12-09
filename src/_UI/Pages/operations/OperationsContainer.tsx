@@ -14,6 +14,7 @@ import {agentOperationsActions} from "../../../_BLL/reducers/operations/agent/ag
 import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
 import AgentCancellationBadReviewPopup
     from "../../components/PopUps/agent_bad_review_popup/AgentCancellationBadReviewPopup";
+import {clientOperationsActions} from "../../../_BLL/reducers/operations/client/clientOperationsReducer";
 
 
 
@@ -42,6 +43,7 @@ const OperationsContainer: React.FC = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(agentOperationsActions.setAgentOperationsList([]))
+        dispatch(clientOperationsActions.setClientOperationsList([]))
         if(operation_status) {
             company_type?.type === "agent"
                 ? dispatch(getAgentsOperationsThunk(mode, true, "", "", "", operation_status))

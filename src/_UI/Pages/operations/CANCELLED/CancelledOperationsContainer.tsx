@@ -5,7 +5,7 @@ import ClientOperationsListContainer from "../client/ClientOperationsListContain
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../_BLL/store";
 import {
-    getAgentsOperationsListSelector
+    getAgentsOperationsListSelector, getClientOperationsListSelector
 } from "../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {getAgentsOperationsThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {getClientOperationsThunk} from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
@@ -30,7 +30,8 @@ const CancelledOperationsContainer = () => {
             state.profile.authUserInfo?.companies &&
             state.profile.authUserInfo?.companies[0]
     );
-    let operations_list = useSelector(getAgentsOperationsListSelector);
+    let agent_operations_list = useSelector(getAgentsOperationsListSelector);
+    let client_operations_list = useSelector(getClientOperationsListSelector);
     let operation_status = 'canceled'
 
 
@@ -61,7 +62,7 @@ const CancelledOperationsContainer = () => {
                     setSearchColumn={setSearchColumn}
                     my_operations={my_operations}
                     setMyOperations={setMyOperations}
-                    operations_list={operations_list}
+                    operations_list={agent_operations_list}
                     operation_status={operation_status}
                 />
             ) : (
@@ -76,7 +77,7 @@ const CancelledOperationsContainer = () => {
                     setSearchColumn={setSearchColumn}
                     my_operations={my_operations}
                     setMyOperations={setMyOperations}
-                    operations_list={operations_list}
+                    operations_list={client_operations_list}
                     operation_status={operation_status}
                 />
             )}

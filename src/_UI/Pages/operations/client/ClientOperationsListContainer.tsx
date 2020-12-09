@@ -33,7 +33,6 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
 }) => {
   const [isHide, setIsHide] = useState(true);
 
-
   return (
     <OperationsWrapper>
       {!isHide && (
@@ -70,6 +69,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
                 directory=""
                 my_operations={props.my_operations}
                 setMyOperations={props.setMyOperations}
+                thunkName="operations_client"
               />
               <OptionsDeliveryButtons
                 mode={props.mode}
@@ -77,7 +77,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
                 searchValue={props.searchValue}
                 searchColumn={props.search_column}
                 directory=""
-                thunkName="operations"
+                thunkName="operations_client"
                 my_operations={props.my_operations}
               />
             </div>

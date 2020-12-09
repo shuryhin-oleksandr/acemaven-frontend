@@ -16,6 +16,7 @@ import { getBookingRequestListThunk } from "../../../../../_BLL/thunks/booking_a
 import { getAgentsOperationsThunk } from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import { useDispatch } from "react-redux";
 import { CurrentShippingType } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import { getClientOperationsThunk } from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 
 type PropsType = {
   setMode?: (value: CurrentShippingType) => void;
@@ -72,6 +73,26 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
           )
         : dispatch(
             getAgentsOperationsThunk(
+              type,
+              "",
+              "",
+              props.searchColumn,
+              props.searchValue
+            )
+          );
+    } else if (props.thunkName === "operations_client") {
+      props.my_operations === "mine"
+        ? dispatch(
+            getClientOperationsThunk(
+              type,
+              true,
+              "",
+              props.searchColumn,
+              props.searchValue
+            )
+          )
+        : dispatch(
+            getClientOperationsThunk(
               type,
               "",
               "",

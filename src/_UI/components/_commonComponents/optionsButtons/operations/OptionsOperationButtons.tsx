@@ -5,6 +5,7 @@ import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import styled from "styled-components";
 import {getAgentsOperationsThunk} from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {getClientOperationsThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 
 
 type PropsType = {
@@ -25,7 +26,7 @@ const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) 
 
     const dispatch = useDispatch()
 
-    let dispatchOperationsHandler = (belong_to_mine: string) => {
+    let dispatchOperationsAgentHandler = (belong_to_mine: string) => {
        belong_to_mine === 'mine' ? props.setMyOperations('mine') : props.setMyOperations('all');
         //props.setShippingValue && props.setShippingValue(0);
         belong_to_mine === 'mine' ?
@@ -34,13 +35,28 @@ const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) 
             dispatch(getAgentsOperationsThunk(mode,'',"",props.searchColumn,props.searchValue))
     };
 
+    let dispatchOperationsClientHandler = (belong_to_mine: string) => {
+        belong_to_mine === 'mine' ? props.setMyOperations('mine') : props.setMyOperations('all');
+        //props.setShippingValue && props.setShippingValue(0);
+        belong_to_mine === 'mine' ?
+            dispatch(getClientOperationsThunk(mode,true,"",props.searchColumn,props.searchValue))
+            :
+            dispatch(getClientOperationsThunk(mode,'',"",props.searchColumn,props.searchValue))
+    };
+
     return (
         <OptionsButtonsWrap>
             <OptionMineButton
                 onClick={() => {
-                    dispatchOperationsHandler(
+        props.thunkName==="operations_client" ?
+            dispatchOperationsClientHandler(
                         'mine'
-                    );
+                    )
+            :
+            dispatchOperationsAgentHandler(
+        'mine'
+                     )
+
                 }}
                 belong_to={props.my_operations}
             >
@@ -48,7 +64,9 @@ const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) 
             </OptionMineButton>
             <OptionAllButton
                 onClick={() => {
-                     dispatchOperationsHandler('all');
+                    props.thunkName==="operations_client" ?
+                        dispatchOperationsClientHandler('all'):
+                    dispatchOperationsAgentHandler('all');
                 }}
                belong_to={props.my_operations}
             >

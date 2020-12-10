@@ -43,6 +43,7 @@ type PropsType = {
     openAcceptPopup: (value: boolean) => void,
     my_name: string,
     agent_contact_name: string,
+    client_contact_name: string,
     company_type: userCompaniesType | undefined,
     setClientChangRequestPopupVisible: (value: boolean) => void,
     setIsCancelByAgent: (value: boolean) => void,
@@ -128,7 +129,7 @@ const OperationCard: React.FC<PropsType> = ({
                                     TAKE OVER
                                 </AcceptButton>
                             ))
-                            : (company_type?.type === AppCompaniesTypes.CLIENT &&
+                            : (company_type?.type === AppCompaniesTypes.CLIENT && my_name === props.client_contact_name &&
                                 <ConfirmButton onClick={() => setClientChangRequestPopupVisible(true)}>
                                     REQUEST CHANGE
                                 </ConfirmButton>
@@ -139,9 +140,11 @@ const OperationCard: React.FC<PropsType> = ({
                                 &&
                                 <RejectButton onClick={() => setIsCancelByAgent(true)}>CANCEL OPERATION</RejectButton>
                             )
-                            : <RejectButton onClick={() => {
-                                setIsCancelByClient(true)
-                            }}>CANCEL OPERATION</RejectButton>
+                            : (my_name === props.client_contact_name &&
+                                <RejectButton onClick={() => setIsCancelByClient(true)}>
+                                    CANCEL OPERATION
+                                </RejectButton>
+                              )
                         }
                     </ActionsButtons>
                 </ContentHeader>

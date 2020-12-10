@@ -90,10 +90,7 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
     const classes = useStyles();
 
     const change_requests_cargos = operation_info?.change_requests ? operation_info?.change_requests[0].cargo_groups : []
-
-    let b = new Set(operation_info?.cargo_groups);
-    let difference = [...change_requests_cargos].filter(x => !b.has(x));
-
+    
 
     return (
         <InfoBlockOuter>
@@ -139,10 +136,10 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
                                     {c.container_type
                                         ? <>
                                             <TableCell className={classes.innerCell} align="left">
-                                                {c.container_type?.code}
+                                                {c.volume}
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left">
-                                                {c.volume}
+                                                {c.container_type?.code}
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left">
                                                 {c.description}
@@ -217,10 +214,10 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
                                     {c.container_type
                                         ? <>
                                             <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.container_type?.code}
+                                                {c.volume}
                                             </TableCell>
                                             <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.volume}
+                                                {c.container_type?.code}
                                             </TableCell>
                                             <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.description}

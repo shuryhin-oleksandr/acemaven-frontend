@@ -8,14 +8,14 @@ type PropsType = {
     control: any,
     errors: any,
     setValue: any,
-    exact_operation_info: OperationType,
+    exact_operation_info: OperationType | null,
 
 }
 
 const ConfirmedDatesEditForm:React.FC<PropsType> = ({control, errors, setValue, exact_operation_info}) => {
 
-    const direction = exact_operation_info.freight_rate.origin.is_local ? 'export' : 'import'
-    let after_estimated = moment(exact_operation_info.date_to, 'DD/MM/YYYY').add(7, 'days').calendar();
+    const direction = exact_operation_info?.freight_rate.origin.is_local ? 'export' : 'import'
+    let after_estimated = moment(exact_operation_info?.date_to, 'DD/MM/YYYY').add(7, 'days').calendar();
     let after_estimated_date = moment(after_estimated).toDate()
 
 

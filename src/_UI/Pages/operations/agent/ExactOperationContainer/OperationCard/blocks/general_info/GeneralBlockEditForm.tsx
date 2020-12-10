@@ -17,9 +17,10 @@ import close_icon from "../../../../../../../assets/icons/profile/closeForm.svg"
 import LocationBlock from "../../../../../../../components/PopUps/accept_booking_popup/LocationBlock";
 import {useDispatch} from "react-redux";
 import {editOperationByAgentThunk} from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {ShippingModeEnum} from "../../../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 type PropsType = {
-    operation_info: OperationType,
+    operation_info: OperationType | null,
     shipment: ShipmentDetailsType | null,
     setIsEdit: (value: boolean) => void
 }
@@ -138,9 +139,9 @@ const GeneralBlockEditForm:React.FC<PropsType> = ({operation_info, shipment, set
                                 </InfoRow>
                             </div>
                         }
-                        <div style={{width: "25%", display: "flex", flexDirection: "column"}}>
-                            {shipment?.empty_pick_up_location &&
-                            <InfoRow>
+                        <div style={{width: '100%', maxWidth: '750px', display: "flex"}}>
+                            {operation_info.freight_rate.shipping_mode.id === ShippingModeEnum.FCL && operation_info?.freight_rate.origin.is_local  &&
+                            <InfoRow style={{marginRight: '15px'}}>
                                 <InfoRowLabel>EMPTY PICKUP LOCATION</InfoRowLabel>
                                 <LocationBlock register={register}
                                                errors={errors}

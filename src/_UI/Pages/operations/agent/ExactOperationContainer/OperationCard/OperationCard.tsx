@@ -2,7 +2,7 @@ import React from "react";
 //material ui
 import {IconButton} from "@material-ui/core";
 //types
-import {OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
+import {AppOperationBookingStatusesType, OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
 import {userCompaniesType} from "../../../../../../_BLL/types/authTypes";
 import {AppCompaniesTypes, VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
 //components
@@ -47,7 +47,9 @@ type PropsType = {
     setIsCancelByAgent: (value: boolean) => void,
     setIsCancelByClient: (value: boolean) => void;
     closeHandler:VoidFunctionType,
-    setTakeOver: (value: boolean) => void
+    setTakeOver: (value: boolean) => void,
+    setChangeRequestPopup: (value: boolean) => void,
+    setEdit: (value: boolean) => void
 }
 
 const OperationCard: React.FC<PropsType> = ({
@@ -60,7 +62,8 @@ const OperationCard: React.FC<PropsType> = ({
                                                 setIsCancelByAgent,
                                                 closeHandler,
                                                 setIsCancelByClient,
-                                                setTakeOver
+                                                setTakeOver,
+                                                ...props
                                             }) => {
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
@@ -79,16 +82,9 @@ const OperationCard: React.FC<PropsType> = ({
                     <BookingInfo>
                         <OperationNumber>{operation_info?.aceid}</OperationNumber>
                         <BookingNumberBlockContainer shipment={shipment}
-                                                     company_type={String(company_type?.type)}
-                                                     my_name={my_name}
-                                                     agent_name={operation_info?.agent_contact_person}
                         />
                         {shipment?.booking_number_with_carrier &&
-                        <BookingNumberWithCarrierBlockContainer shipment={shipment}
-                                                                company_type={String(company_type?.type)}
-                                                                my_name={my_name}
-                                                                agent_name={operation_info?.agent_contact_person}
-                        />
+                        <BookingNumberWithCarrierBlockContainer shipment={shipment}/>
                         }
                         <BookingStatus>
               <span style={{color: "#1ab8e5", marginRight: "5px"}}>
@@ -109,9 +105,19 @@ const OperationCard: React.FC<PropsType> = ({
                         </BookingStatus>
                     </BookingInfo>
                     <ActionsButtons>
+                        {operation_info?.has_change_request && company_type?.type === AppCompaniesTypes.AGENT &&
+                        <AcceptButton style={{width: '206px'}} onClick={() => props.setChangeRequestPopup(true)}>
+                            CONFIRM CHANGES
+                        </AcceptButton>
+                        }
+                        {operation_info?.status === AppOperationBookingStatusesType.CONFIRMED &&
+                            <AcceptButton style={{width: '146px'}} onClick={() => props.setEdit(true)}>
+                             UPDATE
+                            </AcceptButton>
+                        }
                         {company_type?.type === AppCompaniesTypes.AGENT ? operation_info?.status === "Booking Request in Progress" &&
                             (operation_info?.agent_contact_person === my_name ? (
-                                <ConfirmButton onClick={() => openAcceptPopup(true)} disabled={!operation_info?.payment_due_by}>
+                                <ConfirmButton onClick={() => openAcceptPopup(true)}>
                                     CONFIRM BOOKING
                                 </ConfirmButton>
                             ) : (
@@ -131,13 +137,10 @@ const OperationCard: React.FC<PropsType> = ({
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}
                                        shipment={shipment ? shipment : null}
-                                       company_type={String(company_type?.type)}
-                                       my_name={my_name}
                 />
                 <ConfirmedDatesContainerBlock shipment={shipment ? shipment : null}
                                               operation_info={operation_info}
-                                              company_type={String(company_type?.type)}
-                                              my_name={my_name}
+
                 />
                 {operation_info?.status === "Booking Confirmed"
                 && <ShipmentTrackingBlock/>
@@ -145,11 +148,12 @@ const OperationCard: React.FC<PropsType> = ({
                 <SectionWrapper>
                     <SectionTitle>CHARGES</SectionTitle>
                     {company_type?.type === AppCompaniesTypes.AGENT
-                        ? (my_name === operation_info?.agent_contact_person && <PaymentDueByDates payment_due_by={operation_info?.payment_due_by}
+                        ? (my_name === operation_info?.agent_contact_person && operation_info?.status === AppOperationBookingStatusesType.CONFIRMED
+                            && <PaymentDueByDates payment_due_by={operation_info?.payment_due_by}
                                              operation_id={operation_info.id}
 
                         />)
-                        : (operation_info?.payment_due_by &&
+                        : (operation_info?.payment_due_by && operation_info?.status === AppOperationBookingStatusesType.CONFIRMED &&
                             <PaymentDueByForClient payment_due_by={String(operation_info?.payment_due_by)}
                                                    agent_bank_account={operation_info?.agent_bank_account}
                                                    agent_name={operation_info?.agent_contact_person}
@@ -181,18 +185,16 @@ const OperationCard: React.FC<PropsType> = ({
             operation_info?.shipper ? operation_info?.shipper : null
           }
           client_info={{
-            company: operation_info?.client as string,
-            contact_person: operation_info?.client_contact_person as string,
+            company: String(operation_info?.client) ,
+            contact_person: String(operation_info?.client_contact_person) ,
           }}
         />
         <CargoBlock
-          operation_shipping_type={operation_info?.shipping_type as string}
+          operation_shipping_type={String(operation_info?.shipping_type)}
           operation_cargo_groups={operation_info?.cargo_groups}
           operation_shipping_mode={operation_info?.freight_rate?.shipping_mode}
           free_time={shipment?.container_free_time}
           status={operation_info?.status}
-          shipment_id={shipment?.id as number}
-          company_type={String(company_type?.type)}
         />
       </CardContent>
     </CardWrapper>

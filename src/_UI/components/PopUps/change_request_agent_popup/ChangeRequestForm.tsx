@@ -285,7 +285,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
             </div>*/}
             <ChangeRequestButtonsWrapper>
                 <ConfirmRequestButton type='submit'>CONFIRM</ConfirmRequestButton>
-                <CancelRequestButton type='button' onClick={() => dispatch(cancelChangeRequestThunk(Number(operation_info?.id)))}>CANCEL</CancelRequestButton>
+                {/*<CancelRequestButton type='button' onClick={() => dispatch(cancelChangeRequestThunk(Number(operation_info?.id)))}>CANCEL</CancelRequestButton>*/}
             </ChangeRequestButtonsWrapper>
         </FormChangeRequestWrapper>
     )

@@ -15,7 +15,7 @@ import {
     getCancellationConfirmationSelector, getChangeRequestConfirmationSelector,
     getExactOperationSelector,
     getIsFetchingOperationSelector, getTakedOverSelector,
-    getExactClientOperationSelector
+    getExactClientOperationSelector, getEditOperationSuccessSelector
 } from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 //components
@@ -34,6 +34,9 @@ import CancelOperationByClientPopup from "../../../../components/PopUps/CancelOp
 import {getClientExactOperationThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 import TakeOverOperationPopup from "../../../../components/PopUps/take_over_operation_popup/TakeOverOperationPopup";
+import {AppOperationBookingStatusesType} from "../../../../../_BLL/types/operations/operationsTypes";
+import EditOperationShipmentInfoByAgentPopup
+    from "../../../../components/PopUps/edit_operation_shipment_info_by_agent/EditOperationShipmentInfoByAgentPopup";
 
 
 
@@ -51,6 +54,7 @@ const ExactOperationContainer = ({...props}) => {
     const [isChangeRequestPopup, setChangeRequestPopup] = useState(false)
     const [isCancelByClient, setIsCancelByClient] = useState(false);
     const [isTakeOverPopup, setTakeOver] = useState(false)
+    const [isEditOperationByAgent, setEditOperationByAgent] = useState(false)
 
 
     //data from store
@@ -70,11 +74,15 @@ const ExactOperationContainer = ({...props}) => {
     let my_id = useSelector((state: AppStateType) => state.profile.authUserInfo?.id)
     let change_request_reaction = useSelector(getChangeRequestConfirmationSelector)
     let taked_over = useSelector(getTakedOverSelector)
+    let edit_operation_by_agent_success = useSelector(getEditOperationSuccessSelector)
 
     //handlers
     const closeHandler = () => {
+        (operation_info?.status === AppOperationBookingStatusesType.CANCELED_BY_CLIENT || operation_info?.status === AppOperationBookingStatusesType.CANCELLED_BY_AGENT)
+        ? history.push("/operations_cancelled")
+        : history.push("/operations_active")
         dispatch(agentOperationsActions.setAgentExactOperationInfo(null))
-        history.push("/operations_active")
+
     }
     const unmountHandler = () => {
         dispatch(agentOperationsActions.setAgentExactOperationInfo(null))
@@ -111,7 +119,7 @@ const ExactOperationContainer = ({...props}) => {
     }, [cancellation_success])
 
     useEffect(() => {
-        if(operation_info?.has_change_request && company_type?.type===AppCompaniesTypes.AGENT) {
+        if(operation_info?.has_change_request && company_type?.type===AppCompaniesTypes.AGENT ) {
             setChangeRequestPopup(true)
         }
     }, [operation_info?.has_change_request])
@@ -128,6 +136,12 @@ const ExactOperationContainer = ({...props}) => {
             dispatch(agentOperationsActions.setTakedOver(''))
         }
     }, [taked_over])
+    useEffect(() => {
+        if(edit_operation_by_agent_success) {
+            setEditOperationByAgent(false)
+            dispatch(agentOperationsActions.setEditSuccess(''))
+        }
+    }, [edit_operation_by_agent_success])
 
 
   return (
@@ -172,6 +186,11 @@ const ExactOperationContainer = ({...props}) => {
                                     takeOverAsyncHandler={takeOverAsyncHandler}
             />
         </ModalWindow>
+        <ModalWindow isOpen={isEditOperationByAgent}>
+            <EditOperationShipmentInfoByAgentPopup operation_info={operation_info ? operation_info : null}
+                                                   setEdit={setEditOperationByAgent}
+            />
+        </ModalWindow>
 
         {isFetching || !operation_info
             ? <SpinnerForAuthorizedPages />
@@ -185,6 +204,8 @@ const ExactOperationContainer = ({...props}) => {
                               setIsCancelByClient={setIsCancelByClient}
                               closeHandler={closeHandler}
                               setTakeOver={setTakeOver}
+                              setChangeRequestPopup={setChangeRequestPopup}
+                              setEdit={setEditOperationByAgent}
             />
         }
     </Layout>

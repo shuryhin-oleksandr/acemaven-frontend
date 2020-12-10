@@ -64,7 +64,7 @@ const useStyles = makeStyles({
 
 type PropsType = {
     cargo_groups?: CargoGroupQuoteType[],
-    object_shipping_mode: {id: number, title: string}
+    object_shipping_mode: {id: number, title: string} | null
 }
 
 const CargoGroupsTable:React.FC<PropsType> = ({cargo_groups, object_shipping_mode}) => {

@@ -198,6 +198,7 @@ const ExactOperationContainer = ({...props}) => {
                               local_time={local_time}
                               openAcceptPopup={openAcceptPopup}
                               my_name={String(my_name)}
+                              agent_contact_name={operation_info?.agent_contact_person}
                               company_type={company_type}
                               setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
                               setIsCancelByAgent={setIsCancelByAgent}

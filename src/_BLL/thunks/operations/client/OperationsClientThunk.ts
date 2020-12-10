@@ -10,6 +10,7 @@ import {
 } from "../../../reducers/operations/client/clientOperationsReducer";
 import { AppStateType } from "../../../store";
 import { operationsAgentAPI } from "../../../../_DAL/API/operations/OperationsAgentAPI";
+import { ShippingModeEnum } from "../../../types/rates&surcharges/newSurchargesTypes";
 
 export const getClientOperationsThunk = (
   type: string,
@@ -136,38 +137,39 @@ export const recalculateCharges = (
       let res = await operationsClientAPI.recalculateCharges(id, data);
       dispatch(clientOperationsActions.setRecalculatedCharges(res.data));
 
-      const new_caro_groups = res.data.cargo_groups.map(
-        (item: any) => item.cargo_group
-      );
-
-      if (shipping_mode === 2) {
-        const new_caro_groups_with_typeObj = new_caro_groups.map(
-          (group: any) => {
-            let containerObj = container_types_air.find(
-              (cont) => cont.id === group.container_type
-            );
-            return { ...group, packaging_type: containerObj };
-          }
+      if (shipping_mode !== ShippingModeEnum.FCL) {
+        const new_caro_groups = res.data.cargo_groups.map(
+          (item: any) => item.cargo_group
         );
-        dispatch(
-          clientOperationsActions.setOperationCargoGroups(
-            new_caro_groups_with_typeObj
-          )
-        );
-      } else {
-        const new_caro_groups_with_typeObj = new_caro_groups.map(
-          (group: any) => {
-            let packageObj = packaging_types.find(
-              (pack) => pack.id === group.packaging_type
-            );
-            return { ...group, packaging_type: packageObj };
-          }
-        );
-        dispatch(
-          clientOperationsActions.setOperationCargoGroups(
-            new_caro_groups_with_typeObj
-          )
-        );
+        if (shipping_mode === ShippingModeEnum.ULD) {
+          const new_caro_groups_with_typeObj = new_caro_groups.map(
+            (group: any) => {
+              let containerObj = container_types_air.find(
+                (cont) => cont.id === group.container_type
+              );
+              return { ...group, packaging_type: containerObj };
+            }
+          );
+          dispatch(
+            clientOperationsActions.setOperationCargoGroups(
+              new_caro_groups_with_typeObj
+            )
+          );
+        } else {
+          const new_caro_groups_with_typeObj = new_caro_groups.map(
+            (group: any) => {
+              let packageObj = packaging_types.find(
+                (pack) => pack.id === group.packaging_type
+              );
+              return { ...group, packaging_type: packageObj };
+            }
+          );
+          dispatch(
+            clientOperationsActions.setOperationCargoGroups(
+              new_caro_groups_with_typeObj
+            )
+          );
+        }
       }
     } catch (e) {
       console.log(e);

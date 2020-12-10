@@ -246,7 +246,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
           number_of_documents: getValues("number_of_documents"),
           cargo_groups: pack_id_groups,
         },
-        Number(operation_info.shipping_type)
+        Number(operation_info.freight_rate.shipping_mode.id)
       )
     );
   };
@@ -264,7 +264,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
           number_of_documents: getValues("number_of_documents"),
           cargo_groups: pack_id_groups,
         },
-        Number(operation_info.shipping_type)
+        Number(operation_info.freight_rate.shipping_mode.id)
       )
     );
   };
@@ -283,7 +283,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
           number_of_documents: getValues("number_of_documents"),
           cargo_groups: pack_id_groups,
         },
-        Number(operation_info.shipping_type)
+        Number(operation_info.freight_rate.shipping_mode.id)
       )
     );
   };
@@ -342,34 +342,37 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
               </div>
             </SectionWrapper>
           )}
-          <SectionWrapper>
-            <SectionTitle>DATES</SectionTitle>
-            <GeneralBookingContent>
-              <div style={{ display: "flex" }}>
-                <CalendarIcon style={{ width: "87px", height: "96px" }}>
-                  <img src={calendar_icon} alt="" />
-                </CalendarIcon>
-                <InfoRow margin_right="50px" margin_bottom="0px">
-                  <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
-                  <div style={{ marginBottom: "7px" }}>
-                    <Dates
-                      setDates={setDates}
-                      extraDateNumber={
-                        operation_info.shipping_type === "sea" ? 9 : 2
-                      }
-                      dates={dates}
-                      disabled={false}
-                      placeholder={`Week ${operation_info.week_range?.week_from} - Week ${operation_info.week_range?.week_to}`}
-                      width={"auto"}
-                    />
-                  </div>
-                  <InfoRowValue>
-                    {date_from} - {date_to}
-                  </InfoRowValue>
-                </InfoRow>
-              </div>
-            </GeneralBookingContent>
-          </SectionWrapper>
+          {operation_info.freight_rate.origin.is_local && (
+            <SectionWrapper>
+              <SectionTitle>DATES</SectionTitle>
+              <GeneralBookingContent>
+                <div style={{ display: "flex" }}>
+                  <CalendarIcon style={{ width: "87px", height: "96px" }}>
+                    <img src={calendar_icon} alt="" />
+                  </CalendarIcon>
+                  <InfoRow margin_right="50px" margin_bottom="0px">
+                    <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
+                    <div style={{ marginBottom: "7px" }}>
+                      <Dates
+                        setDates={setDates}
+                        extraDateNumber={
+                          operation_info.shipping_type === "sea" ? 9 : 2
+                        }
+                        dates={dates}
+                        disabled={false}
+                        placeholder={`Week ${operation_info.week_range?.week_from} - Week ${operation_info.week_range?.week_to}`}
+                        width={"auto"}
+                      />
+                    </div>
+                    <InfoRowValue>
+                      {date_from} - {date_to}
+                    </InfoRowValue>
+                  </InfoRow>
+                </div>
+              </GeneralBookingContent>
+            </SectionWrapper>
+          )}
+
           <SectionWrapper>
             <SectionTitle>CARGO</SectionTitle>
             <ShippingModeText>

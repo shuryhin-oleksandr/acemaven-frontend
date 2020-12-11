@@ -10041,7 +10041,7 @@ a.rs-btn {
 .rs-form-control-wrapper.plaintext
   > .rs-picker-default
   .rs-picker-toggle-value {
-  color: rgba(0,0,0,0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 .rs-form-control-wrapper.plaintext
   > .rs-picker-default
@@ -17553,7 +17553,7 @@ textarea.rs-picker-search-input {
 }
 .rs-picker-has-value .rs-btn .rs-picker-toggle-value,
 .rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {
-  color: rgba(0,0,0,0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 .rs-picker-none {
   padding: 6px 12px 12px;
@@ -17682,7 +17682,7 @@ textarea.rs-picker-search-input {
 .rs-picker-default:not(.rs-picker-disabled) .rs-picker-toggle:hover,
 .rs-picker-default:not(.rs-picker-disabled) .rs-btn.active,
 .rs-picker-default:not(.rs-picker-disabled) .rs-picker-toggle.active {
-  border-color: #BDBDBD;
+  border-color: #bdbdbd;
 }
 .rs-picker-subtle .rs-btn,
 .rs-picker-subtle .rs-picker-toggle {
@@ -19229,7 +19229,8 @@ textarea.rs-picker-menu .rs-picker-search-bar .rs-picker-search-bar-input {
 .rs-picker-input .rs-btn,
 .rs-picker-default .rs-picker-toggle,
 .rs-picker-input .rs-picker-toggle {
-  background: #ececec !important;
+  /*background: #ececec !important;*/
+  background: white !important;
 }
 .rs-picker-default.rs-picker-disabled .rs-picker-toggle,
 .rs-picker-input.rs-picker-disabled .rs-picker-toggle,

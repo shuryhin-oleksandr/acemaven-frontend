@@ -400,7 +400,7 @@ const Search: React.FC<PropsType> = ({
                   maxW={"18%"}
                   label={"Shipping mode"}
                   hideLabel={true}
-                  background={"#ECECEC"}
+                  // background={"#ECECEC"}
                   margin_bottom={"0px"}
                   disabled={disabled}
                   placeholder="Shipping Mode"
@@ -434,7 +434,7 @@ const Search: React.FC<PropsType> = ({
                     }
                   }, 200)
                 }}*/
-                background="#ECECEC"
+                // background="#ECECEC"
                 marginBottom="0"
                 messagePaddingTop="4px"
                 // onBlur={blurHandler}
@@ -492,7 +492,7 @@ const Search: React.FC<PropsType> = ({
                       }
                   }, 200)
                 }}*/
-                background="#ECECEC"
+                // background="#ECECEC"
                 marginBottom="0"
                 messagePaddingTop="4px"
                 disabled={disabled}

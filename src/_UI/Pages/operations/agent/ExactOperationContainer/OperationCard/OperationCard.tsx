@@ -106,6 +106,7 @@ const OperationCard: React.FC<PropsType> = ({
               </span>
                         </BookingStatus>
                     </BookingInfo>
+
                     <ActionsButtons>
                         {operation_info?.has_change_request && company_type?.type === AppCompaniesTypes.AGENT && (my_name === props.agent_contact_name) &&
                         <AcceptButton style={{width: '206px'}} onClick={() => props.setChangeRequestPopup(true)}>
@@ -120,15 +121,15 @@ const OperationCard: React.FC<PropsType> = ({
                         {company_type?.type === AppCompaniesTypes.AGENT
                             ? (operation_info?.agent_contact_person === my_name
                                 ? (
-                                <ConfirmButton onClick={() => openAcceptPopup(true)}>
-                                    CONFIRM BOOKING
-                                </ConfirmButton>
+                                    <ConfirmButton onClick={() => openAcceptPopup(true)}>
+                                        CONFIRM BOOKING
+                                    </ConfirmButton>
                                 )
                                 : (
-                                <AcceptButton onClick={() => setTakeOver(true)}>
-                                    TAKE OVER
-                                </AcceptButton>
-                            ))
+                                    <AcceptButton onClick={() => setTakeOver(true)}>
+                                        TAKE OVER
+                                    </AcceptButton>
+                                ))
                             : (company_type?.type === AppCompaniesTypes.CLIENT && my_name === props.client_contact_name &&
                                 <ConfirmButton onClick={() => setClientChangRequestPopupVisible(true)}>
                                     REQUEST CHANGE
@@ -144,9 +145,10 @@ const OperationCard: React.FC<PropsType> = ({
                                 <RejectButton onClick={() => setIsCancelByClient(true)}>
                                     CANCEL OPERATION
                                 </RejectButton>
-                              )
+                            )
                         }
                     </ActionsButtons>
+
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}
                                        shipment={shipment ? shipment : null}

@@ -1,136 +1,108 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
+//types
+import {OperationType, ShipmentDetailsType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+//styles
 import {SectionTitle, SectionWrapper} from "../../operation-card-style";
 import {
     GeneralBookingContent,
     GeneralShipType, InfoRow, InfoRowLabel, InfoRowValue, ValuesShipmentWrapper
 } from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+//icons
 import sea_icon from "../../../../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_icon from "../../../../../../../assets/icons/rates&services/plane-surcharge.svg";
-import {OperationType, ShipmentDetailsType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
-import GeneralBlockEditForm from "./GeneralBlockEditForm";
-import { IconButton } from '@material-ui/core';
-import edit_icon from '../../../../../../../assets/icons/profile/editCard.svg'
-import {useDispatch, useSelector} from "react-redux";
-import {getEditOperationSuccessSelector} from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
-import {agentOperationsActions} from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
-import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
 
 
 type PropsType = {
     operation_info: OperationType,
-    shipment: ShipmentDetailsType | null,
-    company_type: string,
-    my_name: string
+    shipment: ShipmentDetailsType | null
 }
 
-const GeneralBlockContainer:React.FC<PropsType> = ({operation_info, shipment, company_type, my_name}) => {
-
-    const [isEdit, setIsEdit] = useState(false)
-
-    let edit_success = useSelector(getEditOperationSuccessSelector)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        if(edit_success) {
-            setIsEdit(false)
-            dispatch(agentOperationsActions.setEditSuccess(''))
-        }
-    }, [edit_success])
-
+const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment}) => {
     return (
         <SectionWrapper>
-            {operation_info?.status === "Booking Confirmed" && (
-                !isEdit && company_type === AppCompaniesTypes.AGENT && (my_name === operation_info?.agent_contact_person)
-                    && <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: 0}}>
-                <img src={edit_icon} alt=""/>
-                </IconButton>
-            )}
-
-                <SectionTitle>GENERAL INFO</SectionTitle>
-            {isEdit
-                ? <GeneralBlockEditForm operation_info={operation_info}
-                                        shipment={shipment ? shipment : null}
-                                        setIsEdit={setIsEdit}
-                />
-                : <GeneralBookingContent>
-                    <GeneralShipType>
-                        <img src={operation_info?.shipping_type === "sea" ? sea_icon : air_icon} alt="" />
-                    </GeneralShipType>
-                    <InfoRow margin_right="27px">
-                        <InfoRowLabel>ROUTE</InfoRowLabel>
-                        <InfoRowValue font_size="36px">
-                            {operation_info?.freight_rate?.origin?.code}
-                            <br /> {operation_info?.freight_rate?.destination?.code}
-                        </InfoRowValue>
-                    </InfoRow>
-                    <ValuesShipmentWrapper>
-                        <div
-                            style={{
-                                marginRight:'35px',
-                                display: "flex",
-                                flexDirection: "column",
-                            }}
-                        >
+            <SectionTitle>GENERAL INFO</SectionTitle>
+            <GeneralBookingContent>
+                <GeneralShipType>
+                    <img src={operation_info?.shipping_type === "sea" ? sea_icon : air_icon} alt=""/>
+                </GeneralShipType>
+                <InfoRow margin_right="27px">
+                    <InfoRowLabel>ROUTE</InfoRowLabel>
+                    <InfoRowValue font_size="36px">
+                        {operation_info?.freight_rate?.origin?.code}
+                        <br/> {operation_info?.freight_rate?.destination?.code}
+                    </InfoRowValue>
+                </InfoRow>
+                <ValuesShipmentWrapper>
+                    <div
+                        style={{
+                            marginRight: '35px',
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
+                        <InfoRow>
+                            <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
+                            <InfoRowValue>{operation_info?.freight_rate?.shipping_mode?.title}</InfoRowValue>
+                        </InfoRow>
+                        <InfoRow>
+                            <InfoRowLabel>CARRIER</InfoRowLabel>
+                            <InfoRowValue>
+                                {operation_info?.freight_rate?.carrier?.title}
+                            </InfoRowValue>
+                        </InfoRow>
+                    </div>
+                    {operation_info?.status === "Booking Confirmed" &&
+                    <>
+                        {shipment?.vessel
+                            ? <div style={{display: "flex", flexDirection: "column", marginRight: '46px'}}>
+                                <InfoRow>
+                                    <InfoRowLabel>VESSEL</InfoRowLabel>
+                                    <InfoRowValue>{shipment?.vessel}</InfoRowValue>
+                                </InfoRow>
+                                <InfoRow>
+                                    <InfoRowLabel>TRIP</InfoRowLabel>
+                                    <InfoRowValue>{shipment?.voyage}</InfoRowValue>
+                                </InfoRow>
+                            </div>
+                            : <div style={{display: "flex", flexDirection: "column", marginRight: '46px'}}>
+                                <InfoRow>
+                                    <InfoRowLabel>MAWB</InfoRowLabel>
+                                    <InfoRowValue>{shipment?.mawb}</InfoRowValue>
+                                </InfoRow>
+                                <InfoRow>
+                                    <InfoRowLabel>FLIGHT NUMBER</InfoRowLabel>
+                                    <InfoRowValue>{shipment?.flight_number}</InfoRowValue>
+                                </InfoRow>
+                            </div>
+                        }
+                        <div style={{display: "flex", flexDirection: "column"}}>
+                            {shipment?.empty_pick_up_location &&
                             <InfoRow>
-                                <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
-                                <InfoRowValue>{operation_info?.freight_rate?.shipping_mode?.title}</InfoRowValue>
-                            </InfoRow>
-                            <InfoRow>
-                                <InfoRowLabel>CARRIER</InfoRowLabel>
+                                <InfoRowLabel>EMPTY PICKUP LOCATION</InfoRowLabel>
                                 <InfoRowValue>
-                                    {operation_info?.freight_rate?.carrier?.title}
+                                    <span style={{color: '#115B86'}}>location:</span> {shipment?.empty_pick_up_location},
+                                    <br/> <span
+                                    style={{color: '#115B86'}}>address:</span> {shipment?.empty_pick_up_location_address}
                                 </InfoRowValue>
                             </InfoRow>
-                        </div>
-                        {operation_info?.status === "Booking Confirmed" &&
-                        <>
-                            {shipment?.vessel
-                                ? <div style={{ display: "flex", flexDirection: "column", marginRight:'46px'}}>
-                                    <InfoRow>
-                                        <InfoRowLabel>VESSEL</InfoRowLabel>
-                                        <InfoRowValue>{shipment?.vessel}</InfoRowValue>
-                                    </InfoRow>
-                                    <InfoRow>
-                                        <InfoRowLabel>TRIP</InfoRowLabel>
-                                        <InfoRowValue>{shipment?.voyage}</InfoRowValue>
-                                    </InfoRow>
-                                </div>
-                                : <div style={{display: "flex", flexDirection: "column", marginRight:'46px'}}>
-                                    <InfoRow>
-                                        <InfoRowLabel>MAWB</InfoRowLabel>
-                                        <InfoRowValue>{shipment?.mawb}</InfoRowValue>
-                                    </InfoRow>
-                                    <InfoRow>
-                                        <InfoRowLabel>FLIGHT NUMBER</InfoRowLabel>
-                                        <InfoRowValue>{shipment?.flight_number}</InfoRowValue>
-                                    </InfoRow>
-                                </div>
                             }
-                            <div style={{width: "25%", display: "flex", flexDirection: "column"}}>
-                                {shipment?.empty_pick_up_location &&
-                                <InfoRow>
-                                    <InfoRowLabel>EMPTY PICKUP LOCATION</InfoRowLabel>
-                                    <InfoRowValue>
-                                        <span style={{color: '#115B86'}}>terminal/depot:</span> {shipment?.empty_pick_up_location},
-                                        <br/> <span style={{color: '#115B86'}}>airport/seaport:</span> {shipment?.empty_pick_up_location_address}
-                                    </InfoRowValue>
-                                </InfoRow>
-                                }
-                                {shipment?.cargo_drop_off_location &&
-                                <InfoRow>
-                                    <InfoRowLabel>CARGO DROP OFF LOCATION </InfoRowLabel>
-                                    <InfoRowValue>
-                                        <span style={{color: '#115B86'}}>terminal/depot:</span> {shipment?.cargo_drop_off_location},
-                                        <br/> <span style={{color: '#115B86'}}>airport/seaport:</span> {shipment?.cargo_drop_off_location_address}
-                                    </InfoRowValue>
-                                </InfoRow>}
+                            {shipment?.cargo_drop_off_location &&
+                            <InfoRow>
+                                <InfoRowLabel>CARGO DROP OFF LOCATION </InfoRowLabel>
+                                <InfoRowValue>
+                                    <span
+                                        style={{color: '#115B86'}}>location:</span> {shipment?.cargo_drop_off_location},
+                                    <br/> <span
+                                    style={{color: '#115B86'}}>address:</span> {shipment?.cargo_drop_off_location_address}
+                                </InfoRowValue>
+                            </InfoRow>}
 
-                            </div>
-                        </>
-                        }
-                    </ValuesShipmentWrapper>
-                </GeneralBookingContent>
-            }
+                        </div>
+                    </>
+                    }
+                </ValuesShipmentWrapper>
+            </GeneralBookingContent>
+
         </SectionWrapper>
     )
 }

@@ -142,7 +142,6 @@ export const rateReducer = (
       }
     }
     case "SET_ADDING_POPUP_ERROR":
-      debugger
       return {
         ...state,
         adding_popup_error: action.error
@@ -158,7 +157,6 @@ export const rateReducer = (
        rate_transit_error: action.error
       }
     case "SET_EDITED_RATE_INFO":
-      debugger
       return {
         ...state,
         rate_info: {...state.rate_info, rates: state.rate_info.rates.map((r: any) => {

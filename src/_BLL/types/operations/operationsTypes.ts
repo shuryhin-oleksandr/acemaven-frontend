@@ -1,5 +1,14 @@
 import {CargoGroupQuoteType, RateQuoteType} from "../quotes/quotesTypes";
-import {ChoiceType, CostBookingType, ShipperType} from "../bookingTypes";
+import {CostBookingType, ShipperType} from "../bookingTypes";
+
+
+export enum AppOperationBookingStatusesType {
+    RECEIVED = 'Booking Request Received',
+    IN_PROGRESS = 'Booking Request in Progress',
+    CONFIRMED = 'Booking Confirmed',
+    CANCELED_BY_CLIENT = 'Operation Canceled by Client',
+    CANCELLED_BY_AGENT = 'Operation Canceled by Agent'
+}
 
 export type WeekRangeType = {
     week_from: number,

@@ -12,7 +12,7 @@ import {OperationType} from "../../../../../_BLL/types/operations/operationsType
 import { useHistory } from 'react-router-dom';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
-import {AppCompaniesTypes, AppOperationStatusType} from "../../../../../_BLL/types/commonTypes";
+import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 
 
 const useStyles = makeStyles({
@@ -83,7 +83,7 @@ type PropsType = {
     operation_status?: string
 }
 
-const OperationsRow:React.FC<PropsType> = ({operation, operation_status}) => {
+const OperationsRow:React.FC<PropsType> = ({operation}) => {
     const classes = useStyles();
 
     const history = useHistory()
@@ -98,7 +98,7 @@ const OperationsRow:React.FC<PropsType> = ({operation, operation_status}) => {
 
     return (
         <React.Fragment>
-            <TableRow className={classes.root} onClick={operation_status === AppOperationStatusType.ACTIVE ? goToPageHandler : () => {}}>
+            <TableRow className={classes.root} onClick={goToPageHandler}>
                 <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
                     {company_type?.type === AppCompaniesTypes.AGENT
                         ? (!operation?.has_change_request

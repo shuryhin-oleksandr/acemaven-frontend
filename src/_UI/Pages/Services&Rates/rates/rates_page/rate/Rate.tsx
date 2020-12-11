@@ -16,8 +16,6 @@ import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateR
 //COMPONENTS
 import ExistingRatesTable from "./ExistingRatesTable";
 import SurchargesToRate from "../../register_new_freight_rate/tables/SurchargesToRate";
-import RateEditPopUp from "../../../../../components/PopUps/RateEditPopUp/RateEditPopUp";
-import ModalWindow from "../../../../../components/_commonComponents/ModalWindow/ModalWindow";
 //styles
 import {
   RateContainer,
@@ -73,7 +71,6 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, handleSubmit, errors, setVa
 
   useEffect(() => {
     if(rate && rate.rates.length > 1) {
-      debugger
       rate.rates.map((r) => {
         setValue(`rates.${r.id}.from`, r.start_date)
         setValue(`rates.${r.id}.to`, r.expiration_date)

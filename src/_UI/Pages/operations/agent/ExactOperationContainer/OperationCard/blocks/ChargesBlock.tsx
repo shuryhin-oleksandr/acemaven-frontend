@@ -161,7 +161,7 @@ const ChargesBlock:React.FC<PropsType> = ({operation_charges, number_of_docs}) =
                         }
                     </TotalValue>
                 </TotalLine>
-                <TotalLine>
+                {/*<TotalLine>
                     <TotalName>
                        ??? Today’s USD EXCHANGE RATE ???
                     </TotalName>
@@ -176,7 +176,7 @@ const ChargesBlock:React.FC<PropsType> = ({operation_charges, number_of_docs}) =
                     <TotalValue>
                        ?? 7100 ??
                     </TotalValue>
-                </TotalLine>
+                </TotalLine>*/}
                 {/*<TotalLine>
                     <TotalName>ACEMAVEN SERVICE FEE: IN {calculation?.service_fee?.currency}</TotalName>
                     <TotalValue>{calculation?.service_fee?.cost}</TotalValue>

@@ -24,6 +24,7 @@ import QuoteCardContainer from "../_UI/Pages/quotes/agent/QuoteCardContainer";
 import ExactOperationContainer from "../_UI/Pages/operations/agent/ExactOperationContainer/ExactOperationContainer";
 import OperationsContainer from 'src/_UI/Pages/operations/OperationsContainer';
 import CancelledOperationsContainer from "../_UI/Pages/operations/CANCELLED/CancelledOperationsContainer";
+import ChatContainer from "../_UI/Pages/operations/chat/ChatContainer";
 
 
 
@@ -79,6 +80,8 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={ExactOperationContainer} path='/operations/:id'/>
                 <Route exact component={OperationsContainer} path='/operations_active' />
                 <Route component={CancelledOperationsContainer} path='/operations_cancelled'/>
+                <Route component={ChatContainer} path='/chat'/>
+
 
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>

@@ -17,7 +17,6 @@ import {OperationType} from "../../../../../_BLL/types/operations/operationsType
 import {ShippingModeEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 
-
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
@@ -30,10 +29,6 @@ const useStyles = makeStyles({
         minWidth: 650,
         backgroundColor: 'rgba(17, 91, 134, .05)',
         padding: '8px'
-    },
-    table: {
-        '& .MuiTableHead-root' : {
-        }
     },
     shipping_cell: {
         width: '220px',
@@ -91,8 +86,18 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
 
     const change_requests_cargos = operation_info?.change_requests ? operation_info?.change_requests[0].cargo_groups : []
 
-    let b = new Set(operation_info?.cargo_groups);
-    let difference = [...change_requests_cargos].filter(x => !b.has(x));
+    let fcl_cargos_header = [
+        {name: 'VOLUME', align: "left"},
+        {name: 'CONTAINER TYPE', align: "left"},
+        {name: 'CARGO DESCRIPTIONS', align: "left"}
+    ]
+    let other_cargos_header = [
+        {name: 'VOLUME', align: 'left'},
+        {name: 'NO. OF PACKS', align: 'left'},
+        {name: 'PACKAGING TYPE', align: 'left'},
+        {name: 'HEIGHT, WIDTH, LENGTH, WEIGHT', align: 'left'},
+        {name: 'CARGO DESCRIPTIONS', align: 'left'}
+    ]
 
 
     return (
@@ -101,36 +106,19 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
             <ShippingModeBlock>
                 <ShippingModeLabel>FCL</ShippingModeLabel>
                 <TableContainer className={classes.container} component={Paper}>
-                    <Table className={classes.table} aria-label="collapsible table">
+                    <Table aria-label="collapsible table">
                         <TableHead>
                             {operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL
                                 ? <TableRow>
-                                    <TableCell className={classes.cell} align="left">
-                                        VOLUME
-                                    </TableCell>
-                                    <TableCell className={classes.cell} align="left">
-                                        CONTAINER TYPE
-                                    </TableCell>
-                                    <TableCell className={classes.cell} align="left">
-                                        CARGO DESCRIPTIONS
-                                    </TableCell>
+                                    {fcl_cargos_header.map(f => <TableCell className={classes.cell} align='left'>
+                                        {f.name}
+                                    </TableCell>)}
                                 </TableRow>
                                 : <TableRow>
-                                    <TableCell className={classes.cell} align="left">
-                                        VOLUME
+                                    {other_cargos_header.map(o => <TableCell className={classes.cell} align="left">
+                                        {o.name}
                                     </TableCell>
-                                    <TableCell className={classes.cell} align="left">
-                                        NO. OF PACKS
-                                    </TableCell>
-                                    <TableCell className={classes.cell} align="left">
-                                        PACKAGING TYPE
-                                    </TableCell>
-                                    <TableCell className={classes.cell} align="left">
-                                        HEIGHT, WIDTH, LENGTH, WEIGHT
-                                    </TableCell>
-                                    <TableCell className={classes.cell} align="left">
-                                        CARGO DESCRIPTIONS
-                                    </TableCell>
+                                    )}
                                 </TableRow>
                             }
                         </TableHead>
@@ -139,10 +127,10 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
                                     {c.container_type
                                         ? <>
                                             <TableCell className={classes.innerCell} align="left">
-                                                {c.container_type?.code}
+                                                {c.volume}
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left">
-                                                {c.volume}
+                                                {c.container_type?.code}
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left">
                                                 {c.description}
@@ -179,36 +167,19 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
                 to
             </div>
             <TableContainer className={classes.changed_container} component={Paper}>
-                <Table className={classes.table} aria-label="collapsible table">
+                <Table aria-label="collapsible table">
                     <TableHead>
                         {operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL
                             ? <TableRow>
-                                <TableCell className={classes.cell} align="left">
-                                    VOLUME
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    CONTAINER TYPE
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    CARGO DESCRIPTIONS
-                                </TableCell>
+                                {fcl_cargos_header.map(f => <TableCell className={classes.cell} align='left'>
+                                    {f.name}
+                                </TableCell>)}
                             </TableRow>
                             : <TableRow>
-                                <TableCell className={classes.cell} align="left">
-                                    VOLUME
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    NO. OF PACKS
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    PACKAGING TYPE
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    HEIGHT, WIDTH, LENGTH, WEIGHT
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    CARGO DESCRIPTIONS
-                                </TableCell>
+                                {other_cargos_header.map(o => <TableCell className={classes.cell} align="left">
+                                        {o.name}
+                                    </TableCell>
+                                )}
                             </TableRow>
                         }
                     </TableHead>
@@ -217,10 +188,10 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
                                     {c.container_type
                                         ? <>
                                             <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.container_type?.code}
+                                                {c.volume}
                                             </TableCell>
                                             <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.volume}
+                                                {c.container_type?.code}
                                             </TableCell>
                                             <TableCell className={classes.innerCellBlue} align="left">
                                                 {c.description}

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {
-    CalendarIcon, EditButtonsWrapper, FormOperationButton,
+    CalendarIcon,
     GeneralBookingContent,
     InfoRow,
     InfoRowLabel,
@@ -10,50 +10,14 @@ import {OperationType, ShipmentDetailsType} from "../../../../../../../../_BLL/t
 import {SectionTitle, SectionWrapper} from "../../operation-card-style";
 import calendar_icon from "../../../../../../../assets/icons/date_1.svg";
 import moment from "moment";
-import ConfirmedDatesEditForm from "./ConfirmedDatesEditForm";
-import {useForm} from "react-hook-form";
-import {IconButton} from "@material-ui/core";
-import edit_icon from '../../../../../../../assets/icons/profile/editCard.svg'
-import close_icon from "../../../../../../../assets/icons/profile/closeForm.svg";
-import save_icon from "../../../../../../../assets/icons/profile/add.svg";
-import {useDispatch, useSelector} from "react-redux";
-import {editOperationByAgentThunk} from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
-import {getEditOperationSuccessSelector} from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
-import {agentOperationsActions} from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
-import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
+
 
 type PropsType = {
     shipment: ShipmentDetailsType | null,
-    operation_info: OperationType,
-    company_type: string,
-    my_name: string
+    operation_info: OperationType
 }
 
-const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_info, company_type, my_name}) => {
-
-    let dispatch = useDispatch()
-    const {control, errors, setValue,handleSubmit} = useForm()
-
-    const onSubmit = (values: any) => {
-
-       let date_of_departure = moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time
-       let date_of_arrival = moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time
-
-        let document_cut_off_date = moment(values.documents_cut_off?.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off?.cut_off_time
-        let cargo_cut_off_date = moment(values.cargo_cut_off?.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off?.cut_off_time
-        if(document_cut_off_date && values.documents_cut_off?.cut_off_time) {
-            dispatch(editOperationByAgentThunk({
-                date_of_departure: date_of_departure,
-                date_of_arrival: date_of_arrival,
-                document_cut_off_date: document_cut_off_date,
-                cargo_cut_off_date: cargo_cut_off_date
-            },
-                shipment?.id as number
-            ))
-        } else if(document_cut_off_date && !values.documents_cut_off?.cut_off_time){
-            dispatch(editOperationByAgentThunk({date_of_departure: date_of_departure, date_of_arrival: date_of_arrival}, shipment?.id as number))
-        }
-    }
+const ConfirmedDatesContainerBlock: React.FC<PropsType> = ({shipment, operation_info}) => {
 
     //refactoring dates
     let a = moment(operation_info?.date_from, 'DD/MM/YYYY').toDate()
@@ -62,86 +26,57 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
     let date_to = moment(c).format('DD/MM')
 
 
-    const [isEdit, setIsEdit] = useState(false)
-
-    let edit_success = useSelector(getEditOperationSuccessSelector)
-
-    useEffect(() => {
-        if(edit_success) {
-            setIsEdit(false)
-            dispatch(agentOperationsActions.setEditSuccess(''))
-        }
-    }, [edit_success])
-
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-                    <SectionWrapper>
-
-                            <SectionTitle>DATES</SectionTitle>
-                            {company_type === AppCompaniesTypes.AGENT && shipment?.date_of_departure &&
-                                (!isEdit
-                                    ? <IconButton onClick={() => setIsEdit(true)} style={{position: 'absolute', right: 0}}>
-                                        <img src={edit_icon} alt=""/>
-                                    </IconButton>
-                                    : <EditButtonsWrapper>
-                                    <FormOperationButton type='button' onClick={() => setIsEdit(false)} style={{padding: '5px'}}>
-                                        <img src={close_icon} alt=""/>
-                                    </FormOperationButton>
-                                    <FormOperationButton type='submit' style={{padding: '5px'}}>
-                                        <img src={save_icon} alt=""/>
-                                    </FormOperationButton>
-                                    </EditButtonsWrapper>
-                                )
-                            }
-
-                        <GeneralBookingContent>
-                            <div style={{ display: "flex" }}>
-                                <CalendarIcon style={{ width: "87px", height: "96px" }}>
-                                    <img src={calendar_icon} alt="" />
-                                </CalendarIcon>
-                                <InfoRow margin_right="50px" margin_bottom="0px">
-                                    <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
-                                    <span style={{width: "150px", fontSize: "24px", color: "black", fontFamily: "Helvetica Light", marginBottom: "5px",}}>
+            <SectionWrapper>
+                <SectionTitle>DATES</SectionTitle>
+                <GeneralBookingContent>
+                    <div style={{display: "flex"}}>
+                        <CalendarIcon style={{width: "87px", height: "96px"}}>
+                            <img src={calendar_icon} alt=""/>
+                        </CalendarIcon>
+                        <InfoRow margin_right="50px" margin_bottom="0px">
+                            <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
+                            <span style={{
+                                width: "150px",
+                                fontSize: "24px",
+                                color: "black",
+                                fontFamily: "Helvetica Light",
+                                marginBottom: "5px",
+                            }}>
                   {(operation_info?.week_range?.week_from !== operation_info?.week_range?.week_to)
                       ? `WEEK ${operation_info?.week_range?.week_from} - ${operation_info?.week_range?.week_to}`
                       : `WEEK ${operation_info?.week_range?.week_from}`
                   }
                 </span>
-                                    <InfoRowValue>{date_from} - {date_to}</InfoRowValue>
-                                </InfoRow>
-                            </div>
-                            {isEdit
-                                ? <ConfirmedDatesEditForm control={control}
-                                                          errors={errors}
-                                                          setValue={setValue}
-                                                          exact_operation_info={operation_info}
-                                />
-                                :
-                                (operation_info?.status === "Booking Confirmed" &&
-                                <>
-                                    <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
-                                        <InfoRow>
-                                            <InfoRowLabel>ESTIMATED TIME OF DEPARTURE</InfoRowLabel>
-                                            <InfoRowValue>{shipment?.date_of_departure}</InfoRowValue>
-                                        </InfoRow>
-                                        <InfoRow>
-                                            <InfoRowLabel>ESTIMATED TIME OF ARRIVAL</InfoRowLabel>
-                                            <InfoRowValue>{shipment?.date_of_arrival}</InfoRowValue>
-                                        </InfoRow>
-                                    </div>
-                                    {shipment?.cargo_cut_off_date &&
-                                    <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
-                                        <InfoRow>
-                                            <InfoRowLabel>DOCUMENTS CUT OFF </InfoRowLabel>
-                                            <InfoRowValue>{shipment?.document_cut_off_date}</InfoRowValue>
-                                        </InfoRow>
-                                        <InfoRow>
-                                            <InfoRowLabel>CARGO CUT OFF </InfoRowLabel>
-                                            <InfoRowValue>{shipment?.cargo_cut_off_date}</InfoRowValue>
-                                        </InfoRow>
-                                    </div>
-                                    }
-                                    {/*<div style={{width: "20%", display: "flex", flexDirection: "column",}}>
+                            <InfoRowValue>{date_from} - {date_to}</InfoRowValue>
+                        </InfoRow>
+                    </div>
+
+                    {operation_info?.status === "Booking Confirmed" &&
+                    <>
+                        <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
+                            <InfoRow>
+                                <InfoRowLabel>ESTIMATED TIME OF DEPARTURE</InfoRowLabel>
+                                <InfoRowValue>{shipment?.date_of_departure}</InfoRowValue>
+                            </InfoRow>
+                            <InfoRow>
+                                <InfoRowLabel>ESTIMATED TIME OF ARRIVAL</InfoRowLabel>
+                                <InfoRowValue>{shipment?.date_of_arrival}</InfoRowValue>
+                            </InfoRow>
+                        </div>
+                        {shipment?.cargo_cut_off_date &&
+                        <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
+                            <InfoRow>
+                                <InfoRowLabel>DOCUMENTS CUT OFF </InfoRowLabel>
+                                <InfoRowValue>{shipment?.document_cut_off_date}</InfoRowValue>
+                            </InfoRow>
+                            <InfoRow>
+                                <InfoRowLabel>CARGO CUT OFF </InfoRowLabel>
+                                <InfoRowValue>{shipment?.cargo_cut_off_date}</InfoRowValue>
+                            </InfoRow>
+                        </div>
+                        }
+                        {/*<div style={{width: "20%", display: "flex", flexDirection: "column",}}>
                 <InfoRow>
                   <InfoRowLabel>ACTUAL TIME OF DEPARTURE</InfoRowLabel>
                   <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
@@ -151,13 +86,10 @@ const ConfirmedDatesContainerBlock:React.FC<PropsType> = ({shipment, operation_i
                   <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
                 </InfoRow>
               </div>*/}
-                                </>
-                                )
-                            }
-                        </GeneralBookingContent>
-                    </SectionWrapper>
-        </form>
-
+                    </>
+                    }
+                </GeneralBookingContent>
+            </SectionWrapper>
     )
 }
 

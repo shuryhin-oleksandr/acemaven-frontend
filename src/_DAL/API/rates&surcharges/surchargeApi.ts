@@ -29,7 +29,7 @@ export const surchargeAPI = {
         return instance.get(`/booking/surcharge/?direction=${direction}&shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`)
     },
     getExactSurcharge (id: number) {
-        return instance.get(`/booking/surcharge/${id}`)
+        return instance.get(`/booking/surcharge/${id}/`)
     },
     checkSurchargeDates (checkSurchargeValues: {location: number,
         carrier: number,

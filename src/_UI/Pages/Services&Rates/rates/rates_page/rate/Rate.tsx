@@ -92,8 +92,6 @@ const dispatch = useDispatch()
           start_date: values.rates[key].from,
           expiration_date: values.rates[key].to
         }))))
-
-      //console.log('values', values)
   }
 
   useEffect(() => {

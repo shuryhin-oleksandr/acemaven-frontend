@@ -104,7 +104,7 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
 
     let history = useHistory()
     let goToPage = (id:number) => {
-        props.dispatch(getSurchargeInfo(id, history))
+        history.push(`/services/surcharge/${id}`);
     }
 
     function createData(id: number, shipping_type: any, shipping_mode: string | number, carrier: string | number, location: string | number, direction: string, start_date: string, expiration_date: string) {

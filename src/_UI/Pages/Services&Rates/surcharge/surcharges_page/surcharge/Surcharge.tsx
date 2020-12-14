@@ -40,12 +40,10 @@ const Surcharge:React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFor
     const dispatch = useDispatch()
     const onSubmit = (values: any) => {
        //edit surcharge dates
-        if(values.from !== surcharge?.start_date) {
+        if((values.from !== surcharge?.start_date) || (values.to !== surcharge?.expiration_date)) {
             let edit_dates = {start_date: moment(values.from).format('DD/MM/YYYY'),
                 expiration_date: moment(values.to).format('DD/MM/YYYY')}
             dispatch(editDates(surcharge?.id, edit_dates))
-        } else {
-            dispatch(editDates(surcharge?.id, {start_date: values.from, expiration_date: values.to}))
         }
         //edit containers
        /*let b = values.usage_fees.map((u: any, key: string) => (typeof u[key] === 'object' && !Array.isArray(u[key])) && u[key]

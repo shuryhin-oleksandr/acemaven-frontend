@@ -16,6 +16,7 @@ import billing from '../../assets/icons/sidebar/billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import support from '../../assets/icons/sidebar/support.svg';
 import { NavContainer } from "./nav-styles";
+import {AppCompaniesTypes, AppUserRolesType} from "../../../_BLL/types/commonTypes";
 
 interface IProps {
     setFull?: (value: boolean) => void
@@ -35,7 +36,7 @@ const NavBar:React.FC<IProps> = () => {
       }}>
         <NavContainer>
             {
-                company_type && company_type[0].type !== 'agent'
+                company_type && company_type[0].type !== AppCompaniesTypes.AGENT
                     ? <MenuLink icon={requests}
                                 activeIcon={active_requests}
                                 path='/quotes'
@@ -43,15 +44,23 @@ const NavBar:React.FC<IProps> = () => {
                                 setChecked={setChecked}
                                 checkedLink={checkedLink}
                     />
-                    : (!current_user_role?.includes('billing') && <MenuLink icon={requests}
+                    : (((current_user_role?.includes(AppUserRolesType.BILLING) && current_user_role?.includes(AppUserRolesType.AGENT))
+                        || current_user_role?.includes(AppUserRolesType.AGENT)
+                        || current_user_role?.includes(AppUserRolesType.MASTER))
+                    &&
+                    <MenuLink icon={requests}
                                 activeIcon={active_requests}
-                                // path='/requests'
                                 name='REQUESTS'
                                 setChecked={setChecked}
                                 checkedLink={checkedLink}
                                 nestedLinks={requestLinks}
-                    />)
+                    />
+                    )
             }
+            {((current_user_role?.includes(AppUserRolesType.BILLING) && current_user_role?.includes(AppUserRolesType.AGENT))
+                || current_user_role?.includes(AppUserRolesType.AGENT)
+                || current_user_role?.includes(AppUserRolesType.MASTER))
+            &&
             <MenuLink icon={operations}
                       activeIcon={active_operations}
                       name='OPERATIONS'
@@ -60,8 +69,9 @@ const NavBar:React.FC<IProps> = () => {
                       checkedLink={checkedLink}
                       path='#'
             />
+            }
             {
-                company_type && company_type[0].type === 'agent'
+                company_type && company_type[0].type === AppCompaniesTypes.AGENT
                     && < MenuLink icon={rates}
                                 nestedLinks={ratesLinks}
                                 name='RATES & SERVICES'
@@ -70,10 +80,18 @@ const NavBar:React.FC<IProps> = () => {
                                 activeIcon={activeRates}
                      />
             }
-            <MenuLink icon={billing} path='#' name='BILLING'/>
+            {((current_user_role?.includes(AppUserRolesType.BILLING) && current_user_role?.includes(AppUserRolesType.AGENT))
+                || current_user_role?.includes(AppUserRolesType.BILLING)
+                || current_user_role?.includes(AppUserRolesType.MASTER))
+            &&
+            <MenuLink icon={billing} path='#'
+                      name='BILLING'
+            />
+            }
             <MenuLink icon={settings}
                       activeIcon={activeSettings}
                       nestedLinks={profileLinks}
+                      current_user_role={current_user_role}
                       name='PROFILE & SETTINGS'
                       setChecked={setChecked}
                       checkedLink={checkedLink}

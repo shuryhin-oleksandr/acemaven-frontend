@@ -1,7 +1,7 @@
 export const profileLinks = [
     {name: 'MY PROFILE', path: '/settings/profile'},
     {name: 'COMPANY SETTINGS', path: '/settings/company'},
-    {name: 'USER MANAGEMENT', path: '/settings/user/management'},
+    {name: 'USER MANAGEMENT', path: '/settings/user/management', allowed: 'master'},
     {name: 'SETTINGS', path: '/settings/general'}
 ]
 

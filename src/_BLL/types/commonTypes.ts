@@ -10,3 +10,8 @@ export enum AppOperationStatusType {
     COMPLETED = 'completed',
     CANCELED = 'canceled'
 }
+export enum AppUserRolesType {
+    AGENT = 'agent',
+    BILLING = 'billing',
+    MASTER = 'master'
+}

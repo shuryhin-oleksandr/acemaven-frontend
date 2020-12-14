@@ -34,8 +34,10 @@ const BankListContainer: React.FC<PropsType> = ({ banksList }) => {
             <BankCard
               key={b?.id}
               b={b}
+              max_width='500px'
               deleteBank={deleteBankCallback}
               defaultBank={defaultBankCallback}
+              flex_direction='row'
             />
           ))
         )}

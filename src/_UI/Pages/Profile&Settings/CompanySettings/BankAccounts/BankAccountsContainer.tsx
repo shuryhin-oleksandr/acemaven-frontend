@@ -71,6 +71,7 @@ const BankAccountsContainer: React.FC<PropsType> = ({current_user_role, isFetchi
                                                            deleteBank={deleteBankCallback}
                                                            defaultBank={defaultBankCallback}
                                                            max_width='611px'
+                                                           flex_direction='row'
                                                            w='60%'/>)}
                         </BanksInner>
                     </BanksContainer>

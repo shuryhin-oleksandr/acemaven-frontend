@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 
 type PropsType = {
-    setIsAdd: (value: boolean) => void
+    setIsAdd: (value: boolean) => void,
+    disabled?: boolean
 }
 
-const AddNewButton:React.FC<PropsType> = ({setIsAdd}) => {
+const AddNewButton:React.FC<PropsType> = ({setIsAdd, disabled}) => {
     return (
-        <AddButton onClick={() => setIsAdd(true)}>
+        <AddButton onClick={() => setIsAdd(true)} disabled={!!disabled}>
             + Add new
         </AddButton>
     )
@@ -16,7 +17,7 @@ const AddNewButton:React.FC<PropsType> = ({setIsAdd}) => {
 
 export default AddNewButton
 
-const AddButton = styled.div`
+const AddButton = styled.button`
   width: 100%;
   height: 94px;
   border: 1px dashed #828282;
@@ -32,5 +33,9 @@ const AddButton = styled.div`
   
   &:hover {
     cursor: pointer
+  }
+  
+   &:disabled {
+    cursor: not-allowed;
   }
 `

@@ -10,24 +10,22 @@ import {authActions} from "../../../../_BLL/reducers/authReducer";
 import LayoutWithoutNav from "../../../components/BaseLayout/LayoutWithoutNav";
 import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
 
-interface IProps {
 
-}
 
-const AddNewUserContainer:React.FC<IProps> = () => {
+const AddNewUserContainer:React.FC = () => {
     const [isOpen, setIsOpen] = useState(false)
     const employeesList = useSelector((state: AppStateType) => state.company.employees)
     const server_error = useSelector((state: AppStateType) => state.company.addingEmployeeError)
+    const company = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies)
+
 
     const dispatch = useDispatch()
 
-   /* const clearToken = () => {
-        localStorage.removeItem('access_token')
-    }*/
+
     useEffect(() => {
+        debugger
         dispatch(authActions.setAuth(true))
         dispatch(getEmployees())
-
     }, [dispatch])
 
     return (
@@ -36,7 +34,11 @@ const AddNewUserContainer:React.FC<IProps> = () => {
                 <CancelPopup things={'users'} setIsOpen={setIsOpen}/>
             </ModalWindow>
             <LayoutWithoutNav>
-                <AddNewUser server_error={server_error} list={employeesList ? employeesList : null} setIsOpen={setIsOpen}/>
+                <AddNewUser server_error={server_error}
+                            list={employeesList ? employeesList : null}
+                            setIsOpen={setIsOpen}
+                            company_type={company && String(company[0].type)}
+                />
             </LayoutWithoutNav>
         </Outer>
     )

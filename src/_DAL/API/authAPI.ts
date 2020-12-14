@@ -22,7 +22,7 @@ export const authAPI = {
         return instance.post(`/core/signup/?token=${token}`, masterData)
     },
     getEmployeesList () {
-        return instance.get('/core/user')
+        return instance.get('/core/user/')
     },
     addEmployee (employeeData: IAddNewUserData) {
         return instance.post('/core/user/', employeeData)
@@ -40,6 +40,6 @@ export const authAPI = {
         return instance.patch(`/core/bank-account/${id}/`, changes)
     },
     deleteBank (id: number) {
-        return instance.delete(`/core/bank-account/${id}`)
+        return instance.delete(`/core/bank-account/${id}/`)
     }
 }

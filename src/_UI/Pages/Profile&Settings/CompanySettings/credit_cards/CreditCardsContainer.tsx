@@ -27,7 +27,7 @@ const CreditCardsContainer:React.FC<PropsType> = ({credit_cards, current_user_ro
                         <CreditCardsInner>
                             {!current_user_role?.includes('agent') &&
                                 (!isAdd
-                                    ? <AddNewButton setIsAdd={setIsAdd}/>
+                                    ? <AddNewButton setIsAdd={setIsAdd} disabled={true}/>
                                     : <CreditCardForm setIsAdd={setIsAdd}/>
                                 )}
                             {credit_cards.length > 0 && credit_cards.map(c => <CreditCardCard card={c}/>)}

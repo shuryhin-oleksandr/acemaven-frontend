@@ -77,7 +77,6 @@ const CreateAccountPage = ({ history }) => {
                   position: "",
                 }}
                 onSubmit={(values, {}) => {
-                  debugger
                   let wholeData = getFilesFormData(values, file);
                   dispatch(authActions.setIsLoading(true));
                   authAPI

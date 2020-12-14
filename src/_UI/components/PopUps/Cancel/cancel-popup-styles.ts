@@ -23,14 +23,12 @@ animation: ${shownPopup} ease-in-out .3s;
 export const PopupContent = styled.div`
 background-color: white;
 max-width: 800px;
-max-height: 400px;
 width: 100%;
-height: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-padding: 50px;
+padding: 70px 50px 50px;
 position: relative;
 `
 
@@ -49,9 +47,9 @@ right: 3%;
 
 export const CancelTitle = styled.div`
 color: black;
-font-family: "Helvetica Bold", sans-serif;
+font-family: "Helvetica Reg", sans-serif;
 font-size: 16px;
-margin-bottom: 100px;
+margin-bottom: 80px;
 `
 export const ButtonsWrap = styled.div`
 width: 100%;  

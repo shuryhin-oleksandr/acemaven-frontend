@@ -22,11 +22,11 @@ const Dates: React.FC<PropsType> = ({
   placeholder,
   width,
 }) => {
-  const { combine, before, after } = DateRangePicker;
+  const { allowedRange } = DateRangePicker;
   const tillTheEnd =
     moment().endOf("week").diff(moment(), "days") + extraDateNumber;
-    const disabledDate = moment().add(tillTheEnd, "days").format("MM-DD-YYYY");
-    const maxDate = moment().add(90, "days").format("MM-DD-YYYY");
+  const disabledDate = moment().add(tillTheEnd, "days").format("YYYY-MM-DD");
+  const maxDate = moment().add(90, "days").format("YYYY-MM-DD");
 
   return (
     <DateRangePicker
@@ -43,7 +43,7 @@ const Dates: React.FC<PropsType> = ({
       onOk={(date) => {
         setDates(date);
       }}
-      disabledDate={combine(before(disabledDate), after(maxDate))}
+      disabledDate={allowedRange(disabledDate, maxDate)}
       value={dates}
       onClean={() => {
         setDates([]);

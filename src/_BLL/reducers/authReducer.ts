@@ -179,7 +179,6 @@ export const signIn = (loginData: ILoginData, history: History) => {
         dispatch(
           authActions.setLoginError(e.response.data.non_field_errors[0])
         );
-        console.log("error", e.response.data.non_field_errors[0]);
       } else {
         dispatch(
           authActions.setLoginError(
@@ -201,11 +200,10 @@ export const companySignUp = (data: ICompanySignUpData) => {
       dispatch(authActions.setOpenSignUp(false));
       dispatch(authActions.setOpenSignIn(false));
       dispatch(authActions.setIsFinish(true)) &&
-        dispatch(authActions.openFinishSignUpPopup(true));
+      dispatch(authActions.openFinishSignUpPopup(true));
       dispatch(authActions.setIsLoading(false));
     } catch (e) {
       dispatch(authActions.setCompanySignupError(e.response.data));
-      console.log("error", e.response);
       dispatch(authActions.setIsLoading(false));
     }
   };
@@ -219,7 +217,6 @@ export const checkToken = (token: string) => {
       dispatch(authActions.setCheckedTokenUser(res.data));
       res.data && dispatch(authActions.setIsLoading(false));
     } catch (e) {
-      console.log("error", e.response);
       dispatch(authActions.setCheckTokenError(e.response.data.detail));
       dispatch(authActions.setIsLoading(false));
     }

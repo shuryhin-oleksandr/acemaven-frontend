@@ -7,15 +7,17 @@ import styled from "styled-components";
 import {NavLink} from "react-router-dom";
 import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
 import {AddUserError} from "../../../../_BLL/reducers/profileReducer";
+import {AppCompaniesTypes} from "../../../../_BLL/types/commonTypes";
 
 
 type PropsType = {
     setIsOpen: (value: boolean) => void;
     list?: Array<IAddNewUserData> | null,
-    server_error?: AddUserError | null
+    server_error?: AddUserError | null,
+    company_type?: string
 }
 
-const AddNewUser:React.FC<PropsType> = ({setIsOpen, list, server_error}) => {
+const AddNewUser:React.FC<PropsType> = ({setIsOpen, list, server_error, company_type}) => {
 
     return (
         <AddContainer>
@@ -26,7 +28,9 @@ const AddNewUser:React.FC<PropsType> = ({setIsOpen, list, server_error}) => {
             <LineWrap />
             <NavigationWrap>
                 <CancelButton onClick={() => setIsOpen(true)}>CANCEL</CancelButton>
-                <NavLink style={{textDecoration: "none"}} to='/create/bank'><BaseNextButton>NEXT</BaseNextButton></NavLink>
+                <NavLink style={{textDecoration: "none"}} to={(company_type === AppCompaniesTypes.AGENT) ? '/create/bank' : '/create/finish'}>
+                    <BaseNextButton>NEXT</BaseNextButton>
+                </NavLink>
             </NavigationWrap>
         </AddContainer>
 

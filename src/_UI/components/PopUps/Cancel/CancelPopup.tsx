@@ -3,11 +3,11 @@ import {
   ButtonsWrap,
   CancelButton,
   CancelTitle,
-  CloseBtn,
   PopupContainer,
   PopupContent,
 } from "./cancel-popup-styles";
 import close from "../../../../_UI/assets/icons/close-icon.svg";
+import {IconButton} from "@material-ui/core";
 
 type PropsTypes = {
   setIsOpen: (value: boolean) => void;
@@ -18,9 +18,9 @@ const CancelPopup: React.FC<PropsTypes> = ({ setIsOpen, things}) => {
   return (
     <PopupContainer>
       <PopupContent>
-        <CloseBtn onClick={() => setIsOpen(false)}>
+        <IconButton onClick={() => setIsOpen(false)} style={{position: "absolute", top: '20px', right: '20px'}}>
           <img src={close} alt="" />
-        </CloseBtn>
+        </IconButton>
         <CancelTitle>
           Are you sure you want to cancel {things} adding?
         </CancelTitle>

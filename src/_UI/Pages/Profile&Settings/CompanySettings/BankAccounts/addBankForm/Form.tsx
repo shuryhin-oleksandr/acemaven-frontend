@@ -40,9 +40,25 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        getValues={getValues}
                        error={errors?.bank_name}
                        inputRef={register({
-                           required: 'Field is required'
+                           required: 'Field is required',
+                           minLength: 1,
+                           maxLength: 100,
                        })}
                        maxW='447px'
+                       max="100"
+            />
+            <FormField label='Bank Number'
+                       name='bank_number'
+                       placeholder='000'
+                       getValues={getValues}
+                       error={errors?.bank_number}
+                       inputRef={register({
+                           required: 'Field is required',
+                           minLength: 1,
+                           maxLength: 3,
+                       })}
+                       maxW='447px'
+                       max="3"
             />
             <FormField name='branch'
                        placeholder='0000-0'
@@ -60,7 +76,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        pattern_message='Wrong format. Ex.: 0000-0'
             />
             <FormField name='number'
-                       placeholder='123990011794763'
+                       placeholder='0000000000000'
                        label='Account Number'
                        getValues={getValues}
                        error={errors?.number}

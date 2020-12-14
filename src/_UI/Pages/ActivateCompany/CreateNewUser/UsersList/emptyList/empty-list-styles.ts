@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const ListEmpty = styled.div`
 border: 1px dashed #828282;
-height: 120px;
+min-height: 120px;
 width: 100%;
 display: flex;
 flex-direction: column;

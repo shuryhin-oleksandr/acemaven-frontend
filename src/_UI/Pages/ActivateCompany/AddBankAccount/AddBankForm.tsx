@@ -18,7 +18,6 @@ const AddBankForm: React.FC = () => {
     let success_bank = useSelector((state: AppStateType) => state.company.successBank)
 
   const onSubmit = (values: IAddNewBank) => {
-    console.log(values);
     dispatch(companyActions.setAddingBankError(''))
     dispatch(addBank(values));
   };
@@ -52,6 +51,19 @@ const AddBankForm: React.FC = () => {
         getValues={getValues}
         max="100"
       />
+        <FormField
+            label="Bank Number"
+            name="bank_number"
+            placeholder="000"
+            error={errors?.bank_number}
+            inputRef={register({
+                required: "Field is required",
+                minLength: 1,
+                maxLength: 3,
+            })}
+            getValues={getValues}
+            max="3"
+        />
       <FormField
         label="Branch No."
         placeholder="Branch No."

@@ -43,6 +43,7 @@ export interface IAddNewBank {
     id?: number,
     account_type?: string,
     bank_name?: string,
+    bank_number?: string | number,
     branch?: string,
     number?: number | string,
     is_default?: boolean

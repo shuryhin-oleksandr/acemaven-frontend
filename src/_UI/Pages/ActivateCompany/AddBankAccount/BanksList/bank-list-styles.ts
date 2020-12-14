@@ -16,7 +16,7 @@ max-width: 416px;
 export const CardWrap = styled.div<PropsStyle>`
   max-width: ${({max_width}) => max_width ? max_width : '416px'};
   width: 100%;
-  max-height: 175px;
+  min-height: 175px;
   border: 1px solid #ECECEC;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
   position: relative;
@@ -27,7 +27,7 @@ export const CardWrap = styled.div<PropsStyle>`
   }
 `
 export const CardContent = styled.div`
-padding: 15px;
+padding: 20px;
 display: flex;
 flex-direction: column;
 width: 100%;
@@ -92,19 +92,20 @@ export const DefaultIcon = styled.div`
   margin-right: 5px;
 `
 export const SetDefaultButton = styled.button`
-  height: 40px;
+  height: 35px;
   max-width: 160px;
   width: 100%;
   outline: none;
   background: none;
   border: 1px solid #3B3B41;
   color: #3B3B41;
-  font-family: "Helvetica Bold", sans-serif;
-  font-size: 14px;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 13px;
   transition: .3s;
+  text-transform: uppercase;
    &:hover {
     cursor: pointer;
     transition: .3s;
-    background-color: #E0E0E0;
+    background-color: rgba(0,0 ,0 , .07);
    }
 `

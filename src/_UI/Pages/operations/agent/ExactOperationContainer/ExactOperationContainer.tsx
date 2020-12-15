@@ -173,9 +173,6 @@ const ExactOperationContainer = ({...props}) => {
             operation_info={operation_info}
           />
         </ModalWindow>)}
-        {operation_info &&  <ModalWindow isOpen={clientChangRequestPopupVisible}>
-            <ClientOperationChangeRequestPopUp setIsOpen={setClientChangRequestPopupVisible} operation_info={operation_info}/>
-        </ModalWindow>}
           <ModalWindow isOpen={isChangeRequestPopup}>
           <AgentChangeRequestPopup setChangeRequestPopup={setChangeRequestPopup}
           operation_info={operation_info ? operation_info : null}

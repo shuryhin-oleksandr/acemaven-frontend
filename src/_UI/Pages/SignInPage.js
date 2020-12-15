@@ -13,9 +13,10 @@ import RegisterFormTemplate from "../templates/RegisterFormTemplate";
 import BaseButton from "../components/base/BaseButton";
 import BaseInputGroup from "../components/base/BaseInputGroup";
 import {useDispatch, useSelector} from "react-redux";
-import {authActions, signIn} from "../../_BLL/reducers/authReducer";
+import {authActions} from "../../_BLL/reducers/authReducer";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
 import ModalWindow from "../components/_commonComponents/ModalWindow/ModalWindow";
+import {signIn} from "../../_BLL/thunks/auth/authThunks";
 
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
@@ -51,7 +52,6 @@ const SignInPage = ({history}) => {
             validationSchema={ValidationSchema}
             initialValues={{ email: "", password: "" }}
             onSubmit={(values, { }) => {
-              console.log("submit", values);
               dispatch(authActions.setLoginError(''))
               dispatch(signIn(values, history))
             }}

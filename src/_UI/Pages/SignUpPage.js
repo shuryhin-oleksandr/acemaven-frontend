@@ -9,7 +9,8 @@ import BaseFormikRadioButton from "../components/base/BaseFormikRadioButton";
 import PartTwo from "../components/SignUpFormParts/PartTwo";
 import PartOne from "../components/SignUpFormParts/PartOne";
 import ModalWindow from "../components/_commonComponents/ModalWindow/ModalWindow";
-import {authActions, companySignUp} from "../../_BLL/reducers/authReducer";
+import {authActions} from "../../_BLL/reducers/authReducer";
+import {companySignUp} from "../../_BLL/thunks/auth/authThunks";
 
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
 const taxIdRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
@@ -125,7 +126,6 @@ const SignUpPage = () => {
             }}
             onSubmit={(values) => {
               dispatch(companySignUp(values));
-              console.log("submit", values);
             }}
           >
             {({ values }) => {

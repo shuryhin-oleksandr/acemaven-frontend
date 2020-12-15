@@ -4,13 +4,16 @@ import { Controller } from "react-hook-form";
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
 //types
-import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import {SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {ContainerType, RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {
+  AdditionalSurchargeType,
+  SurchargeInfoType
+} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 //BLL
-import {editRates} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {addNewSurchargeForRate, editRates} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {
   getEditSuccess,
-  getEmptyExistingSurcharge
+  getEmptyExistingSurcharge, getExistingSurcharge, getRateStartDate
 } from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 //COMPONENTS
@@ -39,6 +42,11 @@ import ship from "../../../../../assets/icons/rates&services/ship-surcharge.svg"
 import plane from "../../../../../assets/icons/rates&services/plane-surcharge.svg";
 import NoSurchargeCard from "../../register_new_freight_rate/NoSurchargeCard";
 import {RatesWrapper} from "../../register_new_freight_rate/RegisterNewFreightRateContainer";
+import _ from "lodash";
+import NoSurchargeForRatePopup
+  from "../../../../../components/PopUps/no_surharge_for_rate_popup/NoSurchargeForRatePopup";
+import ModalWindow from "../../../../../components/_commonComponents/ModalWindow/ModalWindow";
+import RegisterSurchargePopUp from "../../../../../components/PopUps/RegisterSurchargePopUp/RegisterSurchargePopUp";
 
 
 type PropsType = {
@@ -52,22 +60,26 @@ type PropsType = {
   getValues: any,
   activateRateHandler: (id: any, value: boolean) => void
   getSurchargeForRate: any
-  //getSurchargeForNewRate: any
-  existing_surcharge: SurchargeInfoType | null
+  getSurchargeForNewRate: any
+  existing_surcharge: SurchargeInfoType | null,
+  history: any,
+  usage_fees: ContainerType[],
+  charges:  AdditionalSurchargeType[]
 }
 
 const Rate:React.FC<PropsType> = ({ is_active, rate, handleSubmit, errors, setValue,
                                     control, getValues, activateRateHandler, getSurchargeForRate,
-                                    existing_surcharge,
+                                    existing_surcharge, history, getSurchargeForNewRate, usage_fees, charges
                                   }) => {
   const [formMode, setFormMode] = useState(false);
-  const [rateEditPopUpVisible, setRateEditPopUpVisible] = useState(false);
+  const [noSurchargePopup, setNoSurchargePopup] = useState(false);
   //попап для нового сюрчарджа
   const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(false);
 
   //data from store
   let edit_success = useSelector(getEditSuccess)
   const empty_surcharge = useSelector(getEmptyExistingSurcharge)
+  const rate_start_date = useSelector(getRateStartDate)
 
   useEffect(() => {
     if(rate && rate.rates.length > 1) {
@@ -81,32 +93,81 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, handleSubmit, errors, setVa
     }
   }, [rate, setValue])
 
+
+  let rates_from_server = rate?.rates?.map(r => (
+      {
+        id: r.id,
+        rate: r.rate,
+        currency: r.currency.id,
+        container_type: r.container_type ? r.container_type.id : null,
+        date_updated: r.date_updated,
+        updated_by: r.updated_by,
+        from: r.start_date ? r.start_date : '',
+        to: r.expiration_date ? r.expiration_date : ''
+      }
+  ))
+
 const dispatch = useDispatch()
   const onSubmit = (values: any) => {
+
+    let rates: any[] = [];
+
     values.rates && Object.keys(values.rates).forEach((key : any) => (values.rates[key] !== null && values.rates[key].from !== null
-        && dispatch(editRates(key, {
-          // @ts-ignore
-          container_type: values.rates[key].container_type,
-          rate: values.rates[key].rate,
-          currency: values.rates[key].currency,
-          start_date: values.rates[key].from,
-          expiration_date: values.rates[key].to
-        }))))
+        && rates.push({id: Number(key), ...values.rates[key]})))
+   /* console.log(rates)
+    console.log('s', rates_from_server)*/
+    let rates_to_submit = rates_from_server && _.differenceWith(rates, rates_from_server, _.isEqual)
+
+    //check surcharges
+    let ifNotAllContainersHaveSurcharges = rates.some(r => {
+      const checkedRate = rate?.rates?.find(sr => sr.id === r.id);
+      return (checkedRate?.surcharges.length === 0)
+    })
+
+   !ifNotAllContainersHaveSurcharges && rates_to_submit && rates_to_submit.length > 0 && dispatch(editRates(Number(rate?.id), rates_to_submit, history))
+  }
+
+
+  const createNewSurcharge = (data: any) => {
+    dispatch(addNewSurchargeForRate(data))
   }
 
   useEffect(() => {
     if(edit_success) {
-      setRateEditPopUpVisible(false)
       setFormMode(false)
       dispatch(rateActions.setEditSuccess(''))
     }
   }, [edit_success, dispatch])
 
+
+  useEffect(() => {
+    if(empty_surcharge) {
+      setNoSurchargePopup(true)
+    }
+  }, [empty_surcharge])
+
   return (
     <RateContainer onSubmit={handleSubmit(onSubmit)}>
-      {/*<ModalWindow isOpen={rateEditPopUpVisible} >
-        <RateEditPopUp setRateEditPopUpVisible={setRateEditPopUpVisible}/>
-      </ModalWindow>*/}
+      <ModalWindow isOpen={noSurchargePopup} >
+        <NoSurchargeForRatePopup setNoSurchargePopup={setNoSurchargePopup}
+                                 setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}
+        />
+      </ModalWindow>
+      <ModalWindow isOpen={newSurchargePopUpVisible} >
+       <RegisterSurchargePopUp setIsOpen={setNewSurchargePopUpVisible}
+                               rate_start_date={rate_start_date}
+                               popUpShippingMode={rate?.shipping_mode}
+                               mode={String(rate?.shipping_type)}
+                               shippingValue={Number(rate?.shipping_mode.id)}
+                               popUpCarrier={rate?.carrier}
+                               is_local_port={rate?.origin ? rate.origin : null}
+                               destination_port_value={rate?.destination ? rate.destination : null}
+                               usageFees={usage_fees}
+                               additional={charges}
+                               createNewSurcharge={createNewSurcharge}
+                               existing_surcharge={existing_surcharge ? existing_surcharge : null}
+       />
+      </ModalWindow>
       <Wrap>
         <RateTitle>Freight Rate</RateTitle>
         <ButtonsWrap>
@@ -183,7 +244,7 @@ const dispatch = useDispatch()
                                 errors={errors}
                                 getSurchargeForRate={getSurchargeForRate}
                                 setFormMode={setFormMode}
-                                //getSurchargeForNewRate={getSurchargeForNewRate}
+                                getSurchargeForNewRate={getSurchargeForNewRate}
             />
           )}
           {existing_surcharge && <SurchargesToRate existing_surcharge={existing_surcharge}/>}

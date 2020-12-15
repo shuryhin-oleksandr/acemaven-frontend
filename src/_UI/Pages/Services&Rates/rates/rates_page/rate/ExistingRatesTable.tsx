@@ -25,7 +25,7 @@ type PropsType = {
     getValues: any
     errors: any
     getSurchargeForRate: any
-    //getSurchargeForNewRate: any
+    getSurchargeForNewRate: any
     setFormMode: (value: boolean) => void
 }
 
@@ -65,7 +65,7 @@ const useStyles = makeStyles({
     }
 });
 
-const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setValue,errors, getSurchargeForRate, setFormMode, }) => {
+const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setValue,errors, getSurchargeForRate, setFormMode, getSurchargeForNewRate}) => {
     const classes = useStyles();
 
     let reservedDates = useSelector(getRateBookedDatesSelector)
@@ -190,7 +190,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                         classes={classes}
                                         getValues={getValues}
                                         getSurchargeToRateHandle={() => {}}
-                                        //getSurchargeForNewRate={getSurchargeForNewRate}
+                                        getSurchargeForNewRate={getSurchargeForNewRate}
                                         setFormMode={setFormMode}
                                         required_dates={false}
                                     />

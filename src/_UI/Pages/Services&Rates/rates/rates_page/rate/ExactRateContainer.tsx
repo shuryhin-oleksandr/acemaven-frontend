@@ -14,6 +14,9 @@ import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateR
 import {getRatesIsFetching} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import SpinnerForAuthorizedPages from "../../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 import moment from "moment";
+import {getShippingTypes} from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import {ShippingTypesEnum} from "../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {getShippingTypesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 
 
 const ExactRateContainer = ({...props}) => {
@@ -23,9 +26,16 @@ const ExactRateContainer = ({...props}) => {
     });
 
     //data from store
-    const rate = useSelector((state: AppStateType) => state.rate.rate_info);
     let existing_surcharge = useSelector((state: AppStateType) => state.rate.existing_surcharge)
     let isFetching = useSelector(getRatesIsFetching)
+    const rate = useSelector((state: AppStateType) => state.rate.rate_info);
+    const shippingTypes = useSelector(getShippingTypesSelector);
+
+
+    const shippingModeOptions = rate?.shipping_type === ShippingTypesEnum.AIR ? shippingTypes[0]?.shipping_modes : shippingTypes[1]?.shipping_modes;
+    const usageFees = shippingModeOptions?.find((m) => m.id === rate?.shipping_mode.id)?.container_types || [];
+    const additional = shippingModeOptions?.find(m => m.id === rate?.shipping_mode.id)?.additional_surcharges || []
+
     const is_active = rate?.is_active
     let id = props.match.params.id;
 
@@ -39,6 +49,7 @@ const ExactRateContainer = ({...props}) => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getRateInfoThunk(id))
+        dispatch(getShippingTypes(''))
         return () => unmountHandler()
     }, [dispatch]);
 
@@ -83,7 +94,7 @@ const ExactRateContainer = ({...props}) => {
         dispatch(getSurchargeForExactRateThunk(rate_data))
     }
     //if we edit an existing one or add new one
-    let getSurchargeForNewRate = (id: number,start_date: Date, expiration_date: Date) => {
+    let getSurchargeForNewRate = ( start_date: Date, expiration_date: Date) => {
         let rate_data = {
             carrier: rate.carrier.id,
             shipping_mode: rate.shipping_mode.id,
@@ -114,7 +125,10 @@ const ExactRateContainer = ({...props}) => {
                     activateRateHandler={activateRateHandler}
                     getSurchargeForRate={getSurchargeForRate}
                     existing_surcharge={existing_surcharge}
-                    //getSurchargeForNewRate={getSurchargeForNewRate}
+                    history={props.history}
+                    getSurchargeForNewRate={getSurchargeForNewRate}
+                    usage_fees={usageFees}
+                    charges={additional}
             />
         }
 

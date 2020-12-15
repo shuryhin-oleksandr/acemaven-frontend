@@ -126,7 +126,7 @@ const OperationCard: React.FC<PropsType> = ({
 
                 />
                 {operation_info?.status === "Booking Confirmed"
-                && <ShipmentTrackingBlock/>
+                && <ShipmentTrackingBlock  />
                 }
                 <SectionWrapper>
                     <SectionTitle>CHARGES</SectionTitle>

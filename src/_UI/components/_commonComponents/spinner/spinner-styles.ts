@@ -18,6 +18,7 @@ z-index: 100;
 export const SpinnerContent = styled.div`
   img {
     width: 150px;
+    pointer-events: none;
   }
 `
 
@@ -39,5 +40,6 @@ align-items: center;
 justify-content: center;
   img {
     width: 150px;
+    pointer-events: none;
   }
 `

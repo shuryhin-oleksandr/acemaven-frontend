@@ -25,6 +25,7 @@ import ExactOperationContainer from "../_UI/Pages/operations/agent/ExactOperatio
 import OperationsContainer from 'src/_UI/Pages/operations/OperationsContainer';
 import CancelledOperationsContainer from "../_UI/Pages/operations/CANCELLED/CancelledOperationsContainer";
 import ChatContainer from "../_UI/Pages/operations/chat/ChatContainer";
+import NotificationsContainer from "../_UI/Pages/notifications/NotificationsContainer";
 
 
 
@@ -81,6 +82,8 @@ const useRoute = (isAuth: boolean) => {
                 <Route exact component={OperationsContainer} path='/operations_active' />
                 <Route component={CancelledOperationsContainer} path='/operations_cancelled'/>
                 <Route component={ChatContainer} path='/chat'/>
+
+                <Route component={NotificationsContainer} path='/notifications'/>
 
 
                 <Route exact component={DashboardContainer} path='/'/>

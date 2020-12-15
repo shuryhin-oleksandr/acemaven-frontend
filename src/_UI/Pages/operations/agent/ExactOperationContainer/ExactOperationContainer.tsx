@@ -119,7 +119,12 @@ const ExactOperationContainer = ({...props}) => {
     }, [cancellation_success])
 
     useEffect(() => {
-        if(operation_info?.has_change_request && company_type?.type===AppCompaniesTypes.AGENT ) {
+        if(operation_info?.has_change_request
+            && company_type?.type === AppCompaniesTypes.AGENT
+            && agent_operation_info?.agent_contact_person === my_name
+            && agent_operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
+            && agent_operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
+        ) {
             setChangeRequestPopup(true)
         }
     }, [operation_info?.has_change_request])

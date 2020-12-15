@@ -13,7 +13,7 @@ import {
 import {addNewSurchargeForRate, editRates} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
 import {
   getEditSuccess,
-  getEmptyExistingSurcharge, getExistingSurcharge, getRateStartDate
+  getEmptyExistingSurcharge, getRateStartDate
 } from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 //COMPONENTS
@@ -40,8 +40,6 @@ import pause from "../../../../../assets/icons/rates&services/pause.svg";
 import play from "../../../../../assets/icons/rates&services/play_icon.svg";
 import ship from "../../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../../assets/icons/rates&services/plane-surcharge.svg";
-import NoSurchargeCard from "../../register_new_freight_rate/NoSurchargeCard";
-import {RatesWrapper} from "../../register_new_freight_rate/RegisterNewFreightRateContainer";
 import _ from "lodash";
 import NoSurchargeForRatePopup
   from "../../../../../components/PopUps/no_surharge_for_rate_popup/NoSurchargeForRatePopup";
@@ -109,22 +107,30 @@ const Rate:React.FC<PropsType> = ({ is_active, rate, handleSubmit, errors, setVa
 
 const dispatch = useDispatch()
   const onSubmit = (values: any) => {
-
+debugger
     let rates: any[] = [];
 
     values.rates && Object.keys(values.rates).forEach((key : any) => (values.rates[key] !== null && values.rates[key].from !== null
         && rates.push({id: Number(key), ...values.rates[key]})))
-   /* console.log(rates)
-    console.log('s', rates_from_server)*/
+
     let rates_to_submit = rates_from_server && _.differenceWith(rates, rates_from_server, _.isEqual)
+    let to_submit = rates_to_submit?.map(r => ({
+        id: r.id,
+        rate: r.rate,
+        currency: r.currency,
+        container_type: r.container_type ?? null,
+        date_updated: r.date_updated,
+        updated_by: r.updated_by,
+        start_date: r.from ,
+        expiration_date: r.to}))
 
     //check surcharges
-    let ifNotAllContainersHaveSurcharges = rates.some(r => {
+    let ifNotAllContainersHaveSurcharges = to_submit?.some(r => {
       const checkedRate = rate?.rates?.find(sr => sr.id === r.id);
       return (checkedRate?.surcharges.length === 0)
     })
 
-   !ifNotAllContainersHaveSurcharges && rates_to_submit && rates_to_submit.length > 0 && dispatch(editRates(Number(rate?.id), rates_to_submit, history))
+   !ifNotAllContainersHaveSurcharges && to_submit && to_submit.length > 0 && dispatch(editRates(Number(rate?.id), to_submit, history))
   }
 
 
@@ -248,11 +254,6 @@ const dispatch = useDispatch()
             />
           )}
           {existing_surcharge && <SurchargesToRate existing_surcharge={existing_surcharge}/>}
-          {/*{empty_surcharge === 'empty' && <NoSurchargeCard usageFees={[]}
-                                                           shippingValue={rate.shipping_mode.id}
-                                                           setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}
-          />
-          }*/}
         </>
       )}
     </RateContainer>

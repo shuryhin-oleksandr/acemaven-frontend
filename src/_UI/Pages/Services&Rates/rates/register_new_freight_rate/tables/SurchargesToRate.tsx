@@ -20,7 +20,7 @@ const SurchargesToRate:React.FC<PropsType> = ({ existing_surcharge}) => {
     const [isFullView, setFullView] = useState(false)
 
     return (
-        <SurchargeForRateContainer length={existing_surcharge?.usage_fees?.length === 0 ? '-250px' : '0'}>
+        <SurchargeForRateContainer >
             <SurchargeToRateInner>
                 <SurchargeTitle>
                     <TextWrap>SURCHARGES</TextWrap>

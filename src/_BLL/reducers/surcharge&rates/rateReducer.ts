@@ -25,6 +25,7 @@ const initialState = {
   origin_port_value: null as PortType | null,
   destination_port_value: null as PortType | null,
   rate_start_date: "",
+  rate_expiration_date: '',
   rate_data_for_surcharge: null as RateForSurchargeType | null,
   registration_success: "",
   rate_info: null as any | null,
@@ -32,7 +33,8 @@ const initialState = {
   edit_success: '',
   adding_rate_error: null,
   adding_popup_error: null,
-  rate_transit_error: null
+  rate_transit_error: null,
+  rate_id: 0
 };
 
 type InitialStateType = typeof initialState;
@@ -97,6 +99,11 @@ export const rateReducer = (
         ...state,
         rate_start_date: action.start_date,
       };
+    case "SET_RATE_EXPIRATION_DATE":
+      return {
+        ...state,
+        rate_expiration_date: action.expiration_date
+      }
     case "SET_RATE_DATA_FOR_SURCHARGE":
       return {
         ...state,
@@ -179,6 +186,26 @@ export const rateReducer = (
             }
           })}
       }
+    case "SET_EXACT_RATE_ID":
+      return {
+        ...state,
+        rate_id: action.id
+      }
+    case "SET_SURCHARGE_TO_RATE":
+      return {
+        ...state,
+        rate_info: {...state.rate_info, rates: state.rate_info.rates.map((r: any) => {
+                if(r.id === action.id) {
+                  return {
+                    ...r,
+                    start_date: action.dates.start_date,
+                    expiration_date: action.dates.expiration_date,
+                    surcharges: [{...action.data}]
+                  }
+                } else return r
+              }
+          )}
+      }
     default:
       return state;
   }
@@ -212,6 +239,7 @@ export const rateActions = {
     ({ type: "SET_DESTINATION_PORT_VALUE", port_value } as const),
   setRateStartDate: (start_date: string) =>
     ({ type: "SET_RATE_START_DATE", start_date } as const),
+  setRateExpirationDate: (expiration_date: string) => ({type: 'SET_RATE_EXPIRATION_DATE', expiration_date} as const),
   setRateDataForSurcharge: (rate_data: RateForSurchargeType) =>
     ({ type: "SET_RATE_DATA_FOR_SURCHARGE", rate_data } as const),
   setRateInfo: (info: RateInfoType | null) =>
@@ -227,5 +255,7 @@ export const rateActions = {
   setAddingPopupError: (error: any) => ({type: 'SET_ADDING_POPUP_ERROR', error} as const),
   setAddingRateError: (error: any) => ({type: 'SET_ADDING_RATE_ERROR', error} as const),
   setTransitError: (error: any) => ({type: 'SET_TRANSIT_ERROR', error} as const),
-  setEditedRateInfo: (value: any) => ({type: 'SET_EDITED_RATE_INFO', value} as const)
+  setEditedRateInfo: (value: any) => ({type: 'SET_EDITED_RATE_INFO', value} as const),
+  setExactRateId: (id: number) => ({type: 'SET_EXACT_RATE_ID', id} as const),
+  setSurchargeToRate: (id: number, data: any, dates: {start_date: string, expiration_date: string}) => ({type: 'SET_SURCHARGE_TO_RATE', id, data, dates} as const)
 };

@@ -84,12 +84,12 @@ export const Field = styled.input<PropsStyle>`
     transition: 0.5s;
   }
 `;
-export const SpanType = styled.div`
+export const SpanType = styled.div<{bold_hover?: boolean}>`
   transition: .3s;
   font-family: "Helvetica Light", sans-serif;
   &:hover {
     cursor: pointer;
     transition: .3s;
-    font-family: "Helvetica Reg", sans-serif;
+    font-family: ${({bold_hover}) => bold_hover ? "Helvetica Reg, sans-serif" : "Helvetica Light, sans-serif"};
   }
 `

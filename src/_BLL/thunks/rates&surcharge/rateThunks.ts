@@ -48,10 +48,8 @@ export const checkRatesDatesThunk = (check_values: {
 export const registerNewFreightRateThunk = (freight_data: any, history: any) => {
     return async (dispatch: Dispatch<any>) => {
         try {
-            debugger
             let res = await rateAPI.registerNewSurcharge(freight_data);
             if (freight_data.hasOwnProperty('temporary')) {
-                debugger
                 dispatch(quotesAgentActions.setExistingRateForQuote(res.data))
                 //dispatch(quotesAgentActions.setCheckedIsRateExist('success'))
             } else {
@@ -69,11 +67,12 @@ export const registerNewFreightRateThunk = (freight_data: any, history: any) => 
     };
 };
 
-export const getSurchargeForExactRateThunk = (rate_data: any) => {
+export const getSurchargeForExactRateThunk = ( rate_data: any) => {
     return async (dispatch: Dispatch<commonRateActions>) => {
         try {
             dispatch(rateActions.setExistingSurchargeByRate(null));
             dispatch(rateActions.setRateStartDate(rate_data.start_date));
+            dispatch(rateActions.setRateExpirationDate(rate_data.expiration_date));
             let res = await rateAPI.getSurchargeToRate(rate_data);
             if (Object.keys(res.data).length === 0) {
                 dispatch(rateActions.setEmptyExistingSurcharge("empty"));
@@ -86,17 +85,23 @@ export const getSurchargeForExactRateThunk = (rate_data: any) => {
     };
 };
 export const addNewSurchargeForRate = (surcharge_data: any) => {
-    return async (dispatch: Dispatch<any>) => {
+    return async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
         try {
             let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
             if (surcharge_data.hasOwnProperty('temporary')) {
                 dispatch(quotesAgentActions.setExistingSurchargeForQuote(res.data))
             } else {
+                let id = getState().rate.rate_id
+                let dates = {start_date: getState().rate.rate_start_date, expiration_date: getState().rate.rate_expiration_date}
+                getState().rate.rate_info && dispatch(rateActions.setSurchargeToRate(id, res.data, dates))
                 dispatch(rateActions.setExistingSurchargeByRate(res.data))
             }
         } catch (e) {
-            e.response?.data.usage_fees && dispatch(rateActions.setAddingPopupError(e.response.data.usage_fees))
-            e.response?.data.charges && dispatch(rateActions.setAddingPopupError(e.response.data.charges))
+            console.log(e)
+            if(e.response) {
+                e.response?.data.usage_fees && dispatch(rateActions.setAddingPopupError(e.response.data.usage_fees))
+                e.response?.data.charges && dispatch(rateActions.setAddingPopupError(e.response.data.charges))
+            }
         }
     }
 }
@@ -119,7 +124,7 @@ export const getFilteredRateListThunk = (
             );
             dispatch(rateActions.setFreightRatesList(res.data));
         } catch (e) {
-            console.log(e.response);
+            console.log(e);
         }
     };
 };
@@ -170,6 +175,12 @@ export const editRates = (id: number | undefined, rates: any, history: any) => {
             let res = await rateAPI.getExactRate(data.freight_rate)
             dispatch(rateActions.setRateInfo(res.data))
             dispatch(rateActions.setEditSuccess('success'))
+            //clear data from previous actions
+            dispatch(rateActions.setExactRateId(0))
+            dispatch(rateActions.setRateStartDate(''))
+            dispatch(rateActions.setRateExpirationDate(''))
+            dispatch(rateActions.setExistingSurchargeByRate(null))
+            //push to page with new id
             history.push(`/services/rate/${data.freight_rate}`)
             dispatch(rateActions.setIsFetching(false))
         } catch (e) {
@@ -179,9 +190,4 @@ export const editRates = (id: number | undefined, rates: any, history: any) => {
     }
 }
 
-/*let reformed_rates = rate?.rates.map(r => ({
-  container_type: r.container_type.id,
-  currency: r.currency.id,
-  rate: r.rate,
-  start_date: r.start_date,
-  expiration_date: r.expiration_date}))*/
+

@@ -15,9 +15,9 @@ export const OperationsInner = styled.div`
   border-radius: 10px 10px 0 0 ;
   box-shadow: 4px 0 0 rgba(0, 0, 0, 0.1);
 `
-export const OperationsContent = styled.div`
+export const OperationsContent = styled.div<{isHide?: boolean}>`
   width: 100%;
-  height: 100%;
+  height: ${({isHide}) => !isHide ? '530px' : '100%'};
   padding: 20px 80px 50px 30px;
    display: flex;
   flex-direction: column;
@@ -37,7 +37,7 @@ export const HideButton = styled.button<{isHide?: boolean}>`
   outline: none;
   background: none;
   border: none;
-  margin-top: 20px;
+  margin-top: 10px;
   transform: rotate(${({isHide}) => isHide && '180deg'});
   
   &:hover {

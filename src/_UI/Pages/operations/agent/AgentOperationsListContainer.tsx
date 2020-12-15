@@ -13,6 +13,8 @@ import OptionsOperationButtons from 'src/_UI/components/_commonComponents/option
 import hide_map_icon from '../../../assets/icons/operations/hide_map.svg'
 import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
 import {CurrentShippingType} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import MapComponent from "../../dashboard/MapComponent/MapComponent";
+import {MapWrapper} from "../../dashboard/dashboard-styles";
 
 
 
@@ -33,16 +35,21 @@ type PropsType = {
 
 const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...props}) => {
 
-    const [isHide, setIsHide] = useState(true);
+    const [isHide, setIsHide] = useState(false);
 
     return (
         <OperationsWrapper>
-            {!isHide && <div style={{width: '100%', height: '490px', backgroundColor: 'rgba(0, 0, 0, .07'}}/>}
+            {!isHide && <MapComponent
+                isMarkerShown
+                loadingElement={<div style={{ height: `420px` }} />}
+                containerElement={<MapWrapper />}
+                mapElement={<div style={{ height: `420px` }} />}
+            />}
             <OperationsInner>
                 <HideButton isHide={isHide} onClick={() => isHide ? setIsHide((false)) : setIsHide(true)}>
                     <img src={hide_map_icon} alt=""/>
                 </HideButton>
-                <OperationsContent>
+                <OperationsContent isHide={isHide}>
                     <OperationHeader>
                         <OperationTitle>
                             Operations
@@ -79,6 +86,7 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
                                          operations_list={props.operations_list}
                                          my_operations={props.my_operations}
                                          operation_status={props.operation_status}
+
                     />
                 </OperationsContent>
             </OperationsInner>

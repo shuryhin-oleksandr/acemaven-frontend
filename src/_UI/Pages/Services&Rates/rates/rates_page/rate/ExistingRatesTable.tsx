@@ -88,7 +88,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
     return (
         <div style={{width: '100%', maxWidth: '1002px'}}>
             <HandlingTitle>RATES</HandlingTitle>
-            <ScrollbarStyled {...{style: { height: 420 }}}>
+            <ScrollbarStyled {...{style: { minHeight: 320, height: '100%' }}}>
                 <TableContainer className={classes.container} component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
@@ -146,7 +146,9 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                                     component="th"
                                                     scope="row"
                                                 >
-                                                    <SpanType onClick={() => getSurchargeForRate(r.start_date, r.expiration_date)}>
+                                                    <SpanType onClick={() => r.start_date && r.expiration_date && getSurchargeForRate(r.start_date, r.expiration_date)}
+                                                              bold_hover={!!(r.start_date && r.expiration_date)}
+                                                    >
                                                         {r?.container_type.code}
                                                     </SpanType>
                                                 </TableCell>

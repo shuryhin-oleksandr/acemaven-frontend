@@ -38,8 +38,9 @@ import {
 import { PortType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import { rateActions } from "../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import RegisterSurchargePopUp from "../../../../components/PopUps/RegisterSurchargePopUp/RegisterSurchargePopUp";
-import NoSurchargeCard from "./NoSurchargeCard";
+
 import ModalWindow from "../../../../components/_commonComponents/ModalWindow/ModalWindow";
+import NoSurchargeForRatePopup from "../../../../components/PopUps/no_surharge_for_rate_popup/NoSurchargeForRatePopup";
 
 
 type PropsType = {
@@ -52,6 +53,8 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
   setNewRateMode,
 }) => {
   const dispatch = useDispatch();
+
+  const [noSurchargePopup, setNoSurchargePopup] = useState(false);
   //попап для нового сюрчарджа
   const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(false);
 //useForm
@@ -209,8 +212,19 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     }
   }, [rate_info, setValue])
 
+  useEffect(() => {
+    if(empty_surcharge) {
+      setNoSurchargePopup(true)
+    }
+  }, [empty_surcharge])
+
   return (
     <RatesWrapper>
+      <ModalWindow isOpen={noSurchargePopup} >
+        <NoSurchargeForRatePopup setNoSurchargePopup={setNoSurchargePopup}
+                                 setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}
+        />
+      </ModalWindow>
       <ModalWindow isOpen={newSurchargePopUpVisible}>
         <RegisterSurchargePopUp
           mode={currentShippingType}
@@ -263,11 +277,11 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         adding_rate_error={adding_rate_error}
         rate_transit_error={rate_transit_error}
       />
-      {empty_surcharge === 'empty' && <NoSurchargeCard usageFees={usageFees}
-                                                       shippingValue={shippingValue}
-                                                       setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}
-        />
-      }
+      {/*{empty_surcharge === 'empty' && <NoSurchargeCard usageFees={usageFees}*/}
+      {/*                                                 shippingValue={shippingValue}*/}
+      {/*                                                 setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}*/}
+      {/*  />*/}
+      {/*}*/}
     </RatesWrapper>
   );
 };

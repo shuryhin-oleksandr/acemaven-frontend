@@ -3,6 +3,8 @@ import TableCell from "@material-ui/core/TableCell";
 import Calendar from "../../../../../components/_commonComponents/calendar/Calendar";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import moment from "moment";
+import {useDispatch} from "react-redux";
+import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
 
 
 type PropsType = {
@@ -31,18 +33,19 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
         to:  ''
     })
 
+    const dispatch = useDispatch()
+
 
     useEffect(() => {
-        currentDates &&
-        setSelectedDay({
-            from: moment(currentDates?.from, 'DD/MM/YYYY').toDate(),
-            to: moment(currentDates?.to, 'DD/MM/YYYY').toDate()
-        })
-
-        //setValue(`rates.${id}.to`, currentDates?.to || '')
-        //setValue(`rates.${id}.from`, currentDates?.from || '')
-
-    }, [currentDates])
+        if(currentDates) {
+            setSelectedDay({
+                from: moment(currentDates?.from, 'DD/MM/YYYY').toDate(),
+                to: moment(currentDates?.to, 'DD/MM/YYYY').toDate()
+            })
+            setValue(`rates.${id}.to`, currentDates.to )
+            setValue(`rates.${id}.from`, currentDates.from )
+        }
+    }, [])
 
 
 
@@ -64,6 +67,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
 
         //запрос за существующими сюрчарджами для этого контейнера
         getSurchargeForNewRate && getSurchargeForNewRate(selectedDay.from, to)
+        dispatch(rateActions.setExactRateId(id))
     }
 
     const toInput = useRef<DayPickerInput>(null)

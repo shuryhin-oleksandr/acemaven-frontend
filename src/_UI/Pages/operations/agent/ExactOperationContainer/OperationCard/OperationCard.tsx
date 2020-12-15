@@ -9,7 +9,7 @@ import {AppCompaniesTypes, VoidFunctionType} from "../../../../../../_BLL/types/
 import DocsAndNotesBlock from "./blocks/DocsAndNotesBlock";
 import ShipmentPartsBlock from "./blocks/ShipmentPartsBlock";
 import CargoBlock from "./blocks/CargoBlock";
-import ShipmentTrackingBlock from "./blocks/ShipmentTrackingBlock";
+import ShipmentTrackingBlock from "./blocks/shipments_tracking_block/ShipmentTrackingBlock";
 import PaymentDueByDates from "./PaymentDueByDates";
 import ChargesBlock from "./blocks/ChargesBlock";
 import GeneralBlockContainer from "./blocks/general_info/GeneralBlockContainer";
@@ -18,15 +18,12 @@ import PaymentDueByForClient from "./PaymentDueByForClient";
 import BookingNumberBlockContainer from "./blocks/booking_number/BookingNumberBlockContainer";
 //styles
 import {
-    AcceptButton,
-    ActionsButtons,
+
     BookingInfo,
     BookingStatus,
     CardContent,
     CardWrapper,
-    ConfirmButton,
     ContentHeader,
-    RejectButton,
 } from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {
     OperationNumber,
@@ -36,6 +33,7 @@ import {
 //icons
 import close_icon from "../../../../../assets/icons/close-icon.svg";
 import BookingNumberWithCarrierBlockContainer from "./blocks/booking_number/BookingNumberWithCarrierBlockContainer";
+import ActionsButtonsBlock from "./blocks/actions/ActionsButtonsBlock";
 
 type PropsType = {
     operation_info: OperationType,
@@ -106,53 +104,19 @@ const OperationCard: React.FC<PropsType> = ({
               </span>
                         </BookingStatus>
                     </BookingInfo>
-                    <ActionsButtons>
-                        {operation_info?.has_change_request && company_type?.type === AppCompaniesTypes.AGENT && (my_name === props.agent_contact_name) &&
-                        <AcceptButton style={{width: '206px'}} onClick={() => props.setChangeRequestPopup(true)}>
-                            CONFIRM CHANGES
-                        </AcceptButton>
-                        }
-                        {operation_info?.status === AppOperationBookingStatusesType.CONFIRMED && (my_name === props.agent_contact_name) &&
-                        <AcceptButton style={{width: '146px'}} onClick={() => props.setEdit(true)}>
-                            UPDATE
-                        </AcceptButton>
-                        }
-
-                        {company_type?.type === AppCompaniesTypes.AGENT
-                            ? (operation_info?.agent_contact_person === my_name
-                                ? ( operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT &&
-                                    <ConfirmButton onClick={() => openAcceptPopup(true)}>
-                                        CONFIRM BOOKING
-                                    </ConfirmButton>
-                                )
-                                : ( operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT &&
-                                    <AcceptButton onClick={() => setTakeOver(true)}>
-                                        TAKE OVER
-                                    </AcceptButton>
-                                ))
-                            : (company_type?.type === AppCompaniesTypes.CLIENT
-                                && my_name === props.client_contact_name
-                                && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
-                                &&
-                                <ConfirmButton onClick={() => setClientChangRequestPopupVisible(true)}>
-                                    REQUEST CHANGE
-                                </ConfirmButton>
-                            )
-                        }
-                        {company_type?.type === AppCompaniesTypes.AGENT
-                            ? (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED && (my_name === props.agent_contact_name)
-                                &&
-                                <RejectButton onClick={() => setIsCancelByAgent(true)}>CANCEL OPERATION</RejectButton>
-                            )
-                            : (my_name === props.client_contact_name && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
-                                &&
-                                <RejectButton onClick={() => setIsCancelByClient(true)}>
-                                    CANCEL OPERATION
-                                </RejectButton>
-                            )
-                        }
-                    </ActionsButtons>
-
+                   <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
+                                        client_contact_name={props.client_contact_name}
+                                        operation_info={operation_info}
+                                        my_name={my_name}
+                                        company_type={company_type ? company_type : undefined}
+                                        openAcceptPopup={openAcceptPopup}
+                                        setTakeOver={setTakeOver}
+                                        setIsCancelByAgent={setIsCancelByAgent}
+                                        setIsCancelByClient={setIsCancelByClient}
+                                        setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
+                                        setEdit={props.setEdit}
+                                        setChangeRequestPopup={props.setChangeRequestPopup}
+                   />
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}
                                        shipment={shipment ? shipment : null}

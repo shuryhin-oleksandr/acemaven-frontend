@@ -81,7 +81,8 @@ type PropsType = {
     setSearchColumn: (value: string) => void,
     operations_list: OperationType[],
     my_operations?:string
-    operation_status?:string
+    operation_status?:string,
+
 }
 
 const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
@@ -89,7 +90,7 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
     const classes = useStyles();
 
     return (
-        <ScrollbarStyled {...{style: {width: "100%", height: 400}}}>
+        <ScrollbarStyled {...{style: {width: "100%", height: '100%'}}}>
             <TableContainer className={classes.container} component={Paper}>
                 <Table aria-label="collapsible table">
                     <TableHead>

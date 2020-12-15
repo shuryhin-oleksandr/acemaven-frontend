@@ -14,7 +14,7 @@ import DropZone from "src/_UI/components/DropZone";
 import Close from "../../../assets/icons/close-icon.svg";
 import styled from "styled-components";
 import { InputWrap, SubmitButton } from "../CreateNewUser/AddUserForm";
-import {completeAdditionalUser} from "../../../../_BLL/reducers/authReducer";
+import {completeAdditionalUser} from "../../../../_BLL/thunks/auth/authThunks";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../_BLL/store";
 import PasswordFormField from "../../../components/_commonComponents/Input/PasswordFormField";

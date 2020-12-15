@@ -36,15 +36,15 @@ const ExactSurchargeContainer = ({...props}) => {
     //ASYNC: get info about surcharge
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getSurchargeInfo(id, props.history))
+        dispatch(getSurchargeInfo(id))
         return () => unmountHandler()
     }, [dispatch, id])
 
     //ASYNC: check available dates
     useEffect(() => {
         //surcharge && dispatch(checkSurchargeDates({location: surcharge.location.id,
-            //direction: surcharge.direction, shipping_mode: surcharge.shipping_mode.id, carrier: surcharge.carrier.id}))
-        if(surcharge) {
+        //direction: surcharge.direction, shipping_mode: surcharge.shipping_mode.id, carrier: surcharge.carrier.id}))
+        if (surcharge) {
             setValue('start_date', surcharge.start_date)
             setValue('expiration_date', surcharge.expiration_date)
         }
@@ -52,7 +52,7 @@ const ExactSurchargeContainer = ({...props}) => {
 
     //close edit from if success
     useEffect(() => {
-        if(edit_success) {
+        if (edit_success) {
             setFormMode(false)
             dispatch(surchargeActions.setEditSurchargeSuccess(''))
         }
@@ -64,13 +64,14 @@ const ExactSurchargeContainer = ({...props}) => {
             {isFetching && !surcharge
                 ? <SpinnerForAuthorizedPages/>
                 : <Surcharge handleSubmit={handleSubmit}
-                       setValue={setValue}
-                       surcharge={surcharge}
-                       control={control}
-                       errors={errors}
-                       formMode={formMode}
-                       setFormMode={setFormMode}
-            />
+                             setValue={setValue}
+                             surcharge={surcharge}
+                             control={control}
+                             errors={errors}
+                             formMode={formMode}
+                             setFormMode={setFormMode}
+                             history={props.history}
+                />
             }
 
 

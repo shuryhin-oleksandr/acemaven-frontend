@@ -8,7 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../_BLL/store";
 import styled from "styled-components";
-import { signOut } from "../../../_BLL/reducers/authReducer";
+import { signOut } from "../../../_BLL/thunks/auth/authThunks";
 import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router";
@@ -49,7 +49,9 @@ const Header: React.FC = () => {
 
   return (
     <HeaderContainer>
-      <LogoWrap onClick={() => history.push('/')}><img src={logotype} alt=""/></LogoWrap>
+      <LogoWrap onClick={() => history.push('/')}>
+        <img src={logotype} alt=""/>
+      </LogoWrap>
       <Info>
         <ButtonWrap>
           <img src={card} alt="" />
@@ -66,7 +68,9 @@ const Header: React.FC = () => {
               <StyledTooltipItem onClick={() => dispatch(signOut(history))}>
                 Log out
               </StyledTooltipItem>
-              <NavLink to='/settings/profile' style={{textDecoration: 'none'}}><StyledTooltipItem>My profile</StyledTooltipItem></NavLink>
+              <NavLink to='/settings/profile' style={{textDecoration: 'none'}}>
+                <StyledTooltipItem>My profile</StyledTooltipItem>
+              </NavLink>
             </StyledUl>
           }
         >

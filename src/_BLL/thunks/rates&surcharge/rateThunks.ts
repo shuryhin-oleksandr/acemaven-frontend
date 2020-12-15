@@ -10,7 +10,6 @@ import {surchargeAPI} from "../../../_DAL/API/rates&surcharges/surchargeApi";
 import {quotesAgentActions} from "../../reducers/quotes/quotesAgentReducer";
 
 
-
 type ThunkType = ThunkAction<Promise<void>,
     AppStateType,
     unknown,
@@ -73,7 +72,6 @@ export const registerNewFreightRateThunk = (freight_data: any, history: any) => 
 export const getSurchargeForExactRateThunk = (rate_data: any) => {
     return async (dispatch: Dispatch<commonRateActions>) => {
         try {
-            debugger
             dispatch(rateActions.setExistingSurchargeByRate(null));
             dispatch(rateActions.setRateStartDate(rate_data.start_date));
             let res = await rateAPI.getSurchargeToRate(rate_data);
@@ -129,13 +127,13 @@ export const getFilteredRateListThunk = (
 export const getRateInfoThunk = (id: number) => {
     return async (dispatch: Dispatch<commonRateActions>) => {
         try {
-          dispatch(rateActions.setIsFetching(true))
-          let res = await rateAPI.getExactRate(id);
-          dispatch(rateActions.setRateInfo(res.data));
-          dispatch(rateActions.setIsFetching(false))
+            dispatch(rateActions.setIsFetching(true))
+            let res = await rateAPI.getExactRate(id);
+            dispatch(rateActions.setRateInfo(res.data));
+            dispatch(rateActions.setIsFetching(false))
         } catch (e) {
-          console.log(e);
-          dispatch(rateActions.setIsFetching(false))
+            console.log(e);
+            dispatch(rateActions.setIsFetching(false))
         }
     };
 };
@@ -164,21 +162,19 @@ export const ActivateRateThunk = (id: number, value: boolean) => {
 }
 
 
-export const editRates = (id: number | undefined,
-                          rates:{ container_type: number, currency: number, rate: string | null, start_date: string, expiration_date: string }
-                          ) => {
+export const editRates = (id: number | undefined, rates: any, history: any) => {
     return async (dispatch: Dispatch<commonRateActions>) => {
         try {
-          dispatch(rateActions.setIsFetching(true))
-          if(rates.rate && rates.start_date && rates.expiration_date) {
-            let res = await rateAPI.editRates(id, rates)
-            dispatch(rateActions.setEditedRateInfo(res.data))
-            res.data && dispatch(rateActions.setEditSuccess('success'))
-          }
-          dispatch(rateActions.setIsFetching(false))
+            dispatch(rateActions.setIsFetching(true))
+            let {data} = await rateAPI.editRates({freight_rate: id, rates: rates})
+            let res = await rateAPI.getExactRate(data.freight_rate)
+            dispatch(rateActions.setRateInfo(res.data))
+            dispatch(rateActions.setEditSuccess('success'))
+            history.push(`/services/rate/${data.freight_rate}`)
+            dispatch(rateActions.setIsFetching(false))
         } catch (e) {
             console.log(e)
-          dispatch(rateActions.setIsFetching(false))
+            dispatch(rateActions.setIsFetching(false))
         }
     }
 }

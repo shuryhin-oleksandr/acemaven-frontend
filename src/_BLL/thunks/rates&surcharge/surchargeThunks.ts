@@ -3,7 +3,6 @@ import {Dispatch} from "redux";
 import {surchargeAPI} from "../../../_DAL/API/rates&surcharges/surchargeApi";
 import {
     CarrierType,
-    editChargesType,
     editHandlingType
 } from "../../types/rates&surcharges/surchargesTypes";
 import {ThunkAction} from "redux-thunk";
@@ -84,13 +83,12 @@ export const getWholeSurchargesList = () => {
     }
 }
 
-export const getSurchargeInfo = (id: number, history:any) => {
+export const getSurchargeInfo = (id: number) => {
     return async (dispatch:Dispatch<commonSurchargeActions>) => {
         try {
             dispatch(surchargeActions.setIsFetching(true))
             let res = await surchargeAPI.getExactSurcharge(id)
             dispatch(surchargeActions.setSurchargeInfo(res.data))
-            history.push(`/services/surcharge/${id}`)
             dispatch(surchargeActions.setIsFetching(false))
         } catch (e) {
             console.log(e.response)
@@ -134,7 +132,8 @@ export const checkSurchargeDates = (checkSurchargeValues: {location: number,
     }
 }
 
-export const editDates = (id: number | undefined, edit_data : {start_date: string, expiration_date: string}) => {
+//EDIT MODE
+const editDates = (id: number | undefined, edit_data : {start_date: string, expiration_date: string}, history: any) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
             debugger
@@ -142,32 +141,53 @@ export const editDates = (id: number | undefined, edit_data : {start_date: strin
             dispatch(surchargeActions.setEditSurchargeSuccess('success'))
             let res = await surchargeAPI.getExactSurcharge(data.id)
             dispatch(surchargeActions.setSurchargeInfo(res.data))
+            history.push(`/services/surcharge/${res.data.id}`)
         } catch (e) {
             console.log(e.response)
         }
     }
 }
-export const editUsageFees = (id: number | undefined, edit_fees : editHandlingType) => {
-    return async (dispatch: Dispatch<commonSurchargeActions>) => {
+const editUsageFees = (surcharge_id: number, edit_fees : editHandlingType[], history: any) => {
+    return async (dispatch: any) => {
         try {
-            debugger
-            if(edit_fees.charge && edit_fees.charge !== '0.00') {
-                await surchargeAPI.editSurchargeHandling(id, edit_fees)
-                dispatch(surchargeActions.setEditSurchargeSuccess('success'))
-            }
+            let {data} = await surchargeAPI.editSurchargeHandling({surcharge: surcharge_id, usage_fees: edit_fees})
+            dispatch(surchargeActions.setEditSurchargeSuccess('success'))
+            await dispatch(getSurchargeInfo(data.surcharge))
+            let id = data.surcharge
+            history.push(`/services/surcharge/${id}`)
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
+        }
+    }
+}
+ const editCharges = (surcharge_id: number, edit_charges : any, history: any) => {
+    return async (dispatch: any) => {
+        try {
+            let {data} = await surchargeAPI.editSurchargeAdditional({surcharge: surcharge_id, charges: edit_charges})
+            dispatch(surchargeActions.setEditSurchargeSuccess('success'))
+            await dispatch(getSurchargeInfo(data.surcharge))
+            let id = data.surcharge
+            history.push(`/services/surcharge/${id}`)
+        } catch (e) {
+            console.log(e)
         }
     }
 }
 
-export const editCharges = (id: number | undefined, edit_charges : editChargesType) => {
-    return async (dispatch: Dispatch<commonSurchargeActions>) => {
+export const editUsageAndCharges = (surcharge_id: number, dates: any, edit_fees: any, edit_charges : any, history: any) => {
+    return async (dispatch: any) => {
         try {
-            await surchargeAPI.editSurchargeAdditional(id, edit_charges)
-            dispatch(surchargeActions.setEditSurchargeSuccess('success'))
+            if(dates && dates.length > 0) {
+                await dispatch(editDates(surcharge_id, dates[0], history))
+            }
+            if(edit_fees && edit_fees.length > 0) {
+                await dispatch(editUsageFees(surcharge_id, edit_fees, history))
+            }
+            if(edit_charges && edit_charges.length > 0) {
+                await dispatch(editCharges(surcharge_id, edit_charges, history))
+            }
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
         }
     }
 }

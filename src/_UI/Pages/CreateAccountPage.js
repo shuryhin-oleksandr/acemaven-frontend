@@ -12,13 +12,14 @@ import BaseInputGroup from "../components/base/BaseInputGroup";
 import DropZone from "../components/DropZone";
 import Close from "../assets/icons/close-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions, checkToken } from "../../_BLL/reducers/authReducer";
+import { authActions} from "../../_BLL/reducers/authReducer";
 import { useLocation, withRouter } from "react-router";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
 import { authAPI } from "../../_DAL/API/authAPI";
 import CheckedTokenPopup from "../components/PopUps/checked_token/checkedTokenPopup";
 import { getFilesFormData } from "../../_BLL/helpers/MultipartFormDataHelper";
 import { ErrorServerMessage } from "./SignInPage";
+import {checkToken} from "../../_BLL/thunks/auth/authThunks";
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
 
 const ValidationSchema = Yup.object().shape({

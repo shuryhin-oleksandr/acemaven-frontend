@@ -49,8 +49,8 @@ type PropsType = {
   rate_start_date: string
   createNewSurcharge: (surcharge_data: any) => void
   existing_surcharge: SurchargeInfoType | null
-  setValue: any,
-  adding_surcharge_error: any,
+  setValue?: any,
+  adding_surcharge_error?: any,
 
 };
 

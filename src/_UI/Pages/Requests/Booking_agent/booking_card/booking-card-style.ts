@@ -89,6 +89,7 @@ export const ConfirmButton = styled.button`
   &:disabled {
     background-color: rgba(0, 0, 0, .6);
     cursor: not-allowed;
+    pointer-events: none;
   }
 `
 export const AssignButton = styled(AcceptButton)``

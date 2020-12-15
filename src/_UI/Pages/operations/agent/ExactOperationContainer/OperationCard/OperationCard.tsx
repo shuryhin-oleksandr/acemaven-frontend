@@ -16,6 +16,7 @@ import GeneralBlockContainer from "./blocks/general_info/GeneralBlockContainer";
 import ConfirmedDatesContainerBlock from "./blocks/cofirmed_dates/ConfirmedDatesContainerBlock";
 import PaymentDueByForClient from "./PaymentDueByForClient";
 import BookingNumberBlockContainer from "./blocks/booking_number/BookingNumberBlockContainer";
+import BaseTooltip from "../../../../../components/_commonComponents/baseTooltip/BaseTooltip";
 //styles
 import {
     AcceptButton,
@@ -134,6 +135,20 @@ const OperationCard: React.FC<PropsType> = ({
                                 && my_name === props.client_contact_name
                                 && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
                                 &&
+                                !operation_info.can_be_patched && operation_info.has_change_request
+                                    ?
+                                <BaseTooltip
+                                    title={"You already have change request."}
+                                >
+                                    <span>
+                                        <ConfirmButton disabled={true}
+                                                       onClick={() => setClientChangRequestPopupVisible(true)}
+                                        >
+                                            REQUEST CHANGE
+                                        </ConfirmButton>
+                                    </span>
+                                </BaseTooltip>
+                                    :
                                 <ConfirmButton onClick={() => setClientChangRequestPopupVisible(true)}>
                                     REQUEST CHANGE
                                 </ConfirmButton>

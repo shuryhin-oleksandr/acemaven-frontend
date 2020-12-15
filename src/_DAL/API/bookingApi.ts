@@ -34,5 +34,9 @@ export const bookingApi = {
   },
   getMyAgents () {
     return instance.get('/core/user/assign-users-list/')
+  },
+  changeBooking (id:number, patchObj: any ){
+    console.log("in api", id, patchObj);
+    return instance.patch(`/booking/booking/${id}/`, patchObj)
   }
 };

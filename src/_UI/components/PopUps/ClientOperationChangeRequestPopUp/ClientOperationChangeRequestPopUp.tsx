@@ -51,6 +51,7 @@ import AddIcon from "../../../assets/icons/widgets/add-icon.svg";
 import { clientOperationsActions } from "../../../../_BLL/reducers/operations/client/clientOperationsReducer";
 import { getShippingTypes } from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import AddingGroupsForm from "./AddingGroupsForm/AddingGroupsForm";
+import { changeBooking } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
 
 const useStyles = makeStyles({
   container: {
@@ -208,16 +209,21 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
         dates.length > 0
           ? moment(dates[1]).format("DD/MM/YYYY")
           : operation_info.date_to,
-      payment_due_by: operation_info.payment_due_by,
       release_type: values.release_type,
       number_of_documents: values.number_of_documents,
       freight_rate: operation_info.freight_rate.id,
       shipper: operation_info.shipper?.id,
       original_booking: operation_info.id,
+      payment_due_by: operation_info.payment_due_by,
     };
 
-    dispatch(editOperationByClientThunk(patchObj));
-    setIsOpen(false);
+    if (operation_info.can_be_patched) {
+      dispatch(changeBooking(operation_info.id, patchObj));
+    } else {
+      dispatch(editOperationByClientThunk(patchObj));
+    }
+
+    // setIsOpen(false);
   };
 
   const reCalcOnVolumeChange = (vol: string, index: number) => {

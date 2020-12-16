@@ -17,6 +17,8 @@ import notification from "../../../_UI/assets/icons/clarity_notification-solid-b
 import card from "../../../_UI/assets/icons/card.svg";
 import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
 import {NavLink} from "react-router-dom";
+import NotificationCard from "../../Pages/notifications/NotificationCard";
+import {SectionWrapper} from "../../Pages/notifications/notifications-style";
 
 
 
@@ -36,6 +38,22 @@ const useStyles = makeStyles({
     justifyContent: "center",
     
   },
+  customNotificationTooltip: {
+    "& .MuiTooltip-arrow::before": {
+      backgroundColor: "#FFFFFF",
+      border: "1px solid #828282",
+    },
+    borderRadius: "4px",
+    boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.25)",
+    backgroundColor: "#FFFFFF",
+    border: "1px solid #828282",
+    padding: "40px 27px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    maxWidth: '376px',
+    width: '100%'
+  }
 });
 
 const Header: React.FC = () => {
@@ -47,6 +65,7 @@ const Header: React.FC = () => {
     (state: AppStateType) => state.profile.authUserInfo?.photo
   );
 
+
   return (
     <HeaderContainer>
       <LogoWrap onClick={() => history.push('/')}>
@@ -56,9 +75,22 @@ const Header: React.FC = () => {
         <ButtonWrap>
           <img src={card} alt="" />
         </ButtonWrap>
-        <ButtonWrap>
-          <img src={notification} alt="" />
-        </ButtonWrap>
+
+        <Tooltip arrow
+                 interactive
+                 classes={{ tooltip: classes.customNotificationTooltip }}
+                 title={
+                   <SectionWrapper onClick={() => history.push('/notifications')}>
+                    <NotificationCard close_button={true}/>
+                    <NotificationCard/>
+                   </SectionWrapper>
+                 }
+        >
+          <ButtonWrap>
+            <img src={notification} alt="" />
+          </ButtonWrap>
+        </Tooltip>
+
         <Tooltip
           arrow
           interactive

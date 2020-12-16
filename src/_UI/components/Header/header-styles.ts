@@ -35,6 +35,9 @@ padding: 0;
   &:hover {
     cursor: pointer;
   }
+  img {
+    width: 22px;
+  }
 `
 export const PhotoWrap = styled.div`
 border-radius: 100%;

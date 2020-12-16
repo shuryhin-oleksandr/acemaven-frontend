@@ -8,14 +8,21 @@ import {
     NotificationsDescription
 } from "./notifications-style";
 import request_icon from '../../assets/icons/operations/request_icon.svg'
+import {IconButton} from "@material-ui/core";
+import close_icon from '../../assets/icons/close-icon.svg'
 
 type PropsType = {
-
+    close_button?: boolean
 }
 
-const NotificationCard:React.FC<PropsType> = ({}) => {
+const NotificationCard: React.FC<PropsType> = ({close_button}) => {
     return (
         <CardOuter>
+            {close_button &&
+            <IconButton style={{position: 'absolute', top: '5px', right: '5px'}}>
+                <img src={close_icon} alt=""/>
+            </IconButton>
+            }
             <IconWrapper>
                 <img src={request_icon} alt=""/>
             </IconWrapper>

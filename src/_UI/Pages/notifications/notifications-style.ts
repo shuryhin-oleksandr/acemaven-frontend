@@ -1,8 +1,18 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+
+let show_skeleton = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 export const NotificationsWrapper = styled.div`
 width: 100%;
 height: 100%;
+animation: ${show_skeleton} ease-in-out .2s;
 `
 export const NotificationsInner = styled.div`
 width: 100%;
@@ -26,6 +36,9 @@ export const NotificationsTitle = styled.div`
 `
 export const SectionWrapper =  styled.div`
   width: 100%;
+  &:hover {
+    cursor: pointer;
+  }
 `
 export const CardOuter = styled.div`
   border-bottom: 1px solid #E0E0E0;
@@ -48,13 +61,13 @@ export const NotificationsBlock = styled.div`
   font-family: "Helvetica Bold", sans-serif;
   font-size: 16px;
   color: black;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `
 export const NotificationsDate = styled.div`
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;
   color: #828282;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
  
 `
 export const NotificationsDescription = styled.div`

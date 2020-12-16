@@ -37,15 +37,7 @@ export const getClientOperationsThunk = (
   };
 };
 
-export const editOperationByClientThunk = (data: any) => {
-  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
-    try {
-      let res = await operationsClientAPI.editOperationByClient(data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-};
+
 
 export const getPackageTypesChoices = () => {
   return async (dispatch: Dispatch<commonClientOperationsActions>) => {
@@ -182,11 +174,27 @@ export const getClientExactOperationThunk = (id: number) => {
     try {
       dispatch(clientOperationsActions.setIsFetching(true));
       let res = await operationsAgentAPI.getAgentExactOperation(id);
-      dispatch(clientOperationsActions.setAgentExactOperationInfo(res.data));
+      dispatch(clientOperationsActions.setClientExactOperationInfo(res.data));
       dispatch(clientOperationsActions.setIsFetching(false));
     } catch (e) {
       console.log(e);
       dispatch(clientOperationsActions.setIsFetching(false));
+    }
+  };
+};
+
+export const editOperationByClientThunk = (
+    id: number,
+    data: any,
+    setIsOpen: (value: boolean) => void
+) => {
+  return async (dispatch: any) => {
+    try {
+      let res = await operationsClientAPI.editOperationByClient(data);
+      setIsOpen(false);
+      await dispatch(getClientExactOperationThunk(id));
+    } catch (e) {
+      console.log(e);
     }
   };
 };

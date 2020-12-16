@@ -16,6 +16,7 @@ import GeneralBlockContainer from "./blocks/general_info/GeneralBlockContainer";
 import ConfirmedDatesContainerBlock from "./blocks/cofirmed_dates/ConfirmedDatesContainerBlock";
 import PaymentDueByForClient from "./PaymentDueByForClient";
 import BookingNumberBlockContainer from "./blocks/booking_number/BookingNumberBlockContainer";
+import BaseTooltip from "../../../../../components/_commonComponents/baseTooltip/BaseTooltip";
 //styles
 import {
 

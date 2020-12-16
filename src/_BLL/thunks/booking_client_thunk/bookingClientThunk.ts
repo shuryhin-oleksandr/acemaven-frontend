@@ -5,9 +5,10 @@ import {
 } from "../../reducers/booking/bookingReducer";
 import { bookingApi } from "../../../_DAL/API/bookingApi";
 import { PostBookingData } from "../../types/bookingTypes";
-import {AppStateType} from "../../store";
-import {quotesClientAPI} from "../../../_DAL/API/quotes/client/quotesClientAPI";
-
+import { AppStateType } from "../../store";
+import { quotesClientAPI } from "../../../_DAL/API/quotes/client/quotesClientAPI";
+import { clientOperationsActions } from "../../reducers/operations/client/clientOperationsReducer";
+import { getClientExactOperationThunk } from "../operations/client/OperationsClientThunk";
 
 export const getReleaseTypeChoices = () => {
   return async (dispatch: Dispatch<commonBookingActions>) => {
@@ -23,20 +24,31 @@ export const getReleaseTypeChoices = () => {
 export const postBooking = (data: PostBookingData, quotes_mode?: boolean) => {
   return async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
     try {
-      if(!quotes_mode) {
-        debugger
+      if (!quotes_mode) {
+        debugger;
         let res = await bookingApi.postBooking(data);
-        dispatch(bookingActions.setRecalculatedBooking(res.data))
+        dispatch(bookingActions.setRecalculatedBooking(res.data));
       } else {
-        debugger
-        let quote_archive_id = getState().client_quotes.future_archive_quote_id
+        debugger;
+        let quote_archive_id = getState().client_quotes.future_archive_quote_id;
         let res = await bookingApi.postBooking(data);
-        dispatch(bookingActions.setRecalculatedBooking(res.data))
-        await quotesClientAPI.archiveQuote(quote_archive_id)
+        dispatch(bookingActions.setRecalculatedBooking(res.data));
+        await quotesClientAPI.archiveQuote(quote_archive_id);
       }
-
     } catch (e) {
       console.log(e.response);
+    }
+  };
+};
+
+export const changeBooking = (id: number, patchObj: any, setIsOpen: any) => {
+  return async (dispatch: any) => {
+    try {
+      let response = await bookingApi.changeBooking(id, patchObj);
+      setIsOpen(false);
+      await dispatch(getClientExactOperationThunk(id));
+    } catch (e) {
+      console.log("error", e);
     }
   };
 };

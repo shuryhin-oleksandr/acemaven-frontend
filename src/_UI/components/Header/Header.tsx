@@ -12,7 +12,7 @@ import { signOut } from "../../../_BLL/thunks/auth/authThunks";
 import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router";
-import logotype from '../../../_UI/assets/icons/landing/inline_logo.png'
+import logotype from '../../../_UI/assets/icons/landing/inline_logo.svg'
 import notification from "../../../_UI/assets/icons/clarity_notification-solid-badged.svg";
 import card from "../../../_UI/assets/icons/card.svg";
 import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";

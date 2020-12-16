@@ -5,9 +5,9 @@ import {
     NotificationsTitle,
     NotificationsWrapper, SectionWrapper
 } from "./notifications-style";
-import SpinnerForAuthorizedPages from "../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 import NotificationCard from "./NotificationCard";
 import ScrollbarStyled from "../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+
 
 type PropsType = {
 

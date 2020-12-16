@@ -5,7 +5,7 @@ import {getAuthUserInfo} from "../../../_BLL/reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../_BLL/store";
 import user from '../../../_UI/assets/icons/profile/miniDEfaultPhoto.svg'
-import logotype from "../../assets/icons/landing/inline_logo.png";
+import logotype from "../../assets/icons/landing/inline_logo.svg";
 
 
 const HeaderWithoutActions:React.FC = () => {

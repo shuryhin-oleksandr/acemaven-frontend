@@ -10,6 +10,7 @@ import {
     ConfirmButton,
     RejectButton
 } from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+import BaseTooltip from "../../../../../../../components/_commonComponents/baseTooltip/BaseTooltip";
 
 
 type PropsType = {
@@ -65,9 +66,23 @@ const ActionsButtonsBlock:React.FC<PropsType> = ({operation_info, my_name, compa
                     && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
                     && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
                     &&
-                    <ConfirmButton onClick={() => props.setClientChangRequestPopupVisible(true)}>
-                        REQUEST CHANGE
-                    </ConfirmButton>
+                    !operation_info.can_be_patched && operation_info.has_change_request
+                        ?
+                        <BaseTooltip
+                            title={"You already have change request."}
+                        >
+                                    <span>
+                                        <ConfirmButton disabled={true}
+                                                       onClick={() => props.setClientChangRequestPopupVisible(true)}
+                                        >
+                                            REQUEST CHANGE
+                                        </ConfirmButton>
+                                    </span>
+                        </BaseTooltip>
+                        :
+                        <ConfirmButton onClick={() => props.setClientChangRequestPopupVisible(true)}>
+                            REQUEST CHANGE
+                        </ConfirmButton>
                 )
             }
             {company_type?.type === AppCompaniesTypes.AGENT

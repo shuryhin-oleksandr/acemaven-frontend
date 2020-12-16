@@ -7,6 +7,8 @@ import { bookingApi } from "../../../_DAL/API/bookingApi";
 import { PostBookingData } from "../../types/bookingTypes";
 import { AppStateType } from "../../store";
 import { quotesClientAPI } from "../../../_DAL/API/quotes/client/quotesClientAPI";
+import { clientOperationsActions } from "../../reducers/operations/client/clientOperationsReducer";
+import { getClientExactOperationThunk } from "../operations/client/OperationsClientThunk";
 
 export const getReleaseTypeChoices = () => {
   return async (dispatch: Dispatch<commonBookingActions>) => {
@@ -39,12 +41,14 @@ export const postBooking = (data: PostBookingData, quotes_mode?: boolean) => {
   };
 };
 
-export const changeBooking = (id: number, patchObj: any) => {
-  return async (dispatch: Dispatch<any>) => {
+export const changeBooking = (id: number, patchObj: any, setIsOpen: any) => {
+  return async (dispatch: any) => {
     try {
-      let response = await dispatch(bookingApi.changeBooking(id, patchObj));
+      let response = await bookingApi.changeBooking(id, patchObj);
+      setIsOpen(false);
+      await dispatch(getClientExactOperationThunk(id));
     } catch (e) {
-      console.log(e.response);
+      console.log("error", e);
     }
   };
 };

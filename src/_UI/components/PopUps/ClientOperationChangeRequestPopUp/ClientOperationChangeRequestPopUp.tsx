@@ -52,6 +52,7 @@ import { clientOperationsActions } from "../../../../_BLL/reducers/operations/cl
 import { getShippingTypes } from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import AddingGroupsForm from "./AddingGroupsForm/AddingGroupsForm";
 import { changeBooking } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
+import _ from "lodash";
 
 const useStyles = makeStyles({
   container: {
@@ -192,35 +193,67 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
   } = useForm();
 
   const onSubmit = (values: any) => {
-    let new_groups = cargo_groups.map((c) => ({
+    const new_groups = cargo_groups.map((c) => ({
       ...c,
       container_type: c.container_type?.id,
       packaging_type: c.packaging_type?.id,
     }));
 
-    let patchObj = {
-      aceid: operation_info.aceid,
-      cargo_groups: new_groups,
-      date_from:
-        dates.length > 0
-          ? moment(dates[0]).format("DD/MM/YYYY")
-          : operation_info.date_from,
-      date_to:
-        dates.length > 0
-          ? moment(dates[1]).format("DD/MM/YYYY")
-          : operation_info.date_to,
-      release_type: values.release_type,
-      number_of_documents: values.number_of_documents,
-      freight_rate: operation_info.freight_rate.id,
-      shipper: operation_info.shipper?.id,
-      original_booking: operation_info.id,
-      payment_due_by: operation_info.payment_due_by,
-    };
+    const formatted_date_from = moment(dates[0]).format("DD/MM/YYYY");
+    const formatted_date_to = moment(dates[1]).format("DD/MM/YYYY");
 
     if (operation_info.can_be_patched) {
-      dispatch(changeBooking(operation_info.id, patchObj));
+      const patchObj = {};
+      const hasCargoDifference =
+        _.differenceWith(cargo_groups, operation_info.cargo_groups, _.isEqual)
+          .length > 0;
+
+      if (hasCargoDifference) {
+        patchObj["cargo_groups"] = new_groups;
+      }
+      if (
+        dates.length > 0 &&
+        formatted_date_from !== operation_info.date_from
+      ) {
+        patchObj["date_from"] = formatted_date_from;
+      }
+
+      if (dates.length > 0 && formatted_date_to !== operation_info.date_to) {
+        patchObj["date_to"] = formatted_date_to;
+      }
+
+      if (
+        operation_info.release_type &&
+        operation_info.release_type.id !== values.release_type
+      ) {
+        patchObj["release_type"] = values.release_type;
+      }
+
+      if (
+        operation_info.number_of_documents &&
+        operation_info.number_of_documents !==
+          Number(values.number_of_documents)
+      ) {
+        patchObj["number_of_documents"] = values.number_of_documents;
+      }
+
+      Object.keys(patchObj).length > 0 &&
+        dispatch(changeBooking(operation_info.id, patchObj, setIsOpen));
     } else {
-      dispatch(editOperationByClientThunk(patchObj));
+      const postObj = {
+        aceid: operation_info.aceid,
+        cargo_groups: new_groups,
+        date_from:
+          dates.length > 0 ? formatted_date_from : operation_info.date_from,
+        date_to: dates.length > 0 ? formatted_date_to : operation_info.date_to,
+        release_type: values.release_type,
+        number_of_documents: values.number_of_documents,
+        freight_rate: operation_info.freight_rate.id,
+        shipper: operation_info.shipper?.id,
+        original_booking: operation_info.id,
+        payment_due_by: operation_info.payment_due_by,
+      };
+      dispatch(editOperationByClientThunk(operation_info.id,postObj, setIsOpen));
     }
 
     // setIsOpen(false);

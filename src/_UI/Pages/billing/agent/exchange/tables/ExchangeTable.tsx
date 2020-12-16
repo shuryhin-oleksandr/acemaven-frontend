@@ -7,8 +7,8 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {SubmitQuoteButton} from "../../../quotes/agent/table/agent-quotes-styles";
-import FormField from "../../../../components/_commonComponents/Input/FormField";
+import {SubmitQuoteButton} from "../../../../quotes/agent/table/agent-quotes-styles";
+import FormField from "../../../../../components/_commonComponents/Input/FormField";
 import moment from "moment";
 import {Controller, useForm} from "react-hook-form";
 

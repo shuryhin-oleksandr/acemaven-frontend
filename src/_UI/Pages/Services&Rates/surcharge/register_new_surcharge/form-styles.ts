@@ -1,4 +1,13 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
+
+const skelet_appear = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 type PropsStyle = {
     mode?: string,
@@ -14,6 +23,7 @@ export const Outer = styled.form`
   display: flex;
   flex-direction: column;
   padding: 50px 80px 30px 30px;
+  animation: ${skelet_appear} ease-in-out .4s;
 `;
 
 export const OptionsDeliveryWrapper = styled.div`

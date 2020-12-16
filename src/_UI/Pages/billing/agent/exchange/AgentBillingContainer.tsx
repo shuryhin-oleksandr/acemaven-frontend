@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import Chart from 'chart.js';
 import {getExchangeChartConfig} from "./chart_config";
 import {useChartsUtils} from "./chart_utils";
-import Layout from "../../../components/BaseLayout/Layout";
+import Layout from "../../../../components/BaseLayout/Layout";
 
 import AgentBillingPage from "./AgentBillingPage";
 

@@ -1,8 +1,18 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+
+let show_skeleton = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 export const BillingWrapper = styled.div`
   width: 100%;
   height: 100%;
+  animation: ${show_skeleton} ease-in-out .4s;
 `
 export const BillingInner = styled.div`
   width: 100%;
@@ -16,19 +26,32 @@ export const BillingContent = styled.div`
   flex-direction: column;
   
 `
-export const BillingTitle = styled.div`
+export const BillingTitle = styled.div<{margin_bottom?: string}>`
   font-family: "Helvetica Bold", sans-serif;
   color: black;
   font-size: 48px;
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 45px;
+  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '45px'};
 `
 
 export const Canvas = styled.canvas`
+    width: 100%!important;
+   height: 650px!important;
+@media screen and (max-width: 1792px) {
+   width: 97%!important;
+   height: 600px!important;
+}
+@media screen and (max-width: 1440px) {
+   width: 97%!important;
+   height: 570px!important;
+}
+@media screen and (max-width: 1280px) {
    width: 100%!important;
-  height: 550px!important;
+   height: 570px!important;
+}
+   
 `
 
 export const ExchangeSpanWrap = styled.div`

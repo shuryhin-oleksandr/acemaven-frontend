@@ -3,7 +3,13 @@ import { useState } from "react";
 import {useSelector} from "react-redux";
 import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import MenuLink from "./MenuLink";
-import {operationsLinks, profileLinks, ratesLinks, requestLinks} from "../../../_BLL/helpers/nestedMenu/menuLinnks";
+import {
+    billingLinks,
+    operationsLinks,
+    profileLinks,
+    ratesLinks,
+    requestLinks
+} from "../../../_BLL/helpers/nestedMenu/menuLinnks";
 import {AppStateType} from "../../../_BLL/store";
 import activeSettings from '../../../_UI/assets/icons/sidebar/settingsActive.svg';
 import requests from '../../assets/icons/sidebar/requests.svg';
@@ -13,6 +19,7 @@ import active_operations from '../../assets/icons/sidebar/operations_active.svg'
 import rates from '../../assets/icons/sidebar/rates.svg';
 import activeRates from '../../assets/icons/sidebar/rates-active.svg';
 import billing from '../../assets/icons/sidebar/billing.svg';
+import active_billing from '../../assets/icons/sidebar/active_billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import support from '../../assets/icons/sidebar/support.svg';
 import { NavContainer } from "./nav-styles";
@@ -29,7 +36,7 @@ const NavBar:React.FC<IProps> = () => {
 
     return (
       <ScrollbarStyled {...{
-          style: {height: "auto", width: "210px", flex: "none", backgroundColor: "black"},
+          style: {height: "auto", width: "220px", flex: "none", backgroundColor: "black"},
           autoHeightMin: "calc(100vh - 60px)",
           autoHeight: true,
           navBar: true
@@ -84,8 +91,12 @@ const NavBar:React.FC<IProps> = () => {
                 || current_user_role?.includes(AppUserRolesType.BILLING)
                 || current_user_role?.includes(AppUserRolesType.MASTER))
             &&
-            <MenuLink icon={billing} path='#'
+            <MenuLink icon={billing}
                       name='BILLING'
+                      nestedLinks={billingLinks}
+                      setChecked={setChecked}
+                      checkedLink={checkedLink}
+                      activeIcon={active_billing}
             />
             }
             <MenuLink icon={settings}

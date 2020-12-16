@@ -11,6 +11,11 @@ export const operationsLinks = [
     {name: 'CANCELED', path: '/operations_cancelled'},
 ]
 
+export const billingLinks = [
+    {name: 'EXCHANGE RATE', path: '/billing_exchange'},
+    {name: 'BILLING IN PROGRESS', path: '/billing_in_progress'},
+    {name: 'COMPLETED', path: '/billing_completed'}
+]
 
 export const ratesLinks = [
     {name: 'RATES', path: '/services/rates'},

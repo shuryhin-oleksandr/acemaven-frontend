@@ -31,6 +31,7 @@ import AgentBillingInProgressContainer
     from "../_UI/Pages/billing/agent/billing_in_progress/AgentBillingInProgressContainer";
 import BillingDetailsPageContainer
     from "../_UI/Pages/billing/agent/billing_in_progress/billing_details_page/BillingDetailsPageContainer";
+import AgentBillingCompletedContainer from "../_UI/Pages/billing/agent/completed/AgentBillingCompletedContainer";
 
 
 
@@ -91,6 +92,7 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={AgentBillingContainer} path='/billing_exchange'/>
                 <Route exact component={AgentBillingInProgressContainer} path='/billing_in_progress'/>
                 <Route component={BillingDetailsPageContainer} path='/billing_in_progress/:id'/>
+                <Route exact component={AgentBillingCompletedContainer} path='/billing_completed'/>
 
                 <Route component={NotificationsContainer} path='/notifications'/>
 

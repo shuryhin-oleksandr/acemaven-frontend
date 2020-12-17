@@ -27,6 +27,7 @@ import CancelledOperationsContainer from "../_UI/Pages/operations/CANCELLED/Canc
 import ChatContainer from "../_UI/Pages/operations/chat/ChatContainer";
 import NotificationsContainer from "../_UI/Pages/notifications/NotificationsContainer";
 import AgentBillingContainer from "../_UI/Pages/billing/agent/AgentBillingContainer";
+import BillingPendingContainer from "../_UI/Pages/billing/client/BillingPending/BillingPendingContainer";
 
 
 
@@ -86,6 +87,10 @@ const useRoute = (isAuth: boolean) => {
 
                 <Route component={AgentBillingContainer} path='/billing_exchange'/>
                 <Route component={NotificationsContainer} path='/notifications'/>
+
+
+                <Route component={BillingPendingContainer} path='/billing_pending'/>
+
 
 
                 <Route exact component={DashboardContainer} path='/'/>

@@ -26,7 +26,12 @@ import OperationsContainer from 'src/_UI/Pages/operations/OperationsContainer';
 import CancelledOperationsContainer from "../_UI/Pages/operations/CANCELLED/CancelledOperationsContainer";
 import ChatContainer from "../_UI/Pages/operations/chat/ChatContainer";
 import NotificationsContainer from "../_UI/Pages/notifications/NotificationsContainer";
-import AgentBillingContainer from "../_UI/Pages/billing/agent/AgentBillingContainer";
+import AgentBillingContainer from "../_UI/Pages/billing/agent/exchange/AgentBillingContainer";
+import AgentBillingInProgressContainer
+    from "../_UI/Pages/billing/agent/billing_in_progress/AgentBillingInProgressContainer";
+import BillingDetailsPageContainer
+    from "../_UI/Pages/billing/agent/billing_in_progress/billing_details_page/BillingDetailsPageContainer";
+import AgentBillingCompletedContainer from "../_UI/Pages/billing/agent/completed/AgentBillingCompletedContainer";
 
 
 
@@ -85,8 +90,11 @@ const useRoute = (isAuth: boolean) => {
                 <Route component={ChatContainer} path='/chat'/>
 
                 <Route component={AgentBillingContainer} path='/billing_exchange'/>
-                <Route component={NotificationsContainer} path='/notifications'/>
+                <Route exact component={AgentBillingInProgressContainer} path='/billing_in_progress'/>
+                <Route component={BillingDetailsPageContainer} path='/billing_in_progress/:id'/>
+                <Route exact component={AgentBillingCompletedContainer} path='/billing_completed'/>
 
+                <Route component={NotificationsContainer} path='/notifications'/>
 
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>

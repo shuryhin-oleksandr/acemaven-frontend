@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import RegisterNewFreightRate from "./RegisterNewFreightRate";
 import {
   CurrentShippingType,
@@ -41,6 +40,7 @@ import RegisterSurchargePopUp from "../../../../components/PopUps/RegisterSurcha
 
 import ModalWindow from "../../../../components/_commonComponents/ModalWindow/ModalWindow";
 import NoSurchargeForRatePopup from "../../../../components/PopUps/no_surharge_for_rate_popup/NoSurchargeForRatePopup";
+import { RatesWrapper } from "../rates-styles";
 
 
 type PropsType = {
@@ -277,18 +277,10 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
         adding_rate_error={adding_rate_error}
         rate_transit_error={rate_transit_error}
       />
-      {/*{empty_surcharge === 'empty' && <NoSurchargeCard usageFees={usageFees}*/}
-      {/*                                                 shippingValue={shippingValue}*/}
-      {/*                                                 setNewSurchargePopUpVisible={setNewSurchargePopUpVisible}*/}
-      {/*  />*/}
-      {/*}*/}
     </RatesWrapper>
   );
 };
 
 export default RegisterNewFreightRateContainer;
 
-export const RatesWrapper = styled.div`
-  width: 100%;
-  position: relative;
-`
+

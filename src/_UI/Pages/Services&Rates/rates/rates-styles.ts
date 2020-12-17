@@ -1,9 +1,19 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+
+const skelet_appear = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 export const Container = styled.div`
 padding: 50px 80px 30px 30px;
 min-height: 100% ;
 width: 100%;
+animation: ${skelet_appear} ease-in-out .4s;
 `
 
 export const MainTitle  = styled.div`
@@ -42,4 +52,9 @@ export const RegisterButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+`
+export const RatesWrapper = styled.div`
+  width: 100%;
+  position: relative;
+  animation: ${skelet_appear} ease-in-out .4s;
 `

@@ -10,6 +10,7 @@ export const HeaderContainer = styled.div`
   padding: 10px 80px 10px 50px;
   background-color: white;
   box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+  z-index: 300;
 `
 
 export const LogoWrap = styled.div`

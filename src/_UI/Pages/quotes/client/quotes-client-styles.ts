@@ -12,7 +12,7 @@ const skelet_appear = keyframes`
 export const ClientQuotesOuter = styled.div`
   width: 100%;
   min-height: calc(100vh - 60px);
-  animation: ${skelet_appear} ease-in-out .2s;
+  animation: ${skelet_appear} ease-in-out .4s;
 `
 export const ClientQuotesInner = styled.div`
   width: 100%;

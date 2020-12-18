@@ -11,6 +11,7 @@ import {
   Heading,
 } from "./billing-in-progress-styles";
 import BillingInProgressCard from "./BillingInProgressCard";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const BillingInProgressPage: React.FC = () => {
   const [isHide, setIsHide] = useState(false);
@@ -33,7 +34,7 @@ const BillingInProgressPage: React.FC = () => {
         </HideButton>
         <Content isHide={isHide}>
           <Heading>Operations in Progress</Heading>
-          <CardsWrapper>
+          <ScrollbarStyled {...{ style: { height: "100%" } }}>
             <BillingInProgressCard />
             <BillingInProgressCard />
             <BillingInProgressCard />
@@ -42,7 +43,7 @@ const BillingInProgressPage: React.FC = () => {
             <BillingInProgressCard />
             <BillingInProgressCard />
             <BillingInProgressCard />
-          </CardsWrapper>
+          </ScrollbarStyled>
         </Content>
       </Inner>
     </Wrapper>

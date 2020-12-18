@@ -4,7 +4,6 @@ import { MapWrapper } from "../../../dashboard/dashboard-styles";
 import { HideButton } from "../../../operations/agent/agent-operations-list-container";
 import hide_map_icon from "../../../../assets/icons/operations/hide_map.svg";
 import {
-  CardsWrapper,
   Content,
   Inner,
   Wrapper,
@@ -20,9 +19,9 @@ const BillingInProgressPage: React.FC = () => {
       {!isHide && (
         <MapComponent
           isMarkerShown
-          loadingElement={<div style={{ height: `350px` }} />}
+          loadingElement={<div style={{ height: `450px` }} />}
           containerElement={<MapWrapper />}
-          mapElement={<div style={{ height: `350px` }} />}
+          mapElement={<div style={{ height: `450px` }} />}
         />
       )}
       <Inner>

@@ -32,6 +32,11 @@ import AgentBillingInProgressContainer
 import BillingDetailsPageContainer
     from "../_UI/Pages/billing/agent/billing_in_progress/billing_details_page/BillingDetailsPageContainer";
 import AgentBillingCompletedContainer from "../_UI/Pages/billing/agent/completed/AgentBillingCompletedContainer";
+import BillingPendingContainer from "../_UI/Pages/billing/client/BillingPending/BillingPendingContainer";
+import BillingCompleteContainer from "../_UI/Pages/billing/client/BillingComplete/BillingCompleteContainer";
+import BillingInProgressContainer
+    from "../_UI/Pages/billing/client/BillingInProgressContainer/BillingInProgressContainer";
+
 
 
 
@@ -95,6 +100,11 @@ const useRoute = (isAuth: boolean) => {
                 <Route exact component={AgentBillingCompletedContainer} path='/billing_completed'/>
 
                 <Route component={NotificationsContainer} path='/notifications'/>
+
+
+                <Route component={BillingPendingContainer} path='/billing_pending'/>
+                <Route component={BillingCompleteContainer} path='/billing_complete'/>
+                <Route component={BillingInProgressContainer} path='/billing_in_progress'/>
 
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>

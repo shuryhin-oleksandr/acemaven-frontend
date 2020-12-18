@@ -12,15 +12,13 @@ import { signOut } from "../../../_BLL/thunks/auth/authThunks";
 import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router";
-import logotype from '../../../_UI/assets/icons/landing/inline_logo.svg'
+import logotype from "../../../_UI/assets/icons/landing/inline_logo.svg";
 import notification from "../../../_UI/assets/icons/clarity_notification-solid-badged.svg";
 import card from "../../../_UI/assets/icons/card.svg";
 import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import NotificationCard from "../../Pages/notifications/NotificationCard";
-import {SectionWrapper} from "../../Pages/notifications/notifications-style";
-
-
+import { SectionWrapper } from "../../Pages/notifications/notifications-style";
 
 const useStyles = makeStyles({
   customTooltip: {
@@ -36,7 +34,6 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    
   },
   customNotificationTooltip: {
     "& .MuiTooltip-arrow::before": {
@@ -51,9 +48,9 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    maxWidth: '376px',
-    width: '100%'
-  }
+    maxWidth: "376px",
+    width: "100%",
+  },
 });
 
 const Header: React.FC = () => {
@@ -65,26 +62,26 @@ const Header: React.FC = () => {
     (state: AppStateType) => state.profile.authUserInfo?.photo
   );
 
-
   return (
     <HeaderContainer>
-      <LogoWrap onClick={() => history.push('/')}>
-        <img src={logotype} alt=""/>
+      <LogoWrap onClick={() => history.push("/")}>
+        <img src={logotype} alt="" />
       </LogoWrap>
       <Info>
         <ButtonWrap>
           <img src={card} alt="" />
         </ButtonWrap>
 
-        <Tooltip arrow
-                 interactive
-                 classes={{ tooltip: classes.customNotificationTooltip }}
-                 title={
-                   <SectionWrapper onClick={() => history.push('/notifications')}>
-                    <NotificationCard close_button={true}/>
-                    <NotificationCard/>
-                   </SectionWrapper>
-                 }
+        <Tooltip
+          arrow
+          interactive
+          classes={{ tooltip: classes.customNotificationTooltip }}
+          title={
+            <SectionWrapper onClick={() => history.push("/notifications")}>
+              <NotificationCard close_button={true} />
+              <NotificationCard />
+            </SectionWrapper>
+          }
         >
           <ButtonWrap>
             <img src={notification} alt="" />
@@ -100,7 +97,10 @@ const Header: React.FC = () => {
               <StyledTooltipItem onClick={() => dispatch(signOut(history))}>
                 Log out
               </StyledTooltipItem>
-              <NavLink to='/settings/profile' style={{textDecoration: 'none'}}>
+              <NavLink
+                to="/settings/profile"
+                style={{ textDecoration: "none" }}
+              >
                 <StyledTooltipItem>My profile</StyledTooltipItem>
               </NavLink>
             </StyledUl>

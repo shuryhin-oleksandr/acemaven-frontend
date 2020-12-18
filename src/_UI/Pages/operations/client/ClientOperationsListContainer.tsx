@@ -13,6 +13,8 @@ import OptionsDeliveryButtons from "../../../components/_commonComponents/option
 import { CurrentShippingType } from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { OperationType } from "../../../../_BLL/types/operations/operationsTypes";
 import ClientOperationTable from "./table/ClientOperationTable";
+import MapComponent from "../../dashboard/MapComponent/MapComponent";
+import { MapWrapper } from "../../dashboard/dashboard-styles";
 
 type PropsType = {
   setSearchMode: (value: boolean) => void;
@@ -26,7 +28,7 @@ type PropsType = {
   my_operations: string;
   setMyOperations: (value: string) => void;
   operations_list: OperationType[];
-  operation_status: string
+  operation_status: string;
 };
 const ClientOperationsListContainer: React.FC<PropsType> = ({
   setSearchMode,
@@ -37,12 +39,11 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
   return (
     <OperationsWrapper>
       {!isHide && (
-        <div
-          style={{
-            width: "100%",
-            height: "490px",
-            backgroundColor: "rgba(0, 0, 0, .07",
-          }}
+        <MapComponent
+          isMarkerShown
+          loadingElement={<div style={{ height: `420px` }} />}
+          containerElement={<MapWrapper />}
+          mapElement={<div style={{ height: `420px` }} />}
         />
       )}
       <OperationsInner>

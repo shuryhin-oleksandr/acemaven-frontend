@@ -10,6 +10,7 @@ import {
   ButtonsWrap,
   ConfirmButton,
   CancelButton,
+  DatesError,
 } from "./change-request-styles";
 import close from "../../../../_UI/assets/icons/close-icon.svg";
 import {
@@ -53,6 +54,7 @@ import { getShippingTypes } from "../../../../_BLL/thunks/rates&surcharge/surcha
 import AddingGroupsForm from "./AddingGroupsForm/AddingGroupsForm";
 import { changeBooking } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
 import _ from "lodash";
+import { bookingActions } from "../../../../_BLL/reducers/booking/bookingReducer";
 
 const useStyles = makeStyles({
   container: {
@@ -183,6 +185,10 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
     (state: AppStateType) => state.client_operations.operationCargoGroups
   );
 
+  let error_date = useSelector(
+    (state: AppStateType) => state.booking.booking_dates_error
+  );
+
   const {
     handleSubmit,
     register,
@@ -253,7 +259,9 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
         original_booking: operation_info.id,
         payment_due_by: operation_info.payment_due_by,
       };
-      dispatch(editOperationByClientThunk(operation_info.id,postObj, setIsOpen));
+      dispatch(
+        editOperationByClientThunk(operation_info.id, postObj, setIsOpen)
+      );
     }
 
     // setIsOpen(false);
@@ -325,6 +333,10 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
         Number(operation_info.freight_rate.shipping_mode.id)
       )
     );
+  };
+
+  const clearDatesError = () => {
+    dispatch(bookingActions.setChangeBookingError(null));
   };
 
   return (
@@ -401,6 +413,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                         disabled={false}
                         placeholder={`Week ${operation_info.week_range?.week_from} - Week ${operation_info.week_range?.week_to}`}
                         width={"auto"}
+                        openCallback={clearDatesError}
                       />
                     </div>
                     <InfoRowValue>
@@ -409,6 +422,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                   </InfoRow>
                 </div>
               </GeneralBookingContent>
+              {error_date && <DatesError>{error_date}</DatesError>}
             </SectionWrapper>
           )}
 

@@ -11,6 +11,7 @@ type PropsType = {
   shippingValueReset?: any;
   placeholder?: string;
   width?: string;
+  openCallback?: any;
 };
 
 const Dates: React.FC<PropsType> = ({
@@ -21,6 +22,7 @@ const Dates: React.FC<PropsType> = ({
   shippingValueReset,
   placeholder,
   width,
+  openCallback,
 }) => {
   const { allowedRange } = DateRangePicker;
   const tillTheEnd =
@@ -48,6 +50,9 @@ const Dates: React.FC<PropsType> = ({
       onClean={() => {
         setDates([]);
         shippingValueReset && shippingValueReset();
+      }}
+      onOpen={() => {
+        openCallback && openCallback();
       }}
     />
   );

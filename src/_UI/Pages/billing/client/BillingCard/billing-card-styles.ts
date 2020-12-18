@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import { AcceptButton } from "../../../Requests/Booking_agent/booking_card/booking-card-style";
 
 export const MapWrapper = styled.div`
   width: 288px;
@@ -23,7 +24,7 @@ export const InformationWrapper = styled.div`
 export const Route = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
   > div {
     font-family: "Helvetica Reg", sans-serif;
     font-size: 18px;
@@ -71,7 +72,7 @@ export const ChargeRow = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #ececec;
-  padding-bottom: 7px;
+  padding: 7px 0;
 `;
 export const ChargeTitle = styled.span`
   font-family: "Helvetica Reg", sans-serif;
@@ -94,5 +95,49 @@ export const ToBookText = styled.div`
   font-size: 14px;
   line-height: 16px;
   color: #828282;
-  margin-bottom: 7px;
+`;
+
+export const ConfirmButton = styled.button`
+  height: 40px;
+  padding: 12px 40px;
+  outline: none;
+  border: none;
+  background-color: black;
+  color: white;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
+  &:disabled {
+    background-color: rgba(0, 0, 0, 0.6);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+`;
+
+export const RejectButton = styled.button`
+  height: 40px;
+  padding: 0 39px;
+  outline: none;
+  border: 1px solid #3b3b41;
+  background: none;
+  color: #3b3b41;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: rgba(0, 0, 0, 0.07);
+  }
 `;

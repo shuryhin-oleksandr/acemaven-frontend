@@ -7,11 +7,11 @@ const BillingPendingPage: React.FC = () => {
     <Wrapper>
       <Content>
         <Heading>Pending of booking fee payment</Heading>
-        <BillingCard />
-        <BillingCard />
-        <BillingCard />
-        <BillingCard />
-        <BillingCard />
+        <BillingCard actionButtons />
+        <BillingCard actionButtons />
+        <BillingCard actionButtons />
+        <BillingCard actionButtons />
+        <BillingCard actionButtons />
       </Content>
     </Wrapper>
   );

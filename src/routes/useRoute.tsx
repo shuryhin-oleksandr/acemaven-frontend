@@ -29,6 +29,8 @@ import NotificationsContainer from "../_UI/Pages/notifications/NotificationsCont
 import AgentBillingContainer from "../_UI/Pages/billing/agent/AgentBillingContainer";
 import BillingPendingContainer from "../_UI/Pages/billing/client/BillingPending/BillingPendingContainer";
 import BillingCompleteContainer from "../_UI/Pages/billing/client/BillingComplete/BillingCompleteContainer";
+import BillingInProgressContainer
+    from "../_UI/Pages/billing/client/BillingInProgressContainer/BillingInProgressContainer";
 
 
 
@@ -93,6 +95,7 @@ const useRoute = (isAuth: boolean) => {
 
                 <Route component={BillingPendingContainer} path='/billing_pending'/>
                 <Route component={BillingCompleteContainer} path='/billing_complete'/>
+                <Route component={BillingInProgressContainer} path='/billing_in_progress'/>
 
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>

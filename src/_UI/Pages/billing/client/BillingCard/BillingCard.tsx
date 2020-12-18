@@ -15,23 +15,42 @@ import {
   MainInfo,
   MapWrapper,
   Route,
-  Row, ToBookText,
+  Row,
+  ToBookText,
+  ConfirmButton,
+  RejectButton,
 } from "./billing-card-styles";
 
-const BillingCard: React.FC = () => {
+type PropTypes = {
+  actionButtons?: boolean;
+};
+
+const BillingCard: React.FC<PropTypes> = ({ actionButtons }) => {
   return (
     <CardContainer>
       <BillingMapComponent
         isMarkerShown
         loadingElement={<div />}
         containerElement={<MapWrapper />}
-        mapElement={<div style={{ height: "226px" }} />}
+        mapElement={<div style={{ height: "233px" }} />}
       />
       <InformationWrapper>
-        <Route>
-          <img src={plane_surcharge} alt="" />
-          <div>usmia — brrsszz</div>
-        </Route>
+        <Row style={{ justifyContent: "space-between" }}>
+          <Route>
+            <img src={plane_surcharge} alt="" />
+            <div>usmia — brrsszz</div>
+          </Route>
+          {actionButtons && (
+            <Row>
+              <ConfirmButton
+              // onClick={() => props.setClientChangRequestPopupVisible(true)}
+              >
+                PAY
+              </ConfirmButton>
+              <RejectButton>CANCEL</RejectButton>
+            </Row>
+          )}
+        </Row>
         <MainInfo>
           <Row>
             <InfoTitle>ACID</InfoTitle>

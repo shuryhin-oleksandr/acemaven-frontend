@@ -90,7 +90,6 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             error={errors?.origin}
                             getValues={getValues}
                             onChange={onOriginChangeHandler}
-
                             // onBlur={blurHandler}
                         />
                         {origin_ports && origin_ports?.length > 0 && (

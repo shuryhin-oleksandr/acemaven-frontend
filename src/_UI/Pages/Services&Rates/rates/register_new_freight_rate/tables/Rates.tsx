@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Controller} from "react-hook-form";
+//moment js
 import moment from "moment";
-import styled from "styled-components";
-import {HandlingTitle} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+//react-redux
+import {useDispatch, useSelector} from "react-redux";
+//react-hook-form
+import {Controller} from "react-hook-form";
+//material ui
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -12,18 +14,31 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {IconButton} from "@material-ui/core";
+//helpers
+import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+//types
+import {ContainerType, SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {RateForSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import {ShippingModeEnum} from "../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+//BLL
+import {getSurchargeForExactRateThunk} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+//components
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
-import {Field, HelperText} from "../../../../../components/_commonComponents/Input/input-styles";
 import FCLField from "./FCLField";
 import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import DatesCells from "./DatesCells";
-import {ContainerType, SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
-import {getSurchargeForExactRateThunk} from "../../../../../../_BLL/thunks/rates&surcharge/rateThunks";
-import {rateActions} from "../../../../../../_BLL/reducers/surcharge&rates/rateReducer";
-import {RateForSurchargeType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
-import {ShippingModeEnum} from "../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import FormField from "../../../../../components/_commonComponents/Input/FormField";
+//styled-components
+import styled from "styled-components";
+//styles
+import {HandlingTitle} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+import {HelperText} from "../../../../../components/_commonComponents/Input/input-styles";
+//icons
+import close_icon from '../../../../../assets/icons/close-icon.svg'
+
 
 const useStyles = makeStyles({
     container: {
@@ -64,7 +79,7 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    usageFees:ContainerType[]
+    usageFees: ContainerType[]
     control: any
     errors: any
     setValue: any
@@ -78,8 +93,10 @@ type PropsType = {
     shipping_value: number
 }
 
-const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getValues, shipping_value,
-                                       rate_data_for_surcharge, surcharge, required_dates}) => {
+const Rates: React.FC<PropsType> = ({
+                                        usageFees, control, register, errors, setValue, getValues, shipping_value,
+                                        rate_data_for_surcharge, surcharge, required_dates
+                                    }) => {
     const classes = useStyles()
 
     const reservedDates = useSelector(getRateBookedDatesSelector)
@@ -92,12 +109,12 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
             carrier: getValues('carrier'),
             shipping_mode: getValues('shipping_mode'),
             destination: Number(JSON.parse(
-              // @ts-ignore
-              sessionStorage.getItem("destination_id")
+                // @ts-ignore
+                sessionStorage.getItem("destination_id")
             ).id),
             origin: Number(JSON.parse(
-              // @ts-ignore
-              sessionStorage.getItem("origin_id")
+                // @ts-ignore
+                sessionStorage.getItem("origin_id")
             ).id),
             transit_time: Number(getValues('transit_time'))
         }
@@ -106,7 +123,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
     }
 
     useEffect(() => {
-        if(surcharge) {
+        if (surcharge) {
             dispatch(getSurchargeForExactRateThunk(rate_data_for_surcharge))
         }
     }, [surcharge])
@@ -114,12 +131,12 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
     const [awareMessage, setAware] = useState(false)
     const [rate_value, setRateValue] = useState('')
     let onChange = (e: any, id: string) => {
-        if(e.currentTarget.value === '0') {
+        if (e.value === '0' || 0) {
             setRateValue(id)
             setAware(true)
-            setValue(`rates.${id}.rate`, e.currentTarget.value)
+            setValue(`rates.${id}.rate`, e.value)
         } else {
-            setValue(`rates.${id}.rate`, e.currentTarget.value)
+            setValue(`rates.${id}.rate`, e.value)
         }
     }
 
@@ -128,12 +145,13 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
     return (
         <div>
             <HandlingTitle>RATES</HandlingTitle>
-            <ScrollbarStyled {...{style: {width: 760, height: 420, marginBottom: 20 }}}>
+            <ScrollbarStyled {...{style: {width: 760, height: 320, marginBottom: 20}}}>
                 <TableContainer className={classes.container} component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD && <TableCell className={classes.cell}>CONTAINER TYPE </TableCell>}
+                                {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD &&
+                                <TableCell className={classes.cell}>CONTAINER TYPE </TableCell>}
                                 <TableCell className={classes.cell} align="left">
                                     CURRENCY
                                 </TableCell>
@@ -156,27 +174,27 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                         <TableBody>
                             {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD
                                 ? usageFees.map(fee => {
-                                    if(reservedDates) {
+                                    if (reservedDates) {
                                         return {...fee, ...reservedDates.find(d => d.container_type === fee.id)}
                                     } else {
                                         return fee
                                     }
                                 }).map(fee => (
-                                <TableRow key={fee.id} >
-                                    <FCLField fee={fee}
-                                              getSurchargeToRateHandle={getSurchargeToRateHandle}
-                                              setValue={setValue}
-                                              control={control}
-                                              getValues={getValues}
-                                              errors={errors}
-                                              required_dates={required_dates}
-                                              setAware={setAware}
-                                              awareMessage={awareMessage}
-                                              rate_value={rate_value}
-                                              onChange={onChange}
-                                    />
-                                </TableRow>
-                            ))
+                                    <TableRow key={fee.id}>
+                                        <FCLField fee={fee}
+                                                  getSurchargeToRateHandle={getSurchargeToRateHandle}
+                                                  setValue={setValue}
+                                                  control={control}
+                                                  getValues={getValues}
+                                                  errors={errors}
+                                                  required_dates={required_dates}
+                                                  setAware={setAware}
+                                                  awareMessage={awareMessage}
+                                                  rate_value={rate_value}
+                                                  onChange={onChange}
+                                        />
+                                    </TableRow>
+                                ))
                                 : <>
                                     <TableRow>
                                         <>
@@ -192,7 +210,7 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                                 />
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left">
-                                                <Controller control={control}
+                                                {/*<Controller control={control}
                                                             name={`rates.rate`}
                                                             rules={{required: true}}
                                                             defaultValue={0}
@@ -202,6 +220,8 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                                                            onChange={(e) => onChange(e, String(0))}
                                                                            onBlur={() => setAware(false)}
                                                                            type='number'
+                                                                           step='0.0001'
+
                                                                     />
                                                                     {awareMessage && String(0) === rate_value
                                                                     && <SpanAware><Title>Rate will be register as 0. Are you sure?</Title></SpanAware>}
@@ -209,7 +229,40 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                                             )
                                                             }
 
-                                                />
+                                                />*/}
+                                                <div style={{position: 'relative'}}>
+                                                    <FormField name={`rates.rate`}
+                                                               inputRef={register({
+                                                                   required: true,
+                                                                   minLength: 1,
+                                                                   maxLength: 10
+                                                               })}
+                                                               min='1'
+                                                               max='10'
+                                                               defaultValue=''
+                                                               placeholder='0.00'
+                                                               type='number'
+                                                               onChange={(e) => onChange(e, String(0))}
+                                                               marginBottom='0px'
+                                                               maxW='107px'
+
+                                                    />
+                                                    {awareMessage && String(0) === rate_value
+                                                    &&
+                                                    <SpanAware>
+                                                        <Title>Rate will be register as 0. Are you sure?</Title>
+                                                        <IconButton style={{
+                                                            display: 'flex',
+                                                            justifyContent: 'flex-end',
+                                                            backgroundColor: 'rgba(255, 255, 255, .7)',
+                                                            padding: '5px'
+                                                        }}
+                                                                    onClick={() => setAware(false)}
+                                                        >
+                                                            <img src={close_icon} alt="" style={{width: '8px'}}/>
+                                                        </IconButton>
+                                                    </SpanAware>}
+                                                </div>
                                             </TableCell>
                                             <DatesCells
                                                 setValue={setValue}
@@ -219,10 +272,11 @@ const Rates:React.FC<PropsType> = ({usageFees, control, errors, setValue, getVal
                                                 classes={classes}
                                                 getValues={getValues}
                                                 getSurchargeToRateHandle={getSurchargeToRateHandle}
-                                                reservedDates={reservedDates? reservedDates[0].disabledDates : []}
+                                                reservedDates={reservedDates ? reservedDates[0].disabledDates : []}
                                                 required_dates={required_dates}
                                                 invalidDate={invalidDate}
                                                 setInvalidDate={setInvalidDate}
+                                                margin_top='0px'
                                             />
                                         </>
                                         {invalidDate && <HelperText messagePaddingTop='25px'>{invalidDate}</HelperText>}
@@ -241,8 +295,8 @@ export default Rates
 
 
 export const SpanAware = styled.div`
-  width: 400px;
-  height: 60px;
+  width: 276px;
+  height: 68px;
   background-color: rgba(0, 0, 0, .6);
   color: white;
   font-family: "Helvetica Reg", sans-serif;
@@ -253,10 +307,10 @@ export const SpanAware = styled.div`
   z-index: 150;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
- clip-path: polygon(0% 0%, 100% 0%, 100% 73%, 88% 73%, 86% 90%, 84% 73%, 0 73%);
-
+  clip-path: polygon(0% 0%, 100% 0%, 100% 73%, 88% 73%, 86% 90%, 84% 73%, 0 73%);
   transform: rotate(180deg);
 `
 export const Title = styled.div`
    transform: rotate(180deg);
+   margin-bottom: 3px;
 `

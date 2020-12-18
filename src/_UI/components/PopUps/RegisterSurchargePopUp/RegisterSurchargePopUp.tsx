@@ -33,6 +33,7 @@ import {surchargeActions} from "../../../../_BLL/reducers/surcharge&rates/surcha
 import {useDispatch} from "react-redux";
 import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import {ErrorServerMessage} from "../../../Pages/SignInPage";
+import _ from "lodash";
 
 
 type PropsType = {
@@ -74,7 +75,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
       if(a.charge && a.conditions) {
         return {
           additional_surcharge: a.additional_surcharge,
-          charge: a.charge,
+          charge: _.ceil(a.charge,2),
           conditions: a.conditions,
           currency: a.currency
         }
@@ -98,7 +99,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
     //handling containers&packaging
     let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
 
-    let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
+    let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: _.ceil(f.charge, 2)}
         || !f.charge && {container_type: f.container_type, currency: f.currency}
     )
 

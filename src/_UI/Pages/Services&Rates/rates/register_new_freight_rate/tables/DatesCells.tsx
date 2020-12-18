@@ -22,11 +22,12 @@ type PropsType = {
     disabled?: boolean,
     invalidDate?: string,
     setInvalidDate?: (value: string) => void
-    getSurchargeForNewRate?: any
+    getSurchargeForNewRate?: any,
+    margin_top?: string
 }
 
 const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, errors, classes, reservedDates,getSurchargeForNewRate,
-                                             id, getSurchargeToRateHandle, setFormMode, required_dates, disabled, setInvalidDate}) => {
+                                             id, getSurchargeToRateHandle, setFormMode, required_dates, disabled, setInvalidDate, ...props}) => {
 
     const [selectedDay, setSelectedDay] = useState<any>({
         from:  '',
@@ -104,6 +105,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
                         display_label='none'
                         max_width='107px'
                         margin_bottom='0'
+                        margin_top={props.margin_top}
                         required_dates={required_dates}
                     />
                 </TableCell>
@@ -125,6 +127,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
                         max_width='107px'
                         margin_bottom='0'
                         required_dates={required_dates}
+                        margin_top={props.margin_top}
                     />
                 </TableCell>
         </>

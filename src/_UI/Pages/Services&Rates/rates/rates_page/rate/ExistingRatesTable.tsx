@@ -86,7 +86,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
 */
 
     return (
-        <div style={{width: '100%', maxWidth: '1002px'}}>
+        <div style={{width: '100%', maxWidth: '1100px'}}>
             <HandlingTitle>RATES</HandlingTitle>
             <ScrollbarStyled {...{style: { minHeight: 320, height: '100%' }}}>
                 <TableContainer className={classes.container} component={Paper}>
@@ -195,6 +195,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                         getSurchargeForNewRate={getSurchargeForNewRate}
                                         setFormMode={setFormMode}
                                         required_dates={false}
+                                        margin_top='0px'
                                     />
                                     <Controller
                                         control={control}

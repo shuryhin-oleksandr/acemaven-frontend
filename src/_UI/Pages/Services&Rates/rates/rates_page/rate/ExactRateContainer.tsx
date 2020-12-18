@@ -105,7 +105,6 @@ const ExactRateContainer = ({...props}) => {
             expiration_date: moment(expiration_date).format('DD/MM/YYYY')
         }
         dispatch(getSurchargeForExactRateThunk(rate_data))
-        //dispatch()
     }
 
 

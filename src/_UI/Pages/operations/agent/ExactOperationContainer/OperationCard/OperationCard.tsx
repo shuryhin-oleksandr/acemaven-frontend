@@ -16,7 +16,8 @@ import GeneralBlockContainer from "./blocks/general_info/GeneralBlockContainer";
 import ConfirmedDatesContainerBlock from "./blocks/cofirmed_dates/ConfirmedDatesContainerBlock";
 import PaymentDueByForClient from "./PaymentDueByForClient";
 import BookingNumberBlockContainer from "./blocks/booking_number/BookingNumberBlockContainer";
-import BaseTooltip from "../../../../../components/_commonComponents/baseTooltip/BaseTooltip";
+import BookingNumberWithCarrierBlockContainer from "./blocks/booking_number/BookingNumberWithCarrierBlockContainer";
+import ActionsButtonsBlock from "./blocks/actions/ActionsButtonsBlock";
 //styles
 import {
 
@@ -33,8 +34,7 @@ import {
 } from "./operation-card-style";
 //icons
 import close_icon from "../../../../../assets/icons/close-icon.svg";
-import BookingNumberWithCarrierBlockContainer from "./blocks/booking_number/BookingNumberWithCarrierBlockContainer";
-import ActionsButtonsBlock from "./blocks/actions/ActionsButtonsBlock";
+
 
 type PropsType = {
     operation_info: OperationType,
@@ -68,6 +68,8 @@ const OperationCard: React.FC<PropsType> = ({
                                             }) => {
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
+
+
 
 
     return (

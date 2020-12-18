@@ -104,7 +104,7 @@ const useRoute = (isAuth: boolean) => {
 
                 <Route component={BillingPendingContainer} path='/billing_pending'/>
                 <Route component={BillingCompleteContainer} path='/billing_complete'/>
-                <Route component={BillingInProgressContainer} path='/billing_in_progress'/>
+                <Route exact component={BillingInProgressContainer} path='/billing_in_progress_client'/>
 
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>

@@ -1,15 +1,20 @@
 import React, {useEffect, useState} from 'react'
-import Layout from "../../../../../components/BaseLayout/Layout";
-import Surcharge from "./Surcharge";
+//react-hook-form
 import {useForm} from "react-hook-form";
+//react-router
 import {withRouter} from 'react-router';
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//BLL
 import {
     getEditSurchargeSelector, getIsFetchingSelector,
     getSurcharge
 } from "../../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {getSurchargeInfo} from "../../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {surchargeActions} from "../../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
+//components
+import Layout from "../../../../../components/BaseLayout/Layout";
+import Surcharge from "./Surcharge";
 import SpinnerForAuthorizedPages from "../../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 
 
@@ -42,8 +47,7 @@ const ExactSurchargeContainer = ({...props}) => {
 
     //ASYNC: check available dates
     useEffect(() => {
-        //surcharge && dispatch(checkSurchargeDates({location: surcharge.location.id,
-        //direction: surcharge.direction, shipping_mode: surcharge.shipping_mode.id, carrier: surcharge.carrier.id}))
+
         if (surcharge) {
             setValue('start_date', surcharge.start_date)
             setValue('expiration_date', surcharge.expiration_date)
@@ -71,6 +75,7 @@ const ExactSurchargeContainer = ({...props}) => {
                              formMode={formMode}
                              setFormMode={setFormMode}
                              history={props.history}
+
                 />
             }
 

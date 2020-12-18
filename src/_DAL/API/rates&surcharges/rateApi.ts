@@ -39,7 +39,7 @@ export const rateAPI = {
   setActiveOrPausedRate(id: number, value: boolean) {
     return instance.patch(`/booking/freight-rate/${id}/`, { is_active: value });
   },
-  editRates (rates: any) {
-    return instance.post(`/booking/rate/patch/`, rates)
+  editRates (id: number, rates: any) {
+    return instance.patch(`/booking/freight-rate/${id}/`, rates)
   }
 };

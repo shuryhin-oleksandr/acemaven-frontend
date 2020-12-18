@@ -23,15 +23,6 @@ const useStyles = makeStyles({
         '& .MuiTableHead-root' : {
         }
     },
-    shipping_cell: {
-        width: '220px',
-        color: '#115B86',
-        fontFamily: 'Helvetica Bold',
-        fontSize: '14px',
-        borderBottom: '1px solid transparent',
-        paddingLeft: '63px',
-        padding: '0'
-    },
     row: {
         verticalAlign: 'top'
     },
@@ -39,7 +30,8 @@ const useStyles = makeStyles({
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '14px',
-        borderBottom: '1px solid transparent',
+        borderBottom: '1px solid #115B86',
+        borderTop: '1px solid #115B86',
         padding: '0',
         marginRight: '44px'
     },

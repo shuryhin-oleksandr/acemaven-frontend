@@ -1,51 +1,48 @@
 import instance from "../axiosConfig";
 import {
-    editDatesType,
+    ChargesType,
+    ContainerType,
     SurchargeCheckDateResponseType,
     SurchargeObjectType
 } from "../../../_BLL/types/rates&surcharges/surchargesTypes";
 
 export const surchargeAPI = {
-    getCarriersList () {
+    getCarriersList() {
         return instance.get('/handling/carrier/')
     },
-    getPortsList (local: any, q: string) {
+    getPortsList(local: any, q: string) {
         return instance.get(`/handling/port/?is_local=${local}&search=${q}`)
     },
-    getShippingModesList () {
+    getShippingModesList() {
         return instance.get('/handling/shipping-mode/')
     },
-    getShippingTypesList (is_freight_rate?: boolean | string) {
+    getShippingTypesList(is_freight_rate?: boolean | string) {
         return instance.get(`/handling/shipping-type/?is_freight_rate=${is_freight_rate}`)
     },
-    getCurrencyList () {
+    getCurrencyList() {
         return instance.get('/handling/currency/')
     },
-    getSurchargesList () {
+    getSurchargesList() {
         return instance.get('/booking/surcharge/')
     },
-    filterByDirectionDelivery (direction: string, type: string, field_name: string, search_column: string, search_value: string) {
+    filterByDirectionDelivery(direction: string, type: string, field_name: string, search_column: string, search_value: string) {
         return instance.get(`/booking/surcharge/?direction=${direction}&shipping_type=${type}&ordering=${field_name}&${search_column}=${search_value}`)
     },
-    getExactSurcharge (id: number) {
+    getExactSurcharge(id: number) {
         return instance.get(`/booking/surcharge/${id}/`)
     },
-    checkSurchargeDates (checkSurchargeValues: {location: number,
+    checkSurchargeDates(checkSurchargeValues: {
+        location: number,
         carrier: number,
         direction: string,
-        shipping_mode: number}) {
+        shipping_mode: number
+    }) {
         return instance.post<SurchargeCheckDateResponseType>('/booking/surcharge/check-date/', checkSurchargeValues).then(res => res.data)
     },
-    registerNewSurcharge (surcharge_data: SurchargeObjectType) {
-    return instance.post('/booking/surcharge/', surcharge_data)
+    registerNewSurcharge(surcharge_data: SurchargeObjectType) {
+        return instance.post('/booking/surcharge/', surcharge_data)
     },
-    editSurchargeDates (id: number | undefined, edit_data: editDatesType) {
-        return instance.patch(`/booking/surcharge/${id}/`, edit_data)
-    },
-    editSurchargeHandling (edit_handling: any) {
-        return instance.post(`/booking/usage-fee/patch/`, edit_handling)
-    },
-    editSurchargeAdditional (edit_additional: any) {
-        return instance.post(`/booking/charge/patch/`, edit_additional)
+    editSurchargeInfo(id: number, data: { start_date?: string, expiration_date?: string, usage_fees?: ContainerType[], charges?: ChargesType[] }) {
+        return instance.patch(`/booking/surcharge/${id}/`, data)
     }
 }

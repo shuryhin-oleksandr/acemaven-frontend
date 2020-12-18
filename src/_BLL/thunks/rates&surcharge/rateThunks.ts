@@ -4,16 +4,10 @@ import {
     rateActions,
 } from "../../reducers/surcharge&rates/rateReducer";
 import {rateAPI} from "../../../_DAL/API/rates&surcharges/rateApi";
-import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../../store";
 import {surchargeAPI} from "../../../_DAL/API/rates&surcharges/surchargeApi";
 import {quotesAgentActions} from "../../reducers/quotes/quotesAgentReducer";
 
-
-type ThunkType = ThunkAction<Promise<void>,
-    AppStateType,
-    unknown,
-    commonRateActions>;
 
 export const getPorts = (local: any, q: string, field: string, type: string) => {
     return async (dispatch: Dispatch<commonRateActions>) => {
@@ -68,7 +62,7 @@ export const registerNewFreightRateThunk = (freight_data: any, history: any) => 
 };
 
 export const getSurchargeForExactRateThunk = ( rate_data: any) => {
-    return async (dispatch: Dispatch<commonRateActions>) => {
+    return async (dispatch: Dispatch<commonRateActions>,  getState: () => AppStateType) => {
         try {
             dispatch(rateActions.setExistingSurchargeByRate(null));
             dispatch(rateActions.setRateStartDate(rate_data.start_date));
@@ -78,6 +72,10 @@ export const getSurchargeForExactRateThunk = ( rate_data: any) => {
                 dispatch(rateActions.setEmptyExistingSurcharge("empty"));
             } else {
                 dispatch(rateActions.setExistingSurchargeByRate(res.data));
+                //ex
+                let id = getState().rate.rate_id
+                let dates = {start_date: getState().rate.rate_start_date, expiration_date: getState().rate.rate_expiration_date}
+                getState().rate.rate_info && dispatch(rateActions.setSurchargeToRate(id, res.data, dates))
             }
         } catch (e) {
             console.log(e.response);
@@ -171,8 +169,8 @@ export const editRates = (id: number | undefined, rates: any, history: any) => {
     return async (dispatch: Dispatch<commonRateActions>) => {
         try {
             dispatch(rateActions.setIsFetching(true))
-            let {data} = await rateAPI.editRates({freight_rate: id, rates: rates})
-            let res = await rateAPI.getExactRate(data.freight_rate)
+            let {data} = await rateAPI.editRates(Number(id), {rates: rates})
+            let res = await rateAPI.getExactRate(data.id)
             dispatch(rateActions.setRateInfo(res.data))
             dispatch(rateActions.setEditSuccess('success'))
             //clear data from previous actions

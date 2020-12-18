@@ -154,8 +154,11 @@ const Additional: React.FC<PropsType> = ({
                   <Controller
                     control={props.control}
                     name={`charges.${charge.id}.charge`}
-                    defaultValue={charge.charge}
-                    as={<Field type="number" value={charge.charge} />}
+                    defaultValue={charge.charge ? charge.charge : '0.00'}
+                    as={
+                      <Field type="number"
+                      />
+                    }
                   />
                 </TableCell>
                 {charge.additional_surcharge.id === 1 ? (

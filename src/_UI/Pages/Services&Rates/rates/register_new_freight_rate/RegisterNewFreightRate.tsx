@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+//lodash
+import _ from "lodash";
 //react-router-dom
 import { useHistory } from "react-router-dom";
 //react-redux
@@ -32,6 +34,7 @@ import {
   UnderTitle,
 } from "./form-styles";
 import { Outer } from "../../surcharge/register_new_surcharge/form-styles";
+
 
 
 
@@ -81,11 +84,12 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
   const history = useHistory()
   const dispatch = useDispatch();
   const onSubmit = (values: any) => {
+
     let rates_array;
     if (values.rates.length > 1) {
       let full_rates = values.rates.filter((r: any) => r !== null);
       rates_array = full_rates.map((r: any) => (r !== null && r.from
-              && {container_type: r.container_type, currency: r.currency, rate: r.rate, start_date: r.from, expiration_date: r.to})
+              && {container_type: r.container_type, currency: r.currency, rate: _.ceil(r.rate, 2), start_date: r.from, expiration_date: r.to})
               || (r !== null && !r.from && {container_type: r.container_type, currency: r.currency})
               || (r !== null && !r.from && !r.rate && {container_type: r.container_type, currency: r.currency})
               || (r !== null && r.from && !r.rate && {container_type: r.container_type, currency: r.currency})
@@ -109,7 +113,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
         rates: [
           {
             currency: values.rates.currency,
-            rate: values.rates.rate,
+            rate: _.ceil(values.rates.rate, 2),
             start_date: values.rates[0].from,
             expiration_date: values.rates[0].to,
           },

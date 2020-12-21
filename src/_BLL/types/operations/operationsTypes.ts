@@ -47,6 +47,46 @@ export type AgentBankAccountType = {
     number: string
 }
 
+export type EventType = {
+    type: string,
+    numberOfPieces: number,
+    timeOfEvent: string,
+    timeOfEventTimePartQuality: string,
+    flight: string,
+    origin: string,
+    destination: string,
+    scheduledTimeOfArrival: string,
+    scheduledTimeOfDeparture: string,
+    actualTimeOfDeparture: string,
+    estimatedTimeOfArrival: string,
+    plannedflightTime: string,
+    estimatedDiffToSchedule: number | string,
+    ecefLongitude: number,
+    ecefLatitude: number
+}
+
+export type TrackingEventType = {
+    id: string,
+    type: string,
+    airWaybillNumber : string,
+    totalNumberOfPieces: string,
+    originAndDestination: {
+        origin: string,
+        destination: string
+    },
+    quantity: {
+        shipmentDescriptionCode: string,
+        numberOfPieces: string,
+        weight: {
+            amount: string,
+            unit: string
+        }
+    },
+    otherCustomsSecurityAndRegulatoryInformation: any, //do we need these fields?
+    otherServiceInformation: string, //comments for table
+    events: EventType[],
+    messageHeader: any //do we need these fields?
+}
 
 export type OperationType = {
     id: number,
@@ -72,5 +112,6 @@ export type OperationType = {
     payment_due_by: string | null,
     has_change_request?: boolean,
     change_requests?: Array<OperationType>,
-    can_be_patched?:boolean
+    can_be_patched?:boolean,
+    tracking_events?: TrackingEventType[]
 }

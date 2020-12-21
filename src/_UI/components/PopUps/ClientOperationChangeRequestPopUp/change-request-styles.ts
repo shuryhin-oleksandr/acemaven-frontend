@@ -115,3 +115,10 @@ export const ShippingModeText = styled.div`
   text-transform: uppercase;
   color: #000000;
 `;
+
+export const DatesError = styled.div`
+  font-family: "Helvetica Reg", sans-serif;
+  color: #e76767;
+  font-size: 12px;
+  margin-top: 12px;
+`;

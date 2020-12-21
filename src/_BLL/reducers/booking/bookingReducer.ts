@@ -1,6 +1,13 @@
-import {ChoiceType, CostBookingType, DescriptionStepType, PostBookingData} from "src/_BLL/types/bookingTypes";
-import { CargoGroupType, SearchResultType } from "src/_BLL/types/search/search_types";
-
+import {
+  ChoiceType,
+  CostBookingType,
+  DescriptionStepType,
+  PostBookingData,
+} from "src/_BLL/types/bookingTypes";
+import {
+  CargoGroupType,
+  SearchResultType,
+} from "src/_BLL/types/search/search_types";
 
 const initialState = {
   booking_step: "shipping-form",
@@ -10,7 +17,8 @@ const initialState = {
   release_type_choices: null as ChoiceType[] | null,
   description_step_data: null as DescriptionStepType | null,
   current_booking_freight_rate: null as SearchResultType | null,
-  recalculated_cost: null as any | null
+  recalculated_cost: null as any | null,
+  booking_dates_error: null as string | null,
 };
 
 type InitialStateType = typeof initialState;
@@ -18,7 +26,7 @@ type InitialStateType = typeof initialState;
 export const bookingReducer = (
   state = initialState,
   action: commonBookingActions
-):InitialStateType => {
+): InitialStateType => {
   switch (action.type) {
     case "CHANGE_BOOKING_STEP":
       return {
@@ -58,14 +66,21 @@ export const bookingReducer = (
     case "SET_RECALCULATED_COST":
       return {
         ...state,
-        recalculated_cost: action.new_total
-      }
+        recalculated_cost: action.new_total,
+      };
+    case "SET_BOOKING_ERROR":
+      return {
+        ...state,
+        booking_dates_error: action.error,
+      };
     default:
       return state;
   }
 };
 
-type AC<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never;
+type AC<T> = T extends { [key: string]: (...args: any[]) => infer U }
+  ? U
+  : never;
 export type commonBookingActions = AC<typeof bookingActions>;
 
 export const bookingActions = {
@@ -94,6 +109,10 @@ export const bookingActions = {
     } as const),
   set_release_type_choices: (choices: ChoiceType[]) =>
     ({ type: "SET_RELEASE_TYPE_CHOICES", choices } as const),
-  set_description_step: (data: any) => ({type: "SET_DESCRIPTION_STEP", data} as const),
-  setRecalculatedBooking: (new_total: any) => ({type: 'SET_RECALCULATED_COST', new_total} as const)
+  set_description_step: (data: any) =>
+    ({ type: "SET_DESCRIPTION_STEP", data } as const),
+  setRecalculatedBooking: (new_total: any) =>
+    ({ type: "SET_RECALCULATED_COST", new_total } as const),
+  setChangeBookingError: (error: string | null) =>
+    ({ type: "SET_BOOKING_ERROR", error } as const),
 };

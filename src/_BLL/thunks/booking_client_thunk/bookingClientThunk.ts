@@ -48,7 +48,8 @@ export const changeBooking = (id: number, patchObj: any, setIsOpen: any) => {
       setIsOpen(false);
       await dispatch(getClientExactOperationThunk(id));
     } catch (e) {
-      console.log("error", e);
+      console.log("error", e.response.data.error);
+      dispatch(bookingActions.setChangeBookingError("Entered dates mismatch with surcharges or freight rate dates."));
     }
   };
 };

@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import styled from "styled-components";
+import {TrackingEventType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
 
 const useStyles = makeStyles({
     container: {
@@ -34,9 +35,7 @@ const useStyles = makeStyles({
         fontFamily: "Helvetica Bold",
         fontSize: "16px",
         borderBottom: "1px solid #115B86",
-        padding: "0",
-        paddingBottom: "15px",
-        paddingRight: "30px",
+        padding: "15 px 0 10px"
     },
     innerMainCell: {
         borderBottom: "1px solid #ECECEC",
@@ -50,48 +49,34 @@ const useStyles = makeStyles({
     },
     dateCell: {
         borderBottom: "1px solid #ECECEC",
-        fontFamily: "Helvetica Light",
-        fontSize: "16px",
-        color: "#1B1B25",
-        height: "72px",
-        padding: "0",
-        paddingRight: "30px",
-        whiteSpace: "nowrap",
+        fontFamily: "Helvetica Reg",
+        fontSize: "14px",
+        color: "#333333"
     },
-
     statusCell: {
         borderBottom: "1px solid #ECECEC",
-        fontFamily: "Helvetica Light",
-        fontSize: "16px",
-        color: "#1B1B25",
-        height: "72px",
-        padding: "0",
-        paddingRight: "30px",
-        width: "25%",
+        fontFamily: "Helvetica Reg",
+        fontSize: "14px",
+        color: "#000000",
     },
     commentCell: {
         borderBottom: "1px solid #ECECEC",
         fontFamily: "Helvetica Light",
-        fontSize: "16px",
-        color: "#1B1B25",
-        height: "72px",
-        padding: "0",
-        paddingRight: "30px",
-    },
-    customTooltip: {
-        maxWidth: 330,
-        height: 60,
-        fontFamily: "Helvetica Reg",
         fontSize: "14px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "15px",
-    },
+        color: "#3B3B41"
+    }
 });
 
-const StatusTable: React.FC = () => {
+type PropsType = {
+    air_tracking_events: TrackingEventType[]
+}
+
+const StatusTable: React.FC<PropsType> = ({air_tracking_events}) => {
     const classes = useStyles();
+
+    const events = air_tracking_events.map(ae => ae.events[0])
+
+
     return (
         <TableWrapper>
             <TableContainer className={classes.container} component={Paper}>
@@ -110,61 +95,19 @@ const StatusTable: React.FC = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {[1, 2, 3, 4]?.map((row, idx) => (
+                        {events?.map((ev, idx) => (
                             <TableRow key={idx} className={classes.row}>
                                 <TableCell className={classes.dateCell} align="left">
-                  <span
-                      style={{
-                          color: "black",
-                          fontFamily: "Helvetica Light",
-                          fontSize: "14px",
-                      }}
-                  >
-                    20/10
-                    <span
-                        style={{
-                            fontFamily: "Helvetica Reg",
-                            marginLeft: "10px",
-                        }}
-                    >
-                      22:30
-                    </span>
-                  </span>
+                                    <span style={{fontFamily: 'Helvetica Light', color: '#000000'}}>
+                                        {ev?.timeOfEvent.split('T')[0]}{' '}
+                                    </span>
+                                    {' '}{ev?.timeOfEvent.split('T')[1]}
                                 </TableCell>
                                 <TableCell className={classes.statusCell} align="left">
-                  <span
-                      style={{
-                          color: "black",
-                          fontFamily: "Helvetica Reg",
-                          fontSize: "14px",
-                      }}
-                  >
-                    Vessel Arrived in Transshipment Port
-                  </span>
+                                    {ev?.type}
                                 </TableCell>
                                 <TableCell className={classes.commentCell} align="left">
-                  <span
-                      style={{
-                          color: "black",
-                          fontFamily: "Helvetica Light",
-                          fontSize: "14px",
-                          display: "flex",
-                      }}
-                  >
-                    <div style={{ marginRight: "8px", whiteSpace: "nowrap" }}>
-                      Cameron Williamson:
-                    </div>
-                    <div
-                        style={{
-                            fontFamily: "Helvetica Light",
-                            fontStyle: "italic",
-                        }}
-                    >
-                      Amet minim mollit non deserunt ullamco est sit aliqua
-                      dolor do amet sint. Velit offii ia conseq uat duis enim
-                      velit mollit. Exercitation veniam consequat sunt nostrud.
-                    </div>
-                  </span>
+                                    no comments
                                 </TableCell>
                             </TableRow>
                         ))}

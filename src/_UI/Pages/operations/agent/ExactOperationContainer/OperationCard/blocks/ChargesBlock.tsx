@@ -18,9 +18,6 @@ const useStyles = makeStyles({
     container: {
         boxShadow: "none",
     },
-    table: {
-        "& .MuiTableHead-root": {},
-    },
     info_row: {
         '&:hover' : {
             cursor: 'pointer'
@@ -30,8 +27,9 @@ const useStyles = makeStyles({
         color: "#115B86",
         fontFamily: "Helvetica Bold",
         fontSize: "16px",
-        borderBottom: "1px solid white",
-        padding: "16px 0 0",
+        borderBottom: "1px solid #115B86",
+        borderTop: "1px solid #115B86",
+        padding: "5px 0 5px",
     },
     innerMainCell: {
         borderBottom: "1px solid #E0E0E0;",
@@ -41,7 +39,7 @@ const useStyles = makeStyles({
 
     },
     innerCell: {
-        borderBottom: "1px solid #E0E0E0;",
+        borderBottom: "1px solid #E0E0E0",
         fontFamily: "Helvetica Light",
         fontSize: "16px",
         color: "#1B1B25",
@@ -72,7 +70,7 @@ const ChargesBlock:React.FC<PropsType> = ({operation_charges, number_of_docs}) =
         <HiddenWrapper margin_top={'30px'}>
             <HiddenTable>
                 <TableContainer className={classes.container} component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
+                    <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 {column_object.map((c: any, index: number) => <TableCell key={index} className={classes.cell} align={c.align}>

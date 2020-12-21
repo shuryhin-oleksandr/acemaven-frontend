@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { GoogleMap, Marker, Polyline, withGoogleMap } from "react-google-maps";
-import { polylineIcons } from "../../../../../_BLL/helpers/GetIconsForPolylineGoogleMap";
+import { polylineIcons } from "../../../../../_BLL/helpers/tracker/GetIconsForPolylineGoogleMap";
 
 type PropsType = {
   isMarkerShown?: boolean;

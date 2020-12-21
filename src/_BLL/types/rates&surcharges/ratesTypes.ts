@@ -6,12 +6,15 @@ export type CurrencyType = {
   code: string;
 };
 
+export type CoordinatesType = {latitude: number, longitude: number}
+
 export type PortType = {
   id: number;
   display_name: string;
   name: string;
   code: string;
   is_local?: boolean;
+  coordinates?: CoordinatesType
 };
 
 export type CarrierType = {

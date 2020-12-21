@@ -30,8 +30,7 @@ const useStyles = makeStyles({
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '14px',
-        borderBottom: '1px solid #115B86',
-        borderTop: '1px solid #115B86',
+        borderBottom: '1px solid transparent',
         padding: '0',
         marginRight: '44px'
     },

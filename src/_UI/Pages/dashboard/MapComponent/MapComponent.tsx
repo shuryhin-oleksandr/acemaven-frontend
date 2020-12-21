@@ -1,12 +1,11 @@
 import React, { ReactElement } from "react";
 import {
-  withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
   Polyline
 } from "react-google-maps";
-import { polylineIcons } from "../../../../_BLL/helpers/GetIconsForPolylineGoogleMap";
+import { polylineIcons } from "../../../../_BLL/helpers/tracker/GetIconsForPolylineGoogleMap";
 
 // import {back-button} from "../../../assets/icons";
 

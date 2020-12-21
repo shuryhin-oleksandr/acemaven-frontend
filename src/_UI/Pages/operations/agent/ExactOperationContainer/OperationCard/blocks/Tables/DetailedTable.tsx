@@ -9,6 +9,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import styled from "styled-components";
 
+
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
@@ -70,38 +71,37 @@ const useStyles = makeStyles({
     },
 });
 
-const DetailedTable: React.FC = () => {
+type PropsType = {
+
+}
+
+const DetailedTable: React.FC<PropsType> = ({}) => {
     const classes = useStyles();
+
+    let sea_column = [
+        {name: 'CONTEINER REF.'},
+        {name: 'TYPE'},
+        {name: 'DATE'},
+        {name: 'STATUS'},
+        {name: 'PORTO'},
+        {name: 'SHIP'},
+        {name: 'TRAVEL'},
+        {name: 'ETA'},
+    ]
+
+
     return (
         <TableWrapper>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell className={classes.cell} align="left">
-                                CONTEINER REF.
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                TYPE
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                DATE
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                STATUS
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                PORTO
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                SHIP
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                TRAVEL
-                            </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                ETA
-                            </TableCell>
+
+                            {sea_column.map(s => <TableCell className={classes.cell} align="left">
+                                {s.name}
+                            </TableCell>)
+                            }
+
                         </TableRow>
                     </TableHead>
                     <TableBody>

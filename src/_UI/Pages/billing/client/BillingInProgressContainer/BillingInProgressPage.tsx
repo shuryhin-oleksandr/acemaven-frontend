@@ -22,6 +22,7 @@ const BillingInProgressPage: React.FC = () => {
           loadingElement={<div style={{ height: `450px` }} />}
           containerElement={<MapWrapper />}
           mapElement={<div style={{ height: `450px` }} />}
+          events={[]}
         />
       )}
       <Inner>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 //types
 import {AppStateType} from "../../../_BLL/store";
 import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
@@ -26,6 +26,15 @@ import Layout from "../../components/BaseLayout/Layout";
 import DashboardPage from "./DashboardPage";
 import ChargeableWeightPopup from "../../components/PopUps/chargable_weight/ChargeableWeightPopup";
 import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
+import {agentOperationsActions} from "../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {clientOperationsActions} from "../../../_BLL/reducers/operations/client/clientOperationsReducer";
+import {getAgentsOperationsThunk} from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {getClientOperationsThunk} from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {
+    getAgentsOperationsListSelector,
+    getClientOperationsListSelector
+} from "../../../_BLL/selectors/operations/agentOperationsSelector";
+
 
 
 const DashboardContainer:React.FC = () => {
@@ -56,6 +65,13 @@ const DashboardContainer:React.FC = () => {
     const destination_ports = useSelector(getDestinationPorts);
     const frozen_choices = useSelector(getFrozenChoicesSelector);
     const origin_port_value = useSelector(getIsLocalPort);
+    let company_type = useSelector(
+        (state: AppStateType) =>
+            state.profile.authUserInfo?.companies &&
+            state.profile.authUserInfo?.companies[0]
+    );
+    let agent_operations_list = useSelector(getAgentsOperationsListSelector);
+    let client_operations_list = useSelector(getClientOperationsListSelector);
 
     let setDuplicatedCargoError = (error: string) => {
         dispatch(searchActions.setDuplicatedError(error))
@@ -82,6 +98,16 @@ const DashboardContainer:React.FC = () => {
         }
     }, [])
 */
+    useEffect(() => {
+        dispatch(agentOperationsActions.setAgentOperationsList([]))
+        dispatch(clientOperationsActions.setClientOperationsList([]))
+            company_type?.type === "agent"
+                ? dispatch(getAgentsOperationsThunk(current_shipping_type, true, "", "", "", 'active'))
+                : dispatch(getClientOperationsThunk(current_shipping_type, true, "", "", "", 'active'));
+
+    }, []);
+
+
     return (
         <Layout>
             <ModalWindow isOpen={isOpenCalcPopup}>
@@ -116,6 +142,9 @@ const DashboardContainer:React.FC = () => {
                                destination_ports={destination_ports}
                                frozen_choices={frozen_choices}
                                origin_port_value={origin_port_value}
+                               agent_operations_list={agent_operations_list}
+                               client_operations_list={client_operations_list}
+                               company_type={String(company_type?.type)}
                 />
             </div>
 

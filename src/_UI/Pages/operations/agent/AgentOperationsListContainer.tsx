@@ -36,14 +36,17 @@ type PropsType = {
 const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...props}) => {
 
     const [isHide, setIsHide] = useState(false);
+    let events = props.operations_list.map(o => ({...o.tracking, events: o.tracking?.events.map(te => ({lat: te[0].ecefLatitude, lng: te[0].ecefLongitude}))}))
+
 
     return (
         <OperationsWrapper>
             {!isHide && <MapComponent
-                isMarkerShown
+                isMarkerShown={false}
                 loadingElement={<div style={{ height: `420px` }} />}
                 containerElement={<MapWrapper />}
                 mapElement={<div style={{ height: `420px` }} />}
+                events={events }
             />}
             <OperationsInner>
                 <HideButton isHide={isHide} onClick={() => isHide ? setIsHide((false)) : setIsHide(true)}>
@@ -86,6 +89,7 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
                                          operations_list={props.operations_list}
                                          my_operations={props.my_operations}
                                          operation_status={props.operation_status}
+
 
                     />
                 </OperationsContent>

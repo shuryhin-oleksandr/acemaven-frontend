@@ -7,13 +7,13 @@ import {
 } from "react-google-maps";
 import { polylineIcons } from "../../../../_BLL/helpers/tracker/GetIconsForPolylineGoogleMap";
 
-// import {back-button} from "../../../assets/icons";
 
 interface Interface {
   isMarkerShown?: boolean;
   loadingElement?: ReactElement;
   containerElement: ReactElement;
   mapElement: ReactElement;
+  events: any
 }
 
 const MapComponent: React.FC<Interface> = (props) => (
@@ -31,28 +31,35 @@ const MapComponent: React.FC<Interface> = (props) => (
         },
       },
     }}
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+    defaultZoom={3}
+    defaultCenter={{ lat: -3.731862, lng: -38.526669}}
   >
-    {props.isMarkerShown && (
-      <Marker position={{ lat: -34.397, lng: 150.644 }} />
-    )}
-    <Polyline
-      path = {[{lat: -34.397, lng: 150.644}, {lat: 23.910225, lng: 90.041885}, {lat: 53.910225, lng: 27.041885}]}
-      options={{
-        geodesic: true,
-        strokeColor: 'rgba(255,255,255,0.09)',
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-        icons: polylineIcons({
-          start: {lat: -34.397, lng: 150.644},
-          end: {lat: 23.910225, lng: 90.041885},
-          now: {lat: 53.910225, lng: 27.041885},
-          typeTransportation: "See",
-          processType: "Import"
-        })
-      }}
-    />
+      {props.events.map((ev: any, index: number) => <>
+          {props.isMarkerShown && (
+              <Marker position={{ lat: ev.origin?.latitude, lng: ev.origin?.longitude }} />
+          )}
+          <Polyline
+              path = {[
+                  {lat: Number(ev.origin?.latitude), lng: Number(ev.origin?.longitude)},
+                  ...ev.events,
+                  {lat: Number(ev.destination?.latitude), lng: Number(ev.destination?.longitude)}
+                  ]}
+              options={{
+                  geodesic: true,
+                  strokeColor: 'rgba(255,255,255,0.09)',
+                  strokeOpacity: 1.0,
+                  strokeWeight: 2,
+                  icons: polylineIcons({
+                      start: {lat: Number(ev.origin?.latitude), lng: Number(ev.origin?.longitude)},
+                      end: {lat: Number(ev.destination?.latitude), lng: Number(ev.destination?.longitude)},
+                      now: {lat: Number(ev.events[ev.events.length - 1].lat), lng: Number(ev.events[ev.events.length - 1].lng)},
+                      typeTransportation: ev.shipping_type,
+                      processType: ev.direction
+                  })
+              }}
+          />
+      </>)}
+
   </GoogleMap>
 );
 

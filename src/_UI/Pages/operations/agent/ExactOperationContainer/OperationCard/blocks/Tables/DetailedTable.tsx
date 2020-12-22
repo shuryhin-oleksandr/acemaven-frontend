@@ -14,9 +14,6 @@ const useStyles = makeStyles({
     container: {
         boxShadow: "none",
     },
-    table: {
-        "& .MuiTableHead-root": {},
-    },
     row: {
         "&:hover": {
             cursor: "pointer",
@@ -93,7 +90,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
     return (
         <TableWrapper>
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
 

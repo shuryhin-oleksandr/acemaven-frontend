@@ -32,6 +32,8 @@ import { PackagingType } from "../../../_BLL/types/rates&surcharges/surchargesTy
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../_BLL/store";
 import { searchActions } from "../../../_BLL/reducers/search_client/searchClientReducer";
+import {OperationType} from "../../../_BLL/types/operations/operationsTypes";
+import {AppCompaniesTypes} from "../../../_BLL/types/commonTypes";
 
 
 type PropsType = {
@@ -57,6 +59,9 @@ type PropsType = {
   frozen_choices: ChoiceType[];
   origin_port_value: PortType | null;
   container_types: ContainerType[];
+  client_operations_list: OperationType[],
+  agent_operations_list: OperationType[],
+  company_type: string
 };
 
 const DashboardPage: React.FC<PropsType> = ({
@@ -78,7 +83,7 @@ const DashboardPage: React.FC<PropsType> = ({
   origin_ports,
   destination_ports,
   frozen_choices,
-  origin_port_value
+  origin_port_value, ...props
 }) => {
   const dispatch = useDispatch();
 
@@ -124,6 +129,9 @@ const DashboardPage: React.FC<PropsType> = ({
     setDates([]);
   };
 
+  let agent_events = props.agent_operations_list.map(o => ({...o.tracking, events: o.tracking?.events?.map(te => ({lat: te[0].ecefLatitude, lng: te[0].ecefLongitude}))}))
+  let client_events = props.client_operations_list.map(o => ({...o.tracking, events: o.tracking?.events?.map(te => ({lat: te[0].ecefLatitude, lng: te[0].ecefLongitude}))}))
+
   return (
     <DashboardWrapper>
       {bookingPopupVisible && currentBookingRate &&
@@ -139,10 +147,11 @@ const DashboardPage: React.FC<PropsType> = ({
         </ModalWindow>
       }
       <MapComponent
-        isMarkerShown
+        isMarkerShown={false}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<MapWrapper />}
         mapElement={<div style={{ height: `100%` }} />}
+        events={props.company_type === AppCompaniesTypes.AGENT ? agent_events : client_events}
       />
       {search_success && <Back />}
       <SearchBox widgetsVisible={widgetsVisible}>

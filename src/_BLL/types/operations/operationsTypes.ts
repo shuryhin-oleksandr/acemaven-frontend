@@ -87,6 +87,13 @@ export type TrackingEventType = {
     events: EventType[],
     messageHeader: any //do we need these fields?
 }
+export type TrackingBackendType = {
+    shipping_type: string,
+    direction: string,
+    origin: { latitude: number, longitude: number},
+    destination: { latitude: number, longitude: number},
+    events: EventType[]
+}
 
 export type OperationType = {
     id: number,
@@ -113,5 +120,6 @@ export type OperationType = {
     has_change_request?: boolean,
     change_requests?: Array<OperationType>,
     can_be_patched?:boolean,
-    tracking_events?: TrackingEventType[]
+    tracking_events?: TrackingEventType[],
+    tracking?: TrackingBackendType
 }

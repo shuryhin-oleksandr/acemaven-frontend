@@ -34,6 +34,7 @@ import {
     getAgentsOperationsListSelector,
     getClientOperationsListSelector
 } from "../../../_BLL/selectors/operations/agentOperationsSelector";
+import {AppCompaniesTypes} from "../../../_BLL/types/commonTypes";
 
 
 
@@ -102,8 +103,8 @@ const DashboardContainer:React.FC = () => {
         dispatch(agentOperationsActions.setAgentOperationsList([]))
         dispatch(clientOperationsActions.setClientOperationsList([]))
             company_type?.type === "agent"
-                ? dispatch(getAgentsOperationsThunk(current_shipping_type, true, "", "", "", 'active'))
-                : dispatch(getClientOperationsThunk(current_shipping_type, true, "", "", "", 'active'));
+                ? dispatch(getAgentsOperationsThunk('air', true, "", "", "", 'active'))
+                : dispatch(getClientOperationsThunk('air', true, "", "", "", 'active'));
 
     }, []);
 
@@ -142,9 +143,7 @@ const DashboardContainer:React.FC = () => {
                                destination_ports={destination_ports}
                                frozen_choices={frozen_choices}
                                origin_port_value={origin_port_value}
-                               agent_operations_list={agent_operations_list}
-                               client_operations_list={client_operations_list}
-                               company_type={String(company_type?.type)}
+                               operations_list={company_type?.type === AppCompaniesTypes.AGENT ? agent_operations_list : client_operations_list}
                 />
             </div>
 

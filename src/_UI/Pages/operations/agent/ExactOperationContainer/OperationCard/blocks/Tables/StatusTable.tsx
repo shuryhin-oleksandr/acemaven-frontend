@@ -68,13 +68,20 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    air_tracking_events: TrackingBackendType[]
+    tracking: TrackingBackendType[],
+    shipping_type: string,
 }
 
-const StatusTable: React.FC<PropsType> = ({air_tracking_events}) => {
+const StatusTable: React.FC<PropsType> = ({tracking,shipping_type}) => {
     const classes = useStyles();
 
-    const events = air_tracking_events.map(ae => ae.data.events[0])
+    console.log("TRR", tracking);
+    // const events = shipping_type==="air" ?
+    //     tracking.map(ae => ae.data.events[0])
+    //     :
+    //     tracking.map(tr=>)
+
+    const events = tracking.map(ae => ae.data.events[0])
 
 
     return (

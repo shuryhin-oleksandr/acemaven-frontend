@@ -9,17 +9,20 @@ import {ShippingTypesEnum} from "../../../../../../../../_BLL/types/rates&surcha
 import {CoordinatesType} from "../../../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 type PropsType = {
-    air_tracking_events: TrackingBackendType[],
+    tracking: TrackingBackendType[],
     shipping_type: string,
     direction: string,
     origin_coordinates: CoordinatesType | null
     destination_coordinates: CoordinatesType | null
 }
 
-const ShipmentTrackingBlock: React.FC<PropsType> = ({air_tracking_events, shipping_type, direction, origin_coordinates, destination_coordinates}) => {
+const ShipmentTrackingBlock: React.FC<PropsType> = ({tracking, shipping_type, direction, origin_coordinates, destination_coordinates}) => {
 
-    console.log("air_tracking_events",air_tracking_events);
-    let events_coordinates = air_tracking_events?.map(te => ({lat: te.data.events[0].ecefLatitude, lng: te.data.events[0].ecefLongitude}))
+    let events_coordinates = shipping_type === "air" ?
+        tracking?.map(te => ({lat: te.data.events[0].ecefLatitude, lng: te.data.events[0].ecefLongitude}))
+        :
+        tracking?.map(te=>te.data.data.locations.map((l: any)=>({lat:l.lat,lng:l.lng})));
+
     const lastItem = events_coordinates[events_coordinates.length - 1]
 
 
@@ -38,8 +41,8 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({air_tracking_events, shippi
                 destination_coordinates={destination_coordinates ? destination_coordinates : null}
                 last_event_coordinates={lastItem}
             />
-            <StatusTable air_tracking_events={air_tracking_events}/>
-            {shipping_type === ShippingTypesEnum.SEA && <DetailedTable />}
+            {shipping_type === ShippingTypesEnum.AIR && <StatusTable tracking={tracking} shipping_type={shipping_type}/>}
+            {shipping_type === ShippingTypesEnum.SEA && <DetailedTable tracking={tracking} />}
         </SectionWrapper>
     );
 };

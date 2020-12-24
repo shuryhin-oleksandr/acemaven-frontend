@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import styled from "styled-components";
+import {TrackingBackendType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
 
 
 const useStyles = makeStyles({
@@ -69,10 +70,10 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-
+    tracking: TrackingBackendType[],
 }
 
-const DetailedTable: React.FC<PropsType> = ({}) => {
+const DetailedTable: React.FC<PropsType> = ({tracking}) => {
     const classes = useStyles();
 
     let sea_column = [
@@ -86,7 +87,8 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
         {name: 'ETA'},
     ]
 
-
+    const rows = tracking[0].data.data.containers.map((c:any)=>({...c, events: c.events.map((ce:any)=>({...ce}))}));
+    console.log("rows", rows);
     return (
         <TableWrapper>
             <TableContainer className={classes.container} component={Paper}>
@@ -102,7 +104,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {[1, 2, 3, 4]?.map((row, idx) => (
+                        {rows?.map((row: any, idx:number) => (
                             <TableRow key={idx} className={classes.row}>
                                 <TableCell className={classes.innerCell} align="left">
                   <span
@@ -112,7 +114,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
                           fontSize: "14px",
                       }}
                   >
-                    CRXU7660961
+                      {row.number}
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
@@ -123,7 +125,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
                           fontSize: "14px",
                       }}
                   >
-                    40FR
+                      {row.iso_code}
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
@@ -134,7 +136,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
                           fontSize: "14px",
                       }}
                   >
-                    20/11
+                      {row.events[row.events.length-1].date}
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
@@ -145,7 +147,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
                           fontSize: "14px",
                       }}
                   >
-                    LOADED ON BOARD
+                    {row.events[row.events.length-1].status}
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
@@ -156,7 +158,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
                           fontSize: "14px",
                       }}
                   >
-                    CARTAGENA
+                    ?
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
@@ -167,7 +169,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
                           fontSize: "14px",
                       }}
                   >
-                    MSC MARINA
+                    ?
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
@@ -178,7 +180,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
                           fontSize: "14px",
                       }}
                   >
-                    240GBO
+                    {row.events[row.events.length-1].voyage?row.events[row.events.length-1].voyage:"-"}
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
@@ -189,7 +191,7 @@ const DetailedTable: React.FC<PropsType> = ({}) => {
                           fontSize: "14px",
                       }}
                   >
-                    25/11
+                    ?
                   </span>
                                 </TableCell>
                             </TableRow>

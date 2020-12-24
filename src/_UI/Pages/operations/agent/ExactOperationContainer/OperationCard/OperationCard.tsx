@@ -128,7 +128,7 @@ const OperationCard: React.FC<PropsType> = ({
 
                 />
                 {operation_info?.status === "Booking Confirmed"
-                && <ShipmentTrackingBlock air_tracking_events={operation_info?.tracking ? operation_info.tracking: []}
+                && <ShipmentTrackingBlock tracking={operation_info?.tracking ? operation_info.tracking: []}
                                           shipping_type={operation_info?.shipping_type}
                                           direction={operation_info?.freight_rate.origin.is_local ? 'export' : 'import'}
                                           origin_coordinates={operation_info?.freight_rate.origin.coordinates ? operation_info.freight_rate.origin.coordinates : null}

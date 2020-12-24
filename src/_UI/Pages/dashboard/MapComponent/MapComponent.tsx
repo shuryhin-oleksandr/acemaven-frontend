@@ -13,7 +13,7 @@ interface Interface {
   loadingElement?: ReactElement;
   containerElement: ReactElement;
   mapElement: ReactElement;
-  events: any
+  //events: any
 }
 
 const MapComponent: React.FC<Interface> = (props) => (
@@ -34,7 +34,7 @@ const MapComponent: React.FC<Interface> = (props) => (
     defaultZoom={3}
     defaultCenter={{ lat: -3.731862, lng: -38.526669}}
   >
-      {props.events.map((ev: any, index: number) => <>
+     {/* {props.events.map((ev: any, index: number) => <>
           {props.isMarkerShown && (
               <Marker position={{ lat: ev.origin?.latitude, lng: ev.origin?.longitude }} />
           )}
@@ -59,7 +59,7 @@ const MapComponent: React.FC<Interface> = (props) => (
               }}
           />
       </>)}
-
+*/}
   </GoogleMap>
 );
 

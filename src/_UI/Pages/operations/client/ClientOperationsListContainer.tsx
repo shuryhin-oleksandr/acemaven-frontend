@@ -45,7 +45,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
           loadingElement={<div style={{ height: `420px` }} />}
           containerElement={<MapWrapper />}
           mapElement={<div style={{ height: `420px` }} />}
-          events={events}
+          //events={events}
         />
       )}
       <OperationsInner>

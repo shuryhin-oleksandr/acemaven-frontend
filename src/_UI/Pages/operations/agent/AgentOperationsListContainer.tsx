@@ -46,7 +46,7 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
                 loadingElement={<div style={{ height: `420px` }} />}
                 containerElement={<MapWrapper />}
                 mapElement={<div style={{ height: `420px` }} />}
-                events={events }
+                //events={events }
             />}
             <OperationsInner>
                 <HideButton isHide={isHide} onClick={() => isHide ? setIsHide((false)) : setIsHide(true)}>

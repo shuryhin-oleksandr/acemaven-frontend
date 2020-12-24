@@ -127,7 +127,7 @@ const DashboardPage: React.FC<PropsType> = ({
     setDates([]);
   };
 
-  let events = props.operations_list.map(o => ({...o.tracking, events: o.tracking?.events?.map(te => ({lat: te[0].ecefLatitude, lng: te[0].ecefLongitude}))}))
+  //let events = props.operations_list.map(o => ({...o.tracking, events: o.tracking?.events?.map(te => ({lat: te[0].ecefLatitude, lng: te[0].ecefLongitude}))}))
 
   return (
     <DashboardWrapper>
@@ -148,7 +148,7 @@ const DashboardPage: React.FC<PropsType> = ({
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<MapWrapper />}
         mapElement={<div style={{ height: `100%` }} />}
-        events={events}
+        //events={events}
       />
       {search_success && <Back />}
       <SearchBox widgetsVisible={widgetsVisible}>

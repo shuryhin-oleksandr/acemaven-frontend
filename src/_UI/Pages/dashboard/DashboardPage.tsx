@@ -27,7 +27,7 @@ import {
     PortType,
     ShippingTypeType,
 } from "../../../_BLL/types/rates&surcharges/ratesTypes";
-import {CurrentShippingType} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {PackagingType} from "../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../_BLL/store";
@@ -140,11 +140,22 @@ const DashboardPage: React.FC<PropsType> = ({
             }
         }))[0]
     }))*/
-    let events = props.operations_list.map(o => ({
+   /* let events =
+        props.operations_list.map(o => ({
         ...o.tracking_initial,
-        events: o.tracking?.map((ot: any) => ot.data.data.locations.map((l: any) => ({lat: l.lat, lng: l.lng})))
+        locations: o.tracking?.map((ot: any) => ot.data.data.locations.map((l: any) => ({lat: l.lat, lng: l.lng})))
     }))
+       */  let events =  props.operations_list.map(o => (o.shipping_type === ShippingTypesEnum.AIR ? {
+        ...o.tracking_initial,
+            locations: o.tracking?.map((ot: any) => ot.data.events.map((e: any) => ({lat: e.ecefLatitude, lng: e.ecefLongitude})))}
+            : {
+                     ...o.tracking_initial,
+                     locations: o.tracking?.map((ot: any) => ot.data.data.locations.map((l: any) => ({lat: l.lat, lng: l.lng})))
+                 }
+         ))
     console.log('eev', events)
+
+
 
     return (
         <DashboardWrapper>

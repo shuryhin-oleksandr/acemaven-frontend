@@ -21,7 +21,7 @@ import {clientOperationsActions} from "../../../_BLL/reducers/operations/client/
 const OperationsContainer: React.FC = () => {
     //local state
     const [isSearchMode, setSearchMode] = useState(false);
-    const [mode, setMode] = useState("air"); //shipping_type
+    const [mode, setMode] = useState("sea"); //shipping_type
     const [searchValue, setSearchValue] = useState("");
     const [search_column, setSearchColumn] = useState("");
     const [my_operations, setMyOperations] = useState("mine");

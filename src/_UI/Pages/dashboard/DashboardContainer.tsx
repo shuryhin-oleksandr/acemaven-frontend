@@ -103,8 +103,8 @@ const DashboardContainer:React.FC = () => {
         dispatch(agentOperationsActions.setAgentOperationsList([]))
         dispatch(clientOperationsActions.setClientOperationsList([]))
             company_type?.type === "agent"
-                ? dispatch(getAgentsOperationsThunk('air', true, "", "", "", 'active'))
-                : dispatch(getClientOperationsThunk('air', true, "", "", "", 'active'));
+                ? dispatch(getAgentsOperationsThunk('sea', true, "", "", "", 'active'))
+                : dispatch(getClientOperationsThunk('sea', true, "", "", "", 'active'));
 
     }, []);
 

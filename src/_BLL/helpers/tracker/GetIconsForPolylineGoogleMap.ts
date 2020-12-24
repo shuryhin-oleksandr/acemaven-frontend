@@ -51,7 +51,7 @@ export const polylineIcons = (props: InterfaceFuncIcons) => {
         path: "M 0,-1.2 0,1.2",
         strokeOpacity: 1,
         strokeWeight: 9,
-        strokeColor: "rgba(90,90,90,0.1)",
+        strokeColor: "rgba(0,0,0,0.07)",
         scale: 5,
       },
       offset: "0",

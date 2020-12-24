@@ -35,7 +35,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
   ...props
 }) => {
   const [isHide, setIsHide] = useState(false);
-  let events = props.operations_list.map(o => ({...o.tracking, events: o.tracking?.events.map(te => ({lat: te[0].ecefLatitude, lng: te[0].ecefLongitude}))}))
+  //let events = props.operations_list.map(o => ({...o.tracking, events: o.tracking?.events.map(te => ({lat: te[0].ecefLatitude, lng: te[0].ecefLongitude}))}))
 
   return (
     <OperationsWrapper>
@@ -45,7 +45,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
           loadingElement={<div style={{ height: `420px` }} />}
           containerElement={<MapWrapper />}
           mapElement={<div style={{ height: `420px` }} />}
-          //events={events}
+          events={[]}
         />
       )}
       <OperationsInner>

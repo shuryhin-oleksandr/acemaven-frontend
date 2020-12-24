@@ -87,12 +87,78 @@ export type TrackingEventType = {
     events: EventType[],
     messageHeader: any //do we need these fields?
 }
+
+export type SeaDataDataType = {
+    route: {
+        pod: {date: string, location: number},
+        pol: {date: string, location: number},
+        prepol: {date: string, location: number},
+        postpod: {date: string, location: number}
+    },
+    vessels: {
+        id : number,
+        imo : number,
+        flag : string,
+        mmsi : number
+        name : string
+        call_sign : string
+    }[],
+    locations: {
+        id : number,
+        lat : number,
+        lng : number
+        name : string,
+        state : string,
+        locode : any
+        country : string,
+        country_code : string
+    }[],
+    containers : {
+        iso_code: string,
+        number: string,
+        events: {
+            date : string
+            type : string
+            status : string
+            vessel : number
+            voyage : string
+            location : number
+            description : string
+        }[]
+    }[],
+    status : string,
+    message : string
+}
+
 export type TrackingBackendType = {
+    id: number,
+    date_created: string,
+    route: {
+        status: string,
+        message: string,
+        data: {
+            pin: number[],
+            route: {
+                type: string,
+                path: number[]
+            } []
+        }
+    } | null
+    comment?: any,
+    status?: any,
+    booking: number,
+    data: {
+        data: SeaDataDataType,
+        status: string,
+        message: string,
+    } | TrackingEventType // sea and air
+}
+
+export type InitialTrackingType = {
     shipping_type: string,
     direction: string,
-    origin: { latitude: number, longitude: number},
-    destination: { latitude: number, longitude: number},
-    events: EventType[]
+    origin: {latitude: number, longitude: number},
+    destination: {latitude: number, longitude: number},
 }
 
 export type OperationType = {
@@ -120,6 +186,7 @@ export type OperationType = {
     has_change_request?: boolean,
     change_requests?: Array<OperationType>,
     can_be_patched?:boolean,
-    tracking_events?: TrackingEventType[],
-    tracking?: TrackingBackendType
+    tracking_events?: TrackingEventType[], //REMOVE IT!!!!
+    tracking: TrackingBackendType[],
+    tracking_initial?: InitialTrackingType | null,
 }

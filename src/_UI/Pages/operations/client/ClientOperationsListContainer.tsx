@@ -10,7 +10,7 @@ import {
 import hide_map_icon from "../../../assets/icons/operations/hide_map.svg";
 import OptionsOperationButtons from "../../../components/_commonComponents/optionsButtons/operations/OptionsOperationButtons";
 import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
-import { CurrentShippingType } from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {CurrentShippingType, ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { OperationType } from "../../../../_BLL/types/operations/operationsTypes";
 import ClientOperationTable from "./table/ClientOperationTable";
 import MapComponent from "../../dashboard/MapComponent/MapComponent";
@@ -35,7 +35,17 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
   ...props
 }) => {
   const [isHide, setIsHide] = useState(false);
-  //let events = props.operations_list.map(o => ({...o.tracking, events: o.tracking?.events.map(te => ({lat: te[0].ecefLatitude, lng: te[0].ecefLongitude}))}))
+
+  // SEA
+  let events = props.operations_list.map(o => ({
+    ...o.tracking_initial,
+    locations: o.tracking?.map((ot: any) => ot.data?.data?.locations.map((l: any) => ({lat: l.lat, lng: l.lng})))
+  }))
+  // AIR
+  let air_events = props.operations_list.map(o => ({
+    ...o.tracking_initial,
+    locations: o.tracking?.map((ot: any) => ot.data?.events?.map((e: any) => ({lat: e.ecefLatitude, lng: e.ecefLongitude})))
+  }))
 
   return (
     <OperationsWrapper>
@@ -45,7 +55,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
           loadingElement={<div style={{ height: `420px` }} />}
           containerElement={<MapWrapper />}
           mapElement={<div style={{ height: `420px` }} />}
-          events={[]}
+          events={(props.mode === ShippingTypesEnum.SEA) ? events : air_events}
         />
       )}
       <OperationsInner>

@@ -147,11 +147,12 @@ export type TrackingBackendType = {
     comment?: any,
     status?: any,
     booking: number,
-    data: {
-        data: SeaDataDataType,
-        status: string,
-        message: string,
-    } | TrackingEventType // sea and air
+    // data: {
+    //     data: SeaDataDataType,
+    //     status: string,
+    //     message: string,
+    // } | TrackingEventType // sea and air
+    data:any
 }
 
 export type InitialTrackingType = {

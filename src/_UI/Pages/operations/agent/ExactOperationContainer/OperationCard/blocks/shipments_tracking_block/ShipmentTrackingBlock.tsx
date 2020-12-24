@@ -4,12 +4,12 @@ import DetailedTable from "../Tables/DetailedTable";
 import {SectionTitle, SectionWrapper } from "../../operation-card-style";
 import {MapWrapper} from "../../../../../../dashboard/dashboard-styles";
 import SmallMapComponent from "./SmallMapComponent";
-import {TrackingEventType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+import {TrackingBackendType, TrackingEventType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
 import {ShippingTypesEnum} from "../../../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {CoordinatesType} from "../../../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 type PropsType = {
-    air_tracking_events: TrackingEventType[],
+    air_tracking_events: TrackingBackendType[],
     shipping_type: string,
     direction: string,
     origin_coordinates: CoordinatesType | null
@@ -18,7 +18,8 @@ type PropsType = {
 
 const ShipmentTrackingBlock: React.FC<PropsType> = ({air_tracking_events, shipping_type, direction, origin_coordinates, destination_coordinates}) => {
 
-    let events_coordinates = air_tracking_events?.map(te => ({lat: te.events[0].ecefLatitude, lng: te.events[0].ecefLongitude}))
+    console.log("air_tracking_events",air_tracking_events);
+    let events_coordinates = air_tracking_events?.map(te => ({lat: te.data.events[0].ecefLatitude, lng: te.data.events[0].ecefLongitude}))
     const lastItem = events_coordinates[events_coordinates.length - 1]
 
 

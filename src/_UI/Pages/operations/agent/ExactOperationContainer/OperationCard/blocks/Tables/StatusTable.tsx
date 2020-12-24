@@ -8,7 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import styled from "styled-components";
-import {TrackingEventType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+import {TrackingBackendType, TrackingEventType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
 
 const useStyles = makeStyles({
     container: {
@@ -68,13 +68,13 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-    air_tracking_events: TrackingEventType[]
+    air_tracking_events: TrackingBackendType[]
 }
 
 const StatusTable: React.FC<PropsType> = ({air_tracking_events}) => {
     const classes = useStyles();
 
-    const events = air_tracking_events.map(ae => ae.events[0])
+    const events = air_tracking_events.map(ae => ae.data.events[0])
 
 
     return (

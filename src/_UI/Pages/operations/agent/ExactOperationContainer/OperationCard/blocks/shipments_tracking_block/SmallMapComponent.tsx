@@ -56,7 +56,7 @@ const SmallMapComponent:React.FC<PropsType> = ({isMarkerShown, ...props}) => (
                 icons: polylineSmallMapIcons({
                     start: {lat: Number(props.origin_coordinates?.latitude), lng: Number(props.origin_coordinates?.longitude)},
                     end: {lat: Number(props.destination_coordinates?.latitude), lng: Number(props.destination_coordinates?.longitude)},
-                    now: {lat: Number(props.last_event_coordinates.lat), lng: Number(props.last_event_coordinates.lng)},
+                    now: {lat: Number(props.last_event_coordinates?.lat), lng: Number(props.last_event_coordinates?.lng)},
                     processType: props.direction,
                     red_icon_marker: red_icon_marker
                 })

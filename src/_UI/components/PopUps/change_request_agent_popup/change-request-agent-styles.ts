@@ -19,7 +19,7 @@ export const ChangeRequestInner = styled.div`
   max-width: 1014px;
   width: 100%;
   padding: 50px;
-  margin-top: 50px;
+  margin-top: 80px;
   position: relative;
 `
 export const ChangeRequestContent = styled.div`

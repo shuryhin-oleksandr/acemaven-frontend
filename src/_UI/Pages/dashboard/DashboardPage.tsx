@@ -127,34 +127,13 @@ const DashboardPage: React.FC<PropsType> = ({
         setDates([]);
     };
 
-    //sea
-    /*let events = props.operations_list.map(o => ({
+    let operations_with_auto_tracking = props.operations_list.filter(o => o.tracking.length && o)
+    let events = operations_with_auto_tracking.map(o => ({
         ...o.tracking_initial,
-        events: o.tracking?.map((ot: any) => ({
-            ...ot,
-            data: {
-                ...ot.data, data: {
-                    ...ot.data.data, locations: ot.data.data.locations.map((ol: any) => (
-                        {lat: ol.lat, lng: ol.lng}))
-                }
-            }
-        }))[0]
-    }))*/
-   /* let events =
-        props.operations_list.map(o => ({
-        ...o.tracking_initial,
-        locations: o.tracking?.map((ot: any) => ot.data.data.locations.map((l: any) => ({lat: l.lat, lng: l.lng})))
+        locations: o.shipping_type === ShippingTypesEnum.AIR
+            ? o.tracking?.map((ot: any) => ot.data.events.map((e: any) => ({lat: e.ecefLatitude, lng: e.ecefLongitude})))[0]
+            : o.tracking?.map((ot: any) => ot.data.data.locations.map((l: any) => ({lat: l.lat, lng: l.lng})))[0]
     }))
-       */  let events =  props.operations_list.map(o => (o.shipping_type === ShippingTypesEnum.AIR ? {
-        ...o.tracking_initial,
-            locations: o.tracking?.map((ot: any) => ot.data.events.map((e: any) => ({lat: e.ecefLatitude, lng: e.ecefLongitude})))}
-            : {
-                     ...o.tracking_initial,
-                     locations: o.tracking?.map((ot: any) => ot.data.data.locations.map((l: any) => ({lat: l.lat, lng: l.lng})))
-                 }
-         ))
-    console.log('eev', events)
-
 
 
     return (

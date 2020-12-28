@@ -92,21 +92,19 @@ const DashboardContainer:React.FC = () => {
         sessionStorage.removeItem('destination_id')
     }
 
-   /* useEffect(() => {
-        clearStorage();
-        return () => {
-            clearStorage();
-        }
-    }, [])
-*/
     useEffect(() => {
+        clearStorage()
         dispatch(agentOperationsActions.setAgentOperationsList([]))
         dispatch(clientOperationsActions.setClientOperationsList([]))
-            company_type?.type === "agent"
+    }, [])
+
+    useEffect(() => {
+        if(company_type) {
+            company_type?.type === AppCompaniesTypes.AGENT
                 ? dispatch(getAgentsOperationsThunk('', true, "", "", "", 'active'))
                 : dispatch(getClientOperationsThunk('', true, "", "", "", 'active'));
-
-    }, []);
+        }
+    }, [company_type]);
 
 
     return (

@@ -17,7 +17,6 @@ const LandingPage:React.FC = () => {
             <SignUpPage/>
             <SignInPage/>
             <SignUpFinishPopup/>
-
             <LandingHeader/>
             <ScopePart />
             <ExamplesPart />

@@ -1,5 +1,7 @@
 import {AppStateType} from "../../store";
 
+export const getAgentOperationsIsFetching = (state: AppStateType) => state.agent_operations.isFetching
+export const getClientOperationsIsFetching = (state: AppStateType) => state.client_operations.isFetching
 export const getAgentsOperationsListSelector = (state: AppStateType) => state.agent_operations.agent_operations_list
 export const getClientOperationsListSelector = (state: AppStateType) => state.client_operations.client_operations_list
 export const getExactOperationSelector = (state: AppStateType) => state.agent_operations.agent_operation_info

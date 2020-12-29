@@ -9,7 +9,7 @@ import {
     Title,
     UpperPart
 } from "./landing-header-styles";
-import landing_logo from '../../../../assets/icons/landing/landing_logo.svg'
+import landing_logo from '../../../../assets/icons/landing/logo_for_landing.svg'
 import OutlineButton from "src/_UI/components/_commonComponents/buttons/outline_button/OutlineButton";
 import RouteButton from "../../../../components/_commonComponents/buttons/route_button/RouteButton";
 import {authActions} from "../../../../../_BLL/reducers/authReducer";

@@ -18,6 +18,7 @@ export const getAgentsOperationsThunk = (
 ) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
+      dispatch(agentOperationsActions.setIsFetching(true))
       let res = await operationsAgentAPI.getAgentsOperations(
         type,
         is_mine,
@@ -27,8 +28,10 @@ export const getAgentsOperationsThunk = (
         status
       );
       dispatch(agentOperationsActions.setAgentOperationsList(res.data));
+      dispatch(agentOperationsActions.setIsFetching(false))
     } catch (e) {
       console.log(e);
+      dispatch(agentOperationsActions.setIsFetching(false))
     }
   };
 };

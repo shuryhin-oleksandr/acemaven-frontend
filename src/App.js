@@ -30,16 +30,16 @@ function App() {
   }, [dispatch, token])
 
   return (
-     isInit ?
-      <Scrollbars
+     isInit
+         ? <Scrollbars
         style={{ width: "100vw",  height: "100vh" }}
         autoHide={false}
         renderTrackVertical={(props) => <div {...props} className={isAuth ? {} : "track-vertical"}/>}
         renderThumbVertical={(props) => <div {...props} className={isAuth ? {} : "thumb-vertical"}/>}
       >
         <div className="App">{route}</div>
-      </Scrollbars>:
-      <Spinner />
+      </Scrollbars>
+         : <Spinner />
   );
 }
 

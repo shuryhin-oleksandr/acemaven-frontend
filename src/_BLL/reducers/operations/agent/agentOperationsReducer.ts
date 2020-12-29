@@ -1,4 +1,5 @@
 import {OperationType, ShipmentDetailsType} from "../../../types/operations/operationsTypes";
+import {ChoiceType} from "../../../types/bookingTypes";
 
 
 const initialState = {
@@ -9,7 +10,8 @@ const initialState = {
     cancellation_choices: [] as any[],
     cancellation_confirmation: '',
     change_request_confirmation: '',
-    taked_over: ''
+    taked_over: '',
+    status_options: [] as ChoiceType[]
 
 }
 
@@ -72,6 +74,12 @@ export const agentOperationsReducer = (state = initialState, action: commonAgent
                 ...state,
                 taked_over: action.value
             }
+
+        case "SET_TRACKING_STATUS_OPTIONS":
+            return{
+                ...state,
+                status_options: action.options
+            }
         default: return state
     }
 }
@@ -89,5 +97,6 @@ export const agentOperationsActions = {
     setCancellationChoices: (choices: any) => ({type: 'SET_CANCELLATION_CHOICES', choices} as const),
     setCancellationConfirmation: (value: string) => ({type: 'SET_CANCELLATION_CONFIRMATION', value} as const),
     setChangeRequestConfirmation: (value: string) => ({type: 'SET_CHANGE_REQUEST_CONFIRMATION', value} as const),
-    setTakedOver: (value: string) => ({type: 'SET_TAKED_OVER', value} as const)
+    setTakedOver: (value: string) => ({type: 'SET_TAKED_OVER', value} as const),
+    setTrackingStatusOptions: (options:any) =>({type:"SET_TRACKING_STATUS_OPTIONS", options} as const)
 }

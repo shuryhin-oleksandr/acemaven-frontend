@@ -39,6 +39,9 @@ export const operationsAgentAPI = {
   cancelChangeRequest (id: number) {
     return instance.post(`/booking/operation/${id}/cancel_change_request/`, {})
   },
+  getTrackingStatusOptions(type: number, direction: string){
+    return instance.get(`/booking/track-status?shipping_mode=${type}&direction=${direction}`)
+  }
 
 };
 

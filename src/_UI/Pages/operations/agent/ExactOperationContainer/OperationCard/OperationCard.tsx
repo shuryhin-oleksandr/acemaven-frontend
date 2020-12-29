@@ -134,6 +134,8 @@ const OperationCard: React.FC<PropsType> = ({
                                           origin_coordinates={operation_info?.freight_rate.origin.coordinates ? operation_info.freight_rate.origin.coordinates : null}
                                           destination_coordinates={operation_info?.freight_rate.destination.coordinates ? operation_info.freight_rate.destination.coordinates : null}
                                           company_type={company_type}
+                                          shipping_mode_id={operation_info?.freight_rate.shipping_mode.id}
+                                          automatic_tracking={operation_info.automatic_tracking}
                 />
                 }
                 <SectionWrapper>

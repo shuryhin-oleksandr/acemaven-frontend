@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -18,6 +18,9 @@ import close_icon from "../../../../../../../assets/icons/profile/closeForm.svg"
 import save_icon from "../../../../../../../assets/icons/profile/add.svg";
 import { userCompaniesType } from "../../../../../../../../_BLL/types/authTypes";
 import { AppCompaniesTypes } from "../../../../../../../../_BLL/types/commonTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { getManualTrackingStatusOptions } from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import { getTrackingStatusOptions } from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
 
 const useStyles = makeStyles({
   container: {
@@ -99,17 +102,36 @@ const useStyles = makeStyles({
 type PropsType = {
   // tracking: TrackingBackendType[];
   company_type: userCompaniesType | undefined;
+  shipping_mode_id:number;
+  direction: string;
 };
 
-const ManualTracking: React.FC<PropsType> = ({ company_type }) => {
-  const classes = useStyles();
+const data = [
+  {
+    date: "29/10",
+    status: "Vessel Arrived in Transshipment Port ",
+    comment:
+        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
+    user: "Cameron Williamson",
+  },
+  {
+    date: "29/10",
+    status: "Vessel Arrived in Transshipment Port ",
+    comment:
+        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
+    user: "Cameron Williamson",
+  },
+];
 
-  let columns = [
-    { name: "" },
-    { name: "STATUS" },
-    { name: "COMMENTS" },
-    { name: "" },
-  ];
+let columns = [
+  { name: "" },
+  { name: "STATUS" },
+  { name: "COMMENTS" },
+  { name: "" },
+];
+
+const ManualTracking: React.FC<PropsType> = ({ company_type,shipping_mode_id,direction }) => {
+  const classes = useStyles();
   const { handleSubmit, errors, setValue, control, getValues, reset } = useForm(
     {
       reValidateMode: "onBlur",
@@ -120,24 +142,19 @@ const ManualTracking: React.FC<PropsType> = ({ company_type }) => {
     console.log("values", values);
   };
 
+
+
   // const rows = tracking[0].data.data.containers.map((c:any)=>({...c, events: c.events.map((ce:any)=>({...ce}))}));
 
-  const data = [
-    {
-      date: "29/10",
-      status: "Vessel Arrived in Transshipment Port ",
-      comment:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
-      user: "Cameron Williamson",
-    },
-    {
-      date: "29/10",
-      status: "Vessel Arrived in Transshipment Port ",
-      comment:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
-      user: "Cameron Williamson",
-    },
-  ];
+  let dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("useffect");
+    dispatch(getManualTrackingStatusOptions(shipping_mode_id, direction));
+  }, []);
+
+  const statusOptions = useSelector(getTrackingStatusOptions);
+
   return (
     <Wrap onSubmit={handleSubmit(onSubmit)}>
       <Notification>
@@ -169,10 +186,7 @@ const ManualTracking: React.FC<PropsType> = ({ company_type }) => {
                     as={
                       <SurchargeRateSelect
                         placeholder={"Select status"}
-                        options={[
-                          { id: 1, title: "aaa" },
-                          { id: 1, title: "aaa" },
-                        ]}
+                        options={statusOptions}
                         maxW="260px"
                       />
                     }

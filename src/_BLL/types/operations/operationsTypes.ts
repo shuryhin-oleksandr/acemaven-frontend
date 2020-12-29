@@ -187,6 +187,7 @@ export type OperationType = {
     has_change_request?: boolean,
     change_requests?: Array<OperationType>,
     can_be_patched?:boolean,
+    automatic_tracking?:boolean,
     tracking_events?: TrackingEventType[], //REMOVE IT!!!!
     tracking: TrackingBackendType[],
     tracking_initial?: InitialTrackingType | null,

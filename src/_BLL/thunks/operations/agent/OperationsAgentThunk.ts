@@ -159,3 +159,14 @@ export const takeOverThunk = (user_id: number, booking_id: number) => {
     }
   }
 }
+
+export const getManualTrackingStatusOptions = (type:number,direction:string)=>{
+  return async (dispatch: Dispatch<commonAgentOperationsActions>)=>{
+    try{
+      let res = await operationsAgentAPI.getTrackingStatusOptions(type, direction);
+      dispatch(agentOperationsActions.setTrackingStatusOptions(res.data));
+    }catch (e) {
+      console.log(e)
+    }
+  }
+}

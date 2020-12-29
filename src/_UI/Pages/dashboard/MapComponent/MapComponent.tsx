@@ -16,7 +16,7 @@ interface Interface {
 }
 
 const MapComponent: React.FC<Interface> = (props) => {
-    console.log(props.events)
+
     return (
         <GoogleMap
             options={{
@@ -50,7 +50,7 @@ const MapComponent: React.FC<Interface> = (props) => {
                         icons: polylineIcons({
                             start: {lat: Number(ev?.origin?.latitude), lng: Number(ev?.origin?.longitude)},
                             end: {lat: Number(ev?.destination?.latitude), lng: Number(ev?.destination?.longitude)},
-                            now: {lat: Number(ev?.locations[ev?.locations.length - 1]?.lat), lng: Number(ev?.locations[ev?.locations.length - 1]?.lng)},
+                            now: {lat: Number(ev?.locations[ev?.locations?.length - 1]?.lat), lng: Number(ev?.locations[ev?.locations?.length - 1]?.lng)},
                             typeTransportation: ev?.shipping_type,
                             processType: ev?.direction
                         })

@@ -39,7 +39,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
   // SEA
   let events = props.operations_list.map(o => ({
     ...o.tracking_initial,
-    locations: o.tracking?.map((ot: any) => ot.data?.data?.locations.map((l: any) => ({lat: l.lat, lng: l.lng})))
+    locations: o.tracking?.map((ot: any) => ot.data.data && ot.data.data.length > 0 && ot.data?.data?.locations.filter((l: any) => (l && {lat: l.lat, lng: l.lng})))
   }))
   // AIR
   let air_events = props.operations_list.map(o => ({
@@ -49,7 +49,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
 
   return (
     <OperationsWrapper>
-      {!isHide && (
+      {!isHide && props.operation_status === 'active' && (
         <MapComponent
           isMarkerShown={false}
           loadingElement={<div style={{ height: `420px` }} />}
@@ -59,13 +59,13 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
         />
       )}
       <OperationsInner>
-        <HideButton
+        {props.operation_status === 'active' && <HideButton
           isHide={isHide}
           onClick={() => (isHide ? setIsHide(false) : setIsHide(true))}
         >
           <img src={hide_map_icon} alt="" />
-        </HideButton>
-        <OperationsContent>
+        </HideButton>}
+        <OperationsContent status={props.operation_status}>
           <OperationHeader>
             <OperationTitle>Operations</OperationTitle>
             <div

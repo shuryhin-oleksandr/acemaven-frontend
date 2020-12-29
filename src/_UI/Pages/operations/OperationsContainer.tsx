@@ -4,7 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 //BLL
 import { AppStateType } from "../../../_BLL/store";
 import { getAgentsOperationsThunk } from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
-import { getAgentsOperationsListSelector, getCancellationConfirmationSelector,getClientOperationsListSelector } from "../../../_BLL/selectors/operations/agentOperationsSelector";
+import {
+    getAgentOperationsIsFetching,
+    getAgentsOperationsListSelector,
+    getCancellationConfirmationSelector, getClientOperationsIsFetching,
+    getClientOperationsListSelector
+} from "../../../_BLL/selectors/operations/agentOperationsSelector";
 //components
 import Layout from "../../components/BaseLayout/Layout";
 import AgentOperationsListContainer from "./agent/AgentOperationsListContainer";
@@ -15,6 +20,7 @@ import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWin
 import AgentCancellationBadReviewPopup
     from "../../components/PopUps/agent_bad_review_popup/AgentCancellationBadReviewPopup";
 import {clientOperationsActions} from "../../../_BLL/reducers/operations/client/clientOperationsReducer";
+import SpinnerForAuthorizedPages from "../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 
 
 
@@ -36,7 +42,9 @@ const OperationsContainer: React.FC = () => {
     );
     let agent_operations_list = useSelector(getAgentsOperationsListSelector);
     let client_operations_list = useSelector(getClientOperationsListSelector);
-    let cancellation_success = useSelector(getCancellationConfirmationSelector)
+    let cancellation_success = useSelector(getCancellationConfirmationSelector);
+    let isFetchingAgent = useSelector(getAgentOperationsIsFetching)
+    let isFetchingClient = useSelector(getClientOperationsIsFetching)
     let operation_status = 'active'
 
     //hooks
@@ -71,37 +79,43 @@ const OperationsContainer: React.FC = () => {
                 <AgentCancellationBadReviewPopup setBadReviewHandler={setBadReviewHandler}
                 />
             </ModalWindow>
-            {company_type?.type === "agent" ? (
-                <AgentOperationsListContainer
-                    setSearchMode={setSearchMode}
-                    isSearchMode={isSearchMode}
-                    mode={mode}
-                    setMode={setMode}
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                    search_column={search_column}
-                    setSearchColumn={setSearchColumn}
-                    my_operations={my_operations}
-                    setMyOperations={setMyOperations}
-                    operations_list={agent_operations_list}
-                    operation_status={operation_status}
-                />
-            ) : (
-                <ClientOperationsListContainer
-                    setSearchMode={setSearchMode}
-                    isSearchMode={isSearchMode}
-                    mode={mode}
-                    setMode={setMode}
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                    search_column={search_column}
-                    setSearchColumn={setSearchColumn}
-                    my_operations={my_operations}
-                    setMyOperations={setMyOperations}
-                    operation_status={operation_status}
-                    operations_list={client_operations_list}
-                />
-            )}
+            {(isFetchingAgent || isFetchingClient)
+                ? <SpinnerForAuthorizedPages />
+                :  <>
+                    {company_type?.type === "agent" ? (
+                        <AgentOperationsListContainer
+                            setSearchMode={setSearchMode}
+                            isSearchMode={isSearchMode}
+                            mode={mode}
+                            setMode={setMode}
+                            searchValue={searchValue}
+                            setSearchValue={setSearchValue}
+                            search_column={search_column}
+                            setSearchColumn={setSearchColumn}
+                            my_operations={my_operations}
+                            setMyOperations={setMyOperations}
+                            operations_list={agent_operations_list}
+                            operation_status={operation_status}
+                        />
+                    ) : (
+                        <ClientOperationsListContainer
+                            setSearchMode={setSearchMode}
+                            isSearchMode={isSearchMode}
+                            mode={mode}
+                            setMode={setMode}
+                            searchValue={searchValue}
+                            setSearchValue={setSearchValue}
+                            search_column={search_column}
+                            setSearchColumn={setSearchColumn}
+                            my_operations={my_operations}
+                            setMyOperations={setMyOperations}
+                            operation_status={operation_status}
+                            operations_list={client_operations_list}
+                        />
+                    )}
+                </>
+            }
+
         </Layout>
     );
 };

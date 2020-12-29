@@ -127,13 +127,16 @@ const DashboardPage: React.FC<PropsType> = ({
         setDates([]);
     };
 
-    let operations_with_auto_tracking = props.operations_list.filter(o => o.tracking.length && o)
+    let operations_with_auto_tracking = props.operations_list.filter(o => o.tracking.length > 0 && o)
+
+
     let events = operations_with_auto_tracking.map(o => ({
         ...o.tracking_initial,
         locations: o.shipping_type === ShippingTypesEnum.AIR
             ? o.tracking?.map((ot: any) => ot.data.events.map((e: any) => ({lat: e.ecefLatitude, lng: e.ecefLongitude})))[0]
-            : o.tracking?.map((ot: any) => ot.data.data.locations.map((l: any) => ({lat: l.lat, lng: l.lng})))[0]
+            : o.tracking?.map((ot: any) => ot.data.data.length > 0 && ot.data.data.locations.filter((l: any) => ( l && {lat: l.lat, lng: l.lng})))[0]
     }))
+
 
 
     return (

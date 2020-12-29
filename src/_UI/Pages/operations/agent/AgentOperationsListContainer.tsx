@@ -11,7 +11,7 @@ import AgentOperationTable from './table/AgentOperationTable';
 import OptionsOperationButtons from 'src/_UI/components/_commonComponents/optionsButtons/operations/OptionsOperationButtons';
 //icons
 import hide_map_icon from '../../../assets/icons/operations/hide_map.svg'
-import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
+import { OperationType} from "../../../../_BLL/types/operations/operationsTypes";
 import {CurrentShippingType, ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import MapComponent from "../../dashboard/MapComponent/MapComponent";
 import {MapWrapper} from "../../dashboard/dashboard-styles";
@@ -40,7 +40,7 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
     // SEA
     let events = props.operations_list.map(o => ({
         ...o.tracking_initial,
-        locations: o.tracking?.map((ot: any) => ot.data?.data?.locations?.map((l: any) => ({lat: l.lat, lng: l.lng})))
+        locations: o.tracking?.map((ot: any) => ot.data.data && ot.data.data.length > 0 && ot.data?.data?.locations?.filter((l: any) => ( l && {lat: l.lat, lng: l.lng})))
     }))
     // AIR
     let air_events = props.operations_list.map(o => ({
@@ -50,7 +50,7 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
 
     return (
         <OperationsWrapper>
-            {!isHide && <MapComponent
+            {!isHide && props.operation_status === 'active' && <MapComponent
                 isMarkerShown={false}
                 loadingElement={<div style={{ height: `420px` }} />}
                 containerElement={<MapWrapper />}
@@ -58,10 +58,10 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
                 events={(props.mode === ShippingTypesEnum.SEA) ? events : air_events}
             />}
             <OperationsInner>
-                <HideButton isHide={isHide} onClick={() => isHide ? setIsHide((false)) : setIsHide(true)}>
+                {props.operation_status === 'active' && <HideButton isHide={isHide} onClick={() => isHide ? setIsHide((false)) : setIsHide(true)}>
                     <img src={hide_map_icon} alt=""/>
-                </HideButton>
-                <OperationsContent isHide={isHide}>
+                </HideButton>}
+                <OperationsContent isHide={isHide} status={props.operation_status}>
                     <OperationHeader>
                         <OperationTitle>
                             Operations

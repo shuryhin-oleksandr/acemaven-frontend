@@ -1,10 +1,6 @@
 import { Dispatch } from "redux";
 import { operationsClientAPI } from "../../../../_DAL/API/operations/operationsClientAPI";
 import {
-  agentOperationsActions,
-  commonAgentOperationsActions,
-} from "../../../reducers/operations/agent/agentOperationsReducer";
-import {
   commonClientOperationsActions,
   clientOperationsActions,
 } from "../../../reducers/operations/client/clientOperationsReducer";
@@ -22,6 +18,7 @@ export const getClientOperationsThunk = (
 ) => {
   return async (dispatch: Dispatch<commonClientOperationsActions>) => {
     try {
+      dispatch(clientOperationsActions.setIsFetching(true))
       let res = await operationsClientAPI.getClientOperations(
         type,
         is_mine,
@@ -31,8 +28,10 @@ export const getClientOperationsThunk = (
         status
       );
       dispatch(clientOperationsActions.setClientOperationsList(res.data));
+      dispatch(clientOperationsActions.setIsFetching(false))
     } catch (e) {
       console.log(e);
+      dispatch(clientOperationsActions.setIsFetching(false))
     }
   };
 };

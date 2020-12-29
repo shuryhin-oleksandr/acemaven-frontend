@@ -15,10 +15,10 @@ export const OperationsInner = styled.div`
   border-radius: 10px 10px 0 0 ;
   box-shadow: 4px 0 0 rgba(0, 0, 0, 0.1);
 `
-export const OperationsContent = styled.div<{isHide?: boolean}>`
+export const OperationsContent = styled.div<{isHide?: boolean, status?: string}>`
   width: 100%;
   height: ${({isHide}) => !isHide ? '530px' : '100%'};
-  padding: 20px 80px 50px 30px;
+  padding: ${({status}) => status === 'canceled' ? '50px 80px 50px 30px' : '20px 80px 50px 30px'};
    display: flex;
   flex-direction: column;
 `

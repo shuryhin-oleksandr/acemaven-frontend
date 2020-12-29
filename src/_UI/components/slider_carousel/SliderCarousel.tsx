@@ -12,7 +12,7 @@ const SliderCarousel = () => {
     const flickityOptions = {
         initialIndex: 0,
         prevNextButtons: false,
-        //autoPlay: 3000,
+        autoPlay: 3000,
         pauseAutoPlayOnHover: true
     }
 

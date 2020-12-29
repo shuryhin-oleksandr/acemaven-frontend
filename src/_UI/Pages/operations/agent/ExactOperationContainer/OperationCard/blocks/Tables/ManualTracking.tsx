@@ -13,11 +13,11 @@ import IconLocation from "../../../../../../../assets/icons/location_blue.svg";
 import { Controller, useForm } from "react-hook-form";
 import SurchargeRateSelect from "../../../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import { Field } from "../../../../../../../components/_commonComponents/Input/input-styles";
-import {
-  FormOperationButton,
-} from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+import { FormOperationButton } from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import close_icon from "../../../../../../../assets/icons/profile/closeForm.svg";
 import save_icon from "../../../../../../../assets/icons/profile/add.svg";
+import { userCompaniesType } from "../../../../../../../../_BLL/types/authTypes";
+import { AppCompaniesTypes } from "../../../../../../../../_BLL/types/commonTypes";
 
 const useStyles = makeStyles({
   container: {
@@ -67,7 +67,6 @@ const useStyles = makeStyles({
     color: "#1B1B25",
     padding: "15px 30px 10px 0",
     width: "30%",
-    verticalAlign: "top",
   },
   innerCommentCell: {
     borderBottom: "1px solid #ECECEC",
@@ -76,7 +75,6 @@ const useStyles = makeStyles({
     color: "#1B1B25",
     padding: "15px 30px 10px 0",
     width: "50%",
-    verticalAlign: "top",
   },
   buttonCell: {
     borderBottom: "1px solid #ECECEC",
@@ -100,9 +98,10 @@ const useStyles = makeStyles({
 
 type PropsType = {
   // tracking: TrackingBackendType[];
+  company_type: userCompaniesType | undefined;
 };
 
-const ManualTracking: React.FC<PropsType> = () => {
+const ManualTracking: React.FC<PropsType> = ({ company_type }) => {
   const classes = useStyles();
 
   let columns = [
@@ -143,8 +142,9 @@ const ManualTracking: React.FC<PropsType> = () => {
     <Wrap onSubmit={handleSubmit(onSubmit)}>
       <Notification>
         <img src={IconLocation} alt="" style={{ marginRight: "7px" }} />
-        Automatic statuses for this shipment are not available, please keep the
-        client up to date with the shipment milestones below.
+        {company_type?.type === AppCompaniesTypes.AGENT
+          ? "Automatic statuses for this shipment are not available, please keep the client up to date with the shipment milestones below."
+          : "Automatic statuses for this shipment are not available, agent updates shipment milestones manually."}
       </Notification>
       <TableWrapper>
         <TableContainer className={classes.container} component={Paper}>

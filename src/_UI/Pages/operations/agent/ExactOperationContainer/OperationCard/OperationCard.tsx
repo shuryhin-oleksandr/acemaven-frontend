@@ -133,6 +133,7 @@ const OperationCard: React.FC<PropsType> = ({
                                           direction={operation_info?.freight_rate.origin.is_local ? 'export' : 'import'}
                                           origin_coordinates={operation_info?.freight_rate.origin.coordinates ? operation_info.freight_rate.origin.coordinates : null}
                                           destination_coordinates={operation_info?.freight_rate.destination.coordinates ? operation_info.freight_rate.destination.coordinates : null}
+                                          company_type={company_type}
                 />
                 }
                 <SectionWrapper>

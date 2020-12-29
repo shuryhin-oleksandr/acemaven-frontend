@@ -11,6 +11,7 @@ import {
 import { ShippingTypesEnum } from "../../../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { CoordinatesType } from "../../../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import ManualTracking from "../Tables/ManualTracking";
+import { userCompaniesType } from "../../../../../../../../_BLL/types/authTypes";
 
 type PropsType = {
   tracking: TrackingBackendType[];
@@ -18,6 +19,7 @@ type PropsType = {
   direction: string;
   origin_coordinates: CoordinatesType | null;
   destination_coordinates: CoordinatesType | null;
+  company_type: userCompaniesType | undefined;
 };
 
 const ShipmentTrackingBlock: React.FC<PropsType> = ({
@@ -26,6 +28,7 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
   direction,
   origin_coordinates,
   destination_coordinates,
+  company_type,
 }) => {
   let events_coordinates =
     shipping_type === "air"
@@ -39,7 +42,6 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
 
   const lastItem = events_coordinates[events_coordinates.length - 1];
 
-  console.log("tracking", tracking);
   return (
     <SectionWrapper>
       <SectionTitle>SHIPMENT TRACKING</SectionTitle>
@@ -63,8 +65,7 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
           <DetailedTable tracking={tracking} />
         )
       ) : (
-        <ManualTracking />
-        // <div>nooo</div>
+        <ManualTracking company_type={company_type} />
       )}
       {/*{shipping_type === ShippingTypesEnum.AIR && <StatusTable tracking={tracking} shipping_type={shipping_type}/>}*/}
       {/*{shipping_type === ShippingTypesEnum.SEA && <DetailedTable tracking={tracking} />}*/}

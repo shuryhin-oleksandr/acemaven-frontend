@@ -5,8 +5,7 @@ import {
   commonAgentOperationsActions,
 } from "../../../reducers/operations/agent/agentOperationsReducer";
 import { BookingShipmentDetailsType } from "../../../types/bookingTypes";
-import {bookingApi} from "../../../../_DAL/API/bookingApi";
-
+import { bookingApi } from "../../../../_DAL/API/bookingApi";
 
 export const getAgentsOperationsThunk = (
   type: string,
@@ -18,7 +17,7 @@ export const getAgentsOperationsThunk = (
 ) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      dispatch(agentOperationsActions.setIsFetching(true))
+      dispatch(agentOperationsActions.setIsFetching(true));
       let res = await operationsAgentAPI.getAgentsOperations(
         type,
         is_mine,
@@ -28,10 +27,10 @@ export const getAgentsOperationsThunk = (
         status
       );
       dispatch(agentOperationsActions.setAgentOperationsList(res.data));
-      dispatch(agentOperationsActions.setIsFetching(false))
+      dispatch(agentOperationsActions.setIsFetching(false));
     } catch (e) {
       console.log(e);
-      dispatch(agentOperationsActions.setIsFetching(false))
+      dispatch(agentOperationsActions.setIsFetching(false));
     }
   };
 };
@@ -67,14 +66,14 @@ export const confirmBookingRequestThunk = (
 export const editOperationByAgentThunk = (data: any, id: number) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      dispatch(agentOperationsActions.setIsFetching(true))
-      let res = await operationsAgentAPI.editOperationByAgent(data, id)
-      dispatch(agentOperationsActions.setEditedShipmentDetails(res.data))
-      dispatch(agentOperationsActions.setEditSuccess('success'))
-      dispatch(agentOperationsActions.setIsFetching(false))
+      dispatch(agentOperationsActions.setIsFetching(true));
+      let res = await operationsAgentAPI.editOperationByAgent(data, id);
+      dispatch(agentOperationsActions.setEditedShipmentDetails(res.data));
+      dispatch(agentOperationsActions.setEditSuccess("success"));
+      dispatch(agentOperationsActions.setIsFetching(false));
     } catch (e) {
       console.log(e);
-      dispatch(agentOperationsActions.setIsFetching(false))
+      dispatch(agentOperationsActions.setIsFetching(false));
     }
   };
 };
@@ -82,14 +81,19 @@ export const editOperationByAgentThunk = (data: any, id: number) => {
 export const editOperationPaymentDueByAgentThunk = (data: any, id: number) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      dispatch(agentOperationsActions.setIsFetching(true))
-      let res = await operationsAgentAPI.editOperationPaymentDueByAgent(data, id)
-      dispatch(agentOperationsActions.setEditedPaymentDueBy(res.data.payment_due_by))
-      dispatch(agentOperationsActions.setEditSuccess('success'))
-      dispatch(agentOperationsActions.setIsFetching(false))
+      dispatch(agentOperationsActions.setIsFetching(true));
+      let res = await operationsAgentAPI.editOperationPaymentDueByAgent(
+        data,
+        id
+      );
+      dispatch(
+        agentOperationsActions.setEditedPaymentDueBy(res.data.payment_due_by)
+      );
+      dispatch(agentOperationsActions.setEditSuccess("success"));
+      dispatch(agentOperationsActions.setIsFetching(false));
     } catch (e) {
       console.log(e);
-      dispatch(agentOperationsActions.setIsFetching(false))
+      dispatch(agentOperationsActions.setIsFetching(false));
     }
   };
 };
@@ -97,76 +101,114 @@ export const editOperationPaymentDueByAgentThunk = (data: any, id: number) => {
 export const getCancellationChoicesThunk = () => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      let res = await operationsAgentAPI.getCancellationChoices()
-      dispatch(agentOperationsActions.setCancellationChoices(res.data.cancellation_reason))
+      let res = await operationsAgentAPI.getCancellationChoices();
+      dispatch(
+        agentOperationsActions.setCancellationChoices(
+          res.data.cancellation_reason
+        )
+      );
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
-}
+  };
+};
 
-export const cancelOperationByAgentThunk = (id: number, data: {reason: string, comment: string}, history: any) => {
+export const cancelOperationByAgentThunk = (
+  id: number,
+  data: { reason: string; comment: string },
+  history: any
+) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      let res = await operationsAgentAPI.cancelOperationByAgent(id, data)
-      dispatch(agentOperationsActions.setCancellationConfirmation('cancelled'))
-      history.push('/operations_active')
+      let res = await operationsAgentAPI.cancelOperationByAgent(id, data);
+      dispatch(agentOperationsActions.setCancellationConfirmation("cancelled"));
+      history.push("/operations_active");
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
-}
+  };
+};
 
-export const confirmChangeRequestThunk = (id: number, new_shipment_data: any, shipment_id: number) => {
+export const confirmChangeRequestThunk = (
+  id: number,
+  new_shipment_data: any,
+  shipment_id: number
+) => {
   return async (dispatch: Dispatch<any>) => {
     try {
-      debugger
-      await operationsAgentAPI.editOperationByAgent(new_shipment_data, shipment_id)
+      debugger;
+      await operationsAgentAPI.editOperationByAgent(
+        new_shipment_data,
+        shipment_id
+      );
       //await operationsAgentAPI.editOperationPaymentDueByAgent({payment_due_by: payment_due_by}, id)
-      let res = await operationsAgentAPI.confirmChangeRequest(id)
-      dispatch(agentOperationsActions.setChangeRequestConfirmation('reaction'))
-      let response = await operationsAgentAPI.getAgentExactOperation(res.data.id)
-      dispatch(agentOperationsActions.setAgentExactOperationInfo(response.data))
-      console.log(res.data)
+      let res = await operationsAgentAPI.confirmChangeRequest(id);
+      dispatch(agentOperationsActions.setChangeRequestConfirmation("reaction"));
+      let response = await operationsAgentAPI.getAgentExactOperation(
+        res.data.id
+      );
+      dispatch(
+        agentOperationsActions.setAgentExactOperationInfo(response.data)
+      );
+      console.log(res.data);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
-}
+  };
+};
 
 export const cancelChangeRequestThunk = (id: number) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      debugger
-      let res = await operationsAgentAPI.cancelChangeRequest(id)
-      dispatch(agentOperationsActions.setChangeRequestConfirmation('reaction'))
-      console.log(res.data)
+      debugger;
+      let res = await operationsAgentAPI.cancelChangeRequest(id);
+      dispatch(agentOperationsActions.setChangeRequestConfirmation("reaction"));
+      console.log(res.data);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
-}
+  };
+};
 
 export const takeOverThunk = (user_id: number, booking_id: number) => {
   return async (dispatch: Dispatch<any>) => {
     try {
-      await bookingApi.assignAnotherAgentToBooking(user_id, booking_id)
-      dispatch(agentOperationsActions.setTakedOver('taked'))
-      let res = await operationsAgentAPI.getAgentExactOperation(booking_id)
-      dispatch(agentOperationsActions.setAgentExactOperationInfo(res.data))
+      await bookingApi.assignAnotherAgentToBooking(user_id, booking_id);
+      dispatch(agentOperationsActions.setTakedOver("taked"));
+      let res = await operationsAgentAPI.getAgentExactOperation(booking_id);
+      dispatch(agentOperationsActions.setAgentExactOperationInfo(res.data));
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
-}
+  };
+};
 
-export const getManualTrackingStatusOptions = (type:number,direction:string)=>{
-  return async (dispatch: Dispatch<commonAgentOperationsActions>)=>{
-    try{
-      let res = await operationsAgentAPI.getTrackingStatusOptions(type, direction);
+export const getManualTrackingStatusOptions = (
+  type: number,
+  direction: string
+) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      let res = await operationsAgentAPI.getTrackingStatusOptions(
+        type,
+        direction
+      );
       dispatch(agentOperationsActions.setTrackingStatusOptions(res.data));
-    }catch (e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
-}
+  };
+};
+
+export const updateShipmentInfo = (data: any, reset :any) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      // dispatch(agentOperationsActions.updateTrackingInfoList(data));
+      let response = await operationsAgentAPI.updateShipmentInfo(data);
+      reset();
+      console.log("RRR", response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

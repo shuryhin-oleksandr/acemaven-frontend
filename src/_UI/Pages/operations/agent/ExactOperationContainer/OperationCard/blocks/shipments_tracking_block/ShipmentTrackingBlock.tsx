@@ -22,6 +22,7 @@ type PropsType = {
   company_type: userCompaniesType | undefined;
   shipping_mode_id: number;
   automatic_tracking?: boolean;
+  booking_id: number;
 };
 
 const ShipmentTrackingBlock: React.FC<PropsType> = ({
@@ -33,6 +34,7 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
   company_type,
   shipping_mode_id,
   automatic_tracking,
+  booking_id,
 }) => {
   let events_coordinates =
     shipping_type === "air"
@@ -41,10 +43,19 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
           lng: te.data.events[0].ecefLongitude,
         }))
       : tracking?.map((te) =>
-          te.data.data.locations.map((l: any) => ({ lat: l.lat, lng: l.lng }))
-        );
+          te.data?.data && te.data.data.length > 0
+            ? te.data.data.locations.map((l: any) => ({
+                lat: l.lat,
+                lng: l.lng,
+              }))
+            : []
+        )[0];
 
-  const lastItem = events_coordinates[events_coordinates.length - 1];
+  console.log("events_coordinates", events_coordinates);
+  const lastItem =
+    events_coordinates &&
+    events_coordinates.length > 0 &&
+    events_coordinates[events_coordinates.length - 1];
 
   return (
     <SectionWrapper>
@@ -73,6 +84,8 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
           company_type={company_type}
           shipping_mode_id={shipping_mode_id}
           direction={direction}
+          booking_id={booking_id}
+          tracking={tracking}
         />
       )}
       {/*{shipping_type === ShippingTypesEnum.AIR && <StatusTable tracking={tracking} shipping_type={shipping_type}/>}*/}

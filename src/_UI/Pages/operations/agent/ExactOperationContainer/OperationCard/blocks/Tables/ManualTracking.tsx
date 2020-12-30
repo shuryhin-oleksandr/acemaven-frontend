@@ -19,8 +19,12 @@ import save_icon from "../../../../../../../assets/icons/profile/add.svg";
 import { userCompaniesType } from "../../../../../../../../_BLL/types/authTypes";
 import { AppCompaniesTypes } from "../../../../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { getManualTrackingStatusOptions } from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {
+  getManualTrackingStatusOptions,
+  updateShipmentInfo,
+} from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import { getTrackingStatusOptions } from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
+import moment from "moment";
 
 const useStyles = makeStyles({
   container: {
@@ -99,26 +103,19 @@ const useStyles = makeStyles({
   },
 });
 
-type PropsType = {
-  // tracking: TrackingBackendType[];
-  company_type: userCompaniesType | undefined;
-  shipping_mode_id:number;
-  direction: string;
-};
-
 const data = [
   {
     date: "29/10",
     status: "Vessel Arrived in Transshipment Port ",
     comment:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
+      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
     user: "Cameron Williamson",
   },
   {
     date: "29/10",
     status: "Vessel Arrived in Transshipment Port ",
     comment:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
+      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
     user: "Cameron Williamson",
   },
 ];
@@ -130,7 +127,22 @@ let columns = [
   { name: "" },
 ];
 
-const ManualTracking: React.FC<PropsType> = ({ company_type,shipping_mode_id,direction }) => {
+type PropsType = {
+  // tracking: TrackingBackendType[];
+  company_type: userCompaniesType | undefined;
+  shipping_mode_id: number;
+  direction: string;
+  booking_id: number;
+  tracking: TrackingBackendType[];
+};
+
+const ManualTracking: React.FC<PropsType> = ({
+  company_type,
+  shipping_mode_id,
+  direction,
+  booking_id,
+  tracking,
+}) => {
   const classes = useStyles();
   const { handleSubmit, errors, setValue, control, getValues, reset } = useForm(
     {
@@ -139,17 +151,15 @@ const ManualTracking: React.FC<PropsType> = ({ company_type,shipping_mode_id,dir
   );
 
   const onSubmit = (values: any) => {
-    console.log("values", values);
+    const data = { ...values, booking: booking_id };
+    dispatch(updateShipmentInfo(data, reset));
   };
-
-
 
   // const rows = tracking[0].data.data.containers.map((c:any)=>({...c, events: c.events.map((ce:any)=>({...ce}))}));
 
   let dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("useffect");
     dispatch(getManualTrackingStatusOptions(shipping_mode_id, direction));
   }, []);
 
@@ -168,8 +178,8 @@ const ManualTracking: React.FC<PropsType> = ({ company_type,shipping_mode_id,dir
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                {columns.map((s) => (
-                  <TableCell className={classes.cell} align="left">
+                {columns.map((s, idx) => (
+                  <TableCell key={idx} className={classes.cell} align="left">
                     {s.name}
                   </TableCell>
                 ))}
@@ -215,14 +225,22 @@ const ManualTracking: React.FC<PropsType> = ({ company_type,shipping_mode_id,dir
                   </FormOperationButton>
                 </TableCell>
               </TableRow>
-              {data.map((row, idx) => (
+              {tracking.map((row, idx) => (
                 <TableRow key={idx}>
                   <TableCell
                     valign={"top"}
                     className={classes.innerCell}
                     align="left"
                   >
-                    {row.date}
+                    {moment(row.date_created).format("DD/MM")}
+                    <span
+                      style={{
+                        marginLeft: "15px",
+                        fontFamily: "Helvetica Reg, sans-serif",
+                      }}
+                    >
+                      {moment(row.date_created).format("HH:MM")}
+                    </span>
                   </TableCell>
                   <TableCell
                     valign={"top"}
@@ -240,7 +258,7 @@ const ManualTracking: React.FC<PropsType> = ({ company_type,shipping_mode_id,dir
                   >
                     <div style={{ display: "flex" }}>
                       <div style={{ whiteSpace: "nowrap", marginRight: "5px" }}>
-                        {row.user}:
+                        {row.created_by && `${row.created_by}:`}
                       </div>
                       <div style={{ fontStyle: "italic" }}> {row.comment}</div>
                     </div>

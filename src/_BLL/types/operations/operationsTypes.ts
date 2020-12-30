@@ -152,7 +152,8 @@ export type TrackingBackendType = {
     //     status: string,
     //     message: string,
     // } | TrackingEventType // sea and air
-    data:any
+    data:any,
+    created_by?:string
 }
 
 export type InitialTrackingType = {

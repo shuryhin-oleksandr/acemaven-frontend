@@ -136,6 +136,7 @@ const OperationCard: React.FC<PropsType> = ({
                                           company_type={company_type}
                                           shipping_mode_id={operation_info?.freight_rate.shipping_mode.id}
                                           automatic_tracking={operation_info.automatic_tracking}
+                                          booking_id={operation_info.id}
                 />
                 }
                 <SectionWrapper>

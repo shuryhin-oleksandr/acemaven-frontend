@@ -27,7 +27,7 @@ type PropsType = {
 }
 
 const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChangeMode}) => {
-    const {register, handleSubmit, errors, getValues, setValue} = useForm<IAuthUserInfo>()
+    const {register, handleSubmit, errors, setValue} = useForm<IAuthUserInfo>()
     const dispatch = useDispatch()
     let userId = useSelector((state: AppStateType) => state.profile?.authUserInfo?.id)
     let profile = useSelector((state: AppStateType) => state.profile.authUserInfo)
@@ -107,7 +107,6 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
                                    placeholder='Name'
                                    name='first_name'
                                    error={errors?.first_name}
-                                   getValues={getValues}
                         />
                     </InputWrap>
                     <InputWrap  w='47%'>
@@ -118,7 +117,6 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
                                    placeholder='Last Name'
                                    name='last_name'
                                    error={errors?.last_name}
-                                   getValues={getValues}
                         />
                     </InputWrap>
                 </FullfilledWrap>
@@ -131,7 +129,6 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
                            placeholder='+000000000000'
                            name='phone'
                            error={errors?.phone}
-                           getValues={getValues}
                            max='13'
                            pattern_message='Phone number has to include only + and numbers'
                 />
@@ -142,7 +139,6 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
                            placeholder='Position in the Company'
                            name='position'
                            error={errors?.position}
-                           getValues={getValues}
                 />
                 <ChangePasswordButton type='button' onClick={() => setChangeMode(true)}>CHANGE PASSWORD</ChangePasswordButton>
 

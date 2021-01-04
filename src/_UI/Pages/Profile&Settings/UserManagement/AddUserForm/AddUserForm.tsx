@@ -1,13 +1,15 @@
-import React, {useState} from "react";
-import {FormContainer, FormWrap} from "./add-user-form-styles";
+import React from "react";
+//react-hook-form
+import {useForm} from "react-hook-form";
+//BLL
+import {addNewWorker} from "../../../../../_BLL/reducers/profileReducer";
+//components
 import FinishFormButtons from "../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
-import {useForm} from "react-hook-form";
 import CustomCheckbox from "../../../../components/_commonComponents/customCheckbox/customCheckbox";
 import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
-import styled from "styled-components";
-import {addNewWorker} from "../../../../../_BLL/reducers/profileReducer";
-import {IAddNewUserData} from "../../../../../_BLL/types/addNewUserTypes";
+//styles
+import {FormContainer, FormWrap, Label} from "./add-user-form-styles";
 
 
 type PropsType = {
@@ -17,15 +19,32 @@ type PropsType = {
 }
 
 const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => {
-    const {register, errors, handleSubmit, getValues} = useForm<IAddNewUserData>()
+    const {register, errors, handleSubmit, watch, clearErrors} = useForm({
+        mode: 'onSubmit',
+        reValidateMode: 'onBlur'
+    })
 
-    const onSubmit = (values:IAddNewUserData) => {
-        dispatch && dispatch(addNewWorker(values))
+    const onSubmit = (values: any) => {
+        let submitted_roles = [];
+        if (values.roles.master) {
+            submitted_roles.push('master')
+        }
+        if (values.roles.billing) {
+            submitted_roles.push('billing')
+        }
+        if (values.roles.agent) {
+            submitted_roles.push('agent')
+        }
+        let whole_data = {...values, roles: submitted_roles}
+
+        dispatch && dispatch(addNewWorker(whole_data))
     }
 
-    const [masterRole, setMasterRole] = useState('')
-    const [roleValue, setRole] = useState('')
-    const [agentRole, setAgentRole] = useState('')
+    //roles
+    const agent = watch('roles.agent')
+    const billing = watch('roles.billing')
+    const master = watch('roles.master')
+    const isRoleRequired = !agent && !billing && !master
 
 
     return (
@@ -39,67 +58,58 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                                required: 'Field is required'
                            })}
                            error={errors?.first_name}
-                           getValues={getValues}
                            server_error={server_error?.first_name ? server_error.first_name[0] : ''}
                 />
                 <FormField name='last_name'
                            placeholder='Last Name'
                            label='Last Name'
                            inputRef={register({
-                               required: 'Field is required'
+                               required:'Field is required'
                            })}
                            error={errors?.last_name}
-                           getValues={getValues}
                            server_error={server_error?.last_name ? server_error.last_name[0] : ''}
                 />
                 <CheckboxWrap>
                    <Label>Roles</Label>
                     <CustomCheckbox
-                        value='master'
-                        name='roles'
+                        name='roles.master'
                         inputRef={register({
-                            required: 'Field is required'
+                            required: isRoleRequired
                         })}
                         role='Master'
-                        getValues={getValues}
-                        disabled={agentRole === 'agent' || roleValue === 'billing'}
-                        setRole={setMasterRole}
-                        roleValue={masterRole}
-                        error={errors?.roles}
+                        disabled={agent || billing}
+                        error={errors?.roles?.master}
+                        clearErrors={clearErrors}
                     />
-                    <CustomCheckbox value='agent'
-                                    name='roles'
-                                    inputRef={register({
-                                        required: 'Field is required'
-                                    })}
-                                    role='Agent'
-                                    getValues={getValues}
-                                    disabled={masterRole === 'master'}
-                                    setRole={setAgentRole}
-                                    roleValue={agentRole}
-                                    error={errors?.roles}
+                    <CustomCheckbox
+                        name='roles.agent'
+                        inputRef={register({
+                            required: isRoleRequired
+                        })}
+                        role='Agent'
+                        disabled={master}
+                        error={errors?.roles?.agent}
+                        clearErrors={clearErrors}
                     />
-                    <CustomCheckbox value='billing'
-                                    name='roles'
-                                    inputRef={register({
-                                        required: 'Field is required'
-                                    })}
-                                    role='Billing'
-                                    getValues={getValues}
-                                    disabled={masterRole === 'master'}
-                                    setRole={setRole}
-                                    roleValue={roleValue}
-                                    error={errors?.roles}
+                    <CustomCheckbox
+                        name='roles.billing'
+                        inputRef={register({
+                            required: isRoleRequired
+                        })}
+                        role='Billing'
+                        disabled={master}
+                        error={errors?.roles?.billing}
+                        clearErrors={clearErrors}
                     />
                 </CheckboxWrap>
                 <FormField name='email'
                            placeholder='Email'
                            label='Email'
                            inputRef={register({
-                               required: 'Field is required'
+                               required: 'Field is required',
+                               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                            })}
                            error={errors?.email}
-                           getValues={getValues}
                            server_error={server_error?.email ? server_error.email[0] : ''}
                 />
             </FormWrap>
@@ -109,9 +119,3 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
 
 export default AddUserForm
 
-const Label = styled.div`
-  font-family: "Helvetica Bold", sans-serif;
-  font-size: 14px;
-  color: black;
-  margin-bottom: 10px;
-`

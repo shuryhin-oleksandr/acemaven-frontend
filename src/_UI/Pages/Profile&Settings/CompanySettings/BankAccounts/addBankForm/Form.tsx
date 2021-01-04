@@ -19,7 +19,7 @@ type PropsType = {
 }
 
 const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
-    const {register, errors, handleSubmit, getValues, control} = useForm<IAddNewBank>()
+    const {register, errors, handleSubmit, control} = useForm<IAddNewBank>()
     const onSubmit = (values:IAddNewBank) => {
             dispatch && dispatch(addBankAccount( values))
     }
@@ -37,7 +37,6 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
             <FormField label='Bank Name'
                        name='bank_name'
                        placeholder='Bank Name'
-                       getValues={getValues}
                        error={errors?.bank_name}
                        inputRef={register({
                            required: 'Field is required',
@@ -50,7 +49,6 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
             <FormField label='Bank Number'
                        name='bank_number'
                        placeholder='000'
-                       getValues={getValues}
                        error={errors?.bank_number}
                        inputRef={register({
                            required: 'Field is required',
@@ -63,7 +61,6 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
             <FormField name='branch'
                        placeholder='0000-0'
                        label='Branch Number'
-                       getValues={getValues}
                        error={errors?.branch}
                        inputRef={register({
                            required: 'Field is required',
@@ -78,7 +75,6 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
             <FormField name='number'
                        placeholder='0000000000000'
                        label='Account Number'
-                       getValues={getValues}
                        error={errors?.number}
                        type='number'
                        inputRef={register({

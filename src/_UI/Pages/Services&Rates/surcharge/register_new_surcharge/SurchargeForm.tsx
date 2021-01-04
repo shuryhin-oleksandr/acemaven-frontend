@@ -14,7 +14,6 @@ import {HelperText} from "../../../../components/_commonComponents/Input/input-s
 type PropsType = {
     control: any
     register: any
-    getValues: any
     setValue: (name: string, value: string | number) => void
     errors: any
     carrierOptions: CarrierType[] | null
@@ -32,7 +31,7 @@ type PropsType = {
 }
 
 const SurchargeForm: React.FC<PropsType> = (
-    {control, register, getValues, setValue, errors, carrierOptions, shippingModeOptions, setShippingValue, ports,location_id,
+    {control, register, setValue, errors, carrierOptions, shippingModeOptions, setShippingValue, ports,location_id,
         locationChangeHandler, getDisabledSurchargesDates,required_dates,  watchResultArr, watchResultArrForDates, invalidDate
     }
     ) => {
@@ -106,7 +105,6 @@ const SurchargeForm: React.FC<PropsType> = (
                         placeholder="Local port"
                         label="Location"
                         error={errors?.location}
-                        getValues={getValues}
                         onChange={locationChangeHandler}
                         disabled={watchResultArr.length !== 3}
                     />

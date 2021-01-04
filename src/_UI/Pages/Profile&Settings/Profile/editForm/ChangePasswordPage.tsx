@@ -68,7 +68,6 @@ const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {
         placeholder="Password"
         name="old_password"
         error={errors?.old_password?.message}
-        getValues={getValues}
         type="password"
       />
       {error?.old_password && (
@@ -95,7 +94,6 @@ const ChangePasswordPage: React.FC<PropsType> = ({ setChangeMode }) => {
         placeholder="Confirm password"
         name="new_password2"
         error={errors?.new_password2?.message}
-        getValues={getValues}
         type="password"
         onBlur={matchPasswords}
         pattern_message='Password must contain only alphanumeric characters. Min 8, Max 25 symbols'

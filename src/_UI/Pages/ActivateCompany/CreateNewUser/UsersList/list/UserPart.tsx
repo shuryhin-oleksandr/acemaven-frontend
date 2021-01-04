@@ -44,7 +44,6 @@ const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser, setEdit
         <Container max_width={max_width}>
             <Inner>
                 <PhotoWrap colorette={colorWrap}>
-                    {/*<MyImageComponent img_url={u && u.photo}/>*/}
                     <img src={u && u.photo ? u?.photo : user} alt={user}/>
                 </PhotoWrap>
                 <InfoWrap>

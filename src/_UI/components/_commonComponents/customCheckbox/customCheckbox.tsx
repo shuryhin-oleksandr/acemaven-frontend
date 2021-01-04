@@ -1,51 +1,25 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
-import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
+
 
 type PropsType = {
-    role: string,
+    role?: string,
     name?: string,
     value?: string,
     onChange?: VoidFunctionType,
     inputRef?: React.Ref<HTMLInputElement>,
     error?: any,
-    getValues: (key: string) => Record<string, unknown>,
-    disabled: any,
-    setRole: (value: string) => void,
-    roleValue: string,
+    disabled?: any,
+    setRole?: (value: string) => void,
+    roleValue?: string,
     success_user?: boolean,
-    worker?: IAddNewUserData,
-    checked?: boolean
+    checked?: boolean,
+    clearErrors?: VoidFunctionType
 }
 
 const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
     const [isCheck, setIsCheck] = useState(false)
-
-    let handleChange = (value : string) => {
-        isCheck ? setIsCheck(false) : setIsCheck(true)
-        props.roleValue !== value ? props.setRole(value) : props.setRole('')
-    }
-
-    /*useEffect (() => {
-        if(props.worker) {
-            setIsCheck(true)
-            if(props.worker.roles.includes('master')) {
-                setIsCheck(true)
-            } else if (props.worker.roles.includes('agent')) {
-                setIsCheck(true)
-            } else if (props.worker.roles.includes('billing')) {
-                setIsCheck(true)
-            }
-        }
-    }, [props.worker])*/
-
-    useEffect (() => {
-        if(props.success_user) {
-            setIsCheck(false)
-            props.setRole('')
-        }
-    }, [props.success_user])
 
 
     return (
@@ -53,7 +27,7 @@ const CustomCheckbox:React.FC<PropsType> = ({role, ...props}) => {
             <InputBox value={props.value}
                       name={props.name}
                       ref={props.inputRef}
-                      onChange={(e) => handleChange(e.currentTarget.value)}
+                      onChange={() => props.clearErrors && props.clearErrors()}
                       type="checkbox"
                       disabled={props.disabled}
                       checked={props.checked}

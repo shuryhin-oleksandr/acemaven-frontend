@@ -14,16 +14,21 @@ type PropsType = {
     setIsOpen: (value: boolean) => void;
     list?: Array<IAddNewUserData> | null,
     server_error?: AddUserError | null,
-    company_type?: string
+    company_type?: string,
+    my_id: number,
+    my_roles: string[]
 }
 
-const AddNewUser:React.FC<PropsType> = ({setIsOpen, list, server_error, company_type}) => {
+const AddNewUser:React.FC<PropsType> = ({setIsOpen, list, server_error, company_type, my_id, my_roles}) => {
 
     return (
         <AddContainer>
             <ContentWrap>
                 <AddUserForm errorEmployee={server_error}/>
-                <UsersList usersList={list}/>
+                <UsersList usersList={list}
+                           my_id={my_id}
+                           my_roles={my_roles}
+                />
             </ContentWrap>
             <LineWrap />
             <NavigationWrap>

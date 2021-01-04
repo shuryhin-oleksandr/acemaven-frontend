@@ -34,7 +34,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
   setFormStep,
   formStep,
   register,
-  getValues,
   companyInfo,
   currentUser,
   setValue,
@@ -103,7 +102,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Company Name"
             name="name"
-            getValues={getValues}
             error={errors.name}
           />
           <FormField
@@ -113,7 +111,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Address"
             name="address_line_first"
-            getValues={getValues}
             error={errors.address_line_first}
           />
           <div style={{ marginTop: -15 }}>
@@ -121,7 +118,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
               inputRef={register}
               placeholder="Address"
               name="address_line_second"
-              getValues={getValues}
             />
           </div>
           <FormField
@@ -131,7 +127,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="State"
             name="state"
-            getValues={getValues}
             error={errors.state}
           />
           <FormField
@@ -141,7 +136,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="City"
             name="city"
-            getValues={getValues}
             error={errors.city}
           />
           <FormField
@@ -151,7 +145,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Zip Code"
             name="zip_code"
-            getValues={getValues}
             error={errors.zip_code}
           />
         </InputColWrapper>
@@ -163,7 +156,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Contact name"
             name="contact_name"
-            getValues={getValues}
             error={errors.contact_name}
           />
           <FormField
@@ -173,7 +165,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Phone number"
             name="phone"
-            getValues={getValues}
             error={errors.phone}
           />
           <FormField
@@ -183,7 +174,6 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Email"
             name="email"
-            getValues={getValues}
             error={errors.email}
           />
         </InputColWrapper>

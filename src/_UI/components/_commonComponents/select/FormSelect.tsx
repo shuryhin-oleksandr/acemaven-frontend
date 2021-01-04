@@ -16,7 +16,7 @@ type IProps = {
   maxW?: string;
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   formControl: {
     width: "100%",
     marginBottom: "15px",
@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
     transition: ".3",
 
     "&.Mui-error": {
-      border: "1px solid rgba(0, 0, 0, .5)",
       backgroundColor: "rgba(0, 0, 0, .07)",
     },
 

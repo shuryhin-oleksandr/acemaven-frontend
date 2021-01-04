@@ -61,7 +61,7 @@ const CargoDetails: React.FC<PropsType> = ({
       ? (shippingValue === ShippingModeEnum.FCL) ? fcl_cargo_groups : other_cargo_groups
       : fcl_cargo_groups
 
-  const { register, handleSubmit, errors, control, getValues } = useForm();
+  const { register, handleSubmit, errors, control} = useForm();
 
   const shippingTypes = useSelector(getShippingTypesSelector);
 
@@ -183,7 +183,6 @@ const CargoDetails: React.FC<PropsType> = ({
                   })}
                   placeholder="No. of Documents"
                   name="number_of_documents"
-                  getValues={getValues}
                   defaultValue={1}
                   error={errors?.number_of_documents}
                 />

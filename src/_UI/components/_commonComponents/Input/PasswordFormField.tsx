@@ -29,7 +29,6 @@ const PasswordFormField:React.FC<PropsType> = ({errors, label, name, register, .
                        placeholder='Password'
                        name='password'
                        error={errors?.password}
-                       getValues={props.getValues}
                        type={props.showPassword ? 'text' : 'password'}
                        onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
                        pattern_message='Password must contain only alphanumeric characters. Min 8, Max 25 symbols'

@@ -9,21 +9,29 @@ import {deleteEmployee} from "../../../../../_BLL/reducers/employeesAndBanksRedu
 
 type PropsType = {
     usersList?: Array<IAddNewUserData> | null,
-
+    my_id: number,
+    my_roles: string[]
 }
 
-const UsersList:React.FC<PropsType> = ({usersList}) => {
+const UsersList:React.FC<PropsType> = ({usersList, my_id, my_roles}) => {
     let cardsMode = false
 
     const dispatch = useDispatch()
     const deleteUser = (id: number) => {
         dispatch(deleteEmployee(id))
     }
+
     return (
         <ListContainer>
             <ListInner>
                 {usersList
-                    ? usersList.map(u => <UserPart deleteUser={deleteUser} key={u?.id} u={u} cardsMode={cardsMode}/>)
+                    ? usersList.map(u => <UserPart deleteUser={deleteUser}
+                                                   key={u?.id}
+                                                   u={u}
+                                                   cardsMode={cardsMode}
+                                                   my_id={my_id}
+                                                   current_user_roles={my_roles}
+                    />)
                     : <EmptyList text='new user'/>
                 }
             </ListInner>

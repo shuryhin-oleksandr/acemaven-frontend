@@ -11,3 +11,9 @@ export const FormWrap = styled.form`
   padding: 30px 70px 30px 100px;
   position: relative;
 `
+export const Label = styled.div`
+  font-family: "Helvetica Bold", sans-serif;
+  font-size: 14px;
+  color: black;
+  margin-bottom: 10px;
+`

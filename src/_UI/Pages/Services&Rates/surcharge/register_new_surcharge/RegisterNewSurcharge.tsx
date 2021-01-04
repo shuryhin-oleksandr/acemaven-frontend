@@ -60,7 +60,7 @@ type PropsType = {
 
 const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
     const {
-        handleSubmit, mode, setMode, control, register, errors, getValues, setValue, closeRegisterForm, carrierOptions, shippingModeOptions,
+        handleSubmit, mode, setMode, control, register, errors, setValue, closeRegisterForm, carrierOptions, shippingModeOptions,
         setShippingValue, ports, locationChangeHandler, getDisabledSurchargesDates, usageFees, additionalTableName, adding_error,
         additionalType, shippingValue, additional, adding_success, watchResultArr, watchResultArrForDates, location_id
     } = props
@@ -158,7 +158,6 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 setValue={setValue}
                 control={control}
                 register={register}
-                getValues={getValues}
                 errors={errors}
                 carrierOptions={carrierOptions}
                 shippingModeOptions={shippingModeOptions}

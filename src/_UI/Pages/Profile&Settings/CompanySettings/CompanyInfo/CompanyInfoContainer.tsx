@@ -10,7 +10,7 @@ import {
 } from './company-info-styles'
 import Info from './Info'
 import EditCompanyInfoForm from "./EditCompanyInfoForm";
-import { useState } from 'react';
+import {useState} from 'react';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../../_BLL/store";
 import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
@@ -22,10 +22,11 @@ type PropsType = {
     isFetching: boolean
 }
 
-const CompanyInfoContainer:React.FC<PropsType> = ({company_type, current_user_role, isFetching}) => {
+const CompanyInfoContainer: React.FC<PropsType> = ({company_type, current_user_role, isFetching}) => {
     const [edit, setEdit] = useState(false)
 
     let companyInfo = useSelector((state: AppStateType) => state.profile.companyInfo)
+
 
     return (
         <>

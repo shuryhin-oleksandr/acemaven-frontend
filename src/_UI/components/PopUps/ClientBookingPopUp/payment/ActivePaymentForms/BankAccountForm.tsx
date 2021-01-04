@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import SurchargeRateSelect from "../../../../_commonComponents/select/SurchargeRateSelect";
 import {
   ActionSelectWrapper,
@@ -15,7 +15,6 @@ type PropsType = {
   handleSubmit?: any;
   errors?: any;
   control?: any;
-  getValues?: any;
   setValue?: any;
   reset?: any;
 };
@@ -24,7 +23,6 @@ const BankAccountForm: React.FC<PropsType> = ({
   register,
   errors,
   control,
-  getValues,
   setValue,
   reset,
 }) => {
@@ -94,7 +92,6 @@ const BankAccountForm: React.FC<PropsType> = ({
               placeholder="0000-0"
               name="branch_number"
               // error={errors?.first_name}
-              getValues={getValues}
               maxW="300px"
             />
             <FormField
@@ -104,8 +101,7 @@ const BankAccountForm: React.FC<PropsType> = ({
               })}
               placeholder="Account No."
               name="account_number"
-              // error={errors?.first_name}
-              getValues={getValues}
+              //error={errors?.first_name}
               maxW="300px"
             />
             <Controller

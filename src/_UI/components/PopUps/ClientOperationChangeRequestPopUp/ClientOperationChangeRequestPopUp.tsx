@@ -381,7 +381,6 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                       })}
                       placeholder="No. of Documents"
                       name="number_of_documents"
-                      getValues={getValues}
                       defaultValue={operation_info.number_of_documents}
                       error={errors?.number_of_documents}
                       onBlur={() => {
@@ -475,7 +474,6 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                             <FormField
                               inputRef={register}
                               name={`volume.${index}`}
-                              getValues={getValues}
                               defaultValue={c.volume}
                               maxW={"100px"}
                               onBlur={() => {
@@ -499,7 +497,6 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                             <FormField
                               inputRef={register}
                               name={`volume.${index}`}
-                              getValues={getValues}
                               defaultValue={c.volume}
                               maxW={"100px"}
                               onBlur={() => {

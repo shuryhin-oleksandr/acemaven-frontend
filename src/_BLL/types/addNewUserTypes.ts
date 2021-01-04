@@ -7,7 +7,23 @@ export interface IAddNewUserData {
     phone?: string,
     photo?: string,
     position?: string,
-    roles: string[],
+    roles: Array<string>
+    companies?: any
+}
+
+export type UserFromDataType = {
+    first_name?: string,
+    last_name?: string,
+    email: string,
+    id?: number,
+    phone?: string,
+    photo?: string,
+    position?: string,
+    roles: {
+        master?: string
+        agent: string
+        billing: string
+    },
     companies?: any
 }
 

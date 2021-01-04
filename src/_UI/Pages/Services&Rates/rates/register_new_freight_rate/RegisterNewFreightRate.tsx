@@ -151,7 +151,6 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({handleSubmit, control, reg
             <FreightRateForm control={control}
                              errors={errors}
                              register={register}
-                             getValues={getValues}
                              carrierOptions={carrierOptions}
                              shippingModeOptions={shippingModeOptions}
                              shippingValue={shippingValue}

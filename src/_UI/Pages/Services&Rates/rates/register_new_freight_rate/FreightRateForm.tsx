@@ -14,7 +14,6 @@ type PropsType = {
     control: any
     errors: any
     register: any
-    getValues: any,
     setValue: (name: string, value: string | number) => void
     carrierOptions:  CarrierType[] | null
     shippingModeOptions:  ShippingModeType[]
@@ -31,7 +30,7 @@ type PropsType = {
     rate_transit_error: any
 }
 
-const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValues, carrierOptions, shippingModeOptions, getBookedRatesDates,
+const FreightRateForm:React.FC<PropsType> = ({control, errors, register, carrierOptions, shippingModeOptions, getBookedRatesDates,
                                             setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, rate_transit_error,
                                              onDestinationChangeHandler, closePortsHandler,  watchResultArr}) => {
 
@@ -88,9 +87,7 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             placeholder="Local port"
                             label="Origin"
                             error={errors?.origin}
-                            getValues={getValues}
                             onChange={onOriginChangeHandler}
-                            // onBlur={blurHandler}
                         />
                         {origin_ports && origin_ports?.length > 0 && (
                             <Scrollbars
@@ -134,10 +131,8 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                             placeholder="Local port"
                             label="Destination"
                             error={errors?.destination}
-                            getValues={getValues}
                             onChange={onDestinationChangeHandler}
                             disabled={watchResultArr.length < 3}
-                            //onBlur={blurHandler}
                         />
                         {destination_ports && destination_ports?.length > 0 && (
                             <Scrollbars
@@ -174,7 +169,6 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, getValu
                         })}
                         name="transit_time"
                         error={errors?.transit_time}
-                        getValues={getValues}
                         disabled={watchResultArr.length < 3}
                     />
                     {rate_transit_error && rate_transit_error.length > 0 &&

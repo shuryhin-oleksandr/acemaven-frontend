@@ -22,7 +22,6 @@ const ImportShipperInfo: React.FC<PropsType> = ({
   setFormStep,
   formStep,
   register,
-  getValues,
   errors,
 }) => {
   return (
@@ -48,7 +47,6 @@ const ImportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Company Name"
             name="name"
-            getValues={getValues}
             error={errors.name}
           />
           <FormField
@@ -58,7 +56,6 @@ const ImportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="City"
             name="city"
-            getValues={getValues}
             error={errors.city}
           />
           <FormField
@@ -68,7 +65,6 @@ const ImportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Contact name"
             name="contact_name"
-            getValues={getValues}
             error={errors.contact_name}
           />
         </InputColWrapper>
@@ -80,7 +76,6 @@ const ImportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Phone number"
             name="phone"
-            getValues={getValues}
             error={errors.phone}
           />
           <FormField
@@ -88,7 +83,6 @@ const ImportShipperInfo: React.FC<PropsType> = ({
             inputRef={register}
             placeholder="Phone number"
             name="phone_additional"
-            getValues={getValues}
           />
           <FormField
             label="Email"
@@ -98,7 +92,6 @@ const ImportShipperInfo: React.FC<PropsType> = ({
             })}
             placeholder="Email"
             name="email"
-            getValues={getValues}
             error={errors.email}
           />
         </InputColWrapper>

@@ -10,7 +10,7 @@ import {AppStateType} from "../../../../_BLL/store";
 import {ErrorServerMessage} from "../../SignInPage";
 
 const AddBankForm: React.FC = () => {
-  const { register, handleSubmit, errors, control, getValues, setValue } = useForm<
+  const { register, handleSubmit, errors, control, reset } = useForm<
     IAddNewBank
   >();
   const dispatch = useDispatch();
@@ -29,12 +29,9 @@ const AddBankForm: React.FC = () => {
 
     useEffect(() => {
         if(success_bank) {
-            setValue('bank_name', '')
-            setValue('branch', '')
-            setValue('number', '')
-            setValue('account_type', '')
+           reset()
         }
-    }, [setValue, success_bank])
+    }, [success_bank])
 
   return (
     <FormWrap onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +45,6 @@ const AddBankForm: React.FC = () => {
           minLength: 1,
           maxLength: 100,
         })}
-        getValues={getValues}
         max="100"
       />
         <FormField
@@ -61,7 +57,6 @@ const AddBankForm: React.FC = () => {
                 minLength: 1,
                 maxLength: 3,
             })}
-            getValues={getValues}
             max="3"
         />
       <FormField
@@ -75,7 +70,6 @@ const AddBankForm: React.FC = () => {
         })}
         name="branch"
         error={errors?.branch}
-        getValues={getValues}
         max="6"
         pattern_message='Branch No. has to be in 0000-0 format'
       />
@@ -90,7 +84,6 @@ const AddBankForm: React.FC = () => {
         })}
         name="number"
         error={errors?.number}
-        getValues={getValues}
         max="50"
         type='number'
         pattern_message='Account No. must contain only numbers'

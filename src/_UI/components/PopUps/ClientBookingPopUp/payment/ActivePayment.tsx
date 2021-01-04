@@ -19,7 +19,6 @@ const ActivePayment: React.FC<PropsType> = () => {
     handleSubmit,
     errors,
     control,
-    getValues,
     setValue,
     reset,
   } = useForm();
@@ -81,7 +80,6 @@ const ActivePayment: React.FC<PropsType> = () => {
             register={register}
             errors={errors}
             control={control}
-            getValues={getValues}
             setValue={setValue}
             reset={reset}
           />
@@ -90,7 +88,6 @@ const ActivePayment: React.FC<PropsType> = () => {
             register={register}
             errors={errors}
             control={control}
-            getValues={getValues}
             setValue={setValue}
             reset={reset}
           />

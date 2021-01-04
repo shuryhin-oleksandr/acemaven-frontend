@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import SurchargeRateSelect from "../../../../_commonComponents/select/SurchargeRateSelect";
 import {
   ActionSelectWrapper,
@@ -15,7 +15,6 @@ type PropsType = {
   handleSubmit?: any;
   errors?: any;
   control?: any;
-  getValues?: any;
   setValue?: any;
   reset?: any;
 };
@@ -24,7 +23,6 @@ const CreditCardForm: React.FC<PropsType> = ({
   register,
   errors,
   control,
-  getValues,
   setValue,
   reset,
 }) => {
@@ -87,7 +85,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Name on Card"
                 name="branch_number"
                 // error={errors?.first_name}
-                getValues={getValues}
                 maxW="300px"
               />
               <FormField
@@ -98,7 +95,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="CPF/CNPJ"
                 name="branch_number"
                 // error={errors?.first_name}
-                getValues={getValues}
                 maxW="300px"
               />
               <FormField
@@ -109,7 +105,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Card Number "
                 name="branch_number"
                 // error={errors?.first_name}
-                getValues={getValues}
                 maxW="300px"
               />
               <FormField
@@ -120,7 +115,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="CVV"
                 name="branch_number"
                 // error={errors?.first_name}
-                getValues={getValues}
                 maxW="300px"
               />
               <FormField
@@ -131,7 +125,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Card Expiration"
                 name="branch_number"
                 // error={errors?.first_name}
-                getValues={getValues}
                 maxW="300px"
               />
             </div>
@@ -151,7 +144,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                     placeholder="Address"
                     name="branch_number"
                     // error={errors?.first_name}
-                    getValues={getValues}
                     maxW="300px"
                   />
                 </div>
@@ -170,7 +162,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                     placeholder="0000-0"
                     name="branch_number"
                     // error={errors?.first_name}
-                    getValues={getValues}
                     maxW="300px"
                   />
                 </div>
@@ -183,7 +174,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="City"
                 name="branch_number"
                 // error={errors?.first_name}
-                getValues={getValues}
                 maxW="300px"
               />
               <FormField
@@ -194,7 +184,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="State"
                 name="branch_number"
                 // error={errors?.first_name}
-                getValues={getValues}
                 maxW="300px"
               />
               <FormField
@@ -205,7 +194,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Zip Code"
                 name="branch_number"
                 // error={errors?.first_name}
-                getValues={getValues}
                 maxW="300px"
               />
               <FormField
@@ -216,7 +204,6 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Country"
                 name="branch_number"
                 // error={errors?.first_name}
-                getValues={getValues}
                 maxW="300px"
               />
             </div>

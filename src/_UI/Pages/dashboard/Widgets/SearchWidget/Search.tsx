@@ -400,7 +400,6 @@ const Search: React.FC<PropsType> = ({
                   maxW={"18%"}
                   label={"Shipping mode"}
                   hideLabel={true}
-                  // background={"#ECECEC"}
                   margin_bottom={"0px"}
                   disabled={disabled}
                   placeholder="Shipping Mode"
@@ -423,7 +422,6 @@ const Search: React.FC<PropsType> = ({
                 name="origin"
                 placeholder="Origin"
                 error={errors?.origin}
-                getValues={getValues}
                 onChange={onOriginChangeHandler}
                 /*onBlur={() => {
                   setTimeout(() => {
@@ -481,7 +479,6 @@ const Search: React.FC<PropsType> = ({
                 name="destination"
                 placeholder="Destination"
                 error={errors?.destination}
-                getValues={getValues}
                 onChange={onDestinationChangeHandler}
                 /*onBlur={() => {
                   setTimeout(() => {

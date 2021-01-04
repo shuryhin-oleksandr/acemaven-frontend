@@ -28,7 +28,7 @@ export const authAPI = {
         return instance.post('/core/user/', employeeData)
     },
     deleteEmployer (id:number) {
-        return instance.delete(`/core/user/${id}`)
+        return instance.delete(`/core/user/${id}/`)
     },
     getBanksAccountsList () {
         return instance.get('/core/bank-account/')

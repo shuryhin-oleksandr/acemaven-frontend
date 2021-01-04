@@ -17,13 +17,14 @@ const AddNewUserContainer:React.FC = () => {
     const employeesList = useSelector((state: AppStateType) => state.company.employees)
     const server_error = useSelector((state: AppStateType) => state.company.addingEmployeeError)
     const company = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies)
+    const my_id = useSelector((state: AppStateType) => state.profile.authUserInfo?.id)
+    const my_roles = useSelector((state: AppStateType) => state.profile.authUserInfo?.roles)
 
 
     const dispatch = useDispatch()
 
 
     useEffect(() => {
-        debugger
         dispatch(authActions.setAuth(true))
         dispatch(getEmployees())
     }, [dispatch])
@@ -38,6 +39,8 @@ const AddNewUserContainer:React.FC = () => {
                             list={employeesList ? employeesList : null}
                             setIsOpen={setIsOpen}
                             company_type={company && String(company[0].type)}
+                            my_id={Number(my_id)}
+                            my_roles={my_roles ? my_roles : []}
                 />
             </LayoutWithoutNav>
         </Outer>

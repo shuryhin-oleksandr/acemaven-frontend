@@ -10,7 +10,6 @@ type PropsType = {
   inputRef?: React.Ref<HTMLInputElement>;
   error?: any;
   label?: string;
-  getValues?: (key: string) => Record<string, unknown>;
   type?: string;
   max?: string;
   min?: string;
@@ -67,9 +66,6 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
           {props.pattern_message ? props.pattern_message : "Value is not valid"}
         </HelperText>
       )}
-      {/* {error?.type === "minLength" && (
-        <HelperText>Minimum length is 1 symbol</HelperText>
-      )}*/}
       {error?.type === "maxLength" && (
         <HelperText>Maximum length is {props.max} symbols</HelperText>
       )}

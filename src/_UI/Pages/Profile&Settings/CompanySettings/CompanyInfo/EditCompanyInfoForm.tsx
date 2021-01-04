@@ -16,11 +16,14 @@ type PropsType = {
 }
 
 const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_type}) => {
-    let {register, getValues, handleSubmit, errors, setValue} = useForm<EditCompanyInfo>()
+    let {register, handleSubmit, errors, setValue} = useForm({
+        mode: "onSubmit",
+        reValidateMode: "onBlur"
+    })
     const dispatch = useDispatch()
 
     let onSubmit = (values: EditCompanyInfo) => {
-        console.log(values)
+
         dispatch(editCompanyInfo(companyInfo?.id as number, values))
         setEdit && setEdit(false)
     }
@@ -39,8 +42,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_
                 <Wrapper>
                     <InputWrap w='48%'>
                         <FormField name='city'
-                                   getValues={getValues}
-                                   error={errors?.city?.message}
+                                   error={errors?.city}
                                    placeholder='City'
                                    label='City'
                                    inputRef={register({
@@ -51,9 +53,8 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_
                     <InputWrap w='48%'>
                         <FormField name='state'
                                    placeholder='State'
-                                   error={errors?.state?.message}
+                                   error={errors?.state}
                                    label='State'
-                                   getValues={getValues}
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
@@ -63,8 +64,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_
                 <Wrapper>
                     <InputWrap w='48%'>
                         <FormField name='address_line_first'
-                                   getValues={getValues}
-                                   error={errors?.address1?.message}
+                                   error={errors?.address1}
                                    placeholder='str. 27'
                                    label='Address'
                                    inputRef={register({
@@ -72,7 +72,6 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_
                                    })}
                         />
                         <FormField name='address_line_second'
-                                   getValues={getValues}
                                    placeholder='apt.1'
                                    inputRef={register}
                         />
@@ -80,9 +79,8 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_
                     <InputWrap w='48%'>
                         <FormField name='zip_code'
                                    placeholder='000000'
-                                   error={errors?.zipCode?.message}
+                                   error={errors?.zipCode}
                                    label='Zip Code'
-                                   getValues={getValues}
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
@@ -91,8 +89,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_
                 </Wrapper>
                 <InputWrap w='48%'>
                     <FormField name='phone'
-                               getValues={getValues}
-                               error={errors?.phoneNumber?.message}
+                               error={errors?.phoneNumber}
                                placeholder='+375296665544'
                                label='Phone Number'
                                inputRef={register({
@@ -101,9 +98,8 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_
                     />
                     {company_type !== 'client' && <FormField name='website'
                                label='Website'
-                               getValues={getValues}
                                placeholder='www.company.com'
-                               error={errors?.email?.message}
+                               error={errors?.website}
                                inputRef={register({
                                    required: 'Field is required'
                                })}

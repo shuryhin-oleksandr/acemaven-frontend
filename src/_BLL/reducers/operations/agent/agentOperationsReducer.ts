@@ -1,6 +1,7 @@
 import {
   OperationType,
   ShipmentDetailsType,
+  TrackingBackendType,
 } from "../../../types/operations/operationsTypes";
 import { ChoiceType } from "../../../types/bookingTypes";
 
@@ -14,6 +15,7 @@ const initialState = {
   change_request_confirmation: "",
   taked_over: "",
   status_options: [] as ChoiceType[],
+  tracking_data: [] as TrackingBackendType[],
 };
 
 type InitialStateType = typeof initialState;
@@ -94,6 +96,16 @@ export const agentOperationsReducer = (
         ...state,
         status_options: action.options,
       };
+    case "SAVE_TRACKING":
+      return {
+        ...state,
+        tracking_data: action.data,
+      };
+    case "UPDATE_MANUAL_TRACKING_INFO":
+      return {
+        ...state,
+        tracking_data: [action.data, ...state.tracking_data],
+      };
     // case "UPDATE_MANUAL_TRACKING_INFO":
     //   return {
     //     ...state,
@@ -146,6 +158,11 @@ export const agentOperationsActions = {
   setTakedOver: (value: string) => ({ type: "SET_TAKED_OVER", value } as const),
   setTrackingStatusOptions: (options: any) =>
     ({ type: "SET_TRACKING_STATUS_OPTIONS", options } as const),
-  // updateTrackingInfoList: (data: any) =>
-  //   ({ type: "UPDATE_MANUAL_TRACKING_INFO", data } as const),
+  saveTrackingToStore: (data: TrackingBackendType[]) =>
+    ({
+      type: "SAVE_TRACKING",
+      data,
+    } as const),
+  updateTrackingInfoList: (data: any) =>
+    ({ type: "UPDATE_MANUAL_TRACKING_INFO", data } as const),
 };

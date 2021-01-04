@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -25,6 +25,9 @@ import {
 } from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import { getTrackingStatusOptions } from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import moment from "moment";
+import { agentOperationsActions } from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import { AppStateType } from "../../../../../../../../_BLL/store";
+import Garbage from "../../../../../../../assets/icons/garbage-icon.svg";
 
 const useStyles = makeStyles({
   container: {
@@ -128,7 +131,6 @@ let columns = [
 ];
 
 type PropsType = {
-  // tracking: TrackingBackendType[];
   company_type: userCompaniesType | undefined;
   shipping_mode_id: number;
   direction: string;
@@ -152,6 +154,9 @@ const ManualTracking: React.FC<PropsType> = ({
 
   const onSubmit = (values: any) => {
     const data = { ...values, booking: booking_id };
+    const timer = setTimeout(() => {
+      console.log("timer data", data);
+    }, 5000);
     dispatch(updateShipmentInfo(data, reset));
   };
 
@@ -164,6 +169,22 @@ const ManualTracking: React.FC<PropsType> = ({
   }, []);
 
   const statusOptions = useSelector(getTrackingStatusOptions);
+
+  useEffect(() => {
+    dispatch(agentOperationsActions.saveTrackingToStore(tracking));
+  }, []);
+
+  const manual_tracking = useSelector(
+    (state: AppStateType) => state.agent_operations.tracking_data
+  );
+  const [dateTime, setDateTime] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => setDateTime(new Date()), 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
 
   return (
     <Wrap onSubmit={handleSubmit(onSubmit)}>
@@ -225,7 +246,7 @@ const ManualTracking: React.FC<PropsType> = ({
                   </FormOperationButton>
                 </TableCell>
               </TableRow>
-              {tracking.map((row, idx) => (
+              {manual_tracking.map((row, idx) => (
                 <TableRow key={idx}>
                   <TableCell
                     valign={"top"}
@@ -262,6 +283,24 @@ const ManualTracking: React.FC<PropsType> = ({
                       </div>
                       <div style={{ fontStyle: "italic" }}> {row.comment}</div>
                     </div>
+                  </TableCell>
+                  <TableCell
+                    valign={"top"}
+                    className={classes.innerCell}
+                    align="right"
+                  >
+                    {moment
+                      .utc(dateTime)
+                      .diff(moment.utc(row.date_created), "seconds") <= 300 && (
+                      <img
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          alert("delete");
+                        }}
+                        src={Garbage}
+                        alt={""}
+                      />
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

@@ -8,12 +8,16 @@ import {
     ExchangeSpanWrap, Round
 } from "./agent-billing-styles";
 import ExchangeTable from "./tables/ExchangeTable";
+import {ExchangeRateType} from "../../../../../_BLL/types/billing/billingTypes";
 
 type PropsType = {
-    chartRef: React.MutableRefObject<HTMLCanvasElement | null>
+    chartRef: React.MutableRefObject<HTMLCanvasElement | null>,
+    exchange_list: ExchangeRateType[],
+    setProceed: (value: boolean) => void,
+    setRepeatedExchangeHandler: (data: {rates: Array<{currency: number, rate: string, spread: string}>} | null) => void,
 }
 
-const AgentBillingPage:React.FC<PropsType> = ({chartRef}) => {
+const AgentBillingPage:React.FC<PropsType> = ({chartRef, exchange_list, setProceed, setRepeatedExchangeHandler}) => {
 
 
     return (
@@ -21,7 +25,10 @@ const AgentBillingPage:React.FC<PropsType> = ({chartRef}) => {
             <BillingInner>
                 <BillingContent>
                     <BillingTitle>Exchange Rate</BillingTitle>
-                    <ExchangeTable />
+                    <ExchangeTable exchange_list={exchange_list}
+                                   setProceed={setProceed}
+                                   setRepeatedExchangeHandler={setRepeatedExchangeHandler}
+                    /> {/*form*/}
                     <div style={{display: 'flex', marginBottom: '20px'}}>
                         <ExchangeSpanWrap>
                             <Round background='#115b86'/>

@@ -6,6 +6,11 @@ export const directions = [
 ]
 
 export const currency = [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}]
+export enum CurrencyEnum {
+    'USD' = 43,
+    'EUR' = 98,
+    "BRL" = 37
+}
 
 export const conditions =  [{id: 1, title: 'w/m', tooltip: 'This option will indicate that the charge will be calculated by the chargeable weight (chargable_weight/m) of the cargo.', displayName:"W/M"},
     {id: 2, title: 'per_weight', tooltip: 'Will be calculated by the weight of the cargo.', displayName: "Per weight"},

@@ -1,4 +1,11 @@
 import React from "react";
+//moment js
+import moment from "moment";
+//react-hook-form
+import {useForm} from "react-hook-form";
+//react-redux
+import {useDispatch} from "react-redux";
+//material ui
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -7,18 +14,20 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {SubmitQuoteButton} from "../../../../quotes/agent/table/agent-quotes-styles";
+//BLL
+import {createNewExchangeRateThunk} from "../../../../../../_BLL/thunks/billing/agent/AgentBillingThunks";
+//components
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
-import moment from "moment";
-import {Controller, useForm} from "react-hook-form";
+//styles
+import {SubmitQuoteButton} from "../../../../quotes/agent/table/agent-quotes-styles";
+import {ExchangeRateType} from "../../../../../../_BLL/types/billing/billingTypes";
 
-type PropsType = {}
 
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
         paddingRight: 12,
-        marginBottom: '40px',
+        marginBottom: '20px',
     },
     shipping_cell: {
         width: '220px',
@@ -87,15 +96,44 @@ const useStyles = makeStyles({
     }
 });
 
-const ExchangeTable: React.FC<PropsType> = ({}) => {
+type PropsType = {
+    exchange_list: ExchangeRateType[],
+    setProceed: (value: boolean) => void,
+    setRepeatedExchangeHandler: (data: { rates: Array<{ currency: number, rate: string, spread: string }> } | null) => void,
+}
+
+const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepeatedExchangeHandler}) => {
+    //hooks
+    const dispatch = useDispatch()
     const classes = useStyles();
 
+    //moment
     let current_day = moment().format('DD/MM/YYYY')
 
-    const {handleSubmit, errors, register, control} = useForm<{ usd: number, eur: number, spread: number, date: string }>()
+    //react hook form
+    const {handleSubmit, errors, register} = useForm<{ usd: string, eur: string, spread: string }>({
+        mode: 'onSubmit',
+        reValidateMode: 'onBlur'
+    })
+    const onSubmit = (values: { usd: string, eur: string, spread: string }) => {
+        let usd_exchange = {currency: 43, rate: values.usd, spread: values.spread}
+        let eur_exchange = {currency: 98, rate: values.eur, spread: values.spread}
+        let data_array = [];
+        data_array.push(usd_exchange, eur_exchange)
 
-    const onSubmit = (values: { usd: number, eur: number, spread: number, date: string }) => {
-        console.log(values)
+        //check if we dont have exchange already for today
+        let repeated_exchange = exchange_list.find((x) => x.date === current_day)
+        if (repeated_exchange) {
+            setProceed(true)
+            setRepeatedExchangeHandler({rates: data_array})
+        } else {
+            let usd_exchange = {currency: 43, rate: values.usd, spread: values.spread}
+            let eur_exchange = {currency: 98, rate: values.eur, spread: values.spread}
+            let data_array = [];
+            data_array.push(usd_exchange, eur_exchange)
+
+            dispatch(createNewExchangeRateThunk({rates: data_array}))
+        }
     }
 
     return (
@@ -167,7 +205,8 @@ const ExchangeTable: React.FC<PropsType> = ({}) => {
                                            name='spread'
                                            inputRef={register({
                                                required: true,
-                                               minLength: 1
+                                               minLength: 1,
+                                               min: 0.01
                                            })}
                                            min='1'
                                            error={errors?.spread}
@@ -175,24 +214,16 @@ const ExchangeTable: React.FC<PropsType> = ({}) => {
                                 />
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                <Controller control={control}
-                                            name='date'
-                                            defaultValue={current_day}
-                                            as={
-                                                <span style={{
-                                                    fontFamily: 'Helvetica Reg',
-                                                    fontSize: '14px',
-                                                    color: '#115b86'
-                                                }}>
-                                                    {current_day}
-                                                 </span>
-                                            }
-                                />
-
+                                <span style={{
+                                    fontFamily: 'Helvetica Reg',
+                                    fontSize: '14px',
+                                    color: '#115b86'
+                                }}>
+                                    {current_day}
+                                </span>
                             </TableCell>
                             <TableCell className={classes.innerCell} align="center">
-                                <SubmitQuoteButton onClick={() => {
-                                }} type='submit'>ADD RATE</SubmitQuoteButton>
+                                <SubmitQuoteButton type='submit'>ADD RATE</SubmitQuoteButton>
                             </TableCell>
                         </TableRow>
                     </TableBody>

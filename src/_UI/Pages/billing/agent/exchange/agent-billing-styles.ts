@@ -26,7 +26,7 @@ export const BillingContent = styled.div`
   flex-direction: column;
   
 `
-export const BillingTitle = styled.div<{margin_bottom?: string}>`
+export const BillingTitle = styled.div<{ margin_bottom?: string }>`
   font-family: "Helvetica Bold", sans-serif;
   color: black;
   font-size: 48px;
@@ -37,20 +37,24 @@ export const BillingTitle = styled.div<{margin_bottom?: string}>`
 `
 
 export const Canvas = styled.canvas`
-    width: 100%!important;
-   height: 650px!important;
-@media screen and (max-width: 1792px) {
-   width: 97%!important;
-   height: 600px!important;
-}
-@media screen and (max-width: 1440px) {
-   width: 97%!important;
-   height: 570px!important;
-}
-@media screen and (max-width: 1280px) {
    width: 100%!important;
-   height: 570px!important;
-}
+   height: 650px!important;
+   margin-bottom: 40px !important;
+
+  @media (max-width: 1792px) {
+     width: 100%!important;
+    height: 600px!important;
+  }
+
+  @media (max-width: 1440px) {
+    width: 97%!important;
+    height: 570px!important;
+  }
+
+  @media (max-width: 1280px) {
+    width: 90%!important;
+    height: 570px!important;
+  }
    
 `
 
@@ -59,7 +63,7 @@ export const ExchangeSpanWrap = styled.div`
   align-items: center;
   margin: 0 0 0 25px;
 `
-export const Round = styled.div<{background?: string}>`
+export const Round = styled.div<{ background?: string }>`
   border-radius: 100px;
   width: 9px;
   height: 9px;

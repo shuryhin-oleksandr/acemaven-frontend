@@ -200,13 +200,23 @@ export const getManualTrackingStatusOptions = (
   };
 };
 
-export const updateShipmentInfo = (data: any, reset :any) => {
+export const updateShipmentInfo = (data: any, reset: any) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      // dispatch(agentOperationsActions.updateTrackingInfoList(data));
       let response = await operationsAgentAPI.updateShipmentInfo(data);
+      dispatch(agentOperationsActions.updateTrackingInfoList(response.data));
       reset();
-      console.log("RRR", response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const deleteTrackingStatus = (id: number) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      let response = await operationsAgentAPI.deleteTrackingStatus(id);
+      dispatch(agentOperationsActions.deleteTrackingStatus(id));
     } catch (e) {
       console.log(e);
     }

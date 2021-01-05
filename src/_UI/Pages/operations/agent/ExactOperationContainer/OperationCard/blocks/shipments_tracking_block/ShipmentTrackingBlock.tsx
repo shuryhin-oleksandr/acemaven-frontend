@@ -51,7 +51,6 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
             : []
         )[0];
 
-  console.log("events_coordinates", events_coordinates);
   const lastItem =
     events_coordinates &&
     events_coordinates.length > 0 &&

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -12,7 +12,6 @@ import { TrackingBackendType } from "../../../../../../../../_BLL/types/operatio
 import IconLocation from "../../../../../../../assets/icons/location_blue.svg";
 import { Controller, useForm } from "react-hook-form";
 import SurchargeRateSelect from "../../../../../../../components/_commonComponents/select/SurchargeRateSelect";
-import { Field } from "../../../../../../../components/_commonComponents/Input/input-styles";
 import { FormOperationButton } from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import close_icon from "../../../../../../../assets/icons/profile/closeForm.svg";
 import save_icon from "../../../../../../../assets/icons/profile/add.svg";
@@ -20,11 +19,17 @@ import { userCompaniesType } from "../../../../../../../../_BLL/types/authTypes"
 import { AppCompaniesTypes } from "../../../../../../../../_BLL/types/commonTypes";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteTrackingStatus,
   getManualTrackingStatusOptions,
   updateShipmentInfo,
 } from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import { getTrackingStatusOptions } from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import moment from "moment";
+import { agentOperationsActions } from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import { AppStateType } from "../../../../../../../../_BLL/store";
+import Garbage from "../../../../../../../assets/icons/garbage-icon.svg";
+import BaseTooltip from "../../../../../../../components/_commonComponents/baseTooltip/BaseTooltip";
+import FormField from "../../../../../../../components/_commonComponents/Input/FormField";
 
 const useStyles = makeStyles({
   container: {
@@ -74,6 +79,7 @@ const useStyles = makeStyles({
     color: "#1B1B25",
     padding: "15px 30px 10px 0",
     width: "30%",
+    verticalAlign: "bottom",
   },
   innerCommentCell: {
     borderBottom: "1px solid #ECECEC",
@@ -82,6 +88,7 @@ const useStyles = makeStyles({
     color: "#1B1B25",
     padding: "15px 30px 10px 0",
     width: "50%",
+    verticalAlign: "bottom",
   },
   buttonCell: {
     borderBottom: "1px solid #ECECEC",
@@ -128,7 +135,6 @@ let columns = [
 ];
 
 type PropsType = {
-  // tracking: TrackingBackendType[];
   company_type: userCompaniesType | undefined;
   shipping_mode_id: number;
   direction: string;
@@ -144,18 +150,26 @@ const ManualTracking: React.FC<PropsType> = ({
   tracking,
 }) => {
   const classes = useStyles();
-  const { handleSubmit, errors, setValue, control, getValues, reset } = useForm(
-    {
-      reValidateMode: "onBlur",
-    }
-  );
+  const {
+    handleSubmit,
+    errors,
+    setValue,
+    control,
+    getValues,
+    reset,
+    register,
+  } = useForm({
+    reValidateMode: "onBlur",
+  });
 
   const onSubmit = (values: any) => {
     const data = { ...values, booking: booking_id };
+    const timer = setTimeout(() => {
+      console.log("timer data", data);
+    }, 5000);
     dispatch(updateShipmentInfo(data, reset));
   };
 
-  // const rows = tracking[0].data.data.containers.map((c:any)=>({...c, events: c.events.map((ce:any)=>({...ce}))}));
 
   let dispatch = useDispatch();
 
@@ -164,6 +178,22 @@ const ManualTracking: React.FC<PropsType> = ({
   }, []);
 
   const statusOptions = useSelector(getTrackingStatusOptions);
+
+  useEffect(() => {
+    dispatch(agentOperationsActions.saveTrackingToStore(tracking));
+  }, []);
+
+  const manual_tracking = useSelector(
+    (state: AppStateType) => state.agent_operations.tracking_data
+  );
+  const [dateTime, setDateTime] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => setDateTime(new Date()), 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
 
   return (
     <Wrap onSubmit={handleSubmit(onSubmit)}>
@@ -193,21 +223,28 @@ const ManualTracking: React.FC<PropsType> = ({
                     control={control}
                     name={`status`}
                     defaultValue=""
+                    rules={{
+                      required: "Field is required",
+                    }}
                     as={
                       <SurchargeRateSelect
                         placeholder={"Select status"}
                         options={statusOptions}
                         maxW="260px"
+                        error={errors?.status?.message}
                       />
                     }
                   />
                 </TableCell>
                 <TableCell className={classes.innerCommentCell} align="left">
-                  <Controller
-                    control={control}
-                    name={`comment`}
-                    defaultValue={""}
-                    as={<Field placeholder="Add comment..." maxW="100%" />}
+                  <FormField
+                    inputRef={register({
+                      required: "Field is required",
+                    })}
+                    placeholder="Add comment..."
+                    name="comment"
+                    error={errors?.comment}
+                    maxW={"100%"}
                   />
                 </TableCell>
                 <TableCell className={classes.buttonCell} align="left">
@@ -220,13 +257,18 @@ const ManualTracking: React.FC<PropsType> = ({
                   >
                     <img src={close_icon} alt="" />
                   </FormOperationButton>
-                  <FormOperationButton type="submit" style={{ padding: "5px" }}>
-                    <img src={save_icon} alt="" />
-                  </FormOperationButton>
+                  <BaseTooltip title="After confirmation the tracking updates will be sent to the client.">
+                    <FormOperationButton
+                      type="submit"
+                      style={{ padding: "5px" }}
+                    >
+                      <img src={save_icon} alt="" />
+                    </FormOperationButton>
+                  </BaseTooltip>
                 </TableCell>
               </TableRow>
-              {tracking.map((row, idx) => (
-                <TableRow key={idx}>
+              {manual_tracking.map((row) => (
+                <TableRow key={row.id}>
                   <TableCell
                     valign={"top"}
                     className={classes.innerCell}
@@ -262,6 +304,24 @@ const ManualTracking: React.FC<PropsType> = ({
                       </div>
                       <div style={{ fontStyle: "italic" }}> {row.comment}</div>
                     </div>
+                  </TableCell>
+                  <TableCell
+                    valign={"top"}
+                    className={classes.innerCell}
+                    align="right"
+                  >
+                    {moment
+                      .utc(dateTime)
+                      .diff(moment.utc(row.date_created), "seconds") <= 300 && (
+                      <img
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          dispatch(deleteTrackingStatus(row.id));
+                        }}
+                        src={Garbage}
+                        alt={""}
+                      />
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

@@ -106,6 +106,11 @@ export const agentOperationsReducer = (
         ...state,
         tracking_data: [action.data, ...state.tracking_data],
       };
+    case "DELETE_TRACKING_STATUS":
+      return {
+        ...state,
+        tracking_data: state.tracking_data.filter((i) => i.id !== action.id),
+      };
     // case "UPDATE_MANUAL_TRACKING_INFO":
     //   return {
     //     ...state,
@@ -165,4 +170,6 @@ export const agentOperationsActions = {
     } as const),
   updateTrackingInfoList: (data: any) =>
     ({ type: "UPDATE_MANUAL_TRACKING_INFO", data } as const),
+  deleteTrackingStatus: (id: number) =>
+    ({ type: "DELETE_TRACKING_STATUS", id } as const),
 };

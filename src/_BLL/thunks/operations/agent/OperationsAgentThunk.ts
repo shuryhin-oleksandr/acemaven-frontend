@@ -211,3 +211,14 @@ export const updateShipmentInfo = (data: any, reset: any) => {
     }
   };
 };
+
+export const deleteTrackingStatus = (id: number) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      let response = await operationsAgentAPI.deleteTrackingStatus(id);
+      dispatch(agentOperationsActions.deleteTrackingStatus(id));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

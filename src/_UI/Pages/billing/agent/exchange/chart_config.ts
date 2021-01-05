@@ -1,11 +1,12 @@
-export const getExchangeChartConfig = (labels: Array<string>, commonSales: Array<number>, withMoneyAndRollSales: Array<number>,) => {
+export const getExchangeChartConfig = (dates_labels: Array<string>, usd_rates: Array<number>, eur_rates: Array<number>,) => {
+
     return {
         type: 'line',
         data: {
-            labels: labels,
+            labels: dates_labels,
             datasets: [
                 {
-                    data: commonSales,
+                    data: usd_rates,
                     borderColor: "#115b86",
                     //@ts-ignore
                     borderJoinStyle: "miter",
@@ -19,7 +20,7 @@ export const getExchangeChartConfig = (labels: Array<string>, commonSales: Array
                     fill: false
                 },
                 {
-                    data: withMoneyAndRollSales,
+                    data: eur_rates,
                     borderColor: "#00c5ff",
                     pointBackgroundColor: '#00c5ff',
                     //pointHoverBackgroundColor: "#00c5ff",
@@ -35,7 +36,7 @@ export const getExchangeChartConfig = (labels: Array<string>, commonSales: Array
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             legend: {
                 display: false
             },
@@ -87,11 +88,7 @@ export const getExchangeChartConfig = (labels: Array<string>, commonSales: Array
                         offsetGridLines: false
                     },
                     stacked: false,
-                    ticks: {
-                        min: 0,
-                        max: 1000,
-                        stepSize: 100,
-                    }
+
                 }]
             },
             animation: {

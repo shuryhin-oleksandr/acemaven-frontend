@@ -26,11 +26,19 @@ type PropsType = {
     setClientChangRequestPopupVisible: (value: boolean) => void,
     setIsCancelByAgent: (value: boolean) => void,
     setIsCancelByClient: (value: boolean) => void,
+    setReviewPopup: (value: boolean) => void,
 }
 
-const ActionsButtonsBlock:React.FC<PropsType> = ({operation_info, my_name, company_type, ...props}) => {
+const ActionsButtonsBlock:React.FC<PropsType> = ({operation_info, my_name, company_type,setReviewPopup, ...props}) => {
     return (
         <ActionsButtons>
+            {company_type?.type === AppCompaniesTypes.CLIENT
+            && operation_info?.status !== AppOperationBookingStatusesType.COMPLETED
+            &&
+                <ConfirmButton onClick={() => setReviewPopup(true)}>
+                    Leave a review
+                </ConfirmButton>
+            }
             {operation_info?.has_change_request
             && company_type?.type === AppCompaniesTypes.AGENT && (my_name === props.agent_contact_name)
             && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
@@ -99,6 +107,7 @@ const ActionsButtonsBlock:React.FC<PropsType> = ({operation_info, my_name, compa
                     </RejectButton>
                 )
             }
+
         </ActionsButtons>
     )
 }

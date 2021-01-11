@@ -51,6 +51,7 @@ type PropsType = {
     setTakeOver: (value: boolean) => void,
     setChangeRequestPopup: (value: boolean) => void,
     setEdit: (value: boolean) => void
+    setReviewPopup: (value: boolean) => void
 }
 
 const OperationCard: React.FC<PropsType> = ({
@@ -64,6 +65,7 @@ const OperationCard: React.FC<PropsType> = ({
                                                 closeHandler,
                                                 setIsCancelByClient,
                                                 setTakeOver,
+                                                setReviewPopup,
                                                 ...props
                                             }) => {
 
@@ -118,6 +120,7 @@ const OperationCard: React.FC<PropsType> = ({
                                         setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
                                         setEdit={props.setEdit}
                                         setChangeRequestPopup={props.setChangeRequestPopup}
+                                        setReviewPopup={setReviewPopup}
                    />
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}

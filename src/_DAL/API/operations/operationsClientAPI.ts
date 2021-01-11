@@ -30,4 +30,13 @@ export const operationsClientAPI = {
   recalculateCharges(id: number, data: any) {
     return instance.post(`/booking/operation/${id}/recalculate/`, data);
   },
+  postCompaniesRating(
+    data: {
+      comment: string;
+      rating: number;
+    },
+    id: number
+  ) {
+    return instance.post(`booking/operation/${id}/review/`, data);
+  },
 };

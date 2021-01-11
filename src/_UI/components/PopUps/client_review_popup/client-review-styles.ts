@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
 `;
-export const Inner = styled.div`
+export const Inner = styled.form`
   max-width: 800px;
   width: 100%;
   background-color: white;
@@ -75,4 +75,11 @@ export const StarsWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+`;
+
+export const ErrorMessage = styled.div`
+  color: #e76767;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 12px;
+  text-align: end;
 `;

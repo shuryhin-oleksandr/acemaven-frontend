@@ -8,6 +8,7 @@ import {
   ButtonsWrapper,
   ConfirmButton,
   StarsWrapper,
+  ErrorMessage,
 } from "./client-review-styles";
 import { IconButton, withStyles } from "@material-ui/core";
 import close_icon from "../../../assets/icons/close-icon.svg";
@@ -15,9 +16,12 @@ import { Controller, useForm } from "react-hook-form";
 import { FormTextarea } from "../accept_booking_popup/accept-popup-styles";
 import { Rating } from "@material-ui/lab";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import { useDispatch } from "react-redux";
+import {postCompaniesRating} from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 
 type PropsType = {
   setReviewPopup: (value: boolean) => void;
+  id: number
 };
 
 const StyledRating = withStyles({
@@ -26,16 +30,30 @@ const StyledRating = withStyles({
   },
 })(Rating);
 
-const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup }) => {
-  const { handleSubmit, errors, control, reset, register } = useForm({
+const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup, id }) => {
+  const { handleSubmit, errors, control } = useForm({
     reValidateMode: "onBlur",
   });
 
+  let dispatch = useDispatch();
+
   const [ratingValue, setRatingValue] = useState(0);
+
+  const onSubmit = (values: any) => {
+    let rating;
+    if (ratingValue === 0) {
+      rating = 1;
+    } else {
+      rating = ratingValue * 2;
+    }
+    const data = { ...values, rating };
+    dispatch(postCompaniesRating(data, id,setReviewPopup));
+
+  };
 
   return (
     <Wrapper>
-      <Inner>
+      <Inner onSubmit={handleSubmit(onSubmit)}>
         <IconButton
           onClick={() => setReviewPopup(false)}
           style={{ position: "absolute", top: "20px", right: "20px" }}
@@ -51,6 +69,7 @@ const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup }) => {
           </Subtitle>
           <StarsWrapper>
             <StyledRating
+              name="rating"
               precision={0.5}
               emptyIcon={<StarBorderIcon fontSize="inherit" />}
               value={ratingValue}
@@ -62,7 +81,7 @@ const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup }) => {
         </Content>
 
         <Controller
-          name="booking_notes"
+          name="comment"
           control={control}
           defaultValue=""
           rules={{
@@ -71,9 +90,12 @@ const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup }) => {
           as={
             <div style={{ width: "100%", padding: "0 70px" }}>
               <FormTextarea
-                error={!!errors?.booking_notes}
+                error={!!errors?.comment}
                 placeholder="Comments.."
               />
+              {!!errors?.comment && (
+                <ErrorMessage>Field is required</ErrorMessage>
+              )}
             </div>
           }
         />

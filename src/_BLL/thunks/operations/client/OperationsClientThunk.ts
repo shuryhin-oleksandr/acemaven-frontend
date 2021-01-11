@@ -18,7 +18,7 @@ export const getClientOperationsThunk = (
 ) => {
   return async (dispatch: Dispatch<commonClientOperationsActions>) => {
     try {
-      dispatch(clientOperationsActions.setIsFetching(true))
+      dispatch(clientOperationsActions.setIsFetching(true));
       let res = await operationsClientAPI.getClientOperations(
         type,
         is_mine,
@@ -28,15 +28,13 @@ export const getClientOperationsThunk = (
         status
       );
       dispatch(clientOperationsActions.setClientOperationsList(res.data));
-      dispatch(clientOperationsActions.setIsFetching(false))
+      dispatch(clientOperationsActions.setIsFetching(false));
     } catch (e) {
       console.log(e);
-      dispatch(clientOperationsActions.setIsFetching(false))
+      dispatch(clientOperationsActions.setIsFetching(false));
     }
   };
 };
-
-
 
 export const getPackageTypesChoices = () => {
   return async (dispatch: Dispatch<commonClientOperationsActions>) => {
@@ -183,15 +181,33 @@ export const getClientExactOperationThunk = (id: number) => {
 };
 
 export const editOperationByClientThunk = (
-    id: number,
-    data: any,
-    setIsOpen: (value: boolean) => void
+  id: number,
+  data: any,
+  setIsOpen: (value: boolean) => void
 ) => {
   return async (dispatch: any) => {
     try {
       let res = await operationsClientAPI.editOperationByClient(data);
       setIsOpen(false);
       await dispatch(getClientExactOperationThunk(id));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const postCompaniesRating = (
+  data: {
+    comment: string;
+    rating: number;
+  },
+  id: number,
+  setReviewPopup: (value: boolean) => void
+) => {
+  return async () => {
+    try {
+      let res = await operationsClientAPI.postCompaniesRating(data, id);
+      setReviewPopup(false);
     } catch (e) {
       console.log(e);
     }

@@ -57,7 +57,7 @@ const ExactOperationContainer = ({ ...props }) => {
   const [isCancelByClient, setIsCancelByClient] = useState(false);
   const [isTakeOverPopup, setTakeOver] = useState(false);
   const [isEditOperationByAgent, setEditOperationByAgent] = useState(false);
-  const [isReviewPopup, setReviewPopup] = useState(true);
+  const [isReviewPopup, setReviewPopup] = useState(false);
 
   //data from store
   let company_type = useSelector(
@@ -184,7 +184,10 @@ const ExactOperationContainer = ({ ...props }) => {
         />
       </ModalWindow>
       <ModalWindow isOpen={isReviewPopup}>
-        <ClientReviewPopup setReviewPopup={setReviewPopup} />
+        <ClientReviewPopup
+          setReviewPopup={setReviewPopup}
+          id={id}
+        />
       </ModalWindow>
       <ModalWindow isOpen={isCancelByAgent}>
         <CancelOperationByAgentPopup
@@ -243,6 +246,7 @@ const ExactOperationContainer = ({ ...props }) => {
           setTakeOver={setTakeOver}
           setChangeRequestPopup={setChangeRequestPopup}
           setEdit={setEditOperationByAgent}
+          setReviewPopup={setReviewPopup}
         />
       )}
     </Layout>

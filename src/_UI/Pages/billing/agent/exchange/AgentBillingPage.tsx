@@ -1,4 +1,9 @@
 import React from "react";
+//types
+import {ExchangeRateType} from "../../../../../_BLL/types/billing/billingTypes";
+//components
+import ExchangeTable from "./tables/ExchangeTable";
+//styles
 import {
     BillingContent,
     BillingInner,
@@ -7,18 +12,17 @@ import {
     Canvas, ExchangeSpan,
     ExchangeSpanWrap, Round
 } from "./agent-billing-styles";
-import ExchangeTable from "./tables/ExchangeTable";
-import {ExchangeRateType} from "../../../../../_BLL/types/billing/billingTypes";
+
 
 type PropsType = {
     chartRef: React.MutableRefObject<HTMLCanvasElement | null>,
     exchange_list: ExchangeRateType[],
     setProceed: (value: boolean) => void,
     setRepeatedExchangeHandler: (data: {rates: Array<{currency: number, rate: string, spread: string}>} | null) => void,
+    adding_exchange_success: boolean
 }
 
-const AgentBillingPage:React.FC<PropsType> = ({chartRef, exchange_list, setProceed, setRepeatedExchangeHandler}) => {
-
+const AgentBillingPage:React.FC<PropsType> = ({chartRef, exchange_list, setProceed, setRepeatedExchangeHandler, ...props}) => {
 
     return (
         <BillingWrapper>
@@ -28,6 +32,7 @@ const AgentBillingPage:React.FC<PropsType> = ({chartRef, exchange_list, setProce
                     <ExchangeTable exchange_list={exchange_list}
                                    setProceed={setProceed}
                                    setRepeatedExchangeHandler={setRepeatedExchangeHandler}
+                                   adding_exchange_success={props.adding_exchange_success}
                     /> {/*form*/}
                     <div style={{display: 'flex', marginBottom: '20px'}}>
                         <ExchangeSpanWrap>

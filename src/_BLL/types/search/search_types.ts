@@ -39,7 +39,7 @@ export type SearchFreightRateType = {
     expiration_date: string,
     transit_time: number,
     is_active?: boolean,
-    company: string
+    company: {id: number, name: string, rating: number | null}
 }
 export type CargoGroupResultType = {
     freight: {

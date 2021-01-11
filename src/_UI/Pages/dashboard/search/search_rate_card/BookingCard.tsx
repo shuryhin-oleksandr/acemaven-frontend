@@ -47,7 +47,7 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                         </ShippingType>
                         <DirectionWrap>
                             <Direction>{search_result?.freight_rate.origin.display_name} - {search_result?.freight_rate.destination.display_name}</Direction>
-                            <Carrier>*{search_result?.freight_rate.company}</Carrier>
+                            <Carrier>*{search_result?.freight_rate.company.name}</Carrier>
                         </DirectionWrap>
                     </GeneralWrap>
                     <AdditionalWrap>
@@ -62,6 +62,7 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                     </AdditionalWrap>
                 </GeneralPart>
                 <RatingPartContainer showRatingPopup={showRatingPopup}
+                                     company={search_result?.freight_rate.company}
                 />
             </InfoPart>
             <TotalPart>

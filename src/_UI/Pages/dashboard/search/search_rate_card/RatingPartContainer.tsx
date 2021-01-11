@@ -7,17 +7,16 @@ import blue_part_fill_star from "../../../../assets/icons/search/part_filled_sta
 import blue_empty_star from "../../../../assets/icons/search/empty_star.svg";
 
 type PropsType = {
-    showRatingPopup: (value: boolean) => void
+    showRatingPopup: (value: boolean) => void,
+    company: {id: number, name: string, rating: number | null}
 }
 
-const RatingPartContainer:React.FC<PropsType> = ({showRatingPopup}) => {
-    let is_rating = false
+const RatingPartContainer:React.FC<PropsType> = ({showRatingPopup, company}) => {
+
 
     return (
         <RatingPart >
-            {is_rating
-                ? <>
-               <CompanyName>TransferCo.</CompanyName>
+               <CompanyName>{company?.name}</CompanyName>
                <RatingWrap onClick={() => showRatingPopup(true)}>
                    <img src={blue_fill_star} alt=""/>
                    <img src={blue_fill_star} alt=""/>
@@ -25,19 +24,12 @@ const RatingPartContainer:React.FC<PropsType> = ({showRatingPopup}) => {
                    <img src={blue_part_fill_star} alt=""/>
                    <img src={blue_empty_star} alt=""/>
                </RatingWrap>
-           </>
-                : <>
-                    <NoRatingUpperText>*Agent Company name</NoRatingUpperText>
-                    <NoRatingUpperText margin_bottom='7px'>*Agent Rating</NoRatingUpperText>
-                    <NoRatingUnderText>
+                   {/* <NoRatingUnderText>
                         **Will be displayed after booking confirmation
                     </NoRatingUnderText>
                     <NoRatingUnderText>
                         ***Will be displayed after payment is completed
-                    </NoRatingUnderText>
-                </>
-            }
-
+                    </NoRatingUnderText>*/}
         </RatingPart>
     )
 }

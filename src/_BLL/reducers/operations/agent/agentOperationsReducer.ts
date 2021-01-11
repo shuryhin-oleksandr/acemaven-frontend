@@ -16,6 +16,7 @@ const initialState = {
   taked_over: "",
   status_options: [] as ChoiceType[],
   tracking_data: [] as TrackingBackendType[],
+  is_operation_completed: false
 };
 
 type InitialStateType = typeof initialState;
@@ -111,7 +112,12 @@ export const agentOperationsReducer = (
         ...state,
         tracking_data: state.tracking_data.filter((i) => i.id !== action.id),
       };
-    // case "UPDATE_MANUAL_TRACKING_INFO":
+    case "SET_IS_OPERATION_COMPLETED":
+      return {
+        ...state,
+        is_operation_completed: action.value
+      }
+      // case "UPDATE_MANUAL_TRACKING_INFO":
     //   return {
     //     ...state,
     //     agent_operation_info: {
@@ -172,4 +178,5 @@ export const agentOperationsActions = {
     ({ type: "UPDATE_MANUAL_TRACKING_INFO", data } as const),
   deleteTrackingStatus: (id: number) =>
     ({ type: "DELETE_TRACKING_STATUS", id } as const),
+  setIsOperationCompleted: (value: boolean) => ({type: 'SET_IS_OPERATION_COMPLETED', value} as const)
 };

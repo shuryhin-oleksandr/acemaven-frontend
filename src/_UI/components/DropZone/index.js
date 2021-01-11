@@ -12,7 +12,6 @@ const DropZone = ({ setImg, name, setFile }) => {
       setImg(e.target.result);
       setFile(acceptedFiles[0])
     };
-    console.log(acceptedFiles[0])
     setImg(reader.readAsDataURL(acceptedFiles[0]));
   }, [setFile, setImg]);
   const {

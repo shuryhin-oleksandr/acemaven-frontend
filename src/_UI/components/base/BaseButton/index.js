@@ -6,7 +6,8 @@ const BaseButton = styled.button`
   background-color: ${({ background, disabled }) =>
     disabled ? "#7C7C89" : background ? background : "#000000"};
   color: ${({ textColor }) => (textColor ? textColor : "#FFFFFF")};
-  padding: 12px 39px;
+  //padding: 12px 39px;
+  min-width: 146px;
   cursor: pointer;
   outline: none;
   border: none;

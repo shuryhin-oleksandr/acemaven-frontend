@@ -47,10 +47,12 @@ type PropsType = {
     setClientChangRequestPopupVisible: (value: boolean) => void,
     setIsCancelByAgent: (value: boolean) => void,
     setIsCancelByClient: (value: boolean) => void;
+    setCompleteOperationPopup: (value: boolean) => void,
     closeHandler: VoidFunctionType,
     setTakeOver: (value: boolean) => void,
     setChangeRequestPopup: (value: boolean) => void,
-    setEdit: (value: boolean) => void
+    setEdit: (value: boolean) => void,
+    ATA: boolean
 }
 
 const OperationCard: React.FC<PropsType> = ({
@@ -68,7 +70,7 @@ const OperationCard: React.FC<PropsType> = ({
                                             }) => {
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
-
+    let manual_tracking_without_error = operation_info?.tracking.filter(m => m.status)
 
 
     return (
@@ -106,19 +108,21 @@ const OperationCard: React.FC<PropsType> = ({
               </span>
                         </BookingStatus>
                     </BookingInfo>
-                   <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
-                                        client_contact_name={props.client_contact_name}
-                                        operation_info={operation_info}
-                                        my_name={my_name}
-                                        company_type={company_type ? company_type : undefined}
-                                        openAcceptPopup={openAcceptPopup}
-                                        setTakeOver={setTakeOver}
-                                        setIsCancelByAgent={setIsCancelByAgent}
-                                        setIsCancelByClient={setIsCancelByClient}
-                                        setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
-                                        setEdit={props.setEdit}
-                                        setChangeRequestPopup={props.setChangeRequestPopup}
-                   />
+                    <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
+                                               client_contact_name={props.client_contact_name}
+                                               operation_info={operation_info}
+                                               my_name={my_name}
+                                               company_type={company_type ? company_type : undefined}
+                                               openAcceptPopup={openAcceptPopup}
+                                               setTakeOver={setTakeOver}
+                                               setIsCancelByAgent={setIsCancelByAgent}
+                                               setIsCancelByClient={setIsCancelByClient}
+                                               setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
+                                               setEdit={props.setEdit}
+                                               setChangeRequestPopup={props.setChangeRequestPopup}
+                                               ATA={props.ATA}
+                                               setCompleteOperationPopup={props.setCompleteOperationPopup}
+                        />
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}
                                        shipment={shipment ? shipment : null}
@@ -128,7 +132,7 @@ const OperationCard: React.FC<PropsType> = ({
 
                 />
                 {operation_info?.status === "Booking Confirmed"
-                && <ShipmentTrackingBlock tracking={operation_info?.tracking ? operation_info.tracking: []}
+                && <ShipmentTrackingBlock tracking={manual_tracking_without_error ? manual_tracking_without_error : []}
                                           shipping_type={operation_info?.shipping_type}
                                           direction={operation_info?.freight_rate.origin.is_local ? 'export' : 'import'}
                                           origin_coordinates={operation_info?.freight_rate.origin.coordinates ? operation_info.freight_rate.origin.coordinates : null}

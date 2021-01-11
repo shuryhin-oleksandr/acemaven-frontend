@@ -120,11 +120,31 @@ export const cancelOperationByAgentThunk = (
 ) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      let res = await operationsAgentAPI.cancelOperationByAgent(id, data);
+      dispatch(agentOperationsActions.setIsFetching(true));
+      await operationsAgentAPI.cancelOperationByAgent(id, data);
       dispatch(agentOperationsActions.setCancellationConfirmation("cancelled"));
-      history.push("/operations_active");
+      history.push("/operations_cancelled");
+      dispatch(agentOperationsActions.setIsFetching(false));
     } catch (e) {
       console.log(e);
+      dispatch(agentOperationsActions.setIsFetching(false));
+    }
+  };
+};
+
+export const completeOperationByAgentThunk = (
+    id: number,
+    history: any
+) => {
+  return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    try {
+      dispatch(agentOperationsActions.setIsFetching(true));
+      await operationsAgentAPI.completeOperationByAgent(id);
+      history.push("/operations_completed");
+      dispatch(agentOperationsActions.setIsFetching(false));
+    } catch (e) {
+      console.log(e);
+      dispatch(agentOperationsActions.setIsFetching(false));
     }
   };
 };
@@ -136,7 +156,6 @@ export const confirmChangeRequestThunk = (
 ) => {
   return async (dispatch: Dispatch<any>) => {
     try {
-      debugger;
       await operationsAgentAPI.editOperationByAgent(
         new_shipment_data,
         shipment_id
@@ -150,7 +169,6 @@ export const confirmChangeRequestThunk = (
       dispatch(
         agentOperationsActions.setAgentExactOperationInfo(response.data)
       );
-      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -160,10 +178,8 @@ export const confirmChangeRequestThunk = (
 export const cancelChangeRequestThunk = (id: number) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      debugger;
-      let res = await operationsAgentAPI.cancelChangeRequest(id);
+      await operationsAgentAPI.cancelChangeRequest(id);
       dispatch(agentOperationsActions.setChangeRequestConfirmation("reaction"));
-      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -215,7 +231,7 @@ export const updateShipmentInfo = (data: any, reset: any) => {
 export const deleteTrackingStatus = (id: number) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
-      let response = await operationsAgentAPI.deleteTrackingStatus(id);
+      await operationsAgentAPI.deleteTrackingStatus(id);
       dispatch(agentOperationsActions.deleteTrackingStatus(id));
     } catch (e) {
       console.log(e);

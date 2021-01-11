@@ -7,12 +7,14 @@ import {
 } from "./complete-operation-styles";
 import {IconButton} from "@material-ui/core";
 import close_icon from '../../../assets/icons/close-icon.svg';
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 
 type PropsType = {
-    setCompleteOperationPopup: (value: boolean) => void
+    setCompleteOperationPopup: (value: boolean) => void,
+    completeOperationHandler: VoidFunctionType
 }
 
-const CompleteOperationPopup:React.FC<PropsType> = ({setCompleteOperationPopup}) => {
+const CompleteOperationPopup:React.FC<PropsType> = ({setCompleteOperationPopup, completeOperationHandler}) => {
     return (
         <CompleteOperationPopupWrapper>
             <CompleteOperationPopupInner>
@@ -28,7 +30,7 @@ const CompleteOperationPopup:React.FC<PropsType> = ({setCompleteOperationPopup})
                         or has you reached a payment agreement with the client for this shipment?
                     </CompleteSubtitle>
                     <CompleteButtonsWrapper>
-                        <CompleteConfirmButton>confirm</CompleteConfirmButton>
+                        <CompleteConfirmButton onClick={completeOperationHandler}>confirm</CompleteConfirmButton>
                         <CompleteCancelButton onClick={() => setCompleteOperationPopup(false)}>cancel</CompleteCancelButton>
                     </CompleteButtonsWrapper>
                 </CompleteOperationPopupContent>

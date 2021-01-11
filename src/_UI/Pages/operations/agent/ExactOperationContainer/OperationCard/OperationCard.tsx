@@ -47,11 +47,13 @@ type PropsType = {
     setClientChangRequestPopupVisible: (value: boolean) => void,
     setIsCancelByAgent: (value: boolean) => void,
     setIsCancelByClient: (value: boolean) => void;
+    setCompleteOperationPopup: (value: boolean) => void,
     closeHandler: VoidFunctionType,
     setTakeOver: (value: boolean) => void,
     setChangeRequestPopup: (value: boolean) => void,
     setEdit: (value: boolean) => void
     setReviewPopup: (value: boolean) => void
+    ATA: boolean
 }
 
 const OperationCard: React.FC<PropsType> = ({
@@ -70,7 +72,7 @@ const OperationCard: React.FC<PropsType> = ({
                                             }) => {
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
-
+    let manual_tracking_without_error = operation_info?.tracking.filter(m => m.status)
 
 
     return (
@@ -121,6 +123,8 @@ const OperationCard: React.FC<PropsType> = ({
                                         setEdit={props.setEdit}
                                         setChangeRequestPopup={props.setChangeRequestPopup}
                                         setReviewPopup={setReviewPopup}
+                                        ATA={props.ATA}
+                                        setCompleteOperationPopup={props.setCompleteOperationPopup}
                    />
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}
@@ -131,7 +135,7 @@ const OperationCard: React.FC<PropsType> = ({
 
                 />
                 {operation_info?.status === "Booking Confirmed"
-                && <ShipmentTrackingBlock tracking={operation_info?.tracking ? operation_info.tracking: []}
+                && <ShipmentTrackingBlock tracking={manual_tracking_without_error ? manual_tracking_without_error : []}
                                           shipping_type={operation_info?.shipping_type}
                                           direction={operation_info?.freight_rate.origin.is_local ? 'export' : 'import'}
                                           origin_coordinates={operation_info?.freight_rate.origin.coordinates ? operation_info.freight_rate.origin.coordinates : null}

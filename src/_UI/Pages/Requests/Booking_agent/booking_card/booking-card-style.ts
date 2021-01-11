@@ -50,6 +50,10 @@ export const BookingStatus = styled.span`
 `
 export const ActionsButtons = styled.div`
   display: flex;
+  @media (max-width: 1280px) {
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+  }
 `
 export const AcceptButton = styled.button`
   height: 40px;
@@ -67,6 +71,10 @@ export const AcceptButton = styled.button`
   
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 1280px) {
+    margin-bottom: 15px;
+    font-size: 12px;
   }
 `
 export const ConfirmButton = styled.button`
@@ -93,7 +101,7 @@ export const ConfirmButton = styled.button`
   }
 `
 export const AssignButton = styled(AcceptButton)``
-export const RejectButton = styled.button`
+export const RejectButton = styled.button <{margin?: string}>`
   height: 40px;
   padding: 0 39px;
   outline: none;
@@ -111,6 +119,12 @@ export const RejectButton = styled.button`
     cursor: pointer;
     transition: .3s;
     background-color: rgba(0, 0, 0, .07);
+  }
+  
+   @media (max-width: 1280px) {
+    width: 205px;
+    font-size: 12px;
+    margin-right: 15px;
   }
 `
 export const GeneralBookingInfo = styled.div`

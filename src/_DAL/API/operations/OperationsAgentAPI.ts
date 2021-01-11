@@ -35,6 +35,9 @@ export const operationsAgentAPI = {
   ) {
     return instance.post(`/booking/operation/${id}/cancel/`, data);
   },
+  completeOperationByAgent (id: number) {
+    return instance.post(`/booking/operation/${id}/complete/`)
+  },
   confirmChangeRequest(id: number) {
     return instance.post(`/booking/operation/${id}/confirm_change_request/`);
   },

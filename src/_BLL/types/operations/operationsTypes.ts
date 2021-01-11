@@ -87,7 +87,7 @@ export type TrackingEventType = {
     otherServiceInformation: string, //comments for table
     events: EventType[],
     messageHeader: any //do we need these fields?
-}
+} //air
 
 export type SeaDataDataType = {
     route: {

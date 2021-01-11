@@ -50,7 +50,8 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
 
     return (
         <OperationsWrapper>
-            {!isHide && props.operation_status === 'active' && <MapComponent
+            {!isHide && props.operation_status === 'active'
+            && <MapComponent
                 isMarkerShown={false}
                 loadingElement={<div style={{ height: `420px` }} />}
                 containerElement={<MapWrapper />}

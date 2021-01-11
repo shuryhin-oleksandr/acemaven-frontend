@@ -13,3 +13,4 @@ export const getCancellationConfirmationSelector = (state: AppStateType) => stat
 export const getChangeRequestConfirmationSelector = (state: AppStateType) => state.agent_operations.change_request_confirmation
 export const getTakedOverSelector = (state: AppStateType) => state.agent_operations.taked_over
 export const getTrackingStatusOptions = (state: AppStateType) => state.agent_operations.status_options
+export const getManualTrackingDataSelector = (state: AppStateType) => state.agent_operations.tracking_data

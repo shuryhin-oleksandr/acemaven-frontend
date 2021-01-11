@@ -36,7 +36,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
     return (
         <ActionsButtons>
             {company_type?.type === AppCompaniesTypes.CLIENT
-            && operation_info?.status !== AppOperationBookingStatusesType.COMPLETED
+            && operation_info?.status === AppOperationBookingStatusesType.COMPLETED
             &&
             <ConfirmButton onClick={() => setReviewPopup(true)}>
                 Leave a review

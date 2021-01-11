@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 //moment js
 import moment from "moment";
 //react-hook-form
@@ -16,11 +16,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 //BLL
 import {createNewExchangeRateThunk} from "../../../../../../_BLL/thunks/billing/agent/AgentBillingThunks";
+import {agentBillingActions} from "../../../../../../_BLL/reducers/billing/agent/AgentBillingReducer";
+//types
+import {ExchangeRateType} from "../../../../../../_BLL/types/billing/billingTypes";
 //components
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
 //styles
 import {SubmitQuoteButton} from "../../../../quotes/agent/table/agent-quotes-styles";
-import {ExchangeRateType} from "../../../../../../_BLL/types/billing/billingTypes";
 
 
 const useStyles = makeStyles({
@@ -100,9 +102,10 @@ type PropsType = {
     exchange_list: ExchangeRateType[],
     setProceed: (value: boolean) => void,
     setRepeatedExchangeHandler: (data: { rates: Array<{ currency: number, rate: string, spread: string }> } | null) => void,
+    adding_exchange_success: boolean
 }
 
-const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepeatedExchangeHandler}) => {
+const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepeatedExchangeHandler, ...props}) => {
     //hooks
     const dispatch = useDispatch()
     const classes = useStyles();
@@ -111,7 +114,7 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
     let current_day = moment().format('DD/MM/YYYY')
 
     //react hook form
-    const {handleSubmit, errors, register} = useForm<{ usd: string, eur: string, spread: string }>({
+    const {handleSubmit, errors, register, reset} = useForm<{ usd: string, eur: string, spread: string }>({
         mode: 'onSubmit',
         reValidateMode: 'onBlur'
     })
@@ -135,6 +138,13 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
             dispatch(createNewExchangeRateThunk({rates: data_array}))
         }
     }
+
+    useEffect(() => {
+        if(props.adding_exchange_success) {
+            reset()
+            dispatch(agentBillingActions.setAddingExchangeSuccess(false))
+        }
+     }, [props.adding_exchange_success])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

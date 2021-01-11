@@ -26,3 +26,4 @@ export const getAgentExchangeListSelector = (state: AppStateType) => {
 
 export const isFetchingSelector = (state: AppStateType) => state.agent_billing.isFetching
 export const repeatedExchangeSelector  = (state: AppStateType) => state.agent_billing.repeated_exchange
+export const getAddingSuccessExchangeSelector = (state: AppStateType) => state.agent_billing.adding_exchange_success

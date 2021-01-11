@@ -18,11 +18,12 @@ export const getExchangeListThunk = () => {
 };
 
 export const createNewExchangeRateThunk = (exchange_data: {rates: Array<{currency: number, rate: string, spread: string}>}) => {
-    return async (dispatch: Dispatch<commonAgentBillingActions>) => {
+    return async (dispatch: any) => {
         try {
             dispatch(agentBillingActions.setIsFetching(true))
-            let res = await agentBillingAPI.addNewExchangeRate(exchange_data);
-            dispatch(agentBillingActions.setNewExchangeRateToList(res.data));
+            await agentBillingAPI.addNewExchangeRate(exchange_data);
+            dispatch(agentBillingActions.setAddingExchangeSuccess(true))
+            dispatch(getExchangeListThunk())
             dispatch(agentBillingActions.setIsFetching(false))
         } catch (e) {
             console.log(e);

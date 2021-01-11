@@ -2,7 +2,7 @@ import React from 'react'
 //REACT-REDUX
 import {useDispatch} from "react-redux";
 //types
-import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
+import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 //BLL
 import {bookingActions} from "../../../../../_BLL/reducers/booking/bookingReducer";
 //COMPONENTS
@@ -21,7 +21,7 @@ import {
 //icons
 import ship from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+
 
 
 type PropsType = {
@@ -33,9 +33,10 @@ type PropsType = {
     setWidgetsVisible?: (value: boolean) => void,
     search_result?: any//SearchResultType
     quote?: QuoteType,
+    setClickedReview?: (value: number) => void
 }
 
-const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result,setWidgetsVisible,quote}) => {
+const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result,setWidgetsVisible, ...props}) => {
     const dispatch = useDispatch();
     return (
         <UpperWrapper onClick={() => isTableShown ? showTable && showTable(false) : showTable && showTable(true)}>
@@ -63,6 +64,7 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                 </GeneralPart>
                 <RatingPartContainer showRatingPopup={showRatingPopup}
                                      company={search_result?.freight_rate.company}
+                                     setClickedReview={props.setClickedReview }
                 />
             </InfoPart>
             <TotalPart>

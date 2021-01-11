@@ -2,7 +2,7 @@ import {
     CargoGroupType,
     FrozenChoiceType,
     ChoiceType,
-    SearchResultType
+    SearchResultType, RatingCompanyType
 } from "../../types/search/search_types";
 
 
@@ -14,7 +14,8 @@ const initialState = {
     search_result: [] as SearchResultType[],
     search_success: false,
     frozen_choices: [] as ChoiceType[],
-    duplicates_error: ''
+    duplicates_error: '',
+    rating_company_data: null as RatingCompanyType | null
 }
 
 type InitialStateType = typeof initialState;
@@ -86,6 +87,11 @@ export const searchClientReducer = (state = initialState, action: commonSearchAc
                ...state,
                duplicates_error: action.error
            }
+       case "SET_SEARCHED_COMPANY_RATING":
+           return {
+               ...state,
+               rating_company_data: action.rating_data
+           }
        default: return state
    }
 }
@@ -105,5 +111,6 @@ export const searchActions = {
     setSearchResult: (result: SearchResultType[]) => ({type: 'SET_SEARCH_RESULT', result} as const),
     setSearchSuccess: (value: boolean) => ({type: 'SET_SEARCH_SUCCESS', value} as const),
     setFrozenChoices:(choices:FrozenChoiceType)=>({type:"SET_FROZEN_CHOICES", choices} as const),
-    setDuplicatedError: (error: string) => ({type: 'SET_DUPLICATED_ERROR', error} as const)
+    setDuplicatedError: (error: string) => ({type: 'SET_DUPLICATED_ERROR', error} as const),
+    setSearchedCompanyRating: (rating_data: RatingCompanyType | null) => ({type: 'SET_SEARCHED_COMPANY_RATING', rating_data} as const )
 };

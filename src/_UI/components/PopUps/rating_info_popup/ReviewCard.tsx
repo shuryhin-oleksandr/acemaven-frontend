@@ -5,46 +5,36 @@ import {
     ModeDirection,
     OpinionTime,
     PhotoWrap,
-    Rating, ReviewCardWrap,
+    ReviewCardWrap,
     ReviewCompany,
     ReviewInfo, ReviewWords, Words
 } from "./rating-popup-styles";
-import user from "../../../assets/icons/user.png";
-import blue_fill_star from "../../../assets/icons/search/filled_star.svg";
-import blue_part_fill_star from "../../../assets/icons/search/part_filled_star.svg";
-import blue_empty_star from "../../../assets/icons/search/empty_star.svg";
+import user_default from "../../../assets/icons/profile/miniDEfaultPhoto.svg";
+import {ReviewType} from "../../../../_BLL/types/search/search_types";
+import RatingStars from "../../_commonComponents/rating_stars/RatingStars";
 
 type PropsType = {
-    user_opinion?: any
+    review: ReviewType | null
 }
 
-const ReviewCard:React.FC<PropsType> = () => {
+const ReviewCard:React.FC<PropsType> = ({review}) => {
     return (
         <ReviewCardWrap>
-            <PhotoWrap><img src={user} alt=""/></PhotoWrap>
+            <PhotoWrap>
+                <img src={review?.reviewer_photo ? review?.reviewer_photo : user_default} alt=""/>
+            </PhotoWrap>
             <ReviewInfo>
                 <ReviewCompany>
                     <LeftPart>
-                        <CompName>Coca Cola Co.</CompName>
-                        <ModeDirection>FCL, SRZ-BRL</ModeDirection>
-                        <Rating>
-                            <img src={blue_fill_star} alt=""/>
-                            <img src={blue_fill_star} alt=""/>
-                            <img src={blue_fill_star} alt=""/>
-                            <img src={blue_part_fill_star} alt=""/>
-                            <img src={blue_empty_star} alt=""/>
-                        </Rating>
+                        <CompName>{review?.company}</CompName>
+                        <ModeDirection>{review?.route}</ModeDirection>
+                        <RatingStars rating_value={Number(review?.rating)} marginBottom={'0px'}/>
                     </LeftPart>
-                    <OpinionTime>07:44 am 10 MAY 2020</OpinionTime>
+                    <OpinionTime>{review?.date_created}</OpinionTime>
                 </ReviewCompany>
                 <ReviewWords>
                     <Words>
-                        Document Fee will have the condition fixed permanent because this cost doesn’t
-                        depend on the characteristics of the cargo. If this fee has a value, one will
-                        apply as default per operation unless the client request more during the booking
-                        request or operation. EX: If we’re going to book 1 x 20’ container and 2 x 40’
-                        container in the same shipment, the customer will pay for 1 Bill of Lading only but
-                        3 x Handling charges. If the client requires 5 document.
+                        {review?.comment}
                     </Words>
                 </ReviewWords>
             </ReviewInfo>

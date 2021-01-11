@@ -71,10 +71,10 @@ export const ConfirmButton = styled.button`
   }
 `;
 
-export const StarsWrapper = styled.div`
+export const StarsWrapper = styled.div<{justifyContent?: string, marginBottom?: string}>`
   display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
+  justify-content: ${({justifyContent}) => justifyContent ? justifyContent : 'center'};
+  margin-bottom: ${({marginBottom}) => marginBottom ? marginBottom : '30px'};
 `;
 
 export const ErrorMessage = styled.div`

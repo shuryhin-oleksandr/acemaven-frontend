@@ -10,8 +10,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import {IconButton} from "@material-ui/core";
 //types
-import {SearchResultType} from "../../../../../_BLL/types/search/search_types";
-import {ChargeCalculationType, QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 //components
 import BookingCard from "./BookingCard";
@@ -29,7 +28,7 @@ import {
 } from "./search-card-styles";
 //icons
 import close_icon from '../../../../assets/icons/close-icon.svg'
-import {CostBookingType} from "../../../../../_BLL/types/bookingTypes";
+
 
 
 const useStyles = makeStyles({
@@ -72,8 +71,8 @@ type PropsType = {
     setWidgetsVisible?:(value:boolean)=>void,
     closeTotals?: VoidFunctionType,
     quote?: QuoteType,
-    bookingPopupVisible?: boolean
-
+    bookingPopupVisible?: boolean,
+    setClickedReview?: (value: number) => void
 }
 
 const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBookingPopupVisible,setWidgetsVisible, closeTotals,quote, ...props}) => {
@@ -95,6 +94,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                                  search_result={search_result}
                                  setWidgetsVisible={setWidgetsVisible}
                                  quote={quote}
+                                 setClickedReview={props.setClickedReview}
                     />
                     {isShown && <HiddenWrapper>
                         <HiddenTitle>

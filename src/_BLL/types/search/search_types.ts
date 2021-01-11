@@ -102,3 +102,24 @@ export type ChoiceType = {
 export type FrozenChoiceType = {
     frozen_choices:ChoiceType[]
 }
+
+//reviews
+export type ReviewType = {
+    id: number,
+    rating: number,
+    comment: string,
+    operation: number,
+    date_created: string,
+    route: string,
+    company: string,
+    reviewer_photo : string
+}
+
+export type RatingCompanyType = {
+    id: number,
+    name: string,
+    date_created: string,
+    operations_are_done: number,
+    rating: number,
+    reviews: Array<ReviewType>
+}

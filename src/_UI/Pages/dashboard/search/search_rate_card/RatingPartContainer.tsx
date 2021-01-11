@@ -1,29 +1,50 @@
 import React from 'react'
+//material ui
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import {withStyles} from "@material-ui/core";
+import {Rating} from "@material-ui/lab";
 //styles
-import {CompanyName, NoRatingUnderText, NoRatingUpperText, RatingPart, RatingWrap} from "./search-card-styles";
-//icons
-import blue_fill_star from "../../../../assets/icons/search/filled_star.svg";
-import blue_part_fill_star from "../../../../assets/icons/search/part_filled_star.svg";
-import blue_empty_star from "../../../../assets/icons/search/empty_star.svg";
+import {CompanyName,  RatingPart, } from "./search-card-styles";
+import {StarsWrapper} from "../../../../components/PopUps/client_review_popup/client-review-styles";
+
 
 type PropsType = {
     showRatingPopup: (value: boolean) => void,
-    company: {id: number, name: string, rating: number | null}
+    company: {id: number, name: string, rating: number | null},
+    setClickedReview?: (value: number) => void
 }
 
-const RatingPartContainer:React.FC<PropsType> = ({showRatingPopup, company}) => {
+const StyledRating = withStyles({
+    iconFilled: {
+        color: "#115B86",
+    },
+})(Rating);
 
+const RatingPartContainer:React.FC<PropsType> = ({showRatingPopup, company, ...props}) => {
+
+    let ratingHandler = () => {
+        showRatingPopup(true)
+        props.setClickedReview && props.setClickedReview(company.id)
+    }
 
     return (
         <RatingPart >
                <CompanyName>{company?.name}</CompanyName>
-               <RatingWrap onClick={() => showRatingPopup(true)}>
-                   <img src={blue_fill_star} alt=""/>
-                   <img src={blue_fill_star} alt=""/>
-                   <img src={blue_fill_star} alt=""/>
-                   <img src={blue_part_fill_star} alt=""/>
-                   <img src={blue_empty_star} alt=""/>
-               </RatingWrap>
+            {company.rating
+                ? <StarsWrapper onClick={() => ratingHandler()}
+                                justifyContent={'flex-start'}
+                >
+                    <StyledRating
+                        name="rating"
+                        precision={0.5}
+                        emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                        defaultValue={company.rating/2}
+                        readOnly
+                    />
+                </StarsWrapper>
+                : <span style={{fontFamily: 'Helvetica Reg', fontSize: '13px', color: '#7C7C89'}}>*Agent Rating</span>
+            }
+
                    {/* <NoRatingUnderText>
                         **Will be displayed after booking confirmation
                     </NoRatingUnderText>

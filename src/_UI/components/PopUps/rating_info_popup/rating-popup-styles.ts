@@ -22,7 +22,8 @@ export const CompanyWrap = styled.div`
   border-bottom: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
-  padding-bottom: 25px;
+  padding-bottom: 16px;
+  margin-right: 20px;
 `
 export const NameWrap = styled.div`
   display: flex;
@@ -36,6 +37,8 @@ export const Name = styled.div`
 `
 export const TypeWrap = styled.div`
   display: flex;
+  margin-top: 25px;
+ 
   img {
     margin-right: 10px;
   }
@@ -64,7 +67,9 @@ export const RatingCardWrapper = styled.div`
   align-items: flex-start;
 `
 export const Card = styled.div`
-  background-color: black;
+  margin-top: 25px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
   height: 150px;
   width: 150px;
   display: flex;
@@ -72,14 +77,13 @@ export const Card = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 39px;
-  padding: 5px;
+  padding: 22px 16px;
 `
 export const CloseIcon = styled.div`
   outline: none;
   border: none;
   background: none;
-  
-  
+ 
   &:hover {
     cursor: pointer;
   }
@@ -88,13 +92,11 @@ export const CardTitle = styled.div`
   font-family: "Helvetica Bold", sans-serif;
   color: white;
   font-size: 18px;
-  margin-bottom: 7px;
 `
 export const Count = styled.div`
   font-family: "Helvetica Bold", sans-serif;
   color: #00c5ff;
   font-size: 48px;
-  margin-bottom: 7px;
 `
 export const CountStar = styled.div`
   width: 100%;

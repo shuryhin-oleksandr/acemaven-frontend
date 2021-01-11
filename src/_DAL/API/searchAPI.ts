@@ -12,5 +12,8 @@ export const searchAPI = {
     },
     getFrozenChoices(){
         return instance.get("/core/choices/?models=frozen_choices")
+    },
+    getAllReviews (id: number) {
+        return instance.get(`/core/company/${id}/reviews/`)
     }
 }

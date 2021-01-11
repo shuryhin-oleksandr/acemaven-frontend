@@ -58,7 +58,7 @@ export const searchRatesOffersThunk = (search_data: SearchDataType) => {
 };
 
 export const getFrozenChoices = () => {
-  return async(dispatch: Dispatch<commonSearchActions>)=>{
+  return async ( dispatch: Dispatch<commonSearchActions> ) => {
       try{
           let res = await searchAPI.getFrozenChoices();
           dispatch(searchActions.setFrozenChoices(res.data))
@@ -67,3 +67,15 @@ export const getFrozenChoices = () => {
       }
     };
 };
+
+export const getCompanyRatingThunk = (id: number) => {
+    return async ( dispatch: Dispatch<commonSearchActions> ) => {
+        try {
+            let res = await searchAPI.getAllReviews(id)
+            dispatch(searchActions.setSearchedCompanyRating(res.data))
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
+}

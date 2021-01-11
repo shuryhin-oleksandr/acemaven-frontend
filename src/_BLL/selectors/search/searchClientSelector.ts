@@ -7,3 +7,4 @@ export const getFrozenChoicesSelector = ((state: AppStateType) => state.search.f
 export const getSearchResult = (state: AppStateType) => state.search.search_result
 export const getSearchSuccess = (state: AppStateType) => state.search.search_success
 export const duplicatesError = (state: AppStateType) => state.search.duplicates_error
+export const getSearchedCompanyRatingSelector = (state: AppStateType) => state.search.rating_company_data

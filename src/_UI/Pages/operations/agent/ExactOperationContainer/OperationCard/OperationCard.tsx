@@ -51,7 +51,8 @@ type PropsType = {
     closeHandler: VoidFunctionType,
     setTakeOver: (value: boolean) => void,
     setChangeRequestPopup: (value: boolean) => void,
-    setEdit: (value: boolean) => void,
+    setEdit: (value: boolean) => void
+    setReviewPopup: (value: boolean) => void
     ATA: boolean
 }
 
@@ -66,6 +67,7 @@ const OperationCard: React.FC<PropsType> = ({
                                                 closeHandler,
                                                 setIsCancelByClient,
                                                 setTakeOver,
+                                                setReviewPopup,
                                                 ...props
                                             }) => {
 
@@ -108,21 +110,22 @@ const OperationCard: React.FC<PropsType> = ({
               </span>
                         </BookingStatus>
                     </BookingInfo>
-                    <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
-                                               client_contact_name={props.client_contact_name}
-                                               operation_info={operation_info}
-                                               my_name={my_name}
-                                               company_type={company_type ? company_type : undefined}
-                                               openAcceptPopup={openAcceptPopup}
-                                               setTakeOver={setTakeOver}
-                                               setIsCancelByAgent={setIsCancelByAgent}
-                                               setIsCancelByClient={setIsCancelByClient}
-                                               setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
-                                               setEdit={props.setEdit}
-                                               setChangeRequestPopup={props.setChangeRequestPopup}
-                                               ATA={props.ATA}
-                                               setCompleteOperationPopup={props.setCompleteOperationPopup}
-                        />
+                   <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
+                                        client_contact_name={props.client_contact_name}
+                                        operation_info={operation_info}
+                                        my_name={my_name}
+                                        company_type={company_type ? company_type : undefined}
+                                        openAcceptPopup={openAcceptPopup}
+                                        setTakeOver={setTakeOver}
+                                        setIsCancelByAgent={setIsCancelByAgent}
+                                        setIsCancelByClient={setIsCancelByClient}
+                                        setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
+                                        setEdit={props.setEdit}
+                                        setChangeRequestPopup={props.setChangeRequestPopup}
+                                        setReviewPopup={setReviewPopup}
+                                        ATA={props.ATA}
+                                        setCompleteOperationPopup={props.setCompleteOperationPopup}
+                   />
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}
                                        shipment={shipment ? shipment : null}

@@ -7,7 +7,8 @@ export enum AppOperationBookingStatusesType {
     IN_PROGRESS = 'Booking Request in Progress',
     CONFIRMED = 'Booking Confirmed',
     CANCELED_BY_CLIENT = 'Operation Canceled by Client',
-    CANCELLED_BY_AGENT = 'Operation Canceled by Agent'
+    CANCELLED_BY_AGENT = 'Operation Canceled by Agent',
+    COMPLETED = 'Operation Complete'
 }
 
 export type WeekRangeType = {

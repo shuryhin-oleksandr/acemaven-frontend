@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 //moment js
 import moment from "moment";
 //react-router-dom
-import {useHistory, useParams, withRouter} from "react-router-dom";
+import { useHistory, useParams, withRouter } from "react-router-dom";
 //react-redux
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 //BLL
-import {AppStateType} from "../../../../../_BLL/store";
+import { AppStateType } from "../../../../../_BLL/store";
 import {
     cancelOperationByAgentThunk, completeOperationByAgentThunk,
     getAgentExactOperationThunk, takeOverThunk
@@ -17,7 +17,7 @@ import {
     getIsFetchingOperationSelector, getTakedOverSelector,
     getExactClientOperationSelector, getEditOperationSuccessSelector, getManualTrackingDataSelector
 } from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
-import {agentOperationsActions} from "../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import { agentOperationsActions } from "../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 //components
 import Layout from "../../../../components/BaseLayout/Layout";
 import OperationCard from "./OperationCard/OperationCard";
@@ -27,35 +27,34 @@ import ModalWindow from "../../../../components/_commonComponents/ModalWindow/Mo
 import ClientOperationChangeRequestPopUp
     from "../../../../components/PopUps/ClientOperationChangeRequestPopUp/ClientOperationChangeRequestPopUp";
 import CompleteOperationPopup from "../../../../components/PopUps/complete_operation_by_agent/CompleteOperationPopup";
-import CancelOperationByAgentPopup
-    from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
+import CancelOperationByAgentPopup from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
 import AgentChangeRequestPopup from "../../../../components/PopUps/change_request_agent_popup/AgentChangeRequestPopup";
 
-import CancelOperationByClientPopup
-    from "../../../../components/PopUps/CancelOperationByClientPopup/CancelOperationByClientPopup";
-import {getClientExactOperationThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
-import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
+import CancelOperationByClientPopup from "../../../../components/PopUps/CancelOperationByClientPopup/CancelOperationByClientPopup";
+import { getClientExactOperationThunk } from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import { AppCompaniesTypes } from "../../../../../_BLL/types/commonTypes";
 import TakeOverOperationPopup from "../../../../components/PopUps/take_over_operation_popup/TakeOverOperationPopup";
-import {AppOperationBookingStatusesType} from "../../../../../_BLL/types/operations/operationsTypes";
-import EditOperationShipmentInfoByAgentPopup
-    from "../../../../components/PopUps/edit_operation_shipment_info_by_agent/EditOperationShipmentInfoByAgentPopup";
+import { AppOperationBookingStatusesType } from "../../../../../_BLL/types/operations/operationsTypes";
+import EditOperationShipmentInfoByAgentPopup from "../../../../components/PopUps/edit_operation_shipment_info_by_agent/EditOperationShipmentInfoByAgentPopup";
+import ClientReviewPopup from "../../../../components/PopUps/client_review_popup/ClientReviewPopup";
 
+const ExactOperationContainer = ({ ...props }) => {
+  //local state
+  let operation_id = props.match.params.id;
+  let local_time = moment(new Date()).format(" DD/MM  h:mm a");
 
-const ExactOperationContainer = ({...props}) => {
-
-    //local state
-    let operation_id = props.match.params.id;
-    let local_time = moment(new Date()).format(' DD/MM  h:mm a');
-
-    const [isAcceptPopup, openAcceptPopup] = useState(false)
-    const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
-    const [isCompleteOperation, setCompleteOperationPopup] = useState(false)
-    const [isCancelByAgent, setIsCancelByAgent] = useState(false)
-    const [isChangeRequestPopup, setChangeRequestPopup] = useState(false)
-    const [isCancelByClient, setIsCancelByClient] = useState(false);
-    const [isTakeOverPopup, setTakeOver] = useState(false)
-    const [isEditOperationByAgent, setEditOperationByAgent] = useState(false)
-
+  const [isAcceptPopup, openAcceptPopup] = useState(false);
+  const [
+    clientChangRequestPopupVisible,
+    setClientChangRequestPopupVisible,
+  ] = useState(false);
+  const [isCompleteOperation, setCompleteOperationPopup] = useState(false);
+  const [isCancelByAgent, setIsCancelByAgent] = useState(false);
+  const [isChangeRequestPopup, setChangeRequestPopup] = useState(false);
+  const [isCancelByClient, setIsCancelByClient] = useState(false);
+  const [isTakeOverPopup, setTakeOver] = useState(false);
+  const [isEditOperationByAgent, setEditOperationByAgent] = useState(false);
+  const [isReviewPopup, setReviewPopup] = useState(false);
 
     //data from store
     let company_type = useSelector(
@@ -100,22 +99,21 @@ const ExactOperationContainer = ({...props}) => {
         dispatch(completeOperationByAgentThunk(Number(operation_info?.id), history))
     }
 
-    //hooks
-    const history = useHistory()
-    const dispatch = useDispatch()
-    let query = useParams()
-    // @ts-ignore
-    let id = query.id
+  //hooks
+  const history = useHistory();
+  const dispatch = useDispatch();
+  let query = useParams();
+  // @ts-ignore
+  let id = query.id;
 
-
-    useEffect(() => {
-        company_type?.type === "agent"
-            ? dispatch(getAgentExactOperationThunk(operation_id))
-            : dispatch(getClientExactOperationThunk(operation_id));
-        return () => {
-            unmountHandler()
-        }
-    }, [])
+  useEffect(() => {
+    company_type?.type === "agent"
+      ? dispatch(getAgentExactOperationThunk(operation_id))
+      : dispatch(getClientExactOperationThunk(operation_id));
+    return () => {
+      unmountHandler();
+    };
+  }, []);
 
     let cancelOperationByAgentHandler = (data: { reason: string, comment: string }) => {
         dispatch(cancelOperationByAgentThunk(id, data, history))
@@ -172,6 +170,12 @@ const ExactOperationContainer = ({...props}) => {
                     completeOperationHandler={completeOperationHandler}
                 />
             </ModalWindow>
+            <ModalWindow isOpen={isReviewPopup}>
+                <ClientReviewPopup
+                    setReviewPopup={setReviewPopup}
+                    id={id}
+                />
+            </ModalWindow>
             <ModalWindow isOpen={isCancelByAgent}>
                 <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}
                                              cancelOperationByAgentHandler={cancelOperationByAgentHandler}/>
@@ -224,6 +228,7 @@ const ExactOperationContainer = ({...props}) => {
                                  setChangeRequestPopup={setChangeRequestPopup}
                                  setEdit={setEditOperationByAgent}
                                  ATA={ATA}
+                                 setReviewPopup={setReviewPopup}
                 />
             }
         </Layout>

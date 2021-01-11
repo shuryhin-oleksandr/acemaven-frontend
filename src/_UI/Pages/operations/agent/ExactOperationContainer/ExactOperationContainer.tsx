@@ -49,7 +49,7 @@ const ExactOperationContainer = ({...props}) => {
 
     const [isAcceptPopup, openAcceptPopup] = useState(false)
     const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
-    const [isCompleteOperation, setCompleteOperationPopup] = useState(false)
+    const [isCompleteOperation, setCompleteOperationPopup] = useState(true)
     const [isCancelByAgent, setIsCancelByAgent] = useState(false)
     const [isChangeRequestPopup, setChangeRequestPopup] = useState(false)
     const [isCancelByClient, setIsCancelByClient] = useState(false);

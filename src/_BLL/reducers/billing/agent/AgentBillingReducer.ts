@@ -4,7 +4,8 @@ import {ExchangeRateType} from "../../../types/billing/billingTypes";
 const initialState = {
     isFetching: false,
     exchange_list: [] as ExchangeRateType[],
-    repeated_exchange: null as {rates: Array<{currency: number, rate: string, spread: string}>} | null
+    repeated_exchange: null as {rates: Array<{currency: number, rate: string, spread: string}>} | null,
+    adding_exchange_success: false
 }
 
 type InitialStateType = typeof initialState
@@ -31,6 +32,11 @@ export const agentBillingReducer = (state = initialState, action: commonAgentBil
                 ...state,
                 repeated_exchange: action.exchange
             }
+        case "SET_ADDING_EXCHANGE_SUCCESS":
+            return {
+                ...state,
+                adding_exchange_success: action.value
+            }
         default: return state
     }
 }
@@ -44,5 +50,6 @@ export const agentBillingActions = {
     setExchangeList: (exchange_list: Array<ExchangeRateType>) => ({type: 'SET_EXCHANGE_LIST', exchange_list} as const),
     setNewExchangeRateToList: (exchange: ExchangeRateType) => ({type: 'SET_NEW_EXCHANGE_TO_LIST', exchange} as const),
     setRepeatedExchange: (exchange: {rates: Array<{currency: number, rate: string, spread: string}>} | null) => ({type: 'SET_REPEATED_EXCHANGE', exchange} as const),
+    setAddingExchangeSuccess: (value: boolean) => ({type: 'SET_ADDING_EXCHANGE_SUCCESS', value} as const)
 }
 

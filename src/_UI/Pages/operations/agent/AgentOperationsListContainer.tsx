@@ -40,7 +40,7 @@ const AgentOperationsListContainer:React.FC<PropsType> = ({setSearchMode, ...pro
     // SEA
     let events = props.operations_list.map(o => ({
         ...o.tracking_initial,
-        locations: o.tracking?.map((ot: any) => ot.data.data && ot.data.data.length > 0 && ot.data?.data?.locations?.filter((l: any) => ( l && {lat: l.lat, lng: l.lng})))
+        locations: o.tracking?.map((ot: any) => ot.data?.data && ot.data.data.length > 0 && ot.data?.data?.locations?.filter((l: any) => ( l && {lat: l.lat, lng: l.lng})))
     }))
     // AIR
     let air_events = props.operations_list.map(o => ({

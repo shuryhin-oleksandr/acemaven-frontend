@@ -110,23 +110,6 @@ const useStyles = makeStyles({
   },
 });
 
-const data = [
-  {
-    date: "29/10",
-    status: "Vessel Arrived in Transshipment Port ",
-    comment:
-      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
-    user: "Cameron Williamson",
-  },
-  {
-    date: "29/10",
-    status: "Vessel Arrived in Transshipment Port ",
-    comment:
-      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
-    user: "Cameron Williamson",
-  },
-];
-
 let columns = [
   { name: "" },
   { name: "STATUS" },
@@ -150,43 +133,15 @@ const ManualTracking: React.FC<PropsType> = ({
   tracking,
 }) => {
   const classes = useStyles();
-  const {
-    handleSubmit,
-    errors,
-    setValue,
-    control,
-    getValues,
-    reset,
-    register,
-  } = useForm({
+  const { handleSubmit, errors, control, reset, register } = useForm({
     reValidateMode: "onBlur",
   });
 
-  const onSubmit = (values: any) => {
-    const data = { ...values, booking: booking_id };
-    const timer = setTimeout(() => {
-      console.log("timer data", data);
-    }, 5000);
-    dispatch(updateShipmentInfo(data, reset));
-  };
-
-
+  const [dateTime, setDateTime] = useState(new Date());
   let dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getManualTrackingStatusOptions(shipping_mode_id, direction));
   }, []);
-
-  const statusOptions = useSelector(getTrackingStatusOptions);
-
-  useEffect(() => {
-    dispatch(agentOperationsActions.saveTrackingToStore(tracking));
-  }, []);
-
-  const manual_tracking = useSelector(
-    (state: AppStateType) => state.agent_operations.tracking_data
-  );
-  const [dateTime, setDateTime] = useState(new Date());
 
   useEffect(() => {
     const id = setInterval(() => setDateTime(new Date()), 1000);
@@ -194,6 +149,21 @@ const ManualTracking: React.FC<PropsType> = ({
       clearInterval(id);
     };
   }, []);
+
+  useEffect(() => {
+    dispatch(agentOperationsActions.saveTrackingToStore(tracking));
+  }, []);
+
+  const statusOptions = useSelector(getTrackingStatusOptions);
+
+  const manual_tracking = useSelector(
+    (state: AppStateType) => state.agent_operations.tracking_data
+  );
+
+  const onSubmit = (values: any) => {
+    const data = { ...values, booking: booking_id };
+    dispatch(updateShipmentInfo(data, reset));
+  };
 
   return (
     <Wrap onSubmit={handleSubmit(onSubmit)}>
@@ -216,57 +186,60 @@ const ManualTracking: React.FC<PropsType> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow className={classes.row}>
-                <TableCell className={classes.innerCell} align="left" />
-                <TableCell className={classes.innerStatusCell} align="left">
-                  <Controller
-                    control={control}
-                    name={`status`}
-                    defaultValue=""
-                    rules={{
-                      required: "Field is required",
-                    }}
-                    as={
-                      <SurchargeRateSelect
-                        placeholder={"Select status"}
-                        options={statusOptions}
-                        maxW="260px"
-                        error={errors?.status?.message}
-                      />
-                    }
-                  />
-                </TableCell>
-                <TableCell className={classes.innerCommentCell} align="left">
-                  <FormField
-                    inputRef={register({
-                      required: "Field is required",
-                    })}
-                    placeholder="Add comment..."
-                    name="comment"
-                    error={errors?.comment}
-                    maxW={"100%"}
-                  />
-                </TableCell>
-                <TableCell className={classes.buttonCell} align="left">
-                  <FormOperationButton
-                    type="button"
-                    onClick={() => {
-                      reset();
-                    }}
-                    style={{ padding: "5px" }}
-                  >
-                    <img src={close_icon} alt="" />
-                  </FormOperationButton>
-                  <BaseTooltip title="After confirmation the tracking updates will be sent to the client.">
+              {company_type?.type === AppCompaniesTypes.AGENT && (
+                <TableRow className={classes.row}>
+                  <TableCell className={classes.innerCell} align="left" />
+                  <TableCell className={classes.innerStatusCell} align="left">
+                    <Controller
+                      control={control}
+                      name={`status`}
+                      defaultValue=""
+                      rules={{
+                        required: "Field is required",
+                      }}
+                      as={
+                        <SurchargeRateSelect
+                          placeholder={"Select status"}
+                          options={statusOptions}
+                          maxW="260px"
+                          error={errors?.status?.message}
+                        />
+                      }
+                    />
+                  </TableCell>
+                  <TableCell className={classes.innerCommentCell} align="left">
+                    <FormField
+                      inputRef={register({
+                        required: "Field is required",
+                      })}
+                      placeholder="Add comment..."
+                      name="comment"
+                      error={errors?.comment}
+                      maxW={"100%"}
+                    />
+                  </TableCell>
+                  <TableCell className={classes.buttonCell} align="left">
                     <FormOperationButton
-                      type="submit"
+                      type="button"
+                      onClick={() => {
+                        reset();
+                      }}
                       style={{ padding: "5px" }}
                     >
-                      <img src={save_icon} alt="" />
+                      <img src={close_icon} alt="" />
                     </FormOperationButton>
-                  </BaseTooltip>
-                </TableCell>
-              </TableRow>
+                    <BaseTooltip title="After confirmation the tracking updates will be sent to the client.">
+                      <FormOperationButton
+                        type="submit"
+                        style={{ padding: "5px" }}
+                      >
+                        <img src={save_icon} alt="" />
+                      </FormOperationButton>
+                    </BaseTooltip>
+                  </TableCell>
+                </TableRow>
+              )}
+
               {manual_tracking.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell

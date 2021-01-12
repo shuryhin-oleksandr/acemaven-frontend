@@ -24,7 +24,7 @@ import {
     BookingInfo,
     BookingStatus,
     CardContent,
-    CardWrapper,
+    CardWrapper, ConfirmButton,
     ContentHeader,
 } from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {
@@ -110,22 +110,33 @@ const OperationCard: React.FC<PropsType> = ({
               </span>
                         </BookingStatus>
                     </BookingInfo>
-                   <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
-                                        client_contact_name={props.client_contact_name}
-                                        operation_info={operation_info}
-                                        my_name={my_name}
-                                        company_type={company_type ? company_type : undefined}
-                                        openAcceptPopup={openAcceptPopup}
-                                        setTakeOver={setTakeOver}
-                                        setIsCancelByAgent={setIsCancelByAgent}
-                                        setIsCancelByClient={setIsCancelByClient}
-                                        setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
-                                        setEdit={props.setEdit}
-                                        setChangeRequestPopup={props.setChangeRequestPopup}
-                                        setReviewPopup={setReviewPopup}
-                                        ATA={props.ATA}
-                                        setCompleteOperationPopup={props.setCompleteOperationPopup}
-                   />
+                    {(company_type?.type === AppCompaniesTypes.CLIENT
+                    && operation_info?.status === AppOperationBookingStatusesType.COMPLETED)
+                    ?
+                    <ConfirmButton onClick={() => setReviewPopup(true)}>
+                        LEAVE A REVIEW
+                    </ConfirmButton>
+                        : operation_info?.status !== AppOperationBookingStatusesType.COMPLETED
+                        && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
+                        && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
+                        &&
+                        <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
+                                              client_contact_name={props.client_contact_name}
+                                              operation_info={operation_info}
+                                              my_name={my_name}
+                                              company_type={company_type ? company_type : undefined}
+                                              openAcceptPopup={openAcceptPopup}
+                                              setTakeOver={setTakeOver}
+                                              setIsCancelByAgent={setIsCancelByAgent}
+                                              setIsCancelByClient={setIsCancelByClient}
+                                              setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
+                                              setEdit={props.setEdit}
+                                              setChangeRequestPopup={props.setChangeRequestPopup}
+                                              setReviewPopup={setReviewPopup}
+                                              ATA={props.ATA}
+                                              setCompleteOperationPopup={props.setCompleteOperationPopup}
+                        />
+                    }
                 </ContentHeader>
                 <GeneralBlockContainer operation_info={operation_info}
                                        shipment={shipment ? shipment : null}

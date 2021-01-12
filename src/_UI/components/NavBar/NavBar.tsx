@@ -1,6 +1,13 @@
 import * as React from "react";
 import {useState} from "react";
+//react-redux
 import {useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../_BLL/store";
+import {getIsFetchingOperationSelector} from "../../../_BLL/selectors/operations/agentOperationsSelector";
+//types
+import {AppCompaniesTypes, AppUserRolesType} from "../../../_BLL/types/commonTypes";
+//components
 import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import MenuLink from "./MenuLink";
 import {
@@ -10,7 +17,9 @@ import {
     ratesLinks,
     requestLinks
 } from "../../../_BLL/helpers/nestedMenu/menuLinnks";
-import {AppStateType} from "../../../_BLL/store";
+//styles
+import {NavContainer} from "./nav-styles";
+//icons
 import activeSettings from '../../../_UI/assets/icons/sidebar/settingsActive.svg';
 import requests from '../../assets/icons/sidebar/requests.svg';
 import active_requests from '../../assets/icons/sidebar/active_requests.svg';
@@ -22,8 +31,9 @@ import billing from '../../assets/icons/sidebar/billing.svg';
 import active_billing from '../../assets/icons/sidebar/active_billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import support from '../../assets/icons/sidebar/support.svg';
-import {NavContainer} from "./nav-styles";
-import {AppCompaniesTypes, AppUserRolesType} from "../../../_BLL/types/commonTypes";
+
+
+
 
 interface IProps {
     setFull?: (value: boolean) => void
@@ -40,6 +50,9 @@ const NavBar: React.FC<IProps> = () => {
     let billing_option = current_user_role?.includes(AppUserRolesType.BILLING);
     let agent_option = current_user_role?.includes(AppUserRolesType.AGENT);
     let master_option = current_user_role?.includes(AppUserRolesType.MASTER);
+
+    //isFetching from store for different sections
+    const operationsFetching = useSelector(getIsFetchingOperationSelector)
 
 
     return (
@@ -79,6 +92,7 @@ const NavBar: React.FC<IProps> = () => {
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           path='#'
+                          disabled={operationsFetching}
                 />
                 }
                 {

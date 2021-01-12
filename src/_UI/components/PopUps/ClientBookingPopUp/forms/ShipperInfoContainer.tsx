@@ -11,7 +11,6 @@ import { SearchResultType } from "../../../../../_BLL/types/search/search_types"
 import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 
 type PropsType = {
-  direction: string;
   setFormStep: (value: number) => void;
   formStep: number;
   companyInfo: CompanyInfoType | null;
@@ -54,15 +53,33 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
 
   const onSubmit = (values: any) => {
     !values.phone_additional && delete values.phone_additional;
-    const finalData = {
-      cargo_groups: firstStepData?.cargo_groups ? firstStepData?.cargo_groups : [],
-      release_type: firstStepData?.release_type,
-      number_of_documents: firstStepData?.number_of_documents,
-      shipper: values,
-      date_from: quote_dates?.date_from ? quote_dates?.date_from : String(booking_dates?.date_from),
-      date_to: quote_dates?.date_to ? quote_dates?.date_to : String(booking_dates?.date_to),
-      freight_rate: Number(freight_rate_id),
-    };
+    let finalData;
+    if(values.existing_shipper && +values.existing_shipper !== -1){
+      finalData = {
+        cargo_groups: firstStepData?.cargo_groups ? firstStepData?.cargo_groups : [],
+        release_type: firstStepData?.release_type,
+        number_of_documents: firstStepData?.number_of_documents,
+        existing_shipper: values.existing_shipper,
+        date_from: quote_dates?.date_from ? quote_dates?.date_from : String(booking_dates?.date_from),
+        date_to: quote_dates?.date_to ? quote_dates?.date_to : String(booking_dates?.date_to),
+        freight_rate: Number(freight_rate_id),
+      };
+    }else{
+        delete values.existing_shipper;
+
+       finalData = {
+        cargo_groups: firstStepData?.cargo_groups ? firstStepData?.cargo_groups : [],
+        release_type: firstStepData?.release_type,
+        number_of_documents: firstStepData?.number_of_documents,
+        shipper: values,
+        date_from: quote_dates?.date_from ? quote_dates?.date_from : String(booking_dates?.date_from),
+        date_to: quote_dates?.date_to ? quote_dates?.date_to : String(booking_dates?.date_to),
+        freight_rate: Number(freight_rate_id),
+      };
+    }
+
+    console.log("finalData",finalData);
+
     dispatch(postBooking(finalData, props.quotes_mode));
     dispatch(bookingActions.changeBookingStep("fee-table"));
   };
@@ -90,6 +107,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
           register={register}
           getValues={getValues}
           errors={errors}
+          setValue={setValue}
         />
       )}
     </form>

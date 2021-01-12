@@ -39,7 +39,8 @@ export type PostBookingData = {
   date_from: string;
   date_to: string;
   freight_rate: number;
-  shipper: ShipperType;
+  shipper?: ShipperType;
+  existing_shipper?:number;
 };
 
 export type CostBookingType = {

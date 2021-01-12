@@ -193,4 +193,5 @@ export type OperationType = {
     tracking_events?: TrackingEventType[], //REMOVE IT!!!!
     tracking: TrackingBackendType[],
     tracking_initial?: InitialTrackingType | null,
+    has_review?:boolean
 }

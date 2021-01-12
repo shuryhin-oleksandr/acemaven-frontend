@@ -79,3 +79,15 @@ export const getCompanyRatingThunk = (id: number) => {
 
     }
 }
+
+export const getPartnersThunk = ()=>{
+    return async (dispatch: Dispatch<commonSearchActions>) => {
+        try{
+            let res = await searchAPI.getPartners();
+            dispatch(searchActions.setPartners(res.data));
+        }catch (e) {
+            console.log(e)
+        }
+
+    }
+}

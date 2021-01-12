@@ -15,5 +15,8 @@ export const searchAPI = {
     },
     getAllReviews (id: number) {
         return instance.get(`/core/company/${id}/reviews/`)
+    },
+    getPartners(){
+        return instance.get("/core/company/partners/")
     }
 }

@@ -39,7 +39,6 @@ const RootShippingForm: React.FC<PropsType> = ({
       <div style={{ display: formStep === 2 ? "block" : "none" }}>
         {companyInfo && (
           <ShipperInfoContainer
-            direction="export"
             setFormStep={setFormStep}
             formStep={formStep}
             companyInfo={companyInfo}

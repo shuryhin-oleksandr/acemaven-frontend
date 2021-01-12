@@ -4,6 +4,7 @@ import {
     ChoiceType,
     SearchResultType, RatingCompanyType
 } from "../../types/search/search_types";
+import {ShipperType} from "../../types/bookingTypes";
 
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
     search_success: false,
     frozen_choices: [] as ChoiceType[],
     duplicates_error: '',
-    rating_company_data: null as RatingCompanyType | null
+    rating_company_data: null as RatingCompanyType | null,
+    partners: [] as ShipperType[]
 }
 
 type InitialStateType = typeof initialState;
@@ -92,6 +94,11 @@ export const searchClientReducer = (state = initialState, action: commonSearchAc
                ...state,
                rating_company_data: action.rating_data
            }
+       case "SET_PARTNERS":
+           return{
+               ...state,
+               partners: action.partners
+           }
        default: return state
    }
 }
@@ -112,5 +119,6 @@ export const searchActions = {
     setSearchSuccess: (value: boolean) => ({type: 'SET_SEARCH_SUCCESS', value} as const),
     setFrozenChoices:(choices:FrozenChoiceType)=>({type:"SET_FROZEN_CHOICES", choices} as const),
     setDuplicatedError: (error: string) => ({type: 'SET_DUPLICATED_ERROR', error} as const),
-    setSearchedCompanyRating: (rating_data: RatingCompanyType | null) => ({type: 'SET_SEARCHED_COMPANY_RATING', rating_data} as const )
+    setSearchedCompanyRating: (rating_data: RatingCompanyType | null) => ({type: 'SET_SEARCHED_COMPANY_RATING', rating_data} as const ),
+    setPartners: (partners: ShipperType[]) => ({type:"SET_PARTNERS", partners} as const)
 };

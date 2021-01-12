@@ -1,12 +1,18 @@
 import * as React from 'react'
-import {LinkWrap, IconWrap, Name, Outer, NestedWrap, NestedName, NestedOuter} from './nav-styles'
-import {nestedLink} from 'src/_BLL/helpers/nestedMenu/menuLinnks';
-import {NavLink, useHistory} from "react-router-dom";
 import {useState} from "react";
+//react-router-dom
+import {NavLink, useHistory} from "react-router-dom";
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//components
+import {nestedLink} from 'src/_BLL/helpers/nestedMenu/menuLinnks';
+//BLL
 import {AppStateType} from "../../../_BLL/store";
 import {commonActions} from "../../../_BLL/reducers/commonReducer";
+//types
 import {AppUserRolesType} from "../../../_BLL/types/commonTypes";
+//styles
+import {LinkWrap, IconWrap, Name, Outer, NestedWrap, NestedName, NestedOuter} from './nav-styles'
 
 
 type IProps = {
@@ -17,12 +23,13 @@ type IProps = {
     nestedLinks?: nestedLink[],
     setChecked?: (value: string) => void,
     checkedLink?: string,
-    current_user_role?: string[]
+    current_user_role?: string[],
+    disabled?: boolean
 }
 
 const MenuLink: React.FC<IProps> = ({
                                         name, icon, activeIcon, nestedLinks,
-                                        setChecked, checkedLink, path, current_user_role
+                                        setChecked, checkedLink, path, current_user_role, disabled
                                     }) => {
 
     let currentPath = useSelector((state: AppStateType) => state.common.currentNavPath)
@@ -34,6 +41,11 @@ const MenuLink: React.FC<IProps> = ({
         setChecked && setChecked(String(name))
         !fullMenu ? setFullMenu(true) : setFullMenu(false)
         !nestedLinks && history.push(String(path))
+    }
+
+    let handleClick = (e: any, path: string) => {
+        if(disabled) e.preventDefault()
+        dispatch(commonActions.setCurrentNavPath(path))
     }
 
     return (
@@ -56,7 +68,7 @@ const MenuLink: React.FC<IProps> = ({
                                 )
                             } else return null
                         } else return <NestedWrap key={l.name}>
-                            <NavLink onClick={() => dispatch(commonActions.setCurrentNavPath(l.path))} to={l.path}>
+                            <NavLink onClick={(e) => handleClick(e, l.path)} to={l.path} >
                                 <NestedName active={currentPath === l.path}>{l.name}</NestedName>
                             </NavLink>
                         </NestedWrap>

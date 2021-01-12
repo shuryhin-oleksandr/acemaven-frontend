@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 //types
 import {QuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
 //components
-import NoQuotesCard from "../NoQuotesCard";
 import AgentQuotesTableContainer from "./table/AgentQuotesTableContainer";
 //styles
 import {ClientQuotesInner, ClientQuotesOuter} from "../client/quotes-client-styles";
@@ -36,9 +35,7 @@ const AgentQuotesPage:React.FC<PropsType> = ({searchValue,setSearchValue, mode, 
         <>
              <ClientQuotesOuter>
                     <ClientQuotesInner>
-                        {agent_quotes_list.length === 0
-                            ? <NoQuotesCard text={"There are no active quotes at the moment."}/>
-                            : <AgentQuotesTableContainer setCardOpen={setCardOpen}
+                            <AgentQuotesTableContainer setCardOpen={setCardOpen}
                                                          setSearchMode={setSearchMode}
                                                          isSearchMode={isSearchMode}
                                                          mode={mode}
@@ -50,7 +47,6 @@ const AgentQuotesPage:React.FC<PropsType> = ({searchValue,setSearchValue, mode, 
                                                          getQuotesByFilters={getQuotesByFilters}
                                                          agent_quotes_list={agent_quotes_list}
                             />
-                        }
                     </ClientQuotesInner>
                 </ClientQuotesOuter>
 

@@ -2,7 +2,6 @@ import React from 'react'
 //types
 import {QuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
 //components
-import NoQuotesCard from "../NoQuotesCard";
 import ClientQuotesTable from "./tables/ClientQuotesTable";
 //styles
 import {ClientQuotesInner, ClientQuotesOuter} from "./quotes-client-styles";
@@ -35,9 +34,7 @@ const QuotesPage:React.FC<PropsType> = ({my_quotes_list, activeInactiveQuote, de
         <>
                  <ClientQuotesOuter>
                     <ClientQuotesInner>
-                        {my_quotes_list.length === 0
-                            ? <NoQuotesCard text={text}/>
-                            : <ClientQuotesTable my_quotes_list={my_quotes_list}
+                            <ClientQuotesTable  my_quotes_list={my_quotes_list}
                                                  activeInactiveQuote={activeInactiveQuote}
                                                  deleteQuoteByClient={deleteQuoteByClient}
                                                  getQuotesByFilters={getQuotesByFilters}
@@ -49,9 +46,9 @@ const QuotesPage:React.FC<PropsType> = ({my_quotes_list, activeInactiveQuote, de
                                                  setSearchValue={props.setSearchValue}
                                                  search_column={props.search_column}
                                                  setSearchColumn={props.setSearchColumn}
+                                                 text={text}
 
                             />
-                        }
                     </ClientQuotesInner>
                 </ClientQuotesOuter>
         </>

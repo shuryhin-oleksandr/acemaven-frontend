@@ -4,6 +4,7 @@ import { BookingInfoType } from "src/_BLL/types/bookingTypes";
 //components
 import OptionsDeliveryButtons from "../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import AgentBookingListTable from "./tables/AgentBookingListTable";
+import NoQuotesCard from "../../quotes/NoQuotesCard";
 //styles
 import {
   BookingContent,
@@ -12,6 +13,7 @@ import {
   ContentTable,
   ContentTitle,
 } from "./booking-agent-styles";
+
 
 
 type PropsType = {
@@ -27,6 +29,7 @@ type PropsType = {
   isSearchMode: boolean,
   setSearchMode: (value: boolean) => void,
   dispatch: any
+  text: string
 };
 
 const BookingAgentPage: React.FC<PropsType> = ({bookingList, ...props}) => {
@@ -44,20 +47,23 @@ const BookingAgentPage: React.FC<PropsType> = ({bookingList, ...props}) => {
             thunkName="agent_booking"
           />
         </ContentHeader>
-        <ContentTable>
-          <AgentBookingListTable
-            mode={props.mode}
-            searchValue={props.searchValue}
-            setSearchValue={props.setSearchValue}
-            searchColumn={props.search_column}
-            setSearchColumn={props.setSearchColumn}
-            directory={props.directory}
-            setDirectory={props.setDirectory}
-            isSearchMode={props.isSearchMode}
-            setSearchMode={props.setSearchMode}
-            bookingList={bookingList}
-          />
-        </ContentTable>
+        {bookingList.length === 0
+            ? <NoQuotesCard text={props.text}/>
+            : <ContentTable>
+              <AgentBookingListTable
+                  mode={props.mode}
+                  searchValue={props.searchValue}
+                  setSearchValue={props.setSearchValue}
+                  searchColumn={props.search_column}
+                  setSearchColumn={props.setSearchColumn}
+                  directory={props.directory}
+                  setDirectory={props.setDirectory}
+                  isSearchMode={props.isSearchMode}
+                  setSearchMode={props.setSearchMode}
+                  bookingList={bookingList}
+              />
+            </ContentTable>
+        }
       </BookingContent>
     </BookingWrapper>
   );

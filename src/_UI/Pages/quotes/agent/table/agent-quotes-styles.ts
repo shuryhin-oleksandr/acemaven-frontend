@@ -16,14 +16,14 @@ type PropsStyle = {
 }
 
 export const SubmittedWrapper = styled.div`
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 export const DoneIcon = styled.div`
   background: url(${done_icon});
   height: 19px;
   width: 19px;
-  position: absolute;
-  left: 30px;
 `
 export const SubmitQuoteButton = styled.button<{disabled?: boolean}>`
   width: 187px;

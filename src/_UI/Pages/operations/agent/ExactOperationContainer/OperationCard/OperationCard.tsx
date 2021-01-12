@@ -111,7 +111,7 @@ const OperationCard: React.FC<PropsType> = ({
                         </BookingStatus>
                     </BookingInfo>
                     {(company_type?.type === AppCompaniesTypes.CLIENT
-                    && operation_info?.status === AppOperationBookingStatusesType.COMPLETED)
+                    && operation_info?.status === AppOperationBookingStatusesType.COMPLETED && !operation_info.has_review)
                     ?
                     <ConfirmButton onClick={() => setReviewPopup(true)}>
                         LEAVE A REVIEW

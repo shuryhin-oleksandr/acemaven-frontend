@@ -77,7 +77,7 @@ const DetailedTable: React.FC<PropsType> = ({tracking}) => {
     const classes = useStyles();
 
     let sea_column = [
-        {name: 'CONTEINER REF.'},
+        {name: 'CONTAINER REF.'},
         {name: 'TYPE'},
         {name: 'DATE'},
         {name: 'STATUS'},
@@ -87,7 +87,9 @@ const DetailedTable: React.FC<PropsType> = ({tracking}) => {
         {name: 'ETA'},
     ]
 
-    const rows = tracking[0].data.data.containers.map((c:any)=>({...c, events: c.events.map((ce:any)=>({...ce}))}));
+    const rows = (tracking && tracking.length > 0)
+        ? tracking[0].data?.data?.containers.map((c:any)=>({...c, events: c.events.map((ce:any)=>({...ce}))}))
+        : []
     console.log("rows", rows);
     return (
         <TableWrapper>

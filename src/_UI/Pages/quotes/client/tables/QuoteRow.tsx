@@ -7,6 +7,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Tooltip from "@material-ui/core/Tooltip";
+//react-redux
+import {useDispatch} from "react-redux";
+//BLL
+import {bookingActions} from "../../../../../_BLL/reducers/booking/bookingReducer";
+import {searchActions} from "../../../../../_BLL/reducers/search_client/searchClientReducer";
 //types
 import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 //components
@@ -21,8 +26,6 @@ import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_type from '../../../../assets/icons/rates&services/plane-surcharge.svg';
 import close_icon from '../../../../../_UI/assets/icons/close-icon.svg'
-import {useDispatch} from "react-redux";
-import {bookingActions} from "../../../../../_BLL/reducers/booking/bookingReducer";
 
 
 
@@ -103,6 +106,12 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
 
     const [isOpen, setIsOpen] = useState(false)
     const [showRating, setShowRating] = useState(false)
+    const [clickedReview, setClickedReview] = useState(0)
+
+    const closeReviewPopupHandler = () => {
+        setShowRating(false)
+        dispatch(searchActions.setSearchedCompanyRating(null))
+    }
 
 
     let quotes_cargos = quote.cargo_groups.map((q, index) => ({...q, id: index, container_type: q.container_type?.id, packaging_type: q.packaging_type?.id}))
@@ -177,6 +186,10 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                              setShowRating={setShowRating}
                              offerViewedHandler={offerViewedHandler}
                              quote={quote}
+                             setClickedReview={setClickedReview}
+                             clickedReview={Number(clickedReview)}
+                             closeReviewPopupHandler={closeReviewPopupHandler}
+                             showRating={showRating}
            />
 
         </React.Fragment>

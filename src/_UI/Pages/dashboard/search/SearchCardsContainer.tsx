@@ -7,8 +7,6 @@ import SearchCard from "./search_rate_card/SearchCard";
 import {SearchWrapper} from "./search_rate_card/search-card-styles";
 
 
-
-
 type PropsType = {
     showRatingPopup: (value: boolean) => void,
     search_result: SearchResultType[],

@@ -3,12 +3,16 @@ import styled from 'styled-components'
 export const RatingPopupContainer = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 export const RatingInner = styled.div`
   width: 100%;
   padding: 50px 80px 50px 30px;
   background-color: white;
   max-width: 800px;
+  position: relative;
 `
 export const RatingHeader = styled.div`
   width: 100%;
@@ -69,7 +73,7 @@ export const RatingCardWrapper = styled.div`
 export const Card = styled.div`
   margin-top: 25px;
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #115b86;
   height: 150px;
   width: 150px;
   display: flex;

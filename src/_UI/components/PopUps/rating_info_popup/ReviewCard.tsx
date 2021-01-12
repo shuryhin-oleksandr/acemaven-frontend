@@ -1,4 +1,9 @@
 import React from 'react'
+//types
+import {ReviewType} from "../../../../_BLL/types/search/search_types";
+//components
+import RatingStars from "../../_commonComponents/rating_stars/RatingStars";
+//styles
 import {
     CompName,
     LeftPart,
@@ -9,9 +14,9 @@ import {
     ReviewCompany,
     ReviewInfo, ReviewWords, Words
 } from "./rating-popup-styles";
+//icons
 import user_default from "../../../assets/icons/profile/miniDEfaultPhoto.svg";
-import {ReviewType} from "../../../../_BLL/types/search/search_types";
-import RatingStars from "../../_commonComponents/rating_stars/RatingStars";
+
 
 type PropsType = {
     review: ReviewType | null

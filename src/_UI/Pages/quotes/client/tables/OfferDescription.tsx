@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//material ui
 import {TableRow} from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -8,14 +10,21 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {BookLittleButton} from "../quotes-client-styles";
-import {QuoteType, StatusesQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+//BLL
 import {AppStateType} from "../../../../../_BLL/store";
 import {quotesClientActions} from "../../../../../_BLL/reducers/quotes/quotesClientReducer";
+//types
+import {QuoteType, StatusesQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
+import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+//components
 import SearchCard from "../../../dashboard/search/search_rate_card/SearchCard";
-import {CardsAbsoluteWrapper} from "../../../dashboard/search/search_rate_card/search-card-styles";
 import ClientBookingPopUp from "../../../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
 import ModalWindow from "../../../../components/_commonComponents/ModalWindow/ModalWindow";
+import RatingInfoPopup from "../../../../components/PopUps/rating_info_popup/RatingInfoPopup";
+//styles
+import {BookLittleButton} from "../quotes-client-styles";
+import {CardsAbsoluteWrapper} from "../../../dashboard/search/search_rate_card/search-card-styles";
+
 
 type PropsType = {
     isOpen?: boolean,
@@ -23,6 +32,10 @@ type PropsType = {
     setShowRating: (value: boolean) => void,
     offerViewedHandler: (value: number) => void,
     quote?: QuoteType,
+    setClickedReview?: (value: number) => void,
+    clickedReview: number,
+    closeReviewPopupHandler: VoidFunctionType,
+    showRating: boolean
 }
 
 const useStyles = makeStyles({
@@ -53,7 +66,7 @@ const useStyles = makeStyles({
     }
 });
 
-const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, offerViewedHandler, quote}) => {
+const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, offerViewedHandler, quote, ...props}) => {
     //HOOKS
     const classes = useStyles();
     const dispatch = useDispatch()
@@ -62,6 +75,7 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
     const [showTotals, setShowTotals] = useState(false)
     const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
     let [totalId, setTotalId] = useState(0);
+
 
     let totalsHandler = (id: number, quote_id: number) => {
         offerViewedHandler(id)
@@ -136,7 +150,12 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                             </Collapse>
                         </TableCell>
                     </TableRow>
-                    <ModalWindow isOpen={showTotals && (totalId === o.id)}>
+                    <ModalWindow isOpen={props.showRating}>
+                        <RatingInfoPopup clickedReview={props.clickedReview}
+                                         closeReviewPopupHandler={props.closeReviewPopupHandler}
+                        />
+                    </ModalWindow>
+                    <ModalWindow isOpen={showTotals && (totalId === o.id) && !props.showRating}>
                         <CardsAbsoluteWrapper>
                             <SearchCard showRatingPopup={setShowRating}
                                         search_result={o.charges}
@@ -144,7 +163,7 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                                         quote={quote}
                                         setBookingPopupVisible={setBookingPopupVisible}
                                         bookingPopupVisible={bookingPopupVisible}
-
+                                        setClickedReview={props.setClickedReview}
                             />
                         </CardsAbsoluteWrapper>
                     </ModalWindow>

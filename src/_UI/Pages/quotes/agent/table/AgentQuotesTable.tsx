@@ -17,6 +17,7 @@ import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarS
 import AgentQuoteRow from "./AgentQuoteRow";
 //styles
 import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "../../client/tables/client-quotes-table-styles";
+import NoQuotesCard from "../../NoQuotesCard";
 
 
 
@@ -105,71 +106,75 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                         thunkName='quotes_agent'
                 />
             </QuotesTableHeader>
-            <ScrollbarStyled {...{style: {height: 400}}}>
-                <TableContainer className={classes.container} component={Paper}>
-                    <Table aria-label="collapsible table">
-                        <TableHead>
-                            <TableRow >
-                                <TableCell className={classes.shipping_cell} align="left">
-                                    <TableCellContent setSearchValue={setSearchValue}
-                                                      setSearchMode={setSearchMode}
-                                                      direction={''}
-                                                      type={mode}
-                                                      column_name='origin'
-                                                      searchValue={searchValue}
-                                                      isSearchMode={isSearchMode}
-                                                      title='ORIGIN'
-                                                      searchColumn={search_column}
-                                                      setSearchColumn={setSearchColumn}
-                                                      thunkName='quotes_agent'
-                                    />
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    <TableCellContent setSearchValue={setSearchValue}
-                                                      setSearchMode={setSearchMode}
-                                                      direction={''}
-                                                      type={mode}
-                                                      column_name='destination'
-                                                      searchValue={searchValue}
-                                                      isSearchMode={isSearchMode}
-                                                      title='DESTINATION'
-                                                      searchColumn={search_column}
-                                                      setSearchColumn={setSearchColumn}
-                                                      thunkName='quotes_agent'
-                                    />
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    <TableCellContent setSearchValue={setSearchValue}
-                                                      setSearchMode={setSearchMode}
-                                                      direction={''}
-                                                      type={mode}
-                                                      column_name='shipping_mode'
-                                                      searchValue={searchValue}
-                                                      isSearchMode={isSearchMode}
-                                                      title='SHIPPING MODE'
-                                                      searchColumn={search_column}
-                                                      setSearchColumn={setSearchColumn}
-                                                      thunkName='quotes_agent'
-                                    />
-                                </TableCell>
-                                <TableCell className={classes.cell} align="center">
-                                   VOLUME
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    SHIPMENT DATE
-                                </TableCell>
-                                <TableCell className={classes.cell} align="right" />
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {agent_quotes_list.map(a => <AgentQuoteRow key={a.id}
-                                                                       quote={a}
-                                                                       setCardOpen={setCardOpen}
-                            />)}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </ScrollbarStyled>
+            {agent_quotes_list.length === 0
+                ? <NoQuotesCard text={"There are no active quotes at the moment."}/>
+                : <ScrollbarStyled {...{style: {height: 400}}}>
+                    <TableContainer className={classes.container} component={Paper}>
+                        <Table aria-label="collapsible table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell className={classes.shipping_cell} align="left">
+                                        <TableCellContent setSearchValue={setSearchValue}
+                                                          setSearchMode={setSearchMode}
+                                                          direction={''}
+                                                          type={mode}
+                                                          column_name='origin'
+                                                          searchValue={searchValue}
+                                                          isSearchMode={isSearchMode}
+                                                          title='ORIGIN'
+                                                          searchColumn={search_column}
+                                                          setSearchColumn={setSearchColumn}
+                                                          thunkName='quotes_agent'
+                                        />
+                                    </TableCell>
+                                    <TableCell className={classes.cell} align="left">
+                                        <TableCellContent setSearchValue={setSearchValue}
+                                                          setSearchMode={setSearchMode}
+                                                          direction={''}
+                                                          type={mode}
+                                                          column_name='destination'
+                                                          searchValue={searchValue}
+                                                          isSearchMode={isSearchMode}
+                                                          title='DESTINATION'
+                                                          searchColumn={search_column}
+                                                          setSearchColumn={setSearchColumn}
+                                                          thunkName='quotes_agent'
+                                        />
+                                    </TableCell>
+                                    <TableCell className={classes.cell} align="left">
+                                        <TableCellContent setSearchValue={setSearchValue}
+                                                          setSearchMode={setSearchMode}
+                                                          direction={''}
+                                                          type={mode}
+                                                          column_name='shipping_mode'
+                                                          searchValue={searchValue}
+                                                          isSearchMode={isSearchMode}
+                                                          title='SHIPPING MODE'
+                                                          searchColumn={search_column}
+                                                          setSearchColumn={setSearchColumn}
+                                                          thunkName='quotes_agent'
+                                        />
+                                    </TableCell>
+                                    <TableCell className={classes.cell} align="center">
+                                        VOLUME
+                                    </TableCell>
+                                    <TableCell className={classes.cell} align="left">
+                                        SHIPMENT DATE
+                                    </TableCell>
+                                    <TableCell className={classes.cell} align="right"/>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {agent_quotes_list.map(a => <AgentQuoteRow key={a.id}
+                                                                           quote={a}
+                                                                           setCardOpen={setCardOpen}
+                                />)}
+                            </TableBody>
+
+                        </Table>
+                    </TableContainer>
+                </ScrollbarStyled>
+            }
         </QuotesTableContainer>
     )
 }

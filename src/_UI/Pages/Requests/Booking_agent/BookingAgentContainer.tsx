@@ -3,13 +3,13 @@ import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 //BLL
 import {getBookingRequestListThunk} from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
-//components
-import Layout from "../../../components/BaseLayout/Layout";
-import BookingAgentPage from "./BookingAgentPage";
 import {
     getAcceptSuccess,
     getBookingRequestListSelector
 } from "../../../../_BLL/selectors/booking/bookingAgentSelector";
+//components
+import Layout from "../../../components/BaseLayout/Layout";
+import BookingAgentPage from "./BookingAgentPage";
 import MovedToOperationsPopup from "../../../components/PopUps/moved_to_operations_popup/MovedToOperationsPopup";
 import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
 
@@ -22,6 +22,10 @@ const BookingAgentContainer:React.FC = () => {
     const [search_column, setSearchColumn] = useState("");
     const [isSearchMode, setSearchMode] = useState(false);
     const [movedPopup, setMovedPopup] = useState(false)
+
+    const text = "There are no requests at the moment.\n" +
+        "                When a client send a booking request\n" +
+        "                they will appear in this section."
 
     const dispatch = useDispatch();
 
@@ -56,6 +60,7 @@ const BookingAgentContainer:React.FC = () => {
                                   isSearchMode={isSearchMode}
                                   setSearchMode={setSearchMode}
                                   dispatch={dispatch}
+                                    text={text}
               />
       </Layout>
     )

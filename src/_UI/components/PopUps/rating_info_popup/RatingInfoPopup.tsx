@@ -1,4 +1,18 @@
 import React, {useEffect} from 'react'
+//material ui
+import {IconButton} from "@material-ui/core";
+//react-redux
+import {useDispatch, useSelector} from "react-redux";
+//BLL
+import {getCompanyRatingThunk} from "../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
+import {getSearchedCompanyRatingSelector} from "../../../../_BLL/selectors/search/searchClientSelector";
+//types
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+//components
+import ReviewCard from "./ReviewCard";
+import ScrollbarStyled from "../../_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import RatingStars from "../../_commonComponents/rating_stars/RatingStars";
+//styles
 import {
     Card, CardTitle,
     CompanyInfoWrap,
@@ -10,30 +24,18 @@ import {
     RatingPopupContainer, ReviewsInner, ReviewTitle, ReviewWrapper,
     TypeWrap,
 } from "./rating-popup-styles";
+//icons
 import sea from '../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import air from '../../../../_UI/assets/icons/rates&services/plane-surcharge.svg'
 import close from '../../../../_UI/assets/icons/close-icon.svg'
-import ReviewCard from "./ReviewCard";
-import ScrollbarStyled from "../../_commonComponents/ScrollbarStyled/ScrollbarStyled";
-import {useDispatch, useSelector} from "react-redux";
-import {getCompanyRatingThunk} from "../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
-import {getSearchedCompanyRatingSelector} from "../../../../_BLL/selectors/search/searchClientSelector";
-import {IconButton, withStyles} from "@material-ui/core";
-import {StarsWrapper} from "../client_review_popup/client-review-styles";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import {Rating} from "@material-ui/lab";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+
+
 
 type PropsType = {
     closeReviewPopupHandler: VoidFunctionType,
     clickedReview: number
 }
 
-const StyledRating = withStyles({
-    iconFilled: {
-        color: "#000000",
-    },
-})(Rating);
 
 const RatingInfoPopup:React.FC<PropsType> = ({closeReviewPopupHandler, clickedReview}) => {
     //hooks
@@ -42,23 +44,19 @@ const RatingInfoPopup:React.FC<PropsType> = ({closeReviewPopupHandler, clickedRe
         dispatch(getCompanyRatingThunk(clickedReview))
     }, [])
 
-    let default_value = 0
-
-
 
     //data from store
     const rating_data = useSelector(getSearchedCompanyRatingSelector)
 
 
-    useEffect(() => {
-        if(rating_data) {
-            default_value = rating_data.rating/2
-        }
-    }, [rating_data])
-
     return (
         <RatingPopupContainer>
             <RatingInner>
+                <IconButton onClick={closeReviewPopupHandler}
+                            style={{position: 'absolute', top: '20px', right: '20px'}}
+                >
+                    <img src={close} alt=""/>
+                </IconButton>
                 <RatingHeader>
                     <CompanyWrap>
                         <NameWrap>
@@ -83,24 +81,15 @@ const RatingInfoPopup:React.FC<PropsType> = ({closeReviewPopupHandler, clickedRe
                         <Card>
                             <CardTitle style={{color: '#000000'}}>Rating</CardTitle>
                             <Count>{rating_data?.rating}</Count>
-                            {rating_data && <StarsWrapper marginBottom={'0px'}>
-                                <StyledRating
-                                    name="rating"
-                                    precision={0.5}
-                                    emptyIcon={<StarBorderIcon fontSize="inherit" />}
-                                    defaultValue={rating_data.rating/2}
-                                    readOnly
-                                />
-                            </StarsWrapper>}
+                            {rating_data && <RatingStars marginBottom={'0px'}
+                                                         rating_value={rating_data?.rating}
+                            />}
                         </Card>
-                        <IconButton onClick={closeReviewPopupHandler}>
-                            <img src={close} alt=""/>
-                        </IconButton>
                     </RatingCardWrapper>
                 </RatingHeader>
                 <ReviewWrapper>
                     <ReviewTitle>REVIEWS ({rating_data?.reviews.length})</ReviewTitle>
-                    <ScrollbarStyled {...{style: {height: 640}}}>
+                    <ScrollbarStyled {...{style: {height: 500}}}>
                         <ReviewsInner>
                             {rating_data?.reviews.map(r => <ReviewCard review={r ? r : null}/>)}
                         </ReviewsInner>

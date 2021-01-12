@@ -1,7 +1,9 @@
 import React from 'react'
+//material ui
 import {withStyles} from "@material-ui/core";
 import {Rating} from "@material-ui/lab";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+//styles
 import {StarsWrapper} from "../../PopUps/client_review_popup/client-review-styles";
 
 type PropsType = {

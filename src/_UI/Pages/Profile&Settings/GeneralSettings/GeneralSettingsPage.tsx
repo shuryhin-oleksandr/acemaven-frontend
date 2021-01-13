@@ -11,6 +11,7 @@ import {AppBar} from "@material-ui/core";
 import TabList from "@material-ui/lab/TabList";
 import Tab from "@material-ui/core/Tab";
 import TabPanel from "@material-ui/lab/TabPanel";
+import PartnersTable from "./partners_table/PartnersTable";
 
 
 
@@ -36,7 +37,7 @@ const GeneralSettingsPage:React.FC = () => {
                             </TabList>
                         </AppBar>
                         <TabPanel value="1"><EmailNotifications/></TabPanel>
-                        {/*<TabPanel value="2"><PartnersTable /></TabPanel>*/}
+                        <TabPanel value="2"><PartnersTable /></TabPanel>
                     </TabContext>
                 </div>
 

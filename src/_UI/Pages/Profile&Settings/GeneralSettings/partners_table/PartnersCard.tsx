@@ -1,47 +1,62 @@
-import React from 'react';
-import {CardContent, LabelWrap, PartnersCardOuter, SpanWrap, TextWrap} from './partenrs-table-style';
+import React from "react";
+import {
+  CardContent,
+  LabelWrap,
+  PartnersCardOuter,
+  SpanWrap,
+  TextWrap,
+} from "./partenrs-table-style";
+import { ShipperType } from "../../../../../_BLL/types/bookingTypes";
 
+type PropsType = {
+  partner: ShipperType;
+};
 
-const PartnersCard:React.FC = () => {
-    return (
-        <PartnersCardOuter>
-            <CardContent>
-                <SpanWrap>
-                    <LabelWrap>Company name</LabelWrap>
-                    <TextWrap>Transfer Co.</TextWrap>
-                </SpanWrap>
-                <SpanWrap>
-                    <LabelWrap>Address</LabelWrap>
-                    <TextWrap>Transfer Co.</TextWrap>
-                </SpanWrap>
-                <SpanWrap>
-                    <LabelWrap>City</LabelWrap>
-                    <TextWrap>Transfer Co.</TextWrap>
-                </SpanWrap>
-                <SpanWrap>
-                    <LabelWrap>State</LabelWrap>
-                    <TextWrap>Transfer Co.</TextWrap>
-                </SpanWrap>
-                <SpanWrap>
-                    <LabelWrap>Zip code</LabelWrap>
-                    <TextWrap>Transfer Co.</TextWrap>
-                </SpanWrap>
-                <SpanWrap>
-                    <LabelWrap>Phone number</LabelWrap>
-                    <TextWrap>Transfer Co.</TextWrap>
-                </SpanWrap>
-                <SpanWrap>
-                    <LabelWrap>Zip email address</LabelWrap>
-                    <TextWrap>Transfer Co.</TextWrap>
-                </SpanWrap>
-                <SpanWrap>
-                    <LabelWrap>Contact name</LabelWrap>
-                    <TextWrap>Transfer Co.</TextWrap>
-                </SpanWrap>
-            </CardContent>
-        </PartnersCardOuter>
-    )
-}
+const PartnersCard: React.FC<PropsType> = ({ partner }) => {
+  return (
+    <PartnersCardOuter>
+      <CardContent>
+        <SpanWrap>
+          <LabelWrap>Company name</LabelWrap>
+          <TextWrap>{partner.name}</TextWrap>
+        </SpanWrap>
+        {partner.address_line_first && (
+          <SpanWrap>
+            <LabelWrap>Address</LabelWrap>
+            <TextWrap>{partner.address_line_first}</TextWrap>
+          </SpanWrap>
+        )}
+        <SpanWrap>
+          <LabelWrap>City</LabelWrap>
+          <TextWrap>{partner.city}</TextWrap>
+        </SpanWrap>
+        {partner.state && (
+          <SpanWrap>
+            <LabelWrap>State</LabelWrap>
+            <TextWrap>{partner.state}</TextWrap>
+          </SpanWrap>
+        )}
+        {partner.zip_code && (
+          <SpanWrap>
+            <LabelWrap>Zip code</LabelWrap>
+            <TextWrap>{partner.zip_code}</TextWrap>
+          </SpanWrap>
+        )}
+        <SpanWrap>
+          <LabelWrap>Phone number</LabelWrap>
+          <TextWrap>{partner.phone}</TextWrap>
+        </SpanWrap>
+        <SpanWrap>
+          <LabelWrap>Email address</LabelWrap>
+          <TextWrap>{partner.email}</TextWrap>
+        </SpanWrap>
+        <SpanWrap>
+          <LabelWrap>Contact name</LabelWrap>
+          <TextWrap>{partner.contact_name}</TextWrap>
+        </SpanWrap>
+      </CardContent>
+    </PartnersCardOuter>
+  );
+};
 
-export default PartnersCard
-
+export default PartnersCard;

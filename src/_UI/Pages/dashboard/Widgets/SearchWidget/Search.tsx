@@ -127,21 +127,141 @@ const Search: React.FC<PropsType> = ({
   setDates,
   ...props
 }) => {
+
+  //REACT HOOK FORM
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "cargo_groups",
+  });
+  const watchFields = watch(["shipping_mode", "origin", "destination"]);
+  const watchResultArr = Object.values(watchFields).filter((val) => !!val);
+  const watchFieldArray = watch("cargo_groups");
+
+  const onSubmit = (values: any) => {
+    let finalData;
+    if (dates.length > 0) {
+      setDuplicatedCargoError("");
+      //FCL
+      if (values.shipping_mode === ShippingModeEnum.FCL) {
+        finalData = {
+          shipping_mode: values.shipping_mode,
+          date_from: moment(dates[0]).format("DD/MM/YYYY"),
+          date_to: moment(dates[1]).format("DD/MM/YYYY"),
+          destination: Number(sessionStorage.getItem("destination_id")),
+          origin: Number(sessionStorage.getItem("origin_id")),
+          cargo_groups: values.cargo_groups.map((c: any) =>
+              c.frozen
+                  ? {
+                    container_type: c.container_type,
+                    frozen: c.frozen,
+                    volume: Number(c.volume),
+                  }
+                  : {
+                    container_type: c.container_type,
+                    dangerous: c.dangerous,
+                    volume: Number(c.volume),
+                  }
+          ),
+        };
+
+        // checking if there are duplicated cargo groups
+        const arrWithoutValues = finalData.cargo_groups.map((c: any) => {
+          const copyObj = { ...c };
+          delete copyObj.volume;
+          return copyObj;
+        });
+        const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
+        //if there are no duplicates
+        if (uniqCargoArr.length === finalData.cargo_groups.length) {
+          const arrWithDescription = finalData.cargo_groups.map(
+              (c: any, index: number) => ({
+                ...c,
+                description: "",
+                id: index + 1,
+              })
+          );
+          dispatch(
+              bookingActions.set_current_booking_cargo_groups(arrWithDescription)
+          );
+          setDuplicatedCargoError("");
+          search_result.length === 0 && search_success
+              ? dispatch(postSearchQuoteThunk(finalData, history))
+              : // @ts-ignore
+              dispatch(searchRatesOffersThunk(finalData));
+        } else {
+          //if there are duplicates
+          setDuplicatedCargoError("You have duplicated cargo groups");
+        }
+      } else {
+        //chargeable weight shipping modes
+        finalData = {
+          shipping_mode: values.shipping_mode,
+          date_from: moment(dates[0]).format("DD/MM/YYYY"),
+          date_to: moment(dates[1]).format("DD/MM/YYYY"),
+          destination: Number(sessionStorage.getItem("destination_id")),
+          origin: Number(sessionStorage.getItem("origin_id")),
+          cargo_groups: cargo_groups_list?.map((c) =>
+              c.packaging_type
+                  ? {
+                    packaging_type: c.packaging_type,
+                    dangerous: c.dangerous,
+                    volume: Number(c.volume),
+                    weight: Number(c.weight),
+                    length: Number(c.length),
+                    width: Number(c.width),
+                    height: Number(c.height),
+                    total_wm: c.total_wm,
+                    length_measurement: c.length_measurement,
+                    weight_measurement: c.weight_measurement,
+                  }
+                  : {
+                    container_type: c.container_type,
+                    dangerous: c.dangerous,
+                    volume: Number(c.volume),
+                    weight: Number(c.weight),
+                    length: Number(c.length),
+                    width: Number(c.width),
+                    height: Number(c.height),
+                    total_wm: c.total_wm,
+                    length_measurement: c.length_measurement,
+                    weight_measurement: c.weight_measurement,
+                  }
+          ),
+        };
+        const arrWithoutValues = finalData.cargo_groups?.map((c: any) => {
+          const copyObj = { ...c };
+          delete copyObj.volume;
+          return copyObj;
+        });
+        const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
+        //if there are no duplicates
+        if (uniqCargoArr.length === finalData.cargo_groups?.length) {
+          dispatch(searchActions.setDuplicatedError(""));
+          search_result.length === 0 && search_success
+              ? dispatch(postSearchQuoteThunk(finalData, history))
+              : // @ts-ignore
+              dispatch(searchRatesOffersThunk(finalData));
+        } else {
+          dispatch(
+              searchActions.setDuplicatedError("You have duplicated cargo groups")
+          );
+        }
+      }
+
+      dispatch(
+          bookingActions.set_booking_dates({
+            date_from: finalData.date_from,
+            date_to: finalData.date_to,
+          })
+      );
+    } else {
+      setDuplicatedCargoError("Please, enter dates");
+    }
+  };
+
+  //HOOKS
   const dispatch = useDispatch();
   const history = useHistory();
-
-  //delete cargo groups from cargo list after calculation
-  const deleteCargoGroup = (id: number) => {
-    dispatch(searchActions.deleteCargoGroup(id));
-  };
-  //set editable cargo group to state
-  const setEditableCargoGroupToState = (id: number) => {
-    dispatch(searchActions.setEditableCargoGroup(id));
-  };
-  //edit chosen one
-  const editCargoGroup = (edit_data: CargoGroupType) => {
-    dispatch(searchActions.editChosenCargoGroup(edit_data));
-  };
 
   useEffect(() => {
     dispatch(getShippingTypes(""));
@@ -157,30 +277,41 @@ const Search: React.FC<PropsType> = ({
     setDates([]);
   }, [mode]);
 
-  const shippingModeOptions =
-    mode === ShippingTypesEnum.AIR
-      ? shippingTypes[0]?.shipping_modes
-      : shippingTypes[1]?.shipping_modes;
-
-  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
-    ?.container_types;
-
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "cargo_groups",
-  });
-
-  const watchFields = watch(["shipping_mode", "origin", "destination"]);
-  const watchResultArr = Object.values(watchFields).filter((val) => !!val);
-
-  const watchFieldArray = watch("cargo_groups");
-
   useEffect(() => {
     if (watchResultArr.length === 3 && dates.length > 0) {
       setDuplicatedCargoError("");
     }
   }, [watchResultArr, dates]);
 
+  useEffect(() => {
+    shippingValueReset();
+  }, [shippingValue]);
+
+
+  //LOCAL STATE
+  const shippingModeOptions =
+      mode === ShippingTypesEnum.AIR
+          ? shippingTypes[0]?.shipping_modes
+          : shippingTypes[1]?.shipping_modes;
+
+  let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
+      ?.container_types;
+
+
+  //HANDLERS
+  //delete cargo groups from cargo list after calculation
+  const deleteCargoGroup = (id: number) => {
+    dispatch(searchActions.deleteCargoGroup(id));
+  };
+  //set editable cargo group to state
+  const setEditableCargoGroupToState = (id: number) => {
+    dispatch(searchActions.setEditableCargoGroup(id));
+  };
+  //edit chosen one
+  const editCargoGroup = (edit_data: CargoGroupType) => {
+    dispatch(searchActions.editChosenCargoGroup(edit_data));
+  };
+  //origin & destination change handlers
   let onOriginChangeHandler = (value: any) => {
    if (value.value.length >= 3) {
     dispatch(getPorts("", value.value, "origin", mode));
@@ -193,7 +324,7 @@ const Search: React.FC<PropsType> = ({
         : dispatch(getPorts(true, value.value, "destination", mode));
     }
   };
-
+//handler for close origin & destination ports list
   let closePortsHandler = (port: PortType, field: string) => {
     dispatch(rateActions.setOriginPortValue(port));
     setValue(field, port.display_name);
@@ -202,136 +333,17 @@ const Search: React.FC<PropsType> = ({
     dispatch(rateActions.setDestinationPortsList([]));
   };
 
+  //new search - clear handler
   let newSearch = () => {
     dispatch(searchActions.setSearchSuccess(false));
     dispatch(searchActions.clearCargoList([]));
+    dispatch(searchActions.setSearchResult([]))
     setShippingValue(0);
     reset();
     setDates([]);
   };
 
-  const onSubmit = (values: any) => {
-    let finalData;
-    if (dates.length > 0) {
-      setDuplicatedCargoError("");
-      //FCL
-      if (values.shipping_mode === ShippingModeEnum.FCL) {
-        finalData = {
-          shipping_mode: values.shipping_mode,
-          date_from: moment(dates[0]).format("DD/MM/YYYY"),
-          date_to: moment(dates[1]).format("DD/MM/YYYY"),
-          destination: Number(sessionStorage.getItem("destination_id")),
-          origin: Number(sessionStorage.getItem("origin_id")),
-          cargo_groups: values.cargo_groups.map((c: any) =>
-            c.frozen
-              ? {
-                  container_type: c.container_type,
-                  frozen: c.frozen,
-                  volume: Number(c.volume),
-                }
-              : {
-                  container_type: c.container_type,
-                  dangerous: c.dangerous,
-                  volume: Number(c.volume),
-                }
-          ),
-        };
-
-        // checking if there are duplicated cargo groups
-        const arrWithoutValues = finalData.cargo_groups.map((c: any) => {
-          const copyObj = { ...c };
-          delete copyObj.volume;
-          return copyObj;
-        });
-        const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
-        //if there are no duplicates
-        if (uniqCargoArr.length === finalData.cargo_groups.length) {
-          const arrWithDescription = finalData.cargo_groups.map(
-            (c: any, index: number) => ({
-              ...c,
-              description: "",
-              id: index + 1,
-            })
-          );
-          dispatch(
-            bookingActions.set_current_booking_cargo_groups(arrWithDescription)
-          );
-          setDuplicatedCargoError("");
-          search_result.length === 0 && search_success
-            ? dispatch(postSearchQuoteThunk(finalData, history))
-            : // @ts-ignore
-              dispatch(searchRatesOffersThunk(finalData));
-        } else {
-          //if there are duplicates
-          setDuplicatedCargoError("You have duplicated cargo groups");
-        }
-      } else {
-        //chargeable weight shipping modes
-        finalData = {
-          shipping_mode: values.shipping_mode,
-          date_from: moment(dates[0]).format("DD/MM/YYYY"),
-          date_to: moment(dates[1]).format("DD/MM/YYYY"),
-          destination: Number(sessionStorage.getItem("destination_id")),
-          origin: Number(sessionStorage.getItem("origin_id")),
-          cargo_groups: cargo_groups_list?.map((c) =>
-            c.packaging_type
-              ? {
-                  packaging_type: c.packaging_type,
-                  dangerous: c.dangerous,
-                  volume: Number(c.volume),
-                  weight: Number(c.weight),
-                  length: Number(c.length),
-                  width: Number(c.width),
-                  height: Number(c.height),
-                  total_wm: c.total_wm,
-                  length_measurement: c.length_measurement,
-                  weight_measurement: c.weight_measurement,
-                }
-              : {
-                  container_type: c.container_type,
-                  dangerous: c.dangerous,
-                  volume: Number(c.volume),
-                  weight: Number(c.weight),
-                  length: Number(c.length),
-                  width: Number(c.width),
-                  height: Number(c.height),
-                  total_wm: c.total_wm,
-                  length_measurement: c.length_measurement,
-                  weight_measurement: c.weight_measurement,
-                }
-          ),
-        };
-        const arrWithoutValues = finalData.cargo_groups?.map((c: any) => {
-          const copyObj = { ...c };
-          delete copyObj.volume;
-          return copyObj;
-        });
-        const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
-        //if there are no duplicates
-        if (uniqCargoArr.length === finalData.cargo_groups?.length) {
-          dispatch(searchActions.setDuplicatedError(""));
-          search_result.length === 0 && search_success
-            ? dispatch(postSearchQuoteThunk(finalData, history))
-            : // @ts-ignore
-              dispatch(searchRatesOffersThunk(finalData));
-        } else {
-          dispatch(
-            searchActions.setDuplicatedError("You have duplicated cargo groups")
-          );
-        }
-      }
-
-      dispatch(
-        bookingActions.set_booking_dates({
-          date_from: finalData.date_from,
-          date_to: finalData.date_to,
-        })
-      );
-    } else {
-      setDuplicatedCargoError("Please, enter dates");
-    }
-  };
-
+  //reset form handler ( for shipping mode field)
   const shippingValueReset = () => {
     setValue("cargo_groups", [
       {
@@ -359,9 +371,7 @@ const Search: React.FC<PropsType> = ({
     dispatch(searchActions.clearCargoList([]));
   };
 
-  useEffect(() => {
-    shippingValueReset();
-  }, [shippingValue]);
+
 
   return (
     <RelativeWrapper>

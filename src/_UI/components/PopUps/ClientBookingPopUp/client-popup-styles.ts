@@ -35,16 +35,6 @@ export const Heading = styled.div`
   margin-bottom: 17px;
 `;
 
-export const CloseBtn = styled.div`
-  outline: none;
-  background: none;
-  border: none;
-  position: absolute;
-  top: 21px;
-  right: 21px;
-  cursor: pointer;
-`;
-
 export const Wrapper = styled.div`
   border-top: 1px solid #7c7c89;
   padding-top: 20px;

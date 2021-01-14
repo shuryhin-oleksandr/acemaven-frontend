@@ -71,16 +71,19 @@ export const getFrozenChoices = () => {
 export const getCompanyRatingThunk = (id: number) => {
     return async ( dispatch: Dispatch<commonSearchActions> ) => {
         try {
+            dispatch(searchActions.setIsFetching(true))
             let res = await searchAPI.getAllReviews(id)
             dispatch(searchActions.setSearchedCompanyRating(res.data))
+            dispatch(searchActions.setIsFetching(false))
         } catch (e) {
+            dispatch(searchActions.setIsFetching(false))
             console.log(e)
         }
 
     }
 }
 
-export const getPartnersThunk = ()=>{
+export const getPartnersThunk = () => {
     return async (dispatch: Dispatch<commonSearchActions>) => {
         try{
             let res = await searchAPI.getPartners();

@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {IconButton} from "@material-ui/core";
 //react-redux
 import { useDispatch, useSelector } from "react-redux";
 //BLL
@@ -29,7 +30,6 @@ import {
   PopupContainer,
   PopupContent,
   Heading,
-  CloseBtn,
 } from "./client-popup-styles";
 import {
   HiddenTable,
@@ -136,19 +136,21 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
     }
   }
 
+  let closePopupHandler = () => {
+    setBookingPopupVisible(false);
+    setWidgetsVisible && setWidgetsVisible(true);
+    props.quotes_mode && dispatch(quotesClientActions.setFutureArchiveQuoteId(0))
+  }
+
   return (
     <PopupContainer>
       <PopupContent>
         <Heading>Booking process</Heading>
-        <CloseBtn
-          onClick={() => {
-            setBookingPopupVisible(false);
-            setWidgetsVisible && setWidgetsVisible(true);
-            props.quotes_mode && dispatch(quotesClientActions.setFutureArchiveQuoteId(0))
-          }}
+        <IconButton style={{position: 'absolute', top: '21px', right: '21px'}}
+          onClick={closePopupHandler}
         >
           <img src={close} alt="" />
-        </CloseBtn>
+        </IconButton>
         <BookingCard
           button_display={false}
           search_result={currentFreightRate}

@@ -26,8 +26,17 @@ const ActiveQRPayment: React.FC<PropsType> = ({
   newSearch,
   ...props
 }) => {
+
     const dispatch = useDispatch()
     let archive_quote_id = useSelector((state: AppStateType) => state.client_quotes.future_archive_quote_id)
+
+    let clickHandler = () => {
+        setBookingPopupVisible(false);
+        setWidgetsVisible && setWidgetsVisible(true);
+        newSearch && newSearch();
+        props.quotes_mode && dispatch(quotesClientActions.deleteQuoteFromList(archive_quote_id));
+        props.close_totals && props.close_totals();
+    }
 
   return (
     <Container>
@@ -41,14 +50,7 @@ const ActiveQRPayment: React.FC<PropsType> = ({
       >
         <Title>PAYMENT</Title>
         <BaseButton
-          onClick={() => {
-              debugger
-            setBookingPopupVisible(false);
-            setWidgetsVisible && setWidgetsVisible(true);
-            newSearch && newSearch();
-            props.quotes_mode && dispatch(quotesClientActions.deleteQuoteFromList(archive_quote_id));
-            props.close_totals && props.close_totals();
-          }}
+          onClick={clickHandler}
           type="button"
         >
           FINISH

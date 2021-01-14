@@ -17,7 +17,8 @@ const initialState = {
     frozen_choices: [] as ChoiceType[],
     duplicates_error: '',
     rating_company_data: null as RatingCompanyType | null,
-    partners: [] as ShipperType[]
+    partners: [] as ShipperType[],
+    isFetching: false
 }
 
 type InitialStateType = typeof initialState;
@@ -99,6 +100,11 @@ export const searchClientReducer = (state = initialState, action: commonSearchAc
                ...state,
                partners: action.partners
            }
+       case "SET_IS_FETCHING":
+           return {
+               ...state,
+               isFetching: action.isFetching
+           }
        default: return state
    }
 }
@@ -107,6 +113,7 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : neve
 export type commonSearchActions = AC<typeof searchActions>;
 
 export const searchActions = {
+    setIsFetching: (isFetching: boolean) => ({type: 'SET_IS_FETCHING', isFetching} as const),
     clearCargoList: (value: any) => ({type: 'CLEAR_CARGO_LIST', value} as const),
     setCargoGroupData: (cargo_data: CargoGroupType ) => ({ type: "SET_CARGO_GROUP_DATA", cargo_data } as const),
     setSuccessCalculate: (value: boolean) => ({type:'SET_SUCCESS_CALCULATE', value} as const),

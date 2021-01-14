@@ -1,4 +1,13 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
+
+const shownPopup = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 export const RatingPopupContainer = styled.div`
   width: 100%;
@@ -6,6 +15,7 @@ export const RatingPopupContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: ${shownPopup} ease-in-out .2s;
 `
 export const RatingInner = styled.div`
   width: 100%;

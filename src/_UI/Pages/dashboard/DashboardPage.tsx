@@ -127,6 +127,7 @@ const DashboardPage: React.FC<PropsType> = ({
     let newSearch = () => {
         dispatch(searchActions.setSearchSuccess(false));
         dispatch(searchActions.clearCargoList([]));
+        dispatch(searchActions.setSearchResult([]))
         setShippingValue(0);
         reset();
         setDates([]);

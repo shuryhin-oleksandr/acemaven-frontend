@@ -1,25 +1,30 @@
 import React, {useEffect} from "react";
+//react-redux
+import {useDispatch, useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../../_BLL/store";
+import {commonActions} from "../../../../_BLL/reducers/commonReducer";
+import {getCompanyInfo} from "../../../../_BLL/reducers/profileReducer";
+//components
 import Layout from "../../../components/BaseLayout/Layout";
 import CompanySettingsPage from "./CompanySettingsPage";
-import {useDispatch, useSelector} from "react-redux";
-import {commonActions} from "../../../../_BLL/reducers/commonReducer";
-import {AppStateType} from "../../../../_BLL/store";
-import {getCompanyInfo} from "../../../../_BLL/reducers/profileReducer";
 
 
 
 const CompanySettingsContainer:React.FC = () => {
 
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(commonActions.setCurrentNavPath('/settings/company'))
-    }, [dispatch])
-
+    //data from store
     const current_user = useSelector((state: AppStateType) => state.profile.authUserInfo)
     let isFetching = useSelector((state:AppStateType) => state.profile.isFetching)
     let company = current_user?.companies &&  current_user?.companies[0].id
     let company_type = current_user?.companies &&  current_user?.companies[0].type
+
+
+    //hooks
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(commonActions.setCurrentNavPath('/settings/company'))
+    }, [dispatch])
 
 
     useEffect(() => {

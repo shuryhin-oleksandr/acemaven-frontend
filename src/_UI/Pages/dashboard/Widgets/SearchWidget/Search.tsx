@@ -230,6 +230,8 @@ const Search: React.FC<PropsType> = ({
                   }
           ),
         };
+
+        //check if we have duplicates cargo groups
         const arrWithoutValues = finalData.cargo_groups?.map((c: any) => {
           const copyObj = { ...c };
           delete copyObj.volume;

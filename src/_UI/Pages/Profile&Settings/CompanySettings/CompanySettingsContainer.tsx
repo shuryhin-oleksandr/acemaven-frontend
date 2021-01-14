@@ -29,7 +29,7 @@ const CompanySettingsContainer:React.FC = () => {
 
     useEffect(() => {
         if(current_user) {
-            dispatch(getCompanyInfo(company as number))
+            dispatch(getCompanyInfo(Number(company)))
         }
     }, [current_user])
 

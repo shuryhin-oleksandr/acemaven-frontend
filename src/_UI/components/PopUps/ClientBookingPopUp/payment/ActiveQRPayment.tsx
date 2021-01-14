@@ -1,10 +1,16 @@
 import React from "react";
-import { Title, Container, Message } from "./payment-styles";
-import BaseButton from "../../../base/BaseButton";
-import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
-import {quotesClientActions} from "../../../../../_BLL/reducers/quotes/quotesClientReducer";
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//BLL
 import {AppStateType} from "../../../../../_BLL/store";
+import {quotesClientActions} from "../../../../../_BLL/reducers/quotes/quotesClientReducer";
+//types
+import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
+//components
+import BaseButton from "../../../base/BaseButton";
+//styles
+import { Title, Container, Message } from "./payment-styles";
+
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;

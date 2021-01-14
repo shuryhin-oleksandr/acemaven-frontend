@@ -15,12 +15,15 @@ import { AppStateType } from "../../../../_BLL/store";
 import { getCompanyInfo } from "../../../../_BLL/reducers/profileReducer";
 import { bookingActions } from "../../../../_BLL/reducers/booking/bookingReducer";
 import { getReleaseTypeChoices } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
+import {quotesClientActions} from "../../../../_BLL/reducers/quotes/quotesClientReducer";
 //types
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import { SearchResultType } from "../../../../_BLL/types/search/search_types";
 //components
 import RootShippingForm from "./forms/RootShippingForm";
 import BaseButton from "../../base/BaseButton";
 import PaymentContainer from "./payment/PaymentContainer";
+import BookingCard from "../../../Pages/dashboard/search/search_rate_card/BookingCard";
 //styles
 import {
   PopupContainer,
@@ -39,9 +42,8 @@ import {
 } from "../../../Pages/dashboard/search/search_rate_card/search-card-styles";
 //icons
 import close from "../../../assets/icons/close-icon.svg";
-import BookingCard from "../../../Pages/dashboard/search/search_rate_card/BookingCard";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
-import {quotesClientActions} from "../../../../_BLL/reducers/quotes/quotesClientReducer";
+
+
 
 const useStyles = makeStyles({
   container: {

@@ -1,18 +1,25 @@
 import React from 'react'
+//react-router-dom
+import {useHistory} from 'react-router-dom';
+//react-redux
+import {useSelector} from "react-redux";
+//material-ui
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+//BLL
+import {AppStateType} from "../../../../../_BLL/store";
+//types
+import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
+import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
+//styles
 import {ModeIcon, ModeIconBlue, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
+import {CargosOuter} from "../../../quotes/client/quotes-client-styles";
+//icons
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_type from "../../../../assets/icons/rates&services/plane-surcharge.svg";
 import blue_sea_type from '../../../../assets/icons/operations/blue_ship.svg';
 import blue_air_type from '../../../../assets/icons/operations/blue_plane.svg';
-import {CargosOuter} from "../../../quotes/client/quotes-client-styles";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
-import { useHistory } from 'react-router-dom';
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../../_BLL/store";
-import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 
 
 const useStyles = makeStyles({
@@ -83,7 +90,7 @@ type PropsType = {
     operation_status?: string
 }
 
-const OperationsRow:React.FC<PropsType> = ({operation}) => {
+const OperationsRow: React.FC<PropsType> = ({operation}) => {
     const classes = useStyles();
 
     const history = useHistory()
@@ -102,12 +109,12 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
                 <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
                     {company_type?.type === AppCompaniesTypes.AGENT
                         ? (!operation?.has_change_request
-                            ? <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
-                            : <>
-                                <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
-                                <ModeIconBlue src={operation.shipping_type === 'sea' ? blue_sea_type : blue_air_type} alt=""/>
-                            </>
-
+                                ? <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
+                                : <>
+                                    <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
+                                    <ModeIconBlue
+                                        src={operation.shipping_type === 'sea' ? blue_sea_type : blue_air_type} alt=""/>
+                                </>
                         )
                         : <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
                     }
@@ -116,15 +123,17 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <div>{operation.freight_rate.origin.code}</div>
-                    <div>{operation.freight_rate.destination.code}</div></TableCell>
+                    <div>{operation.freight_rate.destination.code}</div>
+                </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <CargosOuter>
                         {company_type?.type === AppCompaniesTypes.AGENT
                             ? operation.cargo_groups.map((c, index) => {
-                                return <span key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
-                                {c.total_wm && ` - ${c.total_wm}w/m`}</span>
+                                return <span
+                                    key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}
+                                    {c.total_wm && ` - ${c.total_wm}w/m`}</span>
                             })
-                            :operation.freight_rate.shipping_mode.title}
+                            : operation.freight_rate.shipping_mode.title}
                     </CargosOuter>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
@@ -139,7 +148,7 @@ const OperationsRow:React.FC<PropsType> = ({operation}) => {
                     {!operation.freight_rate.carrier_disclosure ? operation.freight_rate.carrier.title : 'Carrier is disclosed'}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    <span style={{fontFamily: 'Helvetica Light',  textTransform: 'uppercase'}}>
+                    <span style={{fontFamily: 'Helvetica Light', textTransform: 'uppercase'}}>
                         {operation.status}
                     </span>
                 </TableCell>

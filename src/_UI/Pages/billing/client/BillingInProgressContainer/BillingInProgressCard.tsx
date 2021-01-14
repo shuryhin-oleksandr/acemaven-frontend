@@ -1,4 +1,5 @@
 import React from "react";
+//styles
 import {
   BillingCardContainer,
   InfoText,
@@ -13,8 +14,11 @@ import {
   Row,
   DueToText,
 } from "./billing-in-progress-styles";
+//icons
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_type from "../../../../assets/icons/rates&services/plane-surcharge.svg";
+
+
 const BillingInProgressCard: React.FC = () => {
   return (
     <BillingCardContainer>
@@ -41,17 +45,7 @@ const BillingInProgressCard: React.FC = () => {
         </Row>
       </MainInfo>
       <ChargesBlock>
-        <div style={{ width: "45%" }}>
-          <ChargeRow>
-            <ChargeTitle>CHARGES IN USD</ChargeTitle>
-            <ChargeValue>8.020.00</ChargeValue>
-          </ChargeRow>
-          <ChargeRow>
-            <ChargeTitle>CHARGES IN BRL</ChargeTitle>
-            <ChargeValue>7100.00</ChargeValue>
-          </ChargeRow>
-        </div>
-        <div style={{ width: "45%" }}>
+        <div style={{ width: "100%" }}>
           <DueToText>Due to 10th August 2020:</DueToText>
           <ChargeRow>
             <ChargeTitle>CHARGES IN USD</ChargeTitle>

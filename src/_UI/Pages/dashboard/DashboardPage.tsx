@@ -1,5 +1,35 @@
 import React, {useState} from "react";
+//react-hook-form
 import {useForm} from "react-hook-form";
+//react-redux
+import {useDispatch, useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../_BLL/store";
+import {searchActions} from "../../../_BLL/reducers/search_client/searchClientReducer";
+//types
+import {
+    CargoGroupType,
+    ChoiceType,
+    SearchResultType,
+} from "../../../_BLL/types/search/search_types";
+import {
+    ContainerType,
+    PortType,
+    ShippingTypeType,
+} from "../../../_BLL/types/rates&surcharges/ratesTypes";
+import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {PackagingType} from "../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {OperationType} from "../../../_BLL/types/operations/operationsTypes";
+//components
+import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
+import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
+import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
+import MapComponent from "./MapComponent/MapComponent";
+import ClientBookingPopUp from "../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
+import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
+import SearchContainer from "./search/SearchContainer";
+import Search from "./Widgets/SearchWidget/Search";
+//styles
 import {
     WidgetButton,
     DashboardWrapper,
@@ -9,31 +39,6 @@ import {
     MapWrapper,
     Back,
 } from "./dashboard-styles";
-import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
-import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
-import RackingStatusWidget from "./Widgets/RackingStatusWidget/RackingStatusWidget";
-import MapComponent from "./MapComponent/MapComponent";
-import ClientBookingPopUp from "../../components/PopUps/ClientBookingPopUp/ClientBookingPopUp";
-import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
-import SearchContainer from "./search/SearchContainer";
-import {
-    CargoGroupType,
-    ChoiceType,
-    SearchResultType,
-} from "../../../_BLL/types/search/search_types";
-import Search from "./Widgets/SearchWidget/Search";
-import {
-    ContainerType,
-    PortType,
-    ShippingTypeType,
-} from "../../../_BLL/types/rates&surcharges/ratesTypes";
-import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {PackagingType} from "../../../_BLL/types/rates&surcharges/surchargesTypes";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../_BLL/store";
-import {searchActions} from "../../../_BLL/reducers/search_client/searchClientReducer";
-import {OperationType} from "../../../_BLL/types/operations/operationsTypes";
-
 
 
 type PropsType = {
@@ -133,10 +138,15 @@ const DashboardPage: React.FC<PropsType> = ({
     let events = operations_with_auto_tracking.map(o => ({
         ...o.tracking_initial,
         locations: o.shipping_type === ShippingTypesEnum.AIR
-            ? o.tracking?.map((ot: any) => ot?.data?.events.map((e: any) => ({lat: e.ecefLatitude, lng: e.ecefLongitude})))[0]
-            : o.tracking?.map((ot: any) => ot?.data?.data.length > 0 && ot.data.data.locations.filter((l: any) => ( l && {lat: l.lat, lng: l.lng})))[0]
+            ? o.tracking?.map((ot: any) => ot?.data?.events.map((e: any) => ({
+                lat: e.ecefLatitude,
+                lng: e.ecefLongitude
+            })))[0]
+            : o.tracking?.map((ot: any) => ot?.data?.data.length > 0 && ot.data.data.locations.filter((l: any) => (l && {
+                lat: l.lat,
+                lng: l.lng
+            })))[0]
     }))
-
 
 
     return (

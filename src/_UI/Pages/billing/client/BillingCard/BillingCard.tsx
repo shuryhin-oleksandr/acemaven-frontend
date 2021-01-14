@@ -1,4 +1,5 @@
 import React from "react";
+//icons
 import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 
@@ -83,12 +84,12 @@ const BillingCard: React.FC<PropTypes> = ({ actionButtons }) => {
           <div style={{ width: "45%" }}>
             <ToBookText>to Book:</ToBookText>
             <ChargeRow>
-              <ChargeTitle>CHARGES IN USD</ChargeTitle>
-              <ChargeValue>8.020.00</ChargeValue>
+              <ChargeTitle>Acemaven Service Fee</ChargeTitle>
+              <ChargeValue>BRL 80.OO</ChargeValue>
             </ChargeRow>
             <ChargeRow>
-              <ChargeTitle>CHARGES IN BRL</ChargeTitle>
-              <ChargeValue>7100.00</ChargeValue>
+              <ChargeTitle>Booking Fee</ChargeTitle>
+              <ChargeValue>USD 70.00</ChargeValue>
             </ChargeRow>
           </div>
         </ChargesBlock>

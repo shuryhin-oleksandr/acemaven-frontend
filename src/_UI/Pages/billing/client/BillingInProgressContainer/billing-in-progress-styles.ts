@@ -39,6 +39,7 @@ export const BillingCardContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  width: 100%;
 `;
 
 export const Route = styled.div`
@@ -82,8 +83,10 @@ export const Row = styled.div`
 
 export const ChargesBlock = styled.div`
   display: flex;
-  width: 47%;
-  justify-content: space-between;
+  width: 100%;
+  max-width: 240px;
+  min-width: 200px;
+  justify-content: center;
   position: relative;
 `;
 

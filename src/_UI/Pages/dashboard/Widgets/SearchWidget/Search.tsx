@@ -64,6 +64,8 @@ import {
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
+import {log} from "util";
+import {NewSearchButton} from "../../search/search_rate_card/no_search_card/no-search-result-styles";
 
 type PropsType = {
   right?: string;
@@ -335,11 +337,11 @@ const Search: React.FC<PropsType> = ({
 
   //new search - clear handler
   let newSearch = () => {
+    reset();
     dispatch(searchActions.setSearchSuccess(false));
     dispatch(searchActions.clearCargoList([]));
     dispatch(searchActions.setSearchResult([]))
     setShippingValue(0);
-    reset();
     setDates([]);
   };
 
@@ -542,8 +544,7 @@ const Search: React.FC<PropsType> = ({
           {!!duplicatedCargoError ? (
             <ErrorMessage>{duplicatedCargoError}</ErrorMessage>
           ) : null}
-          {watchResultArr.length === 3 && dates.length > 0 ? (
-            shippingValue === 3 ? (
+          {shippingValue === 3 ? (
               <FCLFieldArray
                 fields={fields}
                 control={control}
@@ -569,23 +570,23 @@ const Search: React.FC<PropsType> = ({
                 />
               )
             )
-          ) : null}
+          }
+          {console.log(shippingValue,search_success )}
           <ButtonGroup
             bottom={bottom}
             right={right}
             justify_content={
-              dates.length > 0 &&
-              watchResultArr.length === 3 &&
-              shippingValue !== 3 &&
-              !search_success
-                ? "space-between"
-                : "flex-end"
+              ![1,2,4,5].find(i=>i===shippingValue) ?
+                  "flex-end"
+                  :
+                  search_success ?
+                      "flex-end"
+                      :
+                      "space-between"
             }
           >
             {!search_success &&
-              dates.length > 0 &&
-              watchResultArr.length === 3 &&
-              shippingValue !== 3 && (
+              [1,2,4,5].find(i=>i===shippingValue) && (
                 <CalculateButton
                   type="button"
                   onClick={() => setOpenCalcPopup(true)}
@@ -613,7 +614,10 @@ const Search: React.FC<PropsType> = ({
               {!search_success ? (
                 <BaseButton type="submit">Search</BaseButton>
               ) : search_result.length !== 0 ? (
-                <BaseButton type="button" onClick={newSearch}>
+                <BaseButton onClick={(e) => {
+                  e.preventDefault();
+                  newSearch();
+                }}>
                   New Search
                 </BaseButton>
               ) : null}

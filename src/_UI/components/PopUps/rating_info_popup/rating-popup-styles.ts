@@ -14,7 +14,6 @@ export const RatingPopupContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
   animation: ${shownPopup} ease-in-out .2s;
 `
 export const RatingInner = styled.div`

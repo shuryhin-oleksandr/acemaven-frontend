@@ -1,4 +1,7 @@
 import React from "react";
+//types
+import { ShipperType } from "../../../../../_BLL/types/bookingTypes";
+//styles
 import {
   CardContent,
   LabelWrap,
@@ -6,7 +9,7 @@ import {
   SpanWrap,
   TextWrap,
 } from "./partenrs-table-style";
-import { ShipperType } from "../../../../../_BLL/types/bookingTypes";
+
 
 type PropsType = {
   partner: ShipperType;

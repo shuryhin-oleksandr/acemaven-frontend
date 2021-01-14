@@ -6,13 +6,14 @@ import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
+//types
+import {AppCompaniesTypes} from "../../../../_BLL/types/commonTypes";
 //components
 import CompanyInfoContainer from "./CompanyInfo/CompanyInfoContainer";
 import BankAccountsContainer from "./BankAccounts/BankAccountsContainer";
+import CreditCardsContainer from "./credit_cards/CreditCardsContainer";
 //styles
 import {CompanyInner, CompanySettingsContainer, PageTitle} from "./company-settings-styles";
-import CreditCardsContainer from "./credit_cards/CreditCardsContainer";
-import {AppCompaniesTypes} from "../../../../_BLL/types/commonTypes";
 
 
 export const useStyles = makeStyles((theme: Theme) => ({

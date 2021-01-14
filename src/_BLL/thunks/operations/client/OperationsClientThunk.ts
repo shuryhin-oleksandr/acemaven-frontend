@@ -204,9 +204,10 @@ export const postCompaniesRating = (
   id: number,
   setReviewPopup: (value: boolean) => void
 ) => {
-  return async () => {
+  return async (dispatch: Dispatch<commonClientOperationsActions>) => {
     try {
       let res = await operationsClientAPI.postCompaniesRating(data, id);
+      dispatch(clientOperationsActions.setHasReview());
       setReviewPopup(false);
     } catch (e) {
       console.log(e);

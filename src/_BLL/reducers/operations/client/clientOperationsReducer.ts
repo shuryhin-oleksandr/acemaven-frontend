@@ -62,6 +62,14 @@ export const clientOperationsReducer = (
         ...state,
         recalculated_charges: action.charges,
       };
+    case "SET_HAS_REVIEW":
+      return {
+        ...state,
+        //@ts-ignore
+        client_operation_info:
+            {...state.client_operation_info,
+              has_review: true}
+      };
     default:
       return state;
   }
@@ -100,5 +108,9 @@ export const clientOperationsActions = {
     ({
       type: "SET_RECALCULATED_CHARGES",
       charges,
+    } as const),
+  setHasReview: () =>
+    ({
+      type: "SET_HAS_REVIEW",
     } as const),
 };

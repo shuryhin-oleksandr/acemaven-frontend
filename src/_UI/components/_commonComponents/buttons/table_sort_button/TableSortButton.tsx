@@ -9,6 +9,7 @@ import { getBookingRequestListThunk } from "../../../../../_BLL/thunks/booking_a
 import { useDispatch } from "react-redux";
 import { getAgentsOperationsThunk } from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import { getClientOperationsThunk } from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {getBillingOperationsListThunk} from "../../../../../_BLL/thunks/billing/agent/AgentBillingThunks";
 
 type PropsType = {
   column_name: string;
@@ -71,6 +72,13 @@ const TableSortButton: React.FC<PropsType> = ({
               props.searchValue
             )
           );
+        } else if (thunkName === 'billing') {
+            dispatch(getBillingOperationsListThunk(
+                mode,
+                descendingOrder.current ? `-${column_name}` : column_name,
+                props.searchColumn,
+                props.searchValue,
+                props.operation_status))
         } else if (thunkName === "operations") {
           props.my_operations === "mine"
             ? dispatch(

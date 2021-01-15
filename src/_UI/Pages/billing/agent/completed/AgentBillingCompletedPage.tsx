@@ -9,6 +9,7 @@ import OptionsDeliveryButtons
     from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import BillingInProgressTable from "../billing_in_progress/table/BillingInProgressTable";
 import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
+import {BillingOperationType} from "../../../../../_BLL/types/billing/billingTypes";
 
 type PropsType = {
     search_column: string,
@@ -18,7 +19,10 @@ type PropsType = {
     mode: string,
     setMode: (value: string) => void,
     isSearchMode: boolean,
-    setSearchMode: (value: boolean) => void
+    setSearchMode: (value: boolean) => void,
+    billing_list: BillingOperationType[],
+    thunkName: string,
+    billing_status: string
 }
 
 const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
@@ -31,7 +35,6 @@ const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
         {id: 3, title: 'june'},
     ]
 
-    console.log(month)
 
     return (
         <BillingProgressWrapper>
@@ -57,7 +60,8 @@ const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
                                                     searchValue={props.searchValue}
                                                     mode={props.mode}
                                                     setMode={props.setMode}
-                                                    thunkName=''
+                                                    thunkName={props.thunkName}
+                                                    operation_status={props.billing_status}
                             />
                         </div>
                     </div>
@@ -68,6 +72,9 @@ const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
                                             setSearchValue={props.setSearchValue}
                                             isSearchMode={props.isSearchMode}
                                             setSearchMode={props.setSearchMode}
+                                            billing_list={props.billing_list}
+                                            billing_status={props.billing_status}
+                                            thunkName={props.thunkName}
                     />
                 </BillingProgressContent>
             </BillingProgressInner>

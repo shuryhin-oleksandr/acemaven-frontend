@@ -8,6 +8,9 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//types
+import {BillingOperationType} from "../../../../../../_BLL/types/billing/billingTypes";
+import {ShippingTypesEnum} from "../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 //components
 import TableCellContent from "../../../../../components/_commonComponents/tables/TableCellContent";
 import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
@@ -15,6 +18,8 @@ import ScrollbarStyled from "../../../../../components/_commonComponents/Scrollb
 import {ModeIcon, SpanMode} from "../../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
 //icons
 import sea_type from "../../../../../assets/icons/rates&services/ship-surcharge.svg";
+import air_type from "../../../../../assets/icons/rates&services/plane-surcharge.svg";
+
 
 
 const useStyles = makeStyles({
@@ -75,7 +80,10 @@ type PropsType = {
     isSearchMode: boolean,
     mode: string,
     search_column: string,
-    setSearchColumn: (value: string) => void
+    setSearchColumn: (value: string) => void,
+    billing_list: BillingOperationType[],
+    billing_status: string,
+    thunkName: string
 }
 
 const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
@@ -98,7 +106,8 @@ const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
                                                   title='ID'
                                                   searchColumn={props.search_column}
                                                   setSearchColumn={props.setSearchColumn}
-                                                  thunkName='#'
+                                                  thunkName={props.thunkName}
+                                                  operation_status={props.billing_status}
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
@@ -112,7 +121,8 @@ const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
                                                   title='ROUTE'
                                                   searchColumn={props.search_column}
                                                   setSearchColumn={props.setSearchColumn}
-                                                  thunkName='#'
+                                                  thunkName={props.thunkName}
+                                                  operation_status={props.billing_status}
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
@@ -135,8 +145,9 @@ const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
                                                   title='PAY DUE'
                                                   searchColumn={props.search_column}
                                                   setSearchColumn={props.setSearchColumn}
-                                                  thunkName='#'
+                                                  thunkName={props.thunkName}
                                                   withoutSearch={true}
+                                                  operation_status={props.billing_status}
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="right">
@@ -150,40 +161,41 @@ const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
                                                   title='STATUS'
                                                   searchColumn={props.search_column}
                                                   setSearchColumn={props.setSearchColumn}
-                                                  thunkName='#'
+                                                  thunkName={props.thunkName}
                                                   withoutSearch={true}
+                                                  operation_status={props.billing_status}
                                 />
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow className={classes.root} onClick={() => {}}>
+                        {props.billing_list.map((billing:BillingOperationType, index: number) =>  <TableRow key={index} className={classes.root}>
                             <TableCell className={classes.innerMainCell} align="left" component="th"
                                        scope="row">
-                                <ModeIcon src={sea_type} alt=""/>
-                                <SpanMode>!!ACEID</SpanMode>
+                                <ModeIcon src={billing.shipping_type === ShippingTypesEnum.SEA ? sea_type : air_type} alt=""/>
+                                <SpanMode>{billing.aceid}</SpanMode>
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                <div>RYUIO</div>
-                                <div>HUIOD</div>
+                                <div>{billing.origin.code}</div>
+                                <div>{billing.destination.code}</div>
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                FCL
+                                {billing.shipping_mode}
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                8.020.00
+                                {billing.charges.total_surcharge?.BRL ? billing.charges.total_surcharge?.BRL : '-'}
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                7200.00
+                                {billing.charges.total_surcharge?.USD ? billing.charges.total_surcharge?.USD : '-'}
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                10 MAY 2020
+                                {billing.payment_due_by}
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                10/11 13:02 PM
-                                Cargo was registered at the termimal
+                                {billing.status}
                             </TableCell>
-                        </TableRow>
+                        </TableRow>)}
+
                     </TableBody>
                 </Table>
             </TableContainer>

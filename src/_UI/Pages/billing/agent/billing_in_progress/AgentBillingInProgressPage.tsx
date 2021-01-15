@@ -5,6 +5,7 @@ import BillingInProgressTable from "./table/BillingInProgressTable";
 //styles
 import {BillingProgressContent, BillingProgressInner, BillingProgressWrapper} from "./billing-in-progress-styles";
 import {BillingTitle} from "../exchange/agent-billing-styles";
+import {BillingOperationType} from "../../../../../_BLL/types/billing/billingTypes";
 
 
 type PropsType = {
@@ -15,7 +16,10 @@ type PropsType = {
     mode: string,
     setMode: (value: string) => void,
     isSearchMode: boolean,
-    setSearchMode: (value: boolean) => void
+    setSearchMode: (value: boolean) => void,
+    billing_list: BillingOperationType[],
+    thunkName: string,
+    billing_status: string
 }
 
 
@@ -37,7 +41,7 @@ const AgentBillingInProgressPage: React.FC<PropsType> = ({...props}) => {
                                                 searchValue={props.searchValue}
                                                 mode={props.mode}
                                                 setMode={props.setMode}
-                                                thunkName=''
+                                                thunkName={props.thunkName}
                         />
                     </div>
                    <BillingInProgressTable search_column={props.search_column}
@@ -47,6 +51,9 @@ const AgentBillingInProgressPage: React.FC<PropsType> = ({...props}) => {
                                            setSearchValue={props.setSearchValue}
                                            isSearchMode={props.isSearchMode}
                                            setSearchMode={props.setSearchMode}
+                                           billing_list={props.billing_list}
+                                           billing_status={props.billing_status}
+                                           thunkName={props.thunkName}
                    />
                 </BillingProgressContent>
             </BillingProgressInner>

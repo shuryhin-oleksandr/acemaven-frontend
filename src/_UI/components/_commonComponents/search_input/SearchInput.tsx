@@ -11,6 +11,7 @@ import close_icon from "../../../assets/icons/close-icon.svg";
 import { useDispatch } from "react-redux";
 import { getAgentsOperationsThunk } from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import { getClientOperationsThunk } from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {getBillingOperationsListThunk} from "../../../../_BLL/thunks/billing/agent/AgentBillingThunks";
 
 type PropsType = {
   setSearchMode: (value: boolean) => void;
@@ -84,6 +85,13 @@ const SearchInput: React.FC<PropsType> = ({
           value
         )
       );
+    } else if(thunkName === 'billing') {
+      dispatch(getBillingOperationsListThunk(
+          props.type,
+          props.column_name,
+          props.searchColumn,
+          value,
+          props.operation_status))
     } else if (thunkName === "operations") {
       props.my_operations === "mine"
         ? dispatch(

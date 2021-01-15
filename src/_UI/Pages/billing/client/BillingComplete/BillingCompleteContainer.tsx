@@ -13,8 +13,8 @@ const BillingCompleteContainer: React.FC = () => {
   let dispatch = useDispatch();
 
   useEffect(() => {
-    let date_from = dates[0] ? moment(dates[0]).format("DD/MM/YYYY") : "";
-    let date_to = dates[1]
+    let date_from = dates.length ? moment(dates[0]).format("DD/MM/YYYY") : "";
+    let date_to = dates.length
       ? moment(dates[1]).add(1, "days").format("DD/MM/YYYY")
       : "";
     dispatch(

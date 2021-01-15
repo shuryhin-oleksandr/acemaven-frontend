@@ -1,22 +1,28 @@
 import React, { ReactElement } from "react";
-import { GoogleMap, Marker, Polyline, withGoogleMap } from "react-google-maps";
-import { polylineIcons } from "../../../../../_BLL/helpers/tracker/GetIconsForPolylineGoogleMap";
+import { GoogleMap, Polyline, withGoogleMap } from "react-google-maps";
+import { CoordinatesType } from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+import red_icon_marker from "../../../../assets/icons/operations/red_marker.svg";
+import { polylineBillingMapIcons } from "../../../../../_BLL/helpers/tracker/BillingMapHelper";
 
 type PropsType = {
   isMarkerShown?: boolean;
   loadingElement?: ReactElement;
   containerElement: ReactElement;
   mapElement: ReactElement;
+  origin_coordinates?: CoordinatesType | null;
+  destination_coordinates?: CoordinatesType | null;
 };
 
 const BillingMapComponent: React.FC<PropsType> = ({
   isMarkerShown,
+  origin_coordinates,
+  destination_coordinates,
   ...props
 }) => (
   <GoogleMap
     options={{
       disableDefaultUI: true,
-      minZoom: 3,
+      minZoom: 1,
       restriction: {
         strictBounds: true,
         latLngBounds: {
@@ -27,26 +33,43 @@ const BillingMapComponent: React.FC<PropsType> = ({
         },
       },
     }}
-    defaultZoom={8}
-    defaultCenter={{ lat: -33.865143, lng: 151.2099 }}
+    defaultZoom={1}
+    defaultCenter={{
+      lat: Number(origin_coordinates?.latitude),
+      lng: Number(origin_coordinates?.longitude),
+    }}
   >
-    {isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
     <Polyline
       path={[
-        { lat: -33.865143, lng: 151.2099 },
-        { lat: -36.848461, lng: 174.763336 },
+        {
+          lat: Number(origin_coordinates?.latitude),
+          lng: Number(origin_coordinates?.longitude),
+        },
+        {
+          lat: Number(destination_coordinates?.latitude),
+          lng: Number(destination_coordinates?.longitude),
+        },
       ]}
       options={{
-        geodesic: false,
+        geodesic: true,
         strokeColor: "rgba(255,255,255,0.09)",
         strokeOpacity: 1.0,
         strokeWeight: 2,
-        icons: polylineIcons({
-          start: { lat: -34.397, lng: 150.644 },
-          end: { lat: 23.910225, lng: 90.041885 },
-          now: { lat: 53.910225, lng: 27.041885 },
-          typeTransportation: "See",
+        icons: polylineBillingMapIcons({
+          start: {
+            lat: Number(origin_coordinates?.latitude),
+            lng: Number(origin_coordinates?.longitude),
+          },
+          end: {
+            lat: Number(destination_coordinates?.latitude),
+            lng: Number(destination_coordinates?.longitude),
+          },
+          now: {
+            lat: Number(origin_coordinates?.latitude),
+            lng: Number(origin_coordinates?.longitude),
+          },
           processType: "Import",
+          red_icon_marker: red_icon_marker,
         }),
       }}
     />

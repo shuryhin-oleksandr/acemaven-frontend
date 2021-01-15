@@ -33,7 +33,7 @@ type PropsType = {
     thunkName?: string;
     my_operations?: string;
     operation_status?: string,
-    dates?: any
+    dates?: string[]
 };
 
 const OptionsDeliveryButtons: React.FC<PropsType> = ({
@@ -64,9 +64,9 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
                 props.searchValue,
                 props.operation_status))
         } else if (props.thunkName === 'client_billing') {
-            let date_from = dates[0] ? moment(dates[0]).format("DD/MM/YYYY") : "";
+            let date_from = dates?.length ? moment(dates[0]).format("DD/MM/YYYY") : "";
 
-            let date_to = dates[1]
+            let date_to = dates?.length
                 ? moment(dates[1]).add(1, "days").format("DD/MM/YYYY")
                 : "";
 

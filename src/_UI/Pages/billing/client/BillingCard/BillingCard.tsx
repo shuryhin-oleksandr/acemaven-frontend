@@ -22,6 +22,7 @@ import {
   RejectButton,
 } from "./billing-card-styles";
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
+import SmallMapComponent from "../../../operations/agent/ExactOperationContainer/OperationCard/blocks/shipments_tracking_block/SmallMapComponent";
 
 type PropTypes = {
   actionButtons?: boolean;
@@ -32,10 +33,11 @@ const BillingCard: React.FC<PropTypes> = ({ actionButtons, billing }) => {
   return (
     <CardContainer>
       <BillingMapComponent
-        isMarkerShown
         loadingElement={<div />}
         containerElement={<MapWrapper />}
         mapElement={<div style={{ height: "233px" }} />}
+        origin_coordinates={billing.origin.coordinates}
+        destination_coordinates={billing.destination.coordinates}
       />
       <InformationWrapper>
         <Row style={{ justifyContent: "space-between" }}>

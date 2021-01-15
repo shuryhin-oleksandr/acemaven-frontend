@@ -573,7 +573,6 @@ const Search: React.FC<PropsType> = ({
               )
             )
           }
-          {console.log(shippingValue,search_success )}
           <ButtonGroup
             bottom={bottom}
             right={right}

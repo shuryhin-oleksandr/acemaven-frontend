@@ -15,6 +15,7 @@ import { agentBookingReducer } from "./reducers/booking/agentBookingReducer";
 import { agentOperationsReducer } from "./reducers/operations/agent/agentOperationsReducer";
 import { clientOperationsReducer } from "./reducers/operations/client/clientOperationsReducer";
 import {agentBillingReducer} from "./reducers/billing/agent/AgentBillingReducer";
+import {clientBillingReducer} from "./reducers/billing/client/ClientBillingReducer";
 
 let reducers = combineReducers({
   auth: authReducer,
@@ -30,7 +31,9 @@ let reducers = combineReducers({
   agent_quotes: quotesAgentReducer,
   agent_operations: agentOperationsReducer,
   client_operations: clientOperationsReducer,
-  agent_billing: agentBillingReducer
+  agent_billing: agentBillingReducer,
+  client_billing: clientBillingReducer
+
 });
 
 export const store = createStore(

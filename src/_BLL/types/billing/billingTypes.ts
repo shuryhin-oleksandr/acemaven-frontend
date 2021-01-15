@@ -24,5 +24,6 @@ export type BillingOperationType = {
     payment_due_by: string,
     status: string,
     carrier: string,
-    charges: ChargeCalculationType
+    charges: ChargeCalculationType,
+    dates?:string
 }

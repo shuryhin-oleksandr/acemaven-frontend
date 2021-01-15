@@ -21,12 +21,14 @@ import {
   ConfirmButton,
   RejectButton,
 } from "./billing-card-styles";
+import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 
 type PropTypes = {
   actionButtons?: boolean;
+  billing: BillingOperationType;
 };
 
-const BillingCard: React.FC<PropTypes> = ({ actionButtons }) => {
+const BillingCard: React.FC<PropTypes> = ({ actionButtons, billing }) => {
   return (
     <CardContainer>
       <BillingMapComponent
@@ -39,7 +41,7 @@ const BillingCard: React.FC<PropTypes> = ({ actionButtons }) => {
         <Row style={{ justifyContent: "space-between" }}>
           <Route>
             <img src={plane_surcharge} alt="" />
-            <div>usmia — brrsszz</div>
+            <div>{`${billing.origin.code} - ${billing.destination.code}`}</div>
           </Route>
           {actionButtons && (
             <Row>
@@ -55,41 +57,49 @@ const BillingCard: React.FC<PropTypes> = ({ actionButtons }) => {
         <MainInfo>
           <Row>
             <InfoTitle>ACID</InfoTitle>
-            <InfoText>AE1025578</InfoText>
+            <InfoText>{billing.aceid}</InfoText>
           </Row>
           <Row>
             <InfoTitle>STATUS</InfoTitle>
-            <InfoText>BOOKING FEE PANDING </InfoText>
+            <InfoText>{billing.status}</InfoText>
           </Row>
           <Row>
             <InfoTitle>shipping mode</InfoTitle>
-            <InfoText>Loose Cargo</InfoText>
+            <InfoText>{billing.shipping_mode}</InfoText>
           </Row>
-          <Row>
-            <InfoTitle>DATES</InfoTitle>
-            <InfoText>ETD: 05/11, ETA:25/11</InfoText>
-          </Row>
+          {billing.dates && (
+            <Row>
+              <InfoTitle>DATES</InfoTitle>
+              <InfoText>{billing.dates}</InfoText>
+            </Row>
+          )}
         </MainInfo>
         <ChargesBlock>
           <div style={{ width: "45%" }}>
             <ChargeRow>
               <ChargeTitle>CHARGES IN USD</ChargeTitle>
-              <ChargeValue>8.020.00</ChargeValue>
+              <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
             </ChargeRow>
             <ChargeRow>
               <ChargeTitle>CHARGES IN BRL</ChargeTitle>
-              <ChargeValue>7100.00</ChargeValue>
+              <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
             </ChargeRow>
           </div>
           <div style={{ width: "45%" }}>
-            <ToBookText>to Book:</ToBookText>
+            {billing.status !== "Operation Complete" && (
+              <ToBookText>to Book:</ToBookText>
+            )}
             <ChargeRow>
               <ChargeTitle>Acemaven Service Fee</ChargeTitle>
-              <ChargeValue>BRL 80.OO</ChargeValue>
+              <ChargeValue>
+                {`${billing.charges.service_fee?.currency} ${billing.charges.service_fee?.cost}`}
+              </ChargeValue>
             </ChargeRow>
             <ChargeRow>
               <ChargeTitle>Booking Fee</ChargeTitle>
-              <ChargeValue>USD 70.00</ChargeValue>
+              <ChargeValue>
+                {`${billing.charges.pay_to_book?.currency} ${billing.charges.pay_to_book?.pay_to_book}`}
+              </ChargeValue>
             </ChargeRow>
           </div>
         </ChargesBlock>

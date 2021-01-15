@@ -18,6 +18,8 @@ import {useDispatch} from "react-redux";
 import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {getClientOperationsThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import {getBillingOperationsListThunk} from "../../../../../_BLL/thunks/billing/agent/AgentBillingThunks";
+import {getClientBillingOperationsThunk} from "../../../../../_BLL/thunks/billing/agent/ClientBillingThunks";
+import moment from "moment";
 
 type PropsType = {
     setMode?: (value: CurrentShippingType) => void;
@@ -30,13 +32,15 @@ type PropsType = {
     disabled?: boolean;
     thunkName?: string;
     my_operations?: string;
-    operation_status?: string
+    operation_status?: string,
+    dates?: any
 };
 
 const OptionsDeliveryButtons: React.FC<PropsType> = ({
                                                          setMode,
                                                          mode,
                                                          disabled,
+                                                         dates,
                                                          ...props
                                                      }) => {
     const dispatch = useDispatch();
@@ -59,6 +63,19 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
                 props.searchColumn,
                 props.searchValue,
                 props.operation_status))
+        } else if (props.thunkName === 'client_billing') {
+            let date_from = dates[0] ? moment(dates[0]).format("DD/MM/YYYY") : "";
+
+            let date_to = dates[1]
+                ? moment(dates[1]).add(1, "days").format("DD/MM/YYYY")
+                : "";
+
+            dispatch(getClientBillingOperationsThunk(
+                type,
+                "completed",
+                date_from,
+                date_to,
+                ));
         } else if (props.thunkName === "rates") {
             dispatch(
                 getFilteredRateListThunk(

@@ -1,60 +1,64 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Content,
   Heading,
   Wrapper,
 } from "../BillingPending/billing-pending-styles";
 import BillingCard from "../BillingCard/BillingCard";
-import { Row } from "../BillingCard/billing-card-styles";
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
-import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
+import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
+import MonthPicker from "../../../../components/month_picker/MonthPicker";
 
-const BillingCompletePage: React.FC = () => {
-  const [mode, setMode] = useState("sea");
-  const [isSearchMode, setSearchMode] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const [search_column, setSearchColumn] = useState("");
-  const [month, setMonth] = useState(0);
+type PropsType = {
+  billing_list: BillingOperationType[];
+  mode: string;
+  setMode: (data: string) => void;
+  dates: string[];
+  setDates: any;
+};
 
-  let month_options = [
-    { id: 1, title: "april" },
-    { id: 2, title: "may" },
-    { id: 3, title: "june" },
-  ];
+const BillingCompletePage: React.FC<PropsType> = ({
+  billing_list,
+  mode,
+  setMode,
+  dates,
+  setDates,
+}) => {
   return (
     <Wrapper>
       <Content>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Heading>Complete</Heading>
+          <Heading>Completed</Heading>
           <div
             style={{
               display: "flex",
-              alignItems:"flex-start",
-              width:"350px"
+              alignItems: "flex-start",
+              width: "450px",
+              justifyContent: "flex-end",
             }}
           >
-            <SurchargeRateSelect
-              placeholder="Time range"
-              hideLabel={true}
-              options={month_options}
-              callback={setMonth}
-              margin_right="16px"
-            />
+            <div style={{ marginRight: "15px" }}>
+              <MonthPicker
+                setDates={setDates}
+                dates={dates}
+                width="240px"
+                placeholder="Choose month"
+              />
+            </div>
             <OptionsDeliveryButtons
               mode={mode}
               setMode={setMode}
               directory=""
               searchColumn=""
               searchValue=""
-              // thunkName="rates"
+              thunkName="client_billing"
+              dates={dates}
             />
           </div>
         </div>
-        <BillingCard />
-        <BillingCard />
-        <BillingCard />
-        <BillingCard />
-        <BillingCard />
+        {billing_list.map((i) => (
+          <BillingCard billing={i} key={i.id} />
+        ))}
       </Content>
     </Wrapper>
   );

@@ -27,5 +27,6 @@ export type BillingOperationType = {
     carrier: string,
     charges: ChargeCalculationType,
     vessel: string,
-    client: string
+    client: string,
+    dates?:string
 }

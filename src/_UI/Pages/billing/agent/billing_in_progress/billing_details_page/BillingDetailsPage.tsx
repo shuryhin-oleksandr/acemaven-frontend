@@ -1,4 +1,13 @@
 import React from 'react'
+//material ui
+import {IconButton} from "@material-ui/core";
+//types
+import {BillingOperationType} from "../../../../../../_BLL/types/billing/billingTypes";
+import {VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
+//components
+import ShipmentInfo from "./blocks/ShipmentInfo";
+import ChargesToPay from "./blocks/ChargesToPay";
+//styles
 import {
     BillingProgressContent,
     BillingProgressInner,
@@ -6,44 +15,53 @@ import {
     BookingNumberWrapper, BookingSpan, NumberSpan, StatusDescriptionSpan, StatusSpan
 } from "../billing-in-progress-styles";
 import {BillingTitle} from "../../exchange/agent-billing-styles";
-import ShipmentInfo from "./blocks/ShipmentInfo";
-import ChargesToPay from "./blocks/ChargesToPay";
-import {IconButton} from "@material-ui/core";
+//icons
 import close_icon from '../../../../../assets/icons/close-icon.svg'
-import { useHistory } from 'react-router-dom';
 
-type PropsType = {}
 
-const BillingDetailsPage: React.FC<PropsType> = ({}) => {
+type PropsType = {
+    billing_details: BillingOperationType | null,
+    goBackHandler: VoidFunctionType,
+    local_time: string
+}
 
-    const history = useHistory()
+const BillingDetailsPage: React.FC<PropsType> = ({billing_details, goBackHandler, local_time}) => {
+
+
 
     return (
         <BillingProgressWrapper>
             <BillingProgressInner>
                     <IconButton style={{position: 'absolute', top: '10px', right: '30px'}}
-                                onClick={() => history.push('/billing_in_progress')}
+                                onClick={goBackHandler}
                     >
                         <img src={close_icon} alt="" style={{width: '15px'}}/>
                     </IconButton>
                 <BillingProgressContent>
-                    <BillingTitle margin_bottom='8px'>0095VSL40</BillingTitle>
+                    <BillingTitle margin_bottom='8px'>
+                        {billing_details?.aceid}
+                    </BillingTitle>
                     <BookingNumberWrapper>
                         <BookingSpan>
                             BOOKING
                         </BookingSpan>
                         <NumberSpan>
-                            No ACY849385789
+                            No {billing_details?.booking_number}
                         </NumberSpan>
                     </BookingNumberWrapper>
                     <BookingNumberWrapper border_bottom='1px solid #bdbdbd'
                                           padding_bottom='27px'
                     >
                         <StatusSpan>STATUS</StatusSpan>
-                        <StatusDescriptionSpan>05/11 21:00 BOOKING IS CONFIRMED LA LA LA LA </StatusDescriptionSpan>
+                        <StatusDescriptionSpan>
+                            {local_time}{' '}
+                        <span style={{fontFamily: 'Helvetica Reg', fontSize: '18px', textTransform: 'uppercase'}}>{billing_details?.status}</span>
+                        </StatusDescriptionSpan>
                     </BookingNumberWrapper>
-                    <ShipmentInfo />
-                    <ChargesToPay />
+                    <ShipmentInfo billing_details={billing_details}/>
+                    <ChargesToPay charges={billing_details?.charges ?? null}
+                                  payment_due_by={billing_details?.payment_due_by ?? null}
+                    />
                 </BillingProgressContent>
             </BillingProgressInner>
         </BillingProgressWrapper>

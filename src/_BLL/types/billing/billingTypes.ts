@@ -17,6 +17,7 @@ export type ExchangeRateType = {
 export type BillingOperationType = {
     id: number,
     aceid: string,
+    booking_number: string,
     origin: PortType,
     destination: PortType,
     shipping_type: string,
@@ -24,5 +25,7 @@ export type BillingOperationType = {
     payment_due_by: string,
     status: string,
     carrier: string,
-    charges: ChargeCalculationType
+    charges: ChargeCalculationType,
+    vessel: string,
+    client: string
 }

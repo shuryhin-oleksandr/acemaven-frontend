@@ -6,7 +6,8 @@ const initialState = {
     exchange_list: [] as ExchangeRateType[],
     repeated_exchange: null as {rates: Array<{currency: number, rate: string, spread: string}>} | null,
     adding_exchange_success: false,
-    billing_operations_list: [] as BillingOperationType[]
+    billing_operations_list: [] as BillingOperationType[],
+    billing_operation_details: null as BillingOperationType | null
 }
 
 type InitialStateType = typeof initialState
@@ -43,6 +44,11 @@ export const agentBillingReducer = (state = initialState, action: commonAgentBil
                 ...state,
                 billing_operations_list: action.list
             }
+        case "SET_BILLING_OPERATION":
+            return {
+                ...state,
+                billing_operation_details: action.operation
+            }
         default: return state
     }
 }
@@ -57,6 +63,7 @@ export const agentBillingActions = {
     setNewExchangeRateToList: (exchange: ExchangeRateType) => ({type: 'SET_NEW_EXCHANGE_TO_LIST', exchange} as const),
     setRepeatedExchange: (exchange: {rates: Array<{currency: number, rate: string, spread: string}>} | null) => ({type: 'SET_REPEATED_EXCHANGE', exchange} as const),
     setAddingExchangeSuccess: (value: boolean) => ({type: 'SET_ADDING_EXCHANGE_SUCCESS', value} as const),
-    setBillingOperationsList: (list: Array<BillingOperationType>) => ({type: 'SET_BILLING_OPERATIONS_LIST', list} as const)
+    setBillingOperationsList: (list: Array<BillingOperationType>) => ({type: 'SET_BILLING_OPERATIONS_LIST', list} as const),
+    setBillingOperationDetails: (operation: BillingOperationType | null) => ({type: 'SET_BILLING_OPERATION', operation} as const)
 }
 

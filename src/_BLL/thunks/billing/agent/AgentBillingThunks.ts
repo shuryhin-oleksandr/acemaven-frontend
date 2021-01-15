@@ -32,7 +32,6 @@ export const createNewExchangeRateThunk = (exchange_data: {rates: Array<{currenc
     };
 };
 
-// @ts-ignore
 export const getBillingOperationsListThunk = ( type: string, field_name: string, search_column: string,
                                                search_value: string, status?: string) => {
     return async (dispatch: Dispatch<commonAgentBillingActions>) => {
@@ -47,3 +46,19 @@ export const getBillingOperationsListThunk = ( type: string, field_name: string,
         }
     }
 }
+
+
+export const getBillingInProgressDetailsThunk = (id: number) => {
+    return async (dispatch: Dispatch<commonAgentBillingActions>) => {
+        try {
+            dispatch(agentBillingActions.setIsFetching(true))
+            let {data} = await agentBillingAPI.getBillingOperationDetails(id)
+            dispatch(agentBillingActions.setBillingOperationDetails(data))
+            dispatch(agentBillingActions.setIsFetching(false))
+        } catch (e) {
+            console.log(e)
+            dispatch(agentBillingActions.setIsFetching(false))
+        }
+    }
+}
+

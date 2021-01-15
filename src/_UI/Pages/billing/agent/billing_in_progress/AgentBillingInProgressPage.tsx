@@ -19,7 +19,8 @@ type PropsType = {
     setSearchMode: (value: boolean) => void,
     billing_list: BillingOperationType[],
     thunkName: string,
-    billing_status: string
+    billing_status: string,
+    goToPageHandler?: (value: number) => void
 }
 
 
@@ -54,6 +55,7 @@ const AgentBillingInProgressPage: React.FC<PropsType> = ({...props}) => {
                                            billing_list={props.billing_list}
                                            billing_status={props.billing_status}
                                            thunkName={props.thunkName}
+                                           goToPageHandler={props.goToPageHandler}
                    />
                 </BillingProgressContent>
             </BillingProgressInner>

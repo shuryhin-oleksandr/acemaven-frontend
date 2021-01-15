@@ -14,6 +14,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import {SectionTitle} from "../../../../../operations/agent/ExactOperationContainer/OperationCard/operation-card-style";
 import {InfoRowLabel, InfoRowValue} from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+import {ChargeCalculationType} from "../../../../../../../_BLL/types/quotes/quotesTypes";
 
 const useStyles = makeStyles({
     container: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
         "& .MuiTableHead-root": {},
     },
     info_row: {
-        '&:hover' : {
+        '&:hover': {
             cursor: 'pointer'
         }
     },
@@ -52,10 +53,11 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-
+    charges: ChargeCalculationType | null,
+    payment_due_by: string | null
 }
 
-const ChargesToPay:React.FC<PropsType> = ({}) => {
+const ChargesToPay: React.FC<PropsType> = ({charges, payment_due_by}) => {
     const classes = useStyles();
 
     const column_object = [
@@ -67,26 +69,32 @@ const ChargesToPay:React.FC<PropsType> = ({}) => {
         {name: 'SUBTOTAL', align: 'right'},
     ]
 
+    let no_of_docs = charges?.doc_fee && (charges?.doc_fee?.subtotal/charges?.doc_fee?.cost)
+
     return (
         <>
             <SectionTitle margin_bottom='17px'>CHARGES</SectionTitle>
+            {payment_due_by &&
             <div style={{display: 'flex'}}>
                 <InfoRowLabel style={{marginRight: '10px'}}>PAYMENT DUE BY:</InfoRowLabel>
-                <InfoRowValue>10/12/2010</InfoRowValue>
+                <InfoRowValue>{payment_due_by}</InfoRowValue>
             </div>
+            }
             <HiddenWrapper margin_top={'30px'}>
                 <HiddenTable>
                     <TableContainer className={classes.container} component={Paper}>
                         <Table className={classes.table} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    {column_object.map((c: any, index: number) => <TableCell key={index} className={classes.cell} align={c.align}>
+                                    {column_object.map((c: any, index: number) => <TableCell key={index}
+                                                                                             className={classes.cell}
+                                                                                             align={c.align}>
                                         {c.name}
                                     </TableCell>)}
                                 </TableRow>
                             </TableHead>
-                            {/* <TableBody>
-                            {operation_charges?.cargo_groups?.map(s =>
+                             <TableBody>
+                            {charges?.cargo_groups?.map(s =>
                                 <TableRow key={s.cargo_type} className={classes.info_row}>
                                     <TableCell className={classes.innerCell} scope="row">
                                         {s.volume}
@@ -118,7 +126,7 @@ const ChargesToPay:React.FC<PropsType> = ({}) => {
                             )}
                             <TableRow className={classes.info_row}>
                                 <TableCell className={classes.innerCell} scope="row">
-                                    {number_of_docs ? number_of_docs : '1'}
+                                    {no_of_docs}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" >
                                 </TableCell>
@@ -126,67 +134,47 @@ const ChargesToPay:React.FC<PropsType> = ({}) => {
                                     DOC FEE
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
-                                    {operation_charges?.doc_fee?.currency}
+                                    {charges?.doc_fee?.currency}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="right">
-                                    {operation_charges?.doc_fee?.cost}
+                                    {charges?.doc_fee?.cost}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="right">
-                                    {operation_charges?.doc_fee?.subtotal}
+                                    {charges?.doc_fee?.subtotal}
                                 </TableCell>
                             </TableRow>
-                        </TableBody>*/}
+                        </TableBody>
                         </Table>
                     </TableContainer>
                 </HiddenTable>
-                {/* <TableTotal>
+                 <TableTotal>
                 <TotalLine>
                     <TotalName>
-                        TOTAL FREIGHT IN {operation_charges?.total_freight_rate?.USD
+                        TOTAL FREIGHT IN {charges?.total_freight_rate?.USD
                         ? "BRL"
                         : "USD" }
                     </TotalName>
                     <TotalValue>
-                        {operation_charges?.total_freight_rate?.USD
-                            ? operation_charges?.total_freight_rate?.USD
-                            : operation_charges?.total_freight_rate?.BRL}
+                        {charges?.total_freight_rate?.USD
+                            ? charges?.total_freight_rate?.USD
+                            : charges?.total_freight_rate?.BRL}
                     </TotalValue>
                 </TotalLine>
                 <TotalLine>
                     <TotalName>
-                        CHARGES IN {operation_charges?.total_surcharge?.BRL
+                        CHARGES IN {charges?.total_surcharge?.BRL
                         ? "BRL"
                         : "USD"
                     }
                     </TotalName>
                     <TotalValue>
-                        {operation_charges?.total_surcharge?.BRL
-                            ? operation_charges?.total_surcharge?.BRL
-                            : operation_charges?.total_surcharge?.USD
+                        {charges?.total_surcharge?.BRL
+                            ? charges?.total_surcharge?.BRL
+                            : charges?.total_surcharge?.USD
                         }
                     </TotalValue>
                 </TotalLine>
-                <TotalLine>
-                    <TotalName>
-                       ??? Today’s USD EXCHANGE RATE ???
-                    </TotalName>
-                    <TotalValue>
-                        5.02
-                    </TotalValue>
-                </TotalLine>
-                <TotalLine>
-                    <TotalName>
-                        ??? Total Today ???
-                    </TotalName>
-                    <TotalValue>
-                       ?? 7100 ??
-                    </TotalValue>
-                </TotalLine>
-                <TotalLine>
-                    <TotalName>ACEMAVEN SERVICE FEE: IN {calculation?.service_fee?.currency}</TotalName>
-                    <TotalValue>{calculation?.service_fee?.cost}</TotalValue>
-                </TotalLine>
-            </TableTotal>*/}
+            </TableTotal>
             </HiddenWrapper>
         </>
 

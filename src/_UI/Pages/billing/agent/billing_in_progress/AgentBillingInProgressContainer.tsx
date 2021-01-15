@@ -4,6 +4,7 @@ import AgentBillingInProgressPage from "./AgentBillingInProgressPage";
 import {useDispatch, useSelector} from "react-redux";
 import {getBillingOperationsListThunk} from "../../../../../_BLL/thunks/billing/agent/AgentBillingThunks";
 import {getBillingOperationsListSelector} from "../../../../../_BLL/selectors/billing/agent/agentBillingSelector";
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -15,6 +16,7 @@ const AgentBillingInProgressContainer:React.FC = ({}) => {
     const [search_column, setSearchColumn] = useState('')
 
     //hooks
+    const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getBillingOperationsListThunk(mode, '', '', '', 'active'))
@@ -22,6 +24,11 @@ const AgentBillingInProgressContainer:React.FC = ({}) => {
 
     //data from store
     const billing_list = useSelector(getBillingOperationsListSelector)
+
+    //handlers
+    let goToPageHandler = (id: number) => {
+        history.push(`/billing_in_progress/${id}`)
+    }
 
 
     return (
@@ -37,6 +44,7 @@ const AgentBillingInProgressContainer:React.FC = ({}) => {
                                         billing_list={billing_list}
                                         thunkName={'billing'}
                                         billing_status={'active'}
+                                        goToPageHandler={goToPageHandler}
             />
         </Layout>
     )

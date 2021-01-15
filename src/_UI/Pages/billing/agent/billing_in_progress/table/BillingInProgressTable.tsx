@@ -83,7 +83,8 @@ type PropsType = {
     setSearchColumn: (value: string) => void,
     billing_list: BillingOperationType[],
     billing_status: string,
-    thunkName: string
+    thunkName: string,
+    goToPageHandler?: (value: number) => void
 }
 
 const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
@@ -169,7 +170,10 @@ const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.billing_list.map((billing:BillingOperationType, index: number) =>  <TableRow key={index} className={classes.root}>
+                        {props.billing_list.map((billing:BillingOperationType, index: number) =>  <TableRow key={index}
+                                                                                                            className={classes.root}
+                                                                                                            onClick={() => props.goToPageHandler && props.goToPageHandler(billing.id)}
+                        >
                             <TableCell className={classes.innerMainCell} align="left" component="th"
                                        scope="row">
                                 <ModeIcon src={billing.shipping_type === ShippingTypesEnum.SEA ? sea_type : air_type} alt=""/>

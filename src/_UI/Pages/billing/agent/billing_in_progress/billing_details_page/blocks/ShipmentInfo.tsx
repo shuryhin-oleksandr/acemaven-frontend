@@ -1,4 +1,8 @@
 import React from 'react'
+//types
+import {BillingOperationType} from "../../../../../../../_BLL/types/billing/billingTypes";
+import {ShippingTypesEnum} from "../../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+//styles
 import {
     SectionTitle, SectionWrapper,
     ShipmentPartsRow
@@ -9,34 +13,37 @@ import {
     InfoRowValue
 } from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
 
-type PropsType = {
 
+type PropsType = {
+    billing_details: BillingOperationType | null,
 }
 
-const ShipmentInfo:React.FC<PropsType> = ({}) => {
+const ShipmentInfo: React.FC<PropsType> = ({billing_details}) => {
     return (
         <SectionWrapper style={{marginBottom: '33px'}}>
             <SectionTitle>SHIPMENT INFO</SectionTitle>
             <ShipmentPartsRow style={{marginBottom: 0, borderBottom: "none"}}>
                 <InfoRow>
                     <InfoRowLabel>CLIENT</InfoRowLabel>
-                    <InfoRowValue>COCA COLA</InfoRowValue>
+                    <InfoRowValue>{billing_details?.client}</InfoRowValue>
                 </InfoRow>
                 <InfoRow>
                     <InfoRowLabel>ROUTE</InfoRowLabel>
-                    <InfoRowValue>SSZ-BRL</InfoRowValue>
+                    <InfoRowValue>{billing_details?.origin.code} - {billing_details?.destination.code}</InfoRowValue>
                 </InfoRow>
                 <InfoRow>
                     <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
-                    <InfoRowValue>FCL</InfoRowValue>
+                    <InfoRowValue>{billing_details?.shipping_mode}</InfoRowValue>
                 </InfoRow>
+                {billing_details?.shipping_type === ShippingTypesEnum.SEA &&
                 <InfoRow>
                     <InfoRowLabel>SHIP</InfoRowLabel>
-                    <InfoRowValue>VICTORIA 2020</InfoRowValue>
+                    <InfoRowValue>{billing_details?.vessel}</InfoRowValue>
                 </InfoRow>
+                }
                 <InfoRow>
                     <InfoRowLabel>CARRIER</InfoRowLabel>
-                    <InfoRowValue>GreatTransfer Co.</InfoRowValue>
+                    <InfoRowValue>{billing_details?.carrier}</InfoRowValue>
                 </InfoRow>
             </ShipmentPartsRow>
         </SectionWrapper>

@@ -64,8 +64,7 @@ import {
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
-import {log} from "util";
-import {NewSearchButton} from "../../search/search_rate_card/no_search_card/no-search-result-styles";
+
 
 type PropsType = {
   right?: string;
@@ -140,6 +139,7 @@ const Search: React.FC<PropsType> = ({
   const watchFieldArray = watch("cargo_groups");
 
   const onSubmit = (values: any) => {
+    debugger
     let finalData;
     if (dates.length > 0) {
       setDuplicatedCargoError("");
@@ -238,18 +238,27 @@ const Search: React.FC<PropsType> = ({
           return copyObj;
         });
         const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
-        //if there are no duplicates
-        if (uniqCargoArr.length === finalData.cargo_groups?.length) {
-          dispatch(searchActions.setDuplicatedError(""));
-          search_result.length === 0 && search_success
-              ? dispatch(postSearchQuoteThunk(finalData, history))
-              : // @ts-ignore
-              dispatch(searchRatesOffersThunk(finalData));
+        //!!checking if cargo groups that are non containerized are not empty
+        if(finalData.cargo_groups && finalData.cargo_groups.length > 0) {
+          //if there are no duplicates --> submit
+          if (uniqCargoArr.length === finalData.cargo_groups?.length) {
+            //dispatch(searchActions.setDuplicatedError(""));
+            search_result.length === 0 && search_success
+                ? dispatch(postSearchQuoteThunk(finalData, history))
+                : // @ts-ignore
+                dispatch(searchRatesOffersThunk(finalData));
+          } else {
+            dispatch(
+                searchActions.setDuplicatedError("You have duplicated cargo groups")
+            );
+          }
         } else {
-          dispatch(
-              searchActions.setDuplicatedError("You have duplicated cargo groups")
-          );
+          //if cargos are empty --> set error
+          dispatch(searchActions.setDuplicatedError("One cargo group at least is required"));
+          console.log('error')
         }
+
+
       }
 
       dispatch(
@@ -281,11 +290,11 @@ const Search: React.FC<PropsType> = ({
     setDates([]);
   }, [mode]);
 
-  useEffect(() => {
-    if (watchResultArr.length === 3 && dates.length > 0) {
-      setDuplicatedCargoError("");
-    }
-  }, [watchResultArr, dates]);
+  // useEffect(() => {
+  //   if (watchResultArr.length === 3 && dates.length > 0 ) {
+  //     setDuplicatedCargoError("");
+  //   }
+  // }, [watchResultArr, dates]);
 
   useEffect(() => {
     shippingValueReset();
@@ -375,6 +384,10 @@ const Search: React.FC<PropsType> = ({
     dispatch(searchActions.clearCargoList([]));
   };
 
+  let openCalcPopupAnaClearDuplicationError = () => {
+    setOpenCalcPopup(true)
+    setDuplicatedCargoError("");
+  }
 
 
   return (
@@ -591,7 +604,7 @@ const Search: React.FC<PropsType> = ({
               [1,2,4,5].find(i=>i===shippingValue) && (
                 <CalculateButton
                   type="button"
-                  onClick={() => setOpenCalcPopup(true)}
+                  onClick={openCalcPopupAnaClearDuplicationError}
                 >
                   Calculate w/m
                 </CalculateButton>

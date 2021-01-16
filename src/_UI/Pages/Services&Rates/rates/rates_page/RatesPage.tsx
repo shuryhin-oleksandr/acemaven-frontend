@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outer } from "./rates-style";
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -9,17 +9,25 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Tooltip from "@material-ui/core/Tooltip";
+//react-router-dom
+import { useHistory } from "react-router-dom";
+//BLL
+import { setActiveOrPausedRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+//types
+import {FreightRateObjectType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
+//components
+import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+//styles
+import { Outer } from "./rates-style";
+//icons
 import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-import styled from "styled-components";
 import template_icon from "../../../../assets/icons/rates&services/template.svg";
 import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
-import {FreightRateObjectType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
-import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
-import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
-import { useHistory } from "react-router-dom";
-import { setActiveOrPausedRateThunk } from "../../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import styled from "styled-components";
+
 
 const useStyles = makeStyles({
   container: {
@@ -77,6 +85,7 @@ const useStyles = makeStyles({
     padding: "15px",
   },
 });
+
 
 type PropsType = {
   freight_rates_list: FreightRateObjectType[] | null;

@@ -5,15 +5,16 @@ import { BillingOperationType } from "../../../../../_BLL/types/billing/billingT
 
 type PropsType = {
   billing_list: BillingOperationType[];
+  cancelBooking: (showPopup: boolean, id: number) => void;
 };
 
-const BillingPendingPage: React.FC<PropsType> = ({ billing_list }) => {
+const BillingPendingPage: React.FC<PropsType> = ({ billing_list,cancelBooking }) => {
   return (
     <Wrapper>
       <Content>
         <Heading>Pending of booking fee payment</Heading>
         {billing_list.map((i) => (
-          <BillingCard billing={i} key={i.id} />
+          <BillingCard billing={i} key={i.id} cancelBooking={cancelBooking} />
         ))}
       </Content>
     </Wrapper>

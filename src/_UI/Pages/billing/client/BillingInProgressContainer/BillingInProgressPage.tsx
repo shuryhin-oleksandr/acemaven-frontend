@@ -3,17 +3,19 @@ import MapComponent from "../../../dashboard/MapComponent/MapComponent";
 import { MapWrapper } from "../../../dashboard/dashboard-styles";
 import { HideButton } from "../../../operations/agent/agent-operations-list-container";
 import hide_map_icon from "../../../../assets/icons/operations/hide_map.svg";
-import {
-  Content,
-  Inner,
-  Wrapper,
-  Heading,
-} from "./billing-in-progress-styles";
+import { Content, Inner, Wrapper, Heading } from "./billing-in-progress-styles";
 import BillingInProgressCard from "./BillingInProgressCard";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 
-const BillingInProgressPage: React.FC = () => {
+type PropsType = {
+  billing_list: BillingOperationType[];
+};
+
+const BillingInProgressPage: React.FC<PropsType> = ({ billing_list }) => {
   const [isHide, setIsHide] = useState(false);
+
+
   return (
     <Wrapper>
       {!isHide && (
@@ -35,14 +37,9 @@ const BillingInProgressPage: React.FC = () => {
         <Content isHide={isHide}>
           <Heading>Operations in Progress</Heading>
           <ScrollbarStyled {...{ style: { height: "100%" } }}>
-            <BillingInProgressCard />
-            <BillingInProgressCard />
-            <BillingInProgressCard />
-            <BillingInProgressCard />
-            <BillingInProgressCard />
-            <BillingInProgressCard />
-            <BillingInProgressCard />
-            <BillingInProgressCard />
+            {billing_list.map((i) => (
+              <BillingInProgressCard billing={i} key={i.id} />
+            ))}
           </ScrollbarStyled>
         </Content>
       </Inner>

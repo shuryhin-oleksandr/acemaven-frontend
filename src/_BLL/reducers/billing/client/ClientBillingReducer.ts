@@ -22,6 +22,13 @@ export const clientBillingReducer = (
         ...state,
         client_billing_operations_list: action.list,
       };
+    case "REMOVE_PENDING_BOOKING":
+      return {
+        ...state,
+        client_billing_operations_list: state.client_billing_operations_list.filter(
+          (i) => i.id !== action.id
+        ),
+      };
     default:
       return state;
   }
@@ -39,5 +46,10 @@ export const clientBillingActions = {
     ({
       type: "SET_CLIENT_BILLING_LIST",
       list,
+    } as const),
+  removePendingBooking: (id: number) =>
+    ({
+      type: "REMOVE_PENDING_BOOKING",
+      id,
     } as const),
 };

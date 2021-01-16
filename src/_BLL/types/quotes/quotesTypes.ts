@@ -190,7 +190,7 @@ export type SurchargesForQuoteType = {
 }
 
 export type ChargeCalculationType = {
-    totals: {BRL : number, USD: number},
+    totals: {BRL : number, USD: number, EUR: number},
     doc_fee?: {
         cost: number,
         currency: string,

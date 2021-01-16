@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getClientBillingOperationsThunk } from "../../../../../_BLL/thunks/billing/agent/ClientBillingThunks";
 import { AppStateType } from "../../../../../_BLL/store";
 import moment from "moment";
+import { clientBillingActions } from "../../../../../_BLL/reducers/billing/client/ClientBillingReducer";
+import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 
 const BillingCompleteContainer: React.FC = () => {
   const [mode, setMode] = useState("sea");
@@ -20,21 +22,31 @@ const BillingCompleteContainer: React.FC = () => {
     dispatch(
       getClientBillingOperationsThunk(mode, "completed", date_from, date_to)
     );
+    return () => {
+      dispatch(clientBillingActions.setClientBillingList([]));
+    };
   }, [dates]);
 
   const billing_list = useSelector(
     (state: AppStateType) => state.client_billing.client_billing_operations_list
   );
+  const isFetching = useSelector(
+    (state: AppStateType) => state.client_billing.isFetching
+  );
 
   return (
     <Layout>
-      <BillingCompletePage
-        mode={mode}
-        setMode={setMode}
-        dates={dates}
-        setDates={setDates}
-        billing_list={billing_list}
-      />
+      {isFetching ? (
+        <SpinnerForAuthorizedPages />
+      ) : (
+        <BillingCompletePage
+          mode={mode}
+          setMode={setMode}
+          dates={dates}
+          setDates={setDates}
+          billing_list={billing_list}
+        />
+      )}
     </Layout>
   );
 };

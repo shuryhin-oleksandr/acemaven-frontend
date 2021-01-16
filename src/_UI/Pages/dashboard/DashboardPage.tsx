@@ -216,7 +216,7 @@ const DashboardPage: React.FC<PropsType> = ({
             </SearchBox>
             {!search_success && (
                 <MultiWidgetBox widgetsVisible={widgetsVisible}>
-                    <FeePaymentWidget/>
+                    <FeePaymentWidget />
                     <LatestQuotesWidget/>
                     <RackingStatusWidget/>
                 </MultiWidgetBox>

@@ -61,9 +61,10 @@ export const InfoText = styled.span`
 `;
 
 export const ChargesBlock = styled.div`
+  padding-top: 20px;
   display: flex;
   width: 70%;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
 `;
 
@@ -95,6 +96,8 @@ export const ToBookText = styled.div`
   font-size: 14px;
   line-height: 16px;
   color: #828282;
+  position: absolute;
+  top: -15px;
 `;
 
 export const ConfirmButton = styled.button`

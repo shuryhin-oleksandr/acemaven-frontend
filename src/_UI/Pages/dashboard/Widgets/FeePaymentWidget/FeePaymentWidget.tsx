@@ -4,13 +4,29 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import React from "react";
+import React, { useEffect } from "react";
 import { useStyles } from "../WidgetTableStyles";
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
+import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
+import { getClientBillingOperationsThunk } from "../../../../../_BLL/thunks/billing/agent/ClientBillingThunks";
+import { clientBillingActions } from "../../../../../_BLL/reducers/billing/client/ClientBillingReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType } from "../../../../../_BLL/store";
+import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 const FeePaymentWidget: React.FC = () => {
   const classes = useStyles();
+  let dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getClientBillingOperationsThunk("", "pending", "", ""));
+    return () => {
+      dispatch(clientBillingActions.setClientBillingList([]));
+    };
+  }, []);
 
+  const billing_list = useSelector(
+    (state: AppStateType) => state.client_billing.client_billing_operations_list
+  );
 
   return (
     <BaseWidget heading="pending of Booking Fee payment">
@@ -33,7 +49,8 @@ const FeePaymentWidget: React.FC = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow >
+          {billing_list.map((item) => (
+            <TableRow key={item.id}>
               <TableCell className={classes.innerCell}>
                 <div
                   style={{
@@ -42,47 +59,30 @@ const FeePaymentWidget: React.FC = () => {
                     paddingRight: 10,
                   }}
                 >
-                  <img src={ShipIcon} alt="" />
+                  <img
+                    src={
+                      item.shipping_type === ShippingTypesEnum.SEA
+                        ? ShipIcon
+                        : PlaneIcon
+                    }
+                    alt=""
+                  />
                 </div>
               </TableCell>
               <TableCell className={classes.boldCell} align="left">
-                AMX100097
+                {item.aceid}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                HOU-GJS
+                {`${item.origin.code} - ${item.destination.code}`}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                25/12
+                ???????
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                In transit
+                {item.status}
               </TableCell>
             </TableRow>
-          <TableRow >
-            <TableCell className={classes.innerCell}>
-              <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    paddingRight: 10,
-                  }}
-              >
-                <img src={ShipIcon} alt="" />
-              </div>
-            </TableCell>
-            <TableCell className={classes.boldCell} align="left">
-              AMX100097
-            </TableCell>
-            <TableCell className={classes.innerCell} align="left">
-              HOU-GJS
-            </TableCell>
-            <TableCell className={classes.innerCell} align="left">
-              25/12
-            </TableCell>
-            <TableCell className={classes.innerCell} align="left">
-              In transit
-            </TableCell>
-          </TableRow>
+          ))}
         </TableBody>
       </Table>
     </BaseWidget>

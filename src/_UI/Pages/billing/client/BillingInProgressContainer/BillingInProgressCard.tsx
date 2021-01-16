@@ -19,6 +19,7 @@ import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg
 import air_type from "../../../../assets/icons/rates&services/plane-surcharge.svg";
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import moment from "moment";
+import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 type PropsType = {
   billing: BillingOperationType;
@@ -28,7 +29,14 @@ const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
   return (
     <BillingCardContainer>
       <Route>
-        <img src={sea_type} alt="" />
+        <img
+          src={
+            billing.shipping_type === ShippingTypesEnum.SEA
+              ? sea_type
+              : air_type
+          }
+          alt=""
+        />
         <div style={{ marginLeft: "9px" }}>
           <RouteText>{`${billing.origin.code} - ${billing.destination.code}`}</RouteText>
           <InfoTitle>ACID</InfoTitle>

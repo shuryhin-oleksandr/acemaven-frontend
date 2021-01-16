@@ -23,16 +23,14 @@ import {
 } from "./billing-card-styles";
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import SmallMapComponent from "../../../operations/agent/ExactOperationContainer/OperationCard/blocks/shipments_tracking_block/SmallMapComponent";
+import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 type PropTypes = {
   billing: BillingOperationType;
   cancelBooking?: (showPopup: boolean, id: number) => void;
 };
 
-const BillingCard: React.FC<PropTypes> = ({
-  billing,
-  cancelBooking,
-}) => {
+const BillingCard: React.FC<PropTypes> = ({ billing, cancelBooking }) => {
   return (
     <CardContainer>
       <BillingMapComponent
@@ -45,7 +43,14 @@ const BillingCard: React.FC<PropTypes> = ({
       <InformationWrapper>
         <Row style={{ justifyContent: "space-between" }}>
           <Route>
-            <img src={plane_surcharge} alt="" />
+            <img
+              src={
+                billing.shipping_type === ShippingTypesEnum.SEA
+                  ? ship_surcharge
+                  : plane_surcharge
+              }
+              alt=""
+            />
             <div>{`${billing.origin.code} - ${billing.destination.code}`}</div>
           </Route>
           {billing.status !== "Operation Complete" && (

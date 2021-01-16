@@ -5,6 +5,8 @@ import {
   commonClientBillingActions,
 } from "../../../reducers/billing/client/ClientBillingReducer";
 import moment from "moment";
+import { commonClientOperationsActions } from "../../../reducers/operations/client/clientOperationsReducer";
+import { operationsClientAPI } from "../../../../_DAL/API/operations/operationsClientAPI";
 
 export const getClientBillingOperationsThunk = (
   type: string,
@@ -26,6 +28,21 @@ export const getClientBillingOperationsThunk = (
     } catch (e) {
       console.log(e);
       dispatch(clientBillingActions.setIsFetching(false));
+    }
+  };
+};
+
+export const cancelClientPendingBooking = (
+  id: number,
+  setIsCancelByClient: any
+) => {
+  return async (dispatch: Dispatch<commonClientBillingActions>) => {
+    try {
+      let res = await operationsClientAPI.cancelOperation(id);
+      dispatch(clientBillingActions.removePendingBooking(id));
+      setIsCancelByClient(false);
+    } catch (e) {
+      console.log(e);
     }
   };
 };

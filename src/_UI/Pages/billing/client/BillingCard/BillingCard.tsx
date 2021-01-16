@@ -27,9 +27,14 @@ import SmallMapComponent from "../../../operations/agent/ExactOperationContainer
 type PropTypes = {
   actionButtons?: boolean;
   billing: BillingOperationType;
+  cancelBooking?: (showPopup: boolean, id: number) => void;
 };
 
-const BillingCard: React.FC<PropTypes> = ({ actionButtons, billing }) => {
+const BillingCard: React.FC<PropTypes> = ({
+  actionButtons,
+  billing,
+  cancelBooking,
+}) => {
   return (
     <CardContainer>
       <BillingMapComponent
@@ -45,14 +50,20 @@ const BillingCard: React.FC<PropTypes> = ({ actionButtons, billing }) => {
             <img src={plane_surcharge} alt="" />
             <div>{`${billing.origin.code} - ${billing.destination.code}`}</div>
           </Route>
-          {actionButtons && (
+          {billing.status !== "Operation Complete" && (
             <Row>
               <ConfirmButton
               // onClick={() => props.setClientChangRequestPopupVisible(true)}
               >
                 PAY
               </ConfirmButton>
-              <RejectButton>CANCEL</RejectButton>
+              <RejectButton
+                onClick={() => {
+                  cancelBooking && cancelBooking(true, billing.id);
+                }}
+              >
+                CANCEL
+              </RejectButton>
             </Row>
           )}
         </Row>
@@ -78,32 +89,42 @@ const BillingCard: React.FC<PropTypes> = ({ actionButtons, billing }) => {
         </MainInfo>
         <ChargesBlock>
           <div style={{ width: "45%" }}>
-            <ChargeRow>
-              <ChargeTitle>CHARGES IN USD</ChargeTitle>
-              <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
-            </ChargeRow>
-            <ChargeRow>
-              <ChargeTitle>CHARGES IN BRL</ChargeTitle>
-              <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
-            </ChargeRow>
-          </div>
-          <div style={{ width: "45%" }}>
-            {billing.status !== "Operation Complete" && (
-              <ToBookText>to Book:</ToBookText>
+            {billing.charges.totals.USD && (
+              <ChargeRow>
+                <ChargeTitle>CHARGES IN USD</ChargeTitle>
+                <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
+              </ChargeRow>
             )}
-            <ChargeRow>
-              <ChargeTitle>Acemaven Service Fee</ChargeTitle>
-              <ChargeValue>
-                {`${billing.charges.service_fee?.currency} ${billing.charges.service_fee?.cost}`}
-              </ChargeValue>
-            </ChargeRow>
-            <ChargeRow>
-              <ChargeTitle>Booking Fee</ChargeTitle>
-              <ChargeValue>
-                {`${billing.charges.pay_to_book?.currency} ${billing.charges.pay_to_book?.pay_to_book}`}
-              </ChargeValue>
-            </ChargeRow>
+            {billing.charges.totals.BRL && (
+              <ChargeRow>
+                <ChargeTitle>CHARGES IN BRL</ChargeTitle>
+                <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
+              </ChargeRow>
+            )}
+            {billing.charges.totals.EUR && (
+              <ChargeRow>
+                <ChargeTitle>CHARGES IN EUR</ChargeTitle>
+                <ChargeValue>{billing.charges.totals.EUR}</ChargeValue>
+              </ChargeRow>
+            )}
           </div>
+          {billing.status !== "Operation Complete" && (
+            <div style={{ width: "45%", position: "relative" }}>
+              <ToBookText>to Book:</ToBookText>
+              <ChargeRow>
+                <ChargeTitle>Acemaven Service Fee</ChargeTitle>
+                <ChargeValue>
+                  {`${billing.charges.pay_to_book?.currency} ${billing.charges.pay_to_book?.service_fee}`}
+                </ChargeValue>
+              </ChargeRow>
+              <ChargeRow>
+                <ChargeTitle>Booking Fee</ChargeTitle>
+                <ChargeValue>
+                  {`${billing.charges.pay_to_book?.currency} ${billing.charges.pay_to_book?.booking_fee}`}
+                </ChargeValue>
+              </ChargeRow>
+            </div>
+          )}
         </ChargesBlock>
       </InformationWrapper>
     </CardContainer>

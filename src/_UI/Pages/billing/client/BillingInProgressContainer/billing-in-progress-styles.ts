@@ -73,7 +73,9 @@ export const InfoText = styled.span`
   color: #1b1b25;
 `;
 
-export const MainInfo = styled.div``;
+export const MainInfo = styled.div`
+min-width: 270px;
+`;
 
 export const Row = styled.div`
   display: flex;

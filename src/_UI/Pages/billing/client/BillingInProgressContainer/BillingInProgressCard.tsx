@@ -17,44 +17,66 @@ import {
 //icons
 import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_type from "../../../../assets/icons/rates&services/plane-surcharge.svg";
+import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
+import moment from "moment";
 
+type PropsType = {
+  billing: BillingOperationType;
+};
 
-const BillingInProgressCard: React.FC = () => {
+const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
   return (
     <BillingCardContainer>
       <Route>
         <img src={sea_type} alt="" />
         <div style={{ marginLeft: "9px" }}>
-          <RouteText>usmia — brrsszz</RouteText>
+          <RouteText>{`${billing.origin.code} - ${billing.destination.code}`}</RouteText>
           <InfoTitle>ACID</InfoTitle>
-          <InfoText>AE1025578</InfoText>
+          <InfoText>{billing.aceid}</InfoText>
         </div>
       </Route>
       <MainInfo>
         <Row>
           <InfoTitle>STATUS</InfoTitle>
-          <InfoText>BOOKING FEE PANDING </InfoText>
+          <InfoText>{billing.status}</InfoText>
         </Row>
         <Row>
           <InfoTitle>shipping mode</InfoTitle>
-          <InfoText>Loose Cargo</InfoText>
+          <InfoText>{billing.shipping_mode}</InfoText>
         </Row>
-        <Row>
-          <InfoTitle>DATES</InfoTitle>
-          <InfoText>ETD: 05/11, ETA:25/11</InfoText>
-        </Row>
+        {billing.dates && (
+          <Row>
+            <InfoTitle>DATES</InfoTitle>
+            <InfoText>{billing.dates}</InfoText>
+          </Row>
+        )}
       </MainInfo>
       <ChargesBlock>
         <div style={{ width: "100%" }}>
-          <DueToText>Due to 10th August 2020:</DueToText>
-          <ChargeRow>
-            <ChargeTitle>CHARGES IN USD</ChargeTitle>
-            <ChargeValue>8.020.00</ChargeValue>
-          </ChargeRow>
-          <ChargeRow>
-            <ChargeTitle>CHARGES IN BRL</ChargeTitle>
-            <ChargeValue>7100.00</ChargeValue>
-          </ChargeRow>
+          {billing.payment_due_by && (
+            <DueToText>{`due to ${moment(
+              billing.payment_due_by,
+              "DD-MM-YYYY"
+            ).format("MMMM Do  YYYY")} :`}</DueToText>
+          )}
+          {!!billing.charges.totals.USD && (
+            <ChargeRow>
+              <ChargeTitle>CHARGES IN USD</ChargeTitle>
+              <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
+            </ChargeRow>
+          )}
+          {!!billing.charges.totals.BRL && (
+            <ChargeRow>
+              <ChargeTitle>CHARGES IN BRL</ChargeTitle>
+              <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
+            </ChargeRow>
+          )}
+          {!!billing.charges.totals.EUR && (
+            <ChargeRow>
+              <ChargeTitle>CHARGES IN EUR</ChargeTitle>
+              <ChargeValue>{billing.charges.totals.EUR}</ChargeValue>
+            </ChargeRow>
+          )}
         </div>
       </ChargesBlock>
     </BillingCardContainer>

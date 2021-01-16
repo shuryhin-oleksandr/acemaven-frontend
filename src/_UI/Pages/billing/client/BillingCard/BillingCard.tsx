@@ -25,13 +25,11 @@ import { BillingOperationType } from "../../../../../_BLL/types/billing/billingT
 import SmallMapComponent from "../../../operations/agent/ExactOperationContainer/OperationCard/blocks/shipments_tracking_block/SmallMapComponent";
 
 type PropTypes = {
-  actionButtons?: boolean;
   billing: BillingOperationType;
   cancelBooking?: (showPopup: boolean, id: number) => void;
 };
 
 const BillingCard: React.FC<PropTypes> = ({
-  actionButtons,
   billing,
   cancelBooking,
 }) => {
@@ -89,19 +87,19 @@ const BillingCard: React.FC<PropTypes> = ({
         </MainInfo>
         <ChargesBlock>
           <div style={{ width: "45%" }}>
-            {billing.charges.totals.USD && (
+            {!!billing.charges.totals.USD && (
               <ChargeRow>
                 <ChargeTitle>CHARGES IN USD</ChargeTitle>
                 <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
               </ChargeRow>
             )}
-            {billing.charges.totals.BRL && (
+            {!!billing.charges.totals.BRL && (
               <ChargeRow>
                 <ChargeTitle>CHARGES IN BRL</ChargeTitle>
                 <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
               </ChargeRow>
             )}
-            {billing.charges.totals.EUR && (
+            {!!billing.charges.totals.EUR && (
               <ChargeRow>
                 <ChargeTitle>CHARGES IN EUR</ChargeTitle>
                 <ChargeValue>{billing.charges.totals.EUR}</ChargeValue>

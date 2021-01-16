@@ -1,15 +1,19 @@
-import React, {useState} from 'react'
+import React from 'react'
+//types
+import {BillingOperationType} from "../../../../../_BLL/types/billing/billingTypes";
+//components
+import OptionsDeliveryButtons
+    from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import BillingInProgressTable from "../billing_in_progress/table/BillingInProgressTable";
+import MonthPicker from "../../../../components/month_picker/MonthPicker";
+//styles
 import {
     BillingProgressContent,
     BillingProgressInner,
     BillingProgressWrapper
 } from "../billing_in_progress/billing-in-progress-styles";
 import {BillingTitle} from "../exchange/agent-billing-styles";
-import OptionsDeliveryButtons
-    from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
-import BillingInProgressTable from "../billing_in_progress/table/BillingInProgressTable";
-import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
-import {BillingOperationType} from "../../../../../_BLL/types/billing/billingTypes";
+
 
 type PropsType = {
     search_column: string,
@@ -22,18 +26,12 @@ type PropsType = {
     setSearchMode: (value: boolean) => void,
     billing_list: BillingOperationType[],
     thunkName: string,
-    billing_status: string
+    billing_status: string,
+    setDates: (dates: any) => void,
+    dates: string[]
 }
 
 const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
-
-    const [month, setMonth] = useState(0)
-
-    let month_options = [
-        {id: 1, title: 'april'},
-        {id: 2, title: 'may'},
-        {id: 3, title: 'june'},
-    ]
 
 
     return (
@@ -48,13 +46,14 @@ const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
                     }}>
                         <BillingTitle>Billing Completed</BillingTitle>
                         <div style={{display: 'flex', width: '450px', justifyContent: 'space-between'}}>
-                            <SurchargeRateSelect placeholder='Time range'
-                                                 maxW='173px'
-                                                 hideLabel={true}
-                                                 options={month_options}
-                                                 callback={setMonth}
-
-                            />
+                            <div style={{ marginRight: "15px" }}>
+                                <MonthPicker
+                                    setDates={props.setDates}
+                                    dates={props.dates}
+                                    width="240px"
+                                    placeholder="Choose month"
+                                />
+                            </div>
                             <OptionsDeliveryButtons directory=''
                                                     searchColumn={props.search_column}
                                                     searchValue={props.searchValue}
@@ -62,6 +61,7 @@ const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
                                                     setMode={props.setMode}
                                                     thunkName={props.thunkName}
                                                     operation_status={props.billing_status}
+                                                    dates={props.dates}
                             />
                         </div>
                     </div>
@@ -75,6 +75,7 @@ const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
                                             billing_list={props.billing_list}
                                             billing_status={props.billing_status}
                                             thunkName={props.thunkName}
+                                            dates={props.dates}
                     />
                 </BillingProgressContent>
             </BillingProgressInner>

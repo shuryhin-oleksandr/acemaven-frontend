@@ -45,6 +45,12 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
                                                      }) => {
     const dispatch = useDispatch();
 
+    let date_from = dates?.length ? moment(dates[0]).format("DD/MM/YYYY") : "";
+    let date_to = dates?.length
+        ? moment(dates[1]).add(1, "days").format("DD/MM/YYYY")
+        : "";
+
+    //cases
     let dispatchDeliveryHandler = (type: CurrentShippingType) => {
         setMode && setMode(type);
         props.setShippingValue && props.setShippingValue(0);
@@ -62,13 +68,9 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
                 "",
                 props.searchColumn,
                 props.searchValue,
-                props.operation_status))
+                props.operation_status, date_from, date_to))
         } else if (props.thunkName === 'client_billing') {
-            let date_from = dates?.length ? moment(dates[0]).format("DD/MM/YYYY") : "";
 
-            let date_to = dates?.length
-                ? moment(dates[1]).add(1, "days").format("DD/MM/YYYY")
-                : "";
 
             dispatch(getClientBillingOperationsThunk(
                 type,

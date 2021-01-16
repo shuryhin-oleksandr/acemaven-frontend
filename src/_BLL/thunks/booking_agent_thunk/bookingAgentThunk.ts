@@ -34,7 +34,7 @@ export const getBookingInfoByIdThunk = (id: number) => {
 export const rejectAgentBookingByIdThunk = (id: number, message: string, history: any) => {
   return async (dispatch: Dispatch<commonAgentBookingActions>) => {
     try {
-      let res = await bookingApi.rejectBookingByAgent(id, {message: message});
+      let res = await bookingApi.rejectBookingByAgent(id, {comment: message});
       console.log(res.data);
       dispatch(agentBookingActions.setRejectBookingRequest(id));
       history.push('/requests/booking')

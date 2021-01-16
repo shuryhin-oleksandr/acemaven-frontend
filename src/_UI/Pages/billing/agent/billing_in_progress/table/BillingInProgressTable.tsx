@@ -84,7 +84,8 @@ type PropsType = {
     billing_list: BillingOperationType[],
     billing_status: string,
     thunkName: string,
-    goToPageHandler?: (value: number) => void
+    goToPageHandler?: (value: number) => void,
+    dates?: string[]
 }
 
 const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
@@ -109,6 +110,7 @@ const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
                                                   setSearchColumn={props.setSearchColumn}
                                                   thunkName={props.thunkName}
                                                   operation_status={props.billing_status}
+                                                  dates={props.dates}
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
@@ -124,6 +126,7 @@ const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
                                                   setSearchColumn={props.setSearchColumn}
                                                   thunkName={props.thunkName}
                                                   operation_status={props.billing_status}
+                                                  dates={props.dates}
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
@@ -149,6 +152,7 @@ const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
                                                   thunkName={props.thunkName}
                                                   withoutSearch={true}
                                                   operation_status={props.billing_status}
+                                                  dates={props.dates}
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="right">
@@ -165,6 +169,7 @@ const BillingInProgressTable:React.FC<PropsType> = ({...props}) => {
                                                   thunkName={props.thunkName}
                                                   withoutSearch={true}
                                                   operation_status={props.billing_status}
+                                                  dates={props.dates}
                                 />
                             </TableCell>
                         </TableRow>

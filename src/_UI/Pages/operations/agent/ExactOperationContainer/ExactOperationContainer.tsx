@@ -91,6 +91,9 @@ const ExactOperationContainer = ({...props}) => {
         if (operation_info?.status === AppOperationBookingStatusesType.CANCELLED_BY_AGENT) {
             history.push("/operations_cancelled")
         }
+        if (operation_info?.status === AppOperationBookingStatusesType.CANCELLED_BY_SYSTEM) {
+            history.push("/operations_cancelled")
+        }
         if (operation_info?.status === AppOperationBookingStatusesType.COMPLETED) {
             history.push("/operations_completed")
         }

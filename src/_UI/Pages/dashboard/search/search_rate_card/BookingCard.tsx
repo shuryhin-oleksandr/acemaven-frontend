@@ -10,7 +10,7 @@ import RatingPartContainer from "./RatingPartContainer";
 //styles
 import {
     AdditionalWrap, BookButton, CalcName, CalculationLine, CalculationWrap, CalcValue,
-    Carrier,DateLine, DateName, DateValue,
+    Carrier, DateLine, DateName, DateValue,
     Direction,
     DirectionWrap,
     GeneralPart,
@@ -21,7 +21,6 @@ import {
 //icons
 import ship from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-
 
 
 type PropsType = {
@@ -36,7 +35,7 @@ type PropsType = {
     setClickedReview?: (value: number) => void
 }
 
-const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result,setWidgetsVisible, ...props}) => {
+const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableShown, showRatingPopup, setBookingPopupVisible, search_result, setWidgetsVisible, ...props}) => {
     const dispatch = useDispatch();
     return (
         <UpperWrapper onClick={() => isTableShown ? showTable && showTable(false) : showTable && showTable(true)}>
@@ -64,32 +63,33 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                 </GeneralPart>
                 <RatingPartContainer showRatingPopup={showRatingPopup}
                                      company={search_result?.freight_rate.company}
-                                     setClickedReview={props.setClickedReview }
+                                     setClickedReview={props.setClickedReview}
                 />
             </InfoPart>
             <TotalPart>
                 <CalculationWrap>
-                    {search_result?.cargo_groups.map((c: any, index: any) => <CalculationLine key={index} marginBottom='10px'>
+                    {search_result?.cargo_groups.map((c: any, index: any) => <CalculationLine key={index}
+                                                                                              marginBottom='10px'>
                         <CalcName>Freight x {c.cargo_type}:</CalcName>
                         <CalcValue>{c.freight.currency} {c.freight.subtotal}</CalcValue>
                     </CalculationLine>)}
                     <CalculationLine>
                         <CalcName>Total Freight in {search_result?.total_freight_rate.USD
                             ? "BRL"
-                            : "USD" } :
+                            : "USD"} :
                         </CalcName>
                         <CalcValue>
                             {search_result?.total_freight_rate.USD
-                            ? search_result?.total_freight_rate.USD
-                            : search_result?.total_freight_rate.BRL}
+                                ? search_result?.total_freight_rate.USD
+                                : search_result?.total_freight_rate.BRL}
                         </CalcValue>
                     </CalculationLine>
                     <CalculationLine marginBottom='10px'>
                         <CalcName>
                             Surcharges in {search_result?.total_surcharge.BRL
-                                ? "BRL"
-                                : "USD"
-                            } :
+                            ? "BRL"
+                            : "USD"
+                        } :
                         </CalcName>
                         <CalcValue>
                             {search_result?.total_surcharge.BRL
@@ -98,10 +98,12 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                             }
                         </CalcValue>
                     </CalculationLine>
-                    <CalculationLine>
+                    {search_result?.service_fee
+                    && <CalculationLine>
                         <CalcName>Acemaven Service Fee:</CalcName>
                         <CalcValue>{search_result?.service_fee?.currency} {search_result?.service_fee?.subtotal}</CalcValue>
                     </CalculationLine>
+                    }
                 </CalculationWrap>
                 <BookButton onClick={(e) => {
                     e.stopPropagation();

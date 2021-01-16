@@ -5,16 +5,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {getBookingRequestListThunk} from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
 import {
     getAcceptSuccess,
-    getBookingRequestListSelector
+    getBookingRequestListSelector, getIsFetching
 } from "../../../../_BLL/selectors/booking/bookingAgentSelector";
 //components
 import Layout from "../../../components/BaseLayout/Layout";
 import BookingAgentPage from "./BookingAgentPage";
 import MovedToOperationsPopup from "../../../components/PopUps/moved_to_operations_popup/MovedToOperationsPopup";
 import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
+import SpinnerForAuthorizedPages from "../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 
 
-const BookingAgentContainer:React.FC = () => {
+const BookingAgentContainer: React.FC = () => {
 
     const [mode, setMode] = useState("sea");
     const [directory, setDirectory] = useState("");
@@ -35,34 +36,40 @@ const BookingAgentContainer:React.FC = () => {
 
     const bookingList = useSelector(getBookingRequestListSelector);
     const accept_success = useSelector(getAcceptSuccess)
+    const isFetching = useSelector(getIsFetching)
 
     useEffect(() => {
-        if(accept_success) {
+        if (accept_success) {
             setMovedPopup(true)
         }
-    },[accept_success])
+    }, [accept_success])
 
     return (
-      <Layout>
-              {movedPopup && <ModalWindow isOpen={movedPopup}>
-                                <MovedToOperationsPopup setMovedToOperations={setMovedPopup}/>
-                             </ModalWindow>
-              }
-              <BookingAgentPage bookingList={bookingList ? bookingList : []}
-                                  mode={mode}
-                                  setMode={setMode}
-                                  directory={directory}
-                                  setDirectory={setDirectory}
-                                  searchValue={searchValue}
-                                  setSearchValue={setSearchValue}
-                                  search_column={search_column}
-                                  setSearchColumn={setSearchColumn}
-                                  isSearchMode={isSearchMode}
-                                  setSearchMode={setSearchMode}
-                                  dispatch={dispatch}
-                                    text={text}
-              />
-      </Layout>
+        <Layout>
+            {isFetching
+                ? <SpinnerForAuthorizedPages/>
+                : <>
+                    {movedPopup && <ModalWindow isOpen={movedPopup}>
+                        <MovedToOperationsPopup setMovedToOperations={setMovedPopup}/>
+                    </ModalWindow>
+                    }
+                    <BookingAgentPage bookingList={bookingList ? bookingList : []}
+                                      mode={mode}
+                                      setMode={setMode}
+                                      directory={directory}
+                                      setDirectory={setDirectory}
+                                      searchValue={searchValue}
+                                      setSearchValue={setSearchValue}
+                                      search_column={search_column}
+                                      setSearchColumn={setSearchColumn}
+                                      isSearchMode={isSearchMode}
+                                      setSearchMode={setSearchMode}
+                                      dispatch={dispatch}
+                                      text={text}
+                    />
+                </>}
+
+        </Layout>
     )
 }
 

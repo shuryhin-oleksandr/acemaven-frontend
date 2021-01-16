@@ -8,6 +8,7 @@ export enum AppOperationBookingStatusesType {
     CONFIRMED = 'Booking Confirmed',
     CANCELED_BY_CLIENT = 'Operation Canceled by Client',
     CANCELLED_BY_AGENT = 'Operation Canceled by Agent',
+    CANCELLED_BY_SYSTEM = 'Operation Canceled by the System',
     COMPLETED = 'Operation Complete'
 }
 

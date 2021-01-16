@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { getAgentsOperationsThunk } from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import { getClientOperationsThunk } from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import {getBillingOperationsListThunk} from "../../../../_BLL/thunks/billing/agent/AgentBillingThunks";
+import moment from "moment";
 
 type PropsType = {
   setSearchMode: (value: boolean) => void;
@@ -25,6 +26,7 @@ type PropsType = {
   setSearchColumn: (value: string) => void;
   my_operations?: string;
   operation_status?:string,
+  dates?: string[]
 };
 
 const SearchInput: React.FC<PropsType> = ({
@@ -36,6 +38,10 @@ const SearchInput: React.FC<PropsType> = ({
 }) => {
   const dispatch = useDispatch();
   const [input_value, setInputValue] = useState("");
+  let date_from = props.dates?.length ? moment(props.dates[0]).format("DD/MM/YYYY") : "";
+  let date_to = props.dates?.length
+      ? moment(props.dates[1]).add(1, "days").format("DD/MM/YYYY")
+      : "";
 
   let handleKeyPress = (event: any, value: any) => {
     if (event.key === "Enter") {
@@ -91,7 +97,9 @@ const SearchInput: React.FC<PropsType> = ({
           props.column_name,
           props.searchColumn,
           value,
-          props.operation_status))
+          props.operation_status,
+          date_from,
+          date_to))
     } else if (thunkName === "operations") {
       props.my_operations === "mine"
         ? dispatch(

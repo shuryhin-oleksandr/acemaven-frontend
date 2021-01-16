@@ -23,7 +23,7 @@ export const bookingApi = {
   getAgentBookingInfoById(id: number) {
     return instance.get(`/booking/booking/${id}/`);
   },
-  rejectBookingByAgent(id: number, message: { message: string }) {
+  rejectBookingByAgent(id: number, message: { comment: string }) {
     return instance.post(`/booking/booking/${id}/reject/`, message);
   },
   acceptBookingByAgent(my_id: number, booking_id: number, ) {

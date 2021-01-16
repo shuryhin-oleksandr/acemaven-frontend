@@ -10,6 +10,7 @@ import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import BaseButton from "../../../base/BaseButton";
 //styles
 import { Title, Container, Message } from "./payment-styles";
+import {getClientQuotesThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 
 
 type PropsType = {
@@ -34,7 +35,8 @@ const ActiveQRPayment: React.FC<PropsType> = ({
         setBookingPopupVisible(false);
         setWidgetsVisible && setWidgetsVisible(true);
         newSearch && newSearch();
-        props.quotes_mode && dispatch(quotesClientActions.deleteQuoteFromList(archive_quote_id));
+        props.quotes_mode && dispatch(quotesClientActions.deleteQuoteFromList(archive_quote_id))
+            && dispatch(getClientQuotesThunk('sea', '', '', ''));
         props.close_totals && props.close_totals();
     }
 

@@ -19,7 +19,7 @@ const AgentBillingInProgressContainer:React.FC = ({}) => {
     const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getBillingOperationsListThunk(mode, '', '', '', 'active'))
+        dispatch(getBillingOperationsListThunk(mode, '', '', '', 'active', '', ''))
     }, [])
 
     //data from store

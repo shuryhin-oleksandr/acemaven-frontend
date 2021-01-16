@@ -94,7 +94,7 @@ const DashboardPage: React.FC<PropsType> = ({
     const currentBookingRate = useSelector(
         (state: AppStateType) => state.booking.current_booking_freight_rate
     );
-    const [bookingPopupVisible, setBookingPopupVisible] = useState(true); //switch to false!!!
+    const [bookingPopupVisible, setBookingPopupVisible] = useState(false); //switch to false!!!
     const auth_user = useSelector((state: AppStateType) => state.profile.authUserInfo
     );
 

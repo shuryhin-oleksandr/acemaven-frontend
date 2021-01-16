@@ -20,6 +20,7 @@ type PropsType = {
     withoutOrdering?:boolean,
     my_operations?:string,
     operation_status?:string,
+    dates?: string[]
 }
 
 const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...props}) => {
@@ -37,6 +38,7 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...prop
                                setSearchColumn={props.setSearchColumn}
                                my_operations={props.my_operations}
                                operation_status={props.operation_status}
+                               dates={props.dates}
 
                 />
                 : <div style={{display: 'flex'}}>
@@ -52,6 +54,7 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...prop
                                          thunkName={thunkName}
                                          my_operations={props.my_operations}
                                          operation_status={props.operation_status}
+                                         dates={props.dates}
                         />
                     }
 

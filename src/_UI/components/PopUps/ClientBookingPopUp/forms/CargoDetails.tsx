@@ -1,3 +1,25 @@
+import React from "react";
+//react hook form
+import { Controller, useForm } from "react-hook-form";
+//react-redux
+import { useDispatch, useSelector } from "react-redux";
+//BLL
+import { AppStateType } from "../../../../../_BLL/store";
+import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
+import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
+import {
+  getShippingTypesSelector,
+} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
+//types
+import {
+  ShippingModeEnum,
+  ShippingTypesEnum,
+} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
+//components
+import BaseButton from "../../../base/BaseButton";
+import FormField from "../../../_commonComponents/Input/FormField";
+//styles
 import {
   ColName,
   ContainerInfo,
@@ -11,25 +33,8 @@ import {
   DocumentationRow,
   DocumentationCol,
 } from "../client-popup-styles";
-import { Controller, useForm } from "react-hook-form";
 import { Field } from "../../../_commonComponents/Input/input-styles";
-import React from "react";
-import BaseButton from "../../../base/BaseButton";
-import { useDispatch, useSelector } from "react-redux";
-import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
-import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRateSelect";
-import FormField from "../../../_commonComponents/Input/FormField";
-import { AppStateType } from "../../../../../_BLL/store";
-import {
-  getShippingTypesSelector,
-} from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
-import {
-  ShippingModeEnum,
-  ShippingTypesEnum,
-} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
-import { SearchResultType } from "../../../../../_BLL/types/search/search_types";
-import { getCargoGroupsListSelector } from "../../../../../_BLL/selectors/search/searchClientSelector";
 
 type PropsType = {
   setFormStep: (value: number) => void;
@@ -55,7 +60,8 @@ const CargoDetails: React.FC<PropsType> = ({
     (state: AppStateType) => state.booking.current_booking_cargo_groups
   );
 
-  const other_cargo_groups = useSelector(getCargoGroupsListSelector);
+  const other_cargo_groups = useSelector(
+      (state: AppStateType) => state.booking.current_booking_cargo_groups) //useSelector(getCargoGroupsListSelector);
 
   const cargo_groups = !quotes_mode
       ? (shippingValue === ShippingModeEnum.FCL) ? fcl_cargo_groups : other_cargo_groups
@@ -129,7 +135,7 @@ const CargoDetails: React.FC<PropsType> = ({
           <RowWrapper key={item.id}>
             <div style={{ width: 205 }}>
               <ContainerInfo>
-                {shippingValue === ShippingModeEnum.FCL
+                {item.container_type
                   ? `${item.volume} x ${findContainer(
                       Number(item.container_type)
                     )}`

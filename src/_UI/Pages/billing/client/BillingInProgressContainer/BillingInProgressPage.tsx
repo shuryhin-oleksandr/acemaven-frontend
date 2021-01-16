@@ -14,6 +14,8 @@ type PropsType = {
 
 const BillingInProgressPage: React.FC<PropsType> = ({ billing_list }) => {
   const [isHide, setIsHide] = useState(false);
+
+
   return (
     <Wrapper>
       {!isHide && (

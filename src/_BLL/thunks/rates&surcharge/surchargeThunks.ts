@@ -18,7 +18,7 @@ export const getCarriers = () => {
             let sea = res.data.filter((r: CarrierType) => r.shipping_type === 2)
             dispatch(surchargeActions.setSeaCarriersList(sea))
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
         }
     }
 }
@@ -41,7 +41,7 @@ export const getShippingTypes = (is_freight_rate?: boolean | string) => {
             let res = await surchargeAPI.getShippingTypesList(is_freight_rate)
             dispatch(surchargeActions.setShippingType(res.data))
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
         }
     }
 }
@@ -52,7 +52,7 @@ export const getCurrencyList = () => {
             let res = await surchargeAPI.getCurrencyList()
             dispatch(surchargeActions.setCurrencyList(res.data))
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
         }
     }
 }
@@ -65,7 +65,7 @@ export const addNewSurcharge = (surcharge_data: any) => {
             dispatch(surchargeActions.setSurchargeInfo(res.data))
             dispatch(surchargeActions.setAddingSurchargeSuccess(true))
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
             e.response.data.charges && dispatch(surchargeActions.setAddingSurchargeError(e.response.data.charges))
         }
     }
@@ -77,7 +77,7 @@ export const getWholeSurchargesList = () => {
             let res = await surchargeAPI.getSurchargesList()
             dispatch(surchargeActions.setSurchargesList(res.data))
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
         }
     }
 }
@@ -90,7 +90,7 @@ export const getSurchargeInfo = (id: number) => {
             dispatch(surchargeActions.setSurchargeInfo(res.data))
             dispatch(surchargeActions.setIsFetching(false))
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
             dispatch(surchargeActions.setIsFetching(false))
         }
     }
@@ -99,10 +99,13 @@ export const getSurchargeInfo = (id: number) => {
 export const filterByThunk = (direction: string, type: string, field_name: string, search_column: string, search_value: string) => {
     return async (dispatch: Dispatch<commonSurchargeActions>) => {
         try {
+            dispatch(surchargeActions.setIsFetching(true))
             let res = await surchargeAPI.filterByDirectionDelivery(direction, type, field_name, search_column, search_value)
             dispatch(surchargeActions.setSurchargesList(res.data))
+            dispatch(surchargeActions.setIsFetching(false))
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
+            dispatch(surchargeActions.setIsFetching(false))
         }
     }
 }
@@ -114,7 +117,7 @@ export const GetSurchargeForTooltip = (id: number) => {
             dispatch(surchargeActions.setSurchargeInfo(res.data))
             console.log(res.data)
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
         }
     }
 }

@@ -113,6 +113,7 @@ export const getFilteredRateListThunk = (
 ) => {
     return async (dispatch: Dispatch<commonRateActions>) => {
         try {
+            dispatch(rateActions.setIsFetching(true))
             let res = await rateAPI.getFilteredRateList(
                 direction,
                 type,
@@ -121,8 +122,10 @@ export const getFilteredRateListThunk = (
                 search_value
             );
             dispatch(rateActions.setFreightRatesList(res.data));
+            dispatch(rateActions.setIsFetching(false))
         } catch (e) {
             console.log(e);
+            dispatch(rateActions.setIsFetching(false))
         }
     };
 };

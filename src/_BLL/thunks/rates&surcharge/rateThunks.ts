@@ -128,11 +128,29 @@ export const getFilteredRateListThunk = (
 };
 
 export const getRateInfoThunk = (id: number) => {
-    return async (dispatch: Dispatch<commonRateActions>) => {
+    return async (dispatch: any) => {
         try {
             dispatch(rateActions.setIsFetching(true))
             let res = await rateAPI.getExactRate(id);
             dispatch(rateActions.setRateInfo(res.data));
+            //get surcharges for rate with 0 containers
+            if(res.data.rates.length === 1 && res.data.rates[0].container_type === null) {
+                let rate_data = {
+                    carrier: res.data.carrier.id,
+                    shipping_mode: res.data.shipping_mode.id,
+                    transit_time: res.data.transit_time,
+                    origin: res.data.origin.id,
+                    destination: res.data.destination.id,
+                    start_date: res.data.rates[0].start_date,
+                    expiration_date: res.data.rates[0].expiration_date
+                }
+                dispatch(checkRatesDatesThunk(
+                    {
+                        carrier: res.data.carrier.id, shipping_mode: res.data.shipping_mode.id,
+                        origin: res.data.origin.id, destination: res.data.destination.id, freight_rate: res.data?.id}
+                ))
+                dispatch(getSurchargeForExactRateThunk(rate_data))
+            }
             dispatch(rateActions.setIsFetching(false))
         } catch (e) {
             console.log(e);

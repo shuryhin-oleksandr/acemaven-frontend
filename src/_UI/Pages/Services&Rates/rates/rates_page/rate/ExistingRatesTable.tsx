@@ -1,7 +1,9 @@
 import React from 'react';
+//react-redux
 import {useSelector} from "react-redux";
+//react-hook-form
 import {Controller} from "react-hook-form";
-import {HandlingTitle, SpanType} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+//material ui
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -10,13 +12,20 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//BLL
+import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
+//types
+import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
+//helpers
+import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+//components
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
 import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import DatesCells from "../../register_new_freight_rate/tables/DatesCells";
-import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
-import {RateInfoType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+//styles
+import {HandlingTitle, SpanType} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+
 
 type PropsType = {
     rate: RateInfoType | null,

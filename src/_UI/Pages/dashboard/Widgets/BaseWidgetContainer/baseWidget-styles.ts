@@ -1,11 +1,21 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
+
+const shown_anim = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 export const Container = styled.div`
   background: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
   padding: 15px;
   margin-bottom: 15px;
+  animation: ${shown_anim} ease-in-out .3s;
 `;
 
 export const Heading = styled.h1`

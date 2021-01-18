@@ -4,6 +4,18 @@ export const useStyles = makeStyles({
   table: {
     "& .MuiTableHead-root": {},
   },
+  row: {
+    width: '100%',
+    transition: '.2s',
+    '&:hover': {
+      cursor: 'pointer',
+      transition: '.2s',
+      backgroundColor: '#E8F7FC'
+    }
+  },
+  iconOuterCell: {
+
+  },
   cell: {
     color: "#115B86",
     fontFamily: "Helvetica Bold",

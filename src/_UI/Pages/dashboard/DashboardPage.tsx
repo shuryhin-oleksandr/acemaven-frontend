@@ -20,6 +20,7 @@ import {
 import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {PackagingType} from "../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {OperationType} from "../../../_BLL/types/operations/operationsTypes";
+import {AppCompaniesTypes} from "../../../_BLL/types/commonTypes";
 //components
 import FeePaymentWidget from "./Widgets/FeePaymentWidget/FeePaymentWidget";
 import LatestQuotesWidget from "./Widgets/LatestQoutesWidget/LatestQuotesWidget";
@@ -29,6 +30,8 @@ import ClientBookingPopUp from "../../components/PopUps/ClientBookingPopUp/Clien
 import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
 import SearchContainer from "./search/SearchContainer";
 import Search from "./Widgets/SearchWidget/Search";
+import RequestWidget from "./Widgets/RequestsWidget/RequestsWidget";
+import OperationsInProgressWidget from "./Widgets/OperationsInProgressWidget/OperationsInProgressWidget";
 //styles
 import {
     WidgetButton,
@@ -39,6 +42,7 @@ import {
     MapWrapper,
     Back,
 } from "./dashboard-styles";
+
 
 
 type PropsType = {
@@ -95,8 +99,8 @@ const DashboardPage: React.FC<PropsType> = ({
         (state: AppStateType) => state.booking.current_booking_freight_rate
     );
     const [bookingPopupVisible, setBookingPopupVisible] = useState(false); //switch to false!!!
-    const auth_user = useSelector((state: AppStateType) => state.profile.authUserInfo
-    );
+    const auth_user = useSelector((state: AppStateType) => state.profile.authUserInfo);
+    const company = auth_user?.companies && auth_user?.companies[0].type
 
     const {
         handleSubmit,
@@ -216,9 +220,17 @@ const DashboardPage: React.FC<PropsType> = ({
             </SearchBox>
             {!search_success && (
                 <MultiWidgetBox widgetsVisible={widgetsVisible}>
-                    <FeePaymentWidget />
+                    {company === AppCompaniesTypes.CLIENT
+                        ? <FeePaymentWidget/>
+                        : <OperationsInProgressWidget />
+                    }
+                    {company === AppCompaniesTypes.AGENT
+                    && <RequestWidget/>
+                    }
                     <LatestQuotesWidget/>
-                    <RackingStatusWidget/>
+                    {company === AppCompaniesTypes.CLIENT
+                    && <RackingStatusWidget/>
+                    }
                 </MultiWidgetBox>
             )}
 

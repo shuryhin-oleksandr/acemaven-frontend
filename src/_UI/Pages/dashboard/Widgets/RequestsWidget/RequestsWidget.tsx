@@ -10,61 +10,46 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 //BLL
-import {AppStateType} from "../../../../../_BLL/store";
-import {getAgentQuotesListThunk} from "../../../../../_BLL/thunks/quotes/agentQuotesThunk";
-import {getAgentQuotesLIstSelector} from "../../../../../_BLL/selectors/quotes/agent/agentQuoteSelector";
-import {getClientQuotesListSelector} from "../../../../../_BLL/selectors/quotes/client/quotesClientSelector";
-import {getClientQuotesThunk} from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
-//helper
+import {getBookingRequestListThunk} from "../../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
+import {getBookingRequestListSelector} from "../../../../../_BLL/selectors/booking/bookingAgentSelector";
+//helpers
 import {getTwoLastElementsHelper} from "../../../../../_BLL/helpers/widgets/getTwoLastElementsHelper";
 //types
 import {ShippingTypesEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 //components
 import BaseWidget from "../BaseWidgetContainer/BaseWidgetContainer";
 //styles
 import {useStyles} from "../WidgetTableStyles";
-import {BookLittleButton} from "../../../quotes/client/quotes-client-styles";
 //icons
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 
 
 
-const LatestQuotesWidget: React.FC = () => {
+
+const RequestWidget: React.FC = () => {
     //hooks
     const dispatch = useDispatch()
     const classes = useStyles();
     const history = useHistory()
 
     //data from store
-    let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo?.companies[0])
-    const my_quotes_list = useSelector(getClientQuotesListSelector) //client
-    const agent_quotes_list = useSelector(getAgentQuotesLIstSelector) //agent
+    let requests = useSelector(getBookingRequestListSelector)
+
 
     //hooks
     useEffect(() => {
-        if (company_type) {
-            company_type?.type === AppCompaniesTypes.CLIENT
-                ? dispatch(getClientQuotesThunk('', '', '', ''))
-                : dispatch(getAgentQuotesListThunk('', '', '', ''))
-        }
-
-    }, [dispatch, company_type])
+        dispatch(getBookingRequestListThunk('', '', '', ''))
+    }, [])
 
     //local state (get last 2 elements from an array)
-    let latest_list = company_type?.type === AppCompaniesTypes.AGENT
-        ? getTwoLastElementsHelper(agent_quotes_list)
-        : getTwoLastElementsHelper(my_quotes_list)
-
-    //handlers
-    let setCardOpen = (quote_id: number) => {
-        history.push(`/quotes/${quote_id}`)
+    let latest_list = getTwoLastElementsHelper(requests)
+    const goToPage = (id: number) => {
+        history.push(`/requests/booking/${id}`)
     }
 
-
     return (
-        <BaseWidget heading={company_type?.type === AppCompaniesTypes.CLIENT ? "latest quotes receive" : "QUOTES"}>
+        <BaseWidget heading="NEW REQUESTS">
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
@@ -81,11 +66,8 @@ const LatestQuotesWidget: React.FC = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {latest_list.map((quote) => (
-                        <TableRow key={quote?.id}
-                                  className={classes.row}
-                                  onClick={() => company_type?.type === AppCompaniesTypes.AGENT && setCardOpen(Number(quote.id))}
-                        >
+                    {latest_list.map((req) => (
+                        <TableRow key={req?.id} className={classes.row} onClick={() => goToPage(req?.id)}>
                             <TableCell className={classes.innerCell}>
                                 <div
                                     style={{
@@ -94,16 +76,16 @@ const LatestQuotesWidget: React.FC = () => {
                                         paddingRight: 10,
                                     }}
                                 >
-                                    <img src={quote?.shipping_type === ShippingTypesEnum.SEA ? ShipIcon : PlaneIcon}
+                                    <img src={req?.shipping_type === ShippingTypesEnum.SEA ? ShipIcon : PlaneIcon}
                                          alt=""/>
                                 </div>
                             </TableCell>
                             <TableCell className={classes.boldCell} align="left">
-                                {quote?.origin.code} - {quote?.destination.code}
+                                {req?.freight_rate.origin.code} - {req?.freight_rate.destination.code}
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
                                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left'}}>
-                                    {quote?.cargo_groups.map((c: any) =>
+                                    {req?.cargo_groups.map((c: any) =>
                                         <span key={c?.id}>
                                           {c.volume}{'x'}{' '}{c.container_type ? c.container_type.code : c.packaging_type?.description}
                                         </span>)
@@ -112,10 +94,7 @@ const LatestQuotesWidget: React.FC = () => {
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    {quote?.date_from}
-                                    {company_type?.type === AppCompaniesTypes.AGENT
-                                    && <BookLittleButton
-                                        onClick={() => setCardOpen(Number(quote?.id))}>Offer</BookLittleButton>}
+                                    {req?.date_from}
                                 </div>
                             </TableCell>
                         </TableRow>
@@ -126,4 +105,4 @@ const LatestQuotesWidget: React.FC = () => {
     );
 };
 
-export default LatestQuotesWidget;
+export default RequestWidget;

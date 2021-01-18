@@ -13,6 +13,7 @@ import { clientBillingActions } from "../../../../../_BLL/reducers/billing/clien
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../../_BLL/store";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import moment from "moment";
 
 const FeePaymentWidget: React.FC = () => {
   const classes = useStyles();
@@ -76,7 +77,7 @@ const FeePaymentWidget: React.FC = () => {
                 {`${item.origin.code} - ${item.destination.code}`}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                ???????
+                {moment(item.date_created, "DD-MM-YYYY").format("DD/MM")}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
                 {item.status}

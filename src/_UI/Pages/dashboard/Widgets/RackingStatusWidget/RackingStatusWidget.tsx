@@ -13,7 +13,7 @@ const RackingStatusWidget: React.FC = () => {
 
 
   return (
-    <BaseWidget heading="latest racking Status update">
+    <BaseWidget heading="latest tracking Status update">
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>

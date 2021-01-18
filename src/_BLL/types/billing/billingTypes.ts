@@ -1,5 +1,6 @@
 import {PortType} from "../rates&surcharges/ratesTypes";
 import {ChargeCalculationType} from "../quotes/quotesTypes";
+import {InitialTrackingType, TrackingBackendType} from "../operations/operationsTypes";
 
 export type ExchangeCurrenciesType = {
     id: number,
@@ -28,5 +29,8 @@ export type BillingOperationType = {
     charges: ChargeCalculationType,
     vessel: string,
     client: string,
-    dates?:string
+    dates?:string,
+    date_created?:string,
+    tracking:TrackingBackendType[],
+    tracking_initial?: InitialTrackingType | null,
 }

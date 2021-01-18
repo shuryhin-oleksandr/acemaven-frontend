@@ -73,7 +73,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
                         &&
-                        !operation_info.can_be_patched && operation_info.has_change_request
+                        (!operation_info.can_be_patched && operation_info.has_change_request) || operation_info.tracking.some(t=>t.status==="Aircraft Departed" || t.status==="Vessel Departed" )
                             ?
                             <BaseTooltip
                                 title={"You already have change request."}

@@ -81,7 +81,12 @@ const ExactOperationContainer = ({...props}) => {
 
 
     let ATA = manual_tracking_data.some(m => (m.status === 'Vessel Arrived at Destination') || (m.status === 'Cargo Arrived at Destination'))
-    console.log("ATA", ATA)
+    //console.log("ATA", ATA)
+
+    let seaATA = agent_operation_info?.tracking.filter(tr => !!tr.data.data.containers.map((c: any) => c.events.map((ev: any) => ev.status === 'VDL')));
+    let airATA = agent_operation_info?.tracking.some(tr => !!tr.data.events[0].actualTimeOfDeparture)
+
+    console.log("seaATA", seaATA)
 
 
     const closeHandler = () => {

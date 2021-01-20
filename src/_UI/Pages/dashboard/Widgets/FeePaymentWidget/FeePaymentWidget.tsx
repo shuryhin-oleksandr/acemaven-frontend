@@ -1,21 +1,32 @@
-import BaseWidget from "../BaseWidgetContainer/BaseWidgetContainer";
+import React, { useEffect } from "react";
+//moment js
+import moment from "moment";
+//material ui
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import React, { useEffect } from "react";
-import { useStyles } from "../WidgetTableStyles";
-import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
-import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
+//react-redux
+import { useDispatch, useSelector } from "react-redux";
+//BLL
+import { AppStateType } from "../../../../../_BLL/store";
 import { getClientBillingOperationsThunk } from "../../../../../_BLL/thunks/billing/agent/ClientBillingThunks";
 import { clientBillingActions } from "../../../../../_BLL/reducers/billing/client/ClientBillingReducer";
-import { useDispatch, useSelector } from "react-redux";
-import { AppStateType } from "../../../../../_BLL/store";
+//types
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import moment from "moment";
+//components
+import BaseWidget from "../BaseWidgetContainer/BaseWidgetContainer";
+//styles
+import { useStyles } from "../WidgetTableStyles";
+//icons
+import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
+import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
+
+
 
 const FeePaymentWidget: React.FC = () => {
+  //hooks
   const classes = useStyles();
   let dispatch = useDispatch();
   useEffect(() => {
@@ -25,6 +36,7 @@ const FeePaymentWidget: React.FC = () => {
     };
   }, []);
 
+  //data from store
   const billing_list = useSelector(
     (state: AppStateType) => state.client_billing.client_billing_operations_list
   );

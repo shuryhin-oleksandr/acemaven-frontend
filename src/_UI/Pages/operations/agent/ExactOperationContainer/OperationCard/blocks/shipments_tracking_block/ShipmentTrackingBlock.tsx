@@ -5,8 +5,7 @@ import { SectionTitle, SectionWrapper } from "../../operation-card-style";
 import { MapWrapper } from "../../../../../../dashboard/dashboard-styles";
 import SmallMapComponent from "./SmallMapComponent";
 import {
-  TrackingBackendType,
-  TrackingEventType,
+  TrackingBackendType
 } from "../../../../../../../../_BLL/types/operations/operationsTypes";
 import { ShippingTypesEnum } from "../../../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { CoordinatesType } from "../../../../../../../../_BLL/types/rates&surcharges/ratesTypes";
@@ -87,8 +86,6 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
           tracking={tracking}
         />
       )}
-      {/*{shipping_type === ShippingTypesEnum.AIR && <StatusTable tracking={tracking} shipping_type={shipping_type}/>}*/}
-      {/*{shipping_type === ShippingTypesEnum.SEA && <DetailedTable tracking={tracking} />}*/}
     </SectionWrapper>
   );
 };

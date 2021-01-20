@@ -33,6 +33,8 @@ type PropsType = {
 }
 
 const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, company_type,setReviewPopup, ...props}) => {
+
+    const departedStatus = operation_info.tracking.some(t=>t.status==="Aircraft Departed" || t.status==="Vessel Departed" );
     return (
         <ActionsButtons>
 
@@ -68,12 +70,12 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                                 TAKE OVER
                             </AcceptButton>
                         ))
-                    : (company_type?.type === AppCompaniesTypes.CLIENT
-                        && my_name === props.client_contact_name
+                    : (company_type?.type === AppCompaniesTypes.CLIENT && departedStatus ? null :
+                            my_name === props.client_contact_name
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
                         &&
-                        !operation_info.can_be_patched && operation_info.has_change_request
+                        (!operation_info.can_be_patched && operation_info.has_change_request)
                             ?
                             <BaseTooltip
                                 title={"You already have change request."}

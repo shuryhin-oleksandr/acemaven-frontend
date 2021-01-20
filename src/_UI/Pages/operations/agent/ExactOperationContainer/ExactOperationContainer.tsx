@@ -40,6 +40,7 @@ import {AppOperationBookingStatusesType} from "../../../../../_BLL/types/operati
 import EditOperationShipmentInfoByAgentPopup
     from "../../../../components/PopUps/edit_operation_shipment_info_by_agent/EditOperationShipmentInfoByAgentPopup";
 import ClientReviewPopup from "../../../../components/PopUps/client_review_popup/ClientReviewPopup";
+import {actualDepartureHelper} from "../../../../../_BLL/helpers/tracker/actualDepartureHelper";
 
 const ExactOperationContainer = ({...props}) => {
     //local state
@@ -80,13 +81,9 @@ const ExactOperationContainer = ({...props}) => {
     let manual_tracking_data = useSelector(getManualTrackingDataSelector)
 
 
-    let ATA = manual_tracking_data.some(m => (m.status === 'Vessel Arrived at Destination') || (m.status === 'Cargo Arrived at Destination'))
-    //console.log("ATA", ATA)
+    let ATD = actualDepartureHelper(operation_info, manual_tracking_data)
 
-    let seaATA = agent_operation_info?.tracking.filter(tr => !!tr.data.data.containers.map((c: any) => c.events.map((ev: any) => ev.status === 'VDL')));
-    let airATA = agent_operation_info?.tracking.some(tr => !!tr.data.events[0].actualTimeOfDeparture)
-
-    console.log("seaATA", seaATA)
+    console.log("ATD", ATD)
 
 
     const closeHandler = () => {
@@ -213,7 +210,7 @@ const ExactOperationContainer = ({...props}) => {
                         operation_info={operation_info}
                     />
                 </ModalWindow>)}
-            {!ATA && <ModalWindow isOpen={isChangeRequestPopup}>
+            {!ATD && <ModalWindow isOpen={isChangeRequestPopup}>
                 <AgentChangeRequestPopup setChangeRequestPopup={setChangeRequestPopup}
                                          operation_info={operation_info ? operation_info : null}
                 />
@@ -247,7 +244,7 @@ const ExactOperationContainer = ({...props}) => {
                                  setTakeOver={setTakeOver}
                                  setChangeRequestPopup={setChangeRequestPopup}
                                  setEdit={setEditOperationByAgent}
-                                 ATA={ATA}
+                                 ATD={ATD}
                                  setReviewPopup={setReviewPopup}
                 />
             }

@@ -59,7 +59,7 @@ export type EventType = {
     destination: string,
     scheduledTimeOfArrival: string,
     scheduledTimeOfDeparture: string,
-    actualTimeOfDeparture: string,
+    actualTimeOfDeparture: string | null,
     estimatedTimeOfArrival: string,
     plannedflightTime: string,
     estimatedDiffToSchedule: number | string,
@@ -115,19 +115,19 @@ export type SeaDataDataType = {
         country : string,
         country_code : string
     }[],
-    containers : {
+    containers : Array<{
         iso_code: string,
         number: string,
-        events: {
+        events: Array<{
             date : string
             type : string
             status : string
-            vessel : number
+            vessel : number | string
             voyage : string
-            location : number
+            location : number | string
             description : string
-        }[]
-    }[],
+        }>
+    }>,
     status : string,
     message : string
 }

@@ -27,18 +27,19 @@ type PropsType = {
     setClientChangRequestPopupVisible: (value: boolean) => void,
     setIsCancelByAgent: (value: boolean) => void,
     setIsCancelByClient: (value: boolean) => void,
-    ATA: boolean,
+    ATD: boolean | undefined,
     setCompleteOperationPopup: (value: boolean) => void
     setReviewPopup: (value: boolean) => void,
 }
 
 const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, company_type,setReviewPopup, ...props}) => {
 
-    const departedStatus = operation_info.tracking.some(t=>t.status==="Aircraft Departed" || t.status==="Vessel Departed" );
+    const departedStatus = operation_info.tracking.some(t => t.status === "Aircraft Departed" || t.status === "Vessel Departed" );
+
     return (
         <ActionsButtons>
 
-            {!props.ATA
+            {!props.ATD
             && <>
                 {operation_info?.has_change_request
                 && company_type?.type === AppCompaniesTypes.AGENT && (my_name === props.agent_contact_name)
@@ -97,9 +98,10 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
             </>
             }
 
-            {props.ATA && company_type?.type === AppCompaniesTypes.AGENT
+            {props.ATD && company_type?.type === AppCompaniesTypes.AGENT
             && <BaseButton onClick={() => props.setCompleteOperationPopup(true)} style={{marginRight: '15px'}}>COMPLETE</BaseButton>
             }
+
             {company_type?.type === AppCompaniesTypes.AGENT
                 ? (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED && (my_name === props.agent_contact_name)
                     &&
@@ -108,7 +110,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                 : (my_name === props.client_contact_name
                     && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
                     && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
-                    &&
+                    && !props.ATD &&
                     <RejectButton onClick={() => props.setIsCancelByClient(true)}>
                         CANCEL OPERATION
                     </RejectButton>

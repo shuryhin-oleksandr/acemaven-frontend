@@ -53,7 +53,7 @@ type PropsType = {
     setChangeRequestPopup: (value: boolean) => void,
     setEdit: (value: boolean) => void
     setReviewPopup: (value: boolean) => void
-    ATA: boolean
+    ATD: boolean | undefined
 }
 
 const OperationCard: React.FC<PropsType> = ({
@@ -134,7 +134,7 @@ const OperationCard: React.FC<PropsType> = ({
                                               setEdit={props.setEdit}
                                               setChangeRequestPopup={props.setChangeRequestPopup}
                                               setReviewPopup={setReviewPopup}
-                                              ATA={props.ATA}
+                                              ATD={props.ATD}
                                               setCompleteOperationPopup={props.setCompleteOperationPopup}
                         />
                     }

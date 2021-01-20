@@ -90,4 +90,4 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
   );
 };
 
-export default ShipmentTrackingBlock;
+export default ShipmentTrackingBlock

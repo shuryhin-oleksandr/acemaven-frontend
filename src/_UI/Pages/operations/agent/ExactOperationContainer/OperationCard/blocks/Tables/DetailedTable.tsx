@@ -90,7 +90,6 @@ const DetailedTable: React.FC<PropsType> = ({tracking}) => {
     const rows = (tracking && tracking.length > 0)
         ? tracking[0].data?.data?.containers.map((c:any)=>({...c, events: c.events.map((ce:any)=>({...ce}))}))
         : []
-    console.log("rows", rows);
     return (
         <TableWrapper>
             <TableContainer className={classes.container} component={Paper}>

@@ -58,7 +58,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
         delete obj_data.cargo_cut_off
         !values.documents_cut_off?.cut_off_time && !values.cargo_cut_off?.cut_off_time && delete obj_data.cargo_cut_off_date && delete obj_data.document_cut_off_date
         !values.container_free_time && delete obj_data.container_free_time
-        console.log(obj_data)
+
         dispatch(confirmBookingRequestThunk(obj_data, history))
 
     }

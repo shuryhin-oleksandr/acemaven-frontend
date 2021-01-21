@@ -13,6 +13,8 @@ import { TrackingBackendType } from "../../../../../../../../_BLL/types/operatio
 //styles
 import styled from "styled-components";
 import DetailedTableRow from "./DeatiledTableRow";
+import IconLocation from "../../../../../../../assets/icons/location_blue.svg";
+import { AppCompaniesTypes } from "../../../../../../../../_BLL/types/commonTypes";
 
 const useStyles = makeStyles({
   container: {
@@ -99,8 +101,7 @@ const DetailedTable: React.FC<PropsType> = ({ tracking }) => {
         }))
       : [];
 
-  console.log("rows", rows);
-  return (
+  return rows?.length > 0 ? (
     <TableWrapper>
       <TableContainer className={classes.container} component={Paper}>
         <Table aria-label="simple table">
@@ -121,6 +122,12 @@ const DetailedTable: React.FC<PropsType> = ({ tracking }) => {
         </Table>
       </TableContainer>
     </TableWrapper>
+  ) : (
+    <Notification>
+      <img src={IconLocation} alt="" style={{ marginRight: "7px" }} />
+      Automatic statuses for this shipment are not available yet. Statuses will
+      be updated soon.
+    </Notification>
   );
 };
 
@@ -131,3 +138,16 @@ const TableWrapper = styled.div`
   overflow: auto;
 `;
 
+const Notification = styled.div`
+  background: #3b3b41;
+  opacity: 0.9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.209px;
+  color: #00c5ff;
+  align-self: flex-start;
+  margin-top: 10px;
+`;

@@ -47,7 +47,7 @@ export const TextareaLabel = styled.div`
   font-size: 14px;
   margin-bottom: 9px;
 `
-export const FormTextarea = styled.textarea<{error?: boolean}>`
+export const FormTextarea = styled.textarea<{ error?: boolean }>`
   width: 100%;
     color: #3b3b41;
     font-family: "Helvetica Light", sans-serif;
@@ -66,13 +66,14 @@ export const FormTextarea = styled.textarea<{error?: boolean}>`
     font-size: 14px;
   }
 `
-export const TimePicker = styled.input<{error?: boolean}>`
+export const TimePicker = styled.input<{ error?: boolean, font_size?: string }>`
   width: 75px; 
   height: 40px; 
   background-color: ${({error}) => error ? 'rgba(0,0,0,.08)' : 'transparent'};
   border: ${({error}) => error ? '1px solid rgba(0, 0, 0, .45)' : '1px solid #bdbdbd'};
   border-radius: 4px; 
   font-family: 'Helvetica Light', sans-serif;
+  font-size: ${({font_size}) => font_size ? font_size : 'inherit'};
  padding: 3px;
  margin-top: ${({error}) => error ? '-19px' : '24px'};
  outline: none;

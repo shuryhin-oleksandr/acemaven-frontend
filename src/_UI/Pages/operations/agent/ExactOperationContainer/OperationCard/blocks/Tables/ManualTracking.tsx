@@ -332,7 +332,9 @@ const ManualTracking: React.FC<PropsType> = ({
                                             <div style={{whiteSpace: "nowrap", marginRight: "5px"}}>
                                                 {row.created_by && `${row.created_by}:`}
                                             </div>
-                                            <div style={{fontStyle: "italic"}}> {row.comment}</div>
+                                            <div style={{fontStyle: "italic", fontFamily: 'Helvetica Light', fontSize: '15px'}}>
+                                                {row.comment}
+                                            </div>
                                         </div>
                                     </TableCell>
                                     <TableCell

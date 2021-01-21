@@ -110,7 +110,7 @@ const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, reg
                                 onDayChange={handleFromChange}
                                 ref={toInput}
                                 dayPickerProps={{
-                                    disabledDays: [{before: props.before} ,{after: props.after}],
+                                    disabledDays: [{before: new Date()}, {after: props.after}],
                                 }}
                             />
                         }
@@ -127,6 +127,7 @@ const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, reg
                                 <TimePicker type="time"
                                             step='300'
                                             error={!!errors?.departure_time}
+                                            font_size={'14px'}
                                 />
                             }
                 />

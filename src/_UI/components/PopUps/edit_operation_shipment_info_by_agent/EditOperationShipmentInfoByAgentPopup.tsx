@@ -54,22 +54,28 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
     const dispatch = useDispatch()
     const {register, handleSubmit, errors, setValue, control} = useForm()
     const onSubmit = (values: any) => {
-        debugger
+
         let date_of_departure = moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time
         let date_of_arrival = moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time
         let document_cut_off_date = moment(values.documents_cut_off?.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off?.cut_off_time
         let cargo_cut_off_date = moment(values.cargo_cut_off?.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off?.cut_off_time
+        let actual_time_of_departure = moment(values.actual_time_departure?.from).format('DD/MM/YYYY') + ' ' + values.actual_time_departure?.departure_time
+        let actual_time_of_arrival = moment(values.actual_time_arrival?.to).format('DD/MM/YYYY') + ' ' + values.actual_time_arrival?.arrival_time
 
         let final_data = {
             ...values,
             date_of_departure: date_of_departure,
             date_of_arrival: date_of_arrival,
             document_cut_off_date: document_cut_off_date,
-            cargo_cut_off_date: cargo_cut_off_date
+            cargo_cut_off_date: cargo_cut_off_date,
+            actual_time_of_departure: actual_time_of_departure ? actual_time_of_departure : null,
+            actual_time_of_arrival: actual_time_of_arrival ? actual_time_of_arrival : null
         }
         delete final_data.estimated_time
         delete final_data.documents_cut_off
         delete final_data.cargo_cut_off_date
+        delete final_data.actual_time_arrival
+        delete final_data.actual_time_departure
         delete final_data.payment_due_by
 
 
@@ -291,6 +297,29 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                  second_time={cargo_cut_off_time}
                             />
                             }
+                            <AcceptPopupDates control={control}
+                                              errors={{
+                                                  from: errors.from,
+                                                  to: errors.to,
+                                                  departure_time: errors.departure_time,
+                                                  arrival_time: errors.arrival_time
+                                              }}
+                                              setValue={setValue}
+                                              required_dates={true}
+                                              label1={'Actual Time of Departure'}
+                                              label2={'Actual Time of Arrival'}
+                                              time_name_first={'actual_time_departure.departure_time'}
+                                              time_name_second={'actual_time_arrival.arrival_time'}
+                                              date_name_first={'actual_time_departure.from'}
+                                              date_name_second={'actual_time_arrival.to'}
+                                              //start_shipment_date={shipment?.document_cut_off_date}
+                                              before={new Date()}
+                                              //after={moment(operation_info?.date_from, 'DD/MM/YYYY').toDate()}
+                                              justify_content='flex-start'
+                                              max_width='655px'
+                                              first_time={' '}
+                                              second_time={" "}
+                            />
                         </div>
                         {(operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL) &&
                         <div style={{

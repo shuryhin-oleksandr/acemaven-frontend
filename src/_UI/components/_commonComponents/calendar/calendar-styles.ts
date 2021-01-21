@@ -10,15 +10,17 @@ type PropsStyle = {
     input_height?: string
     margin_right?: string
     margin_top?: string,
-    label_margin_bottom?: string
+    label_margin_bottom?: string,
+    picker_right?: string
 }
 
-export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, margin_bottom?: string, input_height?: string, margin_right?: string, margin_top?: string}>`
+export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, margin_bottom?: string, input_height?: string, margin_right?: string, margin_top?: string, picker_right?: string}>`
   flex: none;
   margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '10px'};
   width: 100%;
   max-width: ${({max_width}) => max_width ? max_width : '440px'};
   margin-right: ${({margin_right}) => margin_right ? margin_right : '0px'};
+  
   
   .DayPickerInput {
     width: 100%;
@@ -26,9 +28,16 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
     max-width: ${({max_width}) => max_width ? max_width : '420px'};
     height:${({input_height}) => input_height ? input_height : '40px'};
   }
+  
+  .DayPickerInput-OverlayWrapper {
+    z-index: 2300;
+    position: absolute;
+    left: auto;
+  right: ${({picker_right}) => picker_right ? picker_right : '-40px'};
+  }
    
    .DayPickerInput-Overlay {
-    right: 0;
+    right: ${({picker_right}) => picker_right ? picker_right : '-40px'};
     left: auto;
    }
   

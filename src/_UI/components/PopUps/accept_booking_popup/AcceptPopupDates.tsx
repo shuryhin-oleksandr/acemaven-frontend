@@ -73,9 +73,6 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
 
     const toInput = useRef<DayPickerInput>(null)
 
-    const fromDayClick = () => {
-        toInput?.current?.getInput().focus()
-    }
 
     useEffect(() => {
         if(props.departure_date && props.arrival_date) {
@@ -97,7 +94,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
         <AcceptDatesFilter flex_direction={props.flex_direction} max_width={props.max_width}>
             <Wrapper justify_content={props.justify_content} wrapper_width={props.wrapper_width} >
                 <CalendarWrapper max_width={!props.first_time ? '225px' : '235px'}
-                                 input_height='40px' margin_right='10px' margin_bottom='5px'>
+                                 input_height='40px' margin_right='10px' margin_bottom='5px' >
                     <span style={{fontFamily: !props.first_time ? 'Helvetica Reg' : 'Helvetica Bold',
                                 fontSize: '14px',
                                 color: !props.first_time ? 'black' : '#115b86',

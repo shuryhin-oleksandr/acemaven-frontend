@@ -1,16 +1,21 @@
 import React from "react";
+//components
 import StatusTable from "../Tables/StatusTable";
 import DetailedTable from "../Tables/DetailedTable";
-import { SectionTitle, SectionWrapper } from "../../operation-card-style";
-import { MapWrapper } from "../../../../../../dashboard/dashboard-styles";
 import SmallMapComponent from "./SmallMapComponent";
+import ManualTracking from "../Tables/ManualTracking";
+//types
 import {
-  TrackingBackendType
+    TrackingBackendType
 } from "../../../../../../../../_BLL/types/operations/operationsTypes";
 import { ShippingTypesEnum } from "../../../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { CoordinatesType } from "../../../../../../../../_BLL/types/rates&surcharges/ratesTypes";
-import ManualTracking from "../Tables/ManualTracking";
 import { userCompaniesType } from "../../../../../../../../_BLL/types/authTypes";
+//styles
+import { SectionTitle, SectionWrapper } from "../../operation-card-style";
+import { MapWrapper } from "../../../../../../dashboard/dashboard-styles";
+
+
 
 type PropsType = {
   tracking: TrackingBackendType[];
@@ -73,7 +78,9 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
       />
       {automatic_tracking ? (
         shipping_type === ShippingTypesEnum.AIR ? (
-          <StatusTable tracking={tracking} shipping_type={shipping_type} />
+          <StatusTable tracking={tracking}
+                       shipping_type={shipping_type}
+          />
         ) : (
           <DetailedTable tracking={tracking} />
         )

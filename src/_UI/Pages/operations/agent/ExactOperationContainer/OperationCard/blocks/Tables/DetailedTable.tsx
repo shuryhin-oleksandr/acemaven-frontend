@@ -1,4 +1,5 @@
 import React from "react";
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -7,8 +8,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import styled from "styled-components";
+//types
 import {TrackingBackendType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+//styles
+import styled from "styled-components";
+
 
 
 const useStyles = makeStyles({
@@ -148,7 +152,7 @@ const DetailedTable: React.FC<PropsType> = ({tracking}) => {
                           fontSize: "14px",
                       }}
                   >
-                    {row.events[row.events.length-1].status}
+                    {row.events[row.events.length-1].description}
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
@@ -159,7 +163,7 @@ const DetailedTable: React.FC<PropsType> = ({tracking}) => {
                           fontSize: "14px",
                       }}
                   >
-                    ?
+                    {row.events[row.events.length-1].location ? row.events[row.events.length-1].location : "-"}
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
@@ -170,7 +174,7 @@ const DetailedTable: React.FC<PropsType> = ({tracking}) => {
                           fontSize: "14px",
                       }}
                   >
-                    ?
+                      {row.events[row.events.length-1].vessel ? row.events[row.events.length-1].vessel : "-"}
                   </span>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">

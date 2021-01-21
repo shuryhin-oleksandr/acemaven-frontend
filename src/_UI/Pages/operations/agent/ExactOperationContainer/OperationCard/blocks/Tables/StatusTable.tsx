@@ -1,4 +1,5 @@
 import React from "react";
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -7,8 +8,12 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+//types
+import {TrackingBackendType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+//styles
 import styled from "styled-components";
-import {TrackingBackendType, TrackingEventType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+
+
 
 const useStyles = makeStyles({
     container: {
@@ -72,17 +77,10 @@ type PropsType = {
     shipping_type: string,
 }
 
-const StatusTable: React.FC<PropsType> = ({tracking,shipping_type}) => {
+const StatusTable: React.FC<PropsType> = ({tracking}) => {
     const classes = useStyles();
 
-    console.log("TRR", tracking);
-    // const events = shipping_type==="air" ?
-    //     tracking.map(ae => ae.data.events[0])
-    //     :
-    //     tracking.map(tr=>)
-
     const events = tracking.map(ae => ae.data.events[0])
-
 
     return (
         <TableWrapper>
@@ -94,10 +92,10 @@ const StatusTable: React.FC<PropsType> = ({tracking,shipping_type}) => {
                                 DATE
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                STATUS
+                               FLIGHT
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                COMMENTS
+                                STATUS
                             </TableCell>
                         </TableRow>
                     </TableHead>
@@ -111,10 +109,10 @@ const StatusTable: React.FC<PropsType> = ({tracking,shipping_type}) => {
                                     {' '}{ev?.timeOfEvent.split('T')[1]}
                                 </TableCell>
                                 <TableCell className={classes.statusCell} align="left">
-                                    {ev?.type}
+                                    {ev?.flight}
                                 </TableCell>
                                 <TableCell className={classes.commentCell} align="left">
-                                    no comments
+                                    {ev?.type}
                                 </TableCell>
                             </TableRow>
                         ))}

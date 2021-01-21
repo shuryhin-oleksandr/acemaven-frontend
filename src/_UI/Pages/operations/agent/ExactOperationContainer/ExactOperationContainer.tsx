@@ -18,6 +18,12 @@ import {
     getExactClientOperationSelector, getEditOperationSuccessSelector, getManualTrackingDataSelector
 } from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {getClientExactOperationThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+//types
+import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
+import {AppOperationBookingStatusesType} from "../../../../../_BLL/types/operations/operationsTypes";
+//helpers
+import {actualDepartureHelper} from "../../../../../_BLL/helpers/tracker/actualDepartureHelper";
 //components
 import Layout from "../../../../components/BaseLayout/Layout";
 import OperationCard from "./OperationCard/OperationCard";
@@ -30,17 +36,15 @@ import CompleteOperationPopup from "../../../../components/PopUps/complete_opera
 import CancelOperationByAgentPopup
     from "../../../../components/PopUps/cancel_operation_by_agent_popup/CancelOperationByAgentPopup";
 import AgentChangeRequestPopup from "../../../../components/PopUps/change_request_agent_popup/AgentChangeRequestPopup";
-
 import CancelOperationByClientPopup
     from "../../../../components/PopUps/CancelOperationByClientPopup/CancelOperationByClientPopup";
-import {getClientExactOperationThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
-import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 import TakeOverOperationPopup from "../../../../components/PopUps/take_over_operation_popup/TakeOverOperationPopup";
-import {AppOperationBookingStatusesType} from "../../../../../_BLL/types/operations/operationsTypes";
 import EditOperationShipmentInfoByAgentPopup
     from "../../../../components/PopUps/edit_operation_shipment_info_by_agent/EditOperationShipmentInfoByAgentPopup";
 import ClientReviewPopup from "../../../../components/PopUps/client_review_popup/ClientReviewPopup";
-import {actualDepartureHelper} from "../../../../../_BLL/helpers/tracker/actualDepartureHelper";
+
+
+
 
 const ExactOperationContainer = ({...props}) => {
     //local state

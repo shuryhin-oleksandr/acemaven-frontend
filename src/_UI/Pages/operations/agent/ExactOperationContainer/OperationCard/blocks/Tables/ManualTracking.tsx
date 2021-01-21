@@ -180,7 +180,7 @@ const ManualTracking: React.FC<PropsType> = ({
     const onSubmit = (values: any) => {
         debugger
         const data = {...values, booking: booking_id};
-        if(values.hasOwnProperty('comment')) {
+        if(!finded_status) {
             dispatch(updateShipmentInfo(data, reset));
         } else {
             let ATD = {

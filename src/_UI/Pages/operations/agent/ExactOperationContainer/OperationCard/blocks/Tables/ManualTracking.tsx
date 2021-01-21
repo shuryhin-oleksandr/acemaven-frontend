@@ -142,10 +142,10 @@ const ManualTracking: React.FC<PropsType> = ({
     const classes = useStyles();
     let dispatch = useDispatch();
 
-    useEffect(() => {
+   /* useEffect(() => {
         dispatch(getManualTrackingStatusOptions(shipping_mode_id, direction));
     }, []);
-
+*/
     useEffect(() => {
         const id = setInterval(() => setDateTime(new Date()), 1000);
         return () => {

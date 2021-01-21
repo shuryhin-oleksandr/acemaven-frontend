@@ -87,8 +87,6 @@ const ExactOperationContainer = ({...props}) => {
 
     let ATD = actualDepartureHelper(operation_info, manual_tracking_data)
 
-    console.log("ATD", ATD)
-
 
     const closeHandler = () => {
         if (operation_info?.status === AppOperationBookingStatusesType.CANCELED_BY_CLIENT) {

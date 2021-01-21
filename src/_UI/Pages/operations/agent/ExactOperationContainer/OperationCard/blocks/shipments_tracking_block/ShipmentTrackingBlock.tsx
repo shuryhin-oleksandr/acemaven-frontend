@@ -43,8 +43,8 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
   let events_coordinates =
     shipping_type === "air"
       ? tracking?.map((te) => ({
-          lat: te.data.events[0].ecefLatitude,
-          lng: te.data.events[0].ecefLongitude,
+          lat: te.data?.events[0].ecefLatitude,
+          lng: te.data?.events[0].ecefLongitude,
         }))
       : tracking?.map((te) =>
           te.data?.data && te.data.data.length > 0

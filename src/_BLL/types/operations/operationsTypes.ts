@@ -37,8 +37,10 @@ export type ShipmentDetailsType = {
     empty_pick_up_location?: string,
     empty_pick_up_location_address?: string,
     container_free_time?: number,
-    booking_notes : string
-    booking : number
+    booking_notes : string,
+    booking : number,
+    actual_date_of_arrival?: string,
+    actual_date_of_departure?: string
 }
 
 export type AgentBankAccountType = {

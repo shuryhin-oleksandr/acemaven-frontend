@@ -87,9 +87,6 @@ const ExactOperationContainer = ({...props}) => {
 
     let ATD = actualDepartureHelper(operation_info, manual_tracking_data)
 
-    console.log("ATD", ATD)
-
-
     const closeHandler = () => {
         if (operation_info?.status === AppOperationBookingStatusesType.CANCELED_BY_CLIENT) {
             history.push("/operations_cancelled")
@@ -128,13 +125,13 @@ const ExactOperationContainer = ({...props}) => {
     let id = query.id;
 
     useEffect(() => {
-        company_type?.type === "agent"
+        company_type && (company_type?.type === "agent"
             ? dispatch(getAgentExactOperationThunk(operation_id))
-            : dispatch(getClientExactOperationThunk(operation_id));
+            : dispatch(getClientExactOperationThunk(operation_id)));
         return () => {
             unmountHandler();
         };
-    }, []);
+    }, [company_type]);
 
     let cancelOperationByAgentHandler = (data: { reason: string, comment: string }) => {
         dispatch(cancelOperationByAgentThunk(id, data, history))
@@ -175,7 +172,6 @@ const ExactOperationContainer = ({...props}) => {
             dispatch(agentOperationsActions.setEditSuccess(''))
         }
     }, [edit_operation_by_agent_success])
-
 
     return (
         <Layout>

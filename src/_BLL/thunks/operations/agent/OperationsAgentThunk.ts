@@ -6,7 +6,7 @@ import {
 } from "../../../reducers/operations/agent/agentOperationsReducer";
 import { BookingShipmentDetailsType } from "../../../types/bookingTypes";
 import { bookingApi } from "../../../../_DAL/API/bookingApi";
-import {AppStateType} from "../../../store";
+import { AppStateType } from "../../../store";
 
 export const getAgentsOperationsThunk = (
   type: string,
@@ -69,8 +69,9 @@ export const editOperationByAgentThunk = (data: any, id: number) => {
     try {
       dispatch(agentOperationsActions.setIsFetching(true));
       await operationsAgentAPI.editOperationByAgent(data, id);
-      let current_operation_id = getState().agent_operations.agent_operation_info?.id
-      dispatch(getAgentExactOperationThunk(Number(current_operation_id)))
+      let current_operation_id = getState().agent_operations
+        .agent_operation_info?.id;
+      dispatch(getAgentExactOperationThunk(Number(current_operation_id)));
       dispatch(agentOperationsActions.setEditSuccess("success"));
       dispatch(agentOperationsActions.setIsFetching(false));
     } catch (e) {
@@ -134,10 +135,7 @@ export const cancelOperationByAgentThunk = (
   };
 };
 
-export const completeOperationByAgentThunk = (
-    id: number,
-    history: any
-) => {
+export const completeOperationByAgentThunk = (id: number, history: any) => {
   return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
     try {
       dispatch(agentOperationsActions.setIsFetching(true));

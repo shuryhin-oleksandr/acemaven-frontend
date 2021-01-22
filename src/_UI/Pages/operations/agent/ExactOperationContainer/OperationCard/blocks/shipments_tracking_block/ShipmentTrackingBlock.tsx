@@ -5,17 +5,15 @@ import DetailedTable from "../Tables/DetailedTable";
 import SmallMapComponent from "./SmallMapComponent";
 import ManualTracking from "../Tables/ManualTracking";
 //types
-import {
-    TrackingBackendType
-} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+import { TrackingBackendType } from "../../../../../../../../_BLL/types/operations/operationsTypes";
 import { ShippingTypesEnum } from "../../../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { CoordinatesType } from "../../../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import { userCompaniesType } from "../../../../../../../../_BLL/types/authTypes";
 //styles
 import { SectionTitle, SectionWrapper } from "../../operation-card-style";
 import { MapWrapper } from "../../../../../../dashboard/dashboard-styles";
-
-
+import styled from "styled-components";
+import IconLocation from "../../../../../../../assets/icons/location_blue.svg";
 
 type PropsType = {
   tracking: TrackingBackendType[];
@@ -60,27 +58,41 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
     events_coordinates.length > 0 &&
     events_coordinates[events_coordinates.length - 1];
 
+  const hasOriginCoordinates =
+    origin_coordinates?.hasOwnProperty("latitude") &&
+    origin_coordinates?.hasOwnProperty("longitude");
+
+  const hasDestinationCoordinates =
+    destination_coordinates?.hasOwnProperty("latitude") &&
+    destination_coordinates?.hasOwnProperty("longitude");
+
   return (
     <SectionWrapper>
       <SectionTitle>SHIPMENT TRACKING</SectionTitle>
-      <SmallMapComponent
-        isMarkerShown
-        loadingElement={<div style={{ height: `172px` }} />}
-        containerElement={<MapWrapper />}
-        mapElement={<div style={{ height: `172px` }} />}
-        direction={direction}
-        shipping_type={shipping_type}
-        origin_coordinates={origin_coordinates ? origin_coordinates : null}
-        destination_coordinates={
-          destination_coordinates ? destination_coordinates : null
-        }
-        last_event_coordinates={lastItem}
-      />
+      {hasOriginCoordinates && hasDestinationCoordinates ? (
+        <SmallMapComponent
+          isMarkerShown
+          loadingElement={<div style={{ height: `172px` }} />}
+          containerElement={<MapWrapper />}
+          mapElement={<div style={{ height: `172px` }} />}
+          direction={direction}
+          shipping_type={shipping_type}
+          origin_coordinates={origin_coordinates ? origin_coordinates : null}
+          destination_coordinates={
+            destination_coordinates ? destination_coordinates : null
+          }
+          last_event_coordinates={lastItem}
+        />
+      ) : (
+        <Notification>
+          <img src={IconLocation} alt="" style={{ marginRight: "7px" }} />
+          Map is not available.
+        </Notification>
+      )}
+
       {automatic_tracking ? (
         shipping_type === ShippingTypesEnum.AIR ? (
-          <StatusTable tracking={tracking}
-                       shipping_type={shipping_type}
-          />
+          <StatusTable tracking={tracking} shipping_type={shipping_type} />
         ) : (
           <DetailedTable tracking={tracking} />
         )
@@ -97,4 +109,18 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
   );
 };
 
-export default ShipmentTrackingBlock
+export default ShipmentTrackingBlock;
+
+const Notification = styled.div`
+  background: #3b3b41;
+  opacity: 0.9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.209px;
+  color: #00c5ff;
+  align-self: flex-start;
+  margin-top: 10px;
+`;

@@ -154,6 +154,10 @@ const DashboardPage: React.FC<PropsType> = ({
 
    let events = autoTrackWithEventsHelper(props.operations_list)
 
+    const latest_tracking_list = useSelector(
+        (state: AppStateType) => state.client_operations.latest_tracking_widget_data
+    );
+
     return (
         <DashboardWrapper>
             {bookingPopupVisible && currentBookingRate &&
@@ -218,7 +222,7 @@ const DashboardPage: React.FC<PropsType> = ({
                     />
                 )}
             </SearchBox>
-            {!search_success && (
+            {!search_success && company && (
                 <MultiWidgetBox widgetsVisible={widgetsVisible}>
                     {company === AppCompaniesTypes.CLIENT
                         ? <FeePaymentWidget/>
@@ -228,7 +232,7 @@ const DashboardPage: React.FC<PropsType> = ({
                     && <RequestWidget requests={requests}/>
                     }
                     <LatestQuotesWidget/>
-                    {company === AppCompaniesTypes.CLIENT
+                    {company === AppCompaniesTypes.CLIENT && latest_tracking_list.length > 0
                     && <RackingStatusWidget/>
                     }
                 </MultiWidgetBox>

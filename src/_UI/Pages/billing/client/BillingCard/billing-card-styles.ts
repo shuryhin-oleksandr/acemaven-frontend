@@ -144,3 +144,16 @@ export const RejectButton = styled.button`
     background-color: rgba(0, 0, 0, 0.07);
   }
 `;
+
+export const NoMap = styled.div`
+  width: 288px;
+  height: 233px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+  font-family: Helvetica Neue, sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.209px;
+  color: #00c5ff;
+`;

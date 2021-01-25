@@ -214,3 +214,14 @@ export const postCompaniesRating = (
     }
   };
 };
+
+export const getLatestTrackingWidgetDataThunk = () => {
+  return async (dispatch: Dispatch<commonClientOperationsActions>) => {
+    try {
+      let res = await operationsClientAPI.getLatestTrackingWidgetData();
+      dispatch(clientOperationsActions.setLatestTrackingWidgetData(res.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

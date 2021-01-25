@@ -29,12 +29,17 @@ import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWin
 import {agentOperationsActions} from "../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 import {clientOperationsActions} from "../../../_BLL/reducers/operations/client/clientOperationsReducer";
 import {getAgentsOperationsThunk} from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
-import {getClientOperationsThunk} from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {
+    getClientOperationsThunk,
+    getLatestTrackingWidgetDataThunk
+} from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import {
     getAgentsOperationsListSelector,
     getClientOperationsListSelector
 } from "../../../_BLL/selectors/operations/agentOperationsSelector";
 import {AppCompaniesTypes} from "../../../_BLL/types/commonTypes";
+import {getClientQuotesThunk} from "../../../_BLL/thunks/quotes/clientQuotesThunk";
+import {getAgentQuotesListThunk} from "../../../_BLL/thunks/quotes/agentQuotesThunk";
 
 
 
@@ -105,6 +110,24 @@ const DashboardContainer:React.FC = () => {
                 : dispatch(getClientOperationsThunk('', true, "", "", "", 'active'));
         }
     }, [company_type]);
+
+    useEffect(() => {
+        if (company_type) {
+            company_type?.type === AppCompaniesTypes.CLIENT
+                ? dispatch(getClientQuotesThunk('', '', '', ''))
+                : dispatch(getAgentQuotesListThunk('', '', '', ''))
+        }
+
+    }, [dispatch, company_type]);
+
+    useEffect(() => {
+        if (company_type && company_type?.type === AppCompaniesTypes.CLIENT ) {
+                dispatch(getLatestTrackingWidgetDataThunk());
+        }
+
+    }, [dispatch, company_type]);
+
+
 
 
     return (

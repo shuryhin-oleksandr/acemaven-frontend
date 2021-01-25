@@ -33,4 +33,5 @@ export type BillingOperationType = {
     date_created?:string,
     tracking:TrackingBackendType[],
     tracking_initial?: InitialTrackingType | null,
+    automatic_tracking?:boolean
 }

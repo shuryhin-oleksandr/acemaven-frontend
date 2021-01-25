@@ -198,3 +198,11 @@ export type OperationType = {
     tracking_initial?: InitialTrackingType | null,
     has_review?:boolean
 }
+
+export type LatestTrackingWidgetType = {
+    booking_number: string
+    date_created: string
+    route: string
+    shipping_type: string
+    status: string
+}

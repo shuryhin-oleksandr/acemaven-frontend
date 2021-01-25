@@ -39,4 +39,7 @@ export const operationsClientAPI = {
   ) {
     return instance.post(`booking/operation/${id}/review/`, data);
   },
+  getLatestTrackingWidgetData(){
+    return instance.get("/booking/track/widget/");
+  }
 };

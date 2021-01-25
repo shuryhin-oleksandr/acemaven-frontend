@@ -42,15 +42,6 @@ const LatestQuotesWidget: React.FC = () => {
     const my_quotes_list = useSelector(getClientQuotesListSelector) //client
     const agent_quotes_list = useSelector(getAgentQuotesLIstSelector) //agent
 
-    //hooks
-    useEffect(() => {
-        if (company_type) {
-            company_type?.type === AppCompaniesTypes.CLIENT
-                ? dispatch(getClientQuotesThunk('', '', '', ''))
-                : dispatch(getAgentQuotesListThunk('', '', '', ''))
-        }
-
-    }, [dispatch, company_type])
 
     //local state (get last 2 elements from an array)
     let latest_list = company_type?.type === AppCompaniesTypes.AGENT
@@ -64,6 +55,7 @@ const LatestQuotesWidget: React.FC = () => {
 
 
     return (
+        latest_list.length > 0 ?
         <BaseWidget heading={company_type?.type === AppCompaniesTypes.CLIENT ? "latest quotes receive" : "QUOTES"}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
@@ -81,9 +73,9 @@ const LatestQuotesWidget: React.FC = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {latest_list.map((quote, index: number) => (
-                        <TableRow key={quote?.id + index}
-                                  className={classes.row}
+                    {latest_list.map((quote, idx) => (
+                        <TableRow key={idx}
+                                  className={company_type?.type === AppCompaniesTypes.AGENT ? classes.row:""}
                                   onClick={() => company_type?.type === AppCompaniesTypes.AGENT && setCardOpen(Number(quote.id))}
                         >
                             <TableCell className={classes.innerCell}>
@@ -123,6 +115,8 @@ const LatestQuotesWidget: React.FC = () => {
                 </TableBody>
             </Table>
         </BaseWidget>
+            :
+        null
     );
 };
 

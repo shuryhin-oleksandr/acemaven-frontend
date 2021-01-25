@@ -73,8 +73,8 @@ const LatestQuotesWidget: React.FC = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {latest_list.map((quote) => (
-                        <TableRow key={quote?.id}
+                    {latest_list.map((quote, index: number) => (
+                        <TableRow key={quote?.id + index}
                                   className={classes.row}
                                   onClick={() => company_type?.type === AppCompaniesTypes.AGENT && setCardOpen(Number(quote.id))}
                         >

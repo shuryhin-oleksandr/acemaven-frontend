@@ -2,24 +2,21 @@ import React, {useEffect, useState} from "react";
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
 //BLL
-import { AppStateType } from "../../../_BLL/store";
-import { getAgentsOperationsThunk } from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {AppStateType} from "../../../_BLL/store";
+import {getAgentsOperationsThunk} from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {
     getAgentOperationsIsFetching,
     getAgentsOperationsListSelector,
-    getCancellationConfirmationSelector, getClientOperationsIsFetching,
+    getClientOperationsIsFetching,
     getClientOperationsListSelector
 } from "../../../_BLL/selectors/operations/agentOperationsSelector";
+import {getClientOperationsThunk} from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {agentOperationsActions} from "../../../_BLL/reducers/operations/agent/agentOperationsReducer";
+import {clientOperationsActions} from "../../../_BLL/reducers/operations/client/clientOperationsReducer";
 //components
 import Layout from "../../components/BaseLayout/Layout";
 import AgentOperationsListContainer from "./agent/AgentOperationsListContainer";
 import ClientOperationsListContainer from "./client/ClientOperationsListContainer";
-import { getClientOperationsThunk } from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
-import {agentOperationsActions} from "../../../_BLL/reducers/operations/agent/agentOperationsReducer";
-import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWindow";
-import AgentCancellationBadReviewPopup
-    from "../../components/PopUps/agent_bad_review_popup/AgentCancellationBadReviewPopup";
-import {clientOperationsActions} from "../../../_BLL/reducers/operations/client/clientOperationsReducer";
 import SpinnerForAuthorizedPages from "../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 
 
@@ -31,7 +28,6 @@ const OperationsContainer: React.FC = () => {
     const [searchValue, setSearchValue] = useState("");
     const [search_column, setSearchColumn] = useState("");
     const [my_operations, setMyOperations] = useState("mine");
-    const [isBadReview, setBadReview] = useState(false)
 
 
     //data from store
@@ -42,7 +38,6 @@ const OperationsContainer: React.FC = () => {
     );
     let agent_operations_list = useSelector(getAgentsOperationsListSelector);
     let client_operations_list = useSelector(getClientOperationsListSelector);
-    let cancellation_success = useSelector(getCancellationConfirmationSelector);
     let isFetchingAgent = useSelector(getAgentOperationsIsFetching)
     let isFetchingClient = useSelector(getClientOperationsIsFetching)
     let operation_status = 'active'
@@ -52,36 +47,19 @@ const OperationsContainer: React.FC = () => {
     useEffect(() => {
         dispatch(agentOperationsActions.setAgentOperationsList([]))
         dispatch(clientOperationsActions.setClientOperationsList([]))
-        if(operation_status) {
+        if (company_type) {
             company_type?.type === "agent"
                 ? dispatch(getAgentsOperationsThunk(mode, true, "", "", "", operation_status))
                 : dispatch(getClientOperationsThunk(mode, true, "", "", "", operation_status));
         }
-    }, [operation_status]);
-
-    useEffect(() => {
-        if (cancellation_success) {
-            setBadReview(true)
-        }
-    }, [cancellation_success])
-
-
-    //handlers
-    let setBadReviewHandler = () => {
-        setBadReview(false)
-        dispatch(agentOperationsActions.setCancellationConfirmation(''))
-    }
+    }, [company_type]);
 
 
     return (
         <Layout>
-            <ModalWindow isOpen={isBadReview}>
-                <AgentCancellationBadReviewPopup setBadReviewHandler={setBadReviewHandler}
-                />
-            </ModalWindow>
             {(isFetchingAgent || isFetchingClient)
-                ? <SpinnerForAuthorizedPages />
-                :  <>
+                ? <SpinnerForAuthorizedPages/>
+                : <>
                     {company_type?.type === "agent" ? (
                         <AgentOperationsListContainer
                             setSearchMode={setSearchMode}

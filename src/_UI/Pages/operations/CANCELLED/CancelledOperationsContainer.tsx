@@ -1,27 +1,33 @@
 import React, {useEffect, useState} from 'react'
-import Layout from "../../../components/BaseLayout/Layout";
-import AgentOperationsListContainer from "../agent/AgentOperationsListContainer";
-import ClientOperationsListContainer from "../client/ClientOperationsListContainer";
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//BLL
 import {AppStateType} from "../../../../_BLL/store";
 import {
-    getAgentsOperationsListSelector, getClientOperationsListSelector
+    getAgentsOperationsListSelector, getCancellationConfirmationSelector, getClientOperationsListSelector
 } from "../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {getAgentsOperationsThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {getClientOperationsThunk} from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
-
 import {agentOperationsActions} from "../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 import {clientOperationsActions} from "../../../../_BLL/reducers/operations/client/clientOperationsReducer";
+//components
+import Layout from "../../../components/BaseLayout/Layout";
+import AgentOperationsListContainer from "../agent/AgentOperationsListContainer";
+import ClientOperationsListContainer from "../client/ClientOperationsListContainer";
+import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
+import AgentCancellationBadReviewPopup
+    from "../../../components/PopUps/agent_bad_review_popup/AgentCancellationBadReviewPopup";
 
 
 
-
-const CancelledOperationsContainer = () => {
+const CancelledOperationsContainer:React.FC = () => {
+    //local state
     const [isSearchMode, setSearchMode] = useState(false);
     const [mode, setMode] = useState("sea"); //shipping_type
     const [searchValue, setSearchValue] = useState("");
     const [search_column, setSearchColumn] = useState("");
     const [my_operations, setMyOperations] = useState("mine");
+    const [isBadReview, setBadReview] = useState(false)
 
 
     //data from store
@@ -32,6 +38,7 @@ const CancelledOperationsContainer = () => {
     );
     let agent_operations_list = useSelector(getAgentsOperationsListSelector);
     let client_operations_list = useSelector(getClientOperationsListSelector);
+    let cancellation_success = useSelector(getCancellationConfirmationSelector);
     let operation_status = 'canceled'
 
 
@@ -40,16 +47,32 @@ const CancelledOperationsContainer = () => {
     useEffect(() => {
         dispatch(agentOperationsActions.setAgentOperationsList([]))
         dispatch(clientOperationsActions.setClientOperationsList([]))
-        if(operation_status) {
+        if(company_type) {
             company_type?.type === "agent"
                 ? dispatch(getAgentsOperationsThunk(mode, true, "", "", "", operation_status))
                 : dispatch(getClientOperationsThunk(mode, true, "", "", "", operation_status));
         }
-    }, [operation_status]);
+    }, [company_type]);
 
+    useEffect(() => {
+        if (cancellation_success) {
+            setBadReview(true)
+        }
+    }, [cancellation_success])
+
+
+    //handlers
+    let setBadReviewHandler = () => {
+        setBadReview(false)
+        dispatch(agentOperationsActions.setCancellationConfirmation(''))
+    }
 
     return (
         <Layout>
+            <ModalWindow isOpen={isBadReview}>
+                <AgentCancellationBadReviewPopup setBadReviewHandler={setBadReviewHandler}
+                />
+            </ModalWindow>
             {company_type?.type === "agent" ? (
                 <AgentOperationsListContainer
                     setSearchMode={setSearchMode}

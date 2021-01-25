@@ -38,9 +38,9 @@ const MapComponent: React.FC<Interface> = (props) => {
             {props.events && props.events.length > 0 && props.events.map((ev: any, index: number) => <div key={index}>
                 <Polyline
                     path={[
-                        {lat: Number(ev?.origin?.latitude), lng: Number(ev?.origin?.longitude)},
+                        {lat: ev?.origin?.latitude, lng: ev?.origin?.longitude},
                         //...ev?.locations,
-                        {lat: Number(ev?.destination?.latitude), lng: Number(ev?.destination?.longitude)}
+                        {lat: ev?.destination?.latitude, lng: ev?.destination?.longitude}
                     ]}
                     options={{
                         geodesic: true,

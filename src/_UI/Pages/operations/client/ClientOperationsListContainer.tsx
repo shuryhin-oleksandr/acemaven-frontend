@@ -15,6 +15,7 @@ import { OperationType } from "../../../../_BLL/types/operations/operationsTypes
 import ClientOperationTable from "./table/ClientOperationTable";
 import MapComponent from "../../dashboard/MapComponent/MapComponent";
 import { MapWrapper } from "../../dashboard/dashboard-styles";
+import {autoTrackWithEventsHelper} from "../../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
 
 type PropsType = {
   setSearchMode: (value: boolean) => void;
@@ -37,15 +38,9 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
   const [isHide, setIsHide] = useState(false);
 
   // SEA
-  let events = props.operations_list.map(o => ({
-    ...o.tracking_initial,
-    locations: o.tracking?.map((ot: any) => ot.data && ot.data.data && ot.data.data.length > 0 && ot.data?.data?.locations.filter((l: any) => (l && {lat: l.lat, lng: l.lng})))
-  }))
-  // AIR
-  let air_events = props.operations_list.map(o => ({
-    ...o.tracking_initial,
-    locations: o.tracking?.map((ot: any) => ot.data?.events?.map((e: any) => ({lat: e.ecefLatitude, lng: e.ecefLongitude})))
-  }))
+  let events = autoTrackWithEventsHelper(props.operations_list)
+  //AIR
+  let air_events = autoTrackWithEventsHelper(props.operations_list)
 
   return (
     <OperationsWrapper>

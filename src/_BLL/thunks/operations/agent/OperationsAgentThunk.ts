@@ -133,8 +133,8 @@ export const cancelOperationByAgentThunk = (
         try {
             dispatch(agentOperationsActions.setIsFetching(true));
             await operationsAgentAPI.cancelOperationByAgent(id, data);
-            dispatch(agentOperationsActions.setCancellationConfirmation("cancelled"));
             history.push("/operations_cancelled");
+            dispatch(agentOperationsActions.setCancellationConfirmation("cancelled"));
             dispatch(agentOperationsActions.setIsFetching(false));
         } catch (e) {
             console.log(e);

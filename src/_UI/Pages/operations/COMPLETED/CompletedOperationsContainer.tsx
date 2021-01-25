@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import Layout from "../../../components/BaseLayout/Layout";
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//BLL
 import {AppStateType} from "../../../../_BLL/store";
-import AgentOperationsListContainer from "../agent/AgentOperationsListContainer";
-import ClientOperationsListContainer from "../client/ClientOperationsListContainer";
 import {agentOperationsActions} from "../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 import {clientOperationsActions} from "../../../../_BLL/reducers/operations/client/clientOperationsReducer";
 import {getAgentsOperationsThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
@@ -12,6 +11,12 @@ import {
     getAgentsOperationsListSelector,
     getClientOperationsListSelector
 } from "../../../../_BLL/selectors/operations/agentOperationsSelector";
+//components
+import Layout from "../../../components/BaseLayout/Layout";
+import AgentOperationsListContainer from "../agent/AgentOperationsListContainer";
+import ClientOperationsListContainer from "../client/ClientOperationsListContainer";
+
+
 
 const CompletedOperationsContainer:React.FC = () => {
 
@@ -38,12 +43,12 @@ const CompletedOperationsContainer:React.FC = () => {
     useEffect(() => {
         dispatch(agentOperationsActions.setAgentOperationsList([]))
         dispatch(clientOperationsActions.setClientOperationsList([]))
-        if(operation_status) {
+        if(company_type) {
             company_type?.type === "agent"
                 ? dispatch(getAgentsOperationsThunk(mode, true, "", "", "", operation_status))
                 : dispatch(getClientOperationsThunk(mode, true, "", "", "", operation_status));
         }
-    }, [operation_status]);
+    }, [company_type]);
 
     return (
         <Layout>

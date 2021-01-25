@@ -43,6 +43,8 @@ type PropsType = {
     first_time?: string,
     second_time?: string,
     register?: any,
+    disabled_condition1?: boolean,
+    disabled_condition2?: boolean,
 }
 
 const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, register, required_dates, ...props}) => {
@@ -83,6 +85,12 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
             setValue(props.date_name_first, moment(props.departure_date, 'DD/MM/YYYY').toDate())
             setValue(props.date_name_second, moment(props.arrival_date, 'DD/MM/YYYY').toDate())
         }
+        if(props.departure_date) {
+            setSelectedDay({
+                from: moment(props.departure_date, 'DD/MM/YYYY').toDate()
+            })
+            setValue(props.date_name_first, moment(props.departure_date, 'DD/MM/YYYY').toDate())
+        }
         if(props.first_time && props.second_time) {
             setValue(props.time_name_first, props.first_time)
             setValue(props.time_name_second, props.second_time)
@@ -112,7 +120,8 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                         as={
                             <DayPickerInput
                                 inputProps={{
-                                    readOnly:'readonly'
+                                    readOnly: true,
+                                    disabled: props.disabled_condition1
                                 }}
                                 format='DD/MM/YYYY'
                                 placeholder='DD/MM/YYYY'
@@ -145,6 +154,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                                 }
                     />
             </Wrapper>
+
             <Wrapper justify_content={props.justify_content} wrapper_width={props.wrapper_width}>
                 <CalendarWrapper max_width={!props.second_time ? '225px' : '235px'}
                                  input_height='40px' margin_right='10px' margin_bottom='5px'>
@@ -165,7 +175,8 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                         as={
                             <DayPickerInput
                                 inputProps={{
-                                    readOnly:'readonly'
+                                    readOnly:'readonly',
+                                    disabled: props.disabled_condition2
                                 }}
                                 format='DD/MM/YYYY'
                                 placeholder='DD/MM/YYYY'

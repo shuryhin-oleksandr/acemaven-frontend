@@ -16,7 +16,8 @@ type PropsType = {
     font_weight?: string,
     label_uppercase?: boolean,
     default_location?: string,
-    default_address?: string
+    default_address?: string,
+    disabled: boolean
 }
 
 export const LocationBlock:React.FC<PropsType> = ({register, errors, label, field_name, google_field_name, google_label, margin_bottom, color_label, ...props}) => {
@@ -33,6 +34,7 @@ export const LocationBlock:React.FC<PropsType> = ({register, errors, label, fiel
                        font_weight={props.font_weight}
                        label_uppercase={props.label_uppercase}
                        defaultValue={props.default_location ? props.default_location : ''}
+                       disabled={props.disabled}
             />
             <GoogleInput register={register}
                          google_field_name={google_field_name}
@@ -42,6 +44,8 @@ export const LocationBlock:React.FC<PropsType> = ({register, errors, label, fiel
                          font_weight={props.font_weight}
                          label_uppercase={props.label_uppercase}
                          defaultValue={props.default_address}
+                         disabled={props.disabled}
+
             />
         </>
     )

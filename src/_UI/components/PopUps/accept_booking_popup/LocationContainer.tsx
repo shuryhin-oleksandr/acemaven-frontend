@@ -1,6 +1,7 @@
 import React from 'react'
 import LocationBlock from "./LocationBlock";
 import {ShipmentDetailsType} from "../../../../_BLL/types/operations/operationsTypes";
+import moment from "moment";
 
 type PropsType = {
     register: any,
@@ -10,10 +11,15 @@ type PropsType = {
     color_label?: string,
     font_weight?: string,
     label_uppercase?: boolean,
-    shipment_details?:  ShipmentDetailsType | null
+    shipment_details?:  ShipmentDetailsType | null,
+    documents_cut_off_date?: string
 }
 
 const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, shipping_mode, color_label, font_weight, ...props}) => {
+
+    let today = moment(new Date()).format('DD/MM/YYYY')
+    let disabled = props.documents_cut_off_date && props.documents_cut_off_date < today
+
     return (
         <>
             {direction === 'export'
@@ -30,6 +36,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                                       label_uppercase={props.label_uppercase}
                                       default_location={props.shipment_details?.empty_pick_up_location}
                                       default_address={props.shipment_details?.empty_pick_up_location_address}
+                                      disabled={!!disabled}
                     />
                     }
                     <LocationBlock register={register}
@@ -43,6 +50,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                                    label_uppercase={props.label_uppercase}
                                    default_location={props.shipment_details?.cargo_drop_off_location}
                                    default_address={props.shipment_details?.cargo_drop_off_location_address}
+                                   disabled={!!disabled}
                     />
                 </>
                 : <LocationBlock register={register}
@@ -56,6 +64,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                                  label_uppercase={props.label_uppercase}
                                  default_location={props.shipment_details?.cargo_pick_up_location}
                                  default_address={props.shipment_details?.cargo_pick_up_location_address}
+                                 disabled={!!disabled}
                 />
             }
         </>

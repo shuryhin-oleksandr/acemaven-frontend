@@ -165,7 +165,7 @@ const ManualTracking: React.FC<PropsType> = ({
     );
 
 
-    let actual_departure_status = manual_tracking.find(m => m.status === 'Vessel Departed' || m.status === 'Aircraft Departed')
+    let actual_departure_status = manual_tracking?.find(m => m?.status === 'Vessel Departed' || m?.status === 'Aircraft Departed')
 
     useEffect(() => {
         if(actual_departure_status) {
@@ -278,7 +278,6 @@ const ManualTracking: React.FC<PropsType> = ({
                                                                             required_dates={false}
                                                                             label1=''
                                                                             justify_content='flex-start'
-
                                             />
                                         }
 
@@ -307,20 +306,20 @@ const ManualTracking: React.FC<PropsType> = ({
                             )}
 
                             {manual_tracking.map((row) => (
-                                <TableRow key={row.id}>
+                                <TableRow key={row?.id}>
                                     <TableCell
                                         valign={"top"}
                                         className={classes.innerCell}
                                         align="left"
                                     >
-                                        {moment(row.date_created).format("DD/MM")}
+                                        {moment(row?.date_created).format("DD/MM")}
                                         <span
                                             style={{
                                                 marginLeft: "15px",
                                                 fontFamily: "Helvetica Reg, sans-serif",
                                             }}
                                         >
-                      {moment(row.date_created).format("HH:MM")}
+                      {moment(row?.date_created).format("HH:MM")}
                     </span>
                                     </TableCell>
                                     <TableCell
@@ -329,7 +328,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                         align="left"
                                     >
                                         <div style={{fontFamily: "Helvetica Reg, sans-serif"}}>
-                                            {row.status}
+                                            {row?.status}
                                         </div>
                                     </TableCell>
                                     <TableCell
@@ -339,10 +338,10 @@ const ManualTracking: React.FC<PropsType> = ({
                                     >
                                         <div style={{display: "flex"}}>
                                             <div style={{whiteSpace: "nowrap", marginRight: "5px"}}>
-                                                {row.created_by && `${row.created_by}:`}
+                                                {row?.created_by && `${row?.created_by}:`}
                                             </div>
                                             <div style={{fontStyle: "italic", fontFamily: 'Helvetica Light', fontSize: '15px'}}>
-                                                {row.comment}
+                                                {row?.comment}
                                             </div>
                                         </div>
                                     </TableCell>
@@ -353,11 +352,11 @@ const ManualTracking: React.FC<PropsType> = ({
                                     >
                                         {moment
                                             .utc(dateTime)
-                                            .diff(moment.utc(row.date_created), "seconds") <= 300 && (
+                                            .diff(moment.utc(row?.date_created), "seconds") <= 300 && (
                                             <img
                                                 style={{cursor: "pointer"}}
                                                 onClick={() => {
-                                                    dispatch(deleteTrackingStatus(row.id));
+                                                    dispatch(deleteTrackingStatus(row?.id));
                                                 }}
                                                 src={Garbage}
                                                 alt={""}

@@ -61,6 +61,9 @@ export const Field = styled.input<PropsStyle>`
     opacity: 0;
     transition: 0.5s;
   }
+  &:disabled {
+    background-color: #ECECEC;
+  }
 `;
 
 export const Label = styled.div<PropsStyle>`

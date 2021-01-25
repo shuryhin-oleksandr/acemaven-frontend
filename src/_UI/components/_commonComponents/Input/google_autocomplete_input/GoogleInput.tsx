@@ -20,7 +20,8 @@ type PropsType = {
     color_label?: string,
     font_weight?: string,
     label_uppercase?: boolean,
-    defaultValue?: string
+    defaultValue?: string,
+    disabled: boolean
 }
 
 const useStyles = makeStyles({
@@ -80,13 +81,15 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, g
                             <input
                                 {...getInputProps({
                                     placeholder: 'Placeholder',
-                                    className: 'location-search-input'
+                                    className: 'location-search-input',
+                                    disabled: props.disabled
                                 })}
                                 name={google_field_name}
                                 ref={register({
                                     required: 'Field is required'
                                 })
                                 }
+                                style={{backgroundColor: props.disabled ? "#ECECEC" : 'white'}}
                             />
                             <Tooltip title='You can use automatic address search'
                                      arrow

@@ -228,13 +228,20 @@ export const getManualTrackingStatusOptions = (
 };
 
 export const updateShipmentInfo = (data: any, reset: any) => {
-    return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    return async (dispatch: any, getState: () => AppStateType) => {
         try {
-            let response = await operationsAgentAPI.updateShipmentInfo(data);
-            dispatch(agentOperationsActions.updateTrackingInfoList(response.data));
-            reset();
+            dispatch(agentOperationsActions.setIsFetching(true));
+            await operationsAgentAPI.updateShipmentInfo(data);
+            setTimeout(() => {
+                let response = dispatch(getAgentExactOperationThunk(Number(getState().agent_operations.agent_operation_info?.id)))
+                dispatch(agentOperationsActions.updateTrackingInfoList(response.data?.tracking));
+            }, 0)
+
+            //reset()
+            dispatch(agentOperationsActions.setIsFetching(false));
         } catch (e) {
             console.log(e);
+            dispatch(agentOperationsActions.setIsFetching(false));
         }
     };
 };

@@ -50,11 +50,16 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
     let cargo_cut_off_date = moment(shipment?.cargo_cut_off_date?.slice(6)).format('DD/MM/YYYY')
     let cargo_cut_off_time = shipment?.cargo_cut_off_date?.slice(0, 5)
 
+    //actual time of departure and arrival
+    let actual_date_of_departure = shipment?.actual_date_of_departure && moment(shipment?.actual_date_of_departure?.slice(6)).format('DD/MM/YYYY')
+    let actual_time_of_departure = shipment?.actual_date_of_departure && shipment?.actual_date_of_departure?.slice(0, 5)
+    let actual_date_of_arrival = shipment?.actual_date_of_arrival && moment(shipment?.actual_date_of_arrival?.slice(6)).format('DD/MM/YYYY')
+    let actual_time_of_arrival = shipment?.actual_date_of_arrival && shipment?.actual_date_of_arrival?.slice(0, 5)
+
 
     const dispatch = useDispatch()
     const {register, handleSubmit, errors, setValue, control} = useForm()
     const onSubmit = (values: any) => {
-
         let date_of_departure = moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time
         let date_of_arrival = moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time
         let document_cut_off_date = moment(values.documents_cut_off?.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off?.cut_off_time
@@ -116,6 +121,12 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
         })
         setValue('payment_due_by', to)
     }
+
+    let today = moment(new Date()).format('DD/MM/YYYY')
+
+    let disabled_condition_1 = !!(actual_date_of_departure && actual_date_of_departure > today)
+    let disable_condition_2 = !!(actual_date_of_arrival && today < actual_date_of_arrival )
+    console.log(disabled_condition_1)
 
 
     return (
@@ -244,6 +255,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                font_weight='Helvetica Bold'
                                                label_uppercase={true}
                                                shipment_details={shipment ? shipment : null}
+                                               documents_cut_off_date={documents_cut_off_date}
+
                             />
                             <AcceptPopupDates control={control}
                                               errors={{
@@ -268,6 +281,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                               departure_date={departure_date}
                                               first_time={departure_time}
                                               second_time={arrival_time}
+                                              //disabled_condition1={!disabled_condition_1}
+                                              //disabled_condition2={!disable_condition_2}
 
                             />
                             {direction === 'export'
@@ -295,6 +310,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                  first_time={documents_cut_off_time}
                                                  arrival_date={cargo_cut_off_date}
                                                  second_time={cargo_cut_off_time}
+                                                 //disabled_condition1={!disabled_condition_1}
+                                                 //disabled_condition2={!disable_condition_2}
                             />
                             }
                             <AcceptPopupDates control={control}
@@ -317,8 +334,10 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                               //after={moment(operation_info?.date_from, 'DD/MM/YYYY').toDate()}
                                               justify_content='flex-start'
                                               max_width='655px'
-                                              first_time={' '}
-                                              second_time={" "}
+                                              departure_date={actual_date_of_departure}
+                                              arrival_date={actual_date_of_arrival}
+                                              first_time={actual_time_of_departure ? actual_time_of_departure : ' '}
+                                              second_time={actual_time_of_arrival ? actual_time_of_departure : ' ' }
                             />
                         </div>
                         {(operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL) &&

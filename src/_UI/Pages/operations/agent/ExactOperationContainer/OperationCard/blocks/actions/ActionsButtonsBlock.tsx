@@ -38,7 +38,11 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
 
     return (
         <ActionsButtons>
-
+            {operation_info?.status === AppOperationBookingStatusesType.CONFIRMED && (my_name === props.agent_contact_name) &&
+            <AcceptButton style={{width: '146px'}} onClick={() => props.setEdit(true)}>
+                UPDATE
+            </AcceptButton>
+            }
             {!props.ATD
             && <>
                 {operation_info?.has_change_request
@@ -50,12 +54,6 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                     CONFIRM CHANGES
                 </AcceptButton>
                 }
-                {operation_info?.status === AppOperationBookingStatusesType.CONFIRMED && (my_name === props.agent_contact_name) &&
-                <AcceptButton style={{width: '146px'}} onClick={() => props.setEdit(true)}>
-                    UPDATE
-                </AcceptButton>
-                }
-
                 {company_type?.type === AppCompaniesTypes.AGENT
                     ? (operation_info?.agent_contact_person === my_name
                         ? (operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT

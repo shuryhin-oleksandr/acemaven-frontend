@@ -78,7 +78,7 @@ const SignInPage = ({history}) => {
                     valid={touched.password && !errors.password}
                     error={touched.password && errors.password}
                   />
-                    {loginFail && <ErrorServerMessage>{loginFail}</ErrorServerMessage>}
+                    {loginFail && <ErrorServerMessage style={{paddingTop: errors.password && '20px'}}>{loginFail}</ErrorServerMessage>}
                   <ButtonWrapper>
                     <BaseButton
                       type="submit"
@@ -110,7 +110,7 @@ const ButtonWrapper = styled.div`
 `;
 
 export const ErrorServerMessage = styled.div`
-  width: 100%;
+    width: 100%;
     padding-top: 5px;
     padding-bottom: 5px;
     text-align:end;

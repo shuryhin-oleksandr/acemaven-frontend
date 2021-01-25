@@ -34,7 +34,7 @@ type PropsType = {
 
 const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, company_type,setReviewPopup, ...props}) => {
 
-    const departedStatus = operation_info.tracking.some(t => t.status === "Aircraft Departed" || t.status === "Vessel Departed" );
+    const departedStatus = operation_info.tracking?.some(t => t.status === "Aircraft Departed" || t.status === "Vessel Departed" );
 
     return (
         <ActionsButtons>

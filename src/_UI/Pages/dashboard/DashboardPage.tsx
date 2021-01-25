@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 //react-hook-form
 import {useForm} from "react-hook-form";
 //react-redux
@@ -6,6 +6,10 @@ import {useDispatch, useSelector} from "react-redux";
 //BLL
 import {AppStateType} from "../../../_BLL/store";
 import {searchActions} from "../../../_BLL/reducers/search_client/searchClientReducer";
+import {getBookingRequestListSelector} from "../../../_BLL/selectors/booking/bookingAgentSelector";
+import {getBookingRequestListThunk} from "../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
+//helpers
+import {autoTrackWithEventsHelper} from "../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
 //types
 import {
     CargoGroupType,
@@ -17,7 +21,7 @@ import {
     PortType,
     ShippingTypeType,
 } from "../../../_BLL/types/rates&surcharges/ratesTypes";
-import {CurrentShippingType, ShippingTypesEnum} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {CurrentShippingType} from "../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {PackagingType} from "../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {OperationType} from "../../../_BLL/types/operations/operationsTypes";
 import {AppCompaniesTypes} from "../../../_BLL/types/commonTypes";
@@ -92,16 +96,27 @@ const DashboardPage: React.FC<PropsType> = ({
                                                 frozen_choices,
                                                 origin_port_value, ...props
                                             }) => {
-    const dispatch = useDispatch();
 
+
+    //local state
     const [dates, setDates] = useState([]);
-    const currentBookingRate = useSelector(
-        (state: AppStateType) => state.booking.current_booking_freight_rate
-    );
-    const [bookingPopupVisible, setBookingPopupVisible] = useState(false); //switch to false!!!
+    const [bookingPopupVisible, setBookingPopupVisible] = useState(false);
+
+
+    //data from store
     const auth_user = useSelector((state: AppStateType) => state.profile.authUserInfo);
     const company = auth_user?.companies && auth_user?.companies[0].type
+    let requests = useSelector(getBookingRequestListSelector)
+    const currentBookingRate = useSelector((state: AppStateType) => state.booking.current_booking_freight_rate);
 
+
+    //hooks
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getBookingRequestListThunk('', '', '', ''))
+    }, [])
+
+    //form logic
     const {
         handleSubmit,
         register,
@@ -137,22 +152,7 @@ const DashboardPage: React.FC<PropsType> = ({
         setDates([]);
     };
 
-    let operations_with_auto_tracking = props.operations_list.filter(o => o.tracking.length > 0 && o)
-
-
-    let events = operations_with_auto_tracking.map(o => ({
-        ...o.tracking_initial,
-        locations: o.shipping_type === ShippingTypesEnum.AIR
-            ? o.tracking?.map((ot: any) => ot?.data?.events.map((e: any) => ({
-                lat: e.ecefLatitude,
-                lng: e.ecefLongitude
-            })))[0]
-            : o.tracking?.map((ot: any) => ot?.data?.data.length > 0 && ot.data.data.locations.filter((l: any) => (l && {
-                lat: l.lat,
-                lng: l.lng
-            })))[0]
-    }))
-
+   let events = autoTrackWithEventsHelper(props.operations_list)
 
     return (
         <DashboardWrapper>
@@ -224,8 +224,8 @@ const DashboardPage: React.FC<PropsType> = ({
                         ? <FeePaymentWidget/>
                         : <OperationsInProgressWidget />
                     }
-                    {company === AppCompaniesTypes.AGENT
-                    && <RequestWidget/>
+                    {company === AppCompaniesTypes.AGENT && requests.length > 0
+                    && <RequestWidget requests={requests}/>
                     }
                     <LatestQuotesWidget/>
                     {company === AppCompaniesTypes.CLIENT

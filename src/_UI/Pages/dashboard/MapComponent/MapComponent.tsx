@@ -50,7 +50,10 @@ const MapComponent: React.FC<Interface> = (props) => {
                         icons: polylineIcons({
                             start: {lat: Number(ev?.origin?.latitude), lng: Number(ev?.origin?.longitude)},
                             end: {lat: Number(ev?.destination?.latitude), lng: Number(ev?.destination?.longitude)},
-                            now: {lat: Number(ev?.locations[ev?.locations?.length - 1]?.lat), lng: Number(ev?.locations[ev?.locations?.length - 1]?.lng)},
+                            now: {
+                                lat: ev?.locations ? Number(ev?.locations[ev?.locations?.length - 1]?.lat) : 0,
+                                lng: ev?.locations ? Number(ev?.locations[ev?.locations?.length - 1]?.lng) : 0
+                            },
                             typeTransportation: ev?.shipping_type,
                             processType: ev?.direction
                         })

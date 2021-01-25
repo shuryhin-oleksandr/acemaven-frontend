@@ -121,7 +121,7 @@ const OperationCard: React.FC<PropsType> = ({
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_SYSTEM
                         &&
-                        <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
+                        <ActionsButtonsBlock  agent_contact_name={props.agent_contact_name}
                                               client_contact_name={props.client_contact_name}
                                               operation_info={operation_info}
                                               my_name={my_name}

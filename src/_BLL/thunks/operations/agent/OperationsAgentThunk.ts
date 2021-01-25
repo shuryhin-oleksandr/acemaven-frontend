@@ -43,7 +43,7 @@ export const getAgentExactOperationThunk = (id: number) => {
             dispatch(agentOperationsActions.setIsFetching(true));
             let res = await operationsAgentAPI.getAgentExactOperation(id);
             if (!res.data.automatic_tracking) {
-              debugger
+
                 let departed_set = res.data.tracking.some((t: TrackingBackendType) => t.status === 'Vessel Departed' || t.status === 'Aircraft Departed')
                 departed_set
                     ? dispatch(getManualTrackingStatusOptions(res.data.freight_rate.shipping_mode.id, res.data.tracking_initial.direction, true))
@@ -87,6 +87,7 @@ export const editOperationByAgentThunk = (data: any, id: number) => {
         }
     };
 };
+
 
 export const editOperationPaymentDueByAgentThunk = (data: any, id: number) => {
     return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
@@ -239,10 +240,12 @@ export const updateShipmentInfo = (data: any, reset: any) => {
 };
 
 export const deleteTrackingStatus = (id: number) => {
-    return async (dispatch: Dispatch<commonAgentOperationsActions>) => {
+    return async (dispatch: any, getState: () => AppStateType) => {
         try {
             await operationsAgentAPI.deleteTrackingStatus(id);
             dispatch(agentOperationsActions.deleteTrackingStatus(id));
+            let current_operation_id = getState().agent_operations.agent_operation_info?.id
+            dispatch(getAgentExactOperationThunk(Number(current_operation_id)))
         } catch (e) {
             console.log(e);
         }

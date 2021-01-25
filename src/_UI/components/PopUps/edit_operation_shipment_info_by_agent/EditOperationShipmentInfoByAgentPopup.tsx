@@ -68,8 +68,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
             date_of_arrival: date_of_arrival,
             document_cut_off_date: document_cut_off_date,
             cargo_cut_off_date: cargo_cut_off_date,
-            actual_time_of_departure: actual_time_of_departure ? actual_time_of_departure : null,
-            actual_time_of_arrival: actual_time_of_arrival ? actual_time_of_arrival : null
+            actual_date_of_departure: actual_time_of_departure ? actual_time_of_departure : null,
+            actual_date_of_arrival: actual_time_of_arrival ? actual_time_of_arrival : null
         }
         delete final_data.estimated_time
         delete final_data.documents_cut_off

@@ -23,7 +23,10 @@ import {
     getManualTrackingStatusOptions,
     updateShipmentInfo,
 } from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
-import {getTrackingStatusOptions} from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
+import {
+    getExactOperationSelector,
+    getTrackingStatusOptions
+} from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import moment from "moment";
 import {agentOperationsActions} from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 import {AppStateType} from "../../../../../../../../_BLL/store";
@@ -142,10 +145,7 @@ const ManualTracking: React.FC<PropsType> = ({
     const classes = useStyles();
     let dispatch = useDispatch();
 
-   /* useEffect(() => {
-        dispatch(getManualTrackingStatusOptions(shipping_mode_id, direction));
-    }, []);
-*/
+
     useEffect(() => {
         const id = setInterval(() => setDateTime(new Date()), 1000);
         return () => {
@@ -164,6 +164,16 @@ const ManualTracking: React.FC<PropsType> = ({
         (state: AppStateType) => state.agent_operations.tracking_data
     );
 
+
+    let actual_departure_status = manual_tracking.find(m => m.status === 'Vessel Departed' || m.status === 'Aircraft Departed')
+
+    useEffect(() => {
+        if(actual_departure_status) {
+            dispatch(getManualTrackingStatusOptions(shipping_mode_id, direction, true));
+        }
+    }, [actual_departure_status]);
+
+
     //react hook form
     const {handleSubmit, errors, control, reset, register, watch, setValue} = useForm({
         reValidateMode: "onBlur",
@@ -178,20 +188,19 @@ const ManualTracking: React.FC<PropsType> = ({
 
     //onSubmit
     const onSubmit = (values: any) => {
-        debugger
         const data = {...values, booking: booking_id};
         if(!finded_status) {
             dispatch(updateShipmentInfo(data, reset));
         } else {
             let ATD = {
                 status: values.status,
-                actual_time_of_departure: moment(values.date).format('DD/MM/YYYY') + ' ' + values.time,
+                actual_date_of_departure: moment(values.date).format('DD/MM/YYYY') + ' ' + values.time,
                 booking: booking_id,
                 comment: `At ${moment(values.date).format('DD/MM/YYYY') + ' ' + values.time}`
             }
             let ATA = {
                 status: values.status,
-                actual_time_of_arrival: moment(values.date).format('DD/MM/YYYY') + ' ' + values.time,
+                actual_date_of_arrival: moment(values.date).format('DD/MM/YYYY') + ' ' + values.time,
                 booking: booking_id,
                 comment: `At ${moment(values.date).format('DD/MM/YYYY') + ' ' + values.time}`
             }

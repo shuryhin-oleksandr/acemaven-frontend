@@ -19,11 +19,12 @@ import {
   Row,
   ToBookText,
   ConfirmButton,
-  RejectButton,
+  RejectButton, NoMap,
 } from "./billing-card-styles";
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import SmallMapComponent from "../../../operations/agent/ExactOperationContainer/OperationCard/blocks/shipments_tracking_block/SmallMapComponent";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import IconLocation from "../../../../assets/icons/location_blue.svg";
 
 type PropTypes = {
   billing: BillingOperationType;
@@ -31,15 +32,30 @@ type PropTypes = {
 };
 
 const BillingCard: React.FC<PropTypes> = ({ billing, cancelBooking }) => {
+  const hasOriginCoordinates =
+    billing.origin.coordinates?.hasOwnProperty("latitude") &&
+    billing.origin.coordinates?.hasOwnProperty("longitude");
+
+  const hasDestinationCoordinates =
+    billing.destination.coordinates?.hasOwnProperty("latitude") &&
+    billing.destination.coordinates?.hasOwnProperty("longitude");
   return (
     <CardContainer>
-      <BillingMapComponent
-        loadingElement={<div />}
-        containerElement={<MapWrapper />}
-        mapElement={<div style={{ height: "233px" }} />}
-        origin_coordinates={billing.origin.coordinates}
-        destination_coordinates={billing.destination.coordinates}
-      />
+      {hasOriginCoordinates && hasDestinationCoordinates ? (
+        <BillingMapComponent
+          loadingElement={<div />}
+          containerElement={<MapWrapper />}
+          mapElement={<div style={{ height: "233px" }} />}
+          origin_coordinates={billing.origin.coordinates}
+          destination_coordinates={billing.destination.coordinates}
+        />
+      ) : (
+        <NoMap>
+          <img src={IconLocation} alt="" style={{ marginRight: "7px" }} />
+          Map is not available.
+        </NoMap>
+      )}
+
       <InformationWrapper>
         <Row style={{ justifyContent: "space-between" }}>
           <Route>

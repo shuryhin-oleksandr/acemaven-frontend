@@ -64,12 +64,6 @@ const BillingMapComponent: React.FC<PropsType> = ({
             lat: Number(destination_coordinates?.latitude),
             lng: Number(destination_coordinates?.longitude),
           },
-          now: {
-            lat: Number(origin_coordinates?.latitude),
-            lng: Number(origin_coordinates?.longitude),
-          },
-          processType: "Import",
-          red_icon_marker: red_icon_marker,
         }),
       }}
     />

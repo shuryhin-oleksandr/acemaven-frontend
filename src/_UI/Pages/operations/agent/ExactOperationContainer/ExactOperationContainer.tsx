@@ -52,10 +52,7 @@ const ExactOperationContainer = ({...props}) => {
     let local_time = moment(new Date()).format(" DD/MM  h:mm a");
 
     const [isAcceptPopup, openAcceptPopup] = useState(false);
-    const [
-        clientChangRequestPopupVisible,
-        setClientChangRequestPopupVisible,
-    ] = useState(false);
+    const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
     const [isCompleteOperation, setCompleteOperationPopup] = useState(false);
     const [isCancelByAgent, setIsCancelByAgent] = useState(false);
     const [isChangeRequestPopup, setChangeRequestPopup] = useState(false);
@@ -65,11 +62,7 @@ const ExactOperationContainer = ({...props}) => {
     const [isReviewPopup, setReviewPopup] = useState(false);
 
     //data from store
-    let company_type = useSelector(
-        (state: AppStateType) =>
-            state.profile.authUserInfo?.companies &&
-            state.profile.authUserInfo?.companies[0]
-    );
+    let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo?.companies[0]);
     let agent_operation_info = useSelector(getExactOperationSelector);
     let client_operation_info = useSelector(getExactClientOperationSelector);
     let operation_info = company_type?.type === 'agent' ? agent_operation_info : client_operation_info;
@@ -87,7 +80,7 @@ const ExactOperationContainer = ({...props}) => {
 
     let ATD = actualDepartureHelper(operation_info, manual_tracking_data)
 
-
+//handlers
     const closeHandler = () => {
         if (operation_info?.status === AppOperationBookingStatusesType.CANCELED_BY_CLIENT) {
             history.push("/operations_cancelled")

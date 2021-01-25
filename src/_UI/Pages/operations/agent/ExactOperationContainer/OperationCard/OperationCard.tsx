@@ -72,7 +72,6 @@ const OperationCard: React.FC<PropsType> = ({
                                             }) => {
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
-   //let manual_tracking_without_error = operation_info?.tracking.filter(m => m.status)
 
 
     return (

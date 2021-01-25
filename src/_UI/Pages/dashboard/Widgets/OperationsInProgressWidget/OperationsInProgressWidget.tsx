@@ -63,8 +63,8 @@ const OperationsInProgressWidget: React.FC = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {latest_list.map((operation) => (
-                        <TableRow key={operation?.id} className={classes.row} onClick={() => goToPage(operation?.id)}>
+                    {latest_list.map((operation, index: number) => (
+                        <TableRow key={operation?.id + index} className={classes.row} onClick={() => goToPage(operation?.id)}>
                             <TableCell className={classes.innerCell}>
                                 <div
                                     style={{

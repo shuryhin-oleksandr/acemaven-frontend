@@ -76,16 +76,17 @@ const ConfirmedDatesContainerBlock: React.FC<PropsType> = ({shipment, operation_
                             </InfoRow>
                         </div>
                         }
-                        {/*<div style={{width: "20%", display: "flex", flexDirection: "column",}}>
-                <InfoRow>
-                  <InfoRowLabel>ACTUAL TIME OF DEPARTURE</InfoRowLabel>
-                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-                </InfoRow>
-                <InfoRow>
-                  <InfoRowLabel>ACTUAL TIME OF ARRIVAL</InfoRowLabel>
-                  <InfoRowValue>17 APR 2020, 12:00</InfoRowValue>
-                </InfoRow>
-              </div>*/}
+                        <div style={{width: "20%", display: "flex", flexDirection: "column",}}>
+                            {shipment?.actual_date_of_departure && <InfoRow>
+                                <InfoRowLabel>ACTUAL TIME OF DEPARTURE</InfoRowLabel>
+                                <InfoRowValue>{shipment?.actual_date_of_departure}</InfoRowValue>
+                            </InfoRow>
+                            }
+                            {shipment?.actual_date_of_arrival &&  <InfoRow>
+                                <InfoRowLabel>ACTUAL TIME OF ARRIVAL</InfoRowLabel>
+                                <InfoRowValue>{shipment?.actual_date_of_arrival}</InfoRowValue>
+                            </InfoRow>}
+                          </div>
                     </>
                     }
                 </GeneralBookingContent>

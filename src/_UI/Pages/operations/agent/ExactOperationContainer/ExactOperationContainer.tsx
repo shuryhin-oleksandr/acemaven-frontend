@@ -126,13 +126,13 @@ const ExactOperationContainer = ({...props}) => {
     let id = query.id;
 
     useEffect(() => {
-        company_type?.type === "agent"
+        company_type && (company_type?.type === "agent"
             ? dispatch(getAgentExactOperationThunk(operation_id))
-            : dispatch(getClientExactOperationThunk(operation_id));
+            : dispatch(getClientExactOperationThunk(operation_id)));
         return () => {
             unmountHandler();
         };
-    }, []);
+    }, [company_type]);
 
     let cancelOperationByAgentHandler = (data: { reason: string, comment: string }) => {
         dispatch(cancelOperationByAgentThunk(id, data, history))
@@ -173,7 +173,6 @@ const ExactOperationContainer = ({...props}) => {
             dispatch(agentOperationsActions.setEditSuccess(''))
         }
     }, [edit_operation_by_agent_success])
-
 
     return (
         <Layout>

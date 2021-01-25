@@ -7,19 +7,19 @@ interface InterfaceFuncIcons {
 }
 
 interface InterfaceCoords {
-  lat: number,
+  lat: number ,
   lng: number
 }
 
 export const polylineIcons = (props: InterfaceFuncIcons) => {
   const pathValue = (value1: InterfaceCoords, value2: InterfaceCoords) => {
-    return Math.sqrt((value2.lat - value1.lat) * (value2.lat -value1.lat) +
-      (value2.lng - value1.lng) * (value2.lng - value1.lng))
+      return Math.sqrt((value2.lat - value1.lat) * (value2?.lat -value1?.lat) +
+          (value2.lng - value1.lng) * (value2.lng - value1.lng))
   }
   const {typeTransportation, processType, start, end, now} = props;
   const passed = pathValue(start, now);
   const left = pathValue(now, end);
-  const offset = passed * 100 /(passed + left) + "%";
+  const offset = passed * 100 /(passed +  left) + "%";
   const iconTransportation = typeTransportation === "sea" ?
     [{
       icon: {

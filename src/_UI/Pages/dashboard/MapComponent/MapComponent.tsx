@@ -1,18 +1,18 @@
-import React, { ReactElement } from "react";
+import React, {ReactElement} from "react";
 import {
-  withGoogleMap,
-  GoogleMap,
-  Polyline
+    withGoogleMap,
+    GoogleMap,
+    Polyline
 } from "react-google-maps";
-import { polylineIcons } from "../../../../_BLL/helpers/tracker/GetIconsForPolylineGoogleMap";
+import {polylineIcons} from "../../../../_BLL/helpers/tracker/GetIconsForPolylineGoogleMap";
 
 
 interface Interface {
-  isMarkerShown?: boolean;
-  loadingElement?: ReactElement;
-  containerElement: ReactElement;
-  mapElement: ReactElement;
-  events: any
+    isMarkerShown?: boolean;
+    loadingElement?: ReactElement;
+    containerElement: ReactElement;
+    mapElement: ReactElement;
+    events: any
 }
 
 const MapComponent: React.FC<Interface> = (props) => {
@@ -33,13 +33,13 @@ const MapComponent: React.FC<Interface> = (props) => {
                 },
             }}
             defaultZoom={3}
-            defaultCenter={{ lat: -3.731862, lng: -38.526669}}
+            defaultCenter={{lat: -3.731862, lng: -38.526669}}
         >
             {props.events && props.events.length > 0 && props.events.map((ev: any, index: number) => <div key={index}>
                 <Polyline
-                    path = {[
+                    path={[
                         {lat: Number(ev?.origin?.latitude), lng: Number(ev?.origin?.longitude)},
-                         //...ev?.locations,
+                        //...ev?.locations,
                         {lat: Number(ev?.destination?.latitude), lng: Number(ev?.destination?.longitude)}
                     ]}
                     options={{
@@ -48,11 +48,11 @@ const MapComponent: React.FC<Interface> = (props) => {
                         strokeOpacity: 1.0,
                         strokeWeight: 2,
                         icons: polylineIcons({
-                            start: {lat: Number(ev?.origin?.latitude), lng: Number(ev?.origin?.longitude)},
-                            end: {lat: Number(ev?.destination?.latitude), lng: Number(ev?.destination?.longitude)},
+                            start: {lat: ev?.origin?.latitude, lng: ev?.origin?.longitude},
+                            end: {lat: ev?.destination?.latitude, lng: ev?.destination?.longitude},
                             now: {
-                                lat: ev?.locations ? Number(ev?.locations[ev?.locations?.length - 1]?.lat) : 0,
-                                lng: ev?.locations ? Number(ev?.locations[ev?.locations?.length - 1]?.lng) : 0
+                                lat: ev?.locations[ev?.locations?.length - 1]?.lat,
+                                lng: ev?.locations[ev?.locations?.length - 1]?.lng
                             },
                             typeTransportation: ev?.shipping_type,
                             processType: ev?.direction

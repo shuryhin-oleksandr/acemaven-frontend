@@ -1,6 +1,4 @@
-import React, {useEffect} from "react";
-//react-redux
-import {useDispatch, useSelector} from "react-redux";
+import React from "react";
 //react-router-dom
 import {useHistory} from "react-router-dom";
 //material ui
@@ -9,13 +7,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-//BLL
-import {getBookingRequestListThunk} from "../../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
-import {getBookingRequestListSelector} from "../../../../../_BLL/selectors/booking/bookingAgentSelector";
 //helpers
 import {getTwoLastElementsHelper} from "../../../../../_BLL/helpers/widgets/getTwoLastElementsHelper";
 //types
 import {ShippingTypesEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {BookingInfoType} from "../../../../../_BLL/types/bookingTypes";
 //components
 import BaseWidget from "../BaseWidgetContainer/BaseWidgetContainer";
 //styles
@@ -26,21 +22,16 @@ import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 
 
 
+type PropsType = {
+    requests:  BookingInfoType[]
+}
 
-const RequestWidget: React.FC = () => {
+const RequestWidget: React.FC<PropsType> = ({requests}) => {
+
     //hooks
-    const dispatch = useDispatch()
     const classes = useStyles();
     const history = useHistory()
 
-    //data from store
-    let requests = useSelector(getBookingRequestListSelector)
-
-
-    //hooks
-    useEffect(() => {
-        dispatch(getBookingRequestListThunk('', '', '', ''))
-    }, [])
 
     //local state (get last 2 elements from an array)
     let latest_list = getTwoLastElementsHelper(requests)

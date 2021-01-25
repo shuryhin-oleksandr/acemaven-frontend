@@ -22,13 +22,13 @@ import { useStyles } from "../WidgetTableStyles";
 //icons
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
-
-
+import { useHistory } from "react-router-dom";
 
 const FeePaymentWidget: React.FC = () => {
   //hooks
   const classes = useStyles();
   let dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     dispatch(getClientBillingOperationsThunk("", "pending", "", ""));
     return () => {
@@ -63,7 +63,13 @@ const FeePaymentWidget: React.FC = () => {
         </TableHead>
         <TableBody>
           {billing_list.map((item) => (
-            <TableRow key={item.id}>
+            <TableRow
+              key={item.id}
+              className={classes.row}
+              onClick={() => {
+                history.push(`/operations/${item.id}`);
+              }}
+            >
               <TableCell className={classes.innerCell}>
                 <div
                   style={{

@@ -1,6 +1,6 @@
 import { CargoGroupQuoteType } from "../../../types/quotes/quotesTypes";
 import { ChoiceType, CostBookingType } from "../../../types/bookingTypes";
-import { OperationType } from "../../../types/operations/operationsTypes";
+import {LatestTrackingWidgetType, OperationType} from "../../../types/operations/operationsTypes";
 
 const initialState = {
   isFetching: false,
@@ -10,6 +10,7 @@ const initialState = {
   packaging_types: [] as ChoiceType[],
   container_types_air: [] as ChoiceType[],
   recalculated_charges: null as CostBookingType | null,
+  latest_tracking_widget_data: [] as LatestTrackingWidgetType[],
 };
 
 type InitialStateType = typeof initialState;
@@ -62,13 +63,16 @@ export const clientOperationsReducer = (
         ...state,
         recalculated_charges: action.charges,
       };
+    case "SET_LATEST_TRACKING_WIDGET_DATA":
+      return { ...state, latest_tracking_widget_data: action.data };
     case "SET_HAS_REVIEW":
       return {
         ...state,
         //@ts-ignore
-        client_operation_info:
-            {...state.client_operation_info,
-              has_review: true}
+        client_operation_info: {
+          ...state.client_operation_info,
+          has_review: true,
+        },
       };
     default:
       return state;
@@ -112,5 +116,10 @@ export const clientOperationsActions = {
   setHasReview: () =>
     ({
       type: "SET_HAS_REVIEW",
+    } as const),
+  setLatestTrackingWidgetData: (data: LatestTrackingWidgetType[]) =>
+    ({
+      type: "SET_LATEST_TRACKING_WIDGET_DATA",
+      data,
     } as const),
 };

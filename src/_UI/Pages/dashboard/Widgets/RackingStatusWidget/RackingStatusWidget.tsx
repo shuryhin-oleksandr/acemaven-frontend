@@ -7,10 +7,22 @@ import TableBody from "@material-ui/core/TableBody";
 import React from "react";
 import { useStyles } from "../WidgetTableStyles";
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
+import { useSelector } from "react-redux";
+import { AppStateType } from "../../../../../_BLL/store";
+import { getFiveLatestHelper } from "../../../../../_BLL/helpers/widgets/getFiveLatestHelper";
+import { LatestTrackingWidgetType } from "../../../../../_BLL/types/operations/operationsTypes";
+import moment from "moment";
+import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 
 const RackingStatusWidget: React.FC = () => {
   const classes = useStyles();
 
+  const list = useSelector(
+    (state: AppStateType) => state.client_operations.latest_tracking_widget_data
+  );
+
+  const latest_list = getFiveLatestHelper(list);
 
   return (
     <BaseWidget heading="latest tracking Status update">
@@ -33,7 +45,8 @@ const RackingStatusWidget: React.FC = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-            <TableRow >
+          {latest_list.map((item, idx) => (
+            <TableRow>
               <TableCell className={classes.innerCell}>
                 <div
                   style={{
@@ -42,47 +55,30 @@ const RackingStatusWidget: React.FC = () => {
                     paddingRight: 10,
                   }}
                 >
-                  <img src={ShipIcon} alt="" />
+                  <img
+                    src={
+                      item.shipping_type === ShippingTypesEnum.SEA
+                        ? ShipIcon
+                        : PlaneIcon
+                    }
+                    alt=""
+                  />
                 </div>
               </TableCell>
               <TableCell className={classes.boldCell} align="left">
-                AMX100097
+                {item.booking_number}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                HOU-GJS
+                {item.route}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                25/12
+                {moment(item.date_created).format("DD/MM")}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                In transit
+                {item.status}
               </TableCell>
             </TableRow>
-            <TableRow >
-            <TableCell className={classes.innerCell}>
-              <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    paddingRight: 10,
-                  }}
-              >
-                <img src={ShipIcon} alt="" />
-              </div>
-            </TableCell>
-            <TableCell className={classes.boldCell} align="left">
-              AMX100097
-            </TableCell>
-            <TableCell className={classes.innerCell} align="left">
-              HOU-GJS
-            </TableCell>
-            <TableCell className={classes.innerCell} align="left">
-              25/12
-            </TableCell>
-            <TableCell className={classes.innerCell} align="left">
-              In transit
-            </TableCell>
-          </TableRow>
+          ))}
         </TableBody>
       </Table>
     </BaseWidget>

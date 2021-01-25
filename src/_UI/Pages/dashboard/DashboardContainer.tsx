@@ -29,7 +29,10 @@ import ModalWindow from "../../components/_commonComponents/ModalWindow/ModalWin
 import {agentOperationsActions} from "../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 import {clientOperationsActions} from "../../../_BLL/reducers/operations/client/clientOperationsReducer";
 import {getAgentsOperationsThunk} from "../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
-import {getClientOperationsThunk} from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {
+    getClientOperationsThunk,
+    getLatestTrackingWidgetDataThunk
+} from "../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import {
     getAgentsOperationsListSelector,
     getClientOperationsListSelector
@@ -116,6 +119,15 @@ const DashboardContainer:React.FC = () => {
         }
 
     }, [dispatch, company_type]);
+
+    useEffect(() => {
+        if (company_type && company_type?.type === AppCompaniesTypes.CLIENT ) {
+                dispatch(getLatestTrackingWidgetDataThunk());
+        }
+
+    }, [dispatch, company_type]);
+
+
 
 
     return (

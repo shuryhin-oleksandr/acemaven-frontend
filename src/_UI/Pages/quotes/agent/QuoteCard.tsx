@@ -8,6 +8,7 @@ import moment from "moment";
 //material ui
 import {Tooltip} from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import IconButton from "@material-ui/core/IconButton";
 //BLL
 import {
      getExistingSurchargesForQuoteThunk,
@@ -66,6 +67,7 @@ import {
 import sea_type from '../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import air_type from '../../../assets/icons/rates&services/plane-surcharge.svg'
 import dates_icon from '../../../../_UI/assets/icons/date_1.svg'
+import close_icon from '../../../assets/icons/close-icon.svg'
 
 
 
@@ -97,7 +99,8 @@ type PropsType = {
     isTemporaryPopup: boolean,
     setIsTemporaryPopup: (value:boolean) => void,
     history: any,
-    isFetching: boolean
+    isFetching: boolean,
+    goToTheList: VoidFunctionType
 }
 
 
@@ -173,6 +176,11 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
             {props.isFetching || !props.exact_quote_info
                 ? <SpinnerForAuthorizedPages />
                 : <QuoteCardWrapperForm onSubmit={handleSubmit(onSubmit)}>
+                    <IconButton style={{position: 'absolute', top: '10px', right: '30px'}}
+                                onClick={props.goToTheList}
+                    >
+                        <img src={close_icon} alt="" style={{width: '15px', height: '15px'}}/>
+                    </IconButton>
                     <QuoteCardInner>
                         <CardHeader>
                             <CardTitle>Quotes</CardTitle>

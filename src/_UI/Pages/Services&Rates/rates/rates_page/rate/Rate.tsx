@@ -51,6 +51,7 @@ import plane from "../../../../../assets/icons/rates&services/plane-surcharge.sv
 import close_icon from '../../../../../assets/icons/close-icon.svg'
 
 
+
 type PropsType = {
     is_active: boolean,
     rate: RateInfoType | null,
@@ -60,7 +61,7 @@ type PropsType = {
     setValue: any,
     control: any,
     getValues: any,
-    activateRateHandler: (id: any, value: boolean) => void
+    activateRateHandler: (id: any, value: boolean, history: any) => void
     getSurchargeForRate: any
     getSurchargeForNewRate: any
     existing_surcharge: SurchargeInfoType | null,
@@ -189,7 +190,7 @@ const Rate: React.FC<PropsType> = ({
                 <RateTitle>Freight Rate</RateTitle>
                 <ButtonsWrap>
                     {formMode && <SaveButton type="submit">SAVE CHANGES</SaveButton>}
-                    <PauseButton type='button' onClick={() => activateRateHandler(rate?.id, !rate?.is_active)}>
+                    <PauseButton type='button' onClick={() => activateRateHandler(rate?.id, !rate?.is_active, history)}>
                         <PauseImg src={is_active ? pause : play} alt=""/>
                     </PauseButton>
                 </ButtonsWrap>

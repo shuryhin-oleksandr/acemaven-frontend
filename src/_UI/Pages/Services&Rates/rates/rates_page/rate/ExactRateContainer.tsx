@@ -60,8 +60,8 @@ const ExactRateContainer = ({...props}) => {
 
 
     //thunk for activate or inactivate freight rate
-    let activateRateHandler = (id: number, value: boolean) => {
-        dispatch(ActivateRateThunk(id, value))
+    let activateRateHandler = (id: number, value: boolean, history: any) => {
+        dispatch(ActivateRateThunk(id, value, history))
     }
     //ASYNC get surcharges for current rate by click on it
     let getSurchargeForRate = (start_date: Date, expiration_date: Date) => {

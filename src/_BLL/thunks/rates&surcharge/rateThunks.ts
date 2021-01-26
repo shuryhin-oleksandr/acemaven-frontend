@@ -61,8 +61,8 @@ export const registerNewFreightRateThunk = (freight_data: any, history: any) => 
     };
 };
 
-export const getSurchargeForExactRateThunk = ( rate_data: any) => {
-    return async (dispatch: Dispatch<commonRateActions>,  getState: () => AppStateType) => {
+export const getSurchargeForExactRateThunk = (rate_data: any) => {
+    return async (dispatch: Dispatch<commonRateActions>, getState: () => AppStateType) => {
         try {
             dispatch(rateActions.setExistingSurchargeByRate(null));
             dispatch(rateActions.setRateStartDate(rate_data.start_date));
@@ -74,7 +74,10 @@ export const getSurchargeForExactRateThunk = ( rate_data: any) => {
                 dispatch(rateActions.setExistingSurchargeByRate(res.data));
                 //ex
                 let id = getState().rate.rate_id
-                let dates = {start_date: getState().rate.rate_start_date, expiration_date: getState().rate.rate_expiration_date}
+                let dates = {
+                    start_date: getState().rate.rate_start_date,
+                    expiration_date: getState().rate.rate_expiration_date
+                }
                 getState().rate.rate_info && dispatch(rateActions.setSurchargeToRate(id, res.data, dates))
             }
         } catch (e) {
@@ -90,13 +93,16 @@ export const addNewSurchargeForRate = (surcharge_data: any) => {
                 dispatch(quotesAgentActions.setExistingSurchargeForQuote(res.data))
             } else {
                 let id = getState().rate.rate_id
-                let dates = {start_date: getState().rate.rate_start_date, expiration_date: getState().rate.rate_expiration_date}
+                let dates = {
+                    start_date: getState().rate.rate_start_date,
+                    expiration_date: getState().rate.rate_expiration_date
+                }
                 getState().rate.rate_info && dispatch(rateActions.setSurchargeToRate(id, res.data, dates))
                 dispatch(rateActions.setExistingSurchargeByRate(res.data))
             }
         } catch (e) {
             console.log(e)
-            if(e.response) {
+            if (e.response) {
                 e.response?.data.usage_fees && dispatch(rateActions.setAddingPopupError(e.response.data.usage_fees))
                 e.response?.data.charges && dispatch(rateActions.setAddingPopupError(e.response.data.charges))
             }
@@ -137,7 +143,7 @@ export const getRateInfoThunk = (id: number) => {
             let res = await rateAPI.getExactRate(id);
             dispatch(rateActions.setRateInfo(res.data));
             //get surcharges for rate with 0 containers
-            if(res.data.rates.length === 1 && res.data.rates[0].container_type === null) {
+            if (res.data.rates.length === 1 && res.data.rates[0].container_type === null) {
                 let rate_data = {
                     carrier: res.data.carrier.id,
                     shipping_mode: res.data.shipping_mode.id,
@@ -150,7 +156,8 @@ export const getRateInfoThunk = (id: number) => {
                 dispatch(checkRatesDatesThunk(
                     {
                         carrier: res.data.carrier.id, shipping_mode: res.data.shipping_mode.id,
-                        origin: res.data.origin.id, destination: res.data.destination.id, freight_rate: res.data?.id}
+                        origin: res.data.origin.id, destination: res.data.destination.id, freight_rate: res.data?.id
+                    }
                 ))
                 dispatch(getSurchargeForExactRateThunk(rate_data))
             }
@@ -163,24 +170,30 @@ export const getRateInfoThunk = (id: number) => {
 };
 
 export const setActiveOrPausedRateThunk = (id: number, value: boolean) => {
-    return async (dispatch: Dispatch<commonRateActions>) => {
+    return async (dispatch: any) => {
         try {
-            let res = await rateAPI.setActiveOrPausedRate(id, value);
-            console.log(res.data)
-            dispatch(rateActions.setActiveOrPaused(res.data));
+            dispatch(rateActions.setIsFetching(true))
+            await rateAPI.setActiveOrPausedRate(id, value);
+            dispatch(getFilteredRateListThunk('import', 'sea', '', '', ''))
+            dispatch(rateActions.setIsFetching(false))
         } catch (e) {
             console.log(e);
+            dispatch(rateActions.setIsFetching(false))
         }
     };
 };
 
-export const ActivateRateThunk = (id: number, value: boolean) => {
-    return async (dispatch: Dispatch<commonRateActions>) => {
+export const ActivateRateThunk = (id: number, value: boolean, history: any) => {
+    return async (dispatch: any) => {
         try {
+            dispatch(rateActions.setIsFetching(true))
             let res = await rateAPI.setActiveOrPausedRate(id, value)
-            dispatch(rateActions.setRateIsActive(res.data.is_active))
+            dispatch(getRateInfoThunk(res.data.id))
+            history.push(`/services/rate/${res.data.id}`)
+            dispatch(rateActions.setIsFetching(false))
         } catch (e) {
             console.log(e)
+            dispatch(rateActions.setIsFetching(false))
         }
     }
 }

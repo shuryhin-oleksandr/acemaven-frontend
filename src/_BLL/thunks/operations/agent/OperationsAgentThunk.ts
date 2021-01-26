@@ -78,7 +78,9 @@ export const editOperationByAgentThunk = (data: any, id: number) => {
             dispatch(agentOperationsActions.setIsFetching(true));
             await operationsAgentAPI.editOperationByAgent(data, id);
             let current_operation_id = getState().agent_operations.agent_operation_info?.id
-            dispatch(getAgentExactOperationThunk(Number(current_operation_id)))
+            setTimeout(() => {
+                dispatch(getAgentExactOperationThunk(Number(current_operation_id)))
+            }, 0)
             dispatch(agentOperationsActions.setEditSuccess("success"));
             dispatch(agentOperationsActions.setIsFetching(false));
         } catch (e) {
@@ -227,7 +229,7 @@ export const getManualTrackingStatusOptions = (
     };
 };
 
-export const updateShipmentInfo = (data: any, reset: any) => {
+export const updateShipmentInfo = (data: any) => {
     return async (dispatch: any, getState: () => AppStateType) => {
         try {
             dispatch(agentOperationsActions.setIsFetching(true));
@@ -236,8 +238,6 @@ export const updateShipmentInfo = (data: any, reset: any) => {
                 let response = dispatch(getAgentExactOperationThunk(Number(getState().agent_operations.agent_operation_info?.id)))
                 dispatch(agentOperationsActions.updateTrackingInfoList(response.data?.tracking));
             }, 0)
-
-            //reset()
             dispatch(agentOperationsActions.setIsFetching(false));
         } catch (e) {
             console.log(e);

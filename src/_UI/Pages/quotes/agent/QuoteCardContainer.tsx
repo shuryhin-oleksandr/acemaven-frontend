@@ -26,7 +26,6 @@ import {quotesAgentActions} from "../../../../_BLL/reducers/quotes/quotesAgentRe
 import QuoteCard from "./QuoteCard";
 
 
-
 const QuoteCardContainer = ({...props}) => {
 
     //local state
@@ -66,7 +65,7 @@ const QuoteCardContainer = ({...props}) => {
 
     //for saving rate popup
     useEffect(() => {
-        if(existing_rate_for_quote) {
+        if (existing_rate_for_quote) {
             setIsTemporaryPopup(true)
         }
     }, [existing_rate_for_quote])
@@ -79,24 +78,29 @@ const QuoteCardContainer = ({...props}) => {
     const withdrawOfferHandler = () => {
         dispatch(withdrawOfferThunk(Number(exact_quote_info?.id), history))
     }
+    //handlers
+    const goToTheList = () => {
+        history.push('/quotes')
+    }
 
     return (
-                <QuoteCard exact_quote_info={exact_quote_info ? exact_quote_info : null}
-                             carrier_list={exact_quote_info?.shipping_type === 'sea' ? sea_carrier_list : air_carrier_list}
-                             existing_rate_for_quote={existing_rate_for_quote}
-                             existing_surcharge_for_quote={existing_surcharge_for_quote}
-                             checked_surcharge_result={checked_surcharge_result}
-                             save_rate_result={save_rate_result}
-                             bad_saving_message={bad_saving_message}
-                             rejectQuoteHandler={rejectQuoteHandler}
-                             withdrawOfferHandler={withdrawOfferHandler}
-                             isCreatePopup={isCreatePopup}
-                             openCreatePopup={openCreatePopup}
-                             isTemporaryPopup={isTemporaryPopup}
-                             setIsTemporaryPopup={setIsTemporaryPopup}
-                             history={history}
-                             isFetching={isFetching}
-                />
+        <QuoteCard exact_quote_info={exact_quote_info ? exact_quote_info : null}
+                   carrier_list={exact_quote_info?.shipping_type === 'sea' ? sea_carrier_list : air_carrier_list}
+                   existing_rate_for_quote={existing_rate_for_quote}
+                   existing_surcharge_for_quote={existing_surcharge_for_quote}
+                   checked_surcharge_result={checked_surcharge_result}
+                   save_rate_result={save_rate_result}
+                   bad_saving_message={bad_saving_message}
+                   rejectQuoteHandler={rejectQuoteHandler}
+                   withdrawOfferHandler={withdrawOfferHandler}
+                   isCreatePopup={isCreatePopup}
+                   openCreatePopup={openCreatePopup}
+                   isTemporaryPopup={isTemporaryPopup}
+                   setIsTemporaryPopup={setIsTemporaryPopup}
+                   history={history}
+                   isFetching={isFetching}
+                   goToTheList={goToTheList}
+        />
     )
 }
 

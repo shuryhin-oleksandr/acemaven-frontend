@@ -37,6 +37,11 @@ const useStyles = makeStyles({
   table: {
     "& .MuiTableHead-root": {},
   },
+  row: {
+    '&:hover': {
+      cursor: 'pointer'
+    }
+  },
   shipping_cell: {
     color: "#115B86",
     fontFamily: "Helvetica Bold",
@@ -191,41 +196,42 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
             </TableHead>
             <TableBody>
               {freight_rates_list?.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell
-                    className={classes.innerMainCell}
-                    align="left"
-                    component="th"
-                    scope="row"
-                  >
-                    <ModeIcon
-                      src={
-                        row.shipping_type === "sea"
-                          ? ship_surcharge
-                          : plane_surcharge
-                      }
-                      alt=""
-                    />
-                  </TableCell>
-                  <TableCell
-                    onClick={() => goToPage(row.id)}
-                    className={classes.innerCell}
-                    align="left"
-                  >
-                    <SpanMode>{row.shipping_mode}</SpanMode>
-                  </TableCell>
-                  <TableCell className={classes.innerCell} align="left">
-                    <span>{row.carrier}</span>
-                  </TableCell>
-                  <TableCell className={classes.innerCell} align="left">
-                    {row.origin}
-                  </TableCell>
-                  <TableCell className={classes.innerCell} align="left">
-                    {row.destination}
-                  </TableCell>
-                  <TableCell className={classes.innerCell} align="left">
-                    {row.expiration_date}
-                  </TableCell>
+                <TableRow key={row.id} className={classes.row}>
+                    <TableCell
+                        className={classes.innerMainCell}
+                        align="left"
+                        component="th"
+                        scope="row"
+                        onClick={() => goToPage(row.id)}
+                    >
+                      <ModeIcon
+                          src={
+                            row.shipping_type === "sea"
+                                ? ship_surcharge
+                                : plane_surcharge
+                          }
+                          alt=""
+                      />
+                    </TableCell>
+                    <TableCell
+                        className={classes.innerCell}
+                        align="left"
+                        onClick={() => goToPage(row.id)}
+                    >
+                      {row.shipping_mode}
+                    </TableCell>
+                    <TableCell className={classes.innerCell} align="left" onClick={() => goToPage(row.id)}>
+                      <span>{row.carrier}</span>
+                    </TableCell>
+                    <TableCell className={classes.innerCell} align="left" onClick={() => goToPage(row.id)}>
+                      {row.origin}
+                    </TableCell>
+                    <TableCell className={classes.innerCell} align="left" onClick={() => goToPage(row.id)}>
+                      {row.destination}
+                    </TableCell>
+                    <TableCell className={classes.innerCell} align="left" onClick={() => goToPage(row.id)}>
+                      {row.expiration_date}
+                    </TableCell>
                   <TableCell className={classes.innerCell} align="left">
                     <div style={{ display: "flex" }}>
                       <Tooltip
@@ -294,13 +300,5 @@ const SearchButton = styled.button`
 const TemplateIcon = styled(SearchButton)`
   &:hover {
     cursor: pointer;
-  }
-`;
-const SpanMode = styled.div`
-  transition: 0.3s;
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-    transition: 0.3s;
   }
 `;

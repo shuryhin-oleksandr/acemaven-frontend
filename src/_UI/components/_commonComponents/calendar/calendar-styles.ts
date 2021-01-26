@@ -28,6 +28,7 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
     max-width: ${({max_width}) => max_width ? max_width : '420px'};
     height:${({input_height}) => input_height ? input_height : '40px'};
   }
+
   
   .DayPickerInput-OverlayWrapper {
     z-index: 2300;
@@ -60,6 +61,7 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
     &:hover {
       background-color: #ffffff !important;
       color: #999999;
+      
     }
     color: #999999;
     opacity: .4;
@@ -102,6 +104,7 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
 
   &:disabled {
   background-color: rgba(0, 0, 0, .1);
+  cursor: not-allowed;
   }
   &::placeholder {
     transition: 0.5s;

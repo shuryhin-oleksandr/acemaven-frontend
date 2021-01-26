@@ -77,6 +77,10 @@ export const TimePicker = styled.input<{ error?: boolean, font_size?: string }>`
  padding: 3px;
  margin-top: ${({error}) => error ? '-19px' : '24px'};
  outline: none;
+ &:disabled {
+  cursor: not-allowed;
+  background-color: #ececec;
+ }
 `
 export const AcceptPopupActions = styled.div`
   width: 100%;
@@ -84,4 +88,17 @@ export const AcceptPopupActions = styled.div`
   justify-content: center;
   margin-top: 35px;
 `
-
+export const AcceptDatesFilter = styled.div<{flex_direction?: string, max_width?: string}>`
+  display: flex;
+  flex-direction: ${({flex_direction}) => flex_direction ? flex_direction : 'row'};
+  width: 100%;
+  max-width: ${({max_width}) => max_width ? max_width : '100%'};
+  justify-content: space-between;
+  margin-bottom: 10px;
+`
+export const Wrapper = styled.div<{justify_content?: string, wrapper_width?: string}>`
+  width: ${({wrapper_width}) => wrapper_width ? wrapper_width : '49%'};
+  display: flex;
+  align-items: center;
+  justify-content: ${({justify_content}) => justify_content ? justify_content : 'flex-end'};
+`

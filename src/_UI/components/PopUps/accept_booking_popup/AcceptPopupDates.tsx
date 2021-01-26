@@ -1,13 +1,16 @@
 import React, {useEffect, useRef, useState} from 'react'
+//react-day-picker
 import DayPickerInput from "react-day-picker/DayPickerInput";
-import {TimePicker} from "./accept-popup-styles";
-import styled from "styled-components";
-import {Controller} from "react-hook-form";
 // @ts-ignore
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
+//moment js
+import moment from "moment";
+//react-hook-form
+import {Controller} from "react-hook-form";
+//styles
+import {AcceptDatesFilter, TimePicker, Wrapper} from "./accept-popup-styles";
 import {CalendarWrapper} from "../../_commonComponents/calendar/calendar-styles";
 import {HelperText} from "../../_commonComponents/Input/input-styles";
-import moment from "moment";
 
 
 
@@ -150,6 +153,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                                     <TimePicker type="time"
                                                 step='300'
                                                 error={!!errors?.departure_time}
+                                                disabled={props.disabled_condition1}
                                     />
                                 }
                     />
@@ -207,6 +211,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                                 <TimePicker type="time"
                                             step='300'
                                             error={!!errors?.arrival_time}
+                                            disabled={props.disabled_condition2}
                                 />
                             }
                 />
@@ -219,17 +224,3 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
 export default AcceptPopupDates
 
 
-const AcceptDatesFilter = styled.div<{flex_direction?: string, max_width?: string}>`
-  display: flex;
-  flex-direction: ${({flex_direction}) => flex_direction ? flex_direction : 'row'};
-  width: 100%;
-  max-width: ${({max_width}) => max_width ? max_width : '100%'};
-  justify-content: space-between;
-  margin-bottom: 10px;
-`
-const Wrapper = styled.div<{justify_content?: string, wrapper_width?: string}>`
-  width: ${({wrapper_width}) => wrapper_width ? wrapper_width : '49%'};
-  display: flex;
-  align-items: center;
-  justify-content: ${({justify_content}) => justify_content ? justify_content : 'flex-end'};
-`

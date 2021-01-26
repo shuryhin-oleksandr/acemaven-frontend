@@ -49,13 +49,14 @@ export const QuoteCardWrapperForm= styled.form`
   height: 100%;
   padding: 50px 80px 50px 30px;
   animation: ${skelet_appear} ease-in-out .2s;
+  position: relative;
 `
 export const QuoteCardInner = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  
+
 `
 export const CardHeader = styled.div`
   display: flex;

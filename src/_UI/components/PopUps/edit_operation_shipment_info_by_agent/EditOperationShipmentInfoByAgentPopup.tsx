@@ -1,4 +1,25 @@
 import React, {useRef, useState} from 'react'
+//react-redux
+import {useDispatch} from "react-redux";
+//react-hook-form
+import {Controller, useForm} from "react-hook-form";
+//moment js
+// @ts-ignore
+import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
+import moment from "moment";
+//material ui
+import {IconButton} from "@material-ui/core";
+//BLL
+import {editOperationByAgentThunk, editOperationPaymentDueByAgentThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+//types
+import {ShippingModeEnum, ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
+//components
+import FormField from "../../_commonComponents/Input/FormField";
+import LocationContainer from "../accept_booking_popup/LocationContainer";
+import AcceptPopupDates from "../accept_booking_popup/AcceptPopupDates";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+//styles
 import {
     ChangeRequestButtonsWrapper,
     ChangeRequestContent,
@@ -8,24 +29,11 @@ import {
     ConfirmRequestButton,
     FormChangeRequestWrapper
 } from "../change_request_agent_popup/change-request-agent-styles";
-import {ShippingModeEnum, ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import FormField from "../../_commonComponents/Input/FormField";
-import LocationContainer from "../accept_booking_popup/LocationContainer";
-import AcceptPopupDates from "../accept_booking_popup/AcceptPopupDates";
-import {useDispatch} from "react-redux";
-import {Controller, useForm} from "react-hook-form";
-import {
-    editOperationByAgentThunk, editOperationPaymentDueByAgentThunk
-} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
-import DayPickerInput from "react-day-picker/DayPickerInput";
-import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
-import {IconButton} from "@material-ui/core";
-import close_icon from "../../../assets/icons/close-icon.svg";
 import {InfoRowLabel} from "../../../Pages/Requests/Booking_agent/booking_card/booking-card-style";
 import {CalendarWrapper} from "../../_commonComponents/calendar/calendar-styles";
-// @ts-ignore
-import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
-import moment from "moment";
+//icons
+import close_icon from "../../../assets/icons/close-icon.svg";
+
 
 type PropsType = {
     operation_info: OperationType | null,
@@ -124,10 +132,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
 
     let today = moment(new Date()).format('DD/MM/YYYY')
 
-    let disabled_condition_1 = !!(actual_date_of_departure && actual_date_of_departure > today)
-    let disable_condition_2 = !!(actual_date_of_arrival && today < actual_date_of_arrival )
-    console.log(disabled_condition_1)
-
+    let disabled_condition_1 = !!(actual_date_of_departure && actual_date_of_departure <= today)
+    let disable_condition_2 = !!(actual_date_of_arrival && actual_date_of_arrival <= today)
 
     return (
         <ChangeRequestWrapper>
@@ -159,6 +165,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                placeholder='Placeholder'
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.vessel}
+                                               disabled={disabled_condition_1}
                                     />
                                     <FormField inputRef={register({required: 'Field is required'})}
                                                error={errors?.voyage}
@@ -169,6 +176,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                placeholder='Placeholder'
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.voyage}
+                                               disabled={disabled_condition_1}
                                     />
                                 </>
                                 : <>
@@ -181,6 +189,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                placeholder='Placeholder'
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.mawb}
+                                               disabled={disabled_condition_1}
                                     />
                                     <FormField inputRef={register({required: 'Field is required'})}
                                                error={errors?.flight_number}
@@ -191,6 +200,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                placeholder='Placeholder'
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.flight_number}
+                                               disabled={disabled_condition_1}
                                     />
                                 </>
                             }
@@ -203,6 +213,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                        placeholder='Placeholder'
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.booking_number}
+                                       disabled={disabled_condition_1}
                             />
                         </div>
                         {(operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.LCL) &&
@@ -224,6 +235,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                        placeholder='Placeholder'
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.booking_number_with_carrier}
+                                       disabled={disabled_condition_1}
                             />
                             <FormField inputRef={register({required: 'Field is required'})}
                                        error={errors?.container_number}
@@ -234,6 +246,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                        placeholder='Placeholder'
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.container_number}
+                                       disabled={disabled_condition_1}
                             />
                         </div>
                         }
@@ -281,8 +294,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                               departure_date={departure_date}
                                               first_time={departure_time}
                                               second_time={arrival_time}
-                                              //disabled_condition1={!disabled_condition_1}
-                                              //disabled_condition2={!disable_condition_2}
+                                              disabled_condition1={disabled_condition_1}
+                                              disabled_condition2={disable_condition_2}
 
                             />
                             {direction === 'export'
@@ -310,8 +323,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                  first_time={documents_cut_off_time}
                                                  arrival_date={cargo_cut_off_date}
                                                  second_time={cargo_cut_off_time}
-                                                 //disabled_condition1={!disabled_condition_1}
-                                                 //disabled_condition2={!disable_condition_2}
+                                                 disabled_condition1={disabled_condition_1}
+                                                 disabled_condition2={disable_condition_2}
                             />
                             }
                             <AcceptPopupDates control={control}

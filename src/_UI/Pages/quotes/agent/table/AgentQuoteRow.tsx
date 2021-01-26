@@ -83,7 +83,7 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
     let date_to = moment(c).format('D MMMM YYYY')
 
     return (
-        <TableRow  className={classes.root}>
+        <TableRow className={classes.root} onClick={() => setCardOpen(Number(quote.id))}>
             <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
                 <ModeIcon src={quote.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
                 <SpanMode>{quote.origin.code}</SpanMode>
@@ -106,9 +106,9 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
                 {quote.is_submitted
                     ? <SubmittedWrapper>
                         <DoneIcon />
-                        <StatusSpan onClick={() => setCardOpen(Number(quote.id))}>Submitted</StatusSpan>
+                        <StatusSpan>Submitted</StatusSpan>
                     </SubmittedWrapper>
-                    :  <SubmitQuoteButton onClick={() => setCardOpen(Number(quote.id))}>SUBMIT QUOTE</SubmitQuoteButton>
+                    :  <SubmitQuoteButton>SUBMIT QUOTE</SubmitQuoteButton>
                 }
             </TableCell>
         </TableRow>

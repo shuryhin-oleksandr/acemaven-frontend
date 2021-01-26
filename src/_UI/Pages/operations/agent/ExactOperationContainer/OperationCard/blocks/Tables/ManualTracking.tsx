@@ -1,4 +1,7 @@
 import React, {useEffect, useState} from "react";
+//moment js
+import moment from "moment";
+//material ui
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -7,33 +10,40 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import styled from "styled-components";
-import {TrackingBackendType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
-import IconLocation from "../../../../../../../assets/icons/location_blue.svg";
+//react-hook-form
 import {Controller, useForm} from "react-hook-form";
-import SurchargeRateSelect from "../../../../../../../components/_commonComponents/select/SurchargeRateSelect";
-import {FormOperationButton} from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
-import close_icon from "../../../../../../../assets/icons/profile/closeForm.svg";
-import save_icon from "../../../../../../../assets/icons/profile/add.svg";
-import {userCompaniesType} from "../../../../../../../../_BLL/types/authTypes";
-import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../../../../../../_BLL/store";
 import {
     deleteTrackingStatus,
     getManualTrackingStatusOptions,
     updateShipmentInfo,
 } from "../../../../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {
-    getExactOperationSelector,
     getTrackingStatusOptions
 } from "../../../../../../../../_BLL/selectors/operations/agentOperationsSelector";
-import moment from "moment";
 import {agentOperationsActions} from "../../../../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
-import {AppStateType} from "../../../../../../../../_BLL/store";
-import Garbage from "../../../../../../../assets/icons/garbage-icon.svg";
+//types
+import {TrackingBackendType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+import {userCompaniesType} from "../../../../../../../../_BLL/types/authTypes";
+import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
+//components
+import SurchargeRateSelect from "../../../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import BaseTooltip from "../../../../../../../components/_commonComponents/baseTooltip/BaseTooltip";
 import FormField from "../../../../../../../components/_commonComponents/Input/FormField";
 import ManualTrackingCalendarChoice from "../shipments_tracking_block/ManualTrackingCalendarChoice";
+//styles
+import {FormOperationButton} from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+//icons
+import IconLocation from "../../../../../../../assets/icons/location_blue.svg";
+import close_icon from "../../../../../../../assets/icons/profile/closeForm.svg";
+import save_icon from "../../../../../../../assets/icons/profile/add.svg";
+import Garbage from "../../../../../../../assets/icons/garbage-icon.svg";
+//styled components
+import styled from "styled-components";
+
 
 const useStyles = makeStyles({
     container: {
@@ -190,7 +200,7 @@ const ManualTracking: React.FC<PropsType> = ({
     const onSubmit = (values: any) => {
         const data = {...values, booking: booking_id};
         if(!finded_status) {
-            dispatch(updateShipmentInfo(data, reset));
+            dispatch(updateShipmentInfo(data));
         } else {
             let ATD = {
                 status: values.status,
@@ -205,10 +215,10 @@ const ManualTracking: React.FC<PropsType> = ({
                 comment: `At ${moment(values.date).format('DD/MM/YYYY') + ' ' + values.time}`
             }
             if(departed?.title === 'Vessel Departed' || departed?.title === 'Aircraft Departed') {
-                dispatch(updateShipmentInfo(ATD, reset));
+                dispatch(updateShipmentInfo(ATD));
             }
             if(departed?.title === 'Cargo Arrived at Destination' || departed?.title === 'Vessel Arrived at Destination') {
-                dispatch(updateShipmentInfo(ATA, reset));
+                dispatch(updateShipmentInfo(ATA));
             }
         }
     };

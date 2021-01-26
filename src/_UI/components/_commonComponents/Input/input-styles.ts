@@ -3,7 +3,7 @@ import styled from "styled-components";
 type PropsStyle = {
   isFocus?: boolean;
   error?: string;
-  maxW?: string;
+  max_width?: string;
   focusBack?: string;
   height?: string;
   marginBottom?: string;
@@ -19,7 +19,7 @@ export const InputOuter = styled.div<PropsStyle>`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  max-width: ${({ maxW }) => (maxW ? maxW : "100%")};
+  max-width: ${({max_width }) => (max_width ? max_width : "100%")};
   margin-bottom: ${({ marginBottom }) =>
     marginBottom ? marginBottom : "15px"};
 `;
@@ -30,7 +30,7 @@ export const Field = styled.input<PropsStyle>`
   font-family: "Helvetica Light", sans-serif;
   line-height: 17px;
   transition: 0.5s;
-  max-width: ${({ maxW }) => (maxW ? maxW : "420px")};
+  max-width: ${({ max_width }) => (max_width ? max_width : "420px")};
   width: 100%;
   height: ${({ height }) => (height ? height : "40px")};
   border: ${({ error }) => (error ? "1px solid #7C7C89" : "1px solid #BDBDBD")};

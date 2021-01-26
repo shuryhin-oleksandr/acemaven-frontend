@@ -134,8 +134,8 @@ const Search: React.FC<PropsType> = ({
     control,
     name: "cargo_groups",
   });
-  const watchFields = watch(["shipping_mode", "origin", "destination"]);
-  const watchResultArr = Object.values(watchFields).filter((val) => !!val);
+  // const watchFields = watch(["shipping_mode", "origin", "destination"]);
+  // const watchResultArr = Object.values(watchFields).filter((val) => !!val);
   const watchFieldArray = watch("cargo_groups");
 
   const onSubmit = (values: any) => {
@@ -424,7 +424,7 @@ const Search: React.FC<PropsType> = ({
                   options={shippingModeOptions}
                   callback={setShippingValue}
                   error={errors?.shipping_mode?.message}
-                  maxW={"18%"}
+                  max_width={"18%"}
                   label={"Shipping mode"}
                   hideLabel={true}
                   margin_bottom={"0px"}

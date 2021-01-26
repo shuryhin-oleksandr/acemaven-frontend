@@ -116,7 +116,7 @@ const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ..
                                                 as={
                                                     <SurchargeRateSelect options={row.currency}
                                                                          placeholder='Currency'
-                                                                         maxW='80px'
+                                                                         max_width='80px'
                                                     />
                                                 }
                                     />

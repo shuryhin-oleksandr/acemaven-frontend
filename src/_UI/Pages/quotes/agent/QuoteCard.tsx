@@ -271,7 +271,7 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                                                     defaultValue={''}
                                                     as={
                                                         <SurchargeRateSelect error={errors?.carrier?.message}
-                                                                             maxW='430px'
+                                                                             max_width='430px'
                                                                              placeholder='Carrier company name'
                                                                              options={props.carrier_list}
                                                         />

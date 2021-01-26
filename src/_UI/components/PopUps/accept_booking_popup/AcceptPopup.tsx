@@ -81,7 +81,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                         <FormField error={errors?.booking_number}
                                    label='Booking number'
                                    placeholder='Placeholder'
-                                   maxW='100%'
+                                   max_width='100%'
                                    name='booking_number'
                                    defaultValue=''
                                    inputRef={register({required: 'Field is required'})}
@@ -91,7 +91,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                             <FormField error={errors?.booking_number_with_carrier}
                                        label='Booking Number With Carrier'
                                        placeholder='Placeholder'
-                                       maxW='100%'
+                                       max_width='100%'
                                        name='booking_number_with_carrier'
                                        inputRef={register({required: 'Field is required'})}
                                        booking_process={true}
@@ -99,7 +99,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                             <FormField error={errors?.container_number}
                                        label='Container Number'
                                        placeholder='Placeholder'
-                                       maxW='100%'
+                                       max_width='100%'
                                        inputRef={register({required: 'Field is required'})}
                                        name='container_number'
                             />
@@ -110,7 +110,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                           name='mawb'
                                           label='MAWB'
                                           placeholder='Placeholder'
-                                          maxW='100%'
+                                          max_width='100%'
                                           inputRef={register({required: 'Field is required'})}
                             />
                         }
@@ -120,7 +120,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                          inputRef={register({required: 'Field is required'})}
                                          label='Flight Number'
                                          placeholder='Placeholder'
-                                         maxW='100%'
+                                         max_width='100%'
                             />
                             : <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
                                 <FormField error={errors?.vessel}
@@ -128,7 +128,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                            inputRef={register({required: 'Field is required'})}
                                            label='Vessel'
                                            placeholder='Placeholder'
-                                           maxW='310px'
+                                           max_width='310px'
                                 />
 
                                 <FormField error={errors?.voyage}
@@ -136,7 +136,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                            inputRef={register({required: 'Field is required'})}
                                            label='Voyage'
                                            placeholder='Placeholder'
-                                           maxW='310px'
+                                           max_width='310px'
                                 />
                             </div>
                         }
@@ -184,7 +184,7 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                           inputRef={register({required: 'Field is required'})}
                                           label='Container Free time'
                                           placeholder='Number of days'
-                                          maxW='310px'
+                                          max_width='310px'
                         />
                         }
                         <Controller name='booking_notes'

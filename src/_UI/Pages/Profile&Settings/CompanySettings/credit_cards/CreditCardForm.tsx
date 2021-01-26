@@ -13,7 +13,7 @@ type PropsType = {
 }
 
 const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
-    const {register, errors, handleSubmit, setValue} = useForm({
+    const {register, errors, handleSubmit} = useForm({
         reValidateMode: 'onBlur',
         mode: 'onSubmit'
     })
@@ -33,7 +33,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                               maxW='300px'
+                               max_width='300px'
                     />
                     <FormField label='CPF/CNPJ'
                                name='CPF'
@@ -42,7 +42,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                               maxW='300px'
+                               max_width='300px'
                     />
                     <FormField label='Card Number'
                                name='card_number'
@@ -51,7 +51,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                               maxW='300px'
+                               max_width='300px'
                     />
                     <FormField label='CVV'
                                name='cvv'
@@ -60,7 +60,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                               maxW='300px'
+                               max_width='300px'
                     />
                     <FormField label='Card Expiration'
                                name='card_expiration'
@@ -69,7 +69,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                               maxW='300px'
+                               max_width='300px'
                     />
                 </div>
                 <div style={{width: '49%'}}>
@@ -81,7 +81,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
-                                   maxW='140px'
+                                   max_width='140px'
                         />
                         <FormField label='Address'
                                    color_label='transparent'
@@ -91,7 +91,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
-                                   maxW='130px'
+                                   max_width='130px'
                         />
                     </div>
                     <FormField label='City'
@@ -101,7 +101,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                               maxW='300px'
+                               max_width='300px'
                     />
                     <FormField label='State'
                                name='state'
@@ -110,7 +110,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                               maxW='300px'
+                               max_width='300px'
                     />
                     <FormField label='Zip code'
                                name='zip'
@@ -119,7 +119,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                               maxW='300px'
+                               max_width='300px'
                     />
                     <FormField label='Country'
                                name='country'
@@ -128,7 +128,7 @@ const CreditCardForm:React.FC<PropsType> = ({setIsAdd}) => {
                                inputRef={register({
                                    required: 'Field is required'
                                })}
-                               maxW='300px'
+                               max_width='300px'
                     />
                 </div>
             </CreditCardFormInner>

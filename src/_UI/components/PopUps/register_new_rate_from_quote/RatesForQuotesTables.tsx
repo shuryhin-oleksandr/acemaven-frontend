@@ -13,7 +13,6 @@ import TableBody from "@material-ui/core/TableBody";
 //components
 import SurchargeRateSelect from "../../_commonComponents/select/SurchargeRateSelect";
 import ScrollbarStyled from "../../_commonComponents/ScrollbarStyled/ScrollbarStyled";
-import {SpanAware, Title} from "../../../Pages/Services&Rates/rates/register_new_freight_rate/tables/Rates";
 //types & helpers
 import {ContainerType} from "../../../../_BLL/types/rates&surcharges/ratesTypes";
 import {ShippingModeEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
@@ -21,6 +20,7 @@ import {currency} from "../../../../_BLL/helpers/surcharge_helpers_methods&array
 //styles
 import {Field } from "../../_commonComponents/Input/input-styles";
 import {HandlingTitle} from "../../../Pages/Services&Rates/surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+
 
 const useStyles = makeStyles({
     container: {
@@ -136,7 +136,7 @@ const RatesForQuotesTable:React.FC<PropsType> = ({usageFees, quote_shipping_mode
                                                         defaultValue={currency[0].id}
                                                         as={
                                                             <SurchargeRateSelect options={currency}
-                                                                                 maxW='70px'
+                                                                                 max_width='70px'
                                                                                  placeholder='Currency'
                                                             />
                                                         }
@@ -161,7 +161,8 @@ const RatesForQuotesTable:React.FC<PropsType> = ({usageFees, quote_shipping_mode
                                                         }
 
                                             />*/}
-                                            <Field placeholder='0.00$' maxW='100px'
+                                            <Field placeholder='0.00$'
+                                                   max_width='100px'
                                                    name={`rates.${fee.id}.rate`}
                                                    ref={props.register}
                                                   /* onChange={(e) => onChange(e, String(fee.id))}
@@ -180,7 +181,7 @@ const RatesForQuotesTable:React.FC<PropsType> = ({usageFees, quote_shipping_mode
                                                             defaultValue={currency[0].id}
                                                             as={
                                                                 <SurchargeRateSelect options={currency}
-                                                                                     maxW='70px'
+                                                                                     max_width='70px'
                                                                 />
                                                             }
                                                 />
@@ -204,7 +205,8 @@ const RatesForQuotesTable:React.FC<PropsType> = ({usageFees, quote_shipping_mode
                                                             )
                                                             }
                                                 />*/}
-                                                <Field placeholder='0.00$' maxW='100px'
+                                                <Field placeholder='0.00$'
+                                                       max_width='100px'
                                                        name={`rates.rate`}
                                                        ref={props.register}
                                                     /* onChange={(e) => onChange(e, String(fee.id))}

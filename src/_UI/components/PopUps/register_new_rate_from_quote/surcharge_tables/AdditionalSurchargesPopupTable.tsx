@@ -102,7 +102,7 @@ const AdditionalSurchargesPopupTable:React.FC<PropsType> = ({charges, quote_ship
                                                 defaultValue={currency[0].id}
                                                 as={
                                                     <SurchargeRateSelect options={currency}
-                                                                         maxW={'80px'}
+                                                                         max_width={'80px'}
                                                     />
                                                 }
                                     />
@@ -112,7 +112,7 @@ const AdditionalSurchargesPopupTable:React.FC<PropsType> = ({charges, quote_ship
                                            ref={register}
                                            placeholder={'0.00$'}
                                            defaultValue={'0'}
-                                           maxW='95px'
+                                           max_width='95px'
                                     />
                                 </TableCell>
                                 {!noConditions

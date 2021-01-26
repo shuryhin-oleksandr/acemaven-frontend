@@ -94,7 +94,7 @@ const HandlingTable:React.FC<PropsType> = ({containers, ...props}) => {
                                                     defaultValue={currency[0].id}
                                                     as={
                                                         <SurchargeRateSelect options={currency}
-                                                                             maxW={'80px'}
+                                                                             max_width={'80px'}
                                                         />
                                                     }
                                         />
@@ -103,7 +103,7 @@ const HandlingTable:React.FC<PropsType> = ({containers, ...props}) => {
                                         <Field name={`usage_fees.${c.id}.charge`}
                                                ref={props.register}
                                                placeholder={'0.00$'}
-                                               maxW='102px'
+                                               max_width='102px'
                                         />
                                     </TableCell>
                                 </TableRow>

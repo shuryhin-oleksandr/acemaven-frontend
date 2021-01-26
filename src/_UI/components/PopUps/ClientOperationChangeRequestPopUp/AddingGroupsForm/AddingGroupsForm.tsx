@@ -30,7 +30,6 @@ import {
 } from "../../../../Pages/Requests/Booking_agent/booking_card/booking-card-style";
 import close_icon from "../../../../assets/icons/profile/closeForm.svg";
 import save_icon from "../../../../assets/icons/profile/add.svg";
-import { CargoGroupType } from "../../../../../_BLL/types/search/search_types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../../_BLL/store";
 import { calculateAdditionalCargoGroup } from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
@@ -155,7 +154,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
             <FormField
               error={errors?.volume}
               label="No. of packs"
-              maxW="135px"
+              max_width="135px"
               type="number"
               inputRef={register({ required: true })}
               disabled={shipping_mode === 2}
@@ -179,7 +178,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                     label={
                       selectedValueWeight === "kg" ? "Weight, kgs" : "Weight, t"
                     }
-                    maxW="90px"
+                    max_width="90px"
                     placeholder={
                       selectedValueWeight === "kg" ? "0, kg" : "0, t"
                     }
@@ -241,7 +240,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                     label={
                       selectedValueLength === "cm" ? "Height, cm" : "Height, m"
                     }
-                    maxW="90px"
+                    max_width="90px"
                     placeholder={
                       selectedValueLength === "cm" ? "0, cm" : "0, m"
                     }
@@ -268,7 +267,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                     label={
                       selectedValueLength === "cm" ? "Length, cm" : "Length, m"
                     }
-                    maxW="90px"
+                    max_width="90px"
                     placeholder={
                       selectedValueLength === "cm" ? "0, cm" : "0, m"
                     }
@@ -295,7 +294,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                     label={
                       selectedValueLength === "cm" ? "Width, cm" : "Width, m"
                     }
-                    maxW="90px"
+                    max_width="90px"
                     placeholder={
                       selectedValueLength === "cm" ? "0, cm" : "0, m"
                     }
@@ -353,7 +352,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
           <InfoRowLabel>Description</InfoRowLabel>
           <FormField
             error={errors?.description}
-            maxW="100%"
+            max_width="100%"
             inputRef={register({
               required: "Field is required",
             })}

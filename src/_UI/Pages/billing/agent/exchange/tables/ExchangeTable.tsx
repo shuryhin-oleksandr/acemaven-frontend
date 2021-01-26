@@ -178,7 +178,7 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
                             </span>
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                <FormField maxW='97px'
+                                <FormField max_width='97px'
                                            placeholder='000.00'
                                            marginBottom='0'
                                            type='number'
@@ -193,7 +193,7 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
                                 />
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">
-                                <FormField maxW='97px'
+                                <FormField max_width='97px'
                                            placeholder='000.00'
                                            marginBottom='0'
                                            type='number'
@@ -208,7 +208,7 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
                                 />
                             </TableCell>
                             <TableCell className={classes.innerCell} align="center">
-                                <FormField maxW='97px'
+                                <FormField max_width='97px'
                                            placeholder='0.00%'
                                            marginBottom='0'
                                            type='number'

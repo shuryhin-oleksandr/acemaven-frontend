@@ -31,6 +31,7 @@ import billing from '../../assets/icons/sidebar/billing.svg';
 import active_billing from '../../assets/icons/sidebar/active_billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import support from '../../assets/icons/sidebar/support.svg';
+import active_support from '../../assets/icons/sidebar/active_support.svg';
 
 
 
@@ -135,7 +136,13 @@ const NavBar: React.FC<IProps> = () => {
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                 />
-                <MenuLink icon={support} path='#' name='HELP AND SUPPORT'/>
+                <MenuLink icon={support}
+                          path='/support'
+                          name='HELP AND SUPPORT'
+                          setChecked={setChecked}
+                          checkedLink={checkedLink}
+                          activeIcon={active_support}
+                />
             </NavContainer>
         </ScrollbarStyled>
     )

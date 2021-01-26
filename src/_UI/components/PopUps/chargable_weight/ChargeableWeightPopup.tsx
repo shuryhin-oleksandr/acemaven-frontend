@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 //react hook form
-import {Controller,  useForm} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 //material ui
 import {IconButton} from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
@@ -17,9 +17,15 @@ import FormField from "../../_commonComponents/Input/FormField";
 import FormSelect from "../../_commonComponents/select/FormSelect";
 import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
 //styles
-import { ActionsWrapper, CalculationWrapper, CancelButton, CargoTitle, ChargeableWeightInner, ChargeableWeightOuter,
-    CheckboxWrap, ConfirmButton, FormRow, NewPackageWrapper, WeightIcon, WeightWrapper} from "./chargeable-weght-popup-styles";
-import { ActionsWrapRadio, CommonWrap, RadioLabel} from "../../_commonComponents/settingsNotification/settings-notification-styles";
+import {
+    ActionsWrapper, CalculationWrapper, CancelButton, CargoTitle, ChargeableWeightInner, ChargeableWeightOuter,
+    CheckboxWrap, ConfirmButton, FormRow, NewPackageWrapper, WeightIcon, WeightWrapper
+} from "./chargeable-weght-popup-styles";
+import {
+    ActionsWrapRadio,
+    CommonWrap,
+    RadioLabel
+} from "../../_commonComponents/settingsNotification/settings-notification-styles";
 //icons
 import weight from '../../../../_UI/assets/icons/widgets/weight.svg';
 import height from '../../../../_UI/assets/icons/widgets/height.svg';
@@ -53,8 +59,10 @@ type PropsType = {
     editable_cargo_group: CargoGroupType | null,
 }
 
-const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_success, packaging_types, container_types,getCalculation,
-                                                        shippingValue,  current_shipping_type, editable_cargo_group}) => {
+const ChargeableWeightPopup: React.FC<PropsType> = ({
+                                                        setOpenCalcPopup, calc_success, packaging_types, container_types, getCalculation,
+                                                        shippingValue, current_shipping_type, editable_cargo_group
+                                                    }) => {
 
     const {control, errors, setValue, handleSubmit, register, reset,} = useForm({
         reValidateMode: "onBlur"
@@ -62,7 +70,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
 
     const dispatch = useDispatch()
     const onSubmit = (values: CargoGroupType) => {
-        if(!editable_cargo_group) {
+        if (!editable_cargo_group) {
             values.volume
                 ? getCalculation({...values, shipping_type: current_shipping_type})
                 : getCalculation({
@@ -97,7 +105,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
 
     //set data to popup if user is editing some cargo group
     useEffect(() => {
-        if(editable_cargo_group) {
+        if (editable_cargo_group) {
             Object.keys(editable_cargo_group).forEach((key: string) => {
                 setValue(key, editable_cargo_group[key])
             })
@@ -108,7 +116,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
 
     //close popup and clear store data
     useEffect(() => {
-        if(calc_success) {
+        if (calc_success) {
             setOpenCalcPopup(false)
             dispatch(searchActions.setSuccessCalculate(false))
             dispatch(searchActions.setEditableCargoGroupToNull(null))
@@ -125,212 +133,218 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({ setOpenCalcPopup, calc_suc
         <ChargeableWeightOuter onSubmit={handleSubmit(onSubmit)}>
             <ChargeableWeightInner>
                 <IconButton onClick={() => closeHandler()}
-                    style={{top: '20px', right: '20px', width: '10.5px', height: '10.5px', position: 'absolute'}}>
+                            style={{
+                                top: '20px',
+                                right: '20px',
+                                width: '10.5px',
+                                height: '10.5px',
+                                position: 'absolute'
+                            }}>
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <CargoTitle>Please enter the details of your cargo</CargoTitle>
-                            <>
-                                <CalculationWrapper>
-                                    <FormRow>
-                                        { container_types && container_types?.length > 0
-                                            ? <Controller name='container_type'
-                                                    control={control}
-                                                    defaultValue=''
-                                                    rules={{
-                                                        required: 'Field is required'
-                                                    }}
-                                                    as={
-                                                        <FormSelect error={errors?.container_type?.message}
-                                                                    label='ULD type'
-                                                                    placeholder='Placeholder'
-                                                                    maxW='140px'
-                                                                    options={container_types}
-                                                        />
-                                                    }
-                                            />
-                                            : <Controller name='packaging_type'
-                                                          control={control}
-                                                          defaultValue=''
-                                                          rules={{
-                                                              required: 'Field is required'
-                                                          }}
-                                                          as={
-                                                              <FormSelect error={errors?.packaging_type?.message}
-                                                                          label='Packaging type'
-                                                                          placeholder='Placeholder'
-                                                                          maxW='140px'
-                                                                          options={packaging_types}
-                                                              />
-                                                          }
-                                            />
-                                        }
-                                        <FormField error={errors?.volume}
-                                                   label='No. of packs'
-                                                   maxW='135px'
-                                                   type='number'
-                                                   inputRef={register({required: true})}
-                                                   disabled={shippingValue === 2 }
-                                                   defaultValue={1}
-                                                   name='volume'
-                                        />
-                                        <Controller name='weight'
-                                                    control={control}
-                                                    defaultValue={''}
-                                                    rules={{
-                                                        required: 'Field is required'
-                                                    }}
-                                                    as={
-                                                        <WeightWrapper>
-                                                            <WeightIcon><img src={weight} alt=""/></WeightIcon>
-                                                            <FormField error={errors?.weight}
-                                                                       label={selectedValueWeight === 'kg' ? 'Weight, kgs' : 'Weight, t'}
-                                                                       maxW='90px'
-                                                                       placeholder={selectedValueWeight === 'kg' ? '0, kg' : '0, t'}
-                                                                       type='number'
-                                                                       defaultValue={editable_cargo_group ? editable_cargo_group.weight : ''}
-                                                            />
-                                                        </WeightWrapper>
-
-                                                }
-                                    />
-                                    <Controller name='weight_measurement'
-                                                control={control}
-                                                defaultValue={'t'}
-                                                as={
-                                                    <ActionsWrapRadio>
-                                                        <CommonWrap>
-                                                            <Radio
-                                                                checked={selectedValueWeight === 'kg'}
-                                                                onChange={handleChangeWeight}
-                                                                value="kg"
-                                                                name="radio-button-demo"
-                                                                inputProps={{'aria-label': 'kg'}}
-                                                                className={classes.root}
-                                                                size='small'
-                                                            />
-                                                            <RadioLabel>kg</RadioLabel>
-                                                        </CommonWrap>
-                                                        <CommonWrap>
-                                                            <Radio
-                                                                checked={selectedValueWeight === 't'}
-                                                                onChange={handleChangeWeight}
-                                                                value="t"
-                                                                name="radio-button-demo"
-                                                                inputProps={{'aria-label': 't'}}
-                                                                className={classes.root}
-                                                                size='small'
-                                                            />
-                                                            <RadioLabel>t</RadioLabel>
-                                                        </CommonWrap>
-                                                    </ActionsWrapRadio>
-                                                }
-                                    />
-                                </FormRow>
-                                    <FormRow>
-                                    <Controller name='height'
-                                                control={control}
-                                                defaultValue=''
-                                                rules={{
-                                                    required: 'Field is required'
-                                                }}
-                                                as={
-                                                    <WeightWrapper>
-                                                        <WeightIcon><img src={height} alt=""/></WeightIcon>
-                                                        <FormField error={errors?.height}
-                                                                    label={selectedValueLength === 'cm' ? 'Height, cm' : 'Height, m'}
-                                                                    maxW='90px'
-                                                                    placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
-                                                                    type='number'
-                                                                    defaultValue={editable_cargo_group ? editable_cargo_group.height : ''}
-                                                        />
-                                                    </WeightWrapper>
-                                                }
-                                    />
-                                    <Controller name='length'
-                                                control={control}
-                                                defaultValue=''
-                                                rules={{
-                                                    required: 'Field is required'
-                                                }}
-                                                as={
-                                                    <WeightWrapper>
-                                                        <WeightIcon><img src={length} alt=""/></WeightIcon>
-                                                        <FormField error={errors?.length}
-                                                                label={selectedValueLength === 'cm' ? 'Length, cm' : 'Length, m'}
-                                                                maxW='90px'
-                                                                placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
-                                                                type='number'
-                                                                defaultValue={editable_cargo_group ? editable_cargo_group.length : ''}
-                                                        />
-                                                    </WeightWrapper>
-
-                                                }
-                                    />
-                                    <Controller name='width'
-                                                control={control}
-                                                defaultValue=''
-                                                rules={{
-                                                    required: 'Field is required'
-                                                }}
-                                                as={
-                                                    <WeightWrapper>
-                                                        <WeightIcon><img src={width} alt=""/></WeightIcon>
-                                                        <FormField error={errors?.width}
-                                                                label={selectedValueLength === 'cm' ? 'Width, cm' : 'Width, m'}
-                                                                maxW='90px'
-                                                                placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
-                                                                type='number'
-                                                                defaultValue={editable_cargo_group ? editable_cargo_group.width : ''}
-                                                        />
-                                                    </WeightWrapper>
-
-                                                }
-                                    />
-                                    <Controller name='length_measurement'
-                                                control={control}
-                                                defaultValue='m'
-                                                as={
-                                                    <ActionsWrapRadio>
-                                                        <CommonWrap>
-                                                            <Radio
-                                                                checked={selectedValueLength === 'cm'}
-                                                                onChange={handleChangeLength}
-                                                                value="cm"
-                                                                name="radio-button-demo"
-                                                                inputProps={{'aria-label': 'cm'}}
-                                                                className={classes.root}
-                                                                size='small'
-                                                            />
-                                                            <RadioLabel>cm</RadioLabel>
-                                                        </CommonWrap>
-                                                        <CommonWrap>
-                                                            <Radio
-                                                                checked={selectedValueLength === 'm'}
-                                                                onChange={handleChangeLength}
-                                                                value="m"
-                                                                name="radio-button-demo"
-                                                                inputProps={{'aria-label': 'm'}}
-                                                                className={classes.root}
-                                                                size='small'
-                                                            />
-                                                            <RadioLabel>m</RadioLabel>
-                                                        </CommonWrap>
-                                                    </ActionsWrapRadio>
-                                                }
-                                    />
-                                </FormRow>
-                            </CalculationWrapper>
-                            <CheckboxWrap>
-                                <GeneralCustomCheckbox inputRef={register}
-                                                       name='dangerous'
-                                                       value={isCheck}
-                                    //setIsDangerous={setIsDangerous}
-                                                       setValue={setValue}
-                                                       setIsCheck={setIsCheck}
-                                                       span_text='Dangerous'
+                <>
+                    <CalculationWrapper>
+                        <FormRow>
+                            {container_types && container_types?.length > 0
+                                ? <Controller name='container_type'
+                                              control={control}
+                                              defaultValue=''
+                                              rules={{
+                                                  required: 'Field is required'
+                                              }}
+                                              as={
+                                                  <FormSelect error={errors?.container_type?.message}
+                                                              label='ULD type'
+                                                              placeholder='Placeholder'
+                                                              maxW='140px'
+                                                              options={container_types}
+                                                  />
+                                              }
                                 />
-                            </CheckboxWrap>
-                        </>
+                                : <Controller name='packaging_type'
+                                              control={control}
+                                              defaultValue=''
+                                              rules={{
+                                                  required: 'Field is required'
+                                              }}
+                                              as={
+                                                  <FormSelect error={errors?.packaging_type?.message}
+                                                              label='Packaging type'
+                                                              placeholder='Placeholder'
+                                                              maxW='140px'
+                                                              options={packaging_types}
+                                                  />
+                                              }
+                                />
+                            }
+                            <FormField error={errors?.volume}
+                                       label='No. of packs'
+                                       max_width='135px'
+                                       type='number'
+                                       inputRef={register({required: true})}
+                                       disabled={shippingValue === 2}
+                                       defaultValue={1}
+                                       name='volume'
+                            />
+                            <Controller name='weight'
+                                        control={control}
+                                        defaultValue={''}
+                                        rules={{
+                                            required: 'Field is required'
+                                        }}
+                                        as={
+                                            <WeightWrapper>
+                                                <WeightIcon><img src={weight} alt=""/></WeightIcon>
+                                                <FormField error={errors?.weight}
+                                                           label={selectedValueWeight === 'kg' ? 'Weight, kgs' : 'Weight, t'}
+                                                           max_width='90px'
+                                                           placeholder={selectedValueWeight === 'kg' ? '0, kg' : '0, t'}
+                                                           type='number'
+                                                           defaultValue={editable_cargo_group ? editable_cargo_group.weight : ''}
+                                                />
+                                            </WeightWrapper>
+
+                                        }
+                            />
+                            <Controller name='weight_measurement'
+                                        control={control}
+                                        defaultValue={'t'}
+                                        as={
+                                            <ActionsWrapRadio>
+                                                <CommonWrap>
+                                                    <Radio
+                                                        checked={selectedValueWeight === 'kg'}
+                                                        onChange={handleChangeWeight}
+                                                        value="kg"
+                                                        name="radio-button-demo"
+                                                        inputProps={{'aria-label': 'kg'}}
+                                                        className={classes.root}
+                                                        size='small'
+                                                    />
+                                                    <RadioLabel>kg</RadioLabel>
+                                                </CommonWrap>
+                                                <CommonWrap>
+                                                    <Radio
+                                                        checked={selectedValueWeight === 't'}
+                                                        onChange={handleChangeWeight}
+                                                        value="t"
+                                                        name="radio-button-demo"
+                                                        inputProps={{'aria-label': 't'}}
+                                                        className={classes.root}
+                                                        size='small'
+                                                    />
+                                                    <RadioLabel>t</RadioLabel>
+                                                </CommonWrap>
+                                            </ActionsWrapRadio>
+                                        }
+                            />
+                        </FormRow>
+                        <FormRow>
+                            <Controller name='height'
+                                        control={control}
+                                        defaultValue=''
+                                        rules={{
+                                            required: 'Field is required'
+                                        }}
+                                        as={
+                                            <WeightWrapper>
+                                                <WeightIcon><img src={height} alt=""/></WeightIcon>
+                                                <FormField error={errors?.height}
+                                                           label={selectedValueLength === 'cm' ? 'Height, cm' : 'Height, m'}
+                                                           max_width='90px'
+                                                           placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
+                                                           type='number'
+                                                           defaultValue={editable_cargo_group ? editable_cargo_group.height : ''}
+                                                />
+                                            </WeightWrapper>
+                                        }
+                            />
+                            <Controller name='length'
+                                        control={control}
+                                        defaultValue=''
+                                        rules={{
+                                            required: 'Field is required'
+                                        }}
+                                        as={
+                                            <WeightWrapper>
+                                                <WeightIcon><img src={length} alt=""/></WeightIcon>
+                                                <FormField error={errors?.length}
+                                                           label={selectedValueLength === 'cm' ? 'Length, cm' : 'Length, m'}
+                                                           max_width='90px'
+                                                           placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
+                                                           type='number'
+                                                           defaultValue={editable_cargo_group ? editable_cargo_group.length : ''}
+                                                />
+                                            </WeightWrapper>
+
+                                        }
+                            />
+                            <Controller name='width'
+                                        control={control}
+                                        defaultValue=''
+                                        rules={{
+                                            required: 'Field is required'
+                                        }}
+                                        as={
+                                            <WeightWrapper>
+                                                <WeightIcon><img src={width} alt=""/></WeightIcon>
+                                                <FormField error={errors?.width}
+                                                           label={selectedValueLength === 'cm' ? 'Width, cm' : 'Width, m'}
+                                                           max_width='90px'
+                                                           placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
+                                                           type='number'
+                                                           defaultValue={editable_cargo_group ? editable_cargo_group.width : ''}
+                                                />
+                                            </WeightWrapper>
+
+                                        }
+                            />
+                            <Controller name='length_measurement'
+                                        control={control}
+                                        defaultValue='m'
+                                        as={
+                                            <ActionsWrapRadio>
+                                                <CommonWrap>
+                                                    <Radio
+                                                        checked={selectedValueLength === 'cm'}
+                                                        onChange={handleChangeLength}
+                                                        value="cm"
+                                                        name="radio-button-demo"
+                                                        inputProps={{'aria-label': 'cm'}}
+                                                        className={classes.root}
+                                                        size='small'
+                                                    />
+                                                    <RadioLabel>cm</RadioLabel>
+                                                </CommonWrap>
+                                                <CommonWrap>
+                                                    <Radio
+                                                        checked={selectedValueLength === 'm'}
+                                                        onChange={handleChangeLength}
+                                                        value="m"
+                                                        name="radio-button-demo"
+                                                        inputProps={{'aria-label': 'm'}}
+                                                        className={classes.root}
+                                                        size='small'
+                                                    />
+                                                    <RadioLabel>m</RadioLabel>
+                                                </CommonWrap>
+                                            </ActionsWrapRadio>
+                                        }
+                            />
+                        </FormRow>
+                    </CalculationWrapper>
+                    <CheckboxWrap>
+                        <GeneralCustomCheckbox inputRef={register}
+                                               name='dangerous'
+                                               value={isCheck}
+                            //setIsDangerous={setIsDangerous}
+                                               setValue={setValue}
+                                               setIsCheck={setIsCheck}
+                                               span_text='Dangerous'
+                        />
+                    </CheckboxWrap>
+                </>
                 <NewPackageWrapper>
                 </NewPackageWrapper>
                 <ActionsWrapper>

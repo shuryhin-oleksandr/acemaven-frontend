@@ -21,9 +21,7 @@ type PropsType = {
 
 const CreditCardForm: React.FC<PropsType> = ({
   register,
-  errors,
   control,
-  setValue,
   reset,
 }) => {
   const [saveCheck, setSaveCheck] = useState(false);
@@ -42,7 +40,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 { title: "Add Credit card", id: 1 },
                 { title: "Credit card #1", id: 2 },
               ]}
-              maxW="300px"
+              max_width="300px"
               label="Select Credit Card"
               callback={setSelectValue}
             />
@@ -85,7 +83,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Name on Card"
                 name="branch_number"
                 // error={errors?.first_name}
-                maxW="300px"
+                max_width="300px"
               />
               <FormField
                 label="CPF/CNPJ"
@@ -95,7 +93,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="CPF/CNPJ"
                 name="branch_number"
                 // error={errors?.first_name}
-                maxW="300px"
+                max_width="300px"
               />
               <FormField
                 label="Card Number "
@@ -105,7 +103,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Card Number "
                 name="branch_number"
                 // error={errors?.first_name}
-                maxW="300px"
+                max_width="300px"
               />
               <FormField
                 label="CVV"
@@ -115,7 +113,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="CVV"
                 name="branch_number"
                 // error={errors?.first_name}
-                maxW="300px"
+                max_width="300px"
               />
               <FormField
                 label="Card Expiration"
@@ -125,7 +123,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Card Expiration"
                 name="branch_number"
                 // error={errors?.first_name}
-                maxW="300px"
+                max_width="300px"
               />
             </div>
             <div
@@ -144,7 +142,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                     placeholder="Address"
                     name="branch_number"
                     // error={errors?.first_name}
-                    maxW="300px"
+                    max_width="300px"
                   />
                 </div>
                 <div
@@ -162,7 +160,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                     placeholder="0000-0"
                     name="branch_number"
                     // error={errors?.first_name}
-                    maxW="300px"
+                    max_width="300px"
                   />
                 </div>
               </div>
@@ -174,7 +172,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="City"
                 name="branch_number"
                 // error={errors?.first_name}
-                maxW="300px"
+                max_width="300px"
               />
               <FormField
                 label="State"
@@ -184,7 +182,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="State"
                 name="branch_number"
                 // error={errors?.first_name}
-                maxW="300px"
+                max_width="300px"
               />
               <FormField
                 label="Zip Code"
@@ -194,7 +192,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Zip Code"
                 name="branch_number"
                 // error={errors?.first_name}
-                maxW="300px"
+                max_width="300px"
               />
               <FormField
                 label="Country"
@@ -204,7 +202,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                 placeholder="Country"
                 name="branch_number"
                 // error={errors?.first_name}
-                maxW="300px"
+                max_width="300px"
               />
             </div>
           </div>

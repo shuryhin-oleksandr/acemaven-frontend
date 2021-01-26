@@ -260,7 +260,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                                 <SurchargeRateSelect
                                                     placeholder={"Select status"}
                                                     options={statusOptions}
-                                                    maxW="260px"
+                                                    max_width="260px"
                                                     error={errors?.status?.message}
                                                 />
                                             }
@@ -275,7 +275,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                                 placeholder="Add comment..."
                                                 name="comment"
                                                 error={errors?.comment}
-                                                maxW={"100%"}
+                                                max_width={"100%"}
                                             />
                                             : <ManualTrackingCalendarChoice control={control}
                                                                             date_name_first='date'

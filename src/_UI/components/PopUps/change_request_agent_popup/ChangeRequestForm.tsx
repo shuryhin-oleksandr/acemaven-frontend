@@ -1,7 +1,6 @@
 import React, {useRef, useState} from 'react'
-import {Controller, useForm} from "react-hook-form";
+import { useForm} from "react-hook-form";
 import {
-    CancelRequestButton,
     ChangeRequestButtonsWrapper, ConfirmRequestButton,
     FormChangeRequestTitle,
     FormChangeRequestWrapper
@@ -11,18 +10,10 @@ import LocationContainer from "../accept_booking_popup/LocationContainer";
 import AcceptPopupDates from "../accept_booking_popup/AcceptPopupDates";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 // @ts-ignore
-import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
 import moment from "moment";
-import {InfoRowLabel} from "../../../Pages/Requests/Booking_agent/booking_card/booking-card-style";
-import {CalendarWrapper} from "../../_commonComponents/calendar/calendar-styles";
-import {OperationType, ShipmentDetailsType} from "../../../../_BLL/types/operations/operationsTypes";
+import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
 import {ShippingModeEnum, ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
-import {
-    cancelChangeRequestThunk,
-    confirmChangeRequestThunk,
-    editOperationByAgentThunk
-} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {confirmChangeRequestThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {useDispatch} from "react-redux";
 
 type PropsType = {
@@ -88,15 +79,15 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
         from:  '',
         to:  ''
     })
-    const toInput = useRef<DayPickerInput>(null)
-
-    const handleDayChange = (to: string) => {
-        setSelectedDay({
-            ...selectedDay,
-            to
-        })
-        setValue('payment_due_by', to)
-    }
+    // const toInput = useRef<DayPickerInput>(null)
+    //
+    // const handleDayChange = (to: string) => {
+    //     setSelectedDay({
+    //         ...selectedDay,
+    //         to
+    //     })
+    //     setValue('payment_due_by', to)
+    // }
 
 
     return (
@@ -108,7 +99,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                         <FormField inputRef={register({required: 'Field is required'})}
                                    error={errors?.vessel}
                                    name='vessel'
-                                   maxW='290px'
+                                   max_width='290px'
                                    color_label='#115B86'
                                    label='VESSEL'
                                    placeholder='Placeholder'
@@ -118,7 +109,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                         <FormField inputRef={register({required: 'Field is required'})}
                                    error={errors?.voyage}
                                    name='voyage'
-                                   maxW='290px'
+                                   max_width='290px'
                                    color_label='#115B86'
                                    label='TRIP'
                                    placeholder='Placeholder'
@@ -130,7 +121,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                         <FormField inputRef={register({required: 'Field is required'})}
                                    error={errors?.mawb}
                                    name='mawb'
-                                   maxW='290px'
+                                   max_width='290px'
                                    color_label='#115B86'
                                    label='MAWB'
                                    placeholder='Placeholder'
@@ -140,7 +131,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                         <FormField inputRef={register({required: 'Field is required'})}
                                    error={errors?.flight_number}
                                    name='flight_number'
-                                   maxW='290px'
+                                   max_width='290px'
                                    color_label='#115B86'
                                    label='FLIGHT NUMBER'
                                    placeholder='Placeholder'
@@ -152,7 +143,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                 <FormField inputRef={register({required: 'Field is required'})}
                            error={errors?.booking_number}
                            name='booking_number'
-                           maxW='290px'
+                           max_width='290px'
                            color_label='#115B86'
                            label='BOOKING NUMBER'
                            placeholder='Placeholder'
@@ -165,7 +156,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                 <FormField inputRef={register({required: 'Field is required'})}
                            error={errors?.booking_number_with_carrier}
                            name='booking_number_with_carrier'
-                           maxW='290px'
+                           max_width='290px'
                            color_label='#115B86'
                            label='BOOKING NUMBER WITH CARRIER'
                            placeholder='Placeholder'
@@ -175,7 +166,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                 <FormField inputRef={register({required: 'Field is required'})}
                            error={errors?.container_number}
                            name='container_number'
-                           maxW='290px'
+                           max_width='290px'
                            color_label='#115B86'
                            label='CONTAINER NUMBER'
                            placeholder='Placeholder'
@@ -244,7 +235,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                 <FormField inputRef={register({required: 'Field is required'})}
                            error={errors?.container_free_time}
                            name='container_free_time'
-                           maxW='290px'
+                           max_width='290px'
                            color_label='#115B86'
                            label='CONTAINER FREE TIME'
                            placeholder='0 days'
@@ -253,39 +244,8 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                 />
             </div>
             }
-
-           {/* <div style={{ width: '100%', borderBottom: '1px solid #7C7C89', paddingBottom: '25px', marginBottom: '25px'}}>
-                <InfoRowLabel style={{marginRight: '10px'}}>PAYMENT DUE BY</InfoRowLabel>
-                <CalendarWrapper max_width='150px' margin_top='0px' input_height='40px' margin_right='0px' style={{display: 'flex'}}>
-                <Controller control={control}
-                            name='payment_due_by'
-                            rules={{required: true}}
-                            defaultValue={moment('22/12/2020', 'DD/MM/YYYY').toDate()}
-                            as={
-                                <DayPickerInput
-                                    inputProps={{
-                                        readOnly: 'readonly'
-                                    }}
-                                    format='DD/MM/YYYY'
-                                    placeholder='DD/MM/YYYY'
-                                    formatDate={formatDate}
-                                    parseDate={parseDate}
-                                    hideOnDayClick={false}
-                                    value={selectedDay.to}
-                                    // @ts-ignore
-                                    onDayChange={handleDayChange}
-                                    ref={toInput}
-                                    dayPickerProps={{
-                                        disabledDays: [{before: new Date()}],
-                                    }}
-                                />
-                            }
-                />
-                </CalendarWrapper>
-            </div>*/}
             <ChangeRequestButtonsWrapper>
                 <ConfirmRequestButton type='submit'>CONFIRM</ConfirmRequestButton>
-                {/*<CancelRequestButton type='button' onClick={() => dispatch(cancelChangeRequestThunk(Number(operation_info?.id)))}>CANCEL</CancelRequestButton>*/}
             </ChangeRequestButtonsWrapper>
         </FormChangeRequestWrapper>
     )

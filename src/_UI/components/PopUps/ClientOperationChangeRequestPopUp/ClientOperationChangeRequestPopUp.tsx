@@ -475,7 +475,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                               inputRef={register}
                               name={`volume.${index}`}
                               defaultValue={c.volume}
-                              maxW={"100px"}
+                              max_width={"100px"}
                               onBlur={() => {
                                 reCalcOnVolumeChange(
                                   getValues(`volume.${index}`),
@@ -498,7 +498,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                               inputRef={register}
                               name={`volume.${index}`}
                               defaultValue={c.volume}
-                              maxW={"100px"}
+                              max_width={"100px"}
                               onBlur={() => {
                                 reCalcOnVolumeChange(
                                   getValues(`volume.${index}`),

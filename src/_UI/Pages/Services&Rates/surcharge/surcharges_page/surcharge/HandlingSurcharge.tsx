@@ -97,7 +97,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
                                                    as={
                                                         <SurchargeRateSelect options={currency}
                                                                              placeholder='Currency'
-                                                                             maxW='80px'
+                                                                             max_width='80px'
                                                         />
                                                     }
                                         />

@@ -172,7 +172,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                             as={
                                                 <SurchargeRateSelect
                                                     options={currency}
-                                                    maxW="70px"
+                                                    max_width="70px"
                                                 />
                                             }
                                         />
@@ -184,7 +184,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
                                             defaultValue={r.rate}
                                             as={
                                                 <Field placeholder="0.00$"
-                                                       maxW="100px"
+                                                       max_width="100px"
                                                        type='number'
                                                 />
                                             }

@@ -5,7 +5,8 @@ type PropsStyle = {
     w?: string,
     button_background?: string,
     text_color?: string,
-    margin_right?: string
+    margin_right?: string,
+    font_size?: string
 }
 
 export const Button = styled.button<PropsStyle>`
@@ -14,7 +15,7 @@ export const Button = styled.button<PropsStyle>`
   text-transform: uppercase;
   color: ${({text_color}) => text_color ? text_color : 'white'};
   font-family: "Helvetica Reg", sans-serif;
-  font-size: 16px;
+  font-size: ${({font_size}) => font_size ? font_size : '16px'};
   background: ${({button_background}) => button_background ? button_background : 'none'};
   height: 40px;
   width: ${({w}) => w ? w : '180px'};
@@ -23,6 +24,6 @@ export const Button = styled.button<PropsStyle>`
   
   &:hover {
     cursor: pointer;
-    
+ 
   }
 `

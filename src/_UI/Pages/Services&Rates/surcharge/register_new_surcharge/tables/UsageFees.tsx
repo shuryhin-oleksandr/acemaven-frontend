@@ -114,7 +114,7 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
                                                 <SurchargeRateSelect
                                                     options={currency}
                                                     placeholder="Currency"
-                                                    maxW="80px"
+                                                    max_width="80px"
                                                 />
                                             }
                                         />
@@ -129,7 +129,7 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
                                             }}
                                             as={
                                                 <div style={{position: 'relative'}}>
-                                                <Field maxW="100px"
+                                                <Field max_width="100px"
                                                        marginBottom="0"
                                                        onChange={(e) => onChange(e, String(fees.id))}
                                                        onBlur={() => setAware(false)}

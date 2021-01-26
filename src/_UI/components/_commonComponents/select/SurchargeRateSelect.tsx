@@ -14,7 +14,7 @@ type IProps = {
   options?: any;
   placeholder?: string;
   callback?: (value: any) => void;
-  maxW?: string;
+  max_width?: string;
   hideLabel?: boolean;
   margin_bottom?: string;
   background?: string;
@@ -106,7 +106,7 @@ const SurchargeRateSelect: React.FC<IProps> = ({
   });
 
   return (
-    <SelectContainer maxW={props.maxW} marginRight={props.margin_right}>
+    <SelectContainer maxW={props.max_width} marginRight={props.margin_right}>
       <FormControl className={classes.formControl}>
         {hideLabel ? null : <Label>{label}</Label>}
         <Select

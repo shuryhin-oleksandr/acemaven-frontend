@@ -141,7 +141,7 @@ const Additional: React.FC<PropsType> = ({
                       <SurchargeRateSelect
                         options={currency}
                         placeholder="Currency"
-                        maxW="80px"
+                        max_width="80px"
                       />
                     }
                   />

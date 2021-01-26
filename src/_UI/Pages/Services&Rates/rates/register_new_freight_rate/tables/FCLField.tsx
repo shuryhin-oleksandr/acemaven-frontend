@@ -61,7 +61,7 @@ const FCLField:React.FC<PropsType> = ({fee, getSurchargeToRateHandle, setValue, 
                             defaultValue={currency[0].id}
                             as={
                                 <SurchargeRateSelect options={currency}
-                                                     maxW='70px'
+                                                     max_width='70px'
                                                      placeholder='Currency'
                                 />
                             }
@@ -73,7 +73,8 @@ const FCLField:React.FC<PropsType> = ({fee, getSurchargeToRateHandle, setValue, 
                             defaultValue=''
                             render={({}) => (
                                 <div style={{position: 'relative'}}>
-                                    <Field placeholder='0.00$' maxW='100px'
+                                    <Field placeholder='0.00$'
+                                           max_width='100px'
                                            onChange={(e) => onChange(e, String(fee.id))}
                                            onBlur={() => setAware(false)}
                                            type='number'

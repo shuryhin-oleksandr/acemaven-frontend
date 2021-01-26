@@ -149,7 +149,7 @@ const Additional: React.FC<PropsType> = ({
                       <SurchargeRateSelect
                         options={currency}
                         placeholder="Currency"
-                        maxW="80px"
+                        max_width="80px"
                       />
                     }
                   />
@@ -161,7 +161,9 @@ const Additional: React.FC<PropsType> = ({
                     defaultValue={0}
                     //rules={{required: true}}
                     as={
-                        <Field maxW="100px" placeholder="0.00$" type="number"  />
+                        <Field max_width="100px"
+                               placeholder="0.00$"
+                               type="number"  />
                     }
                   />
                 </TableCell>

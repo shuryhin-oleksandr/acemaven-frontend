@@ -204,7 +204,7 @@ const Rates: React.FC<PropsType> = ({
                                                             defaultValue={currency[0].id}
                                                             as={
                                                                 <SurchargeRateSelect options={currency}
-                                                                                     maxW='70px'
+                                                                                     max_width='70px'
                                                                 />
                                                             }
                                                 />
@@ -244,7 +244,7 @@ const Rates: React.FC<PropsType> = ({
                                                                type='number'
                                                                onChange={(e) => onChange(e, String(0))}
                                                                marginBottom='0px'
-                                                               maxW='107px'
+                                                               max_width='107px'
 
                                                     />
                                                     {awareMessage && String(0) === rate_value

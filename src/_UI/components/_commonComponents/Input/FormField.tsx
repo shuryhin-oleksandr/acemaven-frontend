@@ -13,7 +13,7 @@ type PropsType = {
   type?: string;
   max?: string;
   min?: string;
-  maxW?: string;
+  max_width?: string;
   focusBack?: string;
   height?: string;
   onBlur?: (value: any) => void;
@@ -32,7 +32,7 @@ type PropsType = {
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
   return (
-    <InputOuter maxW={props.maxW} marginBottom={props.marginBottom}>
+    <InputOuter max_width={props.max_width} marginBottom={props.marginBottom}>
       {!!label &&
       <Label font_weight={props.font_weight}
              color_label={props.color_label}
@@ -52,7 +52,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
         onBlur={(e) => props.onBlur && props.onBlur(e.target.value)}
         autoComplete="off"
-        maxW={props.maxW}
+        max_width={props.max_width}
         defaultValue={props.defaultValue}
         disabled={props.disabled}
         background={props.background}

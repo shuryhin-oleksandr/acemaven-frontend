@@ -1,11 +1,17 @@
 import React, {ReactElement} from 'react'
+//moment js
+import moment from "moment";
+//react-google-map
 import {GoogleMap, Marker, Polyline, withGoogleMap} from "react-google-maps";
-import marker from '../../../../../../../assets/icons/operations/marker.svg'
-import red_icon_marker from '../../../../../../../assets/icons/operations/red_marker.svg'
+//types
 import {CoordinatesType} from "../../../../../../../../_BLL/types/rates&surcharges/ratesTypes";
+//helpers
 import {polylineSmallMapIcons} from "../../../../../../../../_BLL/helpers/tracker/SmallMapHelper";
 import {smallManualPolylineIcons} from "../../../../../../../../_BLL/helpers/tracker/smallManualPolyline";
-import moment from "moment";
+//icon
+import marker from '../../../../../../../assets/icons/operations/marker.svg'
+import red_icon_marker from '../../../../../../../assets/icons/operations/red_marker.svg'
+
 
 
 type PropsType = {

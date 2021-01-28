@@ -13,7 +13,9 @@ import { userCompaniesType } from "../../../../../../../../_BLL/types/authTypes"
 import { SectionTitle, SectionWrapper } from "../../operation-card-style";
 import { MapWrapper } from "../../../../../../dashboard/dashboard-styles";
 import styled from "styled-components";
+//icons
 import IconLocation from "../../../../../../../assets/icons/location_blue.svg";
+
 
 type PropsType = {
   tracking: TrackingBackendType[];

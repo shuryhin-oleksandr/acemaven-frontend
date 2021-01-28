@@ -1,31 +1,38 @@
 import React, { useState } from "react";
-import MapComponent from "../../../dashboard/MapComponent/MapComponent";
-import { MapWrapper } from "../../../dashboard/dashboard-styles";
-import { HideButton } from "../../../operations/agent/agent-operations-list-container";
-import hide_map_icon from "../../../../assets/icons/operations/hide_map.svg";
-import { Content, Inner, Wrapper, Heading } from "./billing-in-progress-styles";
-import BillingInProgressCard from "./BillingInProgressCard";
-import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
-import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
-import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+//helpers
 import {
   autoTrackWithEventsHelper,
   manualTrackWithEventsHelper
 } from "../../../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
+//types
+import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
+//components
+import MapComponent from "../../../dashboard/MapComponent/MapComponent";
+import { HideButton } from "../../../operations/agent/agent-operations-list-container";
+import BillingInProgressCard from "./BillingInProgressCard";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+//styles
+import { MapWrapper } from "../../../dashboard/dashboard-styles";
+import { Content, Inner, Wrapper, Heading } from "./billing-in-progress-styles";
+//icons
+import hide_map_icon from "../../../../assets/icons/operations/hide_map.svg";
+
+
 
 type PropsType = {
   billing_list: BillingOperationType[];
 };
 
+
 const BillingInProgressPage: React.FC<PropsType> = ({ billing_list }) => {
   const [isHide, setIsHide] = useState(false);
 
   //for map (polyline & shipment-icon current position)
- /* let auto_events = autoTrackWithEventsHelper(props.operations_list)
-  let manual_events = manualTrackWithEventsHelper(props.operations_list)
+  let auto_events = autoTrackWithEventsHelper(billing_list)
+  let manual_events = manualTrackWithEventsHelper(billing_list)
 
-  const events = [...auto_events, ...manual_events]*/
-    let events = autoTrackWithEventsHelper(billing_list);
+  const events = [...auto_events, ...manual_events]
+
   return (
     <Wrapper>
       {!isHide && (

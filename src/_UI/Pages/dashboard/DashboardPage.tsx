@@ -9,7 +9,10 @@ import {searchActions} from "../../../_BLL/reducers/search_client/searchClientRe
 import {getBookingRequestListSelector} from "../../../_BLL/selectors/booking/bookingAgentSelector";
 import {getBookingRequestListThunk} from "../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
 //helpers
-import {autoTrackWithEventsHelper} from "../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
+import {
+    autoTrackWithEventsHelper,
+    manualTrackWithEventsHelper
+} from "../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
 //types
 import {
     CargoGroupType,
@@ -46,7 +49,6 @@ import {
     MapWrapper,
     Back,
 } from "./dashboard-styles";
-
 
 
 type PropsType = {
@@ -152,7 +154,12 @@ const DashboardPage: React.FC<PropsType> = ({
         setDates([]);
     };
 
-   let events = autoTrackWithEventsHelper(props.operations_list)
+    //for map (polyline & shipment-icon current position)
+    let auto_events = autoTrackWithEventsHelper(props.operations_list)
+    let manual_events = manualTrackWithEventsHelper(props.operations_list)
+
+    const events = [...auto_events, ...manual_events]
+
 
     const latest_tracking_list = useSelector(
         (state: AppStateType) => state.client_operations.latest_tracking_widget_data
@@ -226,7 +233,7 @@ const DashboardPage: React.FC<PropsType> = ({
                 <MultiWidgetBox widgetsVisible={widgetsVisible}>
                     {company === AppCompaniesTypes.CLIENT
                         ? <FeePaymentWidget/>
-                        : <OperationsInProgressWidget />
+                        : <OperationsInProgressWidget/>
                     }
                     {company === AppCompaniesTypes.AGENT && requests.length > 0
                     && <RequestWidget requests={requests}/>

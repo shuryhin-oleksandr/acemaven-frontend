@@ -1,4 +1,5 @@
 import {ShippingTypesEnum} from "../../types/rates&surcharges/newSurchargesTypes";
+import {OperationType} from "../../types/operations/operationsTypes";
 
 
 export const autoTrackWithEventsHelper = (operations_list: any) => {
@@ -7,7 +8,7 @@ export const autoTrackWithEventsHelper = (operations_list: any) => {
         ? o.tracking[0].data.events?.length > 0 && o
         : o.tracking[0].data.data.locations?.length > 0 && o)
 
-    let events = operations_for_drawing_on_map.map((o: any) => ({
+    return operations_for_drawing_on_map.map((o: any) => ({
         ...o.tracking_initial,
         locations: o.shipping_type === ShippingTypesEnum.AIR
             ? o.tracking?.map((ot: any) => ot?.data?.events.map((e: any) => ({
@@ -19,5 +20,17 @@ export const autoTrackWithEventsHelper = (operations_list: any) => {
                 lng: l.lng
             })))[0]
     }))
-    return events
+
+}
+
+export const manualTrackWithEventsHelper = (operations_list: any) => {
+    let operations_with_tracking = operations_list.filter((o: any) => o.tracking?.length > 0 && !o.automatic_tracking)
+    return operations_with_tracking.map((o:OperationType) => ({
+        ...o.tracking_initial,
+        date_of_departure: o.shipment_details && o.shipment_details[0].date_of_departure,
+        date_of_arrival: o.shipment_details && o.shipment_details[0].date_of_arrival,
+        actual_date_of_departure: o.shipment_details && o.shipment_details[0].actual_date_of_departure,
+        actual_date_of_arrival: o.shipment_details && o.shipment_details[0].actual_date_of_arrival
+    }))
+
 }

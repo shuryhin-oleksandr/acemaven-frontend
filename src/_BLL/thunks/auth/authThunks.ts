@@ -81,7 +81,6 @@ export const completeAdditionalUser = (token: string, wholeData: any, history: H
             } else {
                 dispatch(authActions.setAdditionalUserEmailError(e.response.data.email[0]));
             }
-            /*dispatch(authActions.setCheckTokenError(e.response));*/
             dispatch(authActions.setIsLoading(false));
         }
     };

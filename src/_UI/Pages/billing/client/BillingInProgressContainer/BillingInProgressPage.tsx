@@ -8,7 +8,10 @@ import BillingInProgressCard from "./BillingInProgressCard";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {autoTrackWithEventsHelper} from "../../../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
+import {
+  autoTrackWithEventsHelper,
+  manualTrackWithEventsHelper
+} from "../../../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
 
 type PropsType = {
   billing_list: BillingOperationType[];
@@ -16,6 +19,12 @@ type PropsType = {
 
 const BillingInProgressPage: React.FC<PropsType> = ({ billing_list }) => {
   const [isHide, setIsHide] = useState(false);
+
+  //for map (polyline & shipment-icon current position)
+ /* let auto_events = autoTrackWithEventsHelper(props.operations_list)
+  let manual_events = manualTrackWithEventsHelper(props.operations_list)
+
+  const events = [...auto_events, ...manual_events]*/
     let events = autoTrackWithEventsHelper(billing_list);
   return (
     <Wrapper>

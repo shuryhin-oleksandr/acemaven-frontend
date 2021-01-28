@@ -25,6 +25,8 @@ type PropsType = {
   shipping_mode_id: number;
   automatic_tracking?: boolean;
   booking_id: number;
+  departure: string | undefined,
+    arrival: string | undefined
 };
 
 const ShipmentTrackingBlock: React.FC<PropsType> = ({
@@ -37,6 +39,7 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
   shipping_mode_id,
   automatic_tracking,
   booking_id,
+    ...props
 }) => {
   let events_coordinates =
     shipping_type === "air"
@@ -57,6 +60,7 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
     events_coordinates &&
     events_coordinates.length > 0 &&
     events_coordinates[events_coordinates.length - 1];
+
 
   const hasOriginCoordinates =
     origin_coordinates?.hasOwnProperty("latitude") &&
@@ -82,6 +86,8 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
             destination_coordinates ? destination_coordinates : null
           }
           last_event_coordinates={lastItem}
+          departure={props.departure ? props.departure :  undefined}
+          arrival={props.arrival ? props.arrival : undefined}
         />
       ) : (
         <Notification>

@@ -10,7 +10,6 @@ import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import { useSelector } from "react-redux";
 import { AppStateType } from "../../../../../_BLL/store";
 import { getFiveLatestHelper } from "../../../../../_BLL/helpers/widgets/getFiveLatestHelper";
-import { LatestTrackingWidgetType } from "../../../../../_BLL/types/operations/operationsTypes";
 import moment from "moment";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
@@ -46,7 +45,7 @@ const RackingStatusWidget: React.FC = () => {
         </TableHead>
         <TableBody>
           {latest_list.map((item, idx) => (
-            <TableRow>
+            <TableRow key={item.booking_number + '-' + idx}>
               <TableCell className={classes.innerCell}>
                 <div
                   style={{

@@ -3,7 +3,10 @@ import React, {useState} from 'react'
 import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
 import {CurrentShippingType, ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 //helpers
-import {autoTrackWithEventsHelper} from "../../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
+import {
+    autoTrackWithEventsHelper,
+    manualTrackWithEventsHelper
+} from "../../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
 //components
 import {
     OperationHeader, OperationsContent,
@@ -45,9 +48,11 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
     const [isHide, setIsHide] = useState(false);
 
     // SEA
-    let events = autoTrackWithEventsHelper(props.operations_list)
+    let events = [...autoTrackWithEventsHelper(props.operations_list), ...manualTrackWithEventsHelper(props.operations_list)]
+
     //AIR
-    let air_events = autoTrackWithEventsHelper(props.operations_list)
+    let air_events = [...autoTrackWithEventsHelper(props.operations_list), ...manualTrackWithEventsHelper(props.operations_list)]
+
 
 
     return (

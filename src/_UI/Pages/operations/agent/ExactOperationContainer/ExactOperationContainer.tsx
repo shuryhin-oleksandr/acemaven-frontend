@@ -51,6 +51,7 @@ const ExactOperationContainer = ({...props}) => {
     let operation_id = props.match.params.id;
     let local_time = moment(new Date()).format(" DD/MM  h:mm a");
 
+    const [isSmallBar, setSmallBar] = useState(false)
     const [isAcceptPopup, openAcceptPopup] = useState(false);
     const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
     const [isCompleteOperation, setCompleteOperationPopup] = useState(false);
@@ -118,6 +119,7 @@ const ExactOperationContainer = ({...props}) => {
     // @ts-ignore
     let id = query.id;
 
+
     useEffect(() => {
         company_type && (company_type?.type === "agent"
             ? dispatch(getAgentExactOperationThunk(operation_id))
@@ -168,7 +170,7 @@ const ExactOperationContainer = ({...props}) => {
     }, [edit_operation_by_agent_success])
 
     return (
-        <Layout>
+        <Layout isSmallBar={isSmallBar} setSmallBar={setSmallBar}>
             <ModalWindow isOpen={isAcceptPopup}>
                 <AcceptPopup
                     openAcceptPopup={openAcceptPopup}

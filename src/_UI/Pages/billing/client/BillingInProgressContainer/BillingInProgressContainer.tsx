@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
-import Layout from "../../../../components/BaseLayout/Layout";
-import BillingInProgressPage from "./BillingInProgressPage";
+//react-redux
+import { useDispatch, useSelector } from "react-redux";
+//BLL
+import { AppStateType } from "../../../../../_BLL/store";
 import { getClientBillingOperationsThunk } from "../../../../../_BLL/thunks/billing/agent/ClientBillingThunks";
 import { clientBillingActions } from "../../../../../_BLL/reducers/billing/client/ClientBillingReducer";
-import { useDispatch, useSelector } from "react-redux";
-import { AppStateType } from "../../../../../_BLL/store";
+//components
+import Layout from "../../../../components/BaseLayout/Layout";
+import BillingInProgressPage from "./BillingInProgressPage";
 import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+
+
 
 const BillingInProgressContainer: React.FC = () => {
   let dispatch = useDispatch();

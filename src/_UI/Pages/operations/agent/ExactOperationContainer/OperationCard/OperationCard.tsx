@@ -155,6 +155,8 @@ const OperationCard: React.FC<PropsType> = ({
                                           shipping_mode_id={operation_info?.freight_rate.shipping_mode.id}
                                           automatic_tracking={operation_info.automatic_tracking}
                                           booking_id={operation_info.id}
+                                          departure={shipment?.actual_date_of_departure ? shipment?.actual_date_of_departure : shipment?.date_of_departure ? shipment?.date_of_departure : undefined}
+                                          arrival={shipment?.actual_date_of_arrival ? shipment?.actual_date_of_arrival : shipment?.date_of_arrival ? shipment?.date_of_arrival : undefined}
                 />
                 }
                 <SectionWrapper>

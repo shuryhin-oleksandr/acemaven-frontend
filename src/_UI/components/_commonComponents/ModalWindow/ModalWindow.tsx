@@ -12,6 +12,7 @@ const ModalWindow:React.FC<PropsType> = ({children, isOpen}) => {
   return (
     <Modal
       isOpen={isOpen}
+      ariaHideApp={false}
       style={{
         content: {
           inset: "unset",

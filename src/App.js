@@ -1,10 +1,11 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import useRoute from "./routes/useRoute";
-import {useDispatch, useSelector} from "react-redux";
-import {authActions} from "./_BLL/reducers/authReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "./_BLL/reducers/authReducer";
 import Spinner from "./_UI/components/_commonComponents/spinner/Spinner";
-import { Scrollbars } from 'react-custom-scrollbars';
-import {getAuthUserInfo} from "./_BLL/reducers/profileReducer";
+import { Scrollbars } from "react-custom-scrollbars";
+import { getAuthUserInfo } from "./_BLL/reducers/profileReducer";
+import { wsChatHelper } from "./_BLL/helpers/wsChatHelper";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuth);
@@ -12,34 +13,50 @@ function App() {
 
   const route = useRoute(isAuth);
   const dispatch = useDispatch();
-  let token = localStorage.getItem('access_token')
+  let token = localStorage.getItem("access_token");
+
+  const baseUrl = `ws://37.17.34.252:8443/ws/notification/?token=${token}`;
 
   useEffect(() => {
-    token && dispatch(getAuthUserInfo());
+    if (token) {
+      dispatch(getAuthUserInfo());
+
+      const ws = new WebSocket(baseUrl);
+      ws.onopen = () => {};
+      ws.onmessage = (evt) => {
+        const res = JSON.parse(evt.data);
+        wsChatHelper(res, dispatch);
+        console.log("RES", res);
+      };
+    }
   }, [token]);
 
   useEffect(() => {
-    dispatch(authActions.setInit(false))
-    if(token) {
-      dispatch(authActions.setAuth(true))
-      dispatch(authActions.setInit(true))
+    dispatch(authActions.setInit(false));
+    if (token) {
+      dispatch(authActions.setAuth(true));
+      dispatch(authActions.setInit(true));
     } else {
-      dispatch(authActions.setAuth(false))
-      dispatch(authActions.setInit(true))
+      dispatch(authActions.setAuth(false));
+      dispatch(authActions.setInit(true));
     }
-  }, [dispatch, token])
+  }, [dispatch, token]);
 
-  return (
-     isInit
-         ? <Scrollbars
-        style={{ width: "100vw",  height: "100vh" }}
-        autoHide={false}
-        renderTrackVertical={(props) => <div {...props} className={isAuth ? {} : "track-vertical"}/>}
-        renderThumbVertical={(props) => <div {...props} className={isAuth ? {} : "thumb-vertical"}/>}
-      >
-        <div className="App">{route}</div>
-      </Scrollbars>
-         : <Spinner />
+  return isInit ? (
+    <Scrollbars
+      style={{ width: "100vw", height: "100vh" }}
+      autoHide={false}
+      renderTrackVertical={(props) => (
+        <div {...props} className={isAuth ? {} : "track-vertical"} />
+      )}
+      renderThumbVertical={(props) => (
+        <div {...props} className={isAuth ? {} : "thumb-vertical"} />
+      )}
+    >
+      <div className="App">{route}</div>
+    </Scrollbars>
+  ) : (
+    <Spinner />
   );
 }
 

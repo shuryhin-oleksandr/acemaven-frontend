@@ -1,9 +1,10 @@
-import {MessageType} from "../../types/chat/ChatTypes";
+import {MessageType, NotificationType} from "../../types/chat/ChatTypes";
 
 
 const initialState = {
     message_history: [] as MessageType[],
-    typing_user: 0
+    typing_user: 0,
+    notification_list: [] as NotificationType[]
 };
 
 type InitialStateType = typeof initialState;
@@ -25,6 +26,11 @@ export const chatOperationReducer = (state = initialState, action: commonOperati
                 ...state,
                 typing_user: action.typing_user
             }
+        case "SET_NOTIFICATION_LIST":
+            return {
+                ...state,
+                notification_list: action.notifications
+            }
         default:
             return state;
     }
@@ -36,5 +42,6 @@ export type commonOperationChatActions = AC<typeof operationChatActions>;
 export const operationChatActions = {
     setMessagesHistory: (messages: MessageType[]) => ({type: 'SET_MESSAGES_HISTORY', messages} as const),
     setMyMessage: (my_message: MessageType) => ({type: 'SET_MY_MESSAGE', my_message} as const),
-    setUserTyping: (typing_user: number) => ({type: 'SET_USER_TYPING', typing_user} as const)
+    setUserTyping: (typing_user: number) => ({type: 'SET_USER_TYPING', typing_user} as const),
+    setNotificationList:(notifications:NotificationType[]) =>({type: "SET_NOTIFICATION_LIST", notifications} as const)
 };

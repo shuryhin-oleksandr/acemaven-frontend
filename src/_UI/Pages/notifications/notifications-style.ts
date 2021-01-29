@@ -39,6 +39,8 @@ export const SectionWrapper =  styled.div`
   &:hover {
     cursor: pointer;
   }
+  max-height: 400px;
+  overflow: auto;
 `
 export const CardOuter = styled.div`
   border-bottom: 1px solid #E0E0E0;
@@ -62,6 +64,7 @@ export const NotificationsBlock = styled.div`
   font-size: 16px;
   color: black;
   margin-bottom: 10px;
+  text-transform: capitalize;
 `
 export const NotificationsDate = styled.div`
   font-family: "Helvetica Light", sans-serif;

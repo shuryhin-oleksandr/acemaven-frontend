@@ -21,12 +21,12 @@ const NotificationsPage:React.FC<PropsType> = ({}) => {
                     <NotificationsTitle>Notifications</NotificationsTitle>
                     <ScrollbarStyled {...{style: {width: "100%", height: 620}}}>
                         <SectionWrapper>
-                            <NotificationCard />
-                            <NotificationCard />
-                            <NotificationCard />
-                            <NotificationCard />
-                            <NotificationCard />
-                            <NotificationCard />
+                            {/*<NotificationCard />*/}
+                            {/*<NotificationCard />*/}
+                            {/*<NotificationCard />*/}
+                            {/*<NotificationCard />*/}
+                            {/*<NotificationCard />*/}
+                            {/*<NotificationCard />*/}
                         </SectionWrapper>
                     </ScrollbarStyled>
                 </NotificationsContent>

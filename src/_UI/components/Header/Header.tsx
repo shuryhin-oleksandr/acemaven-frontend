@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router";
 import logotype from "../../../_UI/assets/icons/landing/inline_logo.svg";
 import notification from "../../../_UI/assets/icons/clarity_notification-solid-badged.svg";
+import no_notification from "../../../_UI/assets/icons/no-notification-ring.svg";
 import card from "../../../_UI/assets/icons/card.svg";
 import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
 import { NavLink } from "react-router-dom";
@@ -62,6 +63,12 @@ const Header: React.FC = () => {
     (state: AppStateType) => state.profile.authUserInfo?.photo
   );
 
+  let notifications_list = useSelector(
+    (state: AppStateType) => state.chat_operation.notification_list
+  );
+
+  const has_new_notifications = notifications_list.some((n) => !n.is_viewed);
+
   return (
     <HeaderContainer>
       <LogoWrap onClick={() => history.push("/")}>
@@ -77,14 +84,20 @@ const Header: React.FC = () => {
           interactive
           classes={{ tooltip: classes.customNotificationTooltip }}
           title={
-            <SectionWrapper onClick={() => history.push("/notifications")}>
-              <NotificationCard close_button={true} />
-              <NotificationCard />
+            <SectionWrapper
+            // onClick={() => history.push("/notifications")}
+            >
+              {notifications_list.map((i) => (
+                <NotificationCard key={i.id} notification={i} />
+              ))}
             </SectionWrapper>
           }
         >
           <ButtonWrap>
-            <img src={notification} alt="" />
+            <img
+              src={has_new_notifications ? notification : no_notification}
+              alt=""
+            />
           </ButtonWrap>
         </Tooltip>
 

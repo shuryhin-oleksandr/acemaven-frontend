@@ -16,6 +16,10 @@ export const wsChatHelper = (res: any, dispatch: Dispatch) => {
         }
         case 'new_message': {
             dispatch(operationChatActions.setMyMessage(res.message))
+            break
+        }
+        case "notifications": {
+            dispatch(operationChatActions.setNotificationList(res.notifications))
         }
     }
 }

@@ -8,6 +8,7 @@ import BillingCard from "../BillingCard/BillingCard";
 import OptionsDeliveryButtons from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import MonthPicker from "../../../../components/month_picker/MonthPicker";
+import NoQuotesCard from "../../../quotes/NoQuotesCard";
 
 type PropsType = {
   billing_list: BillingOperationType[];
@@ -56,9 +57,11 @@ const BillingCompletePage: React.FC<PropsType> = ({
             />
           </div>
         </div>
-        {billing_list.map((i) => (
-          <BillingCard billing={i} key={i.id} />
-        ))}
+        {billing_list.length > 0 ? (
+          billing_list.map((i) => <BillingCard billing={i} key={i.id} />)
+        ) : (
+          <NoQuotesCard text={"There are no completed operations."} />
+        )}
       </Content>
     </Wrapper>
   );

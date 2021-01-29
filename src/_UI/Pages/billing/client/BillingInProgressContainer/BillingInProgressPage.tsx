@@ -8,7 +8,8 @@ import BillingInProgressCard from "./BillingInProgressCard";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {autoTrackWithEventsHelper} from "../../../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
+import { autoTrackWithEventsHelper } from "../../../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
+import NoQuotesCard from "../../../quotes/NoQuotesCard";
 
 type PropsType = {
   billing_list: BillingOperationType[];
@@ -16,7 +17,7 @@ type PropsType = {
 
 const BillingInProgressPage: React.FC<PropsType> = ({ billing_list }) => {
   const [isHide, setIsHide] = useState(false);
-    let events = autoTrackWithEventsHelper(billing_list);
+  let events = autoTrackWithEventsHelper(billing_list);
   return (
     <Wrapper>
       {!isHide && (
@@ -38,9 +39,13 @@ const BillingInProgressPage: React.FC<PropsType> = ({ billing_list }) => {
         <Content isHide={isHide}>
           <Heading>Operations in Progress</Heading>
           <ScrollbarStyled {...{ style: { height: "100%" } }}>
-            {billing_list.map((i) => (
-              <BillingInProgressCard billing={i} key={i.id} />
-            ))}
+            {billing_list.length > 0 ? (
+              billing_list.map((i) => (
+                <BillingInProgressCard billing={i} key={i.id} />
+              ))
+            ) : (
+              <NoQuotesCard text={"There are no operations in progress."} />
+            )}
           </ScrollbarStyled>
         </Content>
       </Inner>

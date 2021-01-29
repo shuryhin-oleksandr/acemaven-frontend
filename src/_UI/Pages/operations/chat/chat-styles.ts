@@ -12,15 +12,20 @@ export const ChatInner = styled.div`
   flex-direction: column;
   padding: 50px 400px 55px 30px;
 `
-export const MessageWrapper = styled.div<{direction?: string, justify?: string}>`
+export const ChatContent = styled.div`
+  width: 100%;
+ max-height: 700px;
+ overflow-y: auto;
+`
+
+export const MessageWrapper = styled.div<{ direction?: string, justify?: string }>`
   width: 100%;
   display: flex;
   align-items: flex-start;
   flex-direction: ${({direction}) => direction ? direction : 'row'};
   justify-content: ${({justify}) => justify ? justify : 'flex-start'};
-  margin-bottom: 50px;
 `
-export const PhotoWrapper = styled.div<{margin_right?: string, margin_left?: string}>`
+export const PhotoWrapper = styled.div<{ margin_right?: string, margin_left?: string }>`
   width: 40px;
   height: 40px;
   border-radius: 100px;
@@ -28,12 +33,12 @@ export const PhotoWrapper = styled.div<{margin_right?: string, margin_left?: str
   margin-left: ${({margin_left}) => margin_left ? margin_left : '19px'};
    
    img {
-      width: 100%;
-      height: 100%;
+      width: 40px;
+      height: 40px;
       border-radius: 100px;
     }
 `
-export const LocalTimeWrapper = styled.div<{margin?: string}>`
+export const LocalTimeWrapper = styled.div<{ margin?: string }>`
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   line-height: 16.04px;
@@ -81,15 +86,14 @@ export const MessageInputWrapper = styled.div`
   display: flex;
   align-items: center;
 `
-export const MessageInput = styled.input`
+export const MessageInput = styled.textarea`
   width: 100%;
-  height: 53px;
   border: 1px solid #115B86;
   font-family: "Helvetica Reg", sans-serif;
   color: #1B1B25;
   font-size: 16px;
   line-height: 18.34px;
-  padding: 16px 18px 16px 30px;
+  padding: 10px 55px 16px 16px;
   outline: none;
  
   
@@ -98,5 +102,10 @@ export const MessageInput = styled.input`
     color: #115B86;
     font-size: 16px;
     line-height: 18.34px;
+    transition: .3s;
+  }
+  &:focus::placeholder {
+    transition: .3s;
+    color: transparent;
   }
 `

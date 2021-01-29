@@ -1,5 +1,6 @@
 import styled, {keyframes} from 'styled-components'
 
+
 type PropsStyles = {
     checked?: any,
     active?: any
@@ -13,6 +14,28 @@ let shown = keyframes`
     opacity: 1;
   }
 `
+export const ArrowWrap = styled.div<{ isHover?: boolean }>`
+width: 30px;
+height: 30px;
+border-radius: 50px;
+background-color: ${({isHover}) => isHover ? 'rgba(255, 255, 255, .3)' : 'transparent'};
+ transition: .3s;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
+&:hover {
+  transition: .3s;
+}
+`
+export const Arrow = styled.div<{ isHover?: boolean, isSmallBar?: boolean }>`
+clip-path: polygon(57% 0, 100% 50%, 57% 100%, 40% 100%, 85% 50%, 40% 0);
+background-color: ${({isHover}) => isHover ? '#00c5ff' : 'rgba(255, 255, 255, .3)'};
+width: 18px;
+height: 18px;
+transition: .3s;
+transform: ${({isSmallBar}) => !isSmallBar ? 'rotate(180deg)' : 'none'};
+`
 
 export const NavContainer = styled.div`
 max-width: 230px;
@@ -23,23 +46,75 @@ flex-grow: 1;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
-padding-left: 0px;
+padding-left: 0;
 padding-top: 30px;
+animation: ${shown} ease-in-out .3s;
 `
 
 export const NavSmallContainer = styled.div`
-min-width: 50px;
-max-width: 50px;
-width: 100%;
+width: 50px;
 background-color: black;
-min-height: 100vh;
 height: 100%;
 display: flex;
+flex-grow: 1;
 flex-direction: column;
 align-items: flex-start;
 padding-left: 5px;
 padding-top: 30px;
+animation: ${shown} ease-in-out .3s;
+`
+export const ChatExtension = styled.div`
+width: 200px;
+background-color: #3B3B41;
+color: white;
+padding-top: 45px;
+font-family: 'Helvetica Reg', sans-serif;
+font-size: 15px;
+line-height: 17.20px;
+padding-left: 20px;
+text-transform: uppercase;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+&:hover {
+  cursor: pointer;
+}
+`
+export const ChatLinkWrap = styled.div`
+width: 100%;
+margin-bottom: 35px;
 
+a {
+  text-decoration: none;
+  color: #ffffff;
+  transition: .5s;
+}
+a:hover {
+  text-decoration: none;
+  color: #00C5FF;
+  transition: .5s;
+}
+a:active {
+  text-decoration: none;
+  color: #00C5FF;
+  transition: .5s;
+}
+
+`
+
+export const NavButton = styled.button`
+  outline: none;
+  border: none;
+  background: none;
+  color: #ffffff;
+  transition: .4s;
+  
+  &:hover {
+    cursor: pointer;
+    transition: .4s;
+    color: #00C5FF;
+  }
+  
 `
 
 export const LinkWrap = styled.div`
@@ -60,6 +135,7 @@ export const Outer = styled.div`
     display: flex;
     margin-bottom: 10px;
 `
+
 
 export const Name = styled.div<PropsStyles>`
  font-family: "Helvetica Reg", sans-serif;

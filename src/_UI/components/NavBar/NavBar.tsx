@@ -18,7 +18,7 @@ import {
     requestLinks
 } from "../../../_BLL/helpers/nestedMenu/menuLinnks";
 //styles
-import {NavContainer} from "./nav-styles";
+import {Arrow, ArrowWrap, NavContainer} from "./nav-styles";
 //icons
 import activeSettings from '../../../_UI/assets/icons/sidebar/settingsActive.svg';
 import requests from '../../assets/icons/sidebar/requests.svg';
@@ -32,16 +32,21 @@ import active_billing from '../../assets/icons/sidebar/active_billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import support from '../../assets/icons/sidebar/support.svg';
 import active_support from '../../assets/icons/sidebar/active_support.svg';
-
+import {IconButton} from "@material-ui/core";
 
 
 
 interface IProps {
-    setFull?: (value: boolean) => void
+    setSmallBar?: (value: boolean) => void,
+    isSmallBar?: boolean
 }
 
-const NavBar: React.FC<IProps> = () => {
+const NavBar: React.FC<IProps> = ({...props}) => {
+    //local state
     let [checkedLink, setChecked] = useState('')
+    const [isHover, setIsHover] = useState(false)
+
+    //data from store
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies)
     let current_user_role = useSelector((state: AppStateType) => state.profile.authUserInfo?.roles)
 
@@ -56,6 +61,7 @@ const NavBar: React.FC<IProps> = () => {
     const operationsFetching = useSelector(getIsFetchingOperationSelector)
 
 
+
     return (
         <ScrollbarStyled {...{
             style: {height: "auto", width: "230px", flex: "none", backgroundColor: "black"},
@@ -64,6 +70,14 @@ const NavBar: React.FC<IProps> = () => {
             navBar: true
         }}>
             <NavContainer>
+                <IconButton onClick={() => props.isSmallBar ? props.setSmallBar && props.setSmallBar(false) : props.setSmallBar && props.setSmallBar(true)}
+                            style={{position: 'absolute', bottom: '20px', right: '10px', }}
+                            onMouseOver={() => setIsHover(true)}
+                            onMouseOut={() => setIsHover(false)}
+
+                >
+                        <Arrow isSmallBar={props.isSmallBar} isHover={isHover}/>
+                </IconButton>
                 {
                     company_type && company_type[0].type !== AppCompaniesTypes.AGENT
                         ? <MenuLink icon={requests}

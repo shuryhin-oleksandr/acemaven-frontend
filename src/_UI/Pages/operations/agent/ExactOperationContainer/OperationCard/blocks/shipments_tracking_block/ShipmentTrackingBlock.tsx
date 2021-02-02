@@ -58,6 +58,7 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
             : []
         )[0];
 
+
   const lastItem =
     events_coordinates &&
     events_coordinates.length > 0 &&
@@ -75,7 +76,7 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
   return (
     <SectionWrapper>
       <SectionTitle>SHIPMENT TRACKING</SectionTitle>
-      {hasOriginCoordinates && hasDestinationCoordinates ? (
+      {hasOriginCoordinates && hasDestinationCoordinates && lastItem ? (
         <SmallMapComponent
           isMarkerShown
           loadingElement={<div style={{ height: `172px` }} />}

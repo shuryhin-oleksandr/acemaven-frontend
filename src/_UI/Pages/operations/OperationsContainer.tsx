@@ -28,6 +28,7 @@ const OperationsContainer: React.FC = () => {
     const [searchValue, setSearchValue] = useState("");
     const [search_column, setSearchColumn] = useState("");
     const [my_operations, setMyOperations] = useState("mine");
+    const [isSmallBar, setSmallBar] = useState(false)
 
 
     //data from store
@@ -56,7 +57,7 @@ const OperationsContainer: React.FC = () => {
 
 
     return (
-        <Layout>
+        <Layout setSmallBar={setSmallBar} isSmallBar={isSmallBar}>
             {(isFetchingAgent || isFetchingClient)
                 ? <SpinnerForAuthorizedPages/>
                 : <>

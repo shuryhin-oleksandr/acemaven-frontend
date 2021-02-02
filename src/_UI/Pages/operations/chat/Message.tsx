@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 //moment js
 import moment from "moment/moment";
+//components
+import MessageContent from "./MessageContent";
 //types
 import {MessageType} from "../../../../_BLL/types/chat/ChatTypes";
 //styles
@@ -15,8 +17,6 @@ import {
 //icons
 import user_icon from "../../../assets/icons/profile/defaultUserPhoto.svg";
 import delete_icon from '../../../assets/icons/operations/delete_gray.svg'
-import fileDownload from 'js-file-download'
-import axios from 'axios'
 
 
 type PropsType = {
@@ -30,19 +30,6 @@ const Message: React.FC<PropsType> = ({my_id, message, ...props}) => {
     const [isDelete, setIsDelete] = useState(false)
 
 
-
-
-
-    const handleDownload = (url: string, filename: string) => {
-        axios.get(url, {
-            responseType: 'blob',
-        })
-            .then((res) => {
-                debugger
-                fileDownload(res.data, filename)
-            })
-    }
-
     return (
         <div style={{width: '100%', marginBottom: '28.5px', minHeight: '50px'}}
              onPointerEnter={() => message.user_id === my_id && setIsDelete(true)}
@@ -54,10 +41,7 @@ const Message: React.FC<PropsType> = ({my_id, message, ...props}) => {
                         <img src={message.photo ? message.photo : user_icon} alt=""/>
                     </PhotoWrapper>
                     <MessageTextAnotherUser>
-                        {message.content
-                            ? <span>{message.content}</span>
-                            : <a href={message.files[0]}>Save</a>
-                        }
+                        <MessageContent message={message}/>
                     </MessageTextAnotherUser>
                     <LocalTimeWrapper margin='0 0 0 25px '>
                         {moment(message.date_created).format(" h:mm a")}
@@ -68,10 +52,7 @@ const Message: React.FC<PropsType> = ({my_id, message, ...props}) => {
                         <img src={message.photo ? message.photo : user_icon} alt=""/>
                     </PhotoWrapper>
                     <MessageText>
-                        {message.content
-                            ? <span>{message.content}</span>
-                            : <button onClick={() => handleDownload(message.files[0], 'file.pdf')}>Save</button>
-                        }
+                        <MessageContent message={message}/>
                     </MessageText>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
                         <LocalTimeWrapper margin='0 25px 5px 0'>

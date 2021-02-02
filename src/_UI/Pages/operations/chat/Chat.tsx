@@ -28,6 +28,9 @@ import user_icon from "../../../assets/icons/profile/defaultUserPhoto.svg";
 import grey from "@material-ui/core/colors/grey";
 import {wsChatAPI} from "../../../../_DAL/API/operations/chat/SocketChatAPI";
 import {sendMessageThunk} from "../../../../_BLL/thunks/operation_chat/OperationChatThunks";
+import {
+    operationChatActions
+} from "../../../../_BLL/reducers/chat_operation_reducer/chatOperationReducer";
 
 
 type PropsType = {
@@ -64,15 +67,23 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
 
     useEffect(() => {
             if(uploadedFile && sent_status) {
-
                 // @ts-ignore
                 formData.append('file', uploadedFile)
                 let last_message = message_history[message_history.length - 1]?.id
                 formData.append('message', last_message.toString())
                  wsChatAPI.addFiles(formData)
-                     .then((res) => console.log(res))
+                     .then((res) => dispatch(operationChatActions.setFileToEmptyMessage(res.data.file, res.data.message)))
+                     .then(() => setUploadedFile(null))
+                     .catch(e => console.log(e))
             }
     }, [formData, sent_status])
+
+    const keyHandler = (e: any ) => {
+        const keyCode = e.which || e.keyCode
+        if(keyCode === 13 && !e.shiftKey) {
+            props.sendHandler()
+        }
+    }
 
 
 
@@ -97,6 +108,7 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
                                       value={inputText}
                                       onFocus={() => props.focusHandler()}
                                       onBlur={() => props.blurHandler()}
+                                      onKeyDown={e => keyHandler(e)}
                             // @ts-ignore
                                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)}
                         />

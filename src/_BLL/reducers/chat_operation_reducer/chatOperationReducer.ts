@@ -3,7 +3,7 @@ import {MessageType, NotificationType} from "../../types/chat/ChatTypes";
 
 const initialState = {
     message_history: [] as MessageType[],
-    typing_user: null as {user_id: number, photo: string | null} | null,
+    typing_user: null as { user_id: number, photo: string | null } | null,
     stop_typing: false,
     sent_status: '',
     notification_list: [] as NotificationType[]
@@ -34,9 +34,9 @@ export const chatOperationReducer = (state = initialState, action: commonOperati
                 notification_list: action.notifications
             }
         case "SET_NEW_NOTIFICATION":
-            return{
+            return {
                 ...state,
-                notification_list: [action.notification,...state.notification_list]
+                notification_list: [action.notification, ...state.notification_list]
             }
         case "SET_DELETED_MESSAGE_ID":
             return {
@@ -53,6 +53,18 @@ export const chatOperationReducer = (state = initialState, action: commonOperati
                 ...state,
                 sent_status: action.sent
             }
+        case "SET_FILE_TO_EMPTY_MESSAGE":
+            return {
+                ...state,
+                message_history: state.message_history.map(m => {
+                    if (m.id === action.message_id) {
+                        console.log('file', action.file)
+                        return {...m, files: [ action.file]}
+                    } else {
+                        return m
+                    }
+                })
+            }
         default:
             return state;
     }
@@ -64,10 +76,11 @@ export type commonOperationChatActions = AC<typeof operationChatActions>;
 export const operationChatActions = {
     setMessagesHistory: (messages: MessageType[]) => ({type: 'SET_MESSAGES_HISTORY', messages} as const),
     setMyMessage: (my_message: MessageType) => ({type: 'SET_MY_MESSAGE', my_message} as const),
-    setNotificationList:(notifications:NotificationType[]) =>({type: "SET_NOTIFICATION_LIST", notifications} as const),
-    setNewNotification:(notification:NotificationType) =>({type: "SET_NEW_NOTIFICATION", notification} as const),
+    setNotificationList: (notifications: NotificationType[]) => ({type: "SET_NOTIFICATION_LIST", notifications} as const),
+    setNewNotification: (notification: NotificationType) => ({type: "SET_NEW_NOTIFICATION", notification} as const),
     setUserTyping: (typing_user: { user_id: number, photo: string | null } | null) => ({type: 'SET_USER_TYPING', typing_user} as const),
     setDeletedMessageId: (message_id: number) => ({type: 'SET_DELETED_MESSAGE_ID', message_id} as const),
-    setStopTyping: (stop_typing: boolean) => ({type: 'STOP_TYPING', stop_typing} as const ),
-    setSent: (sent: string) => ({type:'SET_SENT', sent} as const)
+    setStopTyping: (stop_typing: boolean) => ({type: 'STOP_TYPING', stop_typing} as const),
+    setSent: (sent: string) => ({type: 'SET_SENT', sent} as const),
+    setFileToEmptyMessage: (file: string, message_id: number) => ({type: 'SET_FILE_TO_EMPTY_MESSAGE', file, message_id} as const)
 };

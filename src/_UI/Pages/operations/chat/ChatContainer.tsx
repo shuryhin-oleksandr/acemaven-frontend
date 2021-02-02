@@ -50,7 +50,7 @@ const ChatContainer: React.FC<PropsType> = ({chat_id}) => {
     const [inputText, setInputText] = useState('')
     //handlers
     let sendHandler = () => {
-        dispatch(sendMessageThunk(inputText))
+        !!inputText.trim() && dispatch(sendMessageThunk(inputText))
         setInputText('')
         clearTypingUser()
 

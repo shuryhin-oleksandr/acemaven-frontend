@@ -4,17 +4,18 @@ import Header from "../Header/Header";
 import NavBar from "../NavBar/NavBar";
 import {Scrollbars} from "react-custom-scrollbars";
 import NavBarSmall from "../NavBar/NavbarSmall";
+import {useEffect, useState} from "react";
+import {useRouteMatch} from "react-router-dom";
 
 type PropsType = {
-    isSmallBar?: boolean,
-    setSmallBar?: (value: boolean) => void,
     setChatOpen?: (value: boolean) => void,
     isChatOpen?: boolean
 }
 
 
-const Layout: React.FC<PropsType> = ({ children, isSmallBar, setSmallBar, ...props}) => {
-
+const Layout: React.FC<PropsType> = ({ children, ...props}) => {
+    const match = useRouteMatch('/operations/:id');
+    const [isSmallBar, setSmallBar] = useState(!!match);
 
   return (
     <LayoutContainer>

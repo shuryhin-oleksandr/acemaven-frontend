@@ -177,8 +177,7 @@ const ExactOperationContainer = ({...props}) => {
 
 
     return (
-            <Layout isSmallBar={isSmallBar}
-                    setSmallBar={setSmallBar}
+            <Layout
                     setChatOpen={setChatOpen}
                     isChatOpen={isChatOpen}
             >

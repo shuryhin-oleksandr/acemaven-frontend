@@ -19,17 +19,19 @@ import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyle
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../_BLL/store";
 import {AppCompaniesTypes, AppUserRolesType} from "../../../_BLL/types/commonTypes";
+import { useLocation,useRouteMatch } from 'react-router-dom'
 
 
 
 interface IProps {
-    setSmallBar?: (value: boolean) => void,
-    isSmallBar?: boolean,
+    setSmallBar: (value: boolean) => void,
+    isSmallBar: boolean,
     setChatOpen?: (value: boolean) => void,
     isChatOpen?: boolean
 }
 
 const NavBarSmall: React.FC<IProps> = ({...props}) => {
+    const match = useRouteMatch('/operations/:id');
     //local state
     const [isHover, setIsHover] = useState(false)
     let [checkedLink, setChecked] = useState('')
@@ -48,7 +50,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
 
     return (
         <ScrollbarStyled {...{
-            style: {height: "auto", width: "250px", flex: "none", backgroundColor: "black"},
+            style: {height: "auto", width: `${match?"250px":"50px"}`, flex: "none", backgroundColor: "black"},
             autoHeightMin: "calc(100vh - 60px)",
             autoHeight: true,
             navBar: true
@@ -56,7 +58,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
             <div style={{width: "100%", display: 'flex', minHeight: '100vh'}}>
                 <NavSmallContainer>
                     <IconButton
-                        onClick={() => props.isSmallBar ? props.setSmallBar && props.setSmallBar(false) : props.setSmallBar && props.setSmallBar(true)}
+                        onClick={() => {props.setSmallBar(!props.isSmallBar)}}
                         style={{position: 'absolute', bottom: '20px', right: '5px'}}
                         onMouseOver={() => setIsHover(true)}
                         onMouseOut={() => setIsHover(false)}
@@ -116,6 +118,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               activeIcon={active_billing}
+                              path='#'
                     />
                     }
                     <MenuLink icon={settings}
@@ -129,6 +132,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               checkedLink={checkedLink}
                     />
                 </NavSmallContainer>
+                {match && props.isSmallBar &&
                 <ChatExtension>
                     <ChatLinkWrap>
                         <NavButton onClick={() => props.setChatOpen && props.setChatOpen(false)}
@@ -145,6 +149,8 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                         </NavButton>
                     </ChatLinkWrap>
                 </ChatExtension>
+                }
+
             </div>
 
         </ScrollbarStyled>

@@ -38,6 +38,7 @@ const Message: React.FC<PropsType> = ({my_id, message, ...props}) => {
             responseType: 'blob',
         })
             .then((res) => {
+                debugger
                 fileDownload(res.data, filename)
             })
     }
@@ -69,7 +70,7 @@ const Message: React.FC<PropsType> = ({my_id, message, ...props}) => {
                     <MessageText>
                         {message.content
                             ? <span>{message.content}</span>
-                            : <button onClick={() => handleDownload(message.files[0], 'file')}>Save</button>
+                            : <button onClick={() => handleDownload(message.files[0], 'file.pdf')}>Save</button>
                         }
                     </MessageText>
                     <div style={{display: 'flex', flexDirection: 'column'}}>

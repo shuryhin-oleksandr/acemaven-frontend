@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "./_BLL/reducers/authReducer";
 import Spinner from "./_UI/components/_commonComponents/spinner/Spinner";
 import { Scrollbars } from 'react-custom-scrollbars';
-import {getAuthUserInfo} from "./_BLL/reducers/profileReducer";
+import {getAuthUserInfo} from "./_BLL/thunks/profile/profileThunks";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuth);
@@ -14,7 +14,9 @@ function App() {
   const dispatch = useDispatch();
   let token = localStorage.getItem('access_token')
 
+
   useEffect(() => {
+
     token && dispatch(getAuthUserInfo());
   }, [token]);
 

@@ -3,7 +3,9 @@ import {MessageType} from "../../types/chat/ChatTypes";
 
 const initialState = {
     message_history: [] as MessageType[],
-    typing_user: 0
+    typing_user: null as {user_id: number, photo: string | null} | null,
+    stop_typing: false,
+    sent_status: ''
 };
 
 type InitialStateType = typeof initialState;
@@ -25,6 +27,21 @@ export const chatOperationReducer = (state = initialState, action: commonOperati
                 ...state,
                 typing_user: action.typing_user
             }
+        case "SET_DELETED_MESSAGE_ID":
+            return {
+                ...state,
+                message_history: state.message_history.filter(m => m.id !== action.message_id)
+            }
+        case "STOP_TYPING":
+            return {
+                ...state,
+                stop_typing: action.stop_typing
+            }
+        case "SET_SENT":
+            return {
+                ...state,
+                sent_status: action.sent
+            }
         default:
             return state;
     }
@@ -36,5 +53,8 @@ export type commonOperationChatActions = AC<typeof operationChatActions>;
 export const operationChatActions = {
     setMessagesHistory: (messages: MessageType[]) => ({type: 'SET_MESSAGES_HISTORY', messages} as const),
     setMyMessage: (my_message: MessageType) => ({type: 'SET_MY_MESSAGE', my_message} as const),
-    setUserTyping: (typing_user: number) => ({type: 'SET_USER_TYPING', typing_user} as const)
+    setUserTyping: (typing_user: { user_id: number, photo: string | null } | null) => ({type: 'SET_USER_TYPING', typing_user} as const),
+    setDeletedMessageId: (message_id: number) => ({type: 'SET_DELETED_MESSAGE_ID', message_id} as const),
+    setStopTyping: (stop_typing: boolean) => ({type: 'STOP_TYPING', stop_typing} as const ),
+    setSent: (sent: string) => ({type:'SET_SENT', sent} as const)
 };

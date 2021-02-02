@@ -1,22 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import {ButtonsWrap, FormContainer, FormWrap, Role, Roles, RolesWrap} from './edit-form-styles';
-import {HeaderWrap, ProfileTitle} from "../profile-styles";
+//react-hook-form
+import {useForm} from "react-hook-form";
+//react-redux
+import {useDispatch, useSelector} from "react-redux";
+//API
+import {profileSettingsAPI} from "../../../../../_DAL/API/profileSettingsAPI";
+//BLL
+import {AppStateType} from "../../../../../_BLL/store";
+import {profileActions} from "../../../../../_BLL/reducers/profileReducer";
+//helpers
+import {getFilesFormData} from "../../../../../_BLL/helpers/MultipartFormDataHelper";
+//types
+import {IAuthUserInfo} from "../../../../../_BLL/types/authTypes";
+//components
 import {InputWrap, SubmitButton} from 'src/_UI/Pages/ActivateCompany/CreateNewUser/AddUserForm';
 import CancelEditButton from 'src/_UI/components/_commonComponents/buttons/editFormButtons/CancelEditButton';
-import {useForm} from "react-hook-form";
-import { Label } from 'src/_UI/components/_commonComponents/ProfileinfoBlock/profile-info-field-styles';
-import Close from "../../../../assets/icons/close-icon.svg";
-import styled from "styled-components";
 import DropZone from "../../../../components/DropZone/index";
-import {FullfilledWrap} from "../../../ActivateCompany/AdditionalUser/additional-user-styles";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
-import {useDispatch, useSelector} from "react-redux";
-import { profileActions} from "../../../../../_BLL/reducers/profileReducer";
-import {AppStateType} from "../../../../../_BLL/store";
-import {IAuthUserInfo} from "../../../../../_BLL/types/authTypes";
-import {getFilesFormData} from "../../../../../_BLL/helpers/MultipartFormDataHelper";
-import {profileSettingsAPI} from "../../../../../_DAL/API/profileSettingsAPI";
-
+//styles
+import styled from "styled-components";
+import {ButtonsWrap, FormContainer, FormWrap, Role, Roles, RolesWrap} from './edit-form-styles';
+import {HeaderWrap, ProfileTitle} from "../profile-styles";
+import {Label} from 'src/_UI/components/_commonComponents/ProfileinfoBlock/profile-info-field-styles';
+import {FullfilledWrap} from "../../../ActivateCompany/AdditionalUser/additional-user-styles";
+//icons
+import Close from "../../../../assets/icons/close-icon.svg";
 
 
 type PropsType = {
@@ -26,7 +34,7 @@ type PropsType = {
     setChangeMode: (value: boolean) => void
 }
 
-const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChangeMode}) => {
+const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChangeMode}) => {
     const {register, handleSubmit, errors, setValue} = useForm<IAuthUserInfo>()
     const dispatch = useDispatch()
     let userId = useSelector((state: AppStateType) => state.profile?.authUserInfo?.id)
@@ -37,7 +45,7 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
 
 
     useEffect(() => {
-        if(profile) {
+        if (profile) {
             Object.keys(profile).forEach((key: string) => {
                 setValue(key, profile && profile[key])
             })
@@ -45,11 +53,11 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
         }
     }, [setValue, profile])
 
-    const onSubmit = (values:IAuthUserInfo) => {
-        const wholeData = getFilesFormData( values, fileOne)
+    const onSubmit = (values: IAuthUserInfo) => {
+        const wholeData = getFilesFormData(values, fileOne)
 
         dispatch(profileActions.setIsFetching(true))
-       !isChangeMode && profileSettingsAPI.editProfile(userId as number, wholeData)
+        !isChangeMode && profileSettingsAPI.editProfile(userId as number, wholeData)
             .then((res) => {
                 dispatch(profileActions.setAuthUserInfo(res.data))
                 dispatch(profileActions.setIsFetching(false))
@@ -69,22 +77,30 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
                 <ProfileTitle>My Profile</ProfileTitle>
                 {!isChangeMode && <ButtonsWrap>
                     <SubmitButton type='submit'
-                                  style={{backgroundColor: 'black', width: '176px', marginTop: '0',
-                                      height: '40px', marginRight: '25px'}}
+                                  style={{
+                                      backgroundColor: 'black', width: '176px', marginTop: '0',
+                                      height: '40px', marginRight: '25px'
+                                  }}
                     >
                         SAVE CHANGES
                     </SubmitButton>
-                    <CancelEditButton setIsEdit={setIsEdit} text='CANCEL' />
+                    <CancelEditButton setIsEdit={setIsEdit} text='CANCEL'/>
                 </ButtonsWrap>}
             </HeaderWrap>
-                 <FormWrap>
+            <FormWrap>
                 <RolesWrap>
                     <Label>Roles</Label>
                     {profile?.roles?.map(r => <Roles key={r}><Role role={r}>{r}</Role></Roles>)}
                 </RolesWrap>
                 {img ? (
-                    <div style={{ display: "flex", width: '100%', alignItems: "flex-start", marginTop: '20px',marginBottom: '50px' }}>
-                        <Photo src={img} />
+                    <div style={{
+                        display: "flex",
+                        width: '100%',
+                        alignItems: "flex-start",
+                        marginTop: '20px',
+                        marginBottom: '50px'
+                    }}>
+                        <Photo src={img}/>
                         <CloseIcon
                             src={Close}
                             alt="Close"
@@ -94,8 +110,8 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
                         />
                     </div>
                 ) : (
-                    <div style={{ marginTop: '45px', marginBottom: '50px', width: '100%'}}>
-                        <DropZone setFile={setFile} name='photo' setImg={setImg} />
+                    <div style={{marginTop: '45px', marginBottom: '50px', width: '100%'}}>
+                        <DropZone setFile={setFile} name='photo' setImg={setImg}/>
                     </div>
                 )}
                 <FullfilledWrap style={{marginBottom: '0'}}>
@@ -109,7 +125,7 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
                                    error={errors?.first_name}
                         />
                     </InputWrap>
-                    <InputWrap  w='47%'>
+                    <InputWrap w='47%'>
                         <FormField label='Last Name'
                                    inputRef={register({
                                        required: 'Field is required'
@@ -140,7 +156,8 @@ const EditProfileForm:React.FC<PropsType> = ({ setIsEdit, isChangeMode, setChang
                            name='position'
                            error={errors?.position}
                 />
-                <ChangePasswordButton type='button' onClick={() => setChangeMode(true)}>CHANGE PASSWORD</ChangePasswordButton>
+                <ChangePasswordButton type='button' onClick={() => setChangeMode(true)}>CHANGE
+                    PASSWORD</ChangePasswordButton>
 
             </FormWrap>
         </FormContainer>

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 //BLL
 import {AppStateType} from "../../../../_BLL/store";
 import {commonActions} from "../../../../_BLL/reducers/commonReducer";
-import {getCompanyInfo} from "../../../../_BLL/reducers/profileReducer";
+import {getCompanyInfo} from "../../../../_BLL/thunks/profile/profileThunks";
 //components
 import Layout from "../../../components/BaseLayout/Layout";
 import CompanySettingsPage from "./CompanySettingsPage";

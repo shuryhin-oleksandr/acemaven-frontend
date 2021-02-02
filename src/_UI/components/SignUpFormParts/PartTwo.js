@@ -1,5 +1,5 @@
 //Core
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 //Instruments
@@ -10,18 +10,10 @@ import BaseBackButton from "../base/BaseBackButton";
 import BaseNextButton from "../base/BaseNextButton";
 import BaseInputGroup from "../base/BaseInputGroup";
 import { ErrorServerMessage } from "../../Pages/SignInPage";
-import { useDispatch } from "react-redux";
-import { authActions } from "../../../_BLL/reducers/authReducer";
+
 
 const PartTwo = ({ changePage, error }) => {
   const { values, touched, errors } = useFormikContext();
-  const dispatch = useDispatch();
-
-  /*useEffect(() => {
-    setTimeout(() => {
-      dispatch(authActions.setCompanySignupError(null));
-    }, 5000);
-  }, [dispatch, error]);*/
 
   const isButtonDisabled =
     !values.first_name ||

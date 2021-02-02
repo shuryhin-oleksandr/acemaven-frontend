@@ -10,7 +10,8 @@ import {Outer} from "./settings-notification-styles";
 type PropsType = {
     title?: string,
     subtitle?: string,
-    name?: string
+    name?: string,
+    notification?: {switch: boolean | undefined, days: number | undefined}
 }
 
 const SettingsNotificationCard:React.FC<PropsType> = ({title, subtitle, name}) => {

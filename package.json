@@ -25,6 +25,7 @@
     "chart.js": "^2.9.4",
     "flickity": "^2.2.1",
     "formik": "^2.1.5",
+    "js-file-download": "^0.4.12",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "react": "^16.13.1",

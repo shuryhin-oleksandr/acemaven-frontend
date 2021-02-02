@@ -24,7 +24,9 @@ import {AppCompaniesTypes, AppUserRolesType} from "../../../_BLL/types/commonTyp
 
 interface IProps {
     setSmallBar?: (value: boolean) => void,
-    isSmallBar?: boolean
+    isSmallBar?: boolean,
+    setChatOpen?: (value: boolean) => void,
+    isChatOpen?: boolean
 }
 
 const NavBarSmall: React.FC<IProps> = ({...props}) => {
@@ -129,10 +131,18 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                 </NavSmallContainer>
                 <ChatExtension>
                     <ChatLinkWrap>
-                        <NavButton >DETAILS</NavButton>
+                        <NavButton onClick={() => props.setChatOpen && props.setChatOpen(false)}
+                                   add_color={!props.isChatOpen}
+                        >
+                            DETAILS
+                        </NavButton>
                     </ChatLinkWrap>
                     <ChatLinkWrap>
-                        <NavButton >GET ASSISTANCE</NavButton>
+                        <NavButton onClick={() => props.setChatOpen && props.setChatOpen(true)}
+                                   add_color={props.isChatOpen}
+                        >
+                            GET ASSISTANCE
+                        </NavButton>
                     </ChatLinkWrap>
                 </ChatExtension>
             </div>

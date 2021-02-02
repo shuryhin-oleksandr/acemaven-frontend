@@ -78,4 +78,5 @@ export interface IAuthUserInfo {
   companies?: userCompaniesType[];
   password?: string;
   confirm_password?: string;
+  email_settings?: number
 }

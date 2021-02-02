@@ -6,7 +6,7 @@ import {IAddNewUserData, UserFromDataType} from "../../../../../_BLL/types/addNe
 //helpers
 import {getColor} from "../../../../../_BLL/helpers/colorWrapMaker";
 //BLL
-import {editWorker} from "../../../../../_BLL/reducers/profileReducer";
+import {editWorker} from "../../../../../_BLL/thunks/profile/profileThunks";
 //components
 import FormField from 'src/_UI/components/_commonComponents/Input/FormField';
 import EditUserPopup from "../../../../components/PopUps/editUser/EditUserPopup";

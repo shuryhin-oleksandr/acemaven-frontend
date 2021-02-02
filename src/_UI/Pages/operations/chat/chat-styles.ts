@@ -1,9 +1,18 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 
+let shown = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 export const ChatWrapper = styled.div`
   width: 100%;
   height: 100%;
+  animation: ${shown} ease-in-out .3s;
 `
 export const ChatInner = styled.div`
   width: 100%;
@@ -16,6 +25,29 @@ export const ChatContent = styled.div`
   width: 100%;
  max-height: 700px;
  overflow-y: auto;
+`
+export const UploadWrapper = styled.form`
+ 
+`
+export const LabelUpload = styled.label`
+cursor: pointer;
+display: flex;
+align-items: center;
+transition: .4s;
+height: 40px;
+width: 40px;
+justify-content: center;
+border-radius: 50px;
+&:hover {
+  cursor: pointer;
+  transition: .4s;
+  background-color: rgba(0, 0, 0, .07);
+}
+`
+export const UploadInput = styled.input`
+ opacity: 0;
+ position: absolute;
+ z-index: -1;
 `
 
 export const MessageWrapper = styled.div<{ direction?: string, justify?: string }>`
@@ -45,7 +77,17 @@ export const LocalTimeWrapper = styled.div<{ margin?: string }>`
   color: #828282;
   margin: ${({margin}) => margin && margin}
 `
-
+export const DeleteWrap = styled.div`
+  animation: ${shown} ease-in-out .3s;
+   transition: .3s;
+  img {
+    padding: 0 20px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  
+`
 export const MessageText = styled.div`
   font-family: "Helvetica Reg", sans-serif;
   font-size: 16px;
@@ -85,6 +127,7 @@ export const MessageInputWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  margin-left: 15px;
 `
 export const MessageInput = styled.textarea`
   width: 100%;
@@ -103,6 +146,7 @@ export const MessageInput = styled.textarea`
     font-size: 16px;
     line-height: 18.34px;
     transition: .3s;
+    padding-top: 10px;
   }
   &:focus::placeholder {
     transition: .3s;

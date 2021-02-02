@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { ProfileOuter } from "./profile-styles";
+//components
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import EditProfileFormContainer from "./editForm/EditProfileFormContainer";
+//styles
+import { ProfileOuter } from "./profile-styles";
 
 
 type PropsType = {

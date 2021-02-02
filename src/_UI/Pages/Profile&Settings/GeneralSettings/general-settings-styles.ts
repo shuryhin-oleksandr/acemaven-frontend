@@ -31,7 +31,7 @@ export const GeneralTitle = styled.div`
   display: flex;
   padding: 51px 50px 32px 30px;
 `
-export const SettingsWrap = styled.div`
+export const SettingsWrap = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;

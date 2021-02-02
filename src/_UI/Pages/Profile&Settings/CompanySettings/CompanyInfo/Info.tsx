@@ -1,7 +1,10 @@
 import React from 'react'
-import {EditIcon, Field, FieldsContent, FieldsWrap, Label, TextWrap} from "./company-info-styles";
-import editIcon from "../../../../assets/icons/profile/editProfile.svg";
+//types
 import {CompanyInfoType} from "../../../../../_BLL/types/profileSettingsType";
+//styles
+import {EditIcon, Field, FieldsContent, FieldsWrap, Label, TextWrap} from "./company-info-styles";
+//icons
+import editIcon from "../../../../assets/icons/profile/editProfile.svg";
 
 type PropsType = {
     setEdit: (value: boolean) => void,

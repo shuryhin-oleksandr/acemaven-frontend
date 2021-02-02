@@ -102,11 +102,11 @@ a:active {
 
 `
 
-export const NavButton = styled.button`
+export const NavButton = styled.button<{add_color?: boolean}>`
   outline: none;
   border: none;
   background: none;
-  color: #ffffff;
+  color: ${({add_color}) => add_color ? '#00C5FF' : '#ffffff'};
   transition: .4s;
   
   &:hover {

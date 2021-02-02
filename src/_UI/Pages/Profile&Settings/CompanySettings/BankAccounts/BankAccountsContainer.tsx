@@ -6,15 +6,11 @@ import BankCard from "../../../ActivateCompany/AddBankAccount/BanksList/list/ban
 import {useState} from "react";
 import Form from "./addBankForm/Form";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    deleteBank,
-    getBankAccounts,
-    makeBankDefault,
-    profileActions
-} from "../../../../../_BLL/reducers/profileReducer";
+import {profileActions} from "../../../../../_BLL/reducers/profileReducer";
 import {AppStateType} from "../../../../../_BLL/store";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+import {deleteBank, getBankAccounts, makeBankDefault} from "../../../../../_BLL/thunks/profile/profileThunks";
 
 type PropsType = {
     current_user_role?: string[],

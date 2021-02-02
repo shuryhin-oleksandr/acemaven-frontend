@@ -26,7 +26,7 @@ const ChatHistoryContent: React.FC<PropsType> = ({typing_user, my_id, message_hi
         let chat = document.getElementById('chat_content')
         chat &&
         (chat.scrollTop = chat?.scrollHeight)
-    }, [])
+    }, [message_history])
 
 
     return (

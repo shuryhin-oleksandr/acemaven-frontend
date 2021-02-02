@@ -9,16 +9,14 @@ export const startReceiveNotifications = (dispatch: Dispatch) => {
   const baseNotificationURL = `${process.env.REACT_APP_NOTIFICATIONS}?token=${token}`;
   try {
     ws = new WebSocket(baseNotificationURL);
-    ws.onopen = (e) => {
-      console.log("connection opened", e);
+    ws.onopen = () => {
       interval && clearInterval(interval);
     };
     ws.onmessage = (evt) => {
       const res = JSON.parse(evt.data);
-      console.log("RRRRR", evt);
       wsChatHelper(res, dispatch);
     };
-    ws.onclose = function (event) {
+    ws.onclose = function () {
       console.log("connections closed");
       interval = setTimeout(() => {
         check(dispatch);
@@ -26,7 +24,6 @@ export const startReceiveNotifications = (dispatch: Dispatch) => {
     };
 
     ws.onerror = () => {
-      console.log("errorrrrr");
       stopReceiveNotifications();
     };
   } catch (e) {

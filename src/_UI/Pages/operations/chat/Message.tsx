@@ -17,6 +17,9 @@ import user_icon from "../../../assets/icons/profile/defaultUserPhoto.svg";
 import delete_icon from '../../../assets/icons/operations/delete_gray.svg'
 import fileDownload from 'js-file-download'
 import axios from 'axios'
+import GetAppIcon from '@material-ui/icons/GetApp';
+import {IconButton} from "@material-ui/core";
+import grey from "@material-ui/core/colors/grey";
 
 
 type PropsType = {
@@ -30,15 +33,12 @@ const Message: React.FC<PropsType> = ({my_id, message, ...props}) => {
     const [isDelete, setIsDelete] = useState(false)
 
 
-
-
-
-    const handleDownload = (url: string, filename: string) => {
+    const handleDownload = (url: string) => {
         axios.get(url, {
             responseType: 'blob',
         })
             .then((res) => {
-                debugger
+                let filename = url.substring(url.lastIndexOf('/') + 1)
                 fileDownload(res.data, filename)
             })
     }
@@ -70,7 +70,26 @@ const Message: React.FC<PropsType> = ({my_id, message, ...props}) => {
                     <MessageText>
                         {message.content
                             ? <span>{message.content}</span>
-                            : <button onClick={() => handleDownload(message.files[0], 'file.pdf')}>Save</button>
+                            : <div style={{display: 'flex', width: '300px', justifyContent: 'space-between'}}>
+                                <span style={{maxWidth: '230px',
+                                    textOverflow: 'ellipsis',
+                                    overflow: 'auto',
+                                    width: '100%'
+                                }}>
+                                    {message.files[0].substring(message.files[0].lastIndexOf('/') + 1)}
+                                </span>
+                                <IconButton onClick={() => handleDownload(message.files[0])}
+                                            style={{
+                                                border: '2px solid rgba(255, 255, 255, .3)',
+                                                padding: '2px',
+                                                width: '34px',
+                                                height: '34px'
+                                            }}
+                                >
+                                    <GetAppIcon style={{fontSize: 24, color: grey[50]}}/>
+                                </IconButton>
+                            </div>
+
                         }
                     </MessageText>
                     <div style={{display: 'flex', flexDirection: 'column'}}>

@@ -68,7 +68,12 @@ export const wsChatAPI =  {
         ws?.send(JSON.stringify({"command": "delete_message", "message_id": message_id}))
     },
     addFiles (formData: FormData) {
-        debugger
         return instance.post('/websockets/file/', formData)
+    },
+    fileUploading (message_id: number) {
+        ws?.send(JSON.stringify({"command": "file_uploading", "message_id": message_id}))
+    },
+    fileUploaded(message_id: number) {
+        ws?.send(JSON.stringify({"command": "file_uploaded", "message_id": message_id}))
     }
 }

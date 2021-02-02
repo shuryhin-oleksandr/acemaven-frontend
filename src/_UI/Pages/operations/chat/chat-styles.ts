@@ -138,7 +138,9 @@ export const MessageInput = styled.textarea`
   line-height: 18.34px;
   padding: 10px 55px 16px 16px;
   outline: none;
- 
+  resize: vertical;
+  max-height: 150px;
+  min-height: 55px;
   
   &::placeholder {
     font-family: "Helvetica Reg", sans-serif;

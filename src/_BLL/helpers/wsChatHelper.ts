@@ -20,6 +20,13 @@ export const wsChatHelper = (res: any, dispatch: Dispatch) => {
         }
         case "notifications": {
             dispatch(operationChatActions.setNotificationList(res.notifications))
+            console.log('res.notifications',res.notifications);
+            break
+        }
+        case "notification": {
+            dispatch(operationChatActions.setNewNotification(res.notification))
+            console.log("res.notifications", res.notifications);
+            break
         }
     }
 }

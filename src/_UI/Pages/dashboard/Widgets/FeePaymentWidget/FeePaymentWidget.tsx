@@ -41,7 +41,7 @@ const FeePaymentWidget: React.FC = () => {
     (state: AppStateType) => state.client_billing.client_billing_operations_list
   );
 
-  return (
+  return billing_list.length > 0 ? (
     <BaseWidget heading="pending of Booking Fee payment">
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
@@ -105,7 +105,7 @@ const FeePaymentWidget: React.FC = () => {
         </TableBody>
       </Table>
     </BaseWidget>
-  );
+  ) : null;
 };
 
 export default FeePaymentWidget;

@@ -41,11 +41,11 @@ const useStyles = makeStyles({
       backgroundColor: "#FFFFFF",
       border: "1px solid #828282",
     },
-    borderRadius: "4px",
+    borderRadius: "5px",
     boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.25)",
     backgroundColor: "#FFFFFF",
     border: "1px solid #828282",
-    padding: "40px 27px",
+    padding: "0",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -67,7 +67,7 @@ const Header: React.FC = () => {
     (state: AppStateType) => state.chat_operation.notification_list
   );
 
-  const has_new_notifications = notifications_list.some((n) => !n.is_viewed);
+  const has_new_notifications = notifications_list?.some((n) => !n.is_viewed);
 
   return (
     <HeaderContainer>
@@ -87,8 +87,8 @@ const Header: React.FC = () => {
             <SectionWrapper
             // onClick={() => history.push("/notifications")}
             >
-              {notifications_list.map((i) => (
-                <NotificationCard key={i.id} notification={i} />
+              {notifications_list.map((i, idx) => (
+                <NotificationCard key={i.id} notification={i} idx={idx} />
               ))}
             </SectionWrapper>
           }

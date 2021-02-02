@@ -31,6 +31,11 @@ export const chatOperationReducer = (state = initialState, action: commonOperati
                 ...state,
                 notification_list: action.notifications
             }
+        case "SET_NEW_NOTIFICATION":
+            return{
+                ...state,
+                notification_list: [action.notification,...state.notification_list]
+            }
         default:
             return state;
     }
@@ -43,5 +48,6 @@ export const operationChatActions = {
     setMessagesHistory: (messages: MessageType[]) => ({type: 'SET_MESSAGES_HISTORY', messages} as const),
     setMyMessage: (my_message: MessageType) => ({type: 'SET_MY_MESSAGE', my_message} as const),
     setUserTyping: (typing_user: number) => ({type: 'SET_USER_TYPING', typing_user} as const),
-    setNotificationList:(notifications:NotificationType[]) =>({type: "SET_NOTIFICATION_LIST", notifications} as const)
+    setNotificationList:(notifications:NotificationType[]) =>({type: "SET_NOTIFICATION_LIST", notifications} as const),
+    setNewNotification:(notification:NotificationType) =>({type: "SET_NEW_NOTIFICATION", notification} as const)
 };

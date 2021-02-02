@@ -6,6 +6,10 @@ import Spinner from "./_UI/components/_commonComponents/spinner/Spinner";
 import { Scrollbars } from "react-custom-scrollbars";
 import { getAuthUserInfo } from "./_BLL/reducers/profileReducer";
 import { wsChatHelper } from "./_BLL/helpers/wsChatHelper";
+import {
+  startReceiveNotifications,
+  stopReceiveNotifications,
+} from "./_BLL/thunks/notifications_thunk/notifications_thunk";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuth);
@@ -15,18 +19,12 @@ function App() {
   const dispatch = useDispatch();
   let token = localStorage.getItem("access_token");
 
-  const baseUrl = `ws://37.17.34.252:8443/ws/notification/?token=${token}`;
-
   useEffect(() => {
     if (token) {
       dispatch(getAuthUserInfo());
-
-      const ws = new WebSocket(baseUrl);
-      ws.onopen = () => {};
-      ws.onmessage = (evt) => {
-        const res = JSON.parse(evt.data);
-        wsChatHelper(res, dispatch);
-        console.log("RES", res);
+      startReceiveNotifications(dispatch);
+      return () => {
+      stopReceiveNotifications();
       };
     }
   }, [token]);

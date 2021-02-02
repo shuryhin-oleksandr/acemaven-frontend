@@ -12,7 +12,8 @@ export type NotificationType = {
     date_created: string,
     id: number,
     is_viewed: boolean,
-    object_id?: number
-    section: string
-    text: string
+    object_id?: number,
+    section: string,
+    text: string,
+    action_path:string
 }

@@ -57,7 +57,7 @@ const OperationsContainer: React.FC = () => {
 
 
     return (
-        <Layout setSmallBar={setSmallBar} isSmallBar={isSmallBar}>
+        <Layout>
             {(isFetchingAgent || isFetchingClient)
                 ? <SpinnerForAuthorizedPages/>
                 : <>

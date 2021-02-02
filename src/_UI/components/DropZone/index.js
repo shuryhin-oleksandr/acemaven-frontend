@@ -7,6 +7,7 @@ const DropZone = ({ setImg, name, setFile }) => {
 
 
   const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles)
     const reader = new FileReader();
     reader.onload = function (e) {
       setImg(e.target.result);

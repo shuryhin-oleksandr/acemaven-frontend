@@ -7,6 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import TabPanel from "@material-ui/lab/TabPanel";
 //types
 import {AppCompaniesTypes} from "../../../../_BLL/types/commonTypes";
+import {settingsType} from "../../../../_BLL/types/profile/profileTypes";
 //components
 import EmailNotifications from "./notifications/EmailNotifications";
 import {useStyles} from "../CompanySettings/CompanySettingsPage";
@@ -20,10 +21,11 @@ import {
 
 
 type PropsType = {
-    company_type: string
+    company_type: string,
+    my_settings: settingsType | null
 }
 
-const GeneralSettingsPage: React.FC<PropsType> = ({company_type}) => {
+const GeneralSettingsPage: React.FC<PropsType> = ({company_type, my_settings}) => {
     const classes = useStyles()
     const [value, setValue] = React.useState('1');
 
@@ -53,9 +55,13 @@ const GeneralSettingsPage: React.FC<PropsType> = ({company_type}) => {
                             }
 
                         </AppBar>
-                        <TabPanel value="1"><EmailNotifications/></TabPanel>
+                        <TabPanel value="1">
+                            <EmailNotifications my_settings={my_settings}/>
+                        </TabPanel>
                         {company_type === AppCompaniesTypes.CLIENT
-                        && <TabPanel value="2"><PartnersTable/></TabPanel>}
+                        && <TabPanel value="2">
+                            <PartnersTable/>
+                        </TabPanel>}
                     </TabContext>
                 </div>
 

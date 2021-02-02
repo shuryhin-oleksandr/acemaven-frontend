@@ -1,4 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
+//react-redux
+import {useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../../../_BLL/store";
+//components
+import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+import Info from './Info'
+import EditCompanyInfoForm from "./EditCompanyInfoForm";
+//styles
 import {
     InfoBlock,
     InfoContainer,
@@ -8,12 +17,6 @@ import {
     InfoText,
     LineWrap,
 } from './company-info-styles'
-import Info from './Info'
-import EditCompanyInfoForm from "./EditCompanyInfoForm";
-import {useState} from 'react';
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../../_BLL/store";
-import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 
 
 type PropsType = {

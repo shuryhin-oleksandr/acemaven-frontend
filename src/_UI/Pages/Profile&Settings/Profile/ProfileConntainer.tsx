@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react'
+//react-redux
+import {useDispatch} from "react-redux";
+//BLL
+import {getAuthUserInfo} from "../../../../_BLL/thunks/profile/profileThunks";
+import {commonActions} from "../../../../_BLL/reducers/commonReducer";
+//components
 import Layout from "../../../components/BaseLayout/Layout";
 import ProfilePage from "./ProfilePage";
-import {useDispatch} from "react-redux";
-import {getAuthUserInfo} from "../../../../_BLL/reducers/profileReducer";
-import {commonActions} from "../../../../_BLL/reducers/commonReducer";
 
 
-
-const ProfileContainer:React.FC = () => {
+const ProfileContainer: React.FC = () => {
 
     const dispatch = useDispatch()
 
@@ -17,8 +19,8 @@ const ProfileContainer:React.FC = () => {
     }, [dispatch])
 
     return (
-        <Layout >
-            <ProfilePage />
+        <Layout>
+            <ProfilePage/>
         </Layout>
     )
 }

@@ -1,13 +1,20 @@
 import React, {useEffect} from "react";
+//react-hook-form
+import {useForm} from "react-hook-form";
+//react-redux
+import {useDispatch} from "react-redux";
+//BLL
+import {editCompanyInfo} from "../../../../../_BLL/thunks/profile/profileThunks";
+//types
+import {EditCompanyInfo} from "../../../../../_BLL/types/profile&settingsTypes";
+import {CompanyInfoType} from "../../../../../_BLL/types/profileSettingsType";
+//components
 import CancelEditButton from "src/_UI/components/_commonComponents/buttons/editFormButtons/CancelEditButton";
-import {ButtonsWrap, FormContainer, FormWrap} from "./company-info-styles";
 import {InputWrap, SubmitButton, Wrapper} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 import FormField from "src/_UI/components/_commonComponents/Input/FormField";
-import {EditCompanyInfo} from "../../../../../_BLL/types/profile&settingsTypes";
-import { useForm } from "react-hook-form";
-import {CompanyInfoType} from "../../../../../_BLL/types/profileSettingsType";
-import {useDispatch} from "react-redux";
-import {editCompanyInfo} from "../../../../../_BLL/reducers/profileReducer";
+//styles
+import {ButtonsWrap, FormContainer, FormWrap} from "./company-info-styles";
+
 
 type PropsType = {
     setEdit?: (value: boolean) => void,
@@ -15,7 +22,7 @@ type PropsType = {
     company_type: string
 }
 
-const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_type}) => {
+const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company_type}) => {
     let {register, handleSubmit, errors, setValue} = useForm({
         mode: "onSubmit",
         reValidateMode: "onBlur"
@@ -29,7 +36,7 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_
     }
 
     useEffect(() => {
-        if(companyInfo) {
+        if (companyInfo) {
             Object.keys(companyInfo).forEach((key: string) => {
                 setValue(key, companyInfo[key])
             })
@@ -97,19 +104,21 @@ const EditCompanyInfoForm:React.FC<PropsType> = ({setEdit, companyInfo, company_
                                })}
                     />
                     {company_type !== 'client' && <FormField name='website'
-                               label='Website'
-                               placeholder='www.company.com'
-                               error={errors?.website}
-                               inputRef={register({
-                                   required: 'Field is required'
-                               })}
+                                                             label='Website'
+                                                             placeholder='www.company.com'
+                                                             error={errors?.website}
+                                                             inputRef={register({
+                                                                 required: 'Field is required'
+                                                             })}
                     />}
                 </InputWrap>
             </FormWrap>
             <ButtonsWrap>
                 <SubmitButton type='submit'
-                              style={{backgroundColor: 'black', width: '176px', marginTop: '0',
-                                  height: '40px', marginRight: '25px', marginBottom: '10px'}}
+                              style={{
+                                  backgroundColor: 'black', width: '176px', marginTop: '0',
+                                  height: '40px', marginRight: '25px', marginBottom: '10px'
+                              }}
                 >
                     Save changes
                 </SubmitButton>

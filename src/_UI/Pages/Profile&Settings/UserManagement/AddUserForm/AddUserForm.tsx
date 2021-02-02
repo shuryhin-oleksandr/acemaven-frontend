@@ -2,7 +2,7 @@ import React from "react";
 //react-hook-form
 import {useForm} from "react-hook-form";
 //BLL
-import {addNewWorker} from "../../../../../_BLL/reducers/profileReducer";
+import { addNewWorker } from "../../../../../_BLL/thunks/profile/profileThunks";
 //components
 import FinishFormButtons from "../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
 import FormField from "../../../../components/_commonComponents/Input/FormField";
@@ -10,6 +10,7 @@ import CustomCheckbox from "../../../../components/_commonComponents/customCheck
 import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 //styles
 import {FormContainer, FormWrap, Label} from "./add-user-form-styles";
+
 
 
 type PropsType = {

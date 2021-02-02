@@ -1,11 +1,17 @@
 import * as React from "react";
-import {HeaderContainer, InfoWrap, LogoWrap, PhotoWrap} from "./header-styles";
 import {useEffect} from "react";
-import {getAuthUserInfo} from "../../../_BLL/reducers/profileReducer";
+//react-redux
 import {useDispatch, useSelector} from "react-redux";
+//BLL
 import {AppStateType} from "../../../_BLL/store";
+import { getAuthUserInfo } from "../../../_BLL/thunks/profile/profileThunks";
+
+//styles
+import {HeaderContainer, InfoWrap, LogoWrap, PhotoWrap} from "./header-styles";
+//icons
 import user from '../../../_UI/assets/icons/profile/miniDEfaultPhoto.svg'
 import logotype from "../../assets/icons/landing/inline_logo.svg";
+
 
 
 const HeaderWithoutActions:React.FC = () => {

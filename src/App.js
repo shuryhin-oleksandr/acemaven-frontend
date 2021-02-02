@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./_BLL/reducers/authReducer";
 import Spinner from "./_UI/components/_commonComponents/spinner/Spinner";
 import { Scrollbars } from "react-custom-scrollbars";
-import { getAuthUserInfo } from "./_BLL/reducers/profileReducer";
-import { wsChatHelper } from "./_BLL/helpers/wsChatHelper";
+import {getAuthUserInfo} from "./_BLL/thunks/profile/profileThunks";import { wsChatHelper } from "./_BLL/helpers/wsChatHelper";
 import {
   startReceiveNotifications,
   stopReceiveNotifications,
@@ -18,6 +17,7 @@ function App() {
   const route = useRoute(isAuth);
   const dispatch = useDispatch();
   let token = localStorage.getItem("access_token");
+
 
   useEffect(() => {
     if (token) {

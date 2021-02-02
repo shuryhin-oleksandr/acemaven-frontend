@@ -1,15 +1,21 @@
 import React from "react";
+//react-hook-form
 import {Controller, useForm} from "react-hook-form";
-import { FormContainer} from "./bank-form-styles";
+//react-redux
+import {useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../../../../_BLL/store";
+import { addBankAccount } from "../../../../../../_BLL/thunks/profile/profileThunks";
+//types
+import {IAddNewBank} from "../../../../../../_BLL/types/addNewUserTypes";
+import {ErrorServerMessage} from "../../../../SignInPage";
+//components
 import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 import FormSelect from "../../../../../components/_commonComponents/select/FormSelect";
 import FinishFormButtons
     from "../../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
-import {IAddNewBank} from "../../../../../../_BLL/types/addNewUserTypes";
-import {addBankAccount} from "../../../../../../_BLL/reducers/profileReducer";
-import {ErrorServerMessage} from "../../../../SignInPage";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../../../_BLL/store";
+//styles
+import { FormContainer} from "./bank-form-styles";
 
 
 

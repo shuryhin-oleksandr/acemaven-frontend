@@ -1,15 +1,19 @@
 import React, {useEffect} from 'react'
+//react-redux
 import {useDispatch, useSelector} from 'react-redux';
+//BLL
+import {AppStateType} from "../../../../_BLL/store";
+import {getWorkersList} from "../../../../_BLL/thunks/profile/profileThunks";
+import {commonActions} from "../../../../_BLL/reducers/commonReducer";
+//types
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+//components
 import Layout from "../../../components/BaseLayout/Layout";
 import UserManagementPage from './UserManagementPage';
-import {getWorkersList} from "../../../../_BLL/reducers/profileReducer";
-import {AppStateType} from "../../../../_BLL/store";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
-import {commonActions} from "../../../../_BLL/reducers/commonReducer";
 import SpinnerForAuthorizedPages from "../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 
 
-const UserManagementContainer = () => {
+const UserManagementContainer:React.FC = () => {
 
     const dispatch = useDispatch()
     let dispatchHandler = (someFn: VoidFunctionType) => {
@@ -26,9 +30,9 @@ const UserManagementContainer = () => {
     }, [dispatch])
 
     return (
-        <Layout >
+        <Layout>
             {isFetching
-                ? <SpinnerForAuthorizedPages />
+                ? <SpinnerForAuthorizedPages/>
                 : <UserManagementPage dispatch={dispatchHandler}
                                       workersList={workersList}
                                       my_id={my_id}

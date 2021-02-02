@@ -38,5 +38,8 @@ export const profileSettingsAPI = {
     },
     changePassword (data: any) {
         return instance.post('/core/password-change/', data)
+    },
+    getMySettings (settings_id: number) {
+        return instance.get(`/core/email-settings/${settings_id}/`)
     }
 }

@@ -1,80 +1,107 @@
-import React, {useState} from "react";
-import {
-    ChatContent,
-    ChatInner,
-    ChatWrapper, MessageInput, MessageInputWrapper, MessageTypingWrapper, MessageWrapper, PhotoWrapper,
-} from "./chat-styles";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../_BLL/store";
-import Message from "./Message";
+import React, { useEffect, useState} from "react";
+//material ui
 import {IconButton} from "@material-ui/core";
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+//react-redux
+import {useDispatch, useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../../_BLL/store";
+//types
+import {MessageType} from "../../../../_BLL/types/chat/ChatTypes";
+import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+//components
+import ChatHistoryContent from "./chat_content/ChatHistoryContent";
+//styles
+import {
+    ChatInner,
+    ChatWrapper,
+    LabelUpload,
+    MessageInput,
+    MessageInputWrapper,
+    PhotoWrapper,
+    UploadInput,
+    UploadWrapper
+} from "./chat-styles";
+//icons
 import send_icon from '../../../assets/icons/operations/send_mesage.svg'
 import user_icon from "../../../assets/icons/profile/defaultUserPhoto.svg";
-import {MessageType} from "../../../../_BLL/types/chat/ChatTypes";
-import type_gif from "../../../assets/icons/operations/giphy.gif";
-import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import grey from "@material-ui/core/colors/grey";
+import {wsChatAPI} from "../../../../_DAL/API/operations/chat/SocketChatAPI";
+import {sendMessageThunk} from "../../../../_BLL/thunks/operation_chat/OperationChatThunks";
 
 
 type PropsType = {
     message_history: MessageType[],
     my_id: number | undefined,
-    typing_user_id: number,
-    clearTypingUser: VoidFunctionType
+    typing_user: {user_id: number, photo: string | null} | null,
+    clearTypingUser: VoidFunctionType,
+    setInputText: any,
+    inputText: string,
+    focusHandler: VoidFunctionType,
+    blurHandler: VoidFunctionType,
+    sendHandler: VoidFunctionType,
+    deleteHandler: (value: number) => void,
+    stop_typing: boolean
+
 }
 
-const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user_id, clearTypingUser}) => {
+const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTypingUser, inputText, setInputText, ...props}) => {
 
-    const [inputText, setInputText] = useState('')
 
+    //data from store
     const my_photo = useSelector((state: AppStateType) => state.profile.authUserInfo?.photo)
+    const sent_status = useSelector((state: AppStateType) => state.chat_operation.sent_status)
+    const [uploadedFile, setUploadedFile] = useState(null)
+    const dispatch = useDispatch()
 
+    const formData = new FormData()
+    const onUpload = (acceptedFiles: any) => {
+        setUploadedFile(acceptedFiles[0])
+        dispatch(sendMessageThunk(''))
 
-    const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywidXNlcm5hbWUiOiJuc29mdEBuc29mdC5uc29mdCIsImV4cCI6MTYxMjEwMzQ4NSwiZW1haWwiOiJuc29mdEBuc29mdC5uc29mdCIsIm9yaWdfaWF0IjoxNjExODQ0Mjg1fQ.17jawIzqiTbmQCHnKIDhjkOL5Tsgb40_cJHeYY89nCE"
-    const baseUrl = `ws://192.168.1.33:8000/ws/operation-chat/3/?token=${token}`
-
-    const ws = new WebSocket(baseUrl)
-    let sendHandler = () => {
-        ws.send(JSON.stringify({'command': 'new_message', 'message': inputText}))
-        setInputText('')
-        clearTypingUser()
-
+        //setUploadedFile(null)
     }
-    let focusHandler = () => {
-        ws.send(JSON.stringify({"command": "typing_message", "user_id": my_id}))
 
-    }
+    useEffect(() => {
+            if(uploadedFile && sent_status) {
+
+                // @ts-ignore
+                formData.append('file', uploadedFile)
+                let last_message = message_history[message_history.length - 1]?.id
+                formData.append('message', last_message.toString())
+                 wsChatAPI.addFiles(formData)
+                     .then((res) => console.log(res))
+            }
+    }, [formData, sent_status])
+
 
 
     return (
         <ChatWrapper>
             <ChatInner>
-                <ChatContent>
-                    {message_history.map(m => <Message key={m.id}
-                                                       message={m}
-                                                       my_id={my_id}
-                        />
-                    )}
-                    {(!!typing_user_id && typing_user_id !== my_id)
-                    && <MessageWrapper style={{marginBottom: '30px'}}>
-                        <PhotoWrapper>
-                            <img src={user_icon} alt=""/>
-                        </PhotoWrapper>
-                        <MessageTypingWrapper>
-                            <img src={type_gif} alt=""/>
-                        </MessageTypingWrapper>
-                    </MessageWrapper>}
-                </ChatContent>
+                <ChatHistoryContent message_history={message_history}
+                                    my_id={my_id}
+                                    typing_user={typing_user}
+                                    deleteHandler={props.deleteHandler}
+                                    stop_typing={props.stop_typing}
+                />
                 <div style={{display: 'flex', alignItems: 'center'}}>
+                    <UploadWrapper >
+                        <LabelUpload htmlFor="upload">
+                               <AttachFileIcon style={{fontSize: 24, color: grey[900]}}/>
+                        </LabelUpload>
+                        <UploadInput name='file' type="file" id="upload" onChange={(e) => onUpload(e.target.files)}/>
+                    </UploadWrapper>
                     <MessageInputWrapper>
-                        <MessageInput placeholder='Type something'
+                        <MessageInput placeholder='Message...'
                                       value={inputText}
-                                      onFocus={() => focusHandler()}
-                                      //rows={1}
+                                      onFocus={() => props.focusHandler()}
+                                      onBlur={() => props.blurHandler()}
                             // @ts-ignore
                                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)}
                         />
                         <IconButton style={{position: 'absolute', right: '5px'}}
-                                    onClick={() => sendHandler()}
+                                    onClick={props.sendHandler}
                         >
                             <img src={send_icon} alt=""/>
                         </IconButton>
@@ -83,11 +110,10 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user_id, clea
                         <img src={my_photo ? my_photo : user_icon} alt=""/>
                     </PhotoWrapper>
                 </div>
-
             </ChatInner>
         </ChatWrapper>
 
-    )
+)
 }
 
 export default Chat

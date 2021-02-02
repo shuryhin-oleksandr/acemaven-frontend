@@ -8,12 +8,6 @@ import {
 import Radio from '@material-ui/core/Radio';
 import { makeStyles } from "@material-ui/core/styles";
 
-
-type PropsType = {
-    title?: string,
-    subtitle?: string,
-    name?: string
-}
 let useStyles = makeStyles ({
     root: {
         color: '#1B1B25',
@@ -28,7 +22,16 @@ let useStyles = makeStyles ({
 })
 
 
-const SettingsNotificationRadio:React.FC<PropsType> = ({title, subtitle, name}) => {
+type PropsType = {
+    title?: string,
+    subtitle?: string,
+    name?: string,
+    radio_value: boolean | undefined
+}
+
+
+const SettingsNotificationRadio:React.FC<PropsType> = ({title, subtitle, name, radio_value}) => {
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedValue(event.target.value);
     };

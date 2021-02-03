@@ -55,6 +55,7 @@ import AddingGroupsForm from "./AddingGroupsForm/AddingGroupsForm";
 import { changeBooking } from "../../../../_BLL/thunks/booking_client_thunk/bookingClientThunk";
 import _ from "lodash";
 import { bookingActions } from "../../../../_BLL/reducers/booking/bookingReducer";
+import { ShippingModeEnum } from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 
 const useStyles = makeStyles({
   container: {
@@ -433,7 +434,8 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
             <TableContainer className={classes.container} component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
-                  {cargo_groups[0]?.container_type ? (
+                  {operation_info.freight_rate.shipping_mode.id ===
+                  ShippingModeEnum.FCL ? (
                     <TableRow>
                       <TableCell className={classes.cell} align="left">
                         VOLUME
@@ -454,7 +456,10 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                         TOTAL W/M
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                        PACKAGING TYPE
+                        {operation_info.freight_rate.shipping_mode.id ===
+                        ShippingModeEnum.ULD
+                          ? "CONTAINER TYPE"
+                          : "PACKAGING TYPE"}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
                         HEIGHT, WIDTH, LENGTH, WEIGHT
@@ -468,7 +473,8 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                 <TableBody>
                   {cargo_groups.map((c, index) => (
                     <TableRow key={index} className={classes.row}>
-                      {c.container_type ? (
+                      {operation_info.freight_rate.shipping_mode.id ===
+                      ShippingModeEnum.FCL ? (
                         <>
                           <TableCell className={classes.innerCell} align="left">
                             <FormField
@@ -511,7 +517,10 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                             {c.total_wm}w/m
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
-                            {c.packaging_type?.description}
+                            {operation_info.freight_rate.shipping_mode.id ===
+                            ShippingModeEnum.ULD
+                              ? c.container_type?.code
+                              : c.packaging_type?.description}
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
                             {`${c.height}${c.length_measurement}/

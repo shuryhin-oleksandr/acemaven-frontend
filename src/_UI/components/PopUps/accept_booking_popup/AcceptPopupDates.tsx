@@ -48,6 +48,8 @@ type PropsType = {
     register?: any,
     disabled_condition1?: boolean,
     disabled_condition2?: boolean,
+    required_time: boolean,
+    color_label?: boolean
 }
 
 const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, register, required_dates, ...props}) => {
@@ -106,10 +108,10 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
             <Wrapper justify_content={props.justify_content} wrapper_width={props.wrapper_width} >
                 <CalendarWrapper max_width={!props.first_time ? '225px' : '235px'}
                                  input_height='40px' margin_right='10px' margin_bottom='5px' >
-                    <span style={{fontFamily: !props.first_time ? 'Helvetica Reg' : 'Helvetica Bold',
+                    <span style={{fontFamily: !props.color_label ? 'Helvetica Reg' : 'Helvetica Bold',
                                 fontSize: '14px',
-                                color: !props.first_time ? 'black' : '#115b86',
-                                textTransform: !props.first_time ? 'none' : 'uppercase'
+                                color: !props.color_label ? 'black' : '#115b86',
+                                textTransform: !props.color_label ? 'none' : 'uppercase'
                     }}>
                         {props.label1}
                     </span>
@@ -117,7 +119,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                         name={props.date_name_first}
                         control={control}
                         rules={{
-                            required: 'Field is required'
+                            required: required_dates
                         }}
                         defaultValue=""
                         as={
@@ -147,7 +149,9 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                 </CalendarWrapper>
                     <Controller name={props.time_name_first}
                                 control={control}
-                                rules={{required: true}}
+                                rules={{
+                                    required: props.required_time
+                                }}
                                 defaultValue=''
                                 as={
                                     <TimePicker type="time"
@@ -162,18 +166,18 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
             <Wrapper justify_content={props.justify_content} wrapper_width={props.wrapper_width}>
                 <CalendarWrapper max_width={!props.second_time ? '225px' : '235px'}
                                  input_height='40px' margin_right='10px' margin_bottom='5px'>
-                     <span style={{fontFamily: !props.second_time ? 'Helvetica Reg' : 'Helvetica Bold',
-                         fontSize: '14px',
-                         color: !props.second_time ? 'black' : '#115b86',
-                         textTransform: !props.second_time ? 'none' : 'uppercase'
-                     }}>
+                    <span style={{fontFamily: !props.color_label ? 'Helvetica Reg' : 'Helvetica Bold',
+                        fontSize: '14px',
+                        color: !props.color_label ? 'black' : '#115b86',
+                        textTransform: !props.color_label ? 'none' : 'uppercase'
+                    }}>
                         {props.label2}
                     </span>
                     <Controller
                         name={props.date_name_second}
                         control={control}
                         rules={{
-                            required: 'Field is required'
+                            required: required_dates
                         }}
                         defaultValue=""
                         as={
@@ -203,7 +207,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                 </CalendarWrapper>
                 <Controller control={control}
                             rules={{
-                                required: true
+                                required: props.required_time
                             }}
                             name={props.time_name_second}
                             defaultValue=''

@@ -57,6 +57,12 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
     const [uploadedFile, setUploadedFile] = useState(null)
     const dispatch = useDispatch()
 
+    const keyHandler = (e: any ) => {
+        const keyCode = e.which || e.keyCode
+        if(keyCode === 13 && !e.shiftKey) {
+            props.sendHandler()
+        }
+    }
     const formData = new FormData()
     const onUpload = (acceptedFiles: any) => {
         setUploadedFile(acceptedFiles[0])
@@ -71,19 +77,16 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
                 formData.append('file', uploadedFile)
                 let last_message = message_history[message_history.length - 1]?.id
                 formData.append('message', last_message.toString())
+                wsChatAPI.fileUploading(last_message)
                  wsChatAPI.addFiles(formData)
                      .then((res) => dispatch(operationChatActions.setFileToEmptyMessage(res.data.file, res.data.message)))
+                     .then(() => wsChatAPI.fileUploaded(last_message))
                      .then(() => setUploadedFile(null))
                      .catch(e => console.log(e))
             }
     }, [formData, sent_status])
 
-    const keyHandler = (e: any ) => {
-        const keyCode = e.which || e.keyCode
-        if(keyCode === 13 && !e.shiftKey) {
-            props.sendHandler()
-        }
-    }
+
 
 
 

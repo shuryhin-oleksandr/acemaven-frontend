@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React from 'react'
 import { useForm} from "react-hook-form";
 import {
     ChangeRequestButtonsWrapper, ConfirmRequestButton,
@@ -8,7 +8,6 @@ import {
 import FormField from "../../_commonComponents/Input/FormField";
 import LocationContainer from "../accept_booking_popup/LocationContainer";
 import AcceptPopupDates from "../accept_booking_popup/AcceptPopupDates";
-import DayPickerInput from "react-day-picker/DayPickerInput";
 // @ts-ignore
 import moment from "moment";
 import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
@@ -75,19 +74,6 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
 
     }
 
-    const [selectedDay, setSelectedDay] = useState<any>({
-        from:  '',
-        to:  ''
-    })
-    // const toInput = useRef<DayPickerInput>(null)
-    //
-    // const handleDayChange = (to: string) => {
-    //     setSelectedDay({
-    //         ...selectedDay,
-    //         to
-    //     })
-    //     setValue('payment_due_by', to)
-    // }
 
 
     return (
@@ -190,6 +176,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                               errors={{from: errors.from, to: errors.to, departure_time: errors.departure_time, arrival_time: errors.arrival_time}}
                               setValue={setValue}
                               required_dates={true}
+                              required_time={true}
                               label1={'Estimated Time of Departure'}
                               label2={'Estimated Time of Arrival'}
                               time_name_first={'estimated_time.departure_time'}
@@ -211,6 +198,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                                  errors={{from: errors.from, to: errors.to, departure_time: errors.departure_time, arrival_time: errors.arrival_time}}
                                  setValue={setValue}
                                  required_dates={true}
+                                 required_time={true}
                                  label1={'Documents Cut Off Date'}
                                  label2={'Cargo Cut Off Date'}
                                  time_name_first={'documents_cut_off.cut_off_time'}

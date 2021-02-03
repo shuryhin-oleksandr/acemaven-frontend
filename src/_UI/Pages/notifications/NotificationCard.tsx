@@ -68,7 +68,7 @@ const NotificationCard: React.FC<PropsType> = ({
   return (
     <CardOuter
       onClick={() => {
-        notificationClickHandler(notification.id, notification.action_path);
+        notificationClickHandler(notification.object_id, notification.action_path);
       }}
       idx={idx}
       is_viewed={notification.is_viewed}

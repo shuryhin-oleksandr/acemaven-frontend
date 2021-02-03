@@ -33,6 +33,7 @@ import save_icon from "../../../../assets/icons/profile/add.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../../_BLL/store";
 import { calculateAdditionalCargoGroup } from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import { Field } from "../../../_commonComponents/Input/input-styles";
 
 let useStyles = makeStyles({
   root: {
@@ -151,15 +152,20 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 }
               />
             )}
-            <FormField
-              error={errors?.volume}
-              label="No. of packs"
-              max_width="135px"
-              type="number"
-              inputRef={register({ required: true })}
-              disabled={shipping_mode === 2}
-              defaultValue={1}
+            <Controller
+              control={control}
               name="volume"
+              defaultValue={"1"}
+              rules={{
+                required: "Field is required",
+              }}
+              as={
+                <FormField
+                  disabled={shipping_mode === 2}
+                  max_width={"135px"}
+                  label={"No. of packs"}
+                />
+              }
             />
             <Controller
               name="weight"

@@ -136,7 +136,7 @@ export const recalculateCharges = (
                             let containerObj = container_types_air.find(
                                 (cont) => cont.id === group.container_type
                             );
-                            return {...group, packaging_type: containerObj};
+                            return {...group, container_type: containerObj};
                         }
                     );
                     dispatch(

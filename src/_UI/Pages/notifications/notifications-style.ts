@@ -78,3 +78,10 @@ export const NotificationsDescription = styled.div`
   font-size: 14px;
   color: #333333;
 `;
+
+export const NoNotificationCard = styled.div`
+  padding: 15px 25px;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 16px;
+  color: #333333;
+`;

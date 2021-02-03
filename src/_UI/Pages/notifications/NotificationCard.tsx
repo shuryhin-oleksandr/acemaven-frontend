@@ -60,8 +60,8 @@ const NotificationCard: React.FC<PropsType> = ({
   };
 
   const notificationClickHandler = (id: number, action_path: string) => {
-    markNotificationAsRead(notification.id);
-    const path = findPath(notification.id, notification.action_path);
+    markNotificationAsRead(id);
+    const path = findPath(id, action_path);
     history.push(path);
   };
 

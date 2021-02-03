@@ -19,7 +19,10 @@ import card from "../../../_UI/assets/icons/card.svg";
 import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
 import { NavLink } from "react-router-dom";
 import NotificationCard from "../../Pages/notifications/NotificationCard";
-import { SectionWrapper } from "../../Pages/notifications/notifications-style";
+import {
+  NoNotificationCard,
+  SectionWrapper,
+} from "../../Pages/notifications/notifications-style";
 
 const useStyles = makeStyles({
   customTooltip: {
@@ -84,12 +87,16 @@ const Header: React.FC = () => {
           interactive
           classes={{ tooltip: classes.customNotificationTooltip }}
           title={
-            <SectionWrapper
-            // onClick={() => history.push("/notifications")}
-            >
-              {notifications_list.map((i, idx) => (
-                <NotificationCard key={i.id} notification={i} idx={idx} />
-              ))}
+            <SectionWrapper>
+              {notifications_list.length > 0 ? (
+                notifications_list.map((i, idx) => (
+                  <NotificationCard key={i.id} notification={i} idx={idx} />
+                ))
+              ) : (
+                <NoNotificationCard>
+                  There is no notifications yet
+                </NoNotificationCard>
+              )}
             </SectionWrapper>
           }
         >

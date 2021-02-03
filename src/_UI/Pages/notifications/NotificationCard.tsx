@@ -9,6 +9,7 @@ import {
 } from "./notifications-style";
 import request_icon from "../../assets/icons/operations/request_icon.svg";
 import operation_icon from "../../assets/icons/operations/operation-icon.svg";
+import rate_surcharge_icon from "../../assets/icons/operations/rate-notification-icon.svg";
 import { IconButton } from "@material-ui/core";
 import close_icon from "../../assets/icons/close-icon.svg";
 import { NotificationType } from "../../../_BLL/types/chat/ChatTypes";
@@ -24,12 +25,13 @@ type PropsType = {
 
 const chooseIcon = (section: string) => {
   switch (section) {
-    case "operations":
-      return operation_icon;
     case "requests":
       return request_icon;
+    case "surcharges":
+    case "freight_rates":
+      return rate_surcharge_icon;
     default:
-      return request_icon;
+      return operation_icon;
   }
 };
 

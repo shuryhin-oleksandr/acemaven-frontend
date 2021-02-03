@@ -10,7 +10,12 @@ import moment from "moment";
 //material ui
 import {IconButton} from "@material-ui/core";
 //BLL
-import {editOperationByAgentThunk, editOperationPaymentDueByAgentThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+import {
+    editOperationByAgentThunk,
+    editOperationPaymentDueByAgentThunk
+} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
+//helpers
+import {datesFormatHelper} from "../../../../_BLL/helpers/datesFormatHelper";
 //types
 import {ShippingModeEnum, ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
@@ -35,6 +40,7 @@ import {CalendarWrapper} from "../../_commonComponents/calendar/calendar-styles"
 import close_icon from "../../../assets/icons/close-icon.svg";
 
 
+
 type PropsType = {
     operation_info: OperationType | null,
     setEdit: (value: boolean) => void
@@ -47,40 +53,46 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
     //estimated time
-    let arrival_date = moment(shipment?.date_of_arrival.slice(6)).format('DD/MM/YYYY')
-    let arrival_time = shipment?.date_of_arrival.slice(0, 5)
-    let departure_date = moment(shipment?.date_of_departure.slice(6)).format('DD/MM/YYYY')
-    let departure_time = shipment?.date_of_departure.slice(0, 5)
+    let arrival_date = shipment?.date_of_arrival.slice(0, 10)
+    let arrival_time = shipment?.date_of_arrival.slice(11)
+    let departure_date = shipment?.date_of_departure.slice(0, 10)
+    let departure_time = shipment?.date_of_departure.slice(11)
 
     //cargo cut off + documents cut off
-    let documents_cut_off_date = moment(shipment?.document_cut_off_date?.slice(6)).format('DD/MM/YYYY')
-    let documents_cut_off_time = shipment?.document_cut_off_date?.slice(0, 5)
-    let cargo_cut_off_date = moment(shipment?.cargo_cut_off_date?.slice(6)).format('DD/MM/YYYY')
-    let cargo_cut_off_time = shipment?.cargo_cut_off_date?.slice(0, 5)
+    let documents_cut_off_date = shipment?.document_cut_off_date?.slice(0, 10)
+    let documents_cut_off_time = shipment?.document_cut_off_date?.slice(11)
+    let cargo_cut_off_date = shipment?.cargo_cut_off_date?.slice(0, 10)
+    let cargo_cut_off_time = shipment?.cargo_cut_off_date?.slice(11)
 
     //actual time of departure and arrival
-    let actual_date_of_departure = shipment?.actual_date_of_departure && moment(shipment?.actual_date_of_departure?.slice(6)).format('DD/MM/YYYY')
-    let actual_time_of_departure = shipment?.actual_date_of_departure && shipment?.actual_date_of_departure?.slice(0, 5)
-    let actual_date_of_arrival = shipment?.actual_date_of_arrival && moment(shipment?.actual_date_of_arrival?.slice(6)).format('DD/MM/YYYY')
-    let actual_time_of_arrival = shipment?.actual_date_of_arrival && shipment?.actual_date_of_arrival?.slice(0, 5)
+    let actual_date_of_departure = shipment?.actual_date_of_departure && shipment?.actual_date_of_departure?.slice(0, 10)
+    let actual_time_of_departure = shipment?.actual_date_of_departure && shipment?.actual_date_of_departure?.slice(11)
+    let actual_date_of_arrival = shipment?.actual_date_of_arrival && shipment?.actual_date_of_arrival?.slice(0, 10)
+    let actual_time_of_arrival = shipment?.actual_date_of_arrival && shipment?.actual_date_of_arrival?.slice(11)
 
 
     const dispatch = useDispatch()
     const {register, handleSubmit, errors, setValue, control} = useForm()
+
+    let changed_fields = {};
+
     const onSubmit = (values: any) => {
-        let date_of_departure = moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time
-        let date_of_arrival = moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time
-        let document_cut_off_date = moment(values.documents_cut_off?.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off?.cut_off_time
-        let cargo_cut_off_date = moment(values.cargo_cut_off?.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off?.cut_off_time
-        let actual_time_of_departure = moment(values.actual_time_departure?.from).format('DD/MM/YYYY') + ' ' + values.actual_time_departure?.departure_time
-        let actual_time_of_arrival = moment(values.actual_time_arrival?.to).format('DD/MM/YYYY') + ' ' + values.actual_time_arrival?.arrival_time
+
+        const {
+            date_of_departure,
+            date_of_arrival,
+            document_cut_off_date,
+            cargo_cut_off_date,
+            actual_time_of_departure,
+            actual_time_of_arrival
+        } = datesFormatHelper(values)
 
         let final_data = {
             ...values,
             date_of_departure: date_of_departure,
             date_of_arrival: date_of_arrival,
-            document_cut_off_date: document_cut_off_date,
-            cargo_cut_off_date: cargo_cut_off_date,
+            document_cut_off_date: document_cut_off_date ?? null,
+            cargo_cut_off_date: cargo_cut_off_date ?? null,
             actual_date_of_departure: actual_time_of_departure ? actual_time_of_departure : null,
             actual_date_of_arrival: actual_time_of_arrival ? actual_time_of_arrival : null
         }
@@ -100,11 +112,20 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
         delete final_data_without_cargo_cut_off.estimated_time
         delete final_data_without_cargo_cut_off.payment_due_by
 
-        if (document_cut_off_date && values.documents_cut_off?.cut_off_time) {
-            dispatch(editOperationByAgentThunk(final_data, Number(shipment?.id)))
-        } else if (document_cut_off_date && !values.documents_cut_off?.cut_off_time) {
-            dispatch(editOperationByAgentThunk(final_data_without_cargo_cut_off, Number(shipment?.id)))
-        }
+
+        shipment && Object.keys(shipment).forEach(k => Object.keys(final_data).forEach(k2 => {
+            if (k === k2) {
+                if (shipment && (shipment[k] !== final_data[k2])) {
+                    return changed_fields[k2] = final_data[k2]
+                }
+            } else {
+                return k
+            }
+        }))
+
+        //send updated fields
+        Object.keys(changed_fields).length > 0 && dispatch(editOperationByAgentThunk(changed_fields, Number(shipment?.id)))
+
         {
             values.payment_due_by && (moment(values.payment_due_by).format('DD/MM/YYYY') !== operation_info?.payment_due_by)
             &&
@@ -280,6 +301,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                               }}
                                               setValue={setValue}
                                               required_dates={true}
+                                              required_time={true}
                                               label1={'Estimated Time of Departure'}
                                               label2={'Estimated Time of Arrival'}
                                               time_name_first={'estimated_time.departure_time'}
@@ -296,6 +318,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                               second_time={arrival_time}
                                               disabled_condition1={disabled_condition_1}
                                               disabled_condition2={disable_condition_2}
+                                              color_label={true}
 
                             />
                             {direction === 'export'
@@ -308,6 +331,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                  }}
                                                  setValue={setValue}
                                                  required_dates={true}
+                                                 required_time={true}
                                                  label1={'Documents Cut Off Date'}
                                                  label2={'Cargo Cut Off Date'}
                                                  time_name_first={'documents_cut_off.cut_off_time'}
@@ -325,6 +349,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                  second_time={cargo_cut_off_time}
                                                  disabled_condition1={disabled_condition_1}
                                                  disabled_condition2={disable_condition_2}
+                                                 color_label={true}
                             />
                             }
                             <AcceptPopupDates control={control}
@@ -335,22 +360,22 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                   arrival_time: errors.arrival_time
                                               }}
                                               setValue={setValue}
-                                              required_dates={true}
+                                              required_dates={false}
+                                              required_time={false}
                                               label1={'Actual Time of Departure'}
                                               label2={'Actual Time of Arrival'}
                                               time_name_first={'actual_time_departure.departure_time'}
                                               time_name_second={'actual_time_arrival.arrival_time'}
                                               date_name_first={'actual_time_departure.from'}
                                               date_name_second={'actual_time_arrival.to'}
-                                              //start_shipment_date={shipment?.document_cut_off_date}
                                               before={new Date()}
-                                              //after={moment(operation_info?.date_from, 'DD/MM/YYYY').toDate()}
                                               justify_content='flex-start'
                                               max_width='655px'
                                               departure_date={actual_date_of_departure}
                                               arrival_date={actual_date_of_arrival}
-                                              first_time={actual_time_of_departure ? actual_time_of_departure : ' '}
-                                              second_time={actual_time_of_arrival ? actual_time_of_departure : ' ' }
+                                              first_time={actual_time_of_departure}
+                                              second_time={actual_time_of_arrival}
+                                              color_label={true}
                             />
                         </div>
                         {(operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL) &&
@@ -386,7 +411,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                              style={{display: 'flex'}}>
                                 <Controller control={control}
                                             name='payment_due_by'
-                                            rules={{required: true}}
+                                    //rules={{required: false}}
                                             defaultValue={operation_info?.payment_due_by ? moment(operation_info?.payment_due_by, 'DD/MM/YYYY').toDate() : ''}
                                             as={
                                                 <DayPickerInput
@@ -411,7 +436,9 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                             </CalendarWrapper>
                         </div>
                         <ChangeRequestButtonsWrapper>
-                            <ConfirmRequestButton type='submit'>CONFIRM</ConfirmRequestButton>
+                            <ConfirmRequestButton type='submit'>
+                                CONFIRM
+                            </ConfirmRequestButton>
                         </ChangeRequestButtonsWrapper>
                     </FormChangeRequestWrapper>
                 </ChangeRequestContent>

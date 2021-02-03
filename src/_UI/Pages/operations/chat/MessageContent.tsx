@@ -39,7 +39,7 @@ const MessageContent: React.FC<{ message: MessageType | null }> = ({message}) =>
                                     overflow: 'auto',
                                     width: '100%'
                                 }}>
-                                    {message?.files[0].substring(message?.files[0].lastIndexOf('/') + 1)}
+                                    {message?.files.length > 0 && message?.files[0].substring(message?.files[0].lastIndexOf('/') + 1)}
                                 </span>
                     <IconButton onClick={() => handleDownload(message?.files[0])}
                                 style={{

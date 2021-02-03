@@ -96,6 +96,16 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment}) 
                                     style={{color: '#115B86'}}>address:</span> {shipment?.cargo_drop_off_location_address}
                                 </InfoRowValue>
                             </InfoRow>}
+                            {shipment?.cargo_pick_up_location &&
+                            <InfoRow>
+                                <InfoRowLabel>CARGO PICK UP LOCATION </InfoRowLabel>
+                                <InfoRowValue>
+                                    <span
+                                        style={{color: '#115B86'}}>location:</span> {shipment?.cargo_pick_up_location},
+                                    <br/> <span
+                                    style={{color: '#115B86'}}>address:</span> {shipment?.cargo_pick_up_location_address}
+                                </InfoRowValue>
+                            </InfoRow>}
 
                         </div>
                     </>

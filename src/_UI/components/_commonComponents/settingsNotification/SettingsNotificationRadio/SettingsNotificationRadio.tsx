@@ -1,75 +1,90 @@
 import React from "react";
+//react-hook-form
+import {Controller, useFormContext} from "react-hook-form";
+//material ui
+import {RadioGroup} from "@material-ui/core";
+import Radio from '@material-ui/core/Radio';
+import {makeStyles} from "@material-ui/core/styles";
+import grey from "@material-ui/core/colors/grey";
+//styles
 import {ActionsWrapRadio, CommonWrap, Outer, RadioLabel} from "../settings-notification-styles";
 import {
     LineWrap,
     SettingsSubtitle,
     SettingsTitle
 } from "../../../../Pages/Profile&Settings/GeneralSettings/general-settings-styles";
-import Radio from '@material-ui/core/Radio';
-import { makeStyles } from "@material-ui/core/styles";
 
-let useStyles = makeStyles ({
+
+let useStyles = makeStyles({
+    '&.MuiFormGroup-root': {
+        maxWidth: '40px'
+    },
     root: {
-        color: '#1B1B25',
-        padding: '0',
-        marginBottom: '10px',
+        color: '#575757',
+        padding: '5px',
+        '&$checked': {
+            color: grey[600],
+        },
 
         '&.Mui-checked': {
-            color: '#1B1B25',
+            color: '#575757',
         },
-    },
 
+    },
+    form_control_label: {
+        marginLeft: '0'
+    }
 })
 
 
 type PropsType = {
     title?: string,
     subtitle?: string,
-    name?: string,
-    radio_value: boolean | undefined
+    name: string,
+    setEditMode: (value: boolean) => void
 }
 
 
-const SettingsNotificationRadio:React.FC<PropsType> = ({title, subtitle, name, radio_value}) => {
+const SettingsNotificationRadio: React.FC<PropsType> = ({title, subtitle, name, setEditMode}) => {
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedValue(event.target.value);
-    };
-    const [selectedValue, setSelectedValue] = React.useState('yes');
     const classes = useStyles()
 
+    const {control} = useFormContext()
+
+
     return (
-       <Outer>
-           <SettingsTitle>{title}</SettingsTitle>
-           <SettingsSubtitle>{subtitle}</SettingsSubtitle>
-           <ActionsWrapRadio>
-               <CommonWrap>
-                   <Radio
-                       checked={selectedValue === 'yes'}
-                       onChange={handleChange}
-                       value="yes"
-                       name="radio-button-demo"
-                       inputProps={{ 'aria-label': 'Yes' }}
-                       className={classes.root}
-                       size='small'
-                   />
-                   <RadioLabel>Yes</RadioLabel>
-               </CommonWrap>
-               <CommonWrap>
-                   <Radio
-                       checked={selectedValue === 'no'}
-                       onChange={handleChange}
-                       value="no"
-                       name="radio-button-demo"
-                       inputProps={{ 'aria-label': 'No' }}
-                       className={classes.root}
-                       size='small'
-                   />
-                   <RadioLabel>No</RadioLabel>
-               </CommonWrap>
-           </ActionsWrapRadio>
-           <LineWrap/>
-       </Outer>
+        <Outer>
+            <SettingsTitle>{title}</SettingsTitle>
+            <SettingsSubtitle>{subtitle}</SettingsSubtitle>
+            <ActionsWrapRadio>
+                <Controller
+                    name={name}
+                    control={control}
+                    render={({onChange, value}) =>
+                        <RadioGroup value={value} onChange={onChange} onFocus={() => setEditMode(true)}>
+                            <CommonWrap>
+                                <Radio className={classes.root}
+                                       value='yes'
+                                       color="default"
+                                       size='small'
+                                />
+                                <RadioLabel>Yes</RadioLabel>
+                            </CommonWrap>
+                            <CommonWrap>
+                                <Radio className={classes.root}
+                                       value='no'
+                                       color="default"
+                                       size='small'
+                                />
+                                <RadioLabel>No</RadioLabel>
+                            </CommonWrap>
+                        </RadioGroup>
+                    }
+                    defaultValue='yes'
+                />
+            </ActionsWrapRadio>
+            <LineWrap/>
+        </Outer>
     )
 }
 

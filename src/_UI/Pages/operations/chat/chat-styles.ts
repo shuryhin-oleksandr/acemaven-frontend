@@ -103,7 +103,7 @@ export const MessageTextAnotherUser = styled.div`
   font-size: 16px;
   line-height: 18.34px;
   color: #1B1B25;
-  background-color: rgba(26, 184, 230, .2);
+  background-color: rgba(26, 184, 230, .3);
   padding: 15px 29px 15px 24px;
   border-radius: 0 20px 20px 20px;
   

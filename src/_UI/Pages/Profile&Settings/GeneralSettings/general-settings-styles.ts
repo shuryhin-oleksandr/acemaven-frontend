@@ -36,6 +36,7 @@ export const SettingsWrap = styled.form`
   flex-direction: column;
   width: 100%;
   padding: 0 200px 0 7px;
+  position: relative;
 `
 export const SettingsTitle = styled.div`
   color: black;
@@ -59,9 +60,10 @@ export const SettingsField = styled.input`
   background: #FFFFFF;
   border: 1px solid #B7BCD6;
   border-radius: 4px;
+  outline: none;
   max-width: 108px;
   width: 100%;
-  color: #BDBDBD;
+  color: rgba(0, 0, 0, .7);
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;
   padding: 12px 20px 12px 10px;
@@ -71,6 +73,20 @@ export const SettingsField = styled.input`
     color: #BDBDBD;
     font-family: "Helvetica Light", sans-serif;
     font-size: 14px;
+    transition: 0.5s;
+  }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:focus::placeholder {
+    opacity: 0;
+    transition: 0.5s;
+  }
+  &:disabled {
+    background-color: #ECECEC;
   }
 `
 export const LineWrap = styled.div`

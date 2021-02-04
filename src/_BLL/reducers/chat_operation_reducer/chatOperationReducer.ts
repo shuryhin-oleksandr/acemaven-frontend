@@ -5,7 +5,6 @@ const initialState = {
     message_history: [] as MessageType[],
     typing_user: null as { user_id: number, photo: string | null } | null,
     stop_typing: false,
-    sent_status: '',
     notification_list: [] as NotificationType[]
 };
 
@@ -48,11 +47,6 @@ export const chatOperationReducer = (state = initialState, action: commonOperati
                 ...state,
                 stop_typing: action.stop_typing
             }
-        case "SET_SENT":
-            return {
-                ...state,
-                sent_status: action.sent
-            }
         case "SET_FILE_TO_EMPTY_MESSAGE":
             return {
                 ...state,
@@ -81,6 +75,5 @@ export const operationChatActions = {
     setUserTyping: (typing_user: { user_id: number, photo: string | null } | null) => ({type: 'SET_USER_TYPING', typing_user} as const),
     setDeletedMessageId: (message_id: number) => ({type: 'SET_DELETED_MESSAGE_ID', message_id} as const),
     setStopTyping: (stop_typing: boolean) => ({type: 'STOP_TYPING', stop_typing} as const),
-    setSent: (sent: string) => ({type: 'SET_SENT', sent} as const),
     setFileToEmptyMessage: (file: string, message_id: number) => ({type: 'SET_FILE_TO_EMPTY_MESSAGE', file, message_id} as const)
 };

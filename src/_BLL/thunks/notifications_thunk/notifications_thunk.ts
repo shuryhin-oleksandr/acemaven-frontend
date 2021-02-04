@@ -32,7 +32,6 @@ export const startReceiveNotifications = (dispatch: Dispatch) => {
 };
 
 const check = (dispatch: Dispatch) => {
-  console.log("WS", ws);
   if (
     (!ws || ws.readyState == WebSocket.CLOSED) &&
     localStorage.getItem("access_token")

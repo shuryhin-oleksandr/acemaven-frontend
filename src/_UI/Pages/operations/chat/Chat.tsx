@@ -1,9 +1,12 @@
-import React, { useEffect, useState} from "react";
+import React from "react";
 //material ui
 import {IconButton} from "@material-ui/core";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import grey from "@material-ui/core/colors/grey";
 //react-redux
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
+//API
+import {wsChatAPI} from "../../../../_DAL/API/operations/chat/SocketChatAPI";
 //BLL
 import {AppStateType} from "../../../../_BLL/store";
 //types
@@ -25,18 +28,12 @@ import {
 //icons
 import send_icon from '../../../assets/icons/operations/send_mesage.svg'
 import user_icon from "../../../assets/icons/profile/defaultUserPhoto.svg";
-import grey from "@material-ui/core/colors/grey";
-import {wsChatAPI} from "../../../../_DAL/API/operations/chat/SocketChatAPI";
-import {sendMessageThunk} from "../../../../_BLL/thunks/operation_chat/OperationChatThunks";
-import {
-    operationChatActions
-} from "../../../../_BLL/reducers/chat_operation_reducer/chatOperationReducer";
 
 
 type PropsType = {
     message_history: MessageType[],
     my_id: number | undefined,
-    typing_user: {user_id: number, photo: string | null} | null,
+    typing_user: { user_id: number, photo: string | null } | null,
     clearTypingUser: VoidFunctionType,
     setInputText: any,
     inputText: string,
@@ -53,41 +50,28 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
 
     //data from store
     const my_photo = useSelector((state: AppStateType) => state.profile.authUserInfo?.photo)
-    const sent_status = useSelector((state: AppStateType) => state.chat_operation.sent_status)
-    const [uploadedFile, setUploadedFile] = useState(null)
-    const dispatch = useDispatch()
 
-    const keyHandler = (e: any ) => {
+    const keyHandler = (e: any) => {
         const keyCode = e.which || e.keyCode
-        if(keyCode === 13 && !e.shiftKey) {
+        if (keyCode === 13 && !e.shiftKey) {
+            e.preventDefault()
             props.sendHandler()
         }
     }
     const formData = new FormData()
     const onUpload = (acceptedFiles: any) => {
-        setUploadedFile(acceptedFiles[0])
-        dispatch(sendMessageThunk(''))
+        const file = acceptedFiles[0]
+        formData.append('file', file)
+        wsChatAPI.addFiles(formData)
+            .then((res) => wsChatAPI.sendMessage('', res.data.id))
+            .catch(e => console.log(e))
 
-        //setUploadedFile(null)
+        //   let reader = new FileReader()
+        // reader.readAsArrayBuffer(file)
+        //   reader.onload = function() {
+        //       console.log(reader.result);
+        //   };
     }
-
-    useEffect(() => {
-            if(uploadedFile && sent_status) {
-                // @ts-ignore
-                formData.append('file', uploadedFile)
-                let last_message = message_history[message_history.length - 1]?.id
-                formData.append('message', last_message.toString())
-                wsChatAPI.fileUploading(last_message)
-                 wsChatAPI.addFiles(formData)
-                     .then((res) => dispatch(operationChatActions.setFileToEmptyMessage(res.data.file, res.data.message)))
-                     .then(() => wsChatAPI.fileUploaded(last_message))
-                     .then(() => setUploadedFile(null))
-                     .catch(e => console.log(e))
-            }
-    }, [formData, sent_status])
-
-
-
 
 
     return (
@@ -100,9 +84,9 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
                                     stop_typing={props.stop_typing}
                 />
                 <div style={{display: 'flex', alignItems: 'center'}}>
-                    <UploadWrapper >
+                    <UploadWrapper>
                         <LabelUpload htmlFor="upload">
-                               <AttachFileIcon style={{fontSize: 24, color: grey[900]}}/>
+                            <AttachFileIcon style={{fontSize: 24, color: grey[900]}}/>
                         </LabelUpload>
                         <UploadInput name='file' type="file" id="upload" onChange={(e) => onUpload(e.target.files)}/>
                     </UploadWrapper>
@@ -128,7 +112,7 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
             </ChatInner>
         </ChatWrapper>
 
-)
+    )
 }
 
 export default Chat

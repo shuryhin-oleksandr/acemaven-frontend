@@ -9,7 +9,6 @@ export const wsChatHelper = (res: any, dispatch: Dispatch) => {
             break
         }
         case 'typing_message': {
-            dispatch(operationChatActions.setSent(''))
             dispatch(operationChatActions.setStopTyping(false))
             dispatch(operationChatActions.setUserTyping({user_id: res.user_id, photo: res.photo}))
             break
@@ -20,7 +19,6 @@ export const wsChatHelper = (res: any, dispatch: Dispatch) => {
         }
         case 'new_message': {
             dispatch(operationChatActions.setMyMessage(res.message))
-            dispatch(operationChatActions.setSent('sent'))
             break
         }
         case "notifications": {

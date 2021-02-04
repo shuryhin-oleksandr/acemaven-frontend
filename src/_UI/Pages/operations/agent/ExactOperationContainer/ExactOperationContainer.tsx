@@ -45,15 +45,13 @@ import ClientReviewPopup from "../../../../components/PopUps/client_review_popup
 import ChatContainer from "../../chat/ChatContainer";
 
 
-
-
 const ExactOperationContainer = ({...props}) => {
     //local state
 
     let operation_id = props.match.params.id;
     let local_time = moment(new Date()).format(" DD/MM  h:mm a");
 
-    const [isSmallBar, setSmallBar] = useState(true)
+
     const [isAcceptPopup, openAcceptPopup] = useState(false);
     const [clientChangRequestPopupVisible, setClientChangRequestPopupVisible] = useState(false);
     const [isCompleteOperation, setCompleteOperationPopup] = useState(false);
@@ -102,6 +100,10 @@ const ExactOperationContainer = ({...props}) => {
         ) || (operation_info?.status === AppOperationBookingStatusesType.RECEIVED)) {
             history.push("/operations_active")
         }
+        if ((operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST) || (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+        )) {
+            history.push("/operations_active")
+        }
     }
 
     const unmountHandler = () => {
@@ -121,7 +123,6 @@ const ExactOperationContainer = ({...props}) => {
     let query = useParams();
     // @ts-ignore
     let id = query.id;
-
 
 
     useEffect(() => {
@@ -175,66 +176,66 @@ const ExactOperationContainer = ({...props}) => {
     }, [edit_operation_by_agent_success])
 
 
-
     return (
-            <Layout
-                    setChatOpen={setChatOpen}
-                    isChatOpen={isChatOpen}
-            >
-                <ModalWindow isOpen={isAcceptPopup}>
-                    <AcceptPopup
-                        openAcceptPopup={openAcceptPopup}
-                        exact_operation_info={operation_info}
+        <Layout
+            setChatOpen={setChatOpen}
+            isChatOpen={isChatOpen}
+        >
+            <ModalWindow isOpen={isAcceptPopup}>
+                <AcceptPopup
+                    openAcceptPopup={openAcceptPopup}
+                    exact_operation_info={operation_info}
+                />
+            </ModalWindow>
+            <ModalWindow isOpen={isCompleteOperation}>
+                <CompleteOperationPopup
+                    setCompleteOperationPopup={setCompleteOperationPopup}
+                    completeOperationHandler={completeOperationHandler}
+                />
+            </ModalWindow>
+            <ModalWindow isOpen={isReviewPopup}>
+                <ClientReviewPopup
+                    setReviewPopup={setReviewPopup}
+                    id={id}
+                />
+            </ModalWindow>
+            <ModalWindow isOpen={isCancelByAgent}>
+                <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}
+                                             cancelOperationByAgentHandler={cancelOperationByAgentHandler}/>
+            </ModalWindow>
+            <ModalWindow isOpen={isCancelByClient}>
+                <CancelOperationByClientPopup
+                    setIsCancelByClient={setIsCancelByClient}
+                    id={operation_info?.id}
+                />
+            </ModalWindow>
+            {operation_info && (
+                <ModalWindow isOpen={clientChangRequestPopupVisible}>
+                    <ClientOperationChangeRequestPopUp
+                        setIsOpen={setClientChangRequestPopupVisible}
+                        operation_info={operation_info}
                     />
-                </ModalWindow>
-                <ModalWindow isOpen={isCompleteOperation}>
-                    <CompleteOperationPopup
-                        setCompleteOperationPopup={setCompleteOperationPopup}
-                        completeOperationHandler={completeOperationHandler}
-                    />
-                </ModalWindow>
-                <ModalWindow isOpen={isReviewPopup}>
-                    <ClientReviewPopup
-                        setReviewPopup={setReviewPopup}
-                        id={id}
-                    />
-                </ModalWindow>
-                <ModalWindow isOpen={isCancelByAgent}>
-                    <CancelOperationByAgentPopup setIsCancelByAgent={setIsCancelByAgent}
-                                                 cancelOperationByAgentHandler={cancelOperationByAgentHandler}/>
-                </ModalWindow>
-                <ModalWindow isOpen={isCancelByClient}>
-                    <CancelOperationByClientPopup
-                        setIsCancelByClient={setIsCancelByClient}
-                        id={operation_info?.id}
-                    />
-                </ModalWindow>
-                {operation_info && (
-                    <ModalWindow isOpen={clientChangRequestPopupVisible}>
-                        <ClientOperationChangeRequestPopUp
-                            setIsOpen={setClientChangRequestPopupVisible}
-                            operation_info={operation_info}
-                        />
-                    </ModalWindow>)}
-                {!ATD && <ModalWindow isOpen={isChangeRequestPopup}>
-                    <AgentChangeRequestPopup setChangeRequestPopup={setChangeRequestPopup}
-                                             operation_info={operation_info ? operation_info : null}
-                    />
-                </ModalWindow>
-                }
-                <ModalWindow isOpen={isTakeOverPopup}>
-                    <TakeOverOperationPopup setTakeOver={setTakeOver}
-                                            takeOverAsyncHandler={takeOverAsyncHandler}
-                    />
-                </ModalWindow>
-                <ModalWindow isOpen={isEditOperationByAgent}>
-                    <EditOperationShipmentInfoByAgentPopup operation_info={operation_info ? operation_info : null}
-                                                           setEdit={setEditOperationByAgent}
-                    />
-                </ModalWindow>
-                {isChatOpen
-                    ?  <ChatContainer chat_id={company_type && (company_type?.type === "agent") ? agent_operation_info?.chat : client_operation_info?.chat}/>
-                    : (isFetching || !operation_info
+                </ModalWindow>)}
+            {!ATD && <ModalWindow isOpen={isChangeRequestPopup}>
+                <AgentChangeRequestPopup setChangeRequestPopup={setChangeRequestPopup}
+                                         operation_info={operation_info ? operation_info : null}
+                />
+            </ModalWindow>
+            }
+            <ModalWindow isOpen={isTakeOverPopup}>
+                <TakeOverOperationPopup setTakeOver={setTakeOver}
+                                        takeOverAsyncHandler={takeOverAsyncHandler}
+                />
+            </ModalWindow>
+            <ModalWindow isOpen={isEditOperationByAgent}>
+                <EditOperationShipmentInfoByAgentPopup operation_info={operation_info ? operation_info : null}
+                                                       setEdit={setEditOperationByAgent}
+                />
+            </ModalWindow>
+            {isChatOpen
+                ? <ChatContainer
+                    chat_id={company_type && (company_type?.type === "agent") ? agent_operation_info?.chat : client_operation_info?.chat}/>
+                : (isFetching || !operation_info
                         ? <SpinnerForAuthorizedPages/>
                         : <OperationCard operation_info={operation_info}
                                          local_time={local_time}
@@ -254,10 +255,10 @@ const ExactOperationContainer = ({...props}) => {
                                          ATD={ATD}
                                          setReviewPopup={setReviewPopup}
                         />
-                    )
-                }
+                )
+            }
 
-            </Layout>
+        </Layout>
     );
 };
 

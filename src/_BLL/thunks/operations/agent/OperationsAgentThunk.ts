@@ -9,6 +9,7 @@ import {bookingApi} from "../../../../_DAL/API/bookingApi";
 import {AppStateType} from "../../../store";
 import {TrackingBackendType} from "../../../types/operations/operationsTypes";
 
+
 export const getAgentsOperationsThunk = (
     type: string,
     is_mine: boolean | string,
@@ -165,11 +166,11 @@ export const completeOperationByAgentThunk = (
 export const confirmChangeRequestThunk = (
     id: number,
     new_shipment_data: any,
-    shipment_id: number
+    shipment_id: number, history: any
 ) => {
     return async (dispatch: Dispatch<any>) => {
         try {
-            await operationsAgentAPI.editOperationByAgent(
+            Object.keys(new_shipment_data).length > 0 && await operationsAgentAPI.editOperationByAgent(
                 new_shipment_data,
                 shipment_id
             );
@@ -182,6 +183,7 @@ export const confirmChangeRequestThunk = (
             dispatch(
                 agentOperationsActions.setAgentExactOperationInfo(response.data)
             );
+            history.push(`/operations/${res.data.id}`)
         } catch (e) {
             console.log(e);
         }

@@ -1,17 +1,21 @@
 import React from 'react'
+//types
 import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
 import {
     AppOperationBookingStatusesType,
     OperationType
 } from "../../../../../../../../_BLL/types/operations/operationsTypes";
+//components
+import BaseTooltip from "../../../../../../../components/_commonComponents/baseTooltip/BaseTooltip";
+import BaseButton from "../../../../../../../components/base/BaseButton";
+//styles
 import {
     AcceptButton,
     ActionsButtons,
     ConfirmButton,
     RejectButton
 } from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
-import BaseTooltip from "../../../../../../../components/_commonComponents/baseTooltip/BaseTooltip";
-import BaseButton from "../../../../../../../components/base/BaseButton";
+
 
 
 type PropsType = {
@@ -38,7 +42,11 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
 
     return (
         <ActionsButtons>
-            {operation_info?.status === AppOperationBookingStatusesType.CONFIRMED && (my_name === props.agent_contact_name) &&
+            {(operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
+                operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
+                operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST)
+            && (my_name === props.agent_contact_name)
+            &&
             <AcceptButton style={{width: '146px'}} onClick={() => props.setEdit(true)}>
                 UPDATE
             </AcceptButton>
@@ -56,23 +64,20 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                 }
                 {company_type?.type === AppCompaniesTypes.AGENT
                     ? (operation_info?.agent_contact_person === my_name
-                        ? (operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
-                            && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
-                            && operation_info?.status !== AppOperationBookingStatusesType.CONFIRMED
+                        ? ( operation_info?.status !== AppOperationBookingStatusesType.CONFIRMED
+                            && operation_info?.status !== AppOperationBookingStatusesType.CHANGE_REQUEST
+                            && operation_info?.status !== AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
                             &&
                             <ConfirmButton onClick={() => props.openAcceptPopup(true)}>
                                 CONFIRM BOOKING
                             </ConfirmButton>
                         )
-                        : (operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT &&
-                            <AcceptButton onClick={() => props.setTakeOver(true)}>
+                        : <AcceptButton onClick={() => props.setTakeOver(true)}>
                                 TAKE OVER
-                            </AcceptButton>
-                        ))
+                          </AcceptButton>
+                        )
                     : (company_type?.type === AppCompaniesTypes.CLIENT && departedStatus ? null :
                             my_name === props.client_contact_name
-                        && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
-                        && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
                         &&
                         (!operation_info.can_be_patched && operation_info.has_change_request)
                             ?
@@ -101,13 +106,14 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
             }
 
             {company_type?.type === AppCompaniesTypes.AGENT
-                ? (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED && (my_name === props.agent_contact_name)
+                ? ((operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
+                    operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
+                    operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST)
+                    && (my_name === props.agent_contact_name)
                     &&
                     <RejectButton onClick={() => props.setIsCancelByAgent(true)} >CANCEL OPERATION</RejectButton>
                 )
                 : (my_name === props.client_contact_name
-                    && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
-                    && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
                     && !props.ATD &&
                     <RejectButton onClick={() => props.setIsCancelByClient(true)}>
                         CANCEL OPERATION

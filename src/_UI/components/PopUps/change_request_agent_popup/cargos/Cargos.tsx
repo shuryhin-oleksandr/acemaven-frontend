@@ -81,10 +81,11 @@ type PropsType = {
     operation_info: OperationType | null
 }
 
-const Cargos:React.FC<PropsType> = ({operation_info}) => {
+const Cargos: React.FC<PropsType> = ({operation_info}) => {
     const classes = useStyles();
 
     const change_requests_cargos = operation_info?.change_requests ? operation_info?.change_requests[0].cargo_groups : []
+
 
     let fcl_cargos_header = [
         {name: 'VOLUME', align: "left"},
@@ -104,7 +105,7 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
         <InfoBlockOuter>
             <GeneralTitle margin_bottom='17px'>CARGO</GeneralTitle>
             <ShippingModeBlock>
-                <ShippingModeLabel>FCL</ShippingModeLabel>
+                <ShippingModeLabel>{operation_info?.freight_rate.shipping_mode.title}</ShippingModeLabel>
                 <TableContainer className={classes.container} component={Paper}>
                     <Table aria-label="collapsible table">
                         <TableHead>
@@ -116,15 +117,16 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
                                 </TableRow>
                                 : <TableRow>
                                     {other_cargos_header.map(o => <TableCell className={classes.cell} align="left">
-                                        {o.name}
-                                    </TableCell>
+                                            {o.name}
+                                        </TableCell>
                                     )}
                                 </TableRow>
                             }
                         </TableHead>
                         <TableBody>
-                            {operation_info?.cargo_groups?.map((c, index) => <TableRow key={index} className={classes.row}>
-                                    {c.container_type
+                            {operation_info?.cargo_groups?.map((c, index) => <TableRow key={index}
+                                                                                       className={classes.row}>
+                                    {operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL
                                         ? <>
                                             <TableCell className={classes.innerCell} align="left">
                                                 {c.volume}
@@ -144,7 +146,9 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
                                                 {c.volume}
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left">
-                                                {c.packaging_type?.description}
+                                                {operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.ULD
+                                                    ? c.container_type?.code
+                                                    : c.packaging_type?.description}
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left">
                                                 {c.height + c.length_measurement},{' '}
@@ -163,7 +167,14 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
                     </Table>
                 </TableContainer>
             </ShippingModeBlock>
-            <div style={{fontFamily: 'Helvetica Bold', fontSize: '16px', color: '#1B1B25', display: 'flex', alignItems: 'flex-end', margin: ' 17px 0'}}>
+            <div style={{
+                fontFamily: 'Helvetica Bold',
+                fontSize: '16px',
+                color: '#1B1B25',
+                display: 'flex',
+                alignItems: 'flex-end',
+                margin: ' 17px 0'
+            }}>
                 to
             </div>
             <TableContainer className={classes.changed_container} component={Paper}>
@@ -183,44 +194,46 @@ const Cargos:React.FC<PropsType> = ({operation_info}) => {
                             </TableRow>
                         }
                     </TableHead>
-                     <TableBody>
-                            {change_requests_cargos?.map((c, index) => <TableRow key={index} className={classes.row}>
-                                    {c.container_type
-                                        ? <>
-                                            <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.volume}
-                                            </TableCell>
-                                            <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.container_type?.code}
-                                            </TableCell>
-                                            <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.description}
-                                            </TableCell>
-                                        </>
-                                        : <>
-                                            <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.total_wm}
-                                            </TableCell>
-                                            <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.volume}
-                                            </TableCell>
-                                            <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.packaging_type?.description}
-                                            </TableCell>
-                                            <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.height + c.length_measurement},{' '}
-                                                {c.width + c.length_measurement}, {' '}
-                                                {c.length + c.length_measurement}, {' '}
-                                                {c.weight + c.weight_measurement}
-                                            </TableCell>
-                                            <TableCell className={classes.innerCellBlue} align="left">
-                                                {c.description}
-                                            </TableCell>
-                                        </>
-                                    }
-                                </TableRow>
-                            )}
-                        </TableBody>
+                    <TableBody>
+                        {change_requests_cargos?.map((c, index) => <TableRow key={index} className={classes.row}>
+                                {operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL
+                                    ? <>
+                                        <TableCell className={classes.innerCellBlue} align="left">
+                                            {c.volume}
+                                        </TableCell>
+                                        <TableCell className={classes.innerCellBlue} align="left">
+                                            {c.container_type?.code}
+                                        </TableCell>
+                                        <TableCell className={classes.innerCellBlue} align="left">
+                                            {c.description}
+                                        </TableCell>
+                                    </>
+                                    : <>
+                                        <TableCell className={classes.innerCellBlue} align="left">
+                                            {c.total_wm}
+                                        </TableCell>
+                                        <TableCell className={classes.innerCellBlue} align="left">
+                                            {c.volume}
+                                        </TableCell>
+                                        <TableCell className={classes.innerCellBlue} align="left">
+                                            {operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.ULD
+                                                ? c.container_type?.code
+                                                : c.packaging_type?.description}
+                                        </TableCell>
+                                        <TableCell className={classes.innerCellBlue} align="left">
+                                            {c.height + c.length_measurement},{' '}
+                                            {c.width + c.length_measurement}, {' '}
+                                            {c.length + c.length_measurement}, {' '}
+                                            {c.weight + c.weight_measurement}
+                                        </TableCell>
+                                        <TableCell className={classes.innerCellBlue} align="left">
+                                            {c.description}
+                                        </TableCell>
+                                    </>
+                                }
+                            </TableRow>
+                        )}
+                    </TableBody>
                 </Table>
             </TableContainer>
         </InfoBlockOuter>

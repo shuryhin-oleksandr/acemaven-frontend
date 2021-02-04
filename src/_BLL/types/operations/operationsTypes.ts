@@ -9,6 +9,10 @@ export enum AppOperationBookingStatusesType {
     CANCELED_BY_CLIENT = 'Operation Canceled by Client',
     CANCELLED_BY_AGENT = 'Operation Canceled by Agent',
     CANCELLED_BY_SYSTEM = 'Operation Canceled by the System',
+    CHANGE_REQUEST = 'Booking Change Requested',
+    CONFIRMED_CHANGE_REQUEST = 'Booking Change Confirmed',
+    AWAITING_PAYMENT = ' Awaiting Payment',
+    SHIPMENT_IN_PROGRESS = 'Shipment in progress',
     COMPLETED = 'Operation Complete'
 }
 
@@ -19,7 +23,7 @@ export type WeekRangeType = {
 
 export type ShipmentDetailsType = {
     id: number,
-    booking_number : string,
+    booking_number: string,
     booking_number_with_carrier?: any,
     flight_number?: string | number,
     vessel?: string,
@@ -33,12 +37,12 @@ export type ShipmentDetailsType = {
     cargo_pick_up_location?: string,
     cargo_pick_up_location_address?: string,
     cargo_drop_off_location?: string,
-    cargo_drop_off_location_address?:string,
+    cargo_drop_off_location_address?: string,
     empty_pick_up_location?: string,
     empty_pick_up_location_address?: string,
     container_free_time?: number,
-    booking_notes : string,
-    booking : number,
+    booking_notes: string,
+    booking: number,
     actual_date_of_arrival?: string,
     actual_date_of_departure?: string
 }
@@ -72,7 +76,7 @@ export type EventType = {
 export type TrackingEventType = {
     id: string,
     type: string,
-    airWaybillNumber : string,
+    airWaybillNumber: string,
     totalNumberOfPieces: string,
     originAndDestination: {
         origin: string,
@@ -94,44 +98,44 @@ export type TrackingEventType = {
 
 export type SeaDataDataType = {
     route: {
-        pod: {date: string, location: number},
-        pol: {date: string, location: number},
-        prepol: {date: string, location: number},
-        postpod: {date: string, location: number}
+        pod: { date: string, location: number },
+        pol: { date: string, location: number },
+        prepol: { date: string, location: number },
+        postpod: { date: string, location: number }
     },
     vessels: {
-        id : number,
-        imo : number,
-        flag : string,
-        mmsi : number
-        name : string
-        call_sign : string
+        id: number,
+        imo: number,
+        flag: string,
+        mmsi: number
+        name: string
+        call_sign: string
     }[],
     locations: {
-        id : number,
-        lat : number,
-        lng : number
-        name : string,
-        state : string,
-        locode : any
-        country : string,
-        country_code : string
+        id: number,
+        lat: number,
+        lng: number
+        name: string,
+        state: string,
+        locode: any
+        country: string,
+        country_code: string
     }[],
-    containers : Array<{
+    containers: Array<{
         iso_code: string,
         number: string,
         events: Array<{
-            date : string
-            type : string
-            status : string
-            vessel : number | string
-            voyage : string
-            location : number | string
-            description : string
+            date: string
+            type: string
+            status: string
+            vessel: number | string
+            voyage: string
+            location: number | string
+            description: string
         }>
     }>,
-    status : string,
-    message : string
+    status: string,
+    message: string
 }
 
 export type TrackingBackendType = {
@@ -156,15 +160,15 @@ export type TrackingBackendType = {
     //     status: string,
     //     message: string,
     // } | TrackingEventType // sea and air
-    data:any,
-    created_by?:string
+    data: any,
+    created_by?: string
 }
 
 export type InitialTrackingType = {
     shipping_type: string,
     direction: string,
-    origin: {latitude: number, longitude: number},
-    destination: {latitude: number, longitude: number},
+    origin: { latitude: number, longitude: number },
+    destination: { latitude: number, longitude: number },
 }
 
 export type OperationType = {
@@ -173,13 +177,13 @@ export type OperationType = {
     booking_number?: string,
     chat?: number | null,
     is_assigned?: boolean,
-    date_from : string,
-    date_to : string,
+    date_from: string,
+    date_to: string,
     week_range?: WeekRangeType,
-    release_type : any,
-    number_of_documents : null | number,
-    shipping_type : string,
-    status : string,
+    release_type: any,
+    number_of_documents: null | number,
+    shipping_type: string,
+    status: string,
     cargo_groups: CargoGroupQuoteType[],
     freight_rate: RateQuoteType,
     agent_contact_person: string,
@@ -192,12 +196,12 @@ export type OperationType = {
     payment_due_by: string | null,
     has_change_request?: boolean,
     change_requests?: Array<OperationType>,
-    can_be_patched?:boolean,
-    automatic_tracking?:boolean,
+    can_be_patched?: boolean,
+    automatic_tracking?: boolean,
     tracking_events?: TrackingEventType[], //REMOVE IT!!!!
     tracking: TrackingBackendType[],
     tracking_initial?: InitialTrackingType | null,
-    has_review?:boolean
+    has_review?: boolean
 }
 
 export type LatestTrackingWidgetType = {

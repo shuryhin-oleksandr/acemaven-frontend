@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { wsChatHelper } from "../../helpers/wsChatHelper";
+import { operationChatActions } from "../../reducers/chat_operation_reducer/chatOperationReducer";
 
 let ws: WebSocket;
 let interval: number;
@@ -44,10 +45,10 @@ export const stopReceiveNotifications = () => {
   ws.close();
 };
 
-export const markNotificationAsRead = (id: number) => {
+export const markNotificationAsRead = (id: number, dispatch: Dispatch) => {
   try {
-    console.log("HERE ID", id);
     ws.send(JSON.stringify({ command: "view_notification", id: id }));
+    dispatch(operationChatActions.markNotificationAsRead(id));
   } catch (e) {
     console.log(e);
   }

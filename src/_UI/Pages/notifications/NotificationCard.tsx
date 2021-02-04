@@ -16,6 +16,7 @@ import { NotificationType } from "../../../_BLL/types/chat/ChatTypes";
 import moment from "moment";
 import { markNotificationAsRead } from "../../../_BLL/thunks/notifications_thunk/notifications_thunk";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 type PropsType = {
   close_button?: boolean;
@@ -41,6 +42,7 @@ const NotificationCard: React.FC<PropsType> = ({
   idx,
 }) => {
   const history = useHistory();
+  const dicpatch = useDispatch();
 
   const findPath = (id: number, path: string) => {
     switch (path) {
@@ -59,16 +61,26 @@ const NotificationCard: React.FC<PropsType> = ({
     }
   };
 
-  const notificationClickHandler = (id: number, action_path: string) => {
-    markNotificationAsRead(id);
-    const path = findPath(id, action_path);
+  const notificationClickHandler = (
+    operation_id: number,
+    action_path: string,
+    notification_id: number,
+    is_viewed: boolean
+  ) => {
+    !is_viewed && markNotificationAsRead(notification_id, dicpatch);
+    const path = findPath(operation_id, action_path);
     history.push(path);
   };
 
   return (
     <CardOuter
       onClick={() => {
-        notificationClickHandler(notification.object_id, notification.action_path);
+        notificationClickHandler(
+          notification.object_id,
+          notification.action_path,
+          notification.id,
+          notification.is_viewed
+        );
       }}
       idx={idx}
       is_viewed={notification.is_viewed}

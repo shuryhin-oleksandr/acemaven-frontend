@@ -43,6 +43,7 @@ import EditOperationShipmentInfoByAgentPopup
     from "../../../../components/PopUps/edit_operation_shipment_info_by_agent/EditOperationShipmentInfoByAgentPopup";
 import ClientReviewPopup from "../../../../components/PopUps/client_review_popup/ClientReviewPopup";
 import ChatContainer from "../../chat/ChatContainer";
+import {clientOperationsActions} from "../../../../../_BLL/reducers/operations/client/clientOperationsReducer";
 
 
 const ExactOperationContainer = ({...props}) => {
@@ -107,7 +108,8 @@ const ExactOperationContainer = ({...props}) => {
     }
 
     const unmountHandler = () => {
-        dispatch(agentOperationsActions.setAgentExactOperationInfo(null))
+        dispatch(agentOperationsActions.setAgentExactOperationInfo(null));
+        dispatch(clientOperationsActions.setClientExactOperationInfo(null));
         dispatch(agentOperationsActions.saveTrackingToStore([]))
     }
     const takeOverAsyncHandler = () => {
@@ -132,7 +134,7 @@ const ExactOperationContainer = ({...props}) => {
         return () => {
             unmountHandler();
         };
-    }, [company_type]);
+    }, [company_type,operation_id]);
 
 
     let cancelOperationByAgentHandler = (data: { reason: string, comment: string }) => {

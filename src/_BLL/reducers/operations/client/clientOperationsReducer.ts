@@ -88,7 +88,7 @@ export const clientOperationsActions = {
   setIsFetching: (isFetching: boolean) =>
     ({ type: "SET_IS_FETCHING", isFetching } as const),
 
-  setClientExactOperationInfo: (info: OperationType) =>
+  setClientExactOperationInfo: (info: OperationType | null) =>
     ({ type: "SET_CLIENT_EXACT_OPERATION_INFO", info } as const),
 
   setClientOperationsList: (list: OperationType[]) =>

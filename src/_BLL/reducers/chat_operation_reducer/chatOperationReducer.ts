@@ -59,6 +59,17 @@ export const chatOperationReducer = (state = initialState, action: commonOperati
                     }
                 })
             }
+        case "MARK_NOTIFICATION_AS_READ":
+            return {
+                ...state,
+                notification_list: state.notification_list.map((n) => {
+                    if (n.id === action.id) {
+                        return { ...n, is_viewed: true };
+                    } else {
+                        return n;
+                    }
+                }),
+            };
         default:
             return state;
     }
@@ -75,5 +86,6 @@ export const operationChatActions = {
     setUserTyping: (typing_user: { user_id: number, photo: string | null } | null) => ({type: 'SET_USER_TYPING', typing_user} as const),
     setDeletedMessageId: (message_id: number) => ({type: 'SET_DELETED_MESSAGE_ID', message_id} as const),
     setStopTyping: (stop_typing: boolean) => ({type: 'STOP_TYPING', stop_typing} as const),
-    setFileToEmptyMessage: (file: string, message_id: number) => ({type: 'SET_FILE_TO_EMPTY_MESSAGE', file, message_id} as const)
+    setFileToEmptyMessage: (file: string, message_id: number) => ({type: 'SET_FILE_TO_EMPTY_MESSAGE', file, message_id} as const),
+    markNotificationAsRead:(id:number)=>({type:"MARK_NOTIFICATION_AS_READ", id} as const)
 };

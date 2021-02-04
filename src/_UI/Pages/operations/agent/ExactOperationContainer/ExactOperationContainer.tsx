@@ -19,6 +19,7 @@ import {
 } from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
 import {agentOperationsActions} from "../../../../../_BLL/reducers/operations/agent/agentOperationsReducer";
 import {getClientExactOperationThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {clientOperationsActions} from "../../../../../_BLL/reducers/operations/client/clientOperationsReducer";
 //types
 import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 import {AppOperationBookingStatusesType} from "../../../../../_BLL/types/operations/operationsTypes";
@@ -43,7 +44,7 @@ import EditOperationShipmentInfoByAgentPopup
     from "../../../../components/PopUps/edit_operation_shipment_info_by_agent/EditOperationShipmentInfoByAgentPopup";
 import ClientReviewPopup from "../../../../components/PopUps/client_review_popup/ClientReviewPopup";
 import ChatContainer from "../../chat/ChatContainer";
-import {clientOperationsActions} from "../../../../../_BLL/reducers/operations/client/clientOperationsReducer";
+
 
 
 const ExactOperationContainer = ({...props}) => {
@@ -85,6 +86,7 @@ const ExactOperationContainer = ({...props}) => {
 
 //handlers
     const closeHandler = () => {
+        debugger
         if (operation_info?.status === AppOperationBookingStatusesType.CANCELED_BY_CLIENT) {
             history.push("/operations_cancelled")
         }
@@ -102,6 +104,10 @@ const ExactOperationContainer = ({...props}) => {
             history.push("/operations_active")
         }
         if ((operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST) || (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+        )) {
+            history.push("/operations_active")
+        }
+        if ((operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT) || (operation_info?.status === AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS
         )) {
             history.push("/operations_active")
         }

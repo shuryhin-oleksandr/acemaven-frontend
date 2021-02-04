@@ -4,7 +4,7 @@ import {IconButton} from "@material-ui/core";
 //types
 import {AppOperationBookingStatusesType, OperationType} from "../../../../../../_BLL/types/operations/operationsTypes";
 import {userCompaniesType} from "../../../../../../_BLL/types/authTypes";
-import {AppCompaniesTypes, VoidFunctionType} from "../../../../../../_BLL/types/commonTypes";
+import {AppCompaniesTypes} from "../../../../../../_BLL/types/commonTypes";
 //components
 import DocsAndNotesBlock from "./blocks/DocsAndNotesBlock";
 import ShipmentPartsBlock from "./blocks/ShipmentPartsBlock";
@@ -48,7 +48,7 @@ type PropsType = {
     setIsCancelByAgent: (value: boolean) => void,
     setIsCancelByClient: (value: boolean) => void;
     setCompleteOperationPopup: (value: boolean) => void,
-    closeHandler: VoidFunctionType,
+    closeHandler: any,
     setTakeOver: (value: boolean) => void,
     setChangeRequestPopup: (value: boolean) => void,
     setEdit: (value: boolean) => void

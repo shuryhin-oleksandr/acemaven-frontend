@@ -500,18 +500,23 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                       ) : (
                         <>
                           <TableCell className={classes.innerCell} align="left">
-                            <FormField
-                              inputRef={register}
-                              name={`volume.${index}`}
-                              defaultValue={c.volume}
-                              max_width={"100px"}
-                              onBlur={() => {
-                                reCalcOnVolumeChange(
-                                  getValues(`volume.${index}`),
-                                  index
-                                );
-                              }}
-                            />
+                            {operation_info.freight_rate.shipping_mode.id ===
+                            ShippingModeEnum.ULD ? (
+                              c.volume
+                            ) : (
+                              <FormField
+                                inputRef={register}
+                                name={`volume.${index}`}
+                                defaultValue={c.volume}
+                                max_width={"100px"}
+                                onBlur={() => {
+                                  reCalcOnVolumeChange(
+                                    getValues(`volume.${index}`),
+                                    index
+                                  );
+                                }}
+                              />
+                            )}
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
                             {c.total_wm}w/m
@@ -539,17 +544,21 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
               </Table>
             </TableContainer>
           </SectionWrapper>
-          {operation_info.freight_rate.shipping_mode.id !== 3 && !addGroupMode && (
-            <div style={{ marginTop: "15px" }}>
-              <AddImg
-                onClick={() => {
-                  setAddGroupMode(true);
-                }}
-                src={AddIcon}
-                alt="add"
-              />
-            </div>
-          )}
+          {operation_info.freight_rate.shipping_mode.id !==
+            ShippingModeEnum.FCL &&
+            operation_info.freight_rate.shipping_mode.id !==
+              ShippingModeEnum.ULD &&
+            !addGroupMode && (
+              <div style={{ marginTop: "15px" }}>
+                <AddImg
+                  onClick={() => {
+                    setAddGroupMode(true);
+                  }}
+                  src={AddIcon}
+                  alt="add"
+                />
+              </div>
+            )}
           {recalculated_charges && !addGroupMode && (
             <SectionWrapper>
               <SectionTitle>Charges</SectionTitle>

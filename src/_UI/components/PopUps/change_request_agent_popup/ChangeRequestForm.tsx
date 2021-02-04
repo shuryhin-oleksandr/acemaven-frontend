@@ -14,28 +14,32 @@ import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
 import {ShippingModeEnum, ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {confirmChangeRequestThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {useDispatch} from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 type PropsType = {
     operation_info: OperationType | null
 }
 
 const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
+
+    const history = useHistory()
+
     let direction = operation_info?.freight_rate.origin.is_local ? 'export' : 'import'
     let after_estimated = moment(operation_info?.date_to, 'DD/MM/YYYY').add(7, 'days').calendar();
     let after_estimated_date = moment(after_estimated).toDate()
 
     let shipment = operation_info?.shipment_details && operation_info?.shipment_details[0]
     //estimated time
-    let arrival_date = moment(shipment?.date_of_arrival.slice(6)).format('DD/MM/YYYY')
-    let arrival_time = shipment?.date_of_arrival.slice(0,5)
-    let departure_date = moment(shipment?.date_of_departure.slice(6)).format('DD/MM/YYYY')
-    let departure_time = shipment?.date_of_departure.slice(0,5)
+    let arrival_date = shipment?.date_of_arrival.slice(0.10)
+    let arrival_time = shipment?.date_of_arrival.slice(11)
+    let departure_date = shipment?.date_of_departure.slice(0, 10)
+    let departure_time = shipment?.date_of_departure.slice(11)
 
     //cargo cut off + documents cut off
-    let documents_cut_off_date = moment(shipment?.document_cut_off_date?.slice(6)).format('DD/MM/YYYY')
-    let documents_cut_off_time = shipment?.document_cut_off_date?.slice(0,5)
-    let cargo_cut_off_date = moment(shipment?.cargo_cut_off_date?.slice(6)).format('DD/MM/YYYY')
-    let cargo_cut_off_time = shipment?.cargo_cut_off_date?.slice(0,5)
+    let documents_cut_off_date = shipment?.document_cut_off_date?.slice(0, 10)
+    let documents_cut_off_time = shipment?.document_cut_off_date?.slice(11)
+    let cargo_cut_off_date = shipment?.cargo_cut_off_date?.slice(0, 10)
+    let cargo_cut_off_time = shipment?.cargo_cut_off_date?.slice(11)
 
 
     const dispatch = useDispatch()
@@ -43,8 +47,12 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
     const onSubmit = (values: any) => {
         let date_of_departure = moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time
         let date_of_arrival = moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time
-        let document_cut_off_date = moment(values.documents_cut_off?.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off?.cut_off_time
-        let cargo_cut_off_date = moment(values.cargo_cut_off?.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off?.cut_off_time
+        let document_cut_off_date = (values.documents_cut_off?.from && values.documents_cut_off?.cut_off_time)
+            ? moment(values.documents_cut_off?.from).format('DD/MM/YYYY') + ' ' + values.documents_cut_off?.cut_off_time
+            : null
+        let cargo_cut_off_date = (values.cargo_cut_off?.to && values.cargo_cut_off?.cut_off_time)
+                ? moment(values.cargo_cut_off?.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off?.cut_off_time
+                : null
 
         let final_data = {...values,
             date_of_departure: date_of_departure,
@@ -58,19 +66,21 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
         delete final_data.payment_due_by
 
 
-        let final_data_without_cargo_cut_off = {
-            ...values,
-            date_of_departure: date_of_departure,
-            date_of_arrival: date_of_arrival,
-        }
-        delete final_data_without_cargo_cut_off.estimated_time
-        delete final_data_without_cargo_cut_off.payment_due_by
 
-        if(document_cut_off_date && values.documents_cut_off?.cut_off_time) {
-            dispatch(confirmChangeRequestThunk(Number(operation_info?.id), final_data, Number(shipment?.id)))
-        } else if(document_cut_off_date && !values.documents_cut_off?.cut_off_time){
-            dispatch(confirmChangeRequestThunk(Number(operation_info?.id), final_data_without_cargo_cut_off, Number(shipment?.id)))
-        }
+        let changed_fields = {};
+
+        shipment && Object.keys(shipment).forEach(k => Object.keys(final_data).forEach(k2 => {
+            if (k === k2) {
+                if (shipment && (shipment[k] !== final_data[k2])) {
+                    return changed_fields[k2] = final_data[k2]
+                }
+            } else {
+                return k
+            }
+        }))
+
+        //confirm change req
+        dispatch(confirmChangeRequestThunk(Number(operation_info?.id), changed_fields, Number(shipment?.id), history))
 
     }
 
@@ -191,6 +201,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                               departure_date={departure_date}
                               first_time={departure_time}
                               second_time={arrival_time}
+                              color_label={true}
 
             />
             {direction === 'export'
@@ -214,6 +225,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                                  first_time={documents_cut_off_time}
                                  arrival_date={cargo_cut_off_date}
                                  second_time={cargo_cut_off_time}
+                                 color_label={true}
 
             />
             }

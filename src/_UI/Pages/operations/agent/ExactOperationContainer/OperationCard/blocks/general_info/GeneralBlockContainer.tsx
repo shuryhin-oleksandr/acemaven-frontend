@@ -1,6 +1,10 @@
 import React from 'react'
 //types
-import {OperationType, ShipmentDetailsType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+import {
+    AppOperationBookingStatusesType,
+    OperationType,
+    ShipmentDetailsType
+} from "../../../../../../../../_BLL/types/operations/operationsTypes";
 //styles
 import {SectionTitle, SectionWrapper} from "../../operation-card-style";
 import {
@@ -51,7 +55,10 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment}) 
                             </InfoRowValue>
                         </InfoRow>
                     </div>
-                    {operation_info?.status === "Booking Confirmed" &&
+                    {(operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
+                        operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
+                        operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                    ) &&
                     <>
                         {shipment?.vessel
                             ? <div style={{display: "flex", flexDirection: "column", marginRight: '46px'}}>

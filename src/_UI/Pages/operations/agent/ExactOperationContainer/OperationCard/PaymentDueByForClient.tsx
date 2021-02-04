@@ -1,11 +1,15 @@
 import React, {useState} from 'react'
+//material ui
+import {IconButton} from "@material-ui/core";
+//types
+import {AgentBankAccountType} from "../../../../../../_BLL/types/operations/operationsTypes";
+//styles
 import {
     AgentBankColumn, AgentBankLabel, AgentBankValue,
     AgentBankWrapper,
     InfoRowLabel, InfoRowValue
 } from "../../../../Requests/Booking_agent/booking_card/booking-card-style";
-import {AgentBankAccountType} from "../../../../../../_BLL/types/operations/operationsTypes";
-import {IconButton} from "@material-ui/core";
+//icons
 import down_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
 import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
 
@@ -20,7 +24,7 @@ const PaymentDueByForClient: React.FC<PropsType> = ({payment_due_by, agent_bank_
 
     const [isHidden, setIsHidden] = useState(false)
 
-    function isEmpty(obj:any) {
+    function isEmpty(obj: any) {
         for (let key in obj) {
             // если тело цикла начнет выполняться - значит в объекте есть свойства
             return false;

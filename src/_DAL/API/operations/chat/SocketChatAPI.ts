@@ -55,8 +55,8 @@ export const wsChatAPI =  {
     unsubscribe(callback: SubscriberType) {
         subscribers.filter(s => s !== callback)
     },
-    sendMessage (message: string) {
-        ws?.send(JSON.stringify({'command': 'new_message', 'message': message}))
+    sendMessage (message: string, file_id?: number) {
+        ws?.send(JSON.stringify({'command': 'new_message', 'message': message, "files": file_id ? [file_id] : []})) //+ "files": [id]
     },
     focusTyping (user_id: number) {
         ws?.send(JSON.stringify({"command": "typing_message", "user_id": user_id}))

@@ -48,6 +48,9 @@ export const SettingsSubtitle = styled.div`
   font-size: 14px;
   color: #3B3B41;
   margin-bottom: 15px;
+  max-width: 800px;
+  width: 100%;
+  flex-wrap: wrap;
 `
 export const ActionsWrap = styled.div`
 display: flex;
@@ -59,9 +62,10 @@ export const SettingsField = styled.input`
   background: #FFFFFF;
   border: 1px solid #B7BCD6;
   border-radius: 4px;
+  outline: none;
   max-width: 108px;
   width: 100%;
-  color: #BDBDBD;
+  color: rgba(0, 0, 0, .7);
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;
   padding: 12px 20px 12px 10px;
@@ -71,6 +75,20 @@ export const SettingsField = styled.input`
     color: #BDBDBD;
     font-family: "Helvetica Light", sans-serif;
     font-size: 14px;
+    transition: 0.5s;
+  }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:focus::placeholder {
+    opacity: 0;
+    transition: 0.5s;
+  }
+  &:disabled {
+    background-color: #ECECEC;
   }
 `
 export const LineWrap = styled.div`

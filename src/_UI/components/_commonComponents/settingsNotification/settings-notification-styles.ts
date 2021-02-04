@@ -10,12 +10,12 @@ export const ActionsWrapRadio = styled.div`
 `
 export const CommonWrap = styled.div`
   display: flex;
-  
+  align-items: center;
 `
 export const RadioLabel = styled.div`
   font-family: "Helvetica Light", sans-serif;
   font-size: 16px;
   color: #3B3B41;
   margin-left: 5px;
-  padding-top: 2px;
+  
 `

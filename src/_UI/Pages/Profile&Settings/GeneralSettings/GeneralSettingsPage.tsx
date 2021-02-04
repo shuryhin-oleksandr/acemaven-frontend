@@ -53,7 +53,6 @@ const GeneralSettingsPage: React.FC<PropsType> = ({company_type, my_settings}) =
                                     {tabs[0]}
                                 </TabList>
                             }
-
                         </AppBar>
                         <TabPanel value="1">
                             <EmailNotifications my_settings={my_settings}/>

@@ -1,15 +1,21 @@
 import React, {useState} from "react";
-import {SectionTitle, SectionWrapper} from "../operation-card-style";
+//material ui
 import {IconButton} from "@material-ui/core";
-import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow.svg";
-import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
-import {
-    InfoRowLabel
-} from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
-import CargoGroupsTable from "./Tables/CargoGroupsTable";
+//types
 import {CargoGroupQuoteType} from "../../../../../../../_BLL/types/quotes/quotesTypes";
 import {ShippingTypesEnum} from "../../../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {AppOperationBookingStatusesType} from "../../../../../../../_BLL/types/operations/operationsTypes";
+//components
+import CargoGroupsTable from "./Tables/CargoGroupsTable";
+//styles
+import {SectionTitle, SectionWrapper} from "../operation-card-style";
+import {
+    InfoRowLabel
+} from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+//icons
+import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow.svg";
+import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
+
 
 type PropsType = {
     operation_shipping_type: string,
@@ -34,7 +40,14 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
                 <SectionTitle>CARGO</SectionTitle>
                 {!isHidden && (
                     <>
-                        {operation_shipping_type === ShippingTypesEnum.SEA && status === AppOperationBookingStatusesType.CONFIRMED && free_time &&
+                        {operation_shipping_type === ShippingTypesEnum.SEA
+                        &&
+                        (status === AppOperationBookingStatusesType.CONFIRMED ||
+                            status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
+                            status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                        )
+                        && free_time
+                        &&
                         <div style={{display: "flex", marginBottom: '20px'}}>
                             <InfoRowLabel style={{marginRight: '5px'}}>
                                 CONTAINER FREE TIME:

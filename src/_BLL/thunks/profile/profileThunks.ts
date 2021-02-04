@@ -1,4 +1,3 @@
-//profile
 import {Dispatch} from "redux";
 import {authAPI} from "../../../_DAL/API/authAPI";
 import {profileSettingsAPI} from "../../../_DAL/API/profileSettingsAPI";
@@ -6,6 +5,8 @@ import {CompanyInfoType} from "../../types/profileSettingsType";
 import {IAddNewBank, IAddNewUserData} from "../../types/addNewUserTypes";
 import {commonProfileActions, profileActions} from "../../reducers/profileReducer";
 
+
+//profile
 export const getAuthUserInfo = () => {
     return async (dispatch: Dispatch<commonProfileActions>) => {
         try {
@@ -188,3 +189,14 @@ export const getMySettingsThunk = (settings_id: number) => {
         }
     };
 };
+export const changeMySettingsThunk = (settings_id: number, change_data: any, setEditMode: (value: boolean) => void) => {
+    return async () => {
+        try {
+            await profileSettingsAPI.changeMySettings(settings_id, change_data);
+            setEditMode(false)
+        } catch (e) {
+            console.log("error", e.response);
+        }
+    };
+};
+

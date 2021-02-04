@@ -1,18 +1,24 @@
 import React, { useState } from "react";
+//material ui
+import { IconButton } from "@material-ui/core";
+//types
+import {ShipperType} from "../../../../../../../_BLL/types/bookingTypes";
+//styles
 import {
   SectionTitle,
   SectionWrapper,
   ShipmentPartsRow,
 } from "../operation-card-style";
-import { IconButton } from "@material-ui/core";
-import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow.svg";
-import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
 import {
   InfoRow,
   InfoRowLabel,
   InfoRowValue,
 } from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
-import {ShipperType} from "../../../../../../../_BLL/types/bookingTypes";
+//icons
+import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow.svg";
+import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
+
+
 
 type PropsType = {
     shipper_info: ShipperType | null,

@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-    HiddenTable,
-     HiddenWrapper,
-    TableTotal, TotalLine, TotalName, TotalValue
-} from "../../../../../dashboard/search/search_rate_card/search-card-styles";
+//material ui
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -12,14 +8,22 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//types
 import {CostBookingType} from "../../../../../../../_BLL/types/bookingTypes";
+//styles
+import {
+    HiddenTable,
+    HiddenWrapper,
+    TableTotal, TotalLine, TotalName, TotalValue
+} from "../../../../../dashboard/search/search_rate_card/search-card-styles";
+
 
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
     },
     info_row: {
-        '&:hover' : {
+        '&:hover': {
             cursor: 'pointer'
         }
     },
@@ -52,7 +56,7 @@ type PropsType = {
     number_of_docs: number | null
 }
 
-const ChargesBlock:React.FC<PropsType> = ({operation_charges, number_of_docs}) => {
+const ChargesBlock: React.FC<PropsType> = ({operation_charges, number_of_docs}) => {
 
     const classes = useStyles();
 
@@ -73,7 +77,9 @@ const ChargesBlock:React.FC<PropsType> = ({operation_charges, number_of_docs}) =
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                {column_object.map((c: any, index: number) => <TableCell key={index} className={classes.cell} align={c.align}>
+                                {column_object.map((c: any, index: number) => <TableCell key={index}
+                                                                                         className={classes.cell}
+                                                                                         align={c.align}>
                                     {c.name}
                                 </TableCell>)}
                             </TableRow>
@@ -84,7 +90,7 @@ const ChargesBlock:React.FC<PropsType> = ({operation_charges, number_of_docs}) =
                                     <TableCell className={classes.innerCell} scope="row">
                                         {s.volume}
                                     </TableCell>
-                                    <TableCell className={classes.innerCell} align="left" >
+                                    <TableCell className={classes.innerCell} align="left">
                                         {s.cargo_type}
                                     </TableCell>
                                     <TableCell className={classes.innerCell} align="left">
@@ -113,7 +119,7 @@ const ChargesBlock:React.FC<PropsType> = ({operation_charges, number_of_docs}) =
                                 <TableCell className={classes.innerCell} scope="row">
                                     {number_of_docs ? number_of_docs : '1'}
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left" >
+                                <TableCell className={classes.innerCell} align="left">
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
                                     DOC FEE
@@ -137,7 +143,7 @@ const ChargesBlock:React.FC<PropsType> = ({operation_charges, number_of_docs}) =
                     <TotalName>
                         TOTAL FREIGHT IN {operation_charges?.total_freight_rate?.USD
                         ? "BRL"
-                        : "USD" }
+                        : "USD"}
                     </TotalName>
                     <TotalValue>
                         {operation_charges?.total_freight_rate?.USD

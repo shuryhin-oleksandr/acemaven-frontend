@@ -74,7 +74,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
     const dispatch = useDispatch()
     const {register, handleSubmit, errors, setValue, control} = useForm()
 
-    let changed_fields = {};
+
 
     const onSubmit = (values: any) => {
 
@@ -103,15 +103,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
         delete final_data.actual_time_departure
         delete final_data.payment_due_by
 
-
-        let final_data_without_cargo_cut_off = {
-            ...values,
-            date_of_departure: date_of_departure,
-            date_of_arrival: date_of_arrival,
-        }
-        delete final_data_without_cargo_cut_off.estimated_time
-        delete final_data_without_cargo_cut_off.payment_due_by
-
+        let changed_fields = {};
 
         shipment && Object.keys(shipment).forEach(k => Object.keys(final_data).forEach(k2 => {
             if (k === k2) {

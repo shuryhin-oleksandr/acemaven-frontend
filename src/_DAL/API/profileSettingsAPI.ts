@@ -41,5 +41,9 @@ export const profileSettingsAPI = {
     },
     getMySettings (settings_id: number) {
         return instance.get(`/core/email-settings/${settings_id}/`)
+    },
+    changeMySettings (settings_id: number, changed_data: any) {
+        return instance.patch(`/core/email-settings/${settings_id}/`, changed_data)
     }
+
 }

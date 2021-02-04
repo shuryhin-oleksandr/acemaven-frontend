@@ -43,7 +43,7 @@ export const stopMessagingListening = () => {
 }
 
 export const sendMessageThunk = (message: string) => {
-    return async (dispatch: Dispatch<commonOperationChatActions>) => {
+    return async () => {
         try {
             wsChatAPI.sendMessage(message)
 

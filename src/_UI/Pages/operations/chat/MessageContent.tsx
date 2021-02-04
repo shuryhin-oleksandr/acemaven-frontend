@@ -43,7 +43,7 @@ const MessageContent: React.FC<{ message: MessageType | null }> = ({message}) =>
                                 </span>
                     <IconButton onClick={() => handleDownload(message?.files[0])}
                                 style={{
-                                    border: '2px solid rgba(255, 255, 255, .3)',
+                                    border: '2px solid rgba(255, 255, 255, .4)',
                                     padding: '2px',
                                     width: '34px',
                                     height: '34px'

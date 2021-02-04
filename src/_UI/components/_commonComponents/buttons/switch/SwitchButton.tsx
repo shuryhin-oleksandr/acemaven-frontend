@@ -1,7 +1,9 @@
 import React from "react";
+//react-hook-form
+import {Controller, useFormContext} from "react-hook-form";
+//material ui
 import Switch from '@material-ui/core/Switch';
-import { makeStyles } from "@material-ui/core/styles";
-
+import {makeStyles} from "@material-ui/core/styles";
 
 
 let useStyles = makeStyles({
@@ -42,32 +44,41 @@ let useStyles = makeStyles({
     focusVisible: {},
 })
 
-export const CustomizedSwitch:React.FC = ({...props}) => {
-    const classes = useStyles()
-    const [state, setState] = React.useState({
-        checkedA: true,
-    });
+export const CustomizedSwitch: React.FC<{
+    switch_name: string,
+    setEditMode: (value: boolean) => void
+}> = ({switch_name, setEditMode}) => {
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-    };
+    const classes = useStyles()
+
+    const {control} = useFormContext()
+
 
     return (
-        <div>
-            <Switch
-                checked={state.checkedA}
-                onChange={handleChange}
-                name="checkedA"
-                focusVisibleClassName={classes.focusVisible}
-                classes={{
-                    root: classes.root,
-                    switchBase: classes.switchBase,
-                    thumb: classes.thumb,
-                    track: classes.track,
-                    checked: classes.checked,
-                }}
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-            />
-        </div>
+        <Controller
+            control={control}
+            name={switch_name}
+            defaultValue={false}
+            render={(
+                {onChange, value, ref}
+            ) =>
+                <Switch
+                    onChange={(e) => onChange(e.target.checked)}
+                    onFocus={() => setEditMode(true)}
+                    checked={value}
+                    inputRef={ref}
+                    focusVisibleClassName={classes.focusVisible}
+                    classes={{
+                        root: classes.root,
+                        switchBase: classes.switchBase,
+                        thumb: classes.thumb,
+                        track: classes.track,
+                        checked: classes.checked,
+                    }}
+                    inputProps={{'aria-label': 'secondary checkbox'}}
+                />
+            }
+        />
+
     );
 }

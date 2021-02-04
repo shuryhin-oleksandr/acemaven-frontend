@@ -110,31 +110,31 @@ const OperationCard: React.FC<PropsType> = ({
                         </BookingStatus>
                     </BookingInfo>
                     {(company_type?.type === AppCompaniesTypes.CLIENT
-                    && operation_info?.status === AppOperationBookingStatusesType.COMPLETED && !operation_info.has_review)
-                    ?
-                    <ConfirmButton onClick={() => setReviewPopup(true)}>
-                        LEAVE A REVIEW
-                    </ConfirmButton>
+                        && operation_info?.status === AppOperationBookingStatusesType.COMPLETED && !operation_info.has_review)
+                        ?
+                        <ConfirmButton onClick={() => setReviewPopup(true)}>
+                            LEAVE A REVIEW
+                        </ConfirmButton>
                         : operation_info?.status !== AppOperationBookingStatusesType.COMPLETED
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_SYSTEM
                         &&
-                        <ActionsButtonsBlock  agent_contact_name={props.agent_contact_name}
-                                              client_contact_name={props.client_contact_name}
-                                              operation_info={operation_info}
-                                              my_name={my_name}
-                                              company_type={company_type ? company_type : undefined}
-                                              openAcceptPopup={openAcceptPopup}
-                                              setTakeOver={setTakeOver}
-                                              setIsCancelByAgent={setIsCancelByAgent}
-                                              setIsCancelByClient={setIsCancelByClient}
-                                              setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
-                                              setEdit={props.setEdit}
-                                              setChangeRequestPopup={props.setChangeRequestPopup}
-                                              setReviewPopup={setReviewPopup}
-                                              ATD={props.ATD}
-                                              setCompleteOperationPopup={props.setCompleteOperationPopup}
+                        <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
+                                             client_contact_name={props.client_contact_name}
+                                             operation_info={operation_info}
+                                             my_name={my_name}
+                                             company_type={company_type ? company_type : undefined}
+                                             openAcceptPopup={openAcceptPopup}
+                                             setTakeOver={setTakeOver}
+                                             setIsCancelByAgent={setIsCancelByAgent}
+                                             setIsCancelByClient={setIsCancelByClient}
+                                             setClientChangRequestPopupVisible={setClientChangRequestPopupVisible}
+                                             setEdit={props.setEdit}
+                                             setChangeRequestPopup={props.setChangeRequestPopup}
+                                             setReviewPopup={setReviewPopup}
+                                             ATD={props.ATD}
+                                             setCompleteOperationPopup={props.setCompleteOperationPopup}
                         />
                     }
                 </ContentHeader>
@@ -145,7 +145,10 @@ const OperationCard: React.FC<PropsType> = ({
                                               operation_info={operation_info}
 
                 />
-                {operation_info?.status === "Booking Confirmed"
+                {(operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
+                    operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
+                    operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                )
                 && <ShipmentTrackingBlock tracking={operation_info?.tracking}
                                           shipping_type={operation_info?.shipping_type}
                                           direction={operation_info?.freight_rate.origin.is_local ? 'export' : 'import'}
@@ -162,12 +165,22 @@ const OperationCard: React.FC<PropsType> = ({
                 <SectionWrapper>
                     <SectionTitle>CHARGES</SectionTitle>
                     {company_type?.type === AppCompaniesTypes.AGENT
-                        ? (my_name === operation_info?.agent_contact_person && operation_info?.status === AppOperationBookingStatusesType.CONFIRMED
+                        ? (my_name === operation_info?.agent_contact_person
+                            && (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
+                                operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
+                                operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                            )
                             && <PaymentDueByDates payment_due_by={operation_info?.payment_due_by}
                                                   operation_id={operation_info.id}
 
                             />)
-                        : (operation_info?.payment_due_by && operation_info?.status === AppOperationBookingStatusesType.CONFIRMED &&
+                        : (operation_info?.payment_due_by
+                            &&
+                            (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
+                                operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
+                                operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                            )
+                            &&
                             <PaymentDueByForClient payment_due_by={String(operation_info?.payment_due_by)}
                                                    agent_bank_account={operation_info?.agent_bank_account}
                                                    agent_name={operation_info?.agent_contact_person}

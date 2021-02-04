@@ -2,10 +2,12 @@ import React, {useEffect, useState} from "react";
 //react-hook-form
 import {FormProvider, useForm} from "react-hook-form";
 //react-redux
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 //BLL
 import {changeMySettingsThunk} from "../../../../../_BLL/thunks/profile/profileThunks";
+import {getMyInfoSelector} from "src/_BLL/selectors/profile/profileSelectors";
 //types
+import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 import {settingsType} from "../../../../../_BLL/types/profile/profileTypes";
 //components
 import SettingsNotificationCard
@@ -13,15 +15,17 @@ import SettingsNotificationCard
 import SettingsNotificationRadio
     from "../../../../components/_commonComponents/settingsNotification/SettingsNotificationRadio/SettingsNotificationRadio";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
-import BaseButton from "src/_UI/components/base/BaseButton";
 import OutlineButton from "src/_UI/components/_commonComponents/buttons/outline_button/OutlineButton";
 //styles
 import {SettingsWrap} from "../general-settings-styles";
 
 
+
 const EmailNotifications: React.FC<{ my_settings: settingsType | null }> = ({my_settings}) => {
 
     const [editMode, setEditMode] = useState(false)
+    const my_info = useSelector(getMyInfoSelector)
+    const company_type = my_info?.companies && my_info?.companies?.length > 0 && my_info?.companies[0].type
 
     useEffect(() => {
         if (my_settings) {
@@ -79,49 +83,61 @@ const EmailNotifications: React.FC<{ my_settings: settingsType | null }> = ({my_
                     {editMode &&
                     <div style={{
                         display: 'flex',
+                        flexDirection: 'column',
                         justifyContent: 'space-between',
+                        alignItems: 'center',
                         position: 'absolute',
                         top: '10px',
-                        right: '50px',
+                        right: '0px',
                         maxWidth: '310px',
-                        width: '100%'
+                        width: '100%',
+                        height: '95px'
                     }}>
-                        <BaseButton type='submit'
-                        >
-                            SAVE
-                        </BaseButton>
+                        <OutlineButton type='submit'
+                                       borderColor='1px solid #000000'
+                                       text_color='#FFFFFF'
+                                       text='SAVE'
+                                       font_size='14px'
+                                       button_width='100px'
+                                       button_background='#000000'
+                        />
                         <OutlineButton type='button'
                                        borderColor='1px solid rgba(0, 0, 0, .6)'
                                        text_color='rgba(0, 0, 0, .6)'
                                        text='CANCEL'
                                        font_size='14px'
-                                       button_width='146px'
+                                       button_width='100px'
                                        callback={() => setEditMode(false)}
                         />
                     </div>
                     }
-                    <SettingsNotificationCard title='Surcharge Expiration'
-                                              subtitle='Number of days to notify before a surcharge expires'
-                                              switch_name='surcharge_expiration'
-                                              name='surcharge_expiration_days'
-                                              notification={{
-                                                  switch: my_settings?.surcharge_expiration,
-                                                  days: my_settings?.surcharge_expiration_days
-                                              }}
-                                              setEditMode={setEditMode}
+                    {(company_type === AppCompaniesTypes.AGENT)
+                    &&
+                    <>
+                        <SettingsNotificationCard title='Surcharge Expiration'
+                                                  subtitle='Number of days to notify before a surcharge expires'
+                                                  switch_name='surcharge_expiration'
+                                                  name='surcharge_expiration_days'
+                                                  notification={{
+                                                      switch: my_settings?.surcharge_expiration,
+                                                      days: my_settings?.surcharge_expiration_days
+                                                  }}
+                                                  setEditMode={setEditMode}
 
-                    />
-                    <SettingsNotificationCard title='Freight Rate Expiration'
-                                              subtitle='Number of days to notify before a freight rate expires'
-                                              switch_name='freight_rate_expiration'
-                                              name='freight_rate_expiration_days'
-                                              notification={{
-                                                  switch: my_settings?.freight_rate_expiration,
-                                                  days: my_settings?.freight_rate_expiration_days
-                                              }}
-                                              setEditMode={setEditMode}
+                        />
+                        <SettingsNotificationCard title='Freight Rate Expiration'
+                                                  subtitle='Number of days to notify before a freight rate expires'
+                                                  switch_name='freight_rate_expiration'
+                                                  name='freight_rate_expiration_days'
+                                                  notification={{
+                                                      switch: my_settings?.freight_rate_expiration,
+                                                      days: my_settings?.freight_rate_expiration_days
+                                                  }}
+                                                  setEditMode={setEditMode}
 
-                    />
+                        />
+                    </>
+                    }
                     <SettingsNotificationCard title='Sea Import Shipment Arrival Alert'
                                               subtitle='Will alert you a specific number of days before the Estimated Time of Arrival date of an import shipment (0 will be no notification).'
                                               switch_name='sea_import_shipment_arrival_alert'

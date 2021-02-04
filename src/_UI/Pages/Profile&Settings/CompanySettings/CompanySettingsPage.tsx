@@ -23,7 +23,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
         flexDirection: 'column',
         backgroundColor: theme.palette.background.paper,
         width: '100%',
-        height: '100%'
+        height: '100%',
     },
     header: {
         backgroundColor: 'white',

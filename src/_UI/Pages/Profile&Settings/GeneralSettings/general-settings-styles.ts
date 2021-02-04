@@ -36,7 +36,6 @@ export const SettingsWrap = styled.form`
   flex-direction: column;
   width: 100%;
   padding: 0 200px 0 7px;
-  position: relative;
 `
 export const SettingsTitle = styled.div`
   color: black;
@@ -49,6 +48,9 @@ export const SettingsSubtitle = styled.div`
   font-size: 14px;
   color: #3B3B41;
   margin-bottom: 15px;
+  max-width: 800px;
+  width: 100%;
+  flex-wrap: wrap;
 `
 export const ActionsWrap = styled.div`
 display: flex;

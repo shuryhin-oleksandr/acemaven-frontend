@@ -237,7 +237,7 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                                 <GeneralTitle margin_bottom='15px'>EXPIRATION DATE</GeneralTitle>
                                 <QuoteAgentExpirationDate control={control}
                                                           setValue={setValue}
-                                                          before_date={String(quote?.date_to)}
+                                                          date_to={String(quote?.date_to)}
                                 />
                             </div>
                             <div style={{display: "flex", flexDirection: 'column', maxWidth: '300px', width: '100%',marginRight: '35px'}}>

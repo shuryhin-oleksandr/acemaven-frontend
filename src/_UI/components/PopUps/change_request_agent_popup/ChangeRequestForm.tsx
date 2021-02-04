@@ -71,7 +71,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
 
         shipment && Object.keys(shipment).forEach(k => Object.keys(final_data).forEach(k2 => {
             if (k === k2) {
-                if (shipment && (shipment[k] !== final_data[k2])) {
+                if (shipment && (shipment[k] != final_data[k2])) {
                     return changed_fields[k2] = final_data[k2]
                 }
             } else {

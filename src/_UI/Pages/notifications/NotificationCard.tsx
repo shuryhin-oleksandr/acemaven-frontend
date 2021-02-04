@@ -26,10 +26,10 @@ type PropsType = {
 
 const chooseIcon = (section: string) => {
   switch (section) {
-    case "requests":
+    case "Requests":
       return request_icon;
-    case "surcharges":
-    case "freight_rates":
+    case "Surcharges":
+    case "Freight Rates":
       return rate_surcharge_icon;
     default:
       return operation_icon;
@@ -46,15 +46,15 @@ const NotificationCard: React.FC<PropsType> = ({
 
   const findPath = (id: number, path: string) => {
     switch (path) {
-      case "booking":
+      case "Booking":
         return `/requests/booking/${id}/`;
-      case "operation":
+      case "Operation":
         return `/operations/${id}/`;
-      case "surcharge":
+      case "Surcharge":
         return `/services/surcharge/${id}`;
-      case "freight_rate":
+      case "Freight Rate":
         return `/services/rate/${id}/`;
-      case "billing":
+      case "Billing":
         return `/billing_pending/`;
       default:
         return "/";

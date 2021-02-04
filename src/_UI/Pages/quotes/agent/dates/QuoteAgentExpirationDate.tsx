@@ -13,10 +13,10 @@ type PropsType = {
     control: any,
     error?: any,
     setValue: any,
-    before_date: string
+    date_to: string
 }
 
-const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue, before_date}) => {
+const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,  date_to}) => {
     const toInput = useRef<DayPickerInput>(null)
 
     const [selectedDay, setSelectedDay] = useState<any>({
@@ -32,7 +32,7 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,
         setValue('date_to', to)
     }
 
-    let a = moment(before_date, 'DD/MM/YYYY').add(14, 'days').calendar();
+    let a = moment(date_to, 'DD/MM/YYYY').add(14, 'days').calendar();
     let two_weeks_after = moment(a).toDate()
 
     return (
@@ -60,7 +60,7 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,
                         onDayChange={handleDayChange}
                         ref={toInput}
                         dayPickerProps={{
-                            disabledDays: [{before: moment(two_weeks_after, 'DD/MM/YYYY').toDate()}],
+                            disabledDays: [{before: new Date(), after: moment(two_weeks_after, 'DD/MM/YYYY').toDate()}],
                         }}
                     />
                 }

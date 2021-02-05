@@ -59,7 +59,7 @@ const EmailNotifications: React.FC<{ my_settings: settingsType | null }> = ({my_
             }
         }))
 
-        my_settings && Object.keys(changed_fields).length > 0 &&  dispatch(changeMySettingsThunk(my_settings?.id, changed_fields, setEditMode))
+        my_settings && Object.keys(changed_fields).length > 0 &&  dispatch(changeMySettingsThunk(my_settings?.id, changed_fields))
     }
 
 

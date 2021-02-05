@@ -189,11 +189,10 @@ export const getMySettingsThunk = (settings_id: number) => {
         }
     };
 };
-export const changeMySettingsThunk = (settings_id: number, change_data: any, setEditMode: (value: boolean) => void) => {
+export const changeMySettingsThunk = (settings_id: number, change_data: any) => {
     return async () => {
         try {
             await profileSettingsAPI.changeMySettings(settings_id, change_data);
-            setEditMode(false)
         } catch (e) {
             console.log("error", e.response);
         }

@@ -56,6 +56,10 @@ import { changeBooking } from "../../../../_BLL/thunks/booking_client_thunk/book
 import _ from "lodash";
 import { bookingActions } from "../../../../_BLL/reducers/booking/bookingReducer";
 import { ShippingModeEnum } from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import ModalWindow from "../../_commonComponents/ModalWindow/ModalWindow";
+import AcceptPopup from "../accept_booking_popup/AcceptPopup";
+import Layout from "../../BaseLayout/Layout";
+import ClientChangeRequestPopUpForm from "../ClientChangeRequestPopUpForm/ClientChangeRequestPopUpForm";
 
 const useStyles = makeStyles({
   container: {
@@ -130,6 +134,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
   const classes = useStyles();
   const [dates, setDates] = useState([]);
   const [addGroupMode, setAddGroupMode] = useState(false);
+  const [editableGroupIndex, setEditableGroupIndex] = useState(-1);
 
   useEffect(() => {
     dispatch(getReleaseTypeChoices());
@@ -536,6 +541,16 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                           <TableCell className={classes.innerCell} align="left">
                             {c.description}
                           </TableCell>
+                          <TableCell className={classes.innerCell} align="left">
+                            <div
+                              onClick={() => {
+                                setEditableGroupIndex(index);
+                                setAddGroupMode(true);
+                              }}
+                            >
+                              edit
+                            </div>
+                          </TableCell>
                         </>
                       )}
                     </TableRow>
@@ -547,8 +562,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
           {operation_info.freight_rate.shipping_mode.id !==
             ShippingModeEnum.FCL &&
             operation_info.freight_rate.shipping_mode.id !==
-              ShippingModeEnum.ULD &&
-            !addGroupMode && (
+              ShippingModeEnum.ULD && (
               <div style={{ marginTop: "15px" }}>
                 <AddImg
                   onClick={() => {
@@ -614,24 +628,29 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
               </div>
             </SectionWrapper>
           )}
-
-          {!addGroupMode && (
-            <ButtonsWrap>
-              <ConfirmButton type="submit">REQUEST</ConfirmButton>
-              <CancelButton onClick={() => setIsOpen(false)}>
-                CANCEL
-              </CancelButton>
-            </ButtonsWrap>
-          )}
+          <ButtonsWrap>
+            <ConfirmButton type="submit">REQUEST</ConfirmButton>
+            <CancelButton onClick={() => setIsOpen(false)}>CANCEL</CancelButton>
+          </ButtonsWrap>
         </form>
-        {addGroupMode && (
-          <AddingGroupsForm
-            setAddGroupMode={setAddGroupMode}
-            shipping_mode={operation_info.freight_rate.shipping_mode.id}
-            shipping_type={operation_info.shipping_type}
+        {/*{addGroupMode && (*/}
+        {/*  <AddingGroupsForm*/}
+        {/*    setAddGroupMode={setAddGroupMode}*/}
+        {/*    shipping_mode={operation_info.freight_rate.shipping_mode.id}*/}
+        {/*    shipping_type={operation_info.shipping_type}*/}
+        {/*    reCalcOnGroupsAmountChange={reCalcOnGroupsAmountChange}*/}
+        {/*    group={cargo_groups[0]}*/}
+        {/*  />*/}
+        {/*)}*/}
+        <ModalWindow isOpen={addGroupMode}>
+          <ClientChangeRequestPopUpForm
+            setIsOpen={setAddGroupMode}
+            operation_info={operation_info}
+            group={cargo_groups[editableGroupIndex]}
             reCalcOnGroupsAmountChange={reCalcOnGroupsAmountChange}
+            setEditableGroupIndex={setEditableGroupIndex}
           />
-        )}
+        </ModalWindow>
       </PopupContent>
     </PopupContainer>
   );

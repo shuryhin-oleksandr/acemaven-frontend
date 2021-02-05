@@ -33,8 +33,8 @@ import save_icon from "../../../../assets/icons/profile/add.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../../_BLL/store";
 import { calculateAdditionalCargoGroup } from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
-import { Field } from "../../../_commonComponents/Input/input-styles";
 import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import { CargoGroupQuoteType } from "../../../../../_BLL/types/quotes/quotesTypes";
 
 let useStyles = makeStyles({
   root: {
@@ -53,6 +53,8 @@ type PropsType = {
   shipping_mode: number;
   shipping_type: string;
   reCalcOnGroupsAmountChange: any;
+  group?: CargoGroupQuoteType;
+  setEditableGroupIndex: (value: number) => void;
 };
 
 const AddingGroupsForm: React.FC<PropsType> = ({
@@ -60,9 +62,15 @@ const AddingGroupsForm: React.FC<PropsType> = ({
   shipping_mode,
   shipping_type,
   reCalcOnGroupsAmountChange,
+  group,
+  setEditableGroupIndex,
 }) => {
-  const [selectedValueWeight, setSelectedValueWeight] = React.useState("t");
-  const [selectedValueLength, setSelectedValueLength] = React.useState("m");
+  const [selectedValueWeight, setSelectedValueWeight] = React.useState(
+    group ? group?.weight_measurement : "t"
+  );
+  const [selectedValueLength, setSelectedValueLength] = React.useState(
+    group ? group?.length_measurement : "m"
+  );
   const [isCheck, setIsCheck] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -82,6 +90,33 @@ const AddingGroupsForm: React.FC<PropsType> = ({
   );
 
   const { handleSubmit, register, control, errors, setValue } = useForm();
+
+  useEffect(() => {
+    if (group) {
+      console.log("SEEEET");
+      console.log("GRRRRR", group);
+      // setValue("packaging_type", group?.packaging_type?.id);
+      // setValue("container_type", group?.container_type);
+      setValue("volume", group?.volume);
+      setValue("weight", group?.weight);
+      setValue("weight_measurement", group?.weight_measurement);
+      setValue("height", group?.height);
+      setValue("length", group?.length);
+      setValue("width", group?.width);
+      setValue("length_measurement", group?.length_measurement);
+    } else {
+      // setValue("packaging_type", "");
+      // setValue("container_type", "");
+      setValue("volume", "1");
+      setValue("weight", "");
+      setValue("weight_measurement", "t");
+      setValue("height", "");
+      setValue("length", "");
+      setValue("width", "");
+      setValue("length_measurement", "m");
+    }
+  }, [setValue, group]);
+
   const onSubmit = (values: any) => {
     dispatch(
       calculateAdditionalCargoGroup(
@@ -91,6 +126,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
       )
     );
     setAddGroupMode(false);
+    setEditableGroupIndex(-1);
   };
 
   return (
@@ -99,13 +135,18 @@ const AddingGroupsForm: React.FC<PropsType> = ({
         style={{
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
           position: "relative",
+          flexDirection: "column-reverse",
         }}
       >
-        <EditButtonsWrapper top="10px">
+        <EditButtonsWrapper top="50px">
           <FormOperationButton
             type="button"
-            onClick={() => setAddGroupMode(false)}
+            onClick={() => {
+              setAddGroupMode(false);
+              setEditableGroupIndex(-1);
+            }}
             style={{ padding: "5px" }}
           >
             <img src={close_icon} alt="" />
@@ -116,11 +157,11 @@ const AddingGroupsForm: React.FC<PropsType> = ({
         </EditButtonsWrapper>
         <InnerWrapper>
           <FormRow>
-            {shipping_mode === 2 ? (
+            {shipping_mode === ShippingModeEnum.ULD ? (
               <Controller
                 name="container_type"
                 control={control}
-                defaultValue=""
+                defaultValue={group ? group.container_type?.id : ""}
                 rules={{
                   required: "Field is required",
                 }}
@@ -138,7 +179,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
               <Controller
                 name="packaging_type"
                 control={control}
-                defaultValue=""
+                defaultValue={group ? group?.packaging_type?.id : ""}
                 rules={{
                   required: "Field is required",
                 }}
@@ -153,53 +194,55 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 }
               />
             )}
-            <Controller
+            {/*<Controller*/}
+            {/*  name="volume"*/}
+            {/*  control={control}*/}
+            {/*  rules={{*/}
+            {/*    required: "Field is required",*/}
+            {/*  }}*/}
+            {/*  as={*/}
+            {/*    <div>*/}
+            <FormField
               name="volume"
-              control={control}
-              defaultValue={"1"}
-              rules={{
+              inputRef={register({
                 required: "Field is required",
-              }}
-              as={
-                <div>
-                  <FormField
-                    error={errors?.volume}
-                    label={"No. of packs"}
-                    max_width={"135px"}
-                    defaultValue={"1"}
-                    disabled={shipping_mode == 2}
-                    type="number"
-                  />
-                </div>
-              }
+              })}
+              error={errors?.volume}
+              label={"No. of packs"}
+              max_width={"135px"}
+              disabled={shipping_mode == 2}
+              type="number"
             />
-            <Controller
-              name="weight"
-              control={control}
-              defaultValue={""}
-              rules={{
-                required: "Field is required",
-              }}
-              as={
-                <WeightWrapper>
-                  <WeightIcon>
-                    <img src={weight} alt="" />
-                  </WeightIcon>
-                  <FormField
-                    error={errors?.weight}
-                    label={
-                      selectedValueWeight === "kg" ? "Weight, kgs" : "Weight, t"
-                    }
-                    max_width="90px"
-                    placeholder={
-                      selectedValueWeight === "kg" ? "0, kg" : "0, t"
-                    }
-                    type="number"
-                    defaultValue={""}
-                  />
-                </WeightWrapper>
-              }
-            />
+            {/*    </div>*/}
+            {/*  }*/}
+            {/*/>*/}
+            {/*<Controller*/}
+            {/*  name="weight"*/}
+            {/*  control={control}*/}
+            {/*  rules={{*/}
+            {/*    required: "Field is required",*/}
+            {/*  }}*/}
+            {/*  as={*/}
+            <WeightWrapper>
+              <WeightIcon>
+                <img src={weight} alt="" />
+              </WeightIcon>
+              <FormField
+                name="weight"
+                inputRef={register({
+                  required: "Field is required",
+                })}
+                error={errors?.weight}
+                label={
+                  selectedValueWeight === "kg" ? "Weight, kgs" : "Weight, t"
+                }
+                max_width="90px"
+                placeholder={selectedValueWeight === "kg" ? "0, kg" : "0, t"}
+                type="number"
+              />
+            </WeightWrapper>
+            {/*}*/}
+            {/*/>*/}
             <Controller
               name="weight_measurement"
               control={control}
@@ -235,87 +278,85 @@ const AddingGroupsForm: React.FC<PropsType> = ({
             />
           </FormRow>
           <FormRow>
-            <Controller
-              name="height"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "Field is required",
-              }}
-              as={
-                <WeightWrapper>
-                  <WeightIcon>
-                    <img src={height} alt="" />
-                  </WeightIcon>
-                  <FormField
-                    error={errors?.height}
-                    label={
-                      selectedValueLength === "cm" ? "Height, cm" : "Height, m"
-                    }
-                    max_width="90px"
-                    placeholder={
-                      selectedValueLength === "cm" ? "0, cm" : "0, m"
-                    }
-                    type="number"
-                    defaultValue={""}
-                  />
-                </WeightWrapper>
-              }
-            />
-            <Controller
-              name="length"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "Field is required",
-              }}
-              as={
-                <WeightWrapper>
-                  <WeightIcon>
-                    <img src={length} alt="" />
-                  </WeightIcon>
-                  <FormField
-                    error={errors?.length}
-                    label={
-                      selectedValueLength === "cm" ? "Length, cm" : "Length, m"
-                    }
-                    max_width="90px"
-                    placeholder={
-                      selectedValueLength === "cm" ? "0, cm" : "0, m"
-                    }
-                    type="number"
-                    defaultValue={""}
-                  />
-                </WeightWrapper>
-              }
-            />
-            <Controller
-              name="width"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: "Field is required",
-              }}
-              as={
-                <WeightWrapper>
-                  <WeightIcon>
-                    <img src={width} alt="" />
-                  </WeightIcon>
-                  <FormField
-                    error={errors?.width}
-                    label={
-                      selectedValueLength === "cm" ? "Width, cm" : "Width, m"
-                    }
-                    max_width="90px"
-                    placeholder={
-                      selectedValueLength === "cm" ? "0, cm" : "0, m"
-                    }
-                    type="number"
-                    defaultValue={""}
-                  />
-                </WeightWrapper>
-              }
-            />
+            {/*<Controller*/}
+            {/*  name="height"*/}
+            {/*  control={control}*/}
+            {/*  rules={{*/}
+            {/*    required: "Field is required",*/}
+            {/*  }}*/}
+            {/*  as={*/}
+            <WeightWrapper>
+              <WeightIcon>
+                <img src={height} alt="" />
+              </WeightIcon>
+              <FormField
+                name="height"
+                inputRef={register({
+                  required: "Field is required",
+                })}
+                error={errors?.height}
+                label={
+                  selectedValueLength === "cm" ? "Height, cm" : "Height, m"
+                }
+                max_width="90px"
+                placeholder={selectedValueLength === "cm" ? "0, cm" : "0, m"}
+                type="number"
+              />
+            </WeightWrapper>
+            {/*  }*/}
+            {/*/>*/}
+            {/*<Controller*/}
+            {/*  name="length"*/}
+            {/*  control={control}*/}
+            {/*  rules={{*/}
+            {/*    required: "Field is required",*/}
+            {/*  }}*/}
+            {/*  as={*/}
+            <WeightWrapper>
+              <WeightIcon>
+                <img src={length} alt="" />
+              </WeightIcon>
+              <FormField
+                name="length"
+                inputRef={register({
+                  required: "Field is required",
+                })}
+                error={errors?.length}
+                label={
+                  selectedValueLength === "cm" ? "Length, cm" : "Length, m"
+                }
+                max_width="90px"
+                placeholder={selectedValueLength === "cm" ? "0, cm" : "0, m"}
+                type="number"
+              />
+            </WeightWrapper>
+            {/*  }*/}
+            {/*/>*/}
+            {/*<Controller*/}
+            {/*  name="width"*/}
+            {/*  control={control}*/}
+            {/*  rules={{*/}
+            {/*    required: "Field is required",*/}
+            {/*  }}*/}
+            {/*  as={*/}
+            <WeightWrapper>
+              <WeightIcon>
+                <img src={width} alt="" />
+              </WeightIcon>
+              <FormField
+                name="width"
+                inputRef={register({
+                  required: "Field is required",
+                })}
+                error={errors?.width}
+                label={selectedValueLength === "cm" ? "Width, cm" : "Width, m"}
+                max_width="90px"
+                placeholder={selectedValueLength === "cm" ? "0, cm" : "0, m"}
+                type="number"
+              />
+            </WeightWrapper>
+            {/*  }*/}
+            {/*/>*/}
             <Controller
               name="length_measurement"
               control={control}
@@ -350,27 +391,31 @@ const AddingGroupsForm: React.FC<PropsType> = ({
               }
             />
           </FormRow>
-          <CheckboxWrap>
-            <GeneralCustomCheckbox
-              inputRef={register}
-              name="dangerous"
-              value={isCheck}
-              //setIsDangerous={setIsDangerous}
-              setValue={setValue}
-              setIsCheck={setIsCheck}
-              span_text="Dangerous"
-            />
-          </CheckboxWrap>
-          <InfoRowLabel>Description</InfoRowLabel>
-          <FormField
-            error={errors?.description}
-            max_width="100%"
-            inputRef={register({
-              required: "Field is required",
-            })}
-            defaultValue={""}
-            name="description"
-          />
+          {!group && (
+            <>
+              <CheckboxWrap>
+                <GeneralCustomCheckbox
+                  inputRef={register}
+                  name="dangerous"
+                  value={isCheck}
+                  //setIsDangerous={setIsDangerous}
+                  setValue={setValue}
+                  setIsCheck={setIsCheck}
+                  span_text="Dangerous"
+                />
+              </CheckboxWrap>
+              <InfoRowLabel>Description</InfoRowLabel>
+              <FormField
+                error={errors?.description}
+                max_width="100%"
+                inputRef={register({
+                  required: "Field is required",
+                })}
+                defaultValue={""}
+                name="description"
+              />
+            </>
+          )}
         </InnerWrapper>
       </div>
     </form>

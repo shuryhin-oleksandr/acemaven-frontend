@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 //react-hook-form
 import {useFormContext} from "react-hook-form";
 //components
@@ -18,12 +18,16 @@ type PropsType = {
     name?: string,
     switch_name: string
     notification?: { switch: boolean | undefined, days: number | undefined },
-    setEditMode: (value: boolean) => void
+    submitThunk: (value: any) => void
 }
 
 const SettingsNotificationCard: React.FC<PropsType> = ({title, subtitle, name, switch_name, notification, ...props}) => {
 
     const {register} = useFormContext()
+    const [inputValue, setInputValue] = useState('')
+
+    let input_obj = {}
+    input_obj[`${name}`] = inputValue
 
     return (
         <Outer>
@@ -32,7 +36,7 @@ const SettingsNotificationCard: React.FC<PropsType> = ({title, subtitle, name, s
             <ActionsWrap>
                 <CustomizedSwitch
                     switch_name={switch_name}
-                    setEditMode={props.setEditMode}
+                    submitThunk={props.submitThunk}
                 />
                 <SettingsField name={name}
                                ref={register}
@@ -41,7 +45,8 @@ const SettingsNotificationCard: React.FC<PropsType> = ({title, subtitle, name, s
                                step='1'
                                defaultValue={notification?.days ? notification.days : '0'}
                                placeholder='No. of days '
-                               onFocus={() => props.setEditMode(true)}
+                               onChange={(e) => setInputValue(e.currentTarget.value)}
+                               onBlur={() => props.submitThunk(input_obj)}
                 />
             </ActionsWrap>
             <LineWrap/>

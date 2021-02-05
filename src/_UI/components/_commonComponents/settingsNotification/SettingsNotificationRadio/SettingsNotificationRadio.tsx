@@ -41,11 +41,11 @@ type PropsType = {
     title?: string,
     subtitle?: string,
     name: string,
-    setEditMode: (value: boolean) => void
+    submitThunk: (value: any) => void
 }
 
 
-const SettingsNotificationRadio: React.FC<PropsType> = ({title, subtitle, name, setEditMode}) => {
+const SettingsNotificationRadio: React.FC<PropsType> = ({title, subtitle, name, submitThunk}) => {
 
     const classes = useStyles()
 
@@ -61,7 +61,12 @@ const SettingsNotificationRadio: React.FC<PropsType> = ({title, subtitle, name, 
                     name={name}
                     control={control}
                     render={({onChange, value}) =>
-                        <RadioGroup value={value} onChange={onChange} onFocus={() => setEditMode(true)}>
+                        <RadioGroup value={value}
+                                    onChange={(event) => {
+                                        onChange(event.currentTarget.value);
+                                        submitThunk({[`${name}`]: event.currentTarget.value === 'yes'})
+                                    }}
+                        >
                             <CommonWrap>
                                 <Radio className={classes.root}
                                        value='yes'

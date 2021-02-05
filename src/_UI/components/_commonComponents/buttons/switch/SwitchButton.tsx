@@ -46,12 +46,13 @@ let useStyles = makeStyles({
 
 export const CustomizedSwitch: React.FC<{
     switch_name: string,
-    setEditMode: (value: boolean) => void
-}> = ({switch_name, setEditMode}) => {
+    submitThunk: (value: any) => void
+}> = ({switch_name, submitThunk}) => {
 
     const classes = useStyles()
 
     const {control} = useFormContext()
+
 
 
     return (
@@ -63,8 +64,10 @@ export const CustomizedSwitch: React.FC<{
                 {onChange, value, ref}
             ) =>
                 <Switch
-                    onChange={(e) => onChange(e.target.checked)}
-                    onFocus={() => setEditMode(true)}
+                    onChange={(e) => {
+                        onChange(e.target.checked);
+                        submitThunk({[`${switch_name}`]: e.target.checked})
+                    }}
                     checked={value}
                     inputRef={ref}
                     focusVisibleClassName={classes.focusVisible}

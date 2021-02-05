@@ -61,7 +61,7 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
     const [errorMatch, setError] = useState('')
     let matchPasswords = (value: string) => {
         let pass = getValues('password')
-        console.log(value)
+
         if (value !== pass) {
             setError("Passwords don't match!")
         } else {
@@ -81,7 +81,7 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
                 <FillOuter>
                     <Label>Roles</Label>
                     <TextWrap style={{textTransform: "capitalize"}}>
-                        {checkedUser?.roles}
+                        {checkedUser?.roles.map((r: any, index: number) => <span key={index}>{r}{' '}</span>)}
                     </TextWrap>
                 </FillOuter>
             </FullfilledWrap>

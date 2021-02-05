@@ -45,7 +45,7 @@ const AssignAgentPopup:React.FC<PropsType> = ({setAssignAgent, agents, setAgentF
                             return (
                                 <UserRow>
                                 <UserRowInfo>
-                                    <UserPhoto><img src={a.photo ? a.photo : user} alt=""/></UserPhoto>
+                                    <UserPhoto><img src={a.photo ? a.photo : user} alt=''/></UserPhoto>
                                     <UserInfo>
                                         <UserName>{a.first_name + ' ' + a.last_name}</UserName>
                                         <UserRole>{a.roles.find(r => r === 'agent')}</UserRole>

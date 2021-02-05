@@ -15,17 +15,17 @@ export const manualPolyline = (typeTransportation: string, processType: string, 
 
     //offset for current icon position
     let offsetHelper = () => {
-        if(passedDaysFromStart > 0 && passedDaysFromStart < shipment_duration) {
+        if (passedDaysFromStart > 0 && passedDaysFromStart < shipment_duration) {
             return (((passedDaysFromStart / shipment_duration) * 100).toFixed(0) + '%')
         }
-        if(passedDaysFromStart < 0) {
+        if (passedDaysFromStart < 0) {
             return '0%'
-        } else if(passedDaysFromStart >= shipment_duration){
+        } else if (passedDaysFromStart >= shipment_duration) {
             return '100%'
         } else return '0%'
     }
     let offset = offsetHelper()
-    console.log(offset)
+
 
     const iconTransportation = typeTransportation === "sea" ?
         [{
@@ -37,7 +37,7 @@ export const manualPolyline = (typeTransportation: string, processType: string, 
                 fillColor: "white",
                 fillOpacity: 1,
             },
-            fixedRotation:true,
+            fixedRotation: true,
             offset: offset,
         }] : typeTransportation === "air" ?
             [{
@@ -49,7 +49,7 @@ export const manualPolyline = (typeTransportation: string, processType: string, 
                     fillColor: "white",
                     fillOpacity: 1,
                 },
-                fixedRotation:true,
+                fixedRotation: true,
                 offset: offset,
             }] : []
     return [
@@ -79,7 +79,7 @@ export const manualPolyline = (typeTransportation: string, processType: string, 
                 path: "M9 -1C9 4.52285 4.52285 9 -1 9C-6.52285 9 -11 4.52285 -11 -1C-11 -6.52285 -6.52285 -11 -1 -11C4.52285 -11 9 -6.52285 9 -1Z",
                 strokeColor: "#FFFFFF",
             },
-            fixedRotation:true,
+            fixedRotation: true,
             offset: offset,
         },
         {
@@ -90,7 +90,7 @@ export const manualPolyline = (typeTransportation: string, processType: string, 
                 fillColor: processType === "export" ? "#115B86" : processType === "import" ? "#86111F" : "#115B86",
                 fillOpacity: 1,
             },
-            fixedRotation:true,
+            fixedRotation: true,
             offset: offset,
         },
         ...iconTransportation

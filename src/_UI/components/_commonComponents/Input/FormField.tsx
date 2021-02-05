@@ -56,7 +56,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         defaultValue={props.defaultValue}
         disabled={props.disabled}
         background={props.background}
-        step='0.0001'
+        step='0.01'
       />
         {props.booking_process && <AgentComment>For shipment tracking purposes, won’t be shown to the client.</AgentComment>}
         {error?.type === "required" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}

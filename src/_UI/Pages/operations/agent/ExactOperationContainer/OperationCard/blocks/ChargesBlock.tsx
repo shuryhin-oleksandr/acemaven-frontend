@@ -53,10 +53,11 @@ const useStyles = makeStyles({
 
 type PropsType = {
     operation_charges: CostBookingType | null,
-    number_of_docs: number | null
+    number_of_docs: number | null,
+    charges_today_exchange: { total_today: number, "EUR exchange rate"?: number, "USD exchange rate"?: number} | null | undefined
 }
 
-const ChargesBlock: React.FC<PropsType> = ({operation_charges, number_of_docs}) => {
+const ChargesBlock: React.FC<PropsType> = ({operation_charges, number_of_docs, charges_today_exchange}) => {
 
     const classes = useStyles();
 
@@ -165,26 +166,36 @@ const ChargesBlock: React.FC<PropsType> = ({operation_charges, number_of_docs}) 
                         }
                     </TotalValue>
                 </TotalLine>
-                {/*<TotalLine>
-                    <TotalName>
-                       ??? Today’s USD EXCHANGE RATE ???
-                    </TotalName>
-                    <TotalValue>
-                        5.02
-                    </TotalValue>
-                </TotalLine>
+                {charges_today_exchange?.["USD exchange rate"] &&
                 <TotalLine>
                     <TotalName>
-                        ??? Total Today ???
+                        Today’s USD EXCHANGE RATE
                     </TotalName>
                     <TotalValue>
-                       ?? 7100 ??
+                        {charges_today_exchange?.["USD exchange rate"]}
                     </TotalValue>
-                </TotalLine>*/}
-                {/*<TotalLine>
-                    <TotalName>ACEMAVEN SERVICE FEE: IN {calculation?.service_fee?.currency}</TotalName>
-                    <TotalValue>{calculation?.service_fee?.cost}</TotalValue>
-                </TotalLine>*/}
+                </TotalLine>
+                }
+                {charges_today_exchange?.["EUR exchange rate"] &&
+                <TotalLine>
+                    <TotalName>
+                        Today’s EUR EXCHANGE RATE
+                    </TotalName>
+                    <TotalValue>
+                        {charges_today_exchange?.["EUR exchange rate"]}
+                    </TotalValue>
+                </TotalLine>
+                }
+                {charges_today_exchange?.total_today && Object.keys(charges_today_exchange.total_today).length > 0 &&
+                <TotalLine>
+                    <TotalName font_family='Helvetica Bold, sans-serif'>
+                       Total Today
+                    </TotalName>
+                    <TotalValue font_family='Helvetica Bold, sans-serif'>
+                        {charges_today_exchange?.total_today}
+                    </TotalValue>
+                </TotalLine>
+                    }
             </TableTotal>
         </HiddenWrapper>
     )

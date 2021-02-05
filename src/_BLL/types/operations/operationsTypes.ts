@@ -5,6 +5,7 @@ import {CostBookingType, ShipperType} from "../bookingTypes";
 export enum AppOperationBookingStatusesType {
     RECEIVED = 'Booking Request Received',
     IN_PROGRESS = 'Booking Request in Progress',
+    REJECTED = "Booking Request Rejected",
     CONFIRMED = 'Booking Confirmed',
     CANCELED_BY_CLIENT = 'Operation Canceled by Client',
     CANCELLED_BY_AGENT = 'Operation Canceled by Agent',
@@ -190,6 +191,11 @@ export type OperationType = {
     agent_bank_account?: AgentBankAccountType
     shipper?: ShipperType,
     charges?: CostBookingType,
+    charges_today?: {
+        total_today: number,
+        "EUR exchange rate"?: number,
+        "USD exchange rate"?: number,
+    } | null,
     client_contact_person?: string,
     client?: string,
     shipment_details?: ShipmentDetailsType[],

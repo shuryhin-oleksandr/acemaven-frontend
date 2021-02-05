@@ -1,4 +1,26 @@
 import React, {useEffect, useState} from 'react'
+//moment js
+import moment from "moment";
+//react-redux
+import {useDispatch} from "react-redux";
+//BLL
+import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
+import {addNewSurcharge} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+//types
+import {ShippingModeType, CurrentShippingType} from 'src/_BLL/types/rates&surcharges/newSurchargesTypes';
+import {
+    AdditionalSurchargeType,
+    CarrierType,
+    ContainerType,
+    PortType
+} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+//components
+import OptionsDeliveryButtons
+    from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
+import SurchargeForm from "./SurchargeForm";
+import UsageFees from "./tables/UsageFees";
+import Additional from './tables/Additional';
+//styles
 import {
     ActionsWrapper,
     Cancel, ErrorChargesServerMessage,
@@ -8,24 +30,7 @@ import {
     Outer,
     RegisterButton
 } from './form-styles';
-import OptionsDeliveryButtons
-    from "../../../../components/_commonComponents/optionsButtons/delivery/OptionsDeliveryButtons";
-import {ShippingModeType, CurrentShippingType} from 'src/_BLL/types/rates&surcharges/newSurchargesTypes';
-import SurchargeForm from "./SurchargeForm";
-import UsageFees from "./tables/UsageFees";
-import Additional from './tables/Additional';
-import {
-    AdditionalSurchargeType,
-    CarrierType,
-    ContainerType,
-    PortType
-} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import moment from "moment";
-import {addNewSurcharge} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
-import {useDispatch} from "react-redux";
 import {UnderTitle} from "../../rates/register_new_freight_rate/form-styles";
-import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
-
 
 
 type PropsType = {
@@ -37,14 +42,14 @@ type PropsType = {
     getValues: any
     setValue: (name: string, value: string | number) => void
     closeRegisterForm: () => void
-    carrierOptions:  CarrierType[] | null
-    shippingModeOptions:  ShippingModeType[]
+    carrierOptions: CarrierType[] | null
+    shippingModeOptions: ShippingModeType[]
     shippingValue: number
     setShippingValue: (shippingModeId: number) => void
     ports: Array<PortType> | null
     locationChangeHandler: (currentTarget: HTMLInputElement) => void
     getDisabledSurchargesDates: (portName: string, portId: number) => void
-    usageFees:  ContainerType[]
+    usageFees: ContainerType[]
     additionalTableName: string
     additionalType: string
     additional: AdditionalSurchargeType[]
@@ -55,7 +60,6 @@ type PropsType = {
     location_id: number,
     adding_error: string[]
 }
-
 
 
 const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
@@ -70,42 +74,48 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
     const dispatch = useDispatch()
 
     const onSubmit = (values: any) => {
-        if(values.from <= values.to) {
+        console.log(values)
+        if (values.from <= values.to) {
             dispatch(surchargeActions.setAddingSurchargeError([]))
 
             //additional charges
             let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
             let additional_charges_array = charges_array.map(a => {
-              if(a.charge && a.conditions) {
+                if (a.charge && a.conditions) {
                     return {
                         additional_surcharge: a.additional_surcharge,
                         charge: a.charge,
                         conditions: a.conditions,
                         currency: a.currency
                     }
-                } else if(!a.charge && a.conditions) {
-                   return {
-                       additional_surcharge: a.additional_surcharge,
-                       conditions: a.conditions,
-                       currency: a.currency
-                   }
-                } else if(!a.charge && !a.conditions) {
-                  return {
-                      additional_surcharge: a.additional_surcharge,
-                      currency: a.currency
-                  }
+                } else if (!a.charge && a.conditions) {
+                    return {
+                        additional_surcharge: a.additional_surcharge,
+                        conditions: a.conditions,
+                        currency: a.currency
+                    }
+                } else if (!a.charge && !a.conditions) {
+                    return {
+                        additional_surcharge: a.additional_surcharge,
+                        currency: a.currency
+                    }
                 } else {
-                  return a
+                    return a
                 }
             })
 
             //handling containers & packaging charges
             let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
-            let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
+            let usageFees_array = fees_array?.map(f => f.charge && {
+                    container_type: f.container_type,
+                    currency: f.currency,
+                    charge: f.charge
+                }
                 || !f.charge && {container_type: f.container_type, currency: f.currency}
             )
 
-            let data = {carrier: values.carrier,
+            let data = {
+                carrier: values.carrier,
                 direction: values.direction,
                 shipping_mode: values.shipping_mode,
                 start_date: moment(values.from).format('DD/MM/YYYY'),
@@ -115,7 +125,8 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                 location: location_id
             }
 
-            let data_without_fees = {start_date: moment(values.from).format('DD/MM/YYYY'),
+            let data_without_fees = {
+                start_date: moment(values.from).format('DD/MM/YYYY'),
                 expiration_date: moment(values.to).format('DD/MM/YYYY'),
                 carrier: values.carrier,
                 direction: values.direction,
@@ -130,11 +141,11 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
         }
     }
     useEffect(() => {
-        if(adding_success) {
+        if (adding_success) {
             closeRegisterForm()
         }
     }, [adding_success])
-    
+
 
     return (
         <Outer onSubmit={handleSubmit(onSubmit)}>
@@ -180,27 +191,27 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
             {
                 !!shippingValue
                     ? <>
-                    {
-                        usageFees.length > 0 && <UsageFees
-                        control={control}
-                        usageFees={usageFees}
-                        tableName={additionalTableName}
-                        type={additionalType}
-                        setValue={setValue}
-                    />
-                    }
-                    {
-                        additional.length > 0 &&
-                        <Additional
-                            control={control}
-                            shippingMode={shippingValue}
-                            charges={additional}
-                            setValue={setValue}
-                            errors={errors}
-                        />
+                        {
+                            usageFees.length > 0 && <UsageFees
+                                control={control}
+                                usageFees={usageFees}
+                                tableName={additionalTableName}
+                                type={additionalType}
+                                setValue={setValue}
+                            />
+                        }
+                        {
+                            additional.length > 0 &&
+                            <Additional
+                                control={control}
+                                shippingMode={shippingValue}
+                                charges={additional}
+                                setValue={setValue}
+                                errors={errors}
+                            />
 
-                    }
-                </>
+                        }
+                    </>
                     : <UnderTitle>
                         Please, complete the parameters of the surcharge for the value fields
                         to appear

@@ -1,20 +1,28 @@
-import React, {useState} from 'react'
-import {HandlingSurchargeContainer, HandlingTitle} from "../../surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+import React from 'react'
+//react-hook-form
+import {Controller} from "react-hook-form";
+//material ui
 import TableContainer from "@material-ui/core/TableContainer";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
-import {Controller} from "react-hook-form";
-import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
-import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
-import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//types
 import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+//helpers
 import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+//components
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+//styles
 import styled from "styled-components";
-
+import {
+    HandlingSurchargeContainer,
+    HandlingTitle
+} from "../../surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
 
 
 const useStyles = makeStyles({
@@ -52,21 +60,21 @@ type PropsType = {
     setValue: any
 }
 
-const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, setValue}) => {
+const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, setValue}) => {
 
     const classes = useStyles()
 
-    const [awareMessage, setAware] = useState(true)
-    const [charge_value, setChargeValue] = useState('')
-    let onChange = (e: any, id: string) => {
-        if(e.currentTarget.value === '0') {
-            setChargeValue(id)
-            setAware(true)
-            setValue(`usage_fees.${id}.charge`, e.currentTarget.value)
-        } else {
-            setValue(`usage_fees.${id}.charge`, e.currentTarget.value)
-        }
-    }
+    // const [awareMessage, setAware] = useState(true)
+    // const [charge_value, setChargeValue] = useState('')
+    // let onChange = (e: any, id: string) => {
+    //     if(e.currentTarget.value === '0') {
+    //         setChargeValue(id)
+    //         setAware(true)
+    //         setValue(`usage_fees.${id}.charge`, e.currentTarget.value)
+    //     } else {
+    //         setValue(`usage_fees.${id}.charge`, e.currentTarget.value)
+    //     }
+    // }
 
     return (
         <HandlingSurchargeContainer max_height='400px'>
@@ -90,61 +98,62 @@ const UsageFees: React.FC<PropsType> = ({ control, usageFees, tableName, type, s
                         <TableBody>
                             {
                                 usageFees?.map((fees) => (
-                                <TableRow key={fees.id}>
-                                    <Controller
-                                        name={`usage_fees.${fees.id}.container_type`}
-                                        control={control}
-                                        defaultValue={fees.id}
-                                        as={
-                                            <TableCell
-                                                className={classes.innerCell}
-                                                component="th"
-                                                scope="row"
-                                            >
-                                                {fees.code}
-                                            </TableCell>
-                                        }
-                                    />
-                                    <TableCell className={classes.innerCell} align="left">
+                                    <TableRow key={fees.id}>
                                         <Controller
-                                            name={`usage_fees.${fees.id}.currency`}
+                                            name={`usage_fees.${fees.id}.container_type`}
                                             control={control}
-                                            defaultValue={currency[0].id}
+                                            defaultValue={fees.id}
                                             as={
-                                                <SurchargeRateSelect
-                                                    options={currency}
-                                                    placeholder="Currency"
-                                                    max_width="80px"
-                                                />
+                                                <TableCell
+                                                    className={classes.innerCell}
+                                                    component="th"
+                                                    scope="row"
+                                                >
+                                                    {fees.code}
+                                                </TableCell>
                                             }
                                         />
-                                    </TableCell>
-                                    <TableCell className={classes.innerCell} align="left">
-                                        <Controller
-                                            control={control}
-                                            name={`usage_fees.${fees.id}.charge`}
-                                            defaultValue=''
-                                            rules={{
-                                                maxLength: 15
-                                            }}
-                                            as={
-                                                <div style={{position: 'relative'}}>
-                                                <Field max_width="100px"
-                                                       marginBottom="0"
-                                                       onChange={(e) => onChange(e, String(fees.id))}
-                                                       onBlur={() => setAware(false)}
-                                                       placeholder='0.00$'
-                                                       type='number'
+                                        <TableCell className={classes.innerCell} align="left">
+                                            <Controller
+                                                name={`usage_fees.${fees.id}.currency`}
+                                                control={control}
+                                                defaultValue={currency[0].id}
+                                                as={
+                                                    <SurchargeRateSelect
+                                                        options={currency}
+                                                        placeholder="Currency"
+                                                        max_width="80px"
+                                                    />
+                                                }
+                                            />
+                                        </TableCell>
+                                        <TableCell className={classes.innerCell} align="left">
+                                            <div style={{position: 'relative'}}>
+                                                <Controller
+                                                    control={control}
+                                                    name={`usage_fees.${fees.id}.charge`}
+                                                    defaultValue=''
+                                                    rules={{
+                                                        maxLength: 15
+                                                    }}
+                                                    as={
+                                                        <Field max_width="100px"
+                                                               marginBottom="0"
+                                                            //onChange={(e) => onChange(e, String(fees.id))}
+                                                            //onBlur={() => setAware(false)}
+                                                               placeholder='0.00$'
+                                                               type='number'
+                                                               step='0.01'
+                                                        />
+                                                    }
                                                 />
-                                                    {awareMessage && String(fees.id) === charge_value
-                                                    && <SpanAware><Title>You are setting this surcharge as $0,
-                                                        please double check before saving.</Title></SpanAware>}
-                                                </div>
-                                            }
-                                        />
-                                    </TableCell>
-                                </TableRow>
-                            ))
+                                                {/*{awareMessage && String(fees.id) === charge_value*/}
+                                                {/*&& <SpanAware><Title>You are setting this surcharge as $0,*/}
+                                                {/*    please double check before saving.</Title></SpanAware>}*/}
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
                             }
                         </TableBody>
                     </Table>

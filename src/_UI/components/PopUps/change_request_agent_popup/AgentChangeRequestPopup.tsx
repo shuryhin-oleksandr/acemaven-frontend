@@ -37,7 +37,11 @@ const AgentChangeRequestPopup: React.FC<PropsType> = ({setChangeRequestPopup, op
                         The client has requested the following changes
                     </ChangeRequestTitle>
                     <ChangedInfoBlock operation_info={operation_info ? operation_info : null}/>
-                    {operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST &&
+                    {(
+                        (operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST) ||
+                        (operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT)
+                    )
+                    &&
                     <ChangeRequestForm operation_info={operation_info ? operation_info : null}
                     />
                     }

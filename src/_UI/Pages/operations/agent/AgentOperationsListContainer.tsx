@@ -49,7 +49,6 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
 
     // SEA
     let events = [...autoTrackWithEventsHelper(props.operations_list), ...manualTrackWithEventsHelper(props.operations_list)]
-    console.log('sea', events)
 
     //AIR
     let air_events = [...autoTrackWithEventsHelper(props.operations_list), ...manualTrackWithEventsHelper(props.operations_list)]

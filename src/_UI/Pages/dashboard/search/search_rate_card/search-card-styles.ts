@@ -30,7 +30,7 @@ padding: 100px 0;
 `
 
 export const CardContainer = styled.div<{bookingPopupVisible?: boolean}>`
-  max-width: 800px;
+  max-width: 900px;
   min-width: 500px;
   width: 100%;
   border: 1px solid #7c7c89;
@@ -207,9 +207,9 @@ export const TotalLine = styled.div`
   justify-content: flex-end;
   margin-bottom: 7px;
 `;
-export const TotalName = styled.div`
+export const TotalName = styled.div<{font_family?: string}>`
   color: #333333;
-  font-family: "Helvetica Light", sans-serif;
+  font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Light, sans-serif'} ;
   font-size: 14px;
   line-height: 16.5px;
   margin-right: 120px;
@@ -218,9 +218,9 @@ export const TotalName = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-export const TotalValue = styled.div`
+export const TotalValue = styled.div<{font_family?: string}>`
   color: #333333;
-  font-family: "Helvetica Light", sans-serif;
+  font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Light, sans-serif'} ;
   font-size: 14px;
   line-height: 16.5px;
   width: 10%;

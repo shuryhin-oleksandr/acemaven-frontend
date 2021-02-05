@@ -34,6 +34,7 @@ import {
   DocumentationCol,
 } from "../client-popup-styles";
 import { Field } from "../../../_commonComponents/Input/input-styles";
+import {getCargoGroupsListSelector} from "../../../../../_BLL/selectors/search/searchClientSelector";
 
 
 type PropsType = {
@@ -60,8 +61,7 @@ const CargoDetails: React.FC<PropsType> = ({
     (state: AppStateType) => state.booking.current_booking_cargo_groups
   );
 
-  const other_cargo_groups = useSelector(
-      (state: AppStateType) => state.booking.current_booking_cargo_groups) //useSelector(getCargoGroupsListSelector);
+  const other_cargo_groups = useSelector(getCargoGroupsListSelector);
 
   const cargo_groups = !quotes_mode
       ? (shippingValue === ShippingModeEnum.FCL) ? fcl_cargo_groups : other_cargo_groups

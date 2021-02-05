@@ -109,6 +109,7 @@ const BookingCard: React.FC<PropsType> = ({button_display, showTable, isTableSho
                     e.stopPropagation();
                     search_result && dispatch(bookingActions.set_current_booking_freight_rate_id(search_result.freight_rate.id));
                     search_result && dispatch(bookingActions.set_current_booking_freight_rate(search_result));
+                    //search_result && dispatch(bookingActions.set_current_booking_cargo_groups(search_result.cargo_groups))
                     setBookingPopupVisible && setBookingPopupVisible(true);
                     setWidgetsVisible && setWidgetsVisible(false);
                 }} button_display={button_display}>

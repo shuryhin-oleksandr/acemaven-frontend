@@ -86,29 +86,22 @@ const ExactOperationContainer = ({...props}) => {
 
 //handlers
     const closeHandler = () => {
-        debugger
-        if (operation_info?.status === AppOperationBookingStatusesType.CANCELED_BY_CLIENT) {
-            history.push("/operations_cancelled")
-        }
-        if (operation_info?.status === AppOperationBookingStatusesType.CANCELLED_BY_AGENT) {
-            history.push("/operations_cancelled")
-        }
-        if (operation_info?.status === AppOperationBookingStatusesType.CANCELLED_BY_SYSTEM) {
+        if ((operation_info?.status === AppOperationBookingStatusesType.CANCELLED_BY_SYSTEM) ||
+            (operation_info?.status === AppOperationBookingStatusesType.REJECTED) ||
+            (operation_info?.status === AppOperationBookingStatusesType.CANCELLED_BY_AGENT) ||
+            operation_info?.status === AppOperationBookingStatusesType.CANCELED_BY_CLIENT) {
             history.push("/operations_cancelled")
         }
         if (operation_info?.status === AppOperationBookingStatusesType.COMPLETED) {
             history.push("/operations_completed")
         }
-        if ((operation_info?.status === AppOperationBookingStatusesType.IN_PROGRESS) || (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED
-        ) || (operation_info?.status === AppOperationBookingStatusesType.RECEIVED)) {
-            history.push("/operations_active")
-        }
-        if ((operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST) || (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
-        )) {
-            history.push("/operations_active")
-        }
-        if ((operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT) || (operation_info?.status === AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS
-        )) {
+        if ((operation_info?.status === AppOperationBookingStatusesType.IN_PROGRESS) ||
+            (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED) ||
+            (operation_info?.status === AppOperationBookingStatusesType.RECEIVED) ||
+            (operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST) ||
+            (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST) ||
+            (operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT) ||
+            (operation_info?.status === AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS)) {
             history.push("/operations_active")
         }
     }

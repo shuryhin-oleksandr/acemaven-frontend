@@ -119,6 +119,7 @@ const OperationCard: React.FC<PropsType> = ({
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_AGENT
                         && operation_info?.status !== AppOperationBookingStatusesType.CANCELLED_BY_SYSTEM
+                        && operation_info?.status !== AppOperationBookingStatusesType.REJECTED
                         &&
                         <ActionsButtonsBlock agent_contact_name={props.agent_contact_name}
                                              client_contact_name={props.client_contact_name}
@@ -191,6 +192,7 @@ const OperationCard: React.FC<PropsType> = ({
                     }
                     <ChargesBlock operation_charges={operation_info?.charges ? operation_info?.charges : null}
                                   number_of_docs={operation_info?.number_of_documents}
+                                  charges_today_exchange={operation_info?.charges_today}
                     />
                 </SectionWrapper>
                 {(operation_info?.shipment_details &&

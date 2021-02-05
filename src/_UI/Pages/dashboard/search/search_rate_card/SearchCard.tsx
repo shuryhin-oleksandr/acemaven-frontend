@@ -137,21 +137,25 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                                                 <TableCell className={classes.innerCell} align="left">
                                                     <div>FREIGHT</div>
                                                     <div>HANDLING</div>
+                                                    {s.cold && <div>COLD</div>}
                                                     <div>OTHERS</div>
                                                 </TableCell>
                                                 <TableCell className={classes.innerCell} align="left">
                                                     <div>{s.freight.currency}</div>
                                                     <div>{s.handling.currency}</div>
+                                                    {s.cold && <div>{s.cold.currency}</div>}
                                                     <div>{s.other.currency}</div>
                                                 </TableCell>
                                                 <TableCell className={classes.innerCell} align="right">
                                                     <div>{s.freight.cost}</div>
                                                     <div>{s.handling.cost}</div>
+                                                    {s.cold && <div>{s.cold.cost}</div>}
                                                     <div>{s.other.cost}</div>
                                                 </TableCell>
                                                 <TableCell className={classes.innerCell} align="right">
                                                     <div>{s.freight.subtotal}</div>
                                                     <div>{s.handling.subtotal}</div>
+                                                    {s.cold && <div>{s.cold.subtotal}</div>}
                                                     <div>{s.other.subtotal}</div>
                                                 </TableCell>
                                             </TableRow>

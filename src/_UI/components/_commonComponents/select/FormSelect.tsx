@@ -14,9 +14,10 @@ type IProps = {
   placeholder?: string;
   callback?: (value: any) => void;
   maxW?: string;
+  disabled?: boolean;
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((disabled) => ({
   formControl: {
     width: "100%",
     marginBottom: "15px",
@@ -109,7 +110,13 @@ const FormSelect: React.FC<IProps> = ({ label, error, ...props }) => {
               key={o.name ? o.name : o.id}
               value={o.value ? o.value : o.id}
             >
-              {o.name ? o.name : (o.title ? o.title : (o.description ? o.description : o.code))}
+              {o.name
+                ? o.name
+                : o.title
+                ? o.title
+                : o.description
+                ? o.description
+                : o.code}
             </MenuItem>
           ))}
         </Select>

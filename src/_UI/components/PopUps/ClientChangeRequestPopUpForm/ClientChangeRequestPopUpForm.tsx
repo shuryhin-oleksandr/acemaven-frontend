@@ -11,7 +11,9 @@ type PropsTypes = {
   operation_info: OperationType;
   group?: CargoGroupQuoteType;
   reCalcOnGroupsAmountChange: any;
+  reCalcOnVolumeChange: any;
   setEditableGroupIndex: (value: number) => void;
+  editGroupAndRecalculate: any;
 };
 
 const ClientChangeRequestPopUpForm: React.FC<PropsTypes> = ({
@@ -19,7 +21,9 @@ const ClientChangeRequestPopUpForm: React.FC<PropsTypes> = ({
   operation_info,
   group,
   reCalcOnGroupsAmountChange,
+  reCalcOnVolumeChange,
   setEditableGroupIndex,
+  editGroupAndRecalculate,
 }) => {
   return (
     <PopupContainer>
@@ -38,8 +42,10 @@ const ClientChangeRequestPopUpForm: React.FC<PropsTypes> = ({
           shipping_mode={operation_info.freight_rate.shipping_mode.id}
           shipping_type={operation_info.shipping_type}
           reCalcOnGroupsAmountChange={reCalcOnGroupsAmountChange}
+          reCalcOnVolumeChange={reCalcOnVolumeChange}
           group={group}
           setEditableGroupIndex={setEditableGroupIndex}
+          editGroupAndRecalculate={editGroupAndRecalculate}
         />
       </PopupContent>
     </PopupContainer>

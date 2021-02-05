@@ -53,8 +53,10 @@ type PropsType = {
   shipping_mode: number;
   shipping_type: string;
   reCalcOnGroupsAmountChange: any;
+  reCalcOnVolumeChange: any;
   group?: CargoGroupQuoteType;
   setEditableGroupIndex: (value: number) => void;
+  editGroupAndRecalculate: any;
 };
 
 const AddingGroupsForm: React.FC<PropsType> = ({
@@ -64,6 +66,8 @@ const AddingGroupsForm: React.FC<PropsType> = ({
   reCalcOnGroupsAmountChange,
   group,
   setEditableGroupIndex,
+  reCalcOnVolumeChange,
+  editGroupAndRecalculate,
 }) => {
   const [selectedValueWeight, setSelectedValueWeight] = React.useState(
     group ? group?.weight_measurement : "t"
@@ -118,13 +122,18 @@ const AddingGroupsForm: React.FC<PropsType> = ({
   }, [setValue, group]);
 
   const onSubmit = (values: any) => {
-    dispatch(
-      calculateAdditionalCargoGroup(
-        { ...values, shipping_type: shipping_type },
-        shipping_mode,
-        reCalcOnGroupsAmountChange
-      )
-    );
+    if (group) {
+      const edited_group = { ...group, ...values };
+      editGroupAndRecalculate(edited_group);
+    } else {
+      dispatch(
+        calculateAdditionalCargoGroup(
+          { ...values, shipping_type: shipping_type },
+          shipping_mode,
+          reCalcOnGroupsAmountChange
+        )
+      );
+    }
     setAddGroupMode(false);
     setEditableGroupIndex(-1);
   };
@@ -172,6 +181,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                     placeholder="Placeholder"
                     maxW="140px"
                     options={container_types_air}
+                    disabled={true}
                   />
                 }
               />
@@ -194,14 +204,6 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 }
               />
             )}
-            {/*<Controller*/}
-            {/*  name="volume"*/}
-            {/*  control={control}*/}
-            {/*  rules={{*/}
-            {/*    required: "Field is required",*/}
-            {/*  }}*/}
-            {/*  as={*/}
-            {/*    <div>*/}
             <FormField
               name="volume"
               inputRef={register({
@@ -213,16 +215,6 @@ const AddingGroupsForm: React.FC<PropsType> = ({
               disabled={shipping_mode == 2}
               type="number"
             />
-            {/*    </div>*/}
-            {/*  }*/}
-            {/*/>*/}
-            {/*<Controller*/}
-            {/*  name="weight"*/}
-            {/*  control={control}*/}
-            {/*  rules={{*/}
-            {/*    required: "Field is required",*/}
-            {/*  }}*/}
-            {/*  as={*/}
             <WeightWrapper>
               <WeightIcon>
                 <img src={weight} alt="" />
@@ -241,8 +233,6 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 type="number"
               />
             </WeightWrapper>
-            {/*}*/}
-            {/*/>*/}
             <Controller
               name="weight_measurement"
               control={control}
@@ -278,13 +268,6 @@ const AddingGroupsForm: React.FC<PropsType> = ({
             />
           </FormRow>
           <FormRow>
-            {/*<Controller*/}
-            {/*  name="height"*/}
-            {/*  control={control}*/}
-            {/*  rules={{*/}
-            {/*    required: "Field is required",*/}
-            {/*  }}*/}
-            {/*  as={*/}
             <WeightWrapper>
               <WeightIcon>
                 <img src={height} alt="" />
@@ -303,15 +286,6 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 type="number"
               />
             </WeightWrapper>
-            {/*  }*/}
-            {/*/>*/}
-            {/*<Controller*/}
-            {/*  name="length"*/}
-            {/*  control={control}*/}
-            {/*  rules={{*/}
-            {/*    required: "Field is required",*/}
-            {/*  }}*/}
-            {/*  as={*/}
             <WeightWrapper>
               <WeightIcon>
                 <img src={length} alt="" />
@@ -330,15 +304,6 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 type="number"
               />
             </WeightWrapper>
-            {/*  }*/}
-            {/*/>*/}
-            {/*<Controller*/}
-            {/*  name="width"*/}
-            {/*  control={control}*/}
-            {/*  rules={{*/}
-            {/*    required: "Field is required",*/}
-            {/*  }}*/}
-            {/*  as={*/}
             <WeightWrapper>
               <WeightIcon>
                 <img src={width} alt="" />
@@ -355,8 +320,6 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 type="number"
               />
             </WeightWrapper>
-            {/*  }*/}
-            {/*/>*/}
             <Controller
               name="length_measurement"
               control={control}

@@ -123,7 +123,8 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
       charges: additional_charges_array,
       location: is_local_port?.is_local === true ? is_local_port?.id : destination_port_value?.id
     }
-    usageFees_array !== null ? createNewSurcharge(data) : createNewSurcharge(data_without_fees)
+    usageFees_array ? createNewSurcharge(data) : createNewSurcharge(data_without_fees)
+
   };
 
   useEffect(() => {

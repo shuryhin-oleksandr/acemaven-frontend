@@ -145,7 +145,7 @@ const Rates: React.FC<PropsType> = ({
     return (
         <div>
             <HandlingTitle>RATES</HandlingTitle>
-            <ScrollbarStyled {...{style: {width: 760, height: 320, marginBottom: 20}}}>
+            <ScrollbarStyled {...{style: {width: 850, height: 450, marginBottom: 20}}}>
                 <TableContainer className={classes.container} component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
@@ -242,7 +242,6 @@ const Rates: React.FC<PropsType> = ({
                                                                defaultValue=''
                                                                placeholder='0.00'
                                                                type='number'
-                                                               onChange={(e) => onChange(e, String(0))}
                                                                marginBottom='0px'
                                                                max_width='107px'
 

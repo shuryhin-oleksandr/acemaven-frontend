@@ -24,6 +24,7 @@ import {getCarriers} from "../../../../_BLL/thunks/rates&surcharge/surchargeThun
 import {quotesAgentActions} from "../../../../_BLL/reducers/quotes/quotesAgentReducer";
 //components
 import QuoteCard from "./QuoteCard";
+import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
 
 
 const QuoteCardContainer = ({...props}) => {
@@ -51,7 +52,7 @@ const QuoteCardContainer = ({...props}) => {
     let unmountHandler = () => {
         dispatch(quotesAgentActions.setExactQuoteInfo(null))
         dispatch(quotesAgentActions.setCheckedIsSurchargeExist(''))
-        //dispatch(quotesAgentActions.setExistingRateForQuote(null))
+        dispatch(quotesAgentActions.setExistingRateForQuote(null))
         dispatch(quotesAgentActions.setExistingSurchargeForQuote(null))
     }
 
@@ -81,6 +82,10 @@ const QuoteCardContainer = ({...props}) => {
     //handlers
     const goToTheList = () => {
         history.push('/quotes')
+        dispatch(rateActions.setExistingSurchargeByRate(null))
+        dispatch(quotesAgentActions.setCheckedIsSurchargeExist(''))
+        dispatch(quotesAgentActions.setExistingSurchargeForQuote(null))
+        dispatch(quotesAgentActions.setExistingRateForQuote(null))
     }
 
     return (

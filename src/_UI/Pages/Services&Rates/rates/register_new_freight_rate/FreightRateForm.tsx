@@ -1,22 +1,28 @@
 import React from 'react'
-import {FormWrap, GroupWrap} from "./form-styles";
+//react-hook-form
 import {Controller} from "react-hook-form";
+//react-custom-scrollbars
 import {Scrollbars} from "react-custom-scrollbars";
-import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
-import FormField from "../../../../components/_commonComponents/Input/FormField";
-import {Port, PortsList} from "../../surcharge/register_new_surcharge/form-styles";
+//types
 import {PortType, RateInfoType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import {CarrierType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import {ShippingModeType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+//components
+import SurchargeRateSelect from "../../../../components/_commonComponents/select/SurchargeRateSelect";
+import FormField from "../../../../components/_commonComponents/Input/FormField";
+//styles
+import {FormWrap, GroupWrap} from "./form-styles";
 import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
+import {Port, PortsList} from "../../surcharge/register_new_surcharge/form-styles";
+
 
 type PropsType = {
     control: any
     errors: any
     register: any
     setValue: (name: string, value: string | number) => void
-    carrierOptions:  CarrierType[] | null
-    shippingModeOptions:  ShippingModeType[]
+    carrierOptions: CarrierType[] | null
+    shippingModeOptions: ShippingModeType[]
     shippingValue: number
     setShippingValue: (shippingModeId: number) => void
     origin_ports: Array<PortType> | null
@@ -30,13 +36,15 @@ type PropsType = {
     rate_transit_error: any
 }
 
-const FreightRateForm:React.FC<PropsType> = ({control, errors, register, carrierOptions, shippingModeOptions, getBookedRatesDates,
-                                            setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, rate_transit_error,
-                                             onDestinationChangeHandler, closePortsHandler,  watchResultArr}) => {
+const FreightRateForm: React.FC<PropsType> = ({
+                                                  control, errors, register, carrierOptions, shippingModeOptions, getBookedRatesDates,
+                                                  setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, rate_transit_error,
+                                                  onDestinationChangeHandler, closePortsHandler, watchResultArr
+                                              }) => {
 
     return (
         <FormWrap>
-            <div style={{ display: "flex", width: "100%", borderBottom: '1px solid #115B86', paddingBottom: '35px' }}>
+            <div style={{display: "flex", width: "100%", borderBottom: '1px solid #115B86', paddingBottom: '35px'}}>
                 <GroupWrap>
                     <Controller
                         name="carrier"
@@ -172,9 +180,9 @@ const FreightRateForm:React.FC<PropsType> = ({control, errors, register, carrier
                         disabled={watchResultArr.length < 3}
                     />
                     {rate_transit_error && rate_transit_error.length > 0 &&
-                        <HelperText style={{paddingTop: 0}}>
-                            Value is not valid
-                        </HelperText>}
+                    <HelperText style={{paddingTop: 0}}>
+                        Value is not valid
+                    </HelperText>}
 
                 </GroupWrap>
             </div>

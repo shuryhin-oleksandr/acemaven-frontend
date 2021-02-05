@@ -270,11 +270,11 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                                                     name='carrier'
                                                     defaultValue={''}
                                                     as={
-                                                        <SurchargeRateSelect error={errors?.carrier?.message}
-                                                                             max_width='430px'
-                                                                             placeholder='Carrier company name'
-                                                                             options={props.carrier_list}
-                                                        />
+                                                            <SurchargeRateSelect error={errors?.carrier?.message}
+                                                                                 max_width='430px'
+                                                                                 placeholder='Carrier company name'
+                                                                                 options={props.carrier_list}
+                                                            />
                                                     }
                                                     rules={{
                                                         required: 'Field is required'

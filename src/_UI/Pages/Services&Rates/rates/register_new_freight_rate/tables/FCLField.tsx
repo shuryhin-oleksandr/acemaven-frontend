@@ -1,14 +1,20 @@
 import React, {useState} from 'react'
+//react-hook-rom
 import {Controller} from "react-hook-form";
+//material ui
 import TableCell from "@material-ui/core/TableCell";
-import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
-import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
-import {Field, HelperText} from "../../../../../components/_commonComponents/Input/input-styles";
-import DatesCells from "./DatesCells";
-
-import {SpanAware, Title} from "./Rates";
-import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+//helpers
+import {currency} from "../../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+//types
+import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/ratesTypes";
+//components
+import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
+import DatesCells from "./DatesCells";
+import {SpanAware, Title} from "./Rates";
+//styles
+import {Field, HelperText} from "../../../../../components/_commonComponents/Input/input-styles";
+
 
 type PropsType = {
     fee: ContainerType,
@@ -34,8 +40,10 @@ const useStyles = makeStyles({
     }
 });
 
-const FCLField:React.FC<PropsType> = ({fee, getSurchargeToRateHandle, setValue, errors, control, onChange,
-                                          getValues, required_dates, setAware, awareMessage, rate_value}) => {
+const FCLField: React.FC<PropsType> = ({
+                                           fee, getSurchargeToRateHandle, setValue, errors, control,
+                                           getValues, required_dates,
+                                       }) => {
 
     const classes = useStyles()
     const [invalidDate, setInvalidDate] = useState('')
@@ -71,19 +79,18 @@ const FCLField:React.FC<PropsType> = ({fee, getSurchargeToRateHandle, setValue, 
                 <Controller control={control}
                             name={`rates.${fee.id}.rate`}
                             defaultValue=''
-                            render={({}) => (
+                            as={
                                 <div style={{position: 'relative'}}>
                                     <Field placeholder='0.00$'
                                            max_width='100px'
-                                           onChange={(e) => onChange(e, String(fee.id))}
-                                           onBlur={() => setAware(false)}
                                            type='number'
+                                           step='0.0001'
                                     />
-                                    {awareMessage && String(fee.id) === rate_value
-                                    && <SpanAware><Title>You are setting this freight rate as $0 and only surcharges will apply,
-                                        please double check before saving.</Title></SpanAware>}
+                                    {/*{awareMessage && String(fee.id) === rate_value*/}
+                                    {/*&& <SpanAware><Title>You are setting this freight rate as $0 and only surcharges will apply,*/}
+                                    {/*    please double check before saving.</Title></SpanAware>}*/}
                                 </div>
-                            )
+
                             }
 
                 />

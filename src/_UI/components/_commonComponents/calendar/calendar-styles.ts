@@ -34,11 +34,9 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
     z-index: 2300;
     position: absolute;
     left: auto;
-  //right: ${({picker_right}) => picker_right ? picker_right : '-40px'};
   }
    
    .DayPickerInput-Overlay {
-    //right: ${({picker_right}) => picker_right ? picker_right : '-40px'};
     left: auto;
    }
   

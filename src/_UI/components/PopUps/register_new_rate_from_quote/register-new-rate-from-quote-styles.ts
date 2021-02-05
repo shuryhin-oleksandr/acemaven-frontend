@@ -21,7 +21,8 @@ export const RegisterRateContent = styled.div`
 `
 export const HeaderControllers = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
   padding-bottom: 40px;
   border-bottom: 1px solid #bdbdbd;

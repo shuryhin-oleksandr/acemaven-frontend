@@ -55,7 +55,7 @@ const useStyles = makeStyles({
         fontSize: '16px',
         color: '#1B1B25',
         height: '72px',
-        padding: '0',
+        padding: '0 ',
     },
     innerRow: {
         transition: '.3s',

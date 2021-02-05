@@ -147,7 +147,9 @@ const OperationCard: React.FC<PropsType> = ({
                 />
                 {(operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
                     operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
-                    operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                    operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST ||
+                    operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT ||
+                    operation_info?.status === AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS
                 )
                 && <ShipmentTrackingBlock tracking={operation_info?.tracking}
                                           shipping_type={operation_info?.shipping_type}

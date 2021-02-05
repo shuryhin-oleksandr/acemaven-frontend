@@ -13,7 +13,7 @@ import {ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurc
 import {QuoteType, RateQuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
 import {CarrierType} from "../../../../_BLL/types/rates&surcharges/ratesTypes";
 //BLL
-import { getShippingTypes} from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import {getShippingTypes} from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {addNewSurchargeForRate, registerNewFreightRateThunk} from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
 //components
 import SurchargeRateSelect from "../../_commonComponents/select/SurchargeRateSelect";
@@ -32,7 +32,7 @@ import {
 import {GeneralTitle} from "../../../Pages/quotes/agent/table/agent-quotes-styles";
 //icons
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {SurchargeInfoType} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import AgentSurchargesTable from "../../../Pages/quotes/agent/table/surcharge/AgentSurchargesTable";
 import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
@@ -47,39 +47,40 @@ type PropsType = {
     quote: QuoteType | null,
     carriers: CarrierType[],
     existing_rate_for_quote: RateQuoteType | null,
-    existing_surcharge_for_quote:  SurchargeInfoType | null,
+    existing_surcharge_for_quote: SurchargeInfoType | null,
     setIsTemporaryPopup: (value: boolean) => void,
     save_rate_result: boolean,
     isCheck: boolean,
     setIsCheck: (value: boolean) => void
 }
 
-const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, carrier_field, carriers, quote, existing_rate_for_quote, ...props}) => {
+const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, carrier_field, carriers, quote, existing_rate_for_quote, ...props}) => {
 
     const history = useHistory()
     const {handleSubmit, errors, control, register, setValue} = useForm({
-        reValidateMode: 'onBlur', mode: 'onSubmit'
+        reValidateMode: 'onBlur',
+        mode: 'onSubmit'
     })
     const onSubmit = (values: any) => {
         //temporal surcharge registration
-        if(!props.existing_surcharge_for_quote) {
+        if (!props.existing_surcharge_for_quote) {
             //additional charges
             let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
             let additional_charges_array = charges_array.map(a => {
-                if(a.charge && a.conditions) {
+                if (a.charge && a.conditions) {
                     return {
                         additional_surcharge: a.additional_surcharge,
                         charge: a.charge,
                         conditions: a.conditions,
                         currency: a.currency
                     }
-                } else if(!a.charge && a.conditions) {
+                } else if (!a.charge && a.conditions) {
                     return {
                         additional_surcharge: a.additional_surcharge,
                         conditions: a.conditions,
                         currency: a.currency
                     }
-                } else if(!a.charge && !a.conditions) {
+                } else if (!a.charge && !a.conditions) {
                     return {
                         additional_surcharge: a.additional_surcharge,
                         currency: a.currency
@@ -91,7 +92,11 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
 
             //containers & packaging charges
             let fees_array = values.usage_fees ? Object.keys(values.usage_fees).map(u => (u !== null && values.usage_fees[u])) : null
-            let usageFees_array = fees_array?.map(f => f.charge && {container_type: f.container_type,currency: f.currency, charge: f.charge}
+            let usageFees_array = fees_array?.map(f => f.charge && {
+                    container_type: f.container_type,
+                    currency: f.currency,
+                    charge: f.charge
+                }
                 || !f.charge && {container_type: f.container_type, currency: f.currency}
             )
 
@@ -125,7 +130,13 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
         if (values.rates.length > 1) {
             let full_rates = values.rates.filter((r: any) => r !== null);
             rates_array = full_rates.map((r: any) => (r !== null && r.rate
-                && {container_type: r.container_type, currency: r.currency, rate: r.rate, start_date: quote?.date_from, expiration_date: moment(values.date_to).format('DD/MM/YYYY')})
+                && {
+                    container_type: r.container_type,
+                    currency: r.currency,
+                    rate: r.rate,
+                    start_date: quote?.date_from,
+                    expiration_date: moment(values.date_to).format('DD/MM/YYYY')
+                })
                 || (r !== null && !r.rate && {container_type: r.container_type, currency: r.currency})
             );
             let data = {
@@ -172,9 +183,9 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
     const finded_first = useSelector((state: AppStateType) => state.agent_quotes.finded_first)
 
 
-
-    let quote_containers = quote?.cargo_groups.map(c =>{
-        return {id: c.container_type?.id,
+    let quote_containers = quote?.cargo_groups.map(c => {
+        return {
+            id: c.container_type?.id,
             code: c.container_type?.code,
             shipping_mode: c.container_type?.shipping_mode,
             is_frozen: c.container_type?.is_frozen,
@@ -192,21 +203,33 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
     }, [dispatch])
 
     useEffect(() => {
-        if(existing_rate_for_quote && props.save_rate_result) {
+        if (existing_rate_for_quote && props.save_rate_result) {
             openCreatePopup(false)
         }
     }, [existing_rate_for_quote, props.save_rate_result])
 
-    return(
-            <RegisterRateWrapper onSubmit={handleSubmit(onSubmit)}>
-                <RegisterRateInner>
-                    <IconButton onClick={() => openCreatePopup(false)}
-                                style={{position: 'absolute', top: '20px', right: '20px'}}>
-                        <img src={close_icon} alt=""/>
-                    </IconButton>
-                    <RegisterRateContent>
-                        <HeaderControllers>
-                            <div style={{display: "flex", flexDirection: 'column', maxWidth: '350px', width: '100%',marginRight: '35px'}}>
+    return (
+        <RegisterRateWrapper onSubmit={handleSubmit(onSubmit)}>
+            <RegisterRateInner>
+                <IconButton onClick={() => openCreatePopup(false)}
+                            style={{position: 'absolute', top: '20px', right: '20px'}}>
+                    <img src={close_icon} alt=""/>
+                </IconButton>
+                <RegisterRateContent>
+                    <HeaderControllers>
+                        <div style={{
+                            display: 'flex',
+                            width: '100%',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }}>
+                            <div style={{
+                                display: "flex",
+                                flexDirection: 'column',
+                                maxWidth: '350px',
+                                width: '100%',
+                                marginRight: '35px'
+                            }}>
                                 <GeneralTitle margin_bottom='10px'>CARRIER</GeneralTitle>
                                 <Controller name='carrier'
                                             control={control}
@@ -220,63 +243,81 @@ const RegisterNewRateFromQuotePopup:React.FC<PropsType> = ({openCreatePopup, car
                                                                      error={errors?.carrier?.message}
                                                                      options={carriers}
                                                                      margin_right='35px'
+                                                                     margin_bottom='21px'
                                                 />
                                             }
                                 />
-                                <GeneralCustomCheckbox inputRef={register}
-                                                       name='carrier_disclosure'
-                                                       setValue={setValue}
-                                                       isCheck={props.isCheck}
-                                                       setIsCheck={props.setIsCheck}
-                                                       value={props.isCheck}
-                                                       span_text='I want to disclose the carrier info to the customers'
 
-                                />
                             </div>
-                            <div style={{display: "flex", flexDirection: 'column', maxWidth: '300px', width: '100%',marginRight: '35px'}}>
+                            <div style={{
+                                display: "flex",
+                                flexDirection: 'column',
+                                maxWidth: '300px',
+                                width: '100%',
+                                marginRight: '35px'
+                            }}>
                                 <GeneralTitle margin_bottom='15px'>EXPIRATION DATE</GeneralTitle>
                                 <QuoteAgentExpirationDate control={control}
                                                           setValue={setValue}
                                                           date_to={String(quote?.date_to)}
+                                                          error={errors.date_to}
                                 />
                             </div>
-                            <div style={{display: "flex", flexDirection: 'column', maxWidth: '300px', width: '100%',marginRight: '35px'}}>
+                            <div style={{
+                                display: "flex",
+                                flexDirection: 'column',
+                                maxWidth: '300px',
+                                width: '100%',
+                                marginRight: '35px'
+                            }}>
                                 <GeneralTitle margin_bottom='15px'>TRANSIT TIME</GeneralTitle>
-                                    <FormField name='transit_time'
-                                               error={errors?.transit_time}
-                                               inputRef={register({required: 'Field is required'})}
-                                               marginBottom='25px'
-                                               placeholder='0 days'
-                                    />
+                                <FormField name='transit_time'
+                                           error={errors?.transit_time}
+                                           inputRef={register({required: 'Field is required'})}
+                                           marginBottom='25px'
+                                           placeholder='0 days'
+                                />
                             </div>
-                        </HeaderControllers>
-                        <RatesForQuotesTable usageFees={exact_usageFees ? exact_usageFees : usageFees}
-                                             quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
-                                             control={control}
-                                             register={register}
-                                             setValue={setValue}
-                        />
-                        {props.existing_surcharge_for_quote && finded_first
-                            ? <AgentSurchargesTable surcharges={props.existing_surcharge_for_quote}
-                            />
-                            : <SurchargesForQuotesTables containers={exact_usageFees ? exact_usageFees : usageFees}
-                                                         additional={additional}
-                                                         quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
-                                                         additionalTableName={additionalTableName}
-                                                         additional_type={additionalType}
-                                                         control={control}
-                                                         register={register}
-                                                         setValue={setValue}
-                            />
-                        }
+                        </div>
 
-                        <FormButtonsWrapper>
-                            <FormButton type='submit'>SEND</FormButton>
-                            <FormCancelButton type={'button'} onClick={() => openCreatePopup(false)}>CANCEL</FormCancelButton>
-                        </FormButtonsWrapper>
-                    </RegisterRateContent>
-                </RegisterRateInner>
-            </RegisterRateWrapper>
+                        <GeneralCustomCheckbox inputRef={register}
+                                               name='carrier_disclosure'
+                                               setValue={setValue}
+                                               isCheck={props.isCheck}
+                                               setIsCheck={props.setIsCheck}
+                                               value={props.isCheck}
+                                               span_text='I want to disclose the carrier info to the customers'
+
+                        />
+                    </HeaderControllers>
+                    <RatesForQuotesTable usageFees={exact_usageFees ? exact_usageFees : usageFees}
+                                         quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
+                                         control={control}
+                                         register={register}
+                                         setValue={setValue}
+                    />
+                    {props.existing_surcharge_for_quote && finded_first
+                        ? <AgentSurchargesTable surcharges={props.existing_surcharge_for_quote}
+                        />
+                        : <SurchargesForQuotesTables containers={exact_usageFees ? exact_usageFees : usageFees}
+                                                     additional={additional}
+                                                     quote_shipping_mode_id={Number(quote?.shipping_mode.id)}
+                                                     additionalTableName={additionalTableName}
+                                                     additional_type={additionalType}
+                                                     control={control}
+                                                     register={register}
+                                                     setValue={setValue}
+                        />
+                    }
+
+                    <FormButtonsWrapper>
+                        <FormButton type='submit'>SEND</FormButton>
+                        <FormCancelButton type={'button'}
+                                          onClick={() => openCreatePopup(false)}>CANCEL</FormCancelButton>
+                    </FormButtonsWrapper>
+                </RegisterRateContent>
+            </RegisterRateInner>
+        </RegisterRateWrapper>
     )
 }
 

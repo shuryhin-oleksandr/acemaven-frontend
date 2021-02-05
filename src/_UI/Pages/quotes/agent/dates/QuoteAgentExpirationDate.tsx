@@ -1,12 +1,15 @@
 import React, {useRef, useState} from 'react'
-import { CalendarWrapper} from "../../../../components/_commonComponents/calendar/calendar-styles";
+//react-hook-form
 import {Controller} from "react-hook-form";
+//react-day-picker
 import DayPickerInput from "react-day-picker/DayPickerInput";
-
-import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
+//moment js
+import moment from "moment";
 // @ts-ignore
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
-import moment from "moment";
+//styles
+import {CalendarWrapper} from "../../../../components/_commonComponents/calendar/calendar-styles";
+import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
 
 
 type PropsType = {
@@ -16,12 +19,12 @@ type PropsType = {
     date_to: string
 }
 
-const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,  date_to}) => {
+const QuoteAgentExpirationDate: React.FC<PropsType> = ({control, error, setValue, date_to}) => {
     const toInput = useRef<DayPickerInput>(null)
 
     const [selectedDay, setSelectedDay] = useState<any>({
-        from:  '',
-        to:  ''
+        from: '',
+        to: ''
     })
 
     const handleDayChange = (to: string) => {
@@ -32,8 +35,8 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,
         setValue('date_to', to)
     }
 
-    let a = moment(date_to, 'DD/MM/YYYY').add(14, 'days').calendar();
-    let two_weeks_after = moment(a).toDate()
+    let a = moment(date_to, 'DD/MM/YYYY').add(1, 'days').calendar();
+    let disabled_before = moment(a).toDate()
 
     return (
         <CalendarWrapper max_width='300px' margin_top='0px'
@@ -43,12 +46,12 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,
                 control={control}
                 rules={{
                     required: 'Field is required'
-                 }}
+                }}
                 defaultValue=""
                 as={
                     <DayPickerInput
                         inputProps={{
-                            readOnly:'readonly'
+                            readOnly: 'readonly'
                         }}
                         format='DD/MM/YYYY'
                         placeholder='DD/MM/YYYY'
@@ -59,8 +62,11 @@ const QuoteAgentExpirationDate:React.FC<PropsType> = ({control, error, setValue,
                         // @ts-ignore
                         onDayChange={handleDayChange}
                         ref={toInput}
+                        error={!!error}
                         dayPickerProps={{
-                            disabledDays: [{before: new Date(), after: moment(two_weeks_after, 'DD/MM/YYYY').toDate()}],
+                            disabledDays: [{
+                                before: moment(disabled_before, 'DD/MM/YYYY').toDate()
+                            }],
                         }}
                     />
                 }

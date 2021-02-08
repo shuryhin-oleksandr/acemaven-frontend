@@ -56,6 +56,12 @@ import { changeBooking } from "../../../../_BLL/thunks/booking_client_thunk/book
 import _ from "lodash";
 import { bookingActions } from "../../../../_BLL/reducers/booking/bookingReducer";
 import { ShippingModeEnum } from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import ModalWindow from "../../_commonComponents/ModalWindow/ModalWindow";
+import AcceptPopup from "../accept_booking_popup/AcceptPopup";
+import Layout from "../../BaseLayout/Layout";
+import ClientChangeRequestPopUpForm from "../ClientChangeRequestPopUpForm/ClientChangeRequestPopUpForm";
+import { EditTwoTone } from "@material-ui/icons";
+import BaseTooltip from "../../_commonComponents/baseTooltip/BaseTooltip";
 
 const useStyles = makeStyles({
   container: {
@@ -66,7 +72,8 @@ const useStyles = makeStyles({
   },
   row: {
     "&:hover": {
-      cursor: "pointer",
+      // cursor: "pointer",
+      backgroundColor: "#e9e9ec",
     },
   },
   shipping_cell: {
@@ -85,6 +92,7 @@ const useStyles = makeStyles({
     padding: "0",
     paddingTop: "15px",
     paddingRight: "30px",
+    paddingLeft: "5px",
   },
   innerMainCell: {
     borderBottom: "1px solid #ECECEC",
@@ -102,7 +110,10 @@ const useStyles = makeStyles({
     fontSize: "16px",
     color: "#1B1B25",
     padding: "0",
+    paddingBottom: "7px",
+    paddingTop: "7px",
     paddingRight: "30px",
+    paddingLeft: "5px",
   },
 
   customTooltip: {
@@ -130,6 +141,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
   const classes = useStyles();
   const [dates, setDates] = useState([]);
   const [addGroupMode, setAddGroupMode] = useState(false);
+  const [editableGroupIndex, setEditableGroupIndex] = useState(-1);
 
   useEffect(() => {
     dispatch(getReleaseTypeChoices());
@@ -280,13 +292,12 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
     });
 
     dispatch(clientOperationsActions.setOperationCargoGroups(edited_groups));
-
     let pack_id_groups = edited_groups.map((group) => ({
       ...group,
       container_type: group.container_type?.id,
       packaging_type: group.packaging_type?.id,
     }));
-
+    console.log("pack_id_groups", pack_id_groups);
     dispatch(
       recalculateCharges(
         operation_info.id,
@@ -323,6 +334,36 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
       container_type: group.container_type?.id,
       packaging_type: group.packaging_type?.id,
     }));
+
+    dispatch(
+      recalculateCharges(
+        operation_info.id,
+        {
+          number_of_documents: getValues("number_of_documents"),
+          cargo_groups: pack_id_groups,
+        },
+        Number(operation_info.freight_rate.shipping_mode.id)
+      )
+    );
+  };
+
+  const editGroupAndRecalculate = (data: any) => {
+    const changed_array = cargo_groups.map((gr, idx) => {
+      if (idx === editableGroupIndex) {
+        return data;
+      } else {
+        return gr;
+      }
+    });
+    let pack_id_groups = changed_array.map((group) => {
+      if (group.packaging_type?.hasOwnProperty("id")) {
+        return { ...group, packaging_type: group.packaging_type?.id };
+      } else if (group.container_type?.hasOwnProperty("id")) {
+        return { ...group, container_type: group.container_type?.id };
+      } else {
+        return group;
+      }
+    });
 
     dispatch(
       recalculateCharges(
@@ -482,6 +523,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                               name={`volume.${index}`}
                               defaultValue={c.volume}
                               max_width={"100px"}
+                              marginBottom={"0px"}
                               onBlur={() => {
                                 reCalcOnVolumeChange(
                                   getValues(`volume.${index}`),
@@ -500,23 +542,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                       ) : (
                         <>
                           <TableCell className={classes.innerCell} align="left">
-                            {operation_info.freight_rate.shipping_mode.id ===
-                            ShippingModeEnum.ULD ? (
-                              c.volume
-                            ) : (
-                              <FormField
-                                inputRef={register}
-                                name={`volume.${index}`}
-                                defaultValue={c.volume}
-                                max_width={"100px"}
-                                onBlur={() => {
-                                  reCalcOnVolumeChange(
-                                    getValues(`volume.${index}`),
-                                    index
-                                  );
-                                }}
-                              />
-                            )}
+                            {c.volume}
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
                             {c.total_wm}w/m
@@ -536,6 +562,23 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                           <TableCell className={classes.innerCell} align="left">
                             {c.description}
                           </TableCell>
+                          <TableCell className={classes.innerCell} align="left">
+                            <BaseTooltip title={"Change cargo group"}>
+                              <div
+                                style={{
+                                  cursor: "pointer",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                onClick={() => {
+                                  setEditableGroupIndex(index);
+                                  setAddGroupMode(true);
+                                }}
+                              >
+                                <EditTwoTone />
+                              </div>
+                            </BaseTooltip>
+                          </TableCell>
                         </>
                       )}
                     </TableRow>
@@ -547,8 +590,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
           {operation_info.freight_rate.shipping_mode.id !==
             ShippingModeEnum.FCL &&
             operation_info.freight_rate.shipping_mode.id !==
-              ShippingModeEnum.ULD &&
-            !addGroupMode && (
+              ShippingModeEnum.ULD && (
               <div style={{ marginTop: "15px" }}>
                 <AddImg
                   onClick={() => {
@@ -614,24 +656,22 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
               </div>
             </SectionWrapper>
           )}
-
-          {!addGroupMode && (
-            <ButtonsWrap>
-              <ConfirmButton type="submit">REQUEST</ConfirmButton>
-              <CancelButton onClick={() => setIsOpen(false)}>
-                CANCEL
-              </CancelButton>
-            </ButtonsWrap>
-          )}
+          <ButtonsWrap>
+            <ConfirmButton type="submit">REQUEST</ConfirmButton>
+            <CancelButton onClick={() => setIsOpen(false)}>CANCEL</CancelButton>
+          </ButtonsWrap>
         </form>
-        {addGroupMode && (
-          <AddingGroupsForm
-            setAddGroupMode={setAddGroupMode}
-            shipping_mode={operation_info.freight_rate.shipping_mode.id}
-            shipping_type={operation_info.shipping_type}
+        <ModalWindow isOpen={addGroupMode}>
+          <ClientChangeRequestPopUpForm
+            setIsOpen={setAddGroupMode}
+            operation_info={operation_info}
+            group={cargo_groups[editableGroupIndex]}
             reCalcOnGroupsAmountChange={reCalcOnGroupsAmountChange}
+            reCalcOnVolumeChange={reCalcOnVolumeChange}
+            setEditableGroupIndex={setEditableGroupIndex}
+            editGroupAndRecalculate={editGroupAndRecalculate}
           />
-        )}
+        </ModalWindow>
       </PopupContent>
     </PopupContainer>
   );

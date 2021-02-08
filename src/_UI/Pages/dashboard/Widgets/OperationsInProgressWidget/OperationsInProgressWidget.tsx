@@ -80,7 +80,7 @@ const OperationsInProgressWidget: React.FC = () => {
                                             </div>
                                         </TableCell>
                                         <TableCell className={classes.boldCell} align="left">
-                                            {operation?.shipment_details[0].booking_number}
+                                            {operation?.shipment_details && (operation?.shipment_details.length > 0) && operation?.shipment_details[0].booking_number}
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="left">
                                             {operation?.freight_rate.origin.code} -{' '}

@@ -235,7 +235,9 @@ const ExactOperationContainer = ({...props}) => {
             </ModalWindow>
             {isChatOpen
                 ? <ChatContainer
-                    chat_id={company_type && (company_type?.type === "agent") ? agent_operation_info?.chat : client_operation_info?.chat}/>
+                    chat={company_type && (company_type?.type === "agent")
+                        ? agent_operation_info?.chat :
+                        client_operation_info?.chat}/>
                 : (isFetching || !operation_info
                         ? <SpinnerForAuthorizedPages/>
                         : <OperationCard operation_info={operation_info}

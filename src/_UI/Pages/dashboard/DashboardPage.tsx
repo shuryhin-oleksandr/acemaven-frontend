@@ -49,6 +49,7 @@ import {
     MapWrapper,
     Back,
 } from "./dashboard-styles";
+import {getMyInfoSelector} from "../../../_BLL/selectors/profile/profileSelectors";
 
 
 type PropsType = {
@@ -106,8 +107,9 @@ const DashboardPage: React.FC<PropsType> = ({
 
 
     //data from store
-    const auth_user = useSelector((state: AppStateType) => state.profile.authUserInfo);
+    const auth_user = useSelector(getMyInfoSelector);
     const company = auth_user?.companies && auth_user?.companies[0].type
+    const user_roles = auth_user?.roles
     let requests = useSelector(getBookingRequestListSelector)
     const currentBookingRate = useSelector((state: AppStateType) => state.booking.current_booking_freight_rate);
 
@@ -229,7 +231,7 @@ const DashboardPage: React.FC<PropsType> = ({
                     />
                 )}
             </SearchBox>
-            {!search_success && company && (
+            {!search_success && company && (user_roles?.includes('master') || user_roles?.includes('agent')) &&  (
                 <MultiWidgetBox widgetsVisible={widgetsVisible}>
                     {company === AppCompaniesTypes.CLIENT
                         ? <FeePaymentWidget/>
@@ -244,12 +246,13 @@ const DashboardPage: React.FC<PropsType> = ({
                     }
                 </MultiWidgetBox>
             )}
-
+            {(user_roles?.includes('master') || user_roles?.includes('agent')) &&
             <ButtonBox>
                 <WidgetButton onClick={() => setWidgetsVisible(!widgetsVisible)}>
                     {widgetsVisible ? "Hide widgets" : "Show widgets"}
                 </WidgetButton>
             </ButtonBox>
+            }
         </DashboardWrapper>
     );
 };

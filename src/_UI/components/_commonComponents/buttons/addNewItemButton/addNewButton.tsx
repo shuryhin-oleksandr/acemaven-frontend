@@ -30,9 +30,12 @@ const AddButton = styled.button`
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  transition: .3s;
   
   &:hover {
-    cursor: pointer
+    cursor: pointer;
+    transition: .3s;
+    background-color: rgba(0,0 ,0 , .07);
   }
   
    &:disabled {

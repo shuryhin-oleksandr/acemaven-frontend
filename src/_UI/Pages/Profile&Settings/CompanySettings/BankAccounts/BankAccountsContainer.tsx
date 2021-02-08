@@ -56,7 +56,7 @@ const BankAccountsContainer: React.FC<PropsType> = ({current_user_role, isFetchi
                 : <ScrollbarStyled {...{style: {height: "100%"}}}>
                     <BanksContainer>
                         <BanksInner>
-                            {!current_user_role?.includes('agent') &&
+                            {(current_user_role?.includes('master') || current_user_role?.includes('billing')) &&
                             (!isAdd
                                     ? <AddNewButton setIsAdd={setIsAdd}/>
                                     : <Form dispatch={dispatchHandler} setIsAdd={setIsAdd}/>
@@ -68,7 +68,10 @@ const BankAccountsContainer: React.FC<PropsType> = ({current_user_role, isFetchi
                                                            defaultBank={defaultBankCallback}
                                                            max_width='611px'
                                                            flex_direction='row'
-                                                           w='60%'/>)}
+                                                           w='60%'
+                                                           current_user_role={current_user_role}
+                            />)
+                            }
                         </BanksInner>
                     </BanksContainer>
                 </ScrollbarStyled>

@@ -3,6 +3,7 @@ import React from "react";
 import {IconButton} from "@material-ui/core";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import grey from "@material-ui/core/colors/grey";
+import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 //react-redux
 import {useSelector} from "react-redux";
 //API
@@ -20,7 +21,7 @@ import {
     ChatWrapper,
     LabelUpload,
     MessageInput,
-    MessageInputWrapper,
+    MessageInputWrapper, NoPermissionIcon, NoPermissionsMessage, NoPermissionsWrap,
     PhotoWrapper,
     UploadInput,
     UploadWrapper
@@ -41,8 +42,8 @@ type PropsType = {
     blurHandler: VoidFunctionType,
     sendHandler: VoidFunctionType,
     deleteHandler: (value: number) => void,
-    stop_typing: boolean
-
+    stop_typing: boolean,
+    chat_info: { chat: number, has_perm_to_read: boolean, has_perm_to_write: boolean } | undefined
 }
 
 const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTypingUser, inputText, setInputText, ...props}) => {
@@ -83,6 +84,7 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
                                     deleteHandler={props.deleteHandler}
                                     stop_typing={props.stop_typing}
                 />
+                {props.chat_info?.has_perm_to_write ?
                 <div style={{display: 'flex', alignItems: 'center'}}>
                     <UploadWrapper>
                         <LabelUpload htmlFor="upload">
@@ -109,6 +111,15 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
                         <img src={my_photo ? my_photo : user_icon} alt=""/>
                     </PhotoWrapper>
                 </div>
+                    :
+                    <NoPermissionsWrap>
+                        <NoPermissionIcon>
+                           <ErrorOutlineOutlinedIcon />
+                        </NoPermissionIcon>
+                        <NoPermissionsMessage>You don't have permissions to write</NoPermissionsMessage>
+                    </NoPermissionsWrap>
+
+                }
             </ChatInner>
         </ChatWrapper>
 

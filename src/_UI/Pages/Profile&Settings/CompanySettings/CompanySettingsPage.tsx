@@ -11,7 +11,6 @@ import {AppCompaniesTypes} from "../../../../_BLL/types/commonTypes";
 //components
 import CompanyInfoContainer from "./CompanyInfo/CompanyInfoContainer";
 import BankAccountsContainer from "./BankAccounts/BankAccountsContainer";
-import CreditCardsContainer from "./credit_cards/CreditCardsContainer";
 //styles
 import {CompanyInner, CompanySettingsContainer, PageTitle} from "./company-settings-styles";
 
@@ -94,7 +93,7 @@ const CompanySettingsPage: React.FC<PropsType> = ({company_type, current_user_ro
     const tabs = [
         <Tab className={classes.tabButton} label="Company info" value="1" key={1}/>,
         <Tab className={classes.tabButton} label="Bank Accounts" value="2" key={2}/>,
-        <Tab className={classes.tabButton} label="Credit Cards" value="3" key={3}/>
+        //<Tab className={classes.tabButton} label="Credit Cards" value="3" key={3}/>
     ]
 
     return (
@@ -124,12 +123,12 @@ const CompanySettingsPage: React.FC<PropsType> = ({company_type, current_user_ro
                                                    isFetching={isFetching}
                             />
                         </TabPanel>
-                        <TabPanel value="3" className={classes.tabContent}>
-                            <CreditCardsContainer credit_cards={[]}
-                                                  current_user_role={current_user_role}
-                                                  isFetching={isFetching}
-                            />
-                        </TabPanel>
+                        {/*<TabPanel value="3" className={classes.tabContent}>*/}
+                        {/*    <CreditCardsContainer credit_cards={[]}*/}
+                        {/*                          current_user_role={current_user_role}*/}
+                        {/*                          isFetching={isFetching}*/}
+                        {/*    />*/}
+                        {/*</TabPanel>*/}
                     </TabContext>
                 </div>
             </CompanyInner>

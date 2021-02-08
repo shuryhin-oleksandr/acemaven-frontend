@@ -19,7 +19,10 @@ const BillingPendingPage: React.FC<PropsType> = ({
         <Heading>Pending of booking fee payment</Heading>
         {billing_list.length > 0 ? (
           billing_list.map((i) => (
-            <BillingCard billing={i} key={i.id} cancelBooking={cancelBooking} />
+            <BillingCard billing={i}
+                         key={i.id}
+                         cancelBooking={cancelBooking}
+            />
           ))
         ) : (
           <NoQuotesCard

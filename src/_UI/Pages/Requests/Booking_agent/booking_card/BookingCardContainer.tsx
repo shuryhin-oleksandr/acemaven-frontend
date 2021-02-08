@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react'
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
 //react-router-dom
-import {useHistory, useParams } from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 //BLL
-import {AppStateType} from "../../../../../_BLL/store";
 import {
     acceptBookingByAgentThunk,
     assignAgentThunk,
@@ -17,6 +16,7 @@ import {
     getMyAgents
 } from "../../../../../_BLL/selectors/booking/bookingAgentSelector";
 import {agentBookingActions} from "../../../../../_BLL/reducers/booking/agentBookingReducer";
+import {getMyInfoSelector} from "../../../../../_BLL/selectors/profile/profileSelectors";
 //components
 import Layout from "../../../../components/BaseLayout/Layout";
 import BookingCard from './BookingCard';
@@ -27,8 +27,7 @@ import MovedToOperationsPopup from "../../../../components/PopUps/moved_to_opera
 import ModalWindow from '../../../../../_UI/components/_commonComponents/ModalWindow/ModalWindow';
 
 
-
-const BookingCardContainer:React.FC = () => {
+const BookingCardContainer: React.FC = () => {
 
     let query = useParams()
     // @ts-ignore
@@ -36,17 +35,19 @@ const BookingCardContainer:React.FC = () => {
 
     const history = useHistory()
     const dispatch = useDispatch()
-    const my_id = useSelector((state:AppStateType) => state.profile.authUserInfo?.id)
+    const my_info = useSelector(getMyInfoSelector)
+    const my_id = my_info?.id
+    const current_user_role = my_info?.roles
 
     const unmountHandler = () => {
         dispatch(agentBookingActions.setExactBookingInfo(null))
     }
 
     useEffect(() => {
-       dispatch(getMyAgentsThunk())
-       dispatch(getBookingInfoByIdThunk(Number(id)))
+        current_user_role?.includes['master'] && dispatch(getMyAgentsThunk())
+        dispatch(getBookingInfoByIdThunk(Number(id)))
         return () => {
-           unmountHandler()
+            unmountHandler()
         }
     }, [dispatch])
 
@@ -74,36 +75,36 @@ const BookingCardContainer:React.FC = () => {
 
     return (
         <Layout>
-                    <ModalWindow isOpen={isAssignAgent}>
-                        <AssignAgentPopup agents={agents_workers && agents_workers?.length > 0 ? agents_workers : null}
-                                          setAssignAgent={setAssignAgent}
-                                          setAgentFullName={setAgentFullName}
-                                          setAgentId={setAgentId}
-                                          setAssignConfirmation={setAssignConfirmation}
+            <ModalWindow isOpen={isAssignAgent}>
+                <AssignAgentPopup agents={agents_workers && agents_workers?.length > 0 ? agents_workers : null}
+                                  setAssignAgent={setAssignAgent}
+                                  setAgentFullName={setAgentFullName}
+                                  setAgentId={setAgentId}
+                                  setAssignConfirmation={setAssignConfirmation}
 
-                        />
-                    </ModalWindow>
-                    <ModalWindow isOpen={isAssignConfirmation}>
-                        <AssignConfirmationPopup setAssignAgent={setAssignAgent}
-                                                 setAssignConfirmation={setAssignConfirmation}
-                                                 agent_full_name={agent_full_name}
-                                                 assign_thunk={assignConfirmationFunction}
+                />
+            </ModalWindow>
+            <ModalWindow isOpen={isAssignConfirmation}>
+                <AssignConfirmationPopup setAssignAgent={setAssignAgent}
+                                         setAssignConfirmation={setAssignConfirmation}
+                                         agent_full_name={agent_full_name}
+                                         assign_thunk={assignConfirmationFunction}
 
-                        />
-                    </ModalWindow>
-                    <ModalWindow isOpen={isRejectPopupOpen}>
-                      <RejectBookingByAgentPopup setRejectPopupOpen={setRejectPopupOpen}/>
-                    </ModalWindow>
-                    <ModalWindow isOpen={isMovedToOperations}>
-                      <MovedToOperationsPopup setMovedToOperations={setMovedToOperations}/>
-                    </ModalWindow>
-                    <BookingCard setAssignAgent={setAssignAgent}
-                                 setRejectPopupOpen={setRejectPopupOpen}
-                                 acceptBookingOnMe={acceptBookingOnMe}
-                                 exact_booking_info={exact_booking_info}
-                                 history={history}
-                                 isFetching={isFetching}
-                    />
+                />
+            </ModalWindow>
+            <ModalWindow isOpen={isRejectPopupOpen}>
+                <RejectBookingByAgentPopup setRejectPopupOpen={setRejectPopupOpen}/>
+            </ModalWindow>
+            <ModalWindow isOpen={isMovedToOperations}>
+                <MovedToOperationsPopup setMovedToOperations={setMovedToOperations}/>
+            </ModalWindow>
+            <BookingCard setAssignAgent={setAssignAgent}
+                         setRejectPopupOpen={setRejectPopupOpen}
+                         acceptBookingOnMe={acceptBookingOnMe}
+                         exact_booking_info={exact_booking_info}
+                         history={history}
+                         isFetching={isFetching}
+            />
         </Layout>
     )
 }

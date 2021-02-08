@@ -176,7 +176,7 @@ export type OperationType = {
     id: number,
     aceid: string,
     booking_number?: string,
-    chat?: number | null,
+    chat?: {chat: number, has_perm_to_read: boolean, has_perm_to_write: boolean},
     is_assigned?: boolean,
     date_from: string,
     date_to: string,

@@ -1,18 +1,22 @@
 import * as React from "react";
 import {useState} from "react";
 //react-router-dom
-import { useRouteMatch } from 'react-router-dom'
+import {useRouteMatch} from 'react-router-dom'
 //react-redux
 import {useSelector} from "react-redux";
 //BLL
 import {AppStateType} from "../../../_BLL/store";
+import {
+    getExactClientOperationSelector,
+    getExactOperationSelector
+} from "../../../_BLL/selectors/operations/agentOperationsSelector";
 //types
 import {AppCompaniesTypes, AppUserRolesType} from "../../../_BLL/types/commonTypes";
 //components
 import MenuLink from "./MenuLink";
 import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyled";
 //styles
-import { ChatExtension, ChatLinkWrap, NavButton, NavSmallContainer} from "./nav-styles";
+import {ChatExtension, ChatLinkWrap, NavButton, NavSmallContainer} from "./nav-styles";
 //icons
 import requests from '../../assets/icons/sidebar/requests.svg';
 import active_requests from '../../assets/icons/sidebar/active_requests.svg';
@@ -38,6 +42,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
 
     //data from store
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies)
+    let type = company_type && (company_type.length > 0) && company_type[0].type
     let current_user_role = useSelector((state: AppStateType) => state.profile.authUserInfo?.roles)
     //roles options
     let billing_and_agent_option = current_user_role?.includes(AppUserRolesType.BILLING)
@@ -45,11 +50,14 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
     let billing_option = current_user_role?.includes(AppUserRolesType.BILLING);
     let agent_option = current_user_role?.includes(AppUserRolesType.AGENT);
     let master_option = current_user_role?.includes(AppUserRolesType.MASTER);
+    let agent_operation = useSelector(getExactOperationSelector)
+    let client_operation = useSelector(getExactClientOperationSelector)
+    let operation_chat = (type === AppCompaniesTypes.AGENT) ? agent_operation : client_operation
 
 
     return (
         <ScrollbarStyled {...{
-            style: {height: "auto", width: `${match?"250px":"50px"}`, flex: "none", backgroundColor: "black"},
+            style: {height: "auto", width: `${match ? "250px" : "50px"}`, flex: "none", backgroundColor: "black"},
             autoHeightMin: "calc(100vh - 60px)",
             autoHeight: true,
             navBar: true
@@ -88,7 +96,9 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                     />
                     }
                     {
-                        company_type && company_type[0].type === AppCompaniesTypes.AGENT
+                        (company_type && company_type[0].type === AppCompaniesTypes.AGENT)
+                        &&
+                        (billing_and_agent_option || master_option || agent_option)
                         &&
                         <MenuLink icon={rates}
                                   path='#'
@@ -100,20 +110,15 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                         />
                     }
                     {(company_type && company_type[0].type === AppCompaniesTypes.AGENT) &&
-                    (billing_and_agent_option || billing_option || master_option)
-                    &&
                     <MenuLink icon={billing}
                               path='#'
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
                               name='BILLING'
-
                     />
                     }
                     {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT) &&
-                    (billing_and_agent_option || billing_option || master_option)
-                    &&
                     <MenuLink icon={billing}
                               setChecked={setChecked}
                               checkedLink={checkedLink}
@@ -121,7 +126,6 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               path='#'
                               setSmallBar={props.setSmallBar}
                               name='BILLING'
-
                     />
                     }
                     <MenuLink icon={settings}
@@ -145,18 +149,18 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                 <ChatExtension>
                     <ChatLinkWrap>
                         <NavButton onClick={() => props.setChatOpen && props.setChatOpen(false)}
-                                   add_color={!props.isChatOpen}
-                        >
+                                   add_color={!props.isChatOpen}>
                             DETAILS
                         </NavButton>
                     </ChatLinkWrap>
+                    {(operation_chat?.chat?.has_perm_to_read || operation_chat?.chat?.has_perm_to_write) &&
                     <ChatLinkWrap>
                         <NavButton onClick={() => props.setChatOpen && props.setChatOpen(true)}
-                                   add_color={props.isChatOpen}
-                        >
+                                    add_color={props.isChatOpen}>
                             GET ASSISTANCE
                         </NavButton>
                     </ChatLinkWrap>
+                    }
                 </ChatExtension>
                 }
 
@@ -169,14 +173,3 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
 export default NavBarSmall
 
 
-/*
-element.style {
-    width: 200px;
-    background-color: #3B3B41;
-    color: white;
-    padding-top: 45px;
-    font-family: 'Helvetica Reg';
-    font-size: 15px;
-    line-height: 17.20px;
-    padding-left: 20px;
-    text-transform: uppercase;*/

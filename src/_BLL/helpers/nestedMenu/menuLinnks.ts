@@ -16,6 +16,10 @@ export const billingLinks = [
     {name: 'BILLING IN PROGRESS', path: '/billing_in_progress'},
     {name: 'COMPLETED', path: '/billing_completed'}
 ]
+export const billingWithoutExchangeLinks = [
+    {name: 'BILLING IN PROGRESS', path: '/billing_in_progress'},
+    {name: 'COMPLETED', path: '/billing_completed'}
+]
 
 export const clientBillingLinks = [
     {name: 'BOOKING FEE PENDING', path: '/billing_pending'},

@@ -155,3 +155,22 @@ export const MessageInput = styled.textarea`
     color: transparent;
   }
 `
+export const NoPermissionsWrap = styled.div`
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.38);
+  height: 55px;
+  padding: 16px 55px 16px 16px;
+  display: flex;
+  align-items: center;
+`
+export const NoPermissionIcon = styled.div`
+margin-right: 5px;
+display: flex;
+`
+
+export const NoPermissionsMessage = styled.div`
+  font-family: "Helvetica Reg", sans-serif;
+  color: rgba(0, 0, 0, 0.63);
+  font-size: 16px;
+  line-height: 18.34px;
+`

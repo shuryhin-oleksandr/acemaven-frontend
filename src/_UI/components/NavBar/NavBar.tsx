@@ -11,7 +11,7 @@ import {AppCompaniesTypes, AppUserRolesType} from "../../../_BLL/types/commonTyp
 import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import MenuLink from "./MenuLink";
 import {
-    billingLinks, clientBillingLinks,
+    billingLinks, billingWithoutExchangeLinks, clientBillingLinks,
     operationsLinks,
     profileLinks,
     ratesLinks,
@@ -32,8 +32,6 @@ import active_billing from '../../assets/icons/sidebar/active_billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import support from '../../assets/icons/sidebar/support.svg';
 import active_support from '../../assets/icons/sidebar/active_support.svg';
-
-
 
 
 interface IProps {
@@ -104,28 +102,31 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                 />
                 }
                 {
-                    company_type && company_type[0].type === AppCompaniesTypes.AGENT
+                    (company_type && company_type[0].type === AppCompaniesTypes.AGENT)
+                    &&
+                    (billing_and_agent_option || master_option || agent_option)
                     && <MenuLink icon={rates}
-                                  nestedLinks={ratesLinks}
-                                  name='RATES & SERVICES'
-                                  setChecked={setChecked}
-                                  checkedLink={checkedLink}
-                                  activeIcon={activeRates}
+                                 nestedLinks={ratesLinks}
+                                 name='RATES & SERVICES'
+                                 setChecked={setChecked}
+                                 checkedLink={checkedLink}
+                                 activeIcon={activeRates}
                     />
                 }
                 {(company_type && company_type[0].type === AppCompaniesTypes.AGENT) &&
-                (billing_and_agent_option || billing_option || master_option)
-                &&
                 <MenuLink icon={billing}
                           name='BILLING'
-                          nestedLinks={billingLinks}
+                          nestedLinks={
+                              (billing_and_agent_option || billing_option || master_option)
+                                  ? billingLinks
+                                  : billingWithoutExchangeLinks
+                          }
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           activeIcon={active_billing}
                 />
                 }
-                {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT) &&
-                (billing_and_agent_option || billing_option || master_option)
+                {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT)
                 &&
                 <MenuLink icon={billing}
                           name='BILLING'

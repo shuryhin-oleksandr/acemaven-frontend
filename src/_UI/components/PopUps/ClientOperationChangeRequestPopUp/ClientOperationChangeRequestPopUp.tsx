@@ -292,7 +292,6 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
     });
 
     dispatch(clientOperationsActions.setOperationCargoGroups(edited_groups));
-    console.log("edited_groups", edited_groups);
     let pack_id_groups = edited_groups.map((group) => ({
       ...group,
       container_type: group.container_type?.id,
@@ -350,7 +349,6 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
 
   const editGroupAndRecalculate = (data: any) => {
     const changed_array = cargo_groups.map((gr, idx) => {
-      debugger;
       if (idx === editableGroupIndex) {
         return data;
       } else {
@@ -544,23 +542,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                       ) : (
                         <>
                           <TableCell className={classes.innerCell} align="left">
-                            {/*{operation_info.freight_rate.shipping_mode.id ===*/}
-                            {/*ShippingModeEnum.ULD ? (*/}
                             {c.volume}
-                            {/*) : (*/}
-                            {/*  <FormField*/}
-                            {/*    inputRef={register}*/}
-                            {/*    name={`volume.${index}`}*/}
-                            {/*    defaultValue={c.volume}*/}
-                            {/*    max_width={"100px"}*/}
-                            {/*    onBlur={() => {*/}
-                            {/*      reCalcOnVolumeChange(*/}
-                            {/*        getValues(`volume.${index}`),*/}
-                            {/*        index*/}
-                            {/*      );*/}
-                            {/*    }}*/}
-                            {/*  />*/}
-                            {/*)}*/}
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
                             {c.total_wm}w/m
@@ -679,15 +661,6 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
             <CancelButton onClick={() => setIsOpen(false)}>CANCEL</CancelButton>
           </ButtonsWrap>
         </form>
-        {/*{addGroupMode && (*/}
-        {/*  <AddingGroupsForm*/}
-        {/*    setAddGroupMode={setAddGroupMode}*/}
-        {/*    shipping_mode={operation_info.freight_rate.shipping_mode.id}*/}
-        {/*    shipping_type={operation_info.shipping_type}*/}
-        {/*    reCalcOnGroupsAmountChange={reCalcOnGroupsAmountChange}*/}
-        {/*    group={cargo_groups[0]}*/}
-        {/*  />*/}
-        {/*)}*/}
         <ModalWindow isOpen={addGroupMode}>
           <ClientChangeRequestPopUpForm
             setIsOpen={setAddGroupMode}

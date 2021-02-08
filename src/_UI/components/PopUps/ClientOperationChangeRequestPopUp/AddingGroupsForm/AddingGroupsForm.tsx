@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
-  CalculationWrapper,
-  ChargeableWeightInner,
   CheckboxWrap,
   FormRow,
   WeightIcon,
@@ -97,10 +95,6 @@ const AddingGroupsForm: React.FC<PropsType> = ({
 
   useEffect(() => {
     if (group) {
-      console.log("SEEEET");
-      console.log("GRRRRR", group);
-      // setValue("packaging_type", group?.packaging_type?.id);
-      // setValue("container_type", group?.container_type);
       setValue("volume", group?.volume);
       setValue("weight", group?.weight);
       setValue("weight_measurement", group?.weight_measurement);
@@ -109,8 +103,6 @@ const AddingGroupsForm: React.FC<PropsType> = ({
       setValue("width", group?.width);
       setValue("length_measurement", group?.length_measurement);
     } else {
-      // setValue("packaging_type", "");
-      // setValue("container_type", "");
       setValue("volume", "1");
       setValue("weight", "");
       setValue("weight_measurement", "t");

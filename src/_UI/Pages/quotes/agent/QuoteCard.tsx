@@ -11,7 +11,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import IconButton from "@material-ui/core/IconButton";
 //BLL
 import {
-     getExistingSurchargesForQuoteThunk,
+    getExistingSurchargesForQuoteThunk,
     submitQuoteThunk,
 } from "../../../../_BLL/thunks/quotes/agentQuotesThunk";
 import {quotesAgentActions} from "../../../../_BLL/reducers/quotes/quotesAgentReducer";
@@ -33,6 +33,7 @@ import SaveTemporaryQuotePopup from "../../../components/PopUps/save_temporary_r
 import TotalCostCalculationContainer from "./table/TotalCostCalculationContainer";
 import SpinnerForAuthorizedPages from "../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
 import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
+import GeneralCustomCheckbox from "../../../components/_commonComponents/customCheckbox/GeneralCustomCheckbox";
 //styles
 import {
     ActionsAgentWrap,
@@ -70,7 +71,6 @@ import dates_icon from '../../../../_UI/assets/icons/date_1.svg'
 import close_icon from '../../../assets/icons/close-icon.svg'
 
 
-
 const useStyles = makeStyles({
     customTooltip: {
         maxWidth: 330,
@@ -87,35 +87,37 @@ const useStyles = makeStyles({
 type PropsType = {
     exact_quote_info: AgentQuoteType | null,
     carrier_list: CarrierType[] | null,
-    existing_rate_for_quote:  RateQuoteType | null,
-    existing_surcharge_for_quote:  SurchargeInfoType | null,
+    existing_rate_for_quote: RateQuoteType | null,
+    existing_surcharge_for_quote: SurchargeInfoType | null,
     checked_surcharge_result: string,
     save_rate_result: boolean,
     bad_saving_message: string,
     withdrawOfferHandler: VoidFunctionType,
     rejectQuoteHandler: VoidFunctionType,
     isCreatePopup: boolean,
-    openCreatePopup: (value:boolean) => void,
+    openCreatePopup: (value: boolean) => void,
     isTemporaryPopup: boolean,
-    setIsTemporaryPopup: (value:boolean) => void,
+    setIsTemporaryPopup: (value: boolean) => void,
     history: any,
     isFetching: boolean,
     goToTheList: VoidFunctionType
 }
 
 
-const QuoteCard:React.FC<PropsType> = ({...props}) => {
+const QuoteCard: React.FC<PropsType> = ({...props}) => {
 
     const dispatch = useDispatch()
     const classes = useStyles();
 
-    const {control, errors, handleSubmit, watch} = useForm({
+    const {control, errors, handleSubmit, watch, register, setValue} = useForm({
         reValidateMode: "onBlur"
     })
 
     let carrier_field = watch('carrier')
+    let carrier_disclosure = watch('carrier_disclosure')
 
     const onSubmit = () => {
+        props.existing_rate_for_quote &&
         dispatch(submitQuoteThunk(Number(props.exact_quote_info?.id), Number(props.existing_rate_for_quote?.id), props.history))
     }
 
@@ -134,8 +136,8 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
         date_from: String(props.exact_quote_info?.date_from),
         date_to: String(props.exact_quote_info?.date_to)
     }
-   useEffect(() => {
-        if(carrier_field) {
+    useEffect(() => {
+        if (carrier_field) {
             dispatch(quotesAgentActions.setExistingRateForQuote(null))
             dispatch(quotesAgentActions.setExistingSurchargeForQuote(null))
             dispatch(quotesAgentActions.setSaveRateToYourResult(false))
@@ -157,6 +159,7 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                 <RegisterNewRateFromQuotePopup openCreatePopup={props.openCreatePopup}
                                                setIsTemporaryPopup={props.setIsTemporaryPopup}
                                                carrier_field={carrier_field}
+                                               carrier_disclosure={carrier_disclosure}
                                                quote={props.exact_quote_info}
                                                carriers={props.carrier_list ? props.carrier_list : []}
                                                existing_rate_for_quote={props.existing_rate_for_quote}
@@ -174,7 +177,7 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                 />
             </ModalWindow>
             {props.isFetching || !props.exact_quote_info
-                ? <SpinnerForAuthorizedPages />
+                ? <SpinnerForAuthorizedPages/>
                 : <QuoteCardWrapperForm onSubmit={handleSubmit(onSubmit)}>
                     <IconButton style={{position: 'absolute', top: '10px', right: '30px'}}
                                 onClick={props.goToTheList}
@@ -187,8 +190,14 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                             {!props.exact_quote_info?.is_submitted
                                 ? <ActionsAgentWrap>
                                     <QuoteOpenStatus>Open</QuoteOpenStatus>
-                                    <SubmitQuoteButton disabled={!props.existing_rate_for_quote} type={'submit'}>SUBMIT
-                                        QUOTE</SubmitQuoteButton>
+                                    <Tooltip arrow
+                                             title='To send an offer for this quote, you must select a carrier and have a rate and surcharge for it'
+                                             classes={{tooltip: classes.customTooltip}}
+                                    >
+                                        <SubmitQuoteButton type={'submit'}>
+                                            SUBMIT QUOTE
+                                        </SubmitQuoteButton>
+                                    </Tooltip>
                                     <Tooltip arrow
                                              title='By clicking reject you will delete this quote from your list.'
                                              classes={{tooltip: classes.customTooltip}}
@@ -264,23 +273,34 @@ const QuoteCard:React.FC<PropsType> = ({...props}) => {
                         {!props.exact_quote_info?.is_submitted
                             ? <>
                                 <CarrierInfo>
-                                    <CarrierWrap>
-                                        <GeneralTitle>CARRIER</GeneralTitle>
-                                        <Controller control={control}
-                                                    name='carrier'
-                                                    defaultValue={''}
-                                                    as={
+                                    <div style={{width: '100%'}}>
+                                        <CarrierWrap>
+                                            <GeneralTitle>CARRIER</GeneralTitle>
+                                            <Controller control={control}
+                                                        name='carrier'
+                                                        defaultValue={''}
+                                                        as={
                                                             <SurchargeRateSelect error={errors?.carrier?.message}
                                                                                  max_width='430px'
                                                                                  placeholder='Carrier company name'
                                                                                  options={props.carrier_list}
                                                             />
-                                                    }
-                                                    rules={{
-                                                        required: 'Field is required'
-                                                    }}
+                                                        }
+                                                        rules={{
+                                                            required: 'Field is required'
+                                                        }}
+                                            />
+                                        </CarrierWrap>
+                                        <GeneralCustomCheckbox inputRef={register}
+                                                               name='carrier_disclosure'
+                                                               setValue={setValue}
+                                                               isCheck={isCheck}
+                                                               setIsCheck={setIsCheck}
+                                                               value={isCheck}
+                                                               span_text='I want to disclose the carrier info to the customers'
+
                                         />
-                                    </CarrierWrap>
+                                    </div>
                                     {props.existing_rate_for_quote && <CarrierWrap>
                                         <GeneralTitle>FREIGHT RATES</GeneralTitle>
                                         <FrateRatesTable rate={props.existing_rate_for_quote}

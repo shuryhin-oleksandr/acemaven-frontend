@@ -18,7 +18,6 @@ type PropsType = {
 const GeneralCustomCheckbox:React.FC<PropsType> = ({...props}) => {
     let changeHandler = () => {
         !props.isCheck ? props.setIsCheck && props.setIsCheck(true) : props.setIsCheck && props.setIsCheck(false)
-        console.log(props.isCheck)
     }
 
     return (

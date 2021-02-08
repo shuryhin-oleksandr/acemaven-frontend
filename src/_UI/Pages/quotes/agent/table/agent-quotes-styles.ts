@@ -213,7 +213,7 @@ export const CarrierInfo = styled.div`
 export const CarrierWrap = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
 `
 
 export const SurchargesInfo = styled.div<PropsStyle>`
@@ -226,4 +226,43 @@ export const AgentSurchargesTableWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+`
+
+export const NoRatesOuter = styled.div`
+  max-width: 794px;
+  width: 100%;
+  border: 1px solid #bdbdbd;
+  padding: 30px 87px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  min-height: 230px;
+`
+export const NoRatesContent = styled.div`
+  color: #4f4f4f;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  text-align: center;
+  margin-bottom: 30px;
+`
+
+export const RegisterButton = styled.button`
+  height: 50px;
+  width: 200px;
+  background-color: black;
+  outline: none;
+  border: none;
+  color: white;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `

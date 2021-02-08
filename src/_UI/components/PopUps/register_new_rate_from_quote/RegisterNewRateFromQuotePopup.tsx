@@ -1,25 +1,32 @@
 import React, {useEffect} from 'react'
 //react-hook-form
-import {Controller, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 //material ui
 import {IconButton} from "@material-ui/core";
 //moment
 import moment from "moment";
+//lodash
+import _ from "lodash";
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
+//react-router-dom
+import {useHistory} from 'react-router-dom';
+//BLL
+import {getShippingTypes} from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import {addNewSurchargeForRate, registerNewFreightRateThunk} from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
 //types
 import {getShippingTypesSelector} from "../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {QuoteType, RateQuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
 import {CarrierType} from "../../../../_BLL/types/rates&surcharges/ratesTypes";
-//BLL
-import {getShippingTypes} from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
-import {addNewSurchargeForRate, registerNewFreightRateThunk} from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import {SurchargeInfoType} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
+import {AppStateType} from "../../../../_BLL/store";
 //components
-import SurchargeRateSelect from "../../_commonComponents/select/SurchargeRateSelect";
 import QuoteAgentExpirationDate from "../../../Pages/quotes/agent/dates/QuoteAgentExpirationDate";
 import RatesForQuotesTable from "./RatesForQuotesTables";
 import SurchargesForQuotesTables from "./surcharge_tables/SurchargesForQuotesTables";
+import AgentSurchargesTable from "../../../Pages/quotes/agent/table/surcharge/AgentSurchargesTable";
+import FormField from "../../_commonComponents/Input/FormField";
 //styles
 import {
     FormButton,
@@ -32,18 +39,12 @@ import {
 import {GeneralTitle} from "../../../Pages/quotes/agent/table/agent-quotes-styles";
 //icons
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
-import {useHistory} from 'react-router-dom';
-import {SurchargeInfoType} from "../../../../_BLL/types/rates&surcharges/surchargesTypes";
-import AgentSurchargesTable from "../../../Pages/quotes/agent/table/surcharge/AgentSurchargesTable";
-import GeneralCustomCheckbox from "../../_commonComponents/customCheckbox/GeneralCustomCheckbox";
-import {AppStateType} from "../../../../_BLL/store";
-import FormField from "../../_commonComponents/Input/FormField";
-import _ from "lodash";
 
 
 type PropsType = {
     openCreatePopup: (value: boolean) => void,
     carrier_field: any,
+    carrier_disclosure: string,
     quote: QuoteType | null,
     carriers: CarrierType[],
     existing_rate_for_quote: RateQuoteType | null,
@@ -141,7 +142,7 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
             );
             let data = {
                 carrier: carrier_field,
-                carrier_disclosure: values.carrier_disclosure,
+                carrier_disclosure: props.carrier_disclosure === 'true',
                 shipping_mode: quote?.shipping_mode.id,
                 transit_time: Number(values.transit_time),
                 origin: Number(quote?.origin.id),
@@ -150,10 +151,11 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                 temporary: true
             };
             dispatch(registerNewFreightRateThunk(data, history));
+
         } else {
             let data_without_containers = {
                 carrier: carrier_field,
-                carrier_disclosure: values.carrier_disclosure,
+                carrier_disclosure: props.carrier_disclosure === 'true',
                 shipping_mode: quote?.shipping_mode.id,
                 transit_time: Number(values.transit_time),
                 origin: Number(quote?.origin.id),
@@ -169,6 +171,7 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                 ],
             };
             dispatch(registerNewFreightRateThunk(data_without_containers, history));
+
         }
 
     }
@@ -221,34 +224,34 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                             display: 'flex',
                             width: '100%',
                             alignItems: 'center',
-                            justifyContent: 'space-between'
+                            justifyContent: 'flex-start'
                         }}>
-                            <div style={{
-                                display: "flex",
-                                flexDirection: 'column',
-                                maxWidth: '350px',
-                                width: '100%',
-                                marginRight: '35px'
-                            }}>
-                                <GeneralTitle margin_bottom='10px'>CARRIER</GeneralTitle>
-                                <Controller name='carrier'
-                                            control={control}
-                                            defaultValue={carrier_field}
-                                            disabled={true}
-                                            rules={{
-                                                required: 'Field is required'
-                                            }}
-                                            as={
-                                                <SurchargeRateSelect placeholder='Carrier company name'
-                                                                     error={errors?.carrier?.message}
-                                                                     options={carriers}
-                                                                     margin_right='35px'
-                                                                     margin_bottom='21px'
-                                                />
-                                            }
-                                />
+                            {/*<div style={{*/}
+                            {/*    display: "flex",*/}
+                            {/*    flexDirection: 'column',*/}
+                            {/*    maxWidth: '350px',*/}
+                            {/*    width: '100%',*/}
+                            {/*    marginRight: '35px'*/}
+                            {/*}}>*/}
+                            {/*    <GeneralTitle margin_bottom='10px'>CARRIER</GeneralTitle>*/}
+                            {/*    <Controller name='carrier'*/}
+                            {/*                control={control}*/}
+                            {/*                defaultValue={carrier_field}*/}
+                            {/*                disabled={true}*/}
+                            {/*                rules={{*/}
+                            {/*                    required: 'Field is required'*/}
+                            {/*                }}*/}
+                            {/*                as={*/}
+                            {/*                    <SurchargeRateSelect placeholder='Carrier company name'*/}
+                            {/*                                         error={errors?.carrier?.message}*/}
+                            {/*                                         options={carriers}*/}
+                            {/*                                         margin_right='35px'*/}
+                            {/*                                         margin_bottom='21px'*/}
+                            {/*                    />*/}
+                            {/*                }*/}
+                            {/*    />*/}
 
-                            </div>
+                            {/*</div>*/}
                             <div style={{
                                 display: "flex",
                                 flexDirection: 'column',
@@ -280,15 +283,15 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                             </div>
                         </div>
 
-                        <GeneralCustomCheckbox inputRef={register}
-                                               name='carrier_disclosure'
-                                               setValue={setValue}
-                                               isCheck={props.isCheck}
-                                               setIsCheck={props.setIsCheck}
-                                               value={props.isCheck}
-                                               span_text='I want to disclose the carrier info to the customers'
+                        {/*<GeneralCustomCheckbox inputRef={register}*/}
+                        {/*                       name='carrier_disclosure'*/}
+                        {/*                       setValue={setValue}*/}
+                        {/*                       isCheck={props.isCheck}*/}
+                        {/*                       setIsCheck={props.setIsCheck}*/}
+                        {/*                       value={props.isCheck}*/}
+                        {/*                       span_text='I want to disclose the carrier info to the customers'*/}
 
-                        />
+                        {/*/>*/}
                     </HeaderControllers>
                     <RatesForQuotesTable usageFees={exact_usageFees ? exact_usageFees : usageFees}
                                          quote_shipping_mode_id={Number(quote?.shipping_mode.id)}

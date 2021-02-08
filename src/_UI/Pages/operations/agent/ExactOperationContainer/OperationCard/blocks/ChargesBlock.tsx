@@ -168,7 +168,7 @@ const ChargesBlock: React.FC<PropsType> = ({operation_charges, number_of_docs, c
                 </TotalLine>
                 {charges_today_exchange?.["USD exchange rate"] &&
                 <TotalLine>
-                    <TotalName>
+                    <TotalName >
                         Today’s USD EXCHANGE RATE
                     </TotalName>
                     <TotalValue>
@@ -178,7 +178,7 @@ const ChargesBlock: React.FC<PropsType> = ({operation_charges, number_of_docs, c
                 }
                 {charges_today_exchange?.["EUR exchange rate"] &&
                 <TotalLine>
-                    <TotalName>
+                    <TotalName >
                         Today’s EUR EXCHANGE RATE
                     </TotalName>
                     <TotalValue>
@@ -186,7 +186,7 @@ const ChargesBlock: React.FC<PropsType> = ({operation_charges, number_of_docs, c
                     </TotalValue>
                 </TotalLine>
                 }
-                {charges_today_exchange?.total_today && Object.keys(charges_today_exchange.total_today).length > 0 &&
+                { charges_today_exchange && Object.keys(charges_today_exchange).length > 0 && charges_today_exchange?.total_today &&
                 <TotalLine>
                     <TotalName font_family='Helvetica Bold, sans-serif'>
                        Total Today

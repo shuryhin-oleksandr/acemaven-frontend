@@ -48,7 +48,7 @@ flex-direction: column;
 align-items: flex-start;
 padding-left: 0;
 padding-top: 30px;
-animation: ${shown} ease-in-out .3s;
+animation: ${shown} ease-in-out .5s;
 `
 
 export const NavSmallContainer = styled.div`
@@ -61,7 +61,7 @@ flex-direction: column;
 align-items: flex-start;
 padding-left: 5px;
 padding-top: 30px;
-animation: ${shown} ease-in-out .3s;
+//animation: ${shown} ease-in-out .5s;
 `
 export const ChatExtension = styled.div`
 width: 200px;
@@ -133,6 +133,7 @@ export const Outer = styled.div`
     height: 100%;
     text-decoration: none;
     display: flex;
+    align-items: center;
     margin-bottom: 10px;
 `
 
@@ -148,9 +149,10 @@ export const Name = styled.div<PropsStyles>`
   text-align: left;
 `
 export const IconWrap = styled.div`
-  width: 18%;
+  width: 50px;
+  //margin-right: 10px;
   display: flex;
-  padding: 10px;
+  padding: 0 20px 0 10px;
   align-items: center;
   justify-content: flex-start;
 `

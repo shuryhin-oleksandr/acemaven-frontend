@@ -1,26 +1,27 @@
 import * as React from "react";
-import MenuLink from "./MenuLink";
-import {Arrow, ArrowWrap, ChatExtension, ChatLinkWrap, NavButton, NavContainer, NavSmallContainer} from "./nav-styles";
-import {IconButton} from "@material-ui/core";
 import {useState} from "react";
-import activeSettings from '../../../_UI/assets/icons/sidebar/settingsActive.svg';
+//react-router-dom
+import { useRouteMatch } from 'react-router-dom'
+//react-redux
+import {useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../_BLL/store";
+//types
+import {AppCompaniesTypes, AppUserRolesType} from "../../../_BLL/types/commonTypes";
+//components
+import MenuLink from "./MenuLink";
+import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyled";
+//styles
+import { ChatExtension, ChatLinkWrap, NavButton, NavSmallContainer} from "./nav-styles";
+//icons
 import requests from '../../assets/icons/sidebar/requests.svg';
 import active_requests from '../../assets/icons/sidebar/active_requests.svg';
 import operations from '../../assets/icons/sidebar/operations(small).svg';
-import active_operations from '../../assets/icons/sidebar/operations_active.svg';
 import rates from '../../assets/icons/sidebar/rates.svg';
-import activeRates from '../../assets/icons/sidebar/rates-active.svg';
 import billing from '../../assets/icons/sidebar/billing.svg';
 import active_billing from '../../assets/icons/sidebar/active_billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import support from '../../assets/icons/sidebar/support.svg';
-import active_support from '../../assets/icons/sidebar/active_support.svg';
-import ScrollbarStyled from "../_commonComponents/ScrollbarStyled/ScrollbarStyled";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../_BLL/store";
-import {AppCompaniesTypes, AppUserRolesType} from "../../../_BLL/types/commonTypes";
-import { useLocation,useRouteMatch } from 'react-router-dom'
-
 
 
 interface IProps {
@@ -33,7 +34,6 @@ interface IProps {
 const NavBarSmall: React.FC<IProps> = ({...props}) => {
     const match = useRouteMatch('/operations/:id');
     //local state
-    const [isHover, setIsHover] = useState(false)
     let [checkedLink, setChecked] = useState('')
 
     //data from store
@@ -47,7 +47,6 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
     let master_option = current_user_role?.includes(AppUserRolesType.MASTER);
 
 
-
     return (
         <ScrollbarStyled {...{
             style: {height: "auto", width: `${match?"250px":"50px"}`, flex: "none", backgroundColor: "black"},
@@ -57,17 +56,6 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
         }}>
             <div style={{width: "100%", display: 'flex', minHeight: '100vh'}}>
                 <NavSmallContainer>
-                    <IconButton
-                        onClick={() => {props.setSmallBar(!props.isSmallBar)}}
-                        style={{position: 'absolute', bottom: '20px', right: '5px'}}
-                        onMouseOver={() => setIsHover(true)}
-                        onMouseOut={() => setIsHover(false)}
-
-                    >
-                        <ArrowWrap>
-                            <Arrow isSmallBar={props.isSmallBar} isHover={isHover}/>
-                        </ArrowWrap>
-                    </IconButton>
                     {
                         company_type && company_type[0].type !== AppCompaniesTypes.AGENT
                             ?
@@ -75,6 +63,8 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                                       path='#'
                                       setChecked={setChecked}
                                       checkedLink={checkedLink}
+                                      setSmallBar={props.setSmallBar}
+                                      name='QUOTES'
                             />
                             : ((billing_and_agent_option || agent_option || master_option)
                                 &&
@@ -82,6 +72,8 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                                           activeIcon={active_requests}
                                           setChecked={setChecked}
                                           checkedLink={checkedLink}
+                                          setSmallBar={props.setSmallBar}
+                                          name='REQUESTS'
                                 />
                             )
                     }
@@ -91,6 +83,8 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               path='#'
                               setChecked={setChecked}
                               checkedLink={checkedLink}
+                              setSmallBar={props.setSmallBar}
+                              name='OPERATIONS'
                     />
                     }
                     {
@@ -100,6 +94,9 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                                   path='#'
                                   setChecked={setChecked}
                                   checkedLink={checkedLink}
+                                  setSmallBar={props.setSmallBar}
+                                  name='RATES & SERVICES'
+
                         />
                     }
                     {(company_type && company_type[0].type === AppCompaniesTypes.AGENT) &&
@@ -109,6 +106,9 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               path='#'
                               setChecked={setChecked}
                               checkedLink={checkedLink}
+                              setSmallBar={props.setSmallBar}
+                              name='BILLING'
+
                     />
                     }
                     {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT) &&
@@ -119,17 +119,26 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               checkedLink={checkedLink}
                               activeIcon={active_billing}
                               path='#'
+                              setSmallBar={props.setSmallBar}
+                              name='BILLING'
+
                     />
                     }
                     <MenuLink icon={settings}
                               path='#'
                               setChecked={setChecked}
                               checkedLink={checkedLink}
+                              setSmallBar={props.setSmallBar}
+                              name='PROFILE & SETTINGS'
+
                     />
                     <MenuLink icon={support}
                               path='#'
                               setChecked={setChecked}
                               checkedLink={checkedLink}
+                              setSmallBar={props.setSmallBar}
+                              name='HELP AND SUPPORT'
+
                     />
                 </NavSmallContainer>
                 {match && props.isSmallBar &&

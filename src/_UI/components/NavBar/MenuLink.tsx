@@ -24,11 +24,12 @@ type IProps = {
     setChecked?: (value: string) => void,
     checkedLink?: string,
     current_user_role?: string[],
-    disabled?: boolean
+    disabled?: boolean,
+    setSmallBar?: (value: boolean) => void
 }
 
 const MenuLink: React.FC<IProps> = ({
-                                        name, icon, activeIcon, nestedLinks,
+                                        name, icon, activeIcon, nestedLinks, setSmallBar,
                                         setChecked, checkedLink, path, current_user_role, disabled
                                     }) => {
 
@@ -49,9 +50,11 @@ const MenuLink: React.FC<IProps> = ({
     }
 
     return (
-        <LinkWrap>
+        <LinkWrap >
             <Outer onClick={clickHandler}>
-                <IconWrap><img src={(checkedLink !== name) ? icon : activeIcon} alt=""/></IconWrap>
+                <IconWrap onMouseEnter={() => setSmallBar && setSmallBar(false)}>
+                    <img src={(checkedLink !== name) ? icon : activeIcon} alt=""/>
+                </IconWrap>
                 <Name checked={checkedLink === name}>{name}</Name>
             </Outer>
             {fullMenu && <NestedOuter>

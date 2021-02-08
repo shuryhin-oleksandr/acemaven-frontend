@@ -70,19 +70,19 @@ const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
           {!!billing.charges.totals.USD && (
             <ChargeRow>
               <ChargeTitle>CHARGES IN USD</ChargeTitle>
-              <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
+              <ChargeValue>{billing.charges.totals.USD.toFixed(2)}</ChargeValue>
             </ChargeRow>
           )}
           {!!billing.charges.totals.BRL && (
             <ChargeRow>
               <ChargeTitle>CHARGES IN BRL</ChargeTitle>
-              <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
+              <ChargeValue>{billing.charges.totals.BRL.toFixed(2)}</ChargeValue>
             </ChargeRow>
           )}
           {!!billing.charges.totals.EUR && (
             <ChargeRow>
               <ChargeTitle>CHARGES IN EUR</ChargeTitle>
-              <ChargeValue>{billing.charges.totals.EUR}</ChargeValue>
+              <ChargeValue>{billing.charges.totals.EUR.toFixed(2)}</ChargeValue>
             </ChargeRow>
           )}
         </div>

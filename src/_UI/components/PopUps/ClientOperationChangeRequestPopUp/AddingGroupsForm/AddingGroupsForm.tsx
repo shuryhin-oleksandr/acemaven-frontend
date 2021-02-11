@@ -116,6 +116,9 @@ const AddingGroupsForm: React.FC<PropsType> = ({
   const onSubmit = (values: any) => {
     if (group) {
       const edited_group = { ...group, ...values };
+      if (shipping_mode === ShippingModeEnum.ULD) {
+        edited_group.volume = 1;
+      }
       editGroupAndRecalculate(edited_group);
     } else {
       dispatch(

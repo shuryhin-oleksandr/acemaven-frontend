@@ -32,7 +32,7 @@ export const signIn = (loginData: ILoginData, history: History) => {
     };
 };
 
-export const companySignUp = (data: ICompanySignUpData) => {
+export const companySignUp = (data: ICompanySignUpData, changePage: (value: boolean) => void) => {
     return async (dispatch: Dispatch<commonAuthActions>) => {
         try {
             dispatch(authActions.setIsLoading(true));
@@ -42,6 +42,7 @@ export const companySignUp = (data: ICompanySignUpData) => {
             dispatch(authActions.setOpenSignIn(false));
             dispatch(authActions.setIsFinish(true)) &&
             dispatch(authActions.openFinishSignUpPopup(true));
+            changePage(true)
             dispatch(authActions.setIsLoading(false));
         } catch (e) {
             dispatch(authActions.setCompanySignupError(e.response.data));

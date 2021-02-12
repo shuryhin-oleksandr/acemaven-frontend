@@ -5,14 +5,12 @@ import { ErrorMessage, useFormikContext } from "formik";
 import BaseNextButton from "../base/BaseNextButton";
 import styled from "styled-components";
 
-const PartOne = ({ changePage, formikErrors }) => {
+const PartOne = ({ changePage }) => {
   const { values, touched, errors } = useFormikContext();
 
   const isAgentButtonDisabled =
     !values.name ||
     errors.name ||
-    !values.master_email ||
-    errors.master_email ||
     !values.phone ||
     errors.phone ||
     !values.address_line_first ||
@@ -33,8 +31,6 @@ const PartOne = ({ changePage, formikErrors }) => {
   const isClientButtonDisabled =
     !values.name ||
     errors.name ||
-    !values.master_email ||
-    errors.master_email ||
     !values.phone ||
     errors.phone ||
     !values.address_line_first ||
@@ -58,15 +54,6 @@ const PartOne = ({ changePage, formikErrors }) => {
         marginBot={46}
         valid={touched.name && !errors.name}
         error={touched.name && errors.name}
-      />
-      <BaseInputGroup
-        name="master_email"
-        placeholder="Email"
-        values={values}
-        labelText="Email"
-        marginBot={46}
-        valid={touched.master_email && !errors.master_email}
-        error={touched.master_email && errors.master_email}
       />
       <BaseInputGroup
         name="phone"

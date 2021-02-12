@@ -30,27 +30,26 @@ import {
     GeneralBookingContent,
     GeneralShipType,
     InfoRow,
-    InfoRowLabel, InfoRowValue, ValuesShipmentWrapper, CalendarIcon
+    InfoRowLabel, InfoRowValue, ValuesShipmentWrapper,
 } from "./booking-card-style";
 import {GeneralTitle} from "../../../quotes/agent/table/agent-quotes-styles";
 //icons
 import sea_icon from '../../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import air_icon from '../../../../assets/icons/rates&services/plane-surcharge.svg'
 import close_icon from '../../../../assets/icons/close-icon.svg'
-import calendar_icon from "../../../../assets/icons/date_1.svg";
 
 
 
 type PropsType = {
     setAssignAgent: (value: boolean) => void,
-    setRejectPopupOpen: (value:boolean) => void,
+    setRejectPopupOpen: (value: boolean) => void,
     acceptBookingOnMe: VoidFunctionType,
     exact_booking_info: BookingInfoType | null,
     history: any,
     isFetching: boolean
 }
 
-const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, acceptBookingOnMe, exact_booking_info, history, isFetching}) => {
+const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, acceptBookingOnMe, exact_booking_info, history, isFetching}) => {
 
     let current_user = useSelector((state: AppStateType) => state.profile.authUserInfo)
     let current_role = current_user?.roles?.includes(('master'))
@@ -76,11 +75,15 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, ac
                                     color: '#1ab8e5',
                                     marginRight: '5px'
                                 }}>STATUS</span>
-                                  <span style={{fontFamily: 'Helvetica Light', fontSize: '18px', textTransform: 'lowercase'}}>
+                                    <span style={{
+                                        fontFamily: 'Helvetica Light',
+                                        fontSize: '18px',
+                                        textTransform: 'lowercase'
+                                    }}>
                                       {local_time}
                                   </span>
                                     {' '}
-                                  <span style={{textTransform: 'uppercase'}}>
+                                    <span style={{textTransform: 'uppercase'}}>
                                     {exact_booking_info?.status}
                                   </span>
                                 </BookingStatus>
@@ -95,8 +98,9 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, ac
                         <GeneralBookingInfo>
                             <GeneralTitle>GENERAL INFO</GeneralTitle>
                             <GeneralBookingContent>
-                                <GeneralShipType><img src={exact_booking_info?.shipping_type === 'sea' ? sea_icon : air_icon}
-                                                      alt=""/></GeneralShipType>
+                                <GeneralShipType><img
+                                    src={exact_booking_info?.shipping_type === 'sea' ? sea_icon : air_icon}
+                                    alt=""/></GeneralShipType>
                                 <InfoRow margin_right='27px'>
                                     <InfoRowLabel>ROUTE</InfoRowLabel>
                                     <InfoRowValue font_size='36px'>
@@ -118,28 +122,11 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, ac
                                             </InfoRowValue>
                                         </InfoRow>
                                     </div>
-                                    <div style={{display: 'flex'}}>
-                                        <CalendarIcon style={{width: '87px', height: '96px'}}>
-                                            <img src={calendar_icon} alt=""/>
-                                        </CalendarIcon>
-                                        <InfoRow margin_right='50px' margin_bottom='0px'>
-                            <span style={{
-                                width: '100px', fontSize: '24px', color: 'black',
-                                fontFamily: 'Helvetica Light', marginTop: '15px', marginBottom: '13px'
-                            }}>
-                                {exact_booking_info?.week_range?.week_from === exact_booking_info?.week_range?.week_to
-                                    ? `WEEK ${exact_booking_info?.week_range?.week_from}`
-                                    : `WEEK ${exact_booking_info?.week_range?.week_from && exact_booking_info?.week_range?.week_from - exact_booking_info?.week_range?.week_to && exact_booking_info?.week_range?.week_to}`
-                                }
-                            </span>
-                                            <InfoRowValue>{exact_booking_info?.date_from} - {exact_booking_info?.date_to}</InfoRowValue>
-                                        </InfoRow>
-                                    </div>
                                     <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
                                         <InfoRow>
                                             <InfoRowLabel>STATUS</InfoRowLabel>
                                             <InfoRowValue>{local_time}<br/>
-                                            <span style={{textTransform: 'uppercase',}}>
+                                                <span style={{textTransform: 'uppercase',}}>
                                                 {exact_booking_info?.status}
                                             </span>
                                             </InfoRowValue>
@@ -151,12 +138,14 @@ const BookingCard:React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, ac
                         <ShipmentInfoBlock shipper={exact_booking_info?.shipper ? exact_booking_info?.shipper : null}
                                            client={String(exact_booking_info?.client)}
                                            client_contact={String(exact_booking_info?.client_contact_person)}
+                                           exact_booking_info={exact_booking_info}
                         />
-                        <HiddenInfoPart cargo_groups={exact_booking_info?.cargo_groups ? exact_booking_info.cargo_groups : []}
-                                        number_of_documents={Number(exact_booking_info?.number_of_documents)}
-                                        release_type={exact_booking_info?.release_type}
-                                        charges_cost={exact_booking_info?.charges ? exact_booking_info?.charges : null}
-                                        booking_shipping_mode={exact_booking_info?.freight_rate.shipping_mode}
+                        <HiddenInfoPart
+                            cargo_groups={exact_booking_info?.cargo_groups ? exact_booking_info.cargo_groups : []}
+                            number_of_documents={Number(exact_booking_info?.number_of_documents)}
+                            release_type={exact_booking_info?.release_type}
+                            charges_cost={exact_booking_info?.charges ? exact_booking_info?.charges : null}
+                            booking_shipping_mode={exact_booking_info?.freight_rate.shipping_mode}
                         />
                     </CardContent>
                 </CardWrapper>

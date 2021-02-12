@@ -36,7 +36,7 @@ export interface ICompanySignUpData {
   tax_id: string;
   employees_number?: number;
   website?: string;
-  master_email: string;
+  master_email?: string;
 }
 export interface ICompanySignUpError {
   master_email?: string[];

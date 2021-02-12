@@ -14,14 +14,17 @@ import {
 //icons
 import sea_icon from "../../../../../../../assets/icons/rates&services/ship-surcharge.svg";
 import air_icon from "../../../../../../../assets/icons/rates&services/plane-surcharge.svg";
+import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
+import {userCompaniesType} from "../../../../../../../../_BLL/types/authTypes";
 
 
 type PropsType = {
     operation_info: OperationType,
-    shipment: ShipmentDetailsType | null
+    shipment: ShipmentDetailsType | null,
+    company_type: userCompaniesType | undefined,
 }
 
-const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment}) => {
+const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, company_type}) => {
     return (
         <SectionWrapper>
             <SectionTitle>GENERAL INFO</SectionTitle>
@@ -72,10 +75,13 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment}) 
                                 </InfoRow>
                             </div>
                             : <div style={{display: "flex", flexDirection: "column", marginRight: '46px'}}>
+                                {company_type?.type === AppCompaniesTypes.AGENT &&
                                 <InfoRow>
                                     <InfoRowLabel>MAWB</InfoRowLabel>
                                     <InfoRowValue>{shipment?.mawb}</InfoRowValue>
                                 </InfoRow>
+                                }
+
                                 <InfoRow>
                                     <InfoRowLabel>FLIGHT NUMBER</InfoRowLabel>
                                     <InfoRowValue>{shipment?.flight_number}</InfoRowValue>

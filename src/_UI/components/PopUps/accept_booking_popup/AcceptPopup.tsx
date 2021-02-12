@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 //react-hook-form
 import {Controller, useForm} from "react-hook-form";
 //react-router-om
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 //material ui
 import {IconButton} from "@material-ui/core";
 //BLL
@@ -35,7 +35,7 @@ type PropsType = {
 }
 
 
-const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}) => {
+const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}) => {
     const {control, errors, handleSubmit, setValue, register} = useForm({
         reValidateMode: 'onBlur'
     })
@@ -74,7 +74,8 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
         <AcceptWrapper>
             <AcceptInner>
                 <IconButton onClick={() => openAcceptPopup(false)}
-                    style={{position: 'absolute', top: '20px', right: '20px'}}><img src={close_icon} alt=""/></IconButton>
+                            style={{position: 'absolute', top: '20px', right: '20px'}}><img src={close_icon}
+                                                                                            alt=""/></IconButton>
                 <AcceptContent>
                     <AcceptContentTitle>Type the required shipments details to confirm booking</AcceptContentTitle>
                     <AcceptFormOuter onSubmit={handleSubmit(onSubmit)}>
@@ -102,17 +103,20 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                        max_width='100%'
                                        inputRef={register({required: 'Field is required'})}
                                        name='container_number'
+                                       booking_process={true}
                             />
                         </>
                         }
                         {shipping_type === 'air'
-                            && <FormField error={errors?.mawb}
-                                          name='mawb'
-                                          label='MAWB'
-                                          placeholder='Placeholder'
-                                          max_width='100%'
-                                          inputRef={register({required: 'Field is required'})}
-                            />
+                        &&
+                        <FormField error={errors?.mawb}
+                                   name='mawb'
+                                   label='MAWB'
+                                   placeholder='Placeholder'
+                                   max_width='100%'
+                                   inputRef={register({required: 'Field is required'})}
+                                   booking_process={true}
+                        />
                         }
                         {shipping_type === 'air'
                             ? <FormField error={errors?.flight_number}
@@ -141,7 +145,12 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                             </div>
                         }
                         <AcceptPopupDates control={control}
-                                          errors={{from: errors.from, to: errors.to, departure_time: errors.departure_time, arrival_time: errors.arrival_time}}
+                                          errors={{
+                                              from: errors.from,
+                                              to: errors.to,
+                                              departure_time: errors.departure_time,
+                                              arrival_time: errors.arrival_time
+                                          }}
                                           setValue={setValue}
                                           required_dates={true}
                                           required_time={true}
@@ -157,23 +166,28 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
 
                         />
                         {direction === 'export'
-                            && <AcceptPopupDates control={control}
-                                                 errors={{from: errors.from, to: errors.to, departure_time: errors.departure_time, arrival_time: errors.arrival_time}}
-                                                 setValue={setValue}
-                                                 required_dates={true}
-                                                 required_time={true}
-                                                 label1={'Documents Cut Off Date'}
-                                                 label2={'Cargo Cut Off Date'}
-                                                 time_name_first={'documents_cut_off.cut_off_time'}
-                                                 time_name_second={'cargo_cut_off.cut_off_time'}
-                                                 date_name_first={'documents_cut_off.from'}
-                                                 date_name_second={'cargo_cut_off.to'}
-                                                 start_shipment_date={exact_operation_info?.date_from}
-                                                 before={new Date()}
-                                                 after={moment(exact_operation_info?.date_from, 'DD/MM/YYYY').toDate()}
-                                                 justify_content='flex-start'
+                        && <AcceptPopupDates control={control}
+                                             errors={{
+                                                 from: errors.from,
+                                                 to: errors.to,
+                                                 departure_time: errors.departure_time,
+                                                 arrival_time: errors.arrival_time
+                                             }}
+                                             setValue={setValue}
+                                             required_dates={true}
+                                             required_time={true}
+                                             label1={'Documents Cut Off Date'}
+                                             label2={'Cargo Cut Off Date'}
+                                             time_name_first={'documents_cut_off.cut_off_time'}
+                                             time_name_second={'cargo_cut_off.cut_off_time'}
+                                             date_name_first={'documents_cut_off.from'}
+                                             date_name_second={'cargo_cut_off.to'}
+                                             start_shipment_date={exact_operation_info?.date_from}
+                                             before={new Date()}
+                                             after={moment(exact_operation_info?.date_from, 'DD/MM/YYYY').toDate()}
+                                             justify_content='flex-start'
 
-                            />
+                        />
                         }
                         <LocationContainer errors={errors}
                                            register={register}
@@ -181,12 +195,12 @@ const AcceptPopup:React.FC<PropsType> = ({openAcceptPopup, exact_operation_info}
                                            direction={direction}
                         />
                         {shipping_mode === 'FCL'
-                            && <FormField error={errors?.container_free_time}
-                                          name='container_free_time'
-                                          inputRef={register({required: 'Field is required'})}
-                                          label='Container Free time'
-                                          placeholder='Number of days'
-                                          max_width='310px'
+                        && <FormField error={errors?.container_free_time}
+                                      name='container_free_time'
+                                      inputRef={register({required: 'Field is required'})}
+                                      label='Container Free time'
+                                      placeholder='Number of days'
+                                      max_width='310px'
                         />
                         }
                         <Controller name='booking_notes'

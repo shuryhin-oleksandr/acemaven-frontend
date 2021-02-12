@@ -1,6 +1,6 @@
 import React from "react";
 //react-redux
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 //react-router-dom
 import {useHistory} from "react-router-dom";
 //material ui
@@ -104,8 +104,13 @@ const LatestQuotesWidget: React.FC = () => {
                                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                             {quote?.date_from}
                                             {company_type?.type === AppCompaniesTypes.AGENT
-                                            && <BookLittleButton
-                                                onClick={() => setCardOpen(Number(quote?.id))}>Offer</BookLittleButton>}
+                                            && (!quote.is_submitted
+                                                ? <BookLittleButton
+                                                        onClick={() => setCardOpen(Number(quote?.id))}>Offer</BookLittleButton>
+                                                : <span style={{color: '#115b86', fontFamily: 'Helvetica Bold, sans-serif', fontSize: '12px'}}>
+                                                        Submitted
+                                                </span>
+                                            )}
                                         </div>
                                     </TableCell>
                                 </TableRow>

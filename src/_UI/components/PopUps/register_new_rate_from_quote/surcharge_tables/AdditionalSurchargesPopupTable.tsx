@@ -69,6 +69,7 @@ const AdditionalSurchargesPopupTable:React.FC<PropsType> = ({charges, quote_ship
 
     const noConditions = ShippingModeEnum.FCL === quote_shipping_mode_id;
 
+
     return (
         <HandlingSurchargeContainer max_height='440px' max_width={!noConditions ? '730px' : '600px'} margin_left={noConditions ? '30px' : '0x'}>
             <HandlingTitle margin_bottom='0px'>Additional surcharges </HandlingTitle>

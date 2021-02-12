@@ -18,9 +18,6 @@ const zipCodeRegex = /^[a-zA-Z0-9](.){3,10}[a-zA-Z0-9]$/
 
 const AgentValidationSchema = Yup.object().shape({
   name: Yup.string().required("Please, enter your company name"),
-  master_email: Yup.string()
-    .email("Invalid email")
-    .required("Please, enter your email"),
   phone: Yup.string()
     .matches(phoneRegex, "Phone number is not valid")
     .required("Please, enter your phone number"),
@@ -50,9 +47,6 @@ const AgentValidationSchema = Yup.object().shape({
 
 const ClientValidationSchema = Yup.object().shape({
   name: Yup.string().required("Please, enter your company name"),
-  master_email: Yup.string()
-    .email("Invalid email")
-    .required("Please, enter your email"),
   phone: Yup.string()
     .matches(phoneRegex, "Phone number is not valid")
     .required("Please, enter your phone number"),
@@ -117,7 +111,6 @@ const SignUpPage = () => {
               tax_id: "",
               employees_number: 1,
               website: "",
-              master_email: "",
               first_name: "",
               last_name: "",
               email: "",
@@ -125,7 +118,7 @@ const SignUpPage = () => {
               position: "",
             }}
             onSubmit={(values) => {
-              dispatch(companySignUp(values));
+              dispatch(companySignUp(values, changePage));
             }}
           >
             {({ values }) => {

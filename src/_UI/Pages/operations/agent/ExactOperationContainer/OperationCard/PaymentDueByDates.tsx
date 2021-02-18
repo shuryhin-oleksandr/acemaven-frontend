@@ -67,12 +67,12 @@ const PaymentDueByDates: React.FC<PropsType> = ({payment_due_by, operation_id}) 
 
 
     return (
-        <form style={{display: "flex", alignItems: 'baseline'}} onSubmit={handleSubmit(onSubmit)}>
+        <form style={{display: "flex", alignItems: 'baseline', width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
             <InfoRowLabel style={{marginRight: '10px'}}>PAYMENT DUE BY:</InfoRowLabel>
             <>
                 {payment_due_by
                     ? <InfoRowValue>{payment_due_by}</InfoRowValue>
-                    : <CalendarWrapper max_width='150px' margin_top='0px' input_height='40px' margin_right='0px'
+                    : <CalendarWrapper max_width_wrapper='180px' max_width='180px' margin_top='0px' input_height='40px' margin_right='0px'
                                        style={{display: 'flex'}}>
                         <Controller control={control}
                                     name='payment_due_by'

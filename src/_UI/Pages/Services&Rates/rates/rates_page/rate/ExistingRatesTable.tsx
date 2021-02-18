@@ -97,7 +97,7 @@ const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setVa
     return (
         <div style={{width: '100%', maxWidth: '1100px'}}>
             <HandlingTitle>RATES</HandlingTitle>
-            <ScrollbarStyled {...{style: { minHeight: 320, height: '100%' }}}>
+            <ScrollbarStyled {...{style: { minHeight: '600px', height: '100%'}}}>
                 <TableContainer className={classes.container} component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>

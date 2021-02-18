@@ -45,6 +45,8 @@ const LatestQuotesWidget: React.FC = () => {
         ? getTwoLastElementsHelper(agent_quotes_list)
         : getTwoLastElementsHelper(my_quotes_list)
 
+
+
     //handlers
     let setCardOpen = (quote_id: number) => {
         history.push(`/quotes/${quote_id}`)

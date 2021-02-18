@@ -137,10 +137,10 @@ export const checkSurchargeDates = (checkSurchargeValues: {
 }
 
 //EDIT MODE
-export const editUsageAndCharges = (surcharge_id: number, dates: any, edit_fees: any, edit_charges: any, history: any) => {
+export const editUsageAndCharges = (surcharge_id: number, dates: any, edit_fees: any, edit_charges: any, history: any, setFormMode: (value: boolean) => void) => {
     return async (dispatch: any) => {
         try {
-
+            debugger
             if ((dates && dates.length > 0) && (edit_fees && edit_fees.length > 0) && (edit_charges && edit_charges.length > 0)) {
                 let req_body = {
                     start_date: dates[0].start_date,
@@ -151,7 +151,33 @@ export const editUsageAndCharges = (surcharge_id: number, dates: any, edit_fees:
                 let {data} = await surchargeAPI.editSurchargeInfo(surcharge_id, req_body)
                 dispatch(surchargeActions.setSurchargeInfo(data))
                 history.push(`/services/surcharge/${data.id}`)
-            } else if (!dates && (edit_fees && edit_fees.length > 0) && (edit_charges && edit_charges.length > 0)) {
+            } else if ((dates && dates.length > 0) && (edit_fees && edit_fees.length === 0) && (edit_charges && edit_charges.length > 0)) {
+                let req_body = {
+                    start_date: dates[0].start_date,
+                    expiration_date: dates[0].expiration_date,
+                    charges: edit_charges
+                }
+                let {data} = await surchargeAPI.editSurchargeInfo(surcharge_id, req_body)
+                dispatch(surchargeActions.setSurchargeInfo(data))
+                history.push(`/services/surcharge/${data.id}`)
+            } else if ((dates && dates.length > 0) && (edit_fees && edit_fees.length > 0) && (edit_charges && edit_charges.length === 0)) {
+                let req_body = {
+                    start_date: dates[0].start_date,
+                    expiration_date: dates[0].expiration_date,
+                    usage_fees: edit_fees
+                }
+                let {data} = await surchargeAPI.editSurchargeInfo(surcharge_id, req_body)
+                dispatch(surchargeActions.setSurchargeInfo(data))
+                history.push(`/services/surcharge/${data.id}`)
+            } else if ((dates && dates.length > 0) && (edit_fees && edit_fees.length === 0) && (edit_charges && edit_charges.length === 0)) {
+                let req_body = {
+                    start_date: dates[0].start_date,
+                    expiration_date: dates[0].expiration_date
+                }
+                let {data} = await surchargeAPI.editSurchargeInfo(surcharge_id, req_body)
+                dispatch(surchargeActions.setSurchargeInfo(data))
+                history.push(`/services/surcharge/${data.id}`)
+            } else if ((dates?.length === 0) && (edit_fees && edit_fees.length > 0) && (edit_charges && edit_charges.length > 0)) {
                 let req_body = {
                     usage_fees: edit_fees,
                     charges: edit_charges
@@ -159,7 +185,7 @@ export const editUsageAndCharges = (surcharge_id: number, dates: any, edit_fees:
                 let {data} = await surchargeAPI.editSurchargeInfo(surcharge_id, req_body)
                 dispatch(surchargeActions.setSurchargeInfo(data))
                 history.push(`/services/surcharge/${data.id}`)
-            } else if (!dates && (edit_fees && edit_fees.length > 0) && (edit_charges && edit_charges.length === 0)) {
+            } else if ((dates?.length === 0) && (edit_fees && edit_fees.length > 0) && (edit_charges && edit_charges.length === 0)) {
                 let req_body = {
                     usage_fees: edit_fees
                 }
@@ -167,7 +193,7 @@ export const editUsageAndCharges = (surcharge_id: number, dates: any, edit_fees:
                 dispatch(surchargeActions.setSurchargeInfo(data))
                 history.push(`/services/surcharge/${data.id}`)
             }
-            if (!dates && (edit_fees && edit_fees.length === 0) && (edit_charges && edit_charges.length > 0)) {
+            if ((dates?.length === 0) && (edit_fees && edit_fees.length === 0) && (edit_charges && edit_charges.length > 0)) {
                 let req_body = {
                     charges: edit_charges
                 }
@@ -175,6 +201,7 @@ export const editUsageAndCharges = (surcharge_id: number, dates: any, edit_fees:
                 dispatch(surchargeActions.setSurchargeInfo(data))
                 history.push(`/services/surcharge/${data.id}`)
             }
+            setFormMode(false)
         } catch (e) {
             console.log(e)
         }

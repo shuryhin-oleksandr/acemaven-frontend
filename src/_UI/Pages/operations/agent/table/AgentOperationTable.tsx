@@ -9,11 +9,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 //types
+import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
 //components
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import OperationsRow from "./OperationsRow";
-import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 

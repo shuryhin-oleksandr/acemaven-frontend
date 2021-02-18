@@ -62,7 +62,9 @@ const ConfirmedDatesContainerBlock: React.FC<PropsType> = ({shipment, operation_
 
                 {(operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
                     operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
-                    operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                    operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST ||
+                    operation_info?.status === AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS ||
+                    operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT
                 ) &&
                 <>
                     <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
@@ -106,3 +108,6 @@ const ConfirmedDatesContainerBlock: React.FC<PropsType> = ({shipment, operation_
 }
 
 export default ConfirmedDatesContainerBlock
+
+
+

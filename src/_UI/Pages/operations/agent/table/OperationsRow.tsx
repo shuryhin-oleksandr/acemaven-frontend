@@ -137,7 +137,7 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                     </CargosOuter>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    {operation?.status === 'Booking Confirmed'
+                    { (shipment && shipment?.date_of_departure && shipment?.date_of_arrival)
                         ? <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>
                             ETD: {shipment?.date_of_departure} <br/> ETA: {shipment?.date_of_arrival}
                           </span>

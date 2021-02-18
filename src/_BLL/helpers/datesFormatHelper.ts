@@ -1,7 +1,6 @@
 import moment from "moment";
 
 export const datesFormatHelper = (values: any) => {
-
     //estimated departure & arrival
     let date_of_departure = moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time
     let date_of_arrival = moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time

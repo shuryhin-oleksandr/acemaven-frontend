@@ -71,7 +71,7 @@ const RackingStatusWidget: React.FC = () => {
                 {item.route}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                {moment(item.date_created).format("DD/MM")}
+                {moment(item.date_created.slice(6)).format("DD/MM")}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
                 {item.status}

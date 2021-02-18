@@ -66,22 +66,6 @@ export const FormTextarea = styled.textarea<{ error?: boolean }>`
     font-size: 14px;
   }
 `
-export const TimePicker = styled.input<{ error?: boolean, font_size?: string }>`
-  width: 75px; 
-  height: 40px; 
-  background-color: ${({error}) => error ? 'rgba(0,0,0,.08)' : 'transparent'};
-  border: ${({error}) => error ? '1px solid rgba(0, 0, 0, .45)' : '1px solid #bdbdbd'};
-  border-radius: 4px; 
-  font-family: 'Helvetica Light', sans-serif;
-  font-size: ${({font_size}) => font_size ? font_size : 'inherit'};
- padding: 3px;
- margin-top: ${({error}) => error ? '-19px' : '24px'};
- outline: none;
- &:disabled {
-  cursor: not-allowed;
-  background-color: #ececec;
- }
-`
 export const AcceptPopupActions = styled.div`
   width: 100%;
   display: flex;

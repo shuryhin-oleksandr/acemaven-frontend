@@ -32,6 +32,7 @@ import {
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
+    minHeight: '350px'
   },
   table: {
     "& .MuiTableHead-root": {},

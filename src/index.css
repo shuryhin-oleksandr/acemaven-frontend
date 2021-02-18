@@ -73,3 +73,32 @@ code {
   border-radius: inherit;
   background-color: rgba(0, 0, 0, 0.2);
 }
+
+.form-control {
+  outline: none !important;
+  width: 80px !important;
+  border-radius: 4px !important;
+  border: 1px solid #BDBDBD !important;
+  height: 40px;
+}
+.form-control:disabled {
+  background-color: rgba(0,0,0,.4) !important;
+  cursor: not-allowed !important;
+}
+.form-control::placeholder {
+  transition: .3s !important;
+  opacity: 1 !important;
+}
+.form-control:focus::placeholder {
+  transition: .3s !important;
+  opacity: 0 !important;
+}
+
+/*manual tracking*/
+.time_picker {
+  outline: none !important;
+  width: 80px !important;
+  border-radius: 4px !important;
+  border: 1px solid #BDBDBD !important;
+  height: 40px;
+}

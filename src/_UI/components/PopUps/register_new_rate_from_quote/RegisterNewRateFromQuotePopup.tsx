@@ -129,6 +129,7 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
         //temporal rate registration
         let rates_array;
         if (values.rates.length > 1) {
+            debugger
             let full_rates = values.rates.filter((r: any) => r !== null);
             rates_array = full_rates.map((r: any) => (r !== null && r.rate
                 && {
@@ -195,6 +196,7 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
             can_be_dangerous: c.container_type?.can_be_dangerous
         }
     })
+    console.log(usageFees)
 
 
     let exact_usageFees = quote_containers && (_.intersectionWith(usageFees, quote_containers, _.isEqual))

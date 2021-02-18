@@ -1,15 +1,17 @@
 import React, { useRef, useState} from 'react'
-import DayPickerInput from "react-day-picker/DayPickerInput";
-
-import styled from "styled-components";
+//react-text-mask
+import MaskedInput from "react-text-mask";
+//react-hook-form
 import {Controller} from "react-hook-form";
+//styled components
+import styled from "styled-components";
+//react-day-picker
+import DayPickerInput from "react-day-picker/DayPickerInput";
 // @ts-ignore
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
-
+//styles
 import { CalendarWrapper } from 'src/_UI/components/_commonComponents/calendar/calendar-styles';
-import {TimePicker} from "../../../../../../../components/PopUps/accept_booking_popup/accept-popup-styles";
 import {HelperText} from "../../../../../../../components/_commonComponents/Input/input-styles";
-
 
 
 type PropsType = {
@@ -62,75 +64,65 @@ const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, reg
     const toInput = useRef<DayPickerInput>(null)
 
 
-   /* useEffect(() => {
-        if(props.departure_date && props.arrival_date) {
-            setSelectedDay({
-                from: moment(props.departure_date, 'DD/MM/YYYY').toDate(),
-                to: moment(props.arrival_date, 'DD/MM/YYYY').toDate()
-            })
-            setValue(props.date_name_first, moment(props.departure_date, 'DD/MM/YYYY').toDate())
-        }
-        if(props.first_time && props.second_time) {
-            setValue(props.time_name_first, props.first_time)
-        }
-    }, [props.departure_date,props.arrival_date, props.first_time])*/
-
-
     return (
         <AcceptDatesFilter flex_direction={props.flex_direction} max_width={props.max_width}>
             <Wrapper justify_content={props.justify_content} wrapper_width={'100%'} >
-                <CalendarWrapper max_width={!props.first_time ? '225px' : '235px'}
-                                 input_height='40px' margin_right='10px' margin_bottom='-12px' picker_right={'200px'}>
-                    <span style={{fontFamily: !props.first_time ? 'Helvetica Reg' : 'Helvetica Bold',
-                        fontSize: '14px',
-                        color: !props.first_time ? 'black' : '#115b86',
-                        textTransform: !props.first_time ? 'none' : 'uppercase'
-                    }}>
-                        {props.label1}
-                    </span>
-                    <Controller
-                        name={props.date_name_first}
-                        control={control}
-                        rules={{
-                            required: 'Field is required'
-                        }}
-                        defaultValue=""
-                        as={
-                            <DayPickerInput
-                                inputProps={{
-                                    readOnly:'readonly'
+                <CalendarWrapper max_width={'240px'}
+                                 margin_bottom={'0px'}
+                                 max_width_wrapper={'340px'}
+                                 input_height='40px'
+                                 margin_right='10px'
+                                 picker_right={'200px'}>
+                    <div style={{width: '100%', display: "flex", justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                        <>
+                            <Controller
+                                name={props.date_name_first}
+                                control={control}
+                                rules={{
+                                    required: 'Field is required'
                                 }}
-                                format='DD/MM/YYYY'
-                                placeholder='DD/MM/YYYY'
-                                formatDate={formatDate}
-                                parseDate={parseDate}
-                                hideOnDayClick={false}
-                                value={selectedDay.from}
-                                // @ts-ignore
-                                onDayChange={handleFromChange}
-                                ref={toInput}
-                                dayPickerProps={{
-                                    disabledDays: [{before: new Date()}, {after: props.after}],
-                                }}
+                                defaultValue=""
+                                as={
+                                    <DayPickerInput
+                                        inputProps={{
+                                            readOnly:'readonly'
+                                        }}
+                                        format='DD/MM/YYYY'
+                                        placeholder='DD/MM/YYYY'
+                                        formatDate={formatDate}
+                                        parseDate={parseDate}
+                                        hideOnDayClick={false}
+                                        value={selectedDay.from}
+                                        // @ts-ignore
+                                        onDayChange={handleFromChange}
+                                        ref={toInput}
+                                        dayPickerProps={{
+                                            disabledDays: [{before: new Date()}, {after: props.after}],
+                                        }}
+                                    />
+                                }
                             />
-                        }
-                    />
-                    {!!errors.from && (
-                        <HelperText>Field is required</HelperText>
-                    )}
+                            {!!errors.from && (
+                                <HelperText>Field is required</HelperText>
+                            )}
+                        </>
+                        <Controller name={props.time_name_first}
+                                    control={control}
+                                    rules={{required: true}}
+                                    defaultValue=''
+                                    as={
+                                        <MaskedInput
+                                            mask={[/[0-2]/, /[0-9]/, ':', /[0-5]/, /[0-9]/]}
+                                            className="time_picker"
+                                            placeholder="--:--"
+                                            guide={false}
+                                            id="my-input-id"
+                                        />
+                                    }
+                        />
+                    </div>
                 </CalendarWrapper>
-                <Controller name={props.time_name_first}
-                            control={control}
-                            rules={{required: true}}
-                            defaultValue=''
-                            as={
-                                <TimePicker type="time"
-                                            step='300'
-                                            error={!!errors?.departure_time}
-                                            font_size={'14px'}
-                                />
-                            }
-                />
+
             </Wrapper>
         </AcceptDatesFilter>
     )

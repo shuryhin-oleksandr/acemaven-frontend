@@ -56,7 +56,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
     let arrival_date = shipment?.date_of_arrival.slice(0, 10)
     let arrival_time = shipment?.date_of_arrival.slice(11)
     let departure_date = shipment?.date_of_departure.slice(0, 10)
-    let departure_time = shipment?.date_of_departure.slice(11)
+    let departure_time =shipment?.date_of_departure.slice(11)
 
     //cargo cut off + documents cut off
     let documents_cut_off_date = shipment?.document_cut_off_date?.slice(0, 10)
@@ -75,9 +75,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
     const {register, handleSubmit, errors, setValue, control} = useForm()
 
 
-
     const onSubmit = (values: any) => {
-
         const {
             date_of_departure,
             date_of_arrival,
@@ -107,7 +105,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
 
         shipment && Object.keys(shipment).forEach(k => Object.keys(final_data).forEach(k2 => {
             if (k === k2) {
-                if (shipment && (shipment[k] !== final_data[k2])) {
+                if (shipment && (shipment[k] != final_data[k2])) {
                     return changed_fields[k2] = final_data[k2]
                 }
             } else {

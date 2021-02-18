@@ -10,6 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+import {IconButton} from "@material-ui/core";
 //react-hook-form
 import {Controller, useForm} from "react-hook-form";
 //react-redux
@@ -43,6 +44,7 @@ import save_icon from "../../../../../../../assets/icons/profile/add.svg";
 import Garbage from "../../../../../../../assets/icons/garbage-icon.svg";
 //styled components
 import styled from "styled-components";
+
 
 
 const useStyles = makeStyles({
@@ -146,7 +148,6 @@ const ManualTracking: React.FC<PropsType> = ({
                                                  tracking,
                                              }) => {
 
-
     //local state
     const [dateTime, setDateTime] = useState(new Date());
 
@@ -178,7 +179,7 @@ const ManualTracking: React.FC<PropsType> = ({
     let actual_departure_status = manual_tracking?.find(m => m?.status === 'Vessel Departed' || m?.status === 'Aircraft Departed')
 
     useEffect(() => {
-        if(actual_departure_status) {
+        if (actual_departure_status) {
             dispatch(getManualTrackingStatusOptions(shipping_mode_id, direction, true));
         }
     }, [actual_departure_status]);
@@ -198,8 +199,9 @@ const ManualTracking: React.FC<PropsType> = ({
 
     //onSubmit
     const onSubmit = (values: any) => {
+
         const data = {...values, booking: booking_id};
-        if(!finded_status) {
+        if (!finded_status) {
             dispatch(updateShipmentInfo(data));
         } else {
             let ATD = {
@@ -214,10 +216,10 @@ const ManualTracking: React.FC<PropsType> = ({
                 booking: booking_id,
                 comment: `At ${moment(values.date).format('DD/MM/YYYY') + ' ' + values.time}`
             }
-            if(departed?.title === 'Vessel Departed' || departed?.title === 'Aircraft Departed') {
+            if (departed?.title === 'Vessel Departed' || departed?.title === 'Aircraft Departed') {
                 dispatch(updateShipmentInfo(ATD));
             }
-            if(departed?.title === 'Cargo Arrived at Destination' || departed?.title === 'Vessel Arrived at Destination') {
+            if (departed?.title === 'Cargo Arrived at Destination' || departed?.title === 'Vessel Arrived at Destination') {
                 dispatch(updateShipmentInfo(ATA));
             }
         }
@@ -315,8 +317,8 @@ const ManualTracking: React.FC<PropsType> = ({
                                 </TableRow>
                             )}
 
-                            {manual_tracking.map((row) => (
-                                <TableRow key={row?.id}>
+                            {manual_tracking.map((row, index) => (
+                                <TableRow key={index}>
                                     <TableCell
                                         valign={"top"}
                                         className={classes.innerCell}
@@ -329,7 +331,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                                 fontFamily: "Helvetica Reg, sans-serif",
                                             }}
                                         >
-                      {moment(row?.date_created).format("HH:MM")}
+                      {moment(row?.date_created).format('HH:mm')}
                     </span>
                                     </TableCell>
                                     <TableCell
@@ -350,7 +352,11 @@ const ManualTracking: React.FC<PropsType> = ({
                                             <div style={{whiteSpace: "nowrap", marginRight: "5px"}}>
                                                 {row?.created_by && `${row?.created_by}:`}
                                             </div>
-                                            <div style={{fontStyle: "italic", fontFamily: 'Helvetica Light', fontSize: '15px'}}>
+                                            <div style={{
+                                                fontStyle: "italic",
+                                                fontFamily: 'Helvetica Light',
+                                                fontSize: '15px'
+                                            }}>
                                                 {row?.comment}
                                             </div>
                                         </div>
@@ -361,16 +367,15 @@ const ManualTracking: React.FC<PropsType> = ({
                                         align="right"
                                     >
                                         {moment
-                                            .utc(dateTime)
-                                            .diff(moment.utc(row?.date_created), "seconds") <= 300 && (
-                                            <img
-                                                style={{cursor: "pointer"}}
-                                                onClick={() => {
-                                                    dispatch(deleteTrackingStatus(row?.id));
-                                                }}
-                                                src={Garbage}
-                                                alt={""}
-                                            />
+                                        (dateTime)
+                                            .diff(moment(row?.date_created), "seconds") <= 300 && (
+                                            <IconButton onClick={() => dispatch(deleteTrackingStatus(row?.id))}>
+                                                <img
+                                                    //style={{cursor: "pointer"}}
+                                                    src={Garbage}
+                                                    alt={""}
+                                                />
+                                            </IconButton>
                                         )}
                                     </TableCell>
                                 </TableRow>

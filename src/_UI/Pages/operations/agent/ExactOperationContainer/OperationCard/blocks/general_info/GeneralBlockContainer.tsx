@@ -60,7 +60,9 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, c
                     </div>
                     {(operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
                         operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
-                        operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                        operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST ||
+                        operation_info?.status === AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS ||
+                        operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT
                     ) &&
                     <>
                         {shipment?.vessel

@@ -43,8 +43,7 @@ type PropsType = {
     errors: any
     formMode: boolean
     setFormMode: (value: boolean) => void,
-    history: any,
-
+    history: any
 }
 
 const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFormMode, surcharge, control, errors, history}) => {
@@ -69,20 +68,19 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
         conditions: c.conditions
     }))
 
+
     const dispatch = useDispatch()
     const onSubmit = (values: any) => {
-        debugger
         //EDIT DATES
         let server_dates = [{
             start_date: surcharge?.start_date,
             expiration_date: surcharge?.expiration_date
         }]
         let dates = [{
-            start_date: moment(values.from).format('DD/MM/YYYY'),
-            expiration_date: moment(values.to).format('DD/MM/YYYY')
+            start_date: (surcharge?.start_date !== values.from) ? moment(values.from).format('DD/MM/YYYY') : surcharge?.start_date,
+            expiration_date: (surcharge?.expiration_date !== values.to) ? moment(values.to).format('DD/MM/YYYY') : surcharge?.expiration_date
         }]
-        let dates_to_submit = server_dates && (dates[0].start_date !== 'Invalid date' && dates[0].expiration_date !== 'Invalid date')
-            && _.differenceWith(dates, server_dates, _.isEqual)
+        let dates_to_submit = server_dates && _.differenceWith(dates, server_dates, _.isEqual)
 
 
         //EDIT USAGE FEES
@@ -103,7 +101,7 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
         let checked_charges_to_submit = charges_to_submit?.map(a => ({...a, charge: _.ceil(Number(a.charge), 2)}))
 
         //DISPATCH
-         dispatch(editUsageAndCharges(Number(surcharge?.id), dates_to_submit, checked_fees_to_submit, checked_charges_to_submit, history))
+         dispatch(editUsageAndCharges(Number(surcharge?.id), dates_to_submit, checked_fees_to_submit, checked_charges_to_submit, history, setFormMode))
     }
 
     return (

@@ -98,9 +98,9 @@ const Rate: React.FC<PropsType> = ({
     }, [rate, setValue])
 
 
-    let rates_from_server = rate?.rates?.map(r => (
-        {
-            id: r.id,
+    let not_empty_rates_from_server = rate?.rates?.filter(r => r.rate && r.start_date && r.expiration_date)
+    let rates_from_server = not_empty_rates_from_server?.map(r => ({
+        id: r.id,
             rate: r.rate,
             currency: r.currency.id,
             container_type: r.container_type ? r.container_type.id : null,
@@ -108,13 +108,13 @@ const Rate: React.FC<PropsType> = ({
             updated_by: r.updated_by,
             from: r.start_date ? r.start_date : '',
             to: r.expiration_date ? r.expiration_date : ''
-        }
-    ))
+    }))
 
     const dispatch = useDispatch()
 
     const onSubmit = (values: any) => {
         let rates: any[] = [];
+        debugger
 
         values.rates && Object.keys(values.rates).forEach((key: any) => (values.rates[key] !== null && values.rates[key].from !== null
             && rates.push({id: Number(key), ...values.rates[key]})))

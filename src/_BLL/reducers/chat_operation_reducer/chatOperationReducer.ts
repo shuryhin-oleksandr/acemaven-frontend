@@ -40,7 +40,7 @@ export const chatOperationReducer = (state = initialState, action: commonOperati
         case "SET_DELETED_MESSAGE_ID":
             return {
                 ...state,
-                message_history: state.message_history.filter(m => m.id !== action.message_id)
+                message_history: state.message_history.filter(m => m.id != action.message_id)
             }
         case "STOP_TYPING":
             return {

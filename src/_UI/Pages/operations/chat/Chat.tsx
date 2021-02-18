@@ -31,6 +31,7 @@ import send_icon from '../../../assets/icons/operations/send_mesage.svg'
 import user_icon from "../../../assets/icons/profile/defaultUserPhoto.svg";
 
 
+
 type PropsType = {
     message_history: MessageType[],
     my_id: number | undefined,
@@ -53,10 +54,13 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
     const my_photo = useSelector((state: AppStateType) => state.profile.authUserInfo?.photo)
 
     const keyHandler = (e: any) => {
-        const keyCode = e.which || e.keyCode
-        if (keyCode === 13 && !e.shiftKey) {
+        if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault()
             props.sendHandler()
+            props.blurHandler()
+        } else  {
+            e.currentTarget.value.length === 2 && (e.key !== 'Delete') && (e.key !== 'Backspace') && props.focusHandler()
+            e.currentTarget.value.length < 2 && props.blurHandler()
         }
     }
     const formData = new FormData()
@@ -95,8 +99,8 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
                     <MessageInputWrapper>
                         <MessageInput placeholder='Message...'
                                       value={inputText}
-                                      onFocus={() => props.focusHandler()}
-                                      onBlur={() => props.blurHandler()}
+                                      //onFocus={() => props.focusHandler()}
+                                      //onBlur={() => props.blurHandler()}
                                       onKeyDown={e => keyHandler(e)}
                             // @ts-ignore
                                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)}

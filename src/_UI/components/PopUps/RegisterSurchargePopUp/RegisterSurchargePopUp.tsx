@@ -68,7 +68,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
   const dispatch = useDispatch()
 
   const onSubmit = (values: any) => {
-
+  debugger
     //additional charges
     let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
     let additional_charges_array = charges_array.map(a => {
@@ -107,7 +107,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
       carrier: values.carrier,
       direction: is_local_port?.is_local === true ? 'export' : 'import',
       shipping_mode: values.shipping_mode,
-      start_date: values.from,
+      start_date: moment(values.from).format('DD/MM/YYYY'),
       expiration_date: moment(values.to).format('DD/MM/YYYY'),
       charges: additional_charges_array,
       usage_fees: usageFees_array,
@@ -115,7 +115,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
     }
 
     let data_without_fees = {
-      start_date:values.from,
+      start_date: moment(values.from).format('DD/MM/YYYY'),
       expiration_date: moment(values.to).format('DD/MM/YYYY'),
       carrier: values.carrier,
       direction: is_local_port?.is_local === true ? 'export' : 'import',

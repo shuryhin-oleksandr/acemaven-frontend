@@ -29,6 +29,7 @@ const initialState = {
   rate_data_for_surcharge: null as RateForSurchargeType | null,
   registration_success: "",
   rate_info: null as any | null,
+  edited_rate_info: null as any | null,
   booked_dates: null as Array<Array<{container_type: number | null, start_date: string, expiration_date: string}>> | null,
   edit_success: '',
   adding_rate_error: null,
@@ -63,7 +64,6 @@ export const rateReducer = (
         ...state,
         destination_ports: action.ports,
       };
-
     case "SET_FREIGHT_RATES_LIST":
       return {
         ...state,
@@ -166,7 +166,7 @@ export const rateReducer = (
     case "SET_EDITED_RATE_INFO":
       return {
         ...state,
-        rate_info: {...state.rate_info, rates: state.rate_info.rates.map((r: any) => {
+        edited_rate_info: {...state.rate_info, rates: state.rate_info.rates.map((r: any) => {
             if (r.container_type && (r.container_type.id === action.value.container_type)) {
               return {
                 ...r,
@@ -194,7 +194,7 @@ export const rateReducer = (
     case "SET_SURCHARGE_TO_RATE":
       return {
         ...state,
-        rate_info: {...state.rate_info, rates: state.rate_info.rates.map((r: any) => {
+        edited_rate_info: {...state.rate_info, rates: state.rate_info.rates.map((r: any) => {
                 if(r.id === action.id) {
                   return {
                     ...r,

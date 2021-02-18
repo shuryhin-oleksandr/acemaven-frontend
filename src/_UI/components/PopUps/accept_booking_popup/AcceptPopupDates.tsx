@@ -1,4 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
+//react-text-mask (for input type='text' that looking like type='time')
+import MaskedInput from "react-text-mask";
 //react-day-picker
 import DayPickerInput from "react-day-picker/DayPickerInput";
 // @ts-ignore
@@ -8,7 +10,7 @@ import moment from "moment";
 //react-hook-form
 import {Controller} from "react-hook-form";
 //styles
-import {AcceptDatesFilter, TimePicker, Wrapper} from "./accept-popup-styles";
+import {AcceptDatesFilter, Wrapper} from "./accept-popup-styles";
 import {CalendarWrapper} from "../../_commonComponents/calendar/calendar-styles";
 import {HelperText} from "../../_commonComponents/Input/input-styles";
 
@@ -43,14 +45,15 @@ type PropsType = {
     justify_content?: string,
     arrival_date?: string,
     departure_date?: string,
-    first_time?: string,
-    second_time?: string,
+    first_time?: any,
+    second_time?: any,
     register?: any,
     disabled_condition1?: boolean,
     disabled_condition2?: boolean,
     required_time: boolean,
     color_label?: boolean
 }
+
 
 const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, register, required_dates, ...props}) => {
 
@@ -103,10 +106,13 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
     }, [props.departure_date,props.arrival_date, props.second_time, props.first_time])
 
 
+
+    // @ts-ignore
     return (
-        <AcceptDatesFilter flex_direction={props.flex_direction} max_width={props.max_width}>
+        <AcceptDatesFilter flex_direction={props.flex_direction} >
             <Wrapper justify_content={props.justify_content} wrapper_width={props.wrapper_width} >
-                <CalendarWrapper max_width={!props.first_time ? '225px' : '235px'}
+                <CalendarWrapper max_width={'240px'}
+                                 max_width_wrapper={'340px'}
                                  input_height='40px' margin_right='10px' margin_bottom='5px' >
                     <span style={{fontFamily: !props.color_label ? 'Helvetica Reg' : 'Helvetica Bold',
                                 fontSize: '14px',
@@ -115,56 +121,63 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                     }}>
                         {props.label1}
                     </span>
-                    <Controller
-                        name={props.date_name_first}
-                        control={control}
-                        rules={{
-                            required: required_dates
-                        }}
-                        defaultValue=""
-                        as={
-                            <DayPickerInput
-                                inputProps={{
-                                    readOnly: true,
-                                    disabled: props.disabled_condition1
-                                }}
-                                format='DD/MM/YYYY'
-                                placeholder='DD/MM/YYYY'
-                                formatDate={formatDate}
-                                parseDate={parseDate}
-                                hideOnDayClick={false}
-                                value={selectedDay.from}
-                                // @ts-ignore
-                                onDayChange={handleFromChange}
-                                ref={toInput}
-                                dayPickerProps={{
-                                    disabledDays: [{before: props.before} ,{after: props.after}],
-                                }}
-                            />
-                        }
-                    />
-                    {!!errors.from && (
-                        <HelperText>Field is required</HelperText>
-                    )}
+                    <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                    <>
+                        <Controller
+                            name={props.date_name_first}
+                            control={control}
+                            rules={{
+                                required: required_dates
+                            }}
+                            defaultValue=""
+                            as={
+                                <DayPickerInput
+                                    inputProps={{
+                                        readOnly: true,
+                                        disabled: props.disabled_condition1
+                                    }}
+                                    format='DD/MM/YYYY'
+                                    placeholder='DD/MM/YYYY'
+                                    formatDate={formatDate}
+                                    parseDate={parseDate}
+                                    hideOnDayClick={false}
+                                    value={selectedDay.from}
+                                    // @ts-ignore
+                                    onDayChange={handleFromChange}
+                                    ref={toInput}
+                                    dayPickerProps={{
+                                        disabledDays: [{before: props.before} ,{after: props.after}],
+                                    }}
+                                />
+                            }
+                        />
+                        {!!errors.from && (
+                            <HelperText>Field is required</HelperText>
+                        )}
+                    </>
+                        <Controller name={props.time_name_first}
+                                    control={control}
+                                    rules={{
+                                        required: props.required_time
+                                    }}
+                                    defaultValue=''
+                                    as={
+                                        <MaskedInput
+                                            mask={[/[0-2]/, /[0-9]/, ':', /[0-5]/, /[0-9]/]}
+                                            className="form-control"
+                                            placeholder="--:--"
+                                            guide={false}
+                                            id="my-input-id"
+                                            disabled={props.disabled_condition2}
+                                        />
+                                    }
+                        />
+                    </div>
                 </CalendarWrapper>
-                    <Controller name={props.time_name_first}
-                                control={control}
-                                rules={{
-                                    required: props.required_time
-                                }}
-                                defaultValue=''
-                                as={
-                                    <TimePicker type="time"
-                                                step='300'
-                                                error={!!errors?.departure_time}
-                                                disabled={props.disabled_condition1}
-                                    />
-                                }
-                    />
             </Wrapper>
-
             <Wrapper justify_content={props.justify_content} wrapper_width={props.wrapper_width}>
-                <CalendarWrapper max_width={!props.second_time ? '225px' : '235px'}
+                <CalendarWrapper max_width={'240px'}
+                                 max_width_wrapper={'340px'}
                                  input_height='40px' margin_right='10px' margin_bottom='5px'>
                     <span style={{fontFamily: !props.color_label ? 'Helvetica Reg' : 'Helvetica Bold',
                         fontSize: '14px',
@@ -173,52 +186,59 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                     }}>
                         {props.label2}
                     </span>
-                    <Controller
-                        name={props.date_name_second}
-                        control={control}
-                        rules={{
-                            required: required_dates
-                        }}
-                        defaultValue=""
-                        as={
-                            <DayPickerInput
-                                inputProps={{
-                                    readOnly:'readonly',
-                                    disabled: props.disabled_condition2
+                    <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                        <>
+                            <Controller
+                                name={props.date_name_second}
+                                control={control}
+                                rules={{
+                                    required: required_dates
                                 }}
-                                format='DD/MM/YYYY'
-                                placeholder='DD/MM/YYYY'
-                                formatDate={formatDate}
-                                parseDate={parseDate}
-                                hideOnDayClick={false}
-                                value={selectedDay.to}
-                                // @ts-ignore
-                                onDayChange={handleToChange}
-                                ref={toInput}
-                                dayPickerProps={{
-                                    disabledDays: [{before: props.before}, {after: props.after}],
-                                }}
+                                defaultValue=""
+                                as={
+                                    <DayPickerInput
+                                        inputProps={{
+                                            readOnly:'readonly',
+                                            disabled: props.disabled_condition2
+                                        }}
+                                        format='DD/MM/YYYY'
+                                        placeholder='DD/MM/YYYY'
+                                        formatDate={formatDate}
+                                        parseDate={parseDate}
+                                        hideOnDayClick={false}
+                                        value={selectedDay.to}
+                                        // @ts-ignore
+                                        onDayChange={handleToChange}
+                                        ref={toInput}
+                                        dayPickerProps={{
+                                            disabledDays: [{before: props.before}, {after: props.after}],
+                                        }}
+                                    />
+                                }
                             />
-                        }
-                    />
-                    {!!errors.to && (
-                        <HelperText>Field is required</HelperText>
-                    )}
-                </CalendarWrapper>
-                <Controller control={control}
-                            rules={{
-                                required: props.required_time
-                            }}
-                            name={props.time_name_second}
-                            defaultValue=''
-                            as={
-                                <TimePicker type="time"
-                                            step='300'
-                                            error={!!errors?.arrival_time}
+                            {!!errors.to && (
+                                <HelperText>Field is required</HelperText>
+                            )}
+                        </>
+                        <Controller control={control}
+                                    rules={{
+                                        required: props.required_time
+                                    }}
+                                    name={props.time_name_second}
+                                    defaultValue=''
+                                    as={
+                                        <MaskedInput
+                                            mask={[/[0-2]/, /[0-9]/, ':', /[0-5]/, /[0-9]/]}
+                                            className="form-control"
+                                            placeholder="--:--"
+                                            guide={false}
+                                            id="my-input-id"
                                             disabled={props.disabled_condition2}
-                                />
-                            }
-                />
+                                        />
+                                    }
+                        />
+                    </div>
+                </CalendarWrapper>
                 </Wrapper>
         </AcceptDatesFilter>
     )

@@ -38,7 +38,7 @@ export const InfoWrap = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
- 
+  min-height: 165px;
 `
 export const ShippingMode = styled.div`
   width: 99px;
@@ -114,6 +114,7 @@ export const Wrap = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  min-height: 96px;
 `
 export const FormButtons = styled.div`
 display: flex;

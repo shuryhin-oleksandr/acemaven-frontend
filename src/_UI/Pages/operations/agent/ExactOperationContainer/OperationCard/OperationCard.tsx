@@ -173,7 +173,9 @@ const OperationCard: React.FC<PropsType> = ({
                         ? (my_name === operation_info?.agent_contact_person
                             && (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
                                 operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
-                                operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                                operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST ||
+                                operation_info?.status === AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS ||
+                                operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT
                             )
                             && <PaymentDueByDates payment_due_by={operation_info?.payment_due_by}
                                                   operation_id={operation_info.id}
@@ -183,7 +185,9 @@ const OperationCard: React.FC<PropsType> = ({
                             &&
                             (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
                                 operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST ||
-                                operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST
+                                operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST ||
+                                operation_info?.status === AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS ||
+                                operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT
                             )
                             &&
                             <PaymentDueByForClient payment_due_by={String(operation_info?.payment_due_by)}

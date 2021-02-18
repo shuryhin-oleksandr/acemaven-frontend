@@ -60,13 +60,12 @@ export const registerNewFreightRateThunk = (freight_data: any, history: any) => 
         }
     };
 };
-
 export const getSurchargeForExactRateThunk = (rate_data: any) => {
     return async (dispatch: Dispatch<commonRateActions>, getState: () => AppStateType) => {
         try {
             dispatch(rateActions.setExistingSurchargeByRate(null));
-            dispatch(rateActions.setRateStartDate(rate_data.start_date));
-            dispatch(rateActions.setRateExpirationDate(rate_data.expiration_date));
+            //dispatch(rateActions.setRateStartDate(rate_data.start_date));
+            //dispatch(rateActions.setRateExpirationDate(rate_data.expiration_date));
             let res = await rateAPI.getSurchargeToRate(rate_data);
             if (Object.keys(res.data).length === 0) {
                 dispatch(rateActions.setEmptyExistingSurcharge("empty"));
@@ -74,9 +73,13 @@ export const getSurchargeForExactRateThunk = (rate_data: any) => {
                 dispatch(rateActions.setExistingSurchargeByRate(res.data));
                 //ex
                 let id = getState().rate.rate_id
+                // let dates = {
+                //     start_date: getState().rate.rate_start_date,
+                //     expiration_date: getState().rate.rate_expiration_date
+                // }
                 let dates = {
-                    start_date: getState().rate.rate_start_date,
-                    expiration_date: getState().rate.rate_expiration_date
+                    start_date: rate_data.start_date,
+                    expiration_date: rate_data.expiration_date
                 }
                 getState().rate.rate_info && dispatch(rateActions.setSurchargeToRate(id, res.data, dates))
             }
@@ -213,7 +216,7 @@ export const editRates = (id: number | undefined, rates: any, history: any) => {
             dispatch(rateActions.setRateExpirationDate(''))
             dispatch(rateActions.setExistingSurchargeByRate(null))
             //push to page with new id
-            history.push(`/services/rate/${data.freight_rate}`)
+            history.push(`/services/rate/${data.id}`)
             dispatch(rateActions.setIsFetching(false))
         } catch (e) {
             console.log(e)

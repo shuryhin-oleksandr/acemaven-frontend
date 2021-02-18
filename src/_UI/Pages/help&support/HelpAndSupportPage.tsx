@@ -35,6 +35,7 @@ const HelpAndSupportPage: React.FC<PropsType> = ({ setNewTopic }) => {
               + Add New
             </AddTopicText>
           </AddTopicOption>
+          <TopicCard />
         </SupportContent>
       </SupportInner>
     </SupportOuter>

@@ -1,8 +1,10 @@
 import { TicketType } from "../../types/support_types/support_types";
+import { ChoiceType } from "../../types/bookingTypes";
 
 const initialState = {
   isFetching: false,
   tickets_list: [] as TicketType[],
+  category_choices: [] as ChoiceType[],
 };
 
 type InitialStateType = typeof initialState;
@@ -22,6 +24,11 @@ export const supportReducer = (
         ...state,
         tickets_list: action.list,
       };
+    case "SET_CATEGORY_CHOICES":
+      return {
+        ...state,
+        category_choices: action.choices,
+      };
     default:
       return state;
   }
@@ -37,4 +44,9 @@ export const supportActions = {
     ({ type: "SET_IS_FETCHING", isFetching } as const),
   setTicketsList: (list: TicketType[]) =>
     ({ type: "SET_TICKETS_LIST", list } as const),
+  setCategoryChoices: (choices: ChoiceType[]) =>
+    ({
+      type: "SET_CATEGORY_CHOICES",
+      choices,
+    } as const),
 };

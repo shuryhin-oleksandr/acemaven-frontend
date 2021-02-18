@@ -18,3 +18,14 @@ export const getTicketsListThunk = () => {
     }
   };
 };
+
+export const getCategoryChoicesThunk = () => {
+  return async (dispatch: Dispatch<commonSupportActions>) => {
+    try {
+      let res = await supportApi.getCategoryChoices();
+      dispatch(supportActions.setCategoryChoices(res.data.ticket_category));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

@@ -1,4 +1,7 @@
 import * as React from "react";
+import {useEffect} from "react";
+//moment js
+import moment from "moment";
 //material ui
 import Tooltip from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
@@ -10,7 +13,13 @@ import {useDispatch, useSelector} from "react-redux";
 //BLL
 import {AppStateType} from "../../../_BLL/store";
 import {signOut} from "../../../_BLL/thunks/auth/authThunks";
+import {getExchangeListThunk} from "../../../_BLL/thunks/billing/agent/AgentBillingThunks";
+import {getAgentExchangeListSelector} from "../../../_BLL/selectors/billing/agent/agentBillingSelector";
+import {getMyInfoSelector} from "../../../_BLL/selectors/profile/profileSelectors";
+//types
+import {AppCompaniesTypes} from "../../../_BLL/types/commonTypes";
 //components
+import ExchangeRateTooltipCard from "./ExchangeRateTooltipCard";
 import NotificationCard from "../../Pages/notifications/NotificationCard";
 import {
     ButtonWrap,
@@ -29,7 +38,7 @@ import notification from "../../../_UI/assets/icons/clarity_notification-solid-b
 import no_notification from "../../../_UI/assets/icons/no-notification-ring.svg";
 import card from "../../../_UI/assets/icons/card.svg";
 import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
-import ExchangeRateTooltipCard from "./ExchangeRateTooltipCard";
+
 
 
 const useStyles = makeStyles({
@@ -63,34 +72,50 @@ const useStyles = makeStyles({
         maxWidth: "376px",
         width: "100%",
     },
-  customTooltipExchange: {
-    "& .MuiTooltip-arrow::before": {
-      backgroundColor: "#FFFFFF",
-      border: "1px solid #828282",
+    customTooltipExchange: {
+        "& .MuiTooltip-arrow::before": {
+            backgroundColor: "#FFFFFF",
+            border: "1px solid #828282",
+        },
+        borderRadius: "4px",
+        boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.25)",
+        backgroundColor: "#FFFFFF",
+        border: "1px solid #828282",
+        padding: "20px",
+        width: '470px'
     },
-    borderRadius: "4px",
-    boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.25)",
-    backgroundColor: "#FFFFFF",
-    border: "1px solid #828282",
-    padding: "25px",
-    width: '435px'
-  },
 });
 
 const Header: React.FC = () => {
+
+    //hooks
     const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
+    useEffect(() => {
+        dispatch(getExchangeListThunk())
+    }, [])
 
-    let profilePhoto = useSelector(
-        (state: AppStateType) => state.profile.authUserInfo?.photo
-    );
 
-    let notifications_list = useSelector(
-        (state: AppStateType) => state.chat_operation.notification_list
-    );
+    //data from store
+    const {exchange_list} = useSelector(getAgentExchangeListSelector)
+    const profilePhoto = useSelector((state: AppStateType) => state.profile.authUserInfo?.photo);
+    const notifications_list = useSelector((state: AppStateType) => state.chat_operation.notification_list);
+    const auth_user_info = useSelector(getMyInfoSelector)
 
+    //local state
+    let company_type = auth_user_info?.companies && auth_user_info?.companies?.length > 0 && auth_user_info?.companies[0].type
+    let user_roles = auth_user_info?.roles
     const has_new_notifications = notifications_list?.some((n) => !n.is_viewed);
+    let moment_today = moment(new Date()).format('DD/MM/YYYY')
+    let last_exchange = exchange_list[exchange_list.length - 1];
+    let is_added_today = last_exchange ? (moment_today === last_exchange.date) : false
+
+    //handlers
+    const goToExchangePage = () => {
+        history.push('/billing_exchange')
+    }
+
 
     return (
         <HeaderContainer>
@@ -98,15 +123,24 @@ const Header: React.FC = () => {
                 <img src={logotype} alt=""/>
             </LogoWrap>
             <Info>
-                <Tooltip arrow
-                         interactive
-                         classes={{tooltip: classes.customTooltipExchange}}
-                         title={<ExchangeRateTooltipCard />}
-                >
-                    <ButtonWrap>
-                        <img src={card} alt=""/>
-                    </ButtonWrap>
-                </Tooltip>
+                {
+                    (company_type === AppCompaniesTypes.AGENT) && (user_roles?.includes('billing') || user_roles?.includes('master'))
+                    &&
+                    <Tooltip arrow
+                             interactive
+                             classes={{tooltip: classes.customTooltipExchange}}
+                             title={
+                                 <ExchangeRateTooltipCard moment_today={moment_today}
+                                                          is_added_today={is_added_today}
+                                                          last_exchange={last_exchange}
+                                                          goToExchangePage={goToExchangePage}
+                                 />}
+                    >
+                        <ButtonWrap>
+                            <img src={card} alt=""/>
+                        </ButtonWrap>
+                    </Tooltip>
+                }
                 <Tooltip
                     arrow
                     interactive
@@ -125,7 +159,7 @@ const Header: React.FC = () => {
                         </SectionWrapper>
                     }
                 >
-                    <ButtonWrap>
+                    <ButtonWrap margin_left={'21px'}>
                         <img
                             src={has_new_notifications ? notification : no_notification}
                             alt=""

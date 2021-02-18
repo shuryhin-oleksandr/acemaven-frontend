@@ -57,11 +57,4 @@ export const ModeIconBlue = styled.img`
   transition: opacity 1s ease-in-out;
 `
 
-export const SpanMode = styled.div`
-transition: .3s;
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-    transition: .3s;
-  }
-`
+export const SpanMode = styled.div``

@@ -1,5 +1,9 @@
 import React from 'react'
+//material ui
+import {IconButton} from "@material-ui/core";
+//types
 import {IAddNewBank} from "../../../../../../_BLL/types/addNewUserTypes";
+//styles
 import {
     CardContent,
     CardWrap,
@@ -12,9 +16,10 @@ import {
     SetDefaultButton,
     Wrapper
 } from "../bank-list-styles";
+//icons
 import deleteIcon from '../../../../../assets/icons/delete.svg'
 import defaultIcon from '../../../../../assets/icons/defaultBank.svg'
-import {IconButton} from "@material-ui/core";
+
 
 
 type PropsType = {

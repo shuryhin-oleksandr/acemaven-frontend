@@ -8,4 +8,5 @@ export const FormContainer = styled.form`
   padding: 30px 80px;
   margin-bottom: 30px;
   position: relative;
+  min-height: 491px;
 `

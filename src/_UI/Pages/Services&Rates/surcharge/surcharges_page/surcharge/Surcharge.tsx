@@ -3,6 +3,8 @@ import React from "react";
 import moment from "moment";
 //lodash
 import _ from "lodash";
+//material ui
+import {IconButton} from "@material-ui/core";
 //react-redux
 import {useDispatch} from "react-redux";
 //types
@@ -31,7 +33,7 @@ import {
 //icons
 import ship from '../../../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import plane from '../../../../../../_UI/assets/icons/rates&services/plane-surcharge.svg'
-
+import close_icon from '../../../../../assets/icons/close-icon.svg'
 
 
 
@@ -49,6 +51,7 @@ type PropsType = {
 const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFormMode, surcharge, control, errors, history}) => {
 
 
+    //data from server for Lodash functions
     let fees_from_server = surcharge?.usage_fees?.map(u => ({
         id: u.id,
         date_updated: u.date_updated,
@@ -57,7 +60,6 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
         container_type: u.container_type.id,
         currency: u.currency.id
     }))
-
     let charges_from_server = surcharge?.charges?.map(c => ({
         id: c.id,
         date_updated: c.date_updated,
@@ -68,7 +70,7 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
         conditions: c.conditions
     }))
 
-
+    //hooks + form submit
     const dispatch = useDispatch()
     const onSubmit = (values: any) => {
         //EDIT DATES
@@ -97,15 +99,27 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
         Object.keys(values.charges).forEach((key: any) => (values.charges[key] !== null
             && additionals.push({id: Number(key), ...values.charges[key]})
         ))
-        let charges_to_submit = charges_from_server && _.differenceWith(additionals, charges_from_server, _.isEqual) //charges_to_submit && charges_to_submit?.length > 0 && dispatch(editCharges(Number(surcharge?.id), charges_to_submit, history))
+        let charges_to_submit = charges_from_server && _.differenceWith(additionals, charges_from_server, _.isEqual)
         let checked_charges_to_submit = charges_to_submit?.map(a => ({...a, charge: _.ceil(Number(a.charge), 2)}))
 
         //DISPATCH
-         dispatch(editUsageAndCharges(Number(surcharge?.id), dates_to_submit, checked_fees_to_submit, checked_charges_to_submit, history, setFormMode))
+        dispatch(editUsageAndCharges(Number(surcharge?.id), dates_to_submit, checked_fees_to_submit, checked_charges_to_submit, history, setFormMode))
     }
+
+    //handlers
+    const goBackToList = () => {
+        history.push('/services/surcharges')
+    }
+
+
 
     return (
         <SurchargeContainer onSubmit={handleSubmit(onSubmit)}>
+            <IconButton style={{position: 'absolute', top: '10px', right: '30px'}}
+                        onClick={goBackToList}
+            >
+                <img src={close_icon} alt="" style={{width: '15px'}}/>
+            </IconButton>
             <SurchargeContent>
                 <Wrap>
                     <SurchargeTitle>

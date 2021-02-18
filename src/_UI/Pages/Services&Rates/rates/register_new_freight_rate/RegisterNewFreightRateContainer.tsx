@@ -54,9 +54,7 @@ type PropsType = {
 
 let timerOrigin: any, timerDestination: any;
 
-const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
-                                                                  setNewRateMode,
-                                                              }) => {
+const RegisterNewFreightRateContainer: React.FC<PropsType> = ({setNewRateMode}) => {
     const dispatch = useDispatch();
 
     const [noSurchargePopup, setNoSurchargePopup] = useState(false);
@@ -68,6 +66,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({
     //check if some fields empty fro check free rate dates
     const watchFields = watch(["carrier", "shipping_mode", "origin", "destination"]);
     const watchResultArr = Object.values(watchFields).filter((val) => !!val);
+
 
     //запрос за опшионсами для селектов
     useEffect(() => {

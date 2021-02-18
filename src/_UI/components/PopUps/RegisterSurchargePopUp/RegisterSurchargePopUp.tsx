@@ -68,25 +68,19 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
   const dispatch = useDispatch()
 
   const onSubmit = (values: any) => {
-  debugger
     //additional charges
     let charges_array = Object.keys(values.charges).map(o => (o !== null && values.charges[o]))
     let additional_charges_array = charges_array.map(a => {
-      if(a.charge && a.conditions) {
+      if(a.conditions) {
         return {
           additional_surcharge: a.additional_surcharge,
-          charge: _.ceil(a.charge,2),
+          charge: a.charge ? _.ceil(a.charge,2) : 0,
           conditions: a.conditions,
           currency: a.currency
         }
-      } else if(!a.charge && a.conditions) {
+      } else if(!a.conditions) {
         return {
-          additional_surcharge: a.additional_surcharge,
-          conditions: a.conditions,
-          currency: a.currency
-        }
-      } else if(!a.charge && !a.conditions) {
-        return {
+          charge: a.charge ? _.ceil(a.charge,2) : 0,
           additional_surcharge: a.additional_surcharge,
           currency: a.currency
         }

@@ -1,16 +1,22 @@
-import React, {useEffect} from "react";
-import {BanksContainer, BanksInner} from "./bank-accounts-styles";
+import React, {useEffect, useState} from "react";
+//react-redux
+import {useDispatch, useSelector} from "react-redux";
+//BLL
+import {AppStateType} from "../../../../../_BLL/store";
+import {profileActions} from "../../../../../_BLL/reducers/profileReducer";
+import {deleteBank, getBankAccounts, makeBankDefault} from "../../../../../_BLL/thunks/profile/profileThunks";
+//types
+import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+//components
 import AddNewButton from "../../../../components/_commonComponents/buttons/addNewItemButton/addNewButton";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import BankCard from "../../../ActivateCompany/AddBankAccount/BanksList/list/bankCard";
-import {useState} from "react";
 import Form from "./addBankForm/Form";
-import {useDispatch, useSelector} from "react-redux";
-import {profileActions} from "../../../../../_BLL/reducers/profileReducer";
-import {AppStateType} from "../../../../../_BLL/store";
-import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
 import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
-import {deleteBank, getBankAccounts, makeBankDefault} from "../../../../../_BLL/thunks/profile/profileThunks";
+//styles
+import {BanksContainer, BanksInner} from "./bank-accounts-styles";
+
+
 
 type PropsType = {
     current_user_role?: string[],

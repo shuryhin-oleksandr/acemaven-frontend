@@ -165,8 +165,7 @@ const Additional: React.FC<PropsType> = ({
                                     <Controller
                                         name={`charges.${charge.id}.charge`}
                                         control={control}
-                                        defaultValue={0}
-                                        //rules={{required: true}}
+                                        defaultValue={'0'}
                                         as={
                                             <Field max_width="100px"
                                                    placeholder="0.00$"

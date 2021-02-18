@@ -51,6 +51,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        })}
                        max_width='447px'
                        max="100"
+                       min_height='70px'
             />
             <FormField label='Bank Number'
                        name='bank_number'
@@ -63,6 +64,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        })}
                        max_width='447px'
                        max="3"
+                       min_height='70px'
             />
             <FormField name='branch'
                        placeholder='0000-0'
@@ -77,6 +79,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        max='6'
                        max_width='447px'
                        pattern_message='Wrong format. Ex.: 0000-0'
+                      min_height='70px'
             />
             <FormField name='number'
                        placeholder='0000000000000'
@@ -91,6 +94,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        })}
                        max='50'
                        max_width='447px'
+                       min_height='70px'
             />
             {errorBank && <ErrorServerMessage>{errorBank}</ErrorServerMessage>}
             <Controller name='account_type'

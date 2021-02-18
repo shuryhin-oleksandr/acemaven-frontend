@@ -210,26 +210,6 @@ const Rates: React.FC<PropsType> = ({
                                                 />
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left">
-                                                {/*<Controller control={control}
-                                                            name={`rates.rate`}
-                                                            rules={{required: true}}
-                                                            defaultValue={0}
-                                                            render={({}) => (
-                                                                <div style={{position: 'relative'}}>
-                                                                    <Field placeholder='0.00$' maxW='100px'
-                                                                           onChange={(e) => onChange(e, String(0))}
-                                                                           onBlur={() => setAware(false)}
-                                                                           type='number'
-                                                                           step='0.0001'
-
-                                                                    />
-                                                                    {awareMessage && String(0) === rate_value
-                                                                    && <SpanAware><Title>Rate will be register as 0. Are you sure?</Title></SpanAware>}
-                                                                </div>
-                                                            )
-                                                            }
-
-                                                />*/}
                                                 <div style={{position: 'relative'}}>
                                                     <FormField name={`rates.rate`}
                                                                inputRef={register({

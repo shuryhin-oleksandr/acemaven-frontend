@@ -15,7 +15,7 @@ import template_icon from "../../../../assets/icons/rates&services/template.svg"
 import {TemplateIcon} from "../../../../components/_commonComponents/hover_message/hover-message-styles";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
-import {GetSurchargeForTooltip, getSurchargeInfo} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
+import {GetSurchargeForTooltip} from "../../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import {surchargeActions} from "../../../../../_BLL/reducers/surcharge&rates/surchargeReducer";
 import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {SurchargeObjectType} from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
@@ -29,6 +29,11 @@ const useStyles = makeStyles({
     table: {
         '& .MuiTableHead-root' : {
 
+        }
+    },
+    row: {
+        '&:hover': {
+            cursor: 'pointer'
         }
     },
     shipping_cell: {
@@ -202,15 +207,23 @@ const SurchargesPage:React.FC<PropsType> = ({surcharges_list, ...props}) => {
                         </TableHead>
                         <TableBody>
                             {rows?.map((row) => (
-                                <TableRow key={row.id}>
+                                <TableRow key={row.id} className={classes.row}>
                                         <TableCell onClick={() => goToPage(row.id)} className={classes.innerMainCell} align="left" component="th" scope="row">
                                             <ModeIcon src={ row.shipping_type === 'sea' ? ship_surcharge : plane_surcharge} alt=""/>
                                             <SpanMode >{row.shipping_mode}</SpanMode>
                                         </TableCell>
-                                    <TableCell className={classes.innerCell} align="left"><span >{row.carrier}</span></TableCell>
-                                    <TableCell className={classes.innerCell} align="left">{row.location}</TableCell>
-                                    <TableCell className={classes.innerCell} align="left">{row.direction}</TableCell>
-                                    <TableCell className={classes.innerCell} align="left">{row.start_date}</TableCell>
+                                    <TableCell className={classes.innerCell} align="left" onClick={() => goToPage(row.id)}>
+                                        <span >{row.carrier}</span>
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left" onClick={() => goToPage(row.id)}>
+                                        {row.location}
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left" onClick={() => goToPage(row.id)}>
+                                        {row.direction}
+                                    </TableCell>
+                                    <TableCell className={classes.innerCell} align="left" onClick={() => goToPage(row.id)}>
+                                        {row.start_date}
+                                    </TableCell>
                                     <TableCell className={classes.innerCell} align="left">
                                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                            {row.expiration_date}

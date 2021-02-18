@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 type PropsStyle = {
-   max_width?: string,
-   w?: string,
-   flex_direction?: string
+    max_width?: string,
+    w?: string,
+    flex_direction?: string
 }
 
 export const ListWrap = styled.div`
@@ -16,11 +16,12 @@ max-width: 416px;
 export const CardWrap = styled.div<PropsStyle>`
   max-width: ${({max_width}) => max_width ? max_width : '416px'};
   width: 100%;
-  min-height: 175px;
+ 
   border: 1px solid #ECECEC;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
   position: relative;
   margin-bottom: 20px;
+  min-height: 180px;
   
   &:hover {
     cursor: pointer;
@@ -79,9 +80,9 @@ export const DefaultWrap = styled.div`
   display: flex;
   width: 100%;
   justify-content: flex-end;
-   right: 10px;
+   right: 15px;
    position: absolute;
-   bottom: 10px;
+   bottom: 15px;
 `
 export const DefaultText = styled.div`
 color: #115B86;

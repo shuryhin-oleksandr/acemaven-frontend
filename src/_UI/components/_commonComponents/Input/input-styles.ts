@@ -11,7 +11,8 @@ type PropsStyle = {
   messagePaddingTop?: string;
   color_label? : string,
   font_weight?: string,
-  label_uppercase?: boolean
+  label_uppercase?: boolean,
+  min_height?: string
 };
 
 export const InputOuter = styled.div<PropsStyle>`
@@ -22,6 +23,7 @@ export const InputOuter = styled.div<PropsStyle>`
   max-width: ${({max_width }) => (max_width ? max_width : "100%")};
   margin-bottom: ${({ marginBottom }) =>
     marginBottom ? marginBottom : "15px"};
+  min-height: ${({min_height}) => min_height && min_height};
 `;
 export const Field = styled.input<PropsStyle>`
   padding: 10px;

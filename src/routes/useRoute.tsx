@@ -36,6 +36,7 @@ import BillingInProgressContainer
     from "../_UI/Pages/billing/client/BillingInProgressContainer/BillingInProgressContainer";
 import CompletedOperationsContainer from "../_UI/Pages/operations/COMPLETED/CompletedOperationsContainer";
 import HelpSupportContainer from "../_UI/Pages/help&support/HelpSupportContainer";
+import SupportChatContainer from "../_UI/Pages/help&support/SupportChat/SupportChatContainer";
 
 
 
@@ -83,6 +84,7 @@ const useRoute = (isAuth: boolean) => {
                 <Route exact component={BillingInProgressContainer} path='/billing_in_progress_client'/>
 
                 <Route exact component={HelpSupportContainer} path={'/support'}/>
+                <Route exact component={SupportChatContainer} path={'/support/:id'}/>
 
                 <Route exact component={DashboardContainer} path='/'/>
                 <Redirect to='/'/>

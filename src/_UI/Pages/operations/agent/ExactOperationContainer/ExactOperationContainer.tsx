@@ -235,6 +235,7 @@ const ExactOperationContainer = ({...props}) => {
             </ModalWindow>
             {isChatOpen
                 ? <ChatContainer
+                    max_height_chat_area={"550px"}
                     chat={company_type && (company_type?.type === "agent")
                         ? agent_operation_info?.chat :
                         client_operation_info?.chat}/>

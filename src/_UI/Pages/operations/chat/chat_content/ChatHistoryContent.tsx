@@ -16,11 +16,12 @@ type PropsType = {
     typing_user: {user_id: number, photo: string | null} | null,
     message_history: MessageType[],
     deleteHandler: (value: number) => void,
-    stop_typing: boolean
+    stop_typing: boolean,
+    max_height_chat_area:string
 }
 
 
-const ChatHistoryContent: React.FC<PropsType> = ({typing_user, my_id, message_history, ...props}) => {
+const ChatHistoryContent: React.FC<PropsType> = ({typing_user, my_id, message_history,max_height_chat_area, ...props}) => {
 
     useEffect(() => {
         let chat = document.getElementById('chat_content')
@@ -32,11 +33,11 @@ const ChatHistoryContent: React.FC<PropsType> = ({typing_user, my_id, message_hi
     return (
         <ScrollbarStyled {...{
             style: {height: "auto", width: "100%", flex: "none", backgroundColor: "#ffffff"},
-            autoHeightMin: "700px",
+            autoHeightMin: max_height_chat_area,
             autoHeight: true,
             navBar: true
         }}>
-            <ChatContent id={'chat_content'}>
+            <ChatContent id={'chat_content'} max_height_chat_area={max_height_chat_area}>
                 {message_history.map(m => <Message key={m.id}
                                                    message={m}
                                                    my_id={my_id}

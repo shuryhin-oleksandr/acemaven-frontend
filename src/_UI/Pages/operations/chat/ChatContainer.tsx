@@ -18,10 +18,11 @@ import Chat from "./Chat";
 
 
 type PropsType = {
-    chat: {chat: number, has_perm_to_read: boolean, has_perm_to_write: boolean} | undefined
+    chat: {chat: number, has_perm_to_read: boolean, has_perm_to_write: boolean} | undefined,
+    max_height_chat_area:string
 }
 
-const ChatContainer: React.FC<PropsType> = ({chat}) => {
+const ChatContainer: React.FC<PropsType> = ({chat,max_height_chat_area}) => {
 
     //data from store
     const messages_history = useSelector(getOperationMessagesHistorySelector)
@@ -41,6 +42,7 @@ const ChatContainer: React.FC<PropsType> = ({chat}) => {
         }
         return () => {
              dispatch(stopMessagingListening())
+            dispatch(operationChatActions.setMessagesHistory([]));
         }
     }, [chat?.chat])
 
@@ -78,6 +80,7 @@ const ChatContainer: React.FC<PropsType> = ({chat}) => {
               blurHandler={blurHandler}
               deleteHandler={deleteHandler}
               chat_info={chat && Object.keys(chat).length > 0 ? chat : undefined }
+              max_height_chat_area={max_height_chat_area}
         />
     )
 }

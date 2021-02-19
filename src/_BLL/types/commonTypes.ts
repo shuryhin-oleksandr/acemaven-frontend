@@ -5,11 +5,7 @@ export enum AppCompaniesTypes {
     CLIENT = "client",
     AGENT = "agent"
 }
-export enum AppOperationStatusType {
-    ACTIVE = 'active',
-    COMPLETED = 'completed',
-    CANCELED = 'canceled'
-}
+
 export enum AppUserRolesType {
     AGENT = 'agent',
     BILLING = 'billing',

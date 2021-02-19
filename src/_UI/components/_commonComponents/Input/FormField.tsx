@@ -1,4 +1,5 @@
 import React from "react";
+//styles
 import { Field, HelperText, InputOuter, Label } from "./input-styles";
 import {AgentComment} from "../../PopUps/accept_booking_popup/accept-popup-styles";
 

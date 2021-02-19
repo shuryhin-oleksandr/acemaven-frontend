@@ -1,5 +1,10 @@
 import React, {useState} from 'react'
+//components
+import SurchargeAdditionalTable from "./surcharge_tables/SurchargeAdditionalTable";
+import HandlingSurchargeTable from "./surcharge_tables/HandlingSurchargeTable";
+//types
 import {SurchargeInfoType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
+//styles
 import {
     Arrow,
     SurchargeForRateContainer,
@@ -7,14 +12,15 @@ import {
     SurchargeToRateInner,
     TableWrapper, TextWrap
 } from "./surcharges-to-rate-styles";
-import SurchargeAdditionalTable from "./surcharge_tables/SurchargeAdditionalTable";
-import HandlingSurchargeTable from "./surcharge_tables/HandlingSurchargeTable";
+//icons
 import show_arrow from '../../../../../../_UI/assets/icons/rates&services/show_arrow.svg';
 import hide_arrow from '../../../../../../_UI/assets/icons/rates&services/hide_arrow.svg';
+
 
 type PropsType = {
     existing_surcharge: SurchargeInfoType | null
 }
+
 
 const SurchargesToRate:React.FC<PropsType> = ({ existing_surcharge}) => {
     const [isFullView, setFullView] = useState(false)

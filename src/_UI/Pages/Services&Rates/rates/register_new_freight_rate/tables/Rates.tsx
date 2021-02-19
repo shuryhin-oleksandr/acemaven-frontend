@@ -28,7 +28,6 @@ import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates
 //components
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import FCLField from "./FCLField";
-import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import DatesCells from "./DatesCells";
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
 //styled-components
@@ -36,15 +35,20 @@ import styled from "styled-components";
 //styles
 import {HandlingTitle} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import {HelperText} from "../../../../../components/_commonComponents/Input/input-styles";
+import {Arrow} from "./surcharges-to-rate-styles";
 //icons
 import close_icon from '../../../../../assets/icons/close-icon.svg'
+import show_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
+import hide_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
+
 
 
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
         paddingRight: 12,
-        overflowX: 'unset'
+        overflowX: 'unset',
+        width: '900px'
     },
     table: {
         "& .MuiTableHead-root": {},
@@ -97,11 +101,26 @@ const Rates: React.FC<PropsType> = ({
                                         usageFees, control, register, errors, setValue, getValues, shipping_value,
                                         rate_data_for_surcharge, surcharge, required_dates
                                     }) => {
+
+    //local state
+    const [awareMessage, setAware] = useState(false)
+    const [invalidDate, setInvalidDate] = useState('')
+    const [isFullView, setFullView] = useState(true)
+
+
+    //hooks
     const classes = useStyles()
-
-    const reservedDates = useSelector(getRateBookedDatesSelector)
-
     const dispatch = useDispatch()
+    useEffect(() => {
+        if (surcharge) {
+            dispatch(getSurchargeForExactRateThunk(rate_data_for_surcharge))
+        }
+    }, [surcharge])
+
+    //handlers
+    let changeHandler = (value: any) => {
+        (value.value === '0') && setAware(true) && console.log('value', value.value)
+    }
     const getSurchargeToRateHandle = (id: number, from: string, to: string) => {
         let surcharge_to_rate = {
             start_date: moment(from).format('DD/MM/YYYY'),
@@ -122,150 +141,145 @@ const Rates: React.FC<PropsType> = ({
         dispatch(getSurchargeForExactRateThunk(surcharge_to_rate))
     }
 
-    useEffect(() => {
-        if (surcharge) {
-            dispatch(getSurchargeForExactRateThunk(rate_data_for_surcharge))
-        }
-    }, [surcharge])
 
-    const [awareMessage, setAware] = useState(false)
-    const [rate_value, setRateValue] = useState('')
-    let onChange = (e: any, id: string) => {
-        if (e.value === '0' || 0) {
-            setRateValue(id)
-            setAware(true)
-            setValue(`rates.${id}.rate`, e.value)
-        } else {
-            setValue(`rates.${id}.rate`, e.value)
-        }
-    }
+    //data from store
+    const reservedDates = useSelector(getRateBookedDatesSelector)
 
-    const [invalidDate, setInvalidDate] = useState('')
+
+
+
 
     return (
         <div>
-            <HandlingTitle>RATES</HandlingTitle>
-            <ScrollbarStyled {...{style: {width: 850, height: 450, marginBottom: 20}}}>
-                <TableContainer className={classes.container} component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD &&
-                                <TableCell className={classes.cell}>CONTAINER TYPE </TableCell>}
-                                <TableCell className={classes.cell} align="left">
-                                    CURRENCY
-                                </TableCell>
-                                {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD
-                                    ? (<TableCell className={classes.cell} align="left">
-                                        RATE
-                                    </TableCell>)
-                                    : (<TableCell className={classes.cell} align="left">
-                                        RATE PER W/M
-                                    </TableCell>)
-                                }
-                                <TableCell className={classes.cell} align="left">
-                                    START DATE
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    EXPIRATION DATE
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
+            <div style={{width: '100%', display: 'flex', alignItems: 'center', position: 'relative'}}>
+                <HandlingTitle margin_right={'20px'}>RATES</HandlingTitle>
+                {awareMessage
+                &&
+                <SpanAware>
+                    <IconButton style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        backgroundColor: 'rgba(255, 255, 255, .7)',
+                        padding: '5px'
+                    }}
+                                onClick={() => setAware(false)}
+                    >
+                        <img src={close_icon} alt="" style={{width: '6px'}}/>
+                    </IconButton>
+                    <Title>Rate will be register as 0. Are you sure?</Title>
+                </SpanAware>
+                }
+                <Arrow type='button'
+                       onClick={() => isFullView ? setFullView(false) : setFullView(true)}
+                       style={{position: 'absolute', top: '10px', right: 0}}
+                >
+                    <img src={!isFullView ? show_arrow : hide_arrow} alt=""/>
+                </Arrow>
+            </div>
+            {isFullView
+                &&
+            <TableContainer className={classes.container} component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD &&
+                            <TableCell className={classes.cell}>CONTAINER TYPE </TableCell>}
+                            <TableCell className={classes.cell} align="left">
+                                CURRENCY
+                            </TableCell>
                             {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD
-                                ? usageFees.map(fee => {
-                                    if (reservedDates) {
-                                        return {...fee, ...reservedDates.find(d => d.container_type === fee.id)}
-                                    } else {
-                                        return fee
-                                    }
-                                }).map(fee => (
-                                    <TableRow key={fee.id}>
-                                        <FCLField fee={fee}
-                                                  getSurchargeToRateHandle={getSurchargeToRateHandle}
-                                                  setValue={setValue}
-                                                  control={control}
-                                                  getValues={getValues}
-                                                  errors={errors}
-                                                  required_dates={required_dates}
-                                                  setAware={setAware}
-                                                  awareMessage={awareMessage}
-                                                  rate_value={rate_value}
-                                                  onChange={onChange}
-                                        />
-                                    </TableRow>
-                                ))
-                                : <>
-                                    <TableRow>
-                                        <>
-                                            <TableCell className={classes.innerCell} align="left">
-                                                <Controller control={control}
-                                                            name={`rates.currency`}
-                                                            defaultValue={currency[0].id}
-                                                            as={
-                                                                <SurchargeRateSelect options={currency}
-                                                                                     max_width='70px'
-                                                                />
-                                                            }
-                                                />
-                                            </TableCell>
-                                            <TableCell className={classes.innerCell} align="left">
-                                                <div style={{position: 'relative'}}>
-                                                    <FormField name={`rates.rate`}
-                                                               inputRef={register({
-                                                                   required: true,
-                                                                   minLength: 1,
-                                                                   maxLength: 10
-                                                               })}
-                                                               min='1'
-                                                               max='10'
-                                                               defaultValue=''
-                                                               placeholder='0.00'
-                                                               type='number'
-                                                               marginBottom='0px'
-                                                               max_width='107px'
-
-                                                    />
-                                                    {awareMessage && String(0) === rate_value
-                                                    &&
-                                                    <SpanAware>
-                                                        <Title>Rate will be register as 0. Are you sure?</Title>
-                                                        <IconButton style={{
-                                                            display: 'flex',
-                                                            justifyContent: 'flex-end',
-                                                            backgroundColor: 'rgba(255, 255, 255, .7)',
-                                                            padding: '5px'
-                                                        }}
-                                                                    onClick={() => setAware(false)}
-                                                        >
-                                                            <img src={close_icon} alt="" style={{width: '8px'}}/>
-                                                        </IconButton>
-                                                    </SpanAware>}
-                                                </div>
-                                            </TableCell>
-                                            <DatesCells
-                                                setValue={setValue}
-                                                control={control}
-                                                id={0}
-                                                errors={errors}
-                                                classes={classes}
-                                                getValues={getValues}
-                                                getSurchargeToRateHandle={getSurchargeToRateHandle}
-                                                reservedDates={reservedDates ? reservedDates[0].disabledDates : []}
-                                                required_dates={required_dates}
-                                                invalidDate={invalidDate}
-                                                setInvalidDate={setInvalidDate}
-                                                margin_top='0px'
-                                            />
-                                        </>
-                                        {invalidDate && <HelperText messagePaddingTop='25px'>{invalidDate}</HelperText>}
-                                    </TableRow>
-                                </>
+                                ? (<TableCell className={classes.cell} align="left">
+                                    RATE
+                                </TableCell>)
+                                : (<TableCell className={classes.cell} align="left">
+                                    RATE PER W/M
+                                </TableCell>)
                             }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </ScrollbarStyled>
+                            <TableCell className={classes.cell} align="left">
+                                START DATE
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                EXPIRATION DATE
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD
+                            ? usageFees.map(fee => {
+                                if (reservedDates) {
+                                    return {...fee, ...reservedDates.find(d => d.container_type === fee.id)}
+                                } else {
+                                    return fee
+                                }
+                            }).map(fee => (
+                                <TableRow key={fee.id}>
+                                    <FCLField fee={fee}
+                                              getSurchargeToRateHandle={getSurchargeToRateHandle}
+                                              setValue={setValue}
+                                              control={control}
+                                              getValues={getValues}
+                                              errors={errors}
+                                              required_dates={required_dates}
+                                              onChange={changeHandler}
+                                              register={register}
+                                    />
+                                </TableRow>
+                            ))
+                            : <>
+                                <TableRow>
+                                    <>
+                                        <TableCell className={classes.innerCell} align="left">
+                                            <Controller control={control}
+                                                        name={`rates.currency`}
+                                                        defaultValue={currency[0].id}
+                                                        as={
+                                                            <SurchargeRateSelect options={currency}
+                                                                                 max_width='70px'
+                                                            />
+                                                        }
+                                            />
+                                        </TableCell>
+                                        <TableCell className={classes.innerCell} align="left">
+                                            <FormField name={`rates.rate`}
+                                                       inputRef={register({
+                                                           required: true,
+                                                           minLength: 1,
+                                                           maxLength: 10
+                                                       })}
+                                                       min='1'
+                                                       max='10'
+                                                       defaultValue=''
+                                                       placeholder='0.00'
+                                                       type='number'
+                                                       marginBottom='0px'
+                                                       max_width='107px'
+                                                       onChange={changeHandler}
+                                            />
+                                        </TableCell>
+                                        <DatesCells
+                                            setValue={setValue}
+                                            control={control}
+                                            id={0}
+                                            errors={errors}
+                                            classes={classes}
+                                            getValues={getValues}
+                                            getSurchargeToRateHandle={getSurchargeToRateHandle}
+                                            reservedDates={reservedDates ? reservedDates[0].disabledDates : []}
+                                            required_dates={required_dates}
+                                            invalidDate={invalidDate}
+                                            setInvalidDate={setInvalidDate}
+                                            margin_top='0px'
+                                        />
+                                    </>
+                                    {invalidDate && <HelperText messagePaddingTop='25px'>{invalidDate}</HelperText>}
+                                </TableRow>
+                            </>
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            }
+
         </div>
     )
 }
@@ -274,22 +288,20 @@ export default Rates
 
 
 export const SpanAware = styled.div`
-  width: 276px;
-  height: 68px;
-  background-color: rgba(0, 0, 0, .6);
+  width: 300px;
+  background-color: rgba(0, 0, 0, .4);
   color: white;
   font-family: "Helvetica Reg", sans-serif;
-  position: absolute;
   font-size: 14px;
   line-height: 16px;
-  padding: 5px;
-  z-index: 150;
+  padding: 5px 5px 10px 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 73%, 88% 73%, 86% 90%, 84% 73%, 0 73%);
-  transform: rotate(180deg);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+ 
 `
 export const Title = styled.div`
-   transform: rotate(180deg);
-   margin-bottom: 3px;
+width: 100%;
 `

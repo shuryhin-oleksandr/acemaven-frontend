@@ -66,7 +66,7 @@ export type userCompaniesType = {
     type: string
 }
 
-export interface IAuthUserInfo {
+export type IAuthUserInfo = {
   id?: number;
   first_name?: string;
   last_name?: string;

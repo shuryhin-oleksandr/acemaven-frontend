@@ -23,15 +23,26 @@ import {
   TextareaLabel,
 } from "../../../components/PopUps/accept_booking_popup/accept-popup-styles";
 import { HelperText } from "../../../components/_commonComponents/Input/input-styles";
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType } from "../../../../_BLL/store";
+import { postNewTicketThunk } from "../../../../_BLL/thunks/support_thunk/supportThunk";
+import { useHistory } from "react-router-dom";
+import { TicketType } from "../../../../_BLL/types/support_types/support_types";
 
 type PropsType = {
   setNewTopic: (value: boolean) => void;
 };
 
 const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
+  let dispatch = useDispatch();
+  const history = useHistory();
+  let category_choices = useSelector(
+    (state: AppStateType) => state.support_reducer.category_choices
+  );
+
   const { control, register, errors, handleSubmit } = useForm();
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const onSubmit = (values: TicketType) => {
+    dispatch(postNewTicketThunk(values, history));
   };
 
   return (
@@ -57,38 +68,25 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
           <TopicContent>
             <FormFieldsWrap>
               <Controller
+                defaultValue=""
                 name={"category"}
                 control={control}
                 rules={{ required: "Field is required" }}
                 as={
                   <SurchargeRateSelect
                     label={"Category"}
-                    placeholder={"General"}
                     max_width={"170px"}
                     error={errors?.category?.message}
-                    options={[
-                      { title: "first", id: 1 },
-                      { title: "second", id: 2 },
-                    ]}
+                    options={category_choices}
                   />
                 }
               />
-              <Controller
-                name={"operation_number"}
-                control={control}
-                rules={{ required: "Field is required" }}
-                as={
-                  <SurchargeRateSelect
-                    label={"Operation No."}
-                    placeholder={"Ofh4848"}
-                    max_width={"195px"}
-                    options={[
-                      { title: "first", id: 1 },
-                      { title: "second", id: 2 },
-                    ]}
-                    error={errors?.operation_number?.message}
-                  />
-                }
+              <FormField
+                label={"Operation No."}
+                name={"aceid"}
+                error={errors?.aceid}
+                inputRef={register({ required: "Field is required" })}
+                max_width={"170px"}
               />
               <FormField
                 label={"Topic"}
@@ -96,7 +94,6 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
                 error={errors?.topic}
                 inputRef={register({ required: "Field is required" })}
                 max_width={"606px"}
-                placeholder={"Placeholder"}
               />
             </FormFieldsWrap>
             <Controller

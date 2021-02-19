@@ -21,9 +21,9 @@ export const ChatInner = styled.div`
   flex-direction: column;
   padding: 50px 400px 55px 30px;
 `
-export const ChatContent = styled.div`
+export const ChatContent = styled.div<{max_height_chat_area?:string}>`
   width: 100%;
- max-height: 700px;
+ max-height: ${({max_height_chat_area})=>max_height_chat_area};
  overflow-y: auto;
 `
 export const UploadWrapper = styled.form`

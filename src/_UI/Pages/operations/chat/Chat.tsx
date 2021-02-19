@@ -44,10 +44,11 @@ type PropsType = {
     sendHandler: VoidFunctionType,
     deleteHandler: (value: number) => void,
     stop_typing: boolean,
-    chat_info: { chat: number, has_perm_to_read: boolean, has_perm_to_write: boolean } | undefined
+    chat_info: { chat: number, has_perm_to_read: boolean, has_perm_to_write: boolean } | undefined,
+    max_height_chat_area:string
 }
 
-const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTypingUser, inputText, setInputText, ...props}) => {
+const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTypingUser, inputText, setInputText,max_height_chat_area, ...props}) => {
 
 
     //data from store
@@ -87,9 +88,10 @@ const Chat: React.FC<PropsType> = ({message_history, my_id, typing_user, clearTy
                                     typing_user={typing_user}
                                     deleteHandler={props.deleteHandler}
                                     stop_typing={props.stop_typing}
+                                    max_height_chat_area={max_height_chat_area}
                 />
                 {props.chat_info?.has_perm_to_write ?
-                <div style={{display: 'flex', alignItems: 'center'}}>
+                <div style={{display: 'flex', alignItems: 'center', borderTop:"1px solid #bdbdbd", paddingTop:"25px"}}>
                     <UploadWrapper>
                         <LabelUpload htmlFor="upload">
                             <AttachFileIcon style={{fontSize: 24, color: grey[900]}}/>

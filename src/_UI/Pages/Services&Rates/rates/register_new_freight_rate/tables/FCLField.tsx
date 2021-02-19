@@ -11,7 +11,6 @@ import {ContainerType} from "../../../../../../_BLL/types/rates&surcharges/rates
 //components
 import SurchargeRateSelect from "../../../../../components/_commonComponents/select/SurchargeRateSelect";
 import DatesCells from "./DatesCells";
-import {SpanAware, Title} from "./Rates";
 //styles
 import {Field, HelperText} from "../../../../../components/_commonComponents/Input/input-styles";
 
@@ -20,14 +19,12 @@ type PropsType = {
     fee: ContainerType,
     getSurchargeToRateHandle: any,
     control: any,
+    register: any,
     errors: any,
     getValues: any,
     setValue: any,
     required_dates: any,
-    setAware: (value: boolean) => void,
-    awareMessage: boolean,
-    rate_value: string,
-    onChange: (e: any, id: string) => void
+    onChange: any
 }
 
 const useStyles = makeStyles({
@@ -42,7 +39,7 @@ const useStyles = makeStyles({
 
 const FCLField: React.FC<PropsType> = ({
                                            fee, getSurchargeToRateHandle, setValue, errors, control,
-                                           getValues, required_dates,
+                                           getValues, required_dates, ...props
                                        }) => {
 
     const classes = useStyles()
@@ -76,23 +73,17 @@ const FCLField: React.FC<PropsType> = ({
                 />
             </TableCell>
             <TableCell className={classes.innerCell} align="left">
-                <Controller control={control}
-                            name={`rates.${fee.id}.rate`}
-                            defaultValue=''
-                            as={
-                                <div style={{position: 'relative'}}>
-                                    <Field placeholder='0.00$'
-                                           max_width='100px'
-                                           type='number'
-                                           step='0.0001'
-                                    />
-                                    {/*{awareMessage && String(fee.id) === rate_value*/}
-                                    {/*&& <SpanAware><Title>You are setting this freight rate as $0 and only surcharges will apply,*/}
-                                    {/*    please double check before saving.</Title></SpanAware>}*/}
-                                </div>
-
-                            }
-
+                <Field placeholder='0.00$'
+                       name={`rates.${fee.id}.rate`}
+                       ref={props.register({
+                           //required: true,
+                           minLength: 1,
+                           maxLength: 10
+                       })}
+                       max_width='100px'
+                       type='number'
+                       step='0.0001'
+                       onChange={(e) => props.onChange(e.currentTarget)}
                 />
             </TableCell>
             <DatesCells

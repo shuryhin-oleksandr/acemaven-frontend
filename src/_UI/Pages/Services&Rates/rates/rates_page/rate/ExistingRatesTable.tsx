@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 //react-redux
 import {useSelector} from "react-redux";
 //react-hook-form
@@ -12,6 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {IconButton} from "@material-ui/core";
 //BLL
 import {getRateBookedDatesSelector} from "../../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 //types
@@ -23,8 +24,15 @@ import SurchargeRateSelect from "../../../../../components/_commonComponents/sel
 import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
 import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import DatesCells from "../../register_new_freight_rate/tables/DatesCells";
+import {SpanAware, Title} from "../../register_new_freight_rate/tables/Rates";
 //styles
 import {HandlingTitle, SpanType} from "../../../surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+import {Arrow} from "../../register_new_freight_rate/tables/surcharges-to-rate-styles";
+//icons
+import close_icon from "../../../../../assets/icons/close-icon.svg";
+import show_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
+import hide_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
+
 
 
 type PropsType = {
@@ -47,7 +55,7 @@ const useStyles = makeStyles({
         "& .MuiTableHead-root": {},
     },
     info_row: {
-        '&:hover' : {
+        '&:hover': {
             cursor: 'pointer'
         }
     },
@@ -74,171 +82,195 @@ const useStyles = makeStyles({
     }
 });
 
-const ExistingRatesTable:React.FC<PropsType> = ({rate, control, getValues, setValue,errors, getSurchargeForRate, setFormMode, getSurchargeForNewRate}) => {
+const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setValue, errors, getSurchargeForRate, setFormMode, getSurchargeForNewRate}) => {
     const classes = useStyles();
 
     let reservedDates = useSelector(getRateBookedDatesSelector)
 
-    /*const [awareMessage, setAware] = useState(false)
-    const [rate_value, setRateValue] = useState('')
-    let onChange = (e: any, id: string) => {
-        if(e.currentTarget.value === '0') {
-            setRateValue(id)
-            setAware(true)
-            // @ts-ignore
-            setValue(`rates.${id}.rate`, e.currentTarget.value)
-        } else {
-            // @ts-ignore
-            setValue(`rates.${id}.rate`, e.currentTarget.value)
-        }
+    const [awareMessage, setAware] = useState(false)
+    const [inputValue, setInputValue] = useState('')
+    const [isFullView, setFullView] = useState(true)
+
+    let changeHandler = (value: any) => {
+
+        (value.value === '0') ? setAware(true) : setAware(false)
+        setInputValue(value.value)
     }
-*/
 
     return (
         <div style={{width: '100%', maxWidth: '1100px'}}>
-            <HandlingTitle>RATES</HandlingTitle>
-            <ScrollbarStyled {...{style: { minHeight: '600px', height: '100%'}}}>
-                <TableContainer className={classes.container} component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
+            <div style={{width: '100%', display: 'flex', alignItems: 'center', position: 'relative'}}>
+                <HandlingTitle margin_right='20px'>RATES</HandlingTitle>
+                {awareMessage
+                &&
+                <SpanAware>
+                    <IconButton style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        backgroundColor: 'rgba(255, 255, 255, .7)',
+                        padding: '5px'
+                    }}
+                                onClick={() => setAware(false)}
+                    >
+                        <img src={close_icon} alt="" style={{width: '6px'}}/>
+                    </IconButton>
+                    <Title>Rate will be register as 0. Are you sure?</Title>
+                </SpanAware>
+                }
+                <Arrow type='button'
+                       onClick={() => isFullView ? setFullView(false) : setFullView(true)}
+                       style={{position: 'absolute', top: '10px', right: 0}}
+                >
+                    <img src={!isFullView ? show_arrow : hide_arrow} alt=""/>
+                </Arrow>
+            </div>
+            {isFullView
+            &&
+            <TableContainer className={classes.container} component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            {rate?.shipping_mode.id === 2 ||
+                            (rate?.shipping_mode.id === 3 && (
+                                <TableCell className={classes.cell}>
+                                    CONTAINER TYPE
+                                </TableCell>
+                            ))}
+                            <TableCell className={classes.cell} align="left">
+                                CURRENCY
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                RATE
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                START DATE
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                EXPIRATION DATE
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                UPDATE BY
+                            </TableCell>
+                            <TableCell className={classes.cell} align="left">
+                                ON
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rate?.rates.map((r) => {
+                            if (reservedDates) {
+                                if (r.container_type) {
+                                    const disabledDates = reservedDates.find(d => d.container_type === r.container_type.id)?.disabledDates || [];
+                                    return {...r, disabledDates: [...disabledDates]}
+                                } else {
+                                    return {...r, disabledDates: [...reservedDates[0].disabledDates]}
+                                }
+                            } else {
+                                return r
+                            }
+                        }).map((r) => (
+                            <TableRow key={r.id} className={classes.info_row}>
                                 {rate?.shipping_mode.id === 2 ||
                                 (rate?.shipping_mode.id === 3 && (
-                                    <TableCell className={classes.cell}>
-                                        CONTAINER TYPE
-                                    </TableCell>
-                                ))}
-                                <TableCell className={classes.cell} align="left">
-                                    CURRENCY
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    RATE
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    START DATE
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    EXPIRATION DATE
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    UPDATE BY
-                                </TableCell>
-                                <TableCell className={classes.cell} align="left">
-                                    ON
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {  rate?.rates.map((r) => {
-                                if(reservedDates) {
-                                    if(r.container_type) {
-                                        const disabledDates = reservedDates.find(d => d.container_type === r.container_type.id)?.disabledDates || [];
-                                        return {...r, disabledDates: [...disabledDates]}
-                                    }
-                                    else {
-                                        return {...r, disabledDates: [...reservedDates[0].disabledDates]}
-                                    }
-                                } else {
-                                    return r
-                                }
-                            }).map((r) => (
-                                <TableRow key={r.id} className={classes.info_row}>
-                                    {rate?.shipping_mode.id === 2 ||
-                                    (rate?.shipping_mode.id === 3 && (
-                                        <Controller
-                                            control={control}
-                                            defaultValue={r?.container_type.id}
-                                            name={`rates.${r.id}.container_type`}
-                                            as={
-                                                <TableCell
-                                                    className={classes.innerCell}
-                                                    component="th"
-                                                    scope="row"
+                                    <Controller
+                                        control={control}
+                                        defaultValue={r?.container_type.id}
+                                        name={`rates.${r.id}.container_type`}
+                                        as={
+                                            <TableCell
+                                                className={classes.innerCell}
+                                                component="th"
+                                                scope="row"
+                                            >
+                                                <SpanType
+                                                    onClick={() => r.start_date && r.expiration_date && getSurchargeForRate(r.start_date, r.expiration_date)}
+                                                    bold_hover={!!(r.start_date && r.expiration_date)}
                                                 >
-                                                    <SpanType onClick={() => r.start_date && r.expiration_date && getSurchargeForRate(r.start_date, r.expiration_date)}
-                                                              bold_hover={!!(r.start_date && r.expiration_date)}
-                                                    >
-                                                        {r?.container_type.code}
-                                                    </SpanType>
-                                                </TableCell>
-                                            }
-                                        />
-                                    ))}
-                                    <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
-                                        <Controller
-                                            control={control}
-                                            name={`rates.${r.id}.currency`}
-                                            defaultValue={r.currency.id}
-                                            as={
-                                                <SurchargeRateSelect
-                                                    options={currency}
-                                                    max_width="70px"
-                                                />
-                                            }
-                                        />
-                                    </TableCell>
-                                    <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
-                                        <Controller
-                                            control={control}
-                                            name={`rates.${r.id}.rate`}
-                                            defaultValue={r.rate}
-                                            as={
-                                                <Field placeholder="0.00$"
-                                                       max_width="100px"
-                                                       type='number'
-                                                />
-                                            }
-                                        />
-                                    </TableCell>
-                                    <DatesCells
-                                        currentDates={{from: r.start_date, to: r.expiration_date}}
-                                        setValue={setValue}
-                                        control={control}
-                                        id={r.id}
-                                        // @ts-ignore
-                                        reservedDates={r.disabledDates || []}
-                                        errors={errors}
-                                        classes={classes}
-                                        getValues={getValues}
-                                        getSurchargeToRateHandle={() => {}}
-                                        getSurchargeForNewRate={getSurchargeForNewRate}
-                                        setFormMode={setFormMode}
-                                        required_dates={false}
-                                        margin_top='0px'
-                                    />
-                                    <Controller
-                                        control={control}
-                                        defaultValue={r.updated_by}
-                                        name={`rates.${r.id}.updated_by`}
-                                        as={
-                                            <TableCell
-                                                className={classes.innerCell}
-                                                align="left"
-                                            >
-                                                {r.updated_by}
+                                                    {r?.container_type.code}
+                                                </SpanType>
                                             </TableCell>
                                         }
                                     />
+                                ))}
+                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
                                     <Controller
                                         control={control}
-                                        defaultValue={r.date_updated}
-                                        name={`rates.${r.id}.date_updated`}
+                                        name={`rates.${r.id}.currency`}
+                                        defaultValue={r.currency.id}
                                         as={
-                                            <TableCell
-                                                className={classes.innerCell}
-                                                align="left"
-                                            >
-                                                {r.date_updated}
-                                            </TableCell>
+                                            <SurchargeRateSelect
+                                                options={currency}
+                                                max_width="70px"
+                                            />
                                         }
                                     />
-                                </TableRow>
-                            ))
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </ScrollbarStyled>
+                                </TableCell>
+                                <TableCell className={classes.innerCell} align="left" onClick={() => setFormMode(true)}>
+                                    <Controller
+                                        control={control}
+                                        name={`rates.${r.id}.rate`}
+                                        defaultValue={r.rate}
+                                        render={({value, onChange}) => (
+                                            <Field placeholder="0.00$"
+                                                   max_width="100px"
+                                                   type='number'
+                                                   onChange={(e) => {onChange(e.currentTarget.value); changeHandler(e.currentTarget)}}
+                                                   value={value}
+                                            />
+                                        )
+                                        }
+                                    />
+                                </TableCell>
+                                <DatesCells
+                                    currentDates={{from: r.start_date, to: r.expiration_date}}
+                                    setValue={setValue}
+                                    control={control}
+                                    id={r.id}
+                                    // @ts-ignore
+                                    reservedDates={r.disabledDates || []}
+                                    errors={errors}
+                                    classes={classes}
+                                    getValues={getValues}
+                                    getSurchargeToRateHandle={() => {
+                                    }}
+                                    getSurchargeForNewRate={getSurchargeForNewRate}
+                                    setFormMode={setFormMode}
+                                    required_dates={false}
+                                    margin_top='0px'
+                                />
+                                <Controller
+                                    control={control}
+                                    defaultValue={r.updated_by}
+                                    name={`rates.${r.id}.updated_by`}
+                                    as={
+                                        <TableCell
+                                            className={classes.innerCell}
+                                            align="left"
+                                        >
+                                            {r.updated_by}
+                                        </TableCell>
+                                    }
+                                />
+                                <Controller
+                                    control={control}
+                                    defaultValue={r.date_updated}
+                                    name={`rates.${r.id}.date_updated`}
+                                    as={
+                                        <TableCell
+                                            className={classes.innerCell}
+                                            align="left"
+                                        >
+                                            {r.date_updated}
+                                        </TableCell>
+                                    }
+                                />
+                            </TableRow>
+                        ))
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            }
         </div>
     )
 }

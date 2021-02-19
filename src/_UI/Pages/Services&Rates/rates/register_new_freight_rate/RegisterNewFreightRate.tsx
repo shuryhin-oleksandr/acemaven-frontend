@@ -37,6 +37,7 @@ import {
 import {Outer} from "../../surcharge/register_new_surcharge/form-styles";
 
 
+
 type PropsType = {
     handleSubmit: any;
     control: any;
@@ -143,6 +144,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({
             surcharge_block.scrollTop = surcharge_block.scrollHeight
         }
     }, [surcharge_block])
+
 
     return (
         <Outer onSubmit={handleSubmit(onSubmit)}>

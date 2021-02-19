@@ -13,7 +13,6 @@ type InitialStateType = typeof initialState;
 export const chatOperationReducer = (state = initialState, action: commonOperationChatActions): InitialStateType => {
     switch (action.type) {
         case "SET_MESSAGES_HISTORY":
-            debugger
             return {
                 ...state,
                 message_history: action.messages

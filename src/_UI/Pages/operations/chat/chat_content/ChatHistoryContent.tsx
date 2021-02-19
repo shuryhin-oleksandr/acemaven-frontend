@@ -37,7 +37,7 @@ const ChatHistoryContent: React.FC<PropsType> = ({typing_user, my_id, message_hi
             autoHeight: true,
             navBar: true
         }}>
-            <ChatContent id={'chat_content'}>
+            <ChatContent id={'chat_content'} max_height_chat_area={max_height_chat_area}>
                 {message_history.map(m => <Message key={m.id}
                                                    message={m}
                                                    my_id={my_id}

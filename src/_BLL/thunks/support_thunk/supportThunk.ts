@@ -31,11 +31,11 @@ export const getCategoryChoicesThunk = () => {
   };
 };
 
-export const postNewTicketThunk = (data: TicketType) => {
+export const postNewTicketThunk = (data: TicketType, history: any) => {
   return async () => {
     try {
       let res = await supportApi.postNewTicket(data);
-      console.log("RES", res.data);
+      history.push(`/support/${res.data.id}`);
     } catch (e) {
       console.log(e);
     }

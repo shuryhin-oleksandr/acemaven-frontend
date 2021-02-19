@@ -40,12 +40,21 @@ const SupportChatPage: React.FC<PropsType> = () => {
               <TopicReason>{ticket?.topic}</TopicReason>
             </TopicWrap>
             <TopicWrap>
-              <img src={in_progress_icon} alt="" />
-              <TopicStatus>Completed</TopicStatus>
+              <img
+                src={
+                  ticket?.status === "in_progress"
+                    ? in_progress_icon
+                    : completed_icon
+                }
+                alt=""
+              />
+              <TopicStatus>
+                {ticket?.status === "in_progress" ? "In progress" : "Completed"}
+              </TopicStatus>
             </TopicWrap>
           </SupportChatHeader>
         </div>
-        <ChatContainer chat={ticket?.chat} max_height_chat_area={"350px"} />
+        <ChatContainer chat={ticket?.chat} max_height_chat_area={"300px"} />
       </SupportInner>
     </SupportOuter>
   ) : (

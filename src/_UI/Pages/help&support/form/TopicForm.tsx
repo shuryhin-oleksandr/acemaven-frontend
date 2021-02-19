@@ -26,6 +26,8 @@ import { HelperText } from "../../../components/_commonComponents/Input/input-st
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../_BLL/store";
 import { postNewTicketThunk } from "../../../../_BLL/thunks/support_thunk/supportThunk";
+import { useHistory } from "react-router-dom";
+import { TicketType } from "../../../../_BLL/types/support_types/support_types";
 
 type PropsType = {
   setNewTopic: (value: boolean) => void;
@@ -33,13 +35,14 @@ type PropsType = {
 
 const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
   let dispatch = useDispatch();
+  const history = useHistory();
   let category_choices = useSelector(
     (state: AppStateType) => state.support_reducer.category_choices
   );
 
   const { control, register, errors, handleSubmit } = useForm();
-  const onSubmit = (values: any) => {
-    dispatch(postNewTicketThunk(values));
+  const onSubmit = (values: TicketType) => {
+    dispatch(postNewTicketThunk(values, history));
   };
 
   return (

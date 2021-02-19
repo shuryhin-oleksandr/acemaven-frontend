@@ -16,7 +16,7 @@ const HelpSupportContainer: React.FC = () => {
   useEffect(() => {
     dispatch(getTicketsListThunk());
     dispatch(getCategoryChoicesThunk());
-  });
+  }, []);
 
   return (
     <Layout>

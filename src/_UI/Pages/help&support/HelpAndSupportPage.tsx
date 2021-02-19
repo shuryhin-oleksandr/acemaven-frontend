@@ -23,6 +23,10 @@ const HelpAndSupportPage: React.FC<PropsType> = ({ setNewTopic }) => {
     (state: AppStateType) => state.support_reducer.isFetching
   );
 
+  let tickets_list = useSelector(
+    (state: AppStateType) => state.support_reducer.tickets_list
+  );
+
   return isFetching ? (
     <SpinnerForAuthorizedPages />
   ) : (
@@ -35,7 +39,9 @@ const HelpAndSupportPage: React.FC<PropsType> = ({ setNewTopic }) => {
               + Add New
             </AddTopicText>
           </AddTopicOption>
-          <TopicCard />
+          {tickets_list.map((t) => (
+            <TopicCard key={t.id} ticket={t} />
+          ))}
         </SupportContent>
       </SupportInner>
     </SupportOuter>

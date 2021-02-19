@@ -13,6 +13,7 @@ type InitialStateType = typeof initialState;
 export const chatOperationReducer = (state = initialState, action: commonOperationChatActions): InitialStateType => {
     switch (action.type) {
         case "SET_MESSAGES_HISTORY":
+            debugger
             return {
                 ...state,
                 message_history: action.messages
@@ -79,7 +80,7 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : neve
 export type commonOperationChatActions = AC<typeof operationChatActions>;
 
 export const operationChatActions = {
-    setMessagesHistory: (messages: MessageType[]) => ({type: 'SET_MESSAGES_HISTORY', messages} as const),
+    setMessagesHistory: (messages: MessageType[] ) => ({type: 'SET_MESSAGES_HISTORY', messages} as const),
     setMyMessage: (my_message: MessageType) => ({type: 'SET_MY_MESSAGE', my_message} as const),
     setNotificationList: (notifications: NotificationType[]) => ({type: "SET_NOTIFICATION_LIST", notifications} as const),
     setNewNotification: (notification: NotificationType) => ({type: "SET_NEW_NOTIFICATION", notification} as const),

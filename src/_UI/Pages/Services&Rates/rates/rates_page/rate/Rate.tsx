@@ -78,7 +78,7 @@ const Rate: React.FC<PropsType> = ({
     //local state
     const [formMode, setFormMode] = useState(false);
     const [noSurchargePopup, setNoSurchargePopup] = useState(false);
-    //попап для нового сюрчарджа
+    //попап для нового сюрчарджа ( new surcharge popup )
     const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(false);
 
     //data from store

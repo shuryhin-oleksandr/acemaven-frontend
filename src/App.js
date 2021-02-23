@@ -4,11 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./_BLL/reducers/authReducer";
 import Spinner from "./_UI/components/_commonComponents/spinner/Spinner";
 import { Scrollbars } from "react-custom-scrollbars";
-import {getAuthUserInfo} from "./_BLL/thunks/profile/profileThunks";import { wsChatHelper } from "./_BLL/helpers/wsChatHelper";
+import { getAuthUserInfo } from "./_BLL/thunks/profile/profileThunks";
+import { wsChatHelper } from "./_BLL/helpers/wsChatHelper";
 import {
   startReceiveNotifications,
   stopReceiveNotifications,
 } from "./_BLL/thunks/notifications_thunk/notifications_thunk";
+import {
+  startReceiveChatNotifications,
+  stopReceiveChatNotifications,
+} from "./_BLL/thunks/chat_notifications_thunk/chat_notifications_thunk";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuth);
@@ -18,13 +23,14 @@ function App() {
   const dispatch = useDispatch();
   let token = localStorage.getItem("access_token");
 
-
   useEffect(() => {
     if (token) {
       dispatch(getAuthUserInfo());
       startReceiveNotifications(dispatch);
+      startReceiveChatNotifications(dispatch);
       return () => {
-      stopReceiveNotifications();
+        stopReceiveNotifications(dispatch);
+        stopReceiveChatNotifications(dispatch);
       };
     }
   }, [token]);

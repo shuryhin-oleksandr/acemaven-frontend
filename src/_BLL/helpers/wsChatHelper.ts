@@ -32,5 +32,8 @@ export const wsChatHelper = (res: any, dispatch: Dispatch) => {
         case 'delete_message': {
             dispatch(operationChatActions.setDeletedMessageId(res.message_id))
         }
+        case 'chat_notifications':{
+            dispatch(operationChatActions.setChatNotificationsList(res.chat_notifications))
+        }
     }
 }

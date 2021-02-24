@@ -18,8 +18,7 @@ export const startReceiveNotifications = (dispatch: Dispatch) => {
       wsChatHelper(res, dispatch);
     };
     ws.onclose = function () {
-      alert("closed");
-      // console.log("connections closed");
+      console.log("connections closed");
       interval = setTimeout(() => {
         check(dispatch);
       }, 3000);

@@ -19,14 +19,12 @@ export const startReceiveChatNotifications = (dispatch: Dispatch) => {
     };
     ws.onclose = function () {
       console.log("connections closed");
-      alert("closed");
       interval = setTimeout(() => {
         check(dispatch);
       }, 3000);
     };
 
     ws.onerror = () => {
-      alert("error");
       stopReceiveChatNotifications(dispatch);
     };
   } catch (e) {

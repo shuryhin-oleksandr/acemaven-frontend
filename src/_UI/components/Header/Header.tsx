@@ -93,9 +93,6 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-  useEffect(() => {
-    dispatch(getExchangeListThunk());
-  }, []);
 
   //data from store
   const { exchange_list } = useSelector(getAgentExchangeListSelector);
@@ -110,6 +107,8 @@ const Header: React.FC = () => {
   );
   const auth_user_info = useSelector(getMyInfoSelector);
 
+  // company_type
+
   //local state
   let company_type =
     auth_user_info?.companies &&
@@ -122,6 +121,13 @@ const Header: React.FC = () => {
   let is_added_today = last_exchange
     ? moment_today === last_exchange.date
     : false;
+
+  console.log(company_type, "cc");
+  useEffect(() => {
+    company_type &&
+      company_type === "agent" &&
+      dispatch(getExchangeListThunk());
+  }, [company_type]);
 
   //handlers
   const goToExchangePage = () => {

@@ -272,7 +272,7 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                         </CargoInfo>
                         {!props.exact_quote_info?.is_submitted
                             ? <>
-                                <CarrierInfo>
+                                <CarrierInfo min_height={props.existing_rate_for_quote ? '400px' : '200px'}>
                                     <div style={{width: '100%'}}>
                                         <CarrierWrap>
                                             <GeneralTitle>CARRIER</GeneralTitle>

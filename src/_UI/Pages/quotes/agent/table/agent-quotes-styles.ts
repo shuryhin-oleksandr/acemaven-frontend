@@ -2,6 +2,7 @@ import styled, {keyframes} from 'styled-components'
 import done_icon from '../../../../../_UI/assets/icons/ant-design_check-circle-outlined.svg'
 import {RateQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 
+
 const skelet_appear = keyframes`
   0% {
     opacity: 0;
@@ -201,13 +202,13 @@ export const CargoContentWrapper = styled.div`
   overflow-y: scroll;
 `
 
-export const CarrierInfo = styled.div`
+export const CarrierInfo = styled.div<{ min_height?: string }>`
   display: flex;
   padding-top: 28px;
   padding-bottom: 30px;
   border-bottom: 1px solid #bdbdbd;
   justify-content: space-between;
-  min-height: 200px;
+  min-height: ${({ min_height}) =>  min_height ?  min_height : '200px'};
   max-height: 329px;
 `
 export const CarrierWrap = styled.div`

@@ -2,6 +2,9 @@ import {Dispatch} from "redux";
 import {quotesAgentAPI} from "../../../_DAL/API/quotes/agent/agentQuotesAPI";
 import {commonQuotesAgentActions, quotesAgentActions} from "../../reducers/quotes/quotesAgentReducer";
 import {QuoteForRateType, RateQuoteType} from "../../types/quotes/quotesTypes";
+import {surchargeAPI} from "../../../_DAL/API/rates&surcharges/surchargeApi";
+import {rateAPI} from "../../../_DAL/API/rates&surcharges/rateApi";
+import {rateActions} from "../../reducers/surcharge&rates/rateReducer";
 
 
 export const getAgentQuotesListThunk = (type: string, field_name: string, search_column: string, search_value: string) => {
@@ -89,6 +92,25 @@ export const withdrawOfferThunk = (quote_id: number, history: any) => {
             dispatch(quotesAgentActions.deleteRejectedQuote(quote_id))
             dispatch(quotesAgentActions.setExactQuoteInfo(null))
             history.push('/general')
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+
+export const registerRateAndSurchargeToOfferThunk = (surcharge_data: any, freight_data: any) => {
+    return async (dispatch: Dispatch<any>) => {
+        try {
+            //we are waiting for surcharge registration
+            let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
+            dispatch(quotesAgentActions.setExistingSurchargeForQuote(res.data))
+            //then add new rate
+            let {data} = await rateAPI.registerNewSurcharge(freight_data);
+            dispatch(quotesAgentActions.setExistingRateForQuote(data))
+            dispatch(rateActions.setRegistrationSuccess("success"));
+            dispatch(rateActions.setExistingSurchargeByRate(null));
+            dispatch(rateActions.setEmptyExistingSurcharge(''));
         } catch (e) {
             console.log(e)
         }

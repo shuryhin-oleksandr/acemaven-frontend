@@ -9,11 +9,9 @@ import moment from "moment";
 import _ from "lodash";
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
-//react-router-dom
-import {useHistory} from 'react-router-dom';
 //BLL
 import {getShippingTypes} from "../../../../_BLL/thunks/rates&surcharge/surchargeThunks";
-import {addNewSurchargeForRate, registerNewFreightRateThunk} from "../../../../_BLL/thunks/rates&surcharge/rateThunks";
+import { registerRateAndSurchargeToOfferThunk } from 'src/_BLL/thunks/quotes/agentQuotesThunk';
 //types
 import {getShippingTypesSelector} from "../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import {ShippingTypesEnum} from "../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
@@ -41,6 +39,7 @@ import {GeneralTitle} from "../../../Pages/quotes/agent/table/agent-quotes-style
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
 
 
+
 type PropsType = {
     openCreatePopup: (value: boolean) => void,
     carrier_field: any,
@@ -57,12 +56,14 @@ type PropsType = {
 
 const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, carrier_field, carriers, quote, existing_rate_for_quote, ...props}) => {
 
-    const history = useHistory()
     const {handleSubmit, errors, control, register, setValue} = useForm({
         reValidateMode: 'onBlur',
         mode: 'onSubmit'
     })
     const onSubmit = (values: any) => {
+        let surcharge_data;
+        let freight_data;
+
         //temporal surcharge registration
         if (!props.existing_surcharge_for_quote) {
             //additional charges
@@ -118,11 +119,16 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                 location: quote?.origin.is_local === true ? quote?.origin.id : quote?.destination.id,
                 temporary: true
             }
-            usageFees_array !== null ? dispatch(addNewSurchargeForRate(data)) : dispatch(addNewSurchargeForRate(data_without_fees))
+            //data for thunk
+           surcharge_data =  usageFees_array !== null
+               ? data
+               : data_without_fees
         }
 
         //temporal rate registration
         let rates_array;
+        let rate_data;
+        let rate_data_without_containers;
         if (values.rates.length > 1) {
             let full_rates = values.rates.filter((r: any) => r !== null);
             rates_array = full_rates.map((r: any) => (r !== null && r.rate
@@ -135,7 +141,7 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                 })
                 || (r !== null && !r.rate && {container_type: r.container_type, currency: r.currency})
             );
-            let data = {
+            rate_data = {
                 carrier: carrier_field,
                 carrier_disclosure: props.carrier_disclosure === 'true',
                 shipping_mode: quote?.shipping_mode.id,
@@ -145,10 +151,9 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                 rates: rates_array,
                 temporary: true
             };
-            dispatch(registerNewFreightRateThunk(data, history));
 
         } else {
-            let data_without_containers = {
+            rate_data_without_containers = {
                 carrier: carrier_field,
                 carrier_disclosure: props.carrier_disclosure === 'true',
                 shipping_mode: quote?.shipping_mode.id,
@@ -165,12 +170,17 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                     },
                 ],
             };
-            dispatch(registerNewFreightRateThunk(data_without_containers, history));
-
         }
 
+        freight_data = (values.rates.length > 1)
+            ? rate_data
+            : rate_data_without_containers
+
+        //THUNK
+        dispatch(registerRateAndSurchargeToOfferThunk(surcharge_data, freight_data))
     }
 
+    
     //data from store
     const shipping_types = useSelector(getShippingTypesSelector)
     const shippingModeOptions = (quote?.shipping_type === ShippingTypesEnum.AIR) ? shipping_types[0]?.shipping_modes : shipping_types[1]?.shipping_modes

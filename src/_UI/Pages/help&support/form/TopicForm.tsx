@@ -40,7 +40,9 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
     (state: AppStateType) => state.support_reducer.category_choices
   );
 
-  const { control, register, errors, handleSubmit } = useForm();
+  const { control, register, errors, handleSubmit, watch } = useForm();
+
+  let category_watch = watch("category");
   const onSubmit = (values: TicketType) => {
     dispatch(postNewTicketThunk(values, history));
   };
@@ -81,13 +83,15 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
                   />
                 }
               />
-              <FormField
-                label={"Operation No."}
-                name={"aceid"}
-                error={errors?.aceid}
-                inputRef={register({ required: "Field is required" })}
-                max_width={"170px"}
-              />
+              {category_watch === "operations" && (
+                <FormField
+                  label={"Operation No."}
+                  name={"aceid"}
+                  error={errors?.aceid}
+                  inputRef={register({ required: "Field is required" })}
+                  max_width={"170px"}
+                />
+              )}
               <FormField
                 label={"Topic"}
                 name={"topic"}

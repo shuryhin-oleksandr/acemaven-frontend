@@ -35,7 +35,7 @@ export const postNewTicketThunk = (data: TicketType, history: any) => {
   return async () => {
     try {
       let res = await supportApi.postNewTicket(data);
-      history.push(`/support/${res.data.id}`);
+      history.push(`/support/${res.data.id}/`);
     } catch (e) {
       console.log(e);
     }

@@ -80,6 +80,23 @@ export const chatOperationReducer = (
         ...state,
         chat_notifications_list: action.chat_notifications,
       };
+    case "SET_NEW_CHAT_NOTIFICATION":
+      return {
+        ...state,
+        chat_notifications_list: [
+          action.notification,
+          ...state.chat_notifications_list,
+        ],
+      };
+
+    case "DELETE_CHAT_NOTIFICATION":
+      return {
+        ...state,
+        chat_notifications_list: state.chat_notifications_list.filter(
+          (n) => n.id !== action.id
+        ),
+      };
+
     default:
       return state;
   }
@@ -112,4 +129,8 @@ export const operationChatActions = {
     ({ type: "MARK_NOTIFICATION_AS_READ", id } as const),
   setChatNotificationsList: (chat_notifications: NotificationType[]) =>
     ({ type: "SET_CHAT_NOTIFICATIONS", chat_notifications } as const),
+  setNewChatNotification: (notification: NotificationType) =>
+    ({ type: "SET_NEW_CHAT_NOTIFICATION", notification } as const),
+  deleteChatNotification: (id: number) =>
+    ({ type: "DELETE_CHAT_NOTIFICATION", id } as const),
 };

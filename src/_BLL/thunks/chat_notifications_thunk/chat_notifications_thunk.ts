@@ -46,11 +46,11 @@ export const stopReceiveChatNotifications = (dispatch: Dispatch) => {
   dispatch(operationChatActions.setChatNotificationsList([]));
 };
 
-// export const markNotificationAsRead = (id: number, dispatch: Dispatch) => {
-//   try {
-//     ws.send(JSON.stringify({ command: "view_notification", id: id }));
-//     dispatch(operationChatActions.markNotificationAsRead(id));
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
+export const deleteChatNotification = (id: number, dispatch: Dispatch) => {
+  try {
+    ws.send(JSON.stringify({ command: "view_notification", id: id }));
+    dispatch(operationChatActions.deleteChatNotification(id));
+  } catch (e) {
+    console.log(e);
+  }
+};

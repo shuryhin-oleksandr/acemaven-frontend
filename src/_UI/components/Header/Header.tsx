@@ -122,7 +122,6 @@ const Header: React.FC = () => {
     ? moment_today === last_exchange.date
     : false;
 
-  console.log(company_type, "cc");
   useEffect(() => {
     company_type &&
       company_type === "agent" &&

@@ -45,12 +45,14 @@ const NotificationCard: React.FC<PropsType> = ({
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const findPath = (id: number, path: string) => {
+  const findPath = (id: number, path: string, section: string) => {
     switch (path) {
       case "Booking":
         return `/requests/booking/${id}/`;
       case "Operation":
-        return `/operations/${id}/`;
+        return section === "Chats"
+          ? `/operations/${id}/chat`
+          : `/operations/${id}`;
       case "Surcharge":
         return `/services/surcharge/${id}`;
       case "Freight Rate":
@@ -65,7 +67,7 @@ const NotificationCard: React.FC<PropsType> = ({
   };
 
   const notificationClickHandler = (
-    operation_id: number,
+    object_id: number,
     action_path: string,
     notification_id: number,
     is_viewed: boolean,
@@ -76,7 +78,7 @@ const NotificationCard: React.FC<PropsType> = ({
     } else {
       !is_viewed && markNotificationAsRead(notification_id, dispatch);
     }
-    const path = findPath(operation_id, action_path);
+    const path = findPath(object_id, action_path, section);
     history.push(path);
   };
 

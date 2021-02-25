@@ -65,7 +65,8 @@ const useRoute = (isAuth: boolean) => {
                 <Route exact component={BookingAgentContainer} path='/requests/booking'/>
                 <Route component={BookingCardContainer} path='/requests/booking/:id'/>
 
-                <Route component={ExactOperationContainer} path='/operations/:id'/>
+                <Route exact component={ExactOperationContainer} path='/operations/:id'/>
+                <Route exact component={ExactOperationContainer} path='/operations/:id/chat'/>
                 <Route exact component={OperationsContainer} path='/operations_active' />
                 <Route exact component={CompletedOperationsContainer} path='/operations_completed'/>
                 <Route component={CancelledOperationsContainer} path='/operations_cancelled'/>

@@ -5,9 +5,9 @@ import { operationChatActions } from "../../reducers/chat_operation_reducer/chat
 let ws: WebSocket;
 let interval: number;
 
-export const startReceiveNotifications = (dispatch: Dispatch) => {
+export const startReceiveChatNotifications = (dispatch: Dispatch) => {
   let token = localStorage.getItem("access_token");
-  const baseNotificationURL = `${process.env.REACT_APP_NOTIFICATIONS}?token=${token}`;
+  const baseNotificationURL = `${process.env.REACT_APP_CHAT_NOTIFICATIONS}?token=${token}`;
   try {
     ws = new WebSocket(baseNotificationURL);
     ws.onopen = () => {
@@ -25,7 +25,7 @@ export const startReceiveNotifications = (dispatch: Dispatch) => {
     };
 
     ws.onerror = () => {
-      stopReceiveNotifications(dispatch);
+      stopReceiveChatNotifications(dispatch);
     };
   } catch (e) {
     console.log(e);
@@ -37,19 +37,19 @@ const check = (dispatch: Dispatch) => {
     (!ws || ws.readyState == WebSocket.CLOSED) &&
     localStorage.getItem("access_token")
   )
-    startReceiveNotifications(dispatch); //check if websocket instance is closed, if so call `connect` function.
+    startReceiveChatNotifications(dispatch); //check if websocket instance is closed, if so call `connect` function.
 };
 
-export const stopReceiveNotifications = (dispatch: Dispatch) => {
+export const stopReceiveChatNotifications = (dispatch: Dispatch) => {
   console.log("close function");
   ws.close();
-  dispatch(operationChatActions.setNotificationList([]));
+  dispatch(operationChatActions.setChatNotificationsList([]));
 };
 
-export const markNotificationAsRead = (id: number, dispatch: Dispatch) => {
+export const deleteChatNotification = (id: number, dispatch: Dispatch) => {
   try {
     ws.send(JSON.stringify({ command: "view_notification", id: id }));
-    dispatch(operationChatActions.markNotificationAsRead(id));
+    dispatch(operationChatActions.deleteChatNotification(id));
   } catch (e) {
     console.log(e);
   }

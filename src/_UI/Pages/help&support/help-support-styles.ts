@@ -53,7 +53,6 @@ export const AddTopicText = styled.div`
 `;
 export const TopicOuter = styled.div`
   width: 100%;
-  height: 104px;
   border: 1px solid #bdbdbd;
   background-color: #ffffff;
   margin-bottom: 15px;
@@ -113,5 +112,26 @@ export const SupportChatHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 13.5px;
-  border-bottom: 1px solid #BDBDBD;
+  border-bottom: 1px solid #bdbdbd;
+`;
+
+export const UnreadMessageWrap = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+`;
+
+export const UnreadMessageTitle = styled.div<{ color?: string }>`
+  font-family: "Helvetica Bold", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  color: ${({ color }) => (color ? color : "#7c7c89")};
+  margin-right: 5px;
+`;
+export const UnreadMessageCount = styled.div`
+  font-family: "Helvetica Bold", sans-serif;
+  font-size: 16px;
+  line-height: 19px;
+  color: #1ab8e6; ;
 `;

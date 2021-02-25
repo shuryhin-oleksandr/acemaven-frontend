@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 //moment js
 import moment from "moment";
 //react-router-dom
-import {useHistory, useParams, withRouter} from "react-router-dom";
+import {useHistory, useParams, useRouteMatch, withRouter} from "react-router-dom";
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
 //BLL
@@ -49,6 +49,7 @@ import ChatContainer from "../../chat/ChatContainer";
 
 const ExactOperationContainer = ({...props}) => {
     //local state
+    const match_chat = useRouteMatch('/operations/:id/chat');
 
     let operation_id = props.match.params.id;
     let local_time = moment(new Date()).format(" DD/MM  h:mm a");
@@ -63,7 +64,7 @@ const ExactOperationContainer = ({...props}) => {
     const [isTakeOverPopup, setTakeOver] = useState(false);
     const [isEditOperationByAgent, setEditOperationByAgent] = useState(false);
     const [isReviewPopup, setReviewPopup] = useState(false);
-    const [isChatOpen, setChatOpen] = useState(false)
+    const [isChatOpen, setChatOpen] = useState(match_chat?.isExact);
 
     //data from store
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo?.companies[0]);
@@ -175,7 +176,6 @@ const ExactOperationContainer = ({...props}) => {
             dispatch(agentOperationsActions.setEditSuccess(''))
         }
     }, [edit_operation_by_agent_success])
-
 
     return (
         <Layout

@@ -5,6 +5,7 @@ export type TicketType = {
   description: string;
   status: string;
   chat?: ChatObjectType;
+  unread_messages:number;
 };
 
 export type ChatObjectType = {

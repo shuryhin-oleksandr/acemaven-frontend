@@ -8,10 +8,11 @@ type SubscriberType = (messages: MessageType[]) => void;
 let subscribers = [] as SubscriberType[]
 
 let ws: WebSocket | null = null;
+let interval: number;
 
-const closeHandler = () => {
-    setTimeout(createChannel, 2000)
-}
+// const closeHandler = () => {
+//     setTimeout(createChannel, 2000)
+// }
 const messageHandler =  function(e: any, dispatch: Dispatch) {
 
     const newMessages = JSON.parse(e.data)
@@ -21,13 +22,20 @@ const messageHandler =  function(e: any, dispatch: Dispatch) {
 
 
 
+
 function createChannel(chat_id: number, dispatch: Dispatch) {
-    ws?. removeEventListener('close', closeHandler)
-    ws?.close()
+    clearInterval(interval);
     let token = localStorage.getItem('access_token')
     ws = new WebSocket(process.env.REACT_APP_WEB_SOCKET_CHAT_URL + `/${chat_id}/?token=${token}`)
 
-     ws.addEventListener('close', closeHandler)
+    ws.onclose = function () {
+        console.log("connections closed");
+        interval = setTimeout(() => {
+            createChannel(chat_id,dispatch);
+        }, 3000);
+    };
+
+
      ws.addEventListener("message", (e) => messageHandler(e, dispatch))
 
 
@@ -45,9 +53,10 @@ export const wsChatAPI =  {
     },
     stopConnection () {
         subscribers = []
-        ws?.removeEventListener('close', closeHandler)
+        // ws?.removeEventListener('close', closeHandler)
         //ws?.removeEventListener('messages', messageHandler)
         ws?.close()
+        clearInterval(interval);
     },
     subscribe(callback: SubscriberType) {
         subscribers.push(callback);

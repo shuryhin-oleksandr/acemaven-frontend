@@ -9,6 +9,9 @@ import {
   TopicReason,
   TopicStatus,
   TopicWrap,
+  UnreadMessageCount,
+  UnreadMessageTitle,
+  UnreadMessageWrap,
 } from "./help-support-styles";
 //icons
 import in_progress_icon from "../../assets/icons/support/in_progress.svg";
@@ -49,6 +52,12 @@ const TopicCard: React.FC<PropsType> = ({ ticket }) => {
           </TopicWrap>
         </TopicHeader>
         <TopicDescription>{ticket.description}</TopicDescription>
+        {!!ticket.unread_messages && (
+          <UnreadMessageWrap>
+            <UnreadMessageTitle>Unread messages:</UnreadMessageTitle>
+            <UnreadMessageCount>{ticket.unread_messages}</UnreadMessageCount>
+          </UnreadMessageWrap>
+        )}
       </TopicInner>
     </TopicOuter>
   );

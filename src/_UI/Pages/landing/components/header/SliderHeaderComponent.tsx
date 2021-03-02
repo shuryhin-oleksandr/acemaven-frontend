@@ -13,7 +13,8 @@ import landing_logo from '../../../../assets/icons/landing/logo_for_landing.svg'
 import OutlineButton from "src/_UI/components/_commonComponents/buttons/outline_button/OutlineButton";
 import RouteButton from "../../../../components/_commonComponents/buttons/route_button/RouteButton";
 import {authActions} from "../../../../../_BLL/reducers/authReducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../../../../_BLL/store";
 
 type PropsType = {
     background_img: string,
@@ -23,13 +24,16 @@ type PropsType = {
     login_color?: string,
     borderColor?: string,
     subtitle_text: string,
-    subtitle_max_width?: string
-    title_text: string[]
+    subtitle_max_width?: string,
+    title_text: string[],
+    callback:any
 }
 
 const SliderHeaderComponent:React.FC<PropsType> = ({background_img,background_size, background_repeat, subtitle_max_width,
-                                                       button_background, login_color, borderColor, title_text, subtitle_text}) => {
+                                                       button_background, login_color, borderColor, title_text, subtitle_text,callback}) => {
     const dispatch = useDispatch()
+
+
     return (
         <Outer background_img={background_img} background_repeat={background_repeat} background_size={background_size}>
             <UpperPart>
@@ -52,7 +56,7 @@ const SliderHeaderComponent:React.FC<PropsType> = ({background_img,background_si
                     <span>{title_text[2]}</span>
                 </Title>
                 <SubTitle subtitle_max_width={subtitle_max_width}>{subtitle_text}</SubTitle>
-                <RouteButton path='#' text='GET STARTED'/>
+                <RouteButton path='#' text='GET STARTED' callback={callback}/>
             </HeaderContent>
         </Outer>
     )

@@ -1,9 +1,8 @@
 import {
   ICompanySignUpData,
   ICompanySignUpError,
-  IMasterSignUpError
+  IMasterSignUpError,
 } from "../types/authTypes";
-
 
 const initialState: InitialStateType = {
   isAuth: false,
@@ -18,9 +17,10 @@ const initialState: InitialStateType = {
   checkedUser: null,
   finishPopup: false,
   passwordError: "",
-  additionalUserEmailError: '',
+  additionalUserEmailError: "",
   isSignUp: false,
   isSignIn: false,
+  signUpAsAgent: false,
 };
 
 type InitialStateType = {
@@ -39,6 +39,7 @@ type InitialStateType = {
   additionalUserEmailError: string;
   isSignUp: boolean;
   isSignIn: boolean;
+  signUpAsAgent: boolean;
 };
 
 export const authReducer = (
@@ -54,8 +55,8 @@ export const authReducer = (
     case "SET_INIT":
       return {
         ...state,
-        isInit: action.isInit
-      }
+        isInit: action.isInit,
+      };
     case "SET_AUTH":
       return {
         ...state,
@@ -107,8 +108,8 @@ export const authReducer = (
     case "SET_ADDITIONAL_USER_EMAIL_ERROR":
       return {
         ...state,
-        additionalUserEmailError: action.error
-      }
+        additionalUserEmailError: action.error,
+      };
     case "SET_OPEN_SIGN_UP": {
       return {
         ...state,
@@ -119,6 +120,12 @@ export const authReducer = (
       return {
         ...state,
         isSignIn: action.value,
+      };
+    }
+    case "SET_OPEN_SIGN_UP_AS_AGENT": {
+      return {
+        ...state,
+        signUpAsAgent: action.value,
       };
     }
     default:
@@ -132,7 +139,7 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U }
 export type commonAuthActions = AC<typeof authActions>;
 
 export const authActions = {
-  setInit: (isInit: boolean) => ({type:"SET_INIT", isInit} as const),
+  setInit: (isInit: boolean) => ({ type: "SET_INIT", isInit } as const),
   setAuth: (isAuth: boolean) => ({ type: "SET_AUTH", isAuth } as const),
   setIsLoading: (isFetching: boolean) =>
     ({ type: "SET_IS_LOADING", isFetching } as const),
@@ -153,11 +160,12 @@ export const authActions = {
     ({ type: "OPEN_FINISH_POPUP", value } as const),
   setPasswordError: (error: string) =>
     ({ type: "SET_PASSWORD_ERROR", error } as const),
-  setAdditionalUserEmailError: (error: string) => ({type: 'SET_ADDITIONAL_USER_EMAIL_ERROR', error} as const),
+  setAdditionalUserEmailError: (error: string) =>
+    ({ type: "SET_ADDITIONAL_USER_EMAIL_ERROR", error } as const),
   setOpenSignUp: (value: boolean) =>
     ({ type: "SET_OPEN_SIGN_UP", value } as const),
+  setSignUpAsAgent: (value: boolean) =>
+    ({ type: "SET_OPEN_SIGN_UP_AS_AGENT", value } as const),
   setOpenSignIn: (value: boolean) =>
     ({ type: "SET_OPEN_SIGN_IN", value } as const),
 };
-
-

@@ -41,6 +41,7 @@ right: 150px;
 `
 export const BlocksWrapper = styled.div`
 position: absolute;
+z-index: 0;
 display: flex;
 height: 100%;
 width: 100%;

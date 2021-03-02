@@ -12,6 +12,7 @@ type PropsType = {
   h?: string;
   fontSize?: string;
   hover_color?: string;
+  callback?: any;
 };
 
 const RouteButton: React.FC<PropsType> = ({
@@ -24,9 +25,12 @@ const RouteButton: React.FC<PropsType> = ({
   w,
   textColor,
   path,
+  callback,
 }) => {
   return (
-    <NavLink style={{ textDecoration: "none" }} to={path}>
+    <div style={{ textDecoration: "none" }}
+             // to={path}
+    >
       <ButtonWrap
         fontSize={fontSize}
         h={h}
@@ -35,10 +39,13 @@ const RouteButton: React.FC<PropsType> = ({
         w={w}
         textColor={textColor}
         hover_color={hover_color}
+        onClick={() => {
+          callback && callback();
+        }}
       >
         {text}
       </ButtonWrap>
-    </NavLink>
+    </div>
   );
 };
 

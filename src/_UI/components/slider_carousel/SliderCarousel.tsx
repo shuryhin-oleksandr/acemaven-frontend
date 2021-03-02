@@ -6,6 +6,8 @@ import lan2 from '../../../_UI/assets/icons/landing/Landing1.jpg'
 import lan3 from '../../../_UI/assets/icons/landing/Landing3.png'
 import './flickity.css'
 import SliderHeaderComponent from "../../Pages/landing/components/header/SliderHeaderComponent";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../../_BLL/reducers/authReducer";
 
 const SliderCarousel = () => {
 
@@ -15,6 +17,7 @@ const SliderCarousel = () => {
         autoPlay: 3000,
         pauseAutoPlayOnHover: true
     }
+    const dispatch = useDispatch();
 
 
     return (
@@ -30,12 +33,14 @@ const SliderCarousel = () => {
                                       background_size='cover'
                                       title_text={['AIR', 'AND SEA', 'SHIPMENTS']}
                                       subtitle_text='Acemaven supports imports and exports and various types of air and sea shipments.'
+                                      callback={()=>{dispatch(authActions.setOpenSignIn(true))}}
                />
                <SliderHeaderComponent background_img={lan2}
                                       background_repeat='no-repeat'
                                       background_size='cover'
                                       title_text={['SEARCH', 'FOR THE', 'BEST RATES']}
                                       subtitle_text='Compare freight rates from various agents and book the best conditions for your shipment.'
+                                      callback={()=>{dispatch(authActions.setOpenSignIn(true))}}
                />
                <SliderHeaderComponent background_img={lan3}
                                       background_repeat='no-repeat'
@@ -46,6 +51,7 @@ const SliderCarousel = () => {
                                       title_text={['TRACK', 'YOUR', 'SHIPMENT']}
                                       subtitle_text='Once you shipment has departed, track its position in real time.'
                                       subtitle_max_width='326px'
+                                      callback={()=>{dispatch(authActions.setOpenSignIn(true))}}
                />
        </Flickity>
 

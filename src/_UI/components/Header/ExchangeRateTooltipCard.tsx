@@ -25,10 +25,10 @@ type PropsType = {
 const ExchangeRateTooltipCard: React.FC<PropsType> = ({moment_today, is_added_today, ...props}) => {
 
     let usd = props.last_exchange?.rates.find(r => r.currency === 'USD')
-    let usd_rate = usd?.rate && _.ceil(parseFloat(usd?.rate), 2)
+    let usd_rate = usd?.rate && _.ceil(parseFloat(`${1/Number(usd?.rate)}`), 2);
 
     let eur = props.last_exchange?.rates.find(r => r.currency === 'EUR')
-    let eur_rate = eur?.rate && _.ceil(parseFloat(eur?.rate), 2)
+    let eur_rate = eur?.rate && _.ceil(parseFloat(`${1/Number(eur?.rate)}`), 2);
 
 
     return (
@@ -38,14 +38,15 @@ const ExchangeRateTooltipCard: React.FC<PropsType> = ({moment_today, is_added_to
                 <TodayHeaderDate>{moment_today}</TodayHeaderDate>
             </TodayHeader>
             <TodayExchange>
-                <OneBraz>1 BRL</OneBraz>
                 <CurrencyWrap>
-                    <CurrencySpan>USD</CurrencySpan>
-                    <SumSpan>{is_added_today ? usd_rate : 'N/A'}</SumSpan>
+                    <CurrencySpan>1 USD /</CurrencySpan>
+                    {is_added_today ? <OneBraz>{usd_rate} BRL</OneBraz> : 'N/A'}
+
                 </CurrencyWrap>
                 <CurrencyWrap>
-                    <CurrencySpan>Eur</CurrencySpan>
-                    <SumSpan>{is_added_today ? eur_rate : 'N/A'}</SumSpan>
+                    <CurrencySpan>1 Eur /</CurrencySpan>
+                    {is_added_today ? <OneBraz>{eur_rate} BRL</OneBraz> : 'N/A'}
+
                 </CurrencyWrap>
             </TodayExchange>
         </ExchangeRateTooltipContainer>

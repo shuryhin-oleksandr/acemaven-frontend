@@ -117,13 +117,13 @@ export const TodayExchange = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 200px;
 `
 export const OneBraz = styled.div`
   font-family: "Helvetica Reg", sans-serif;
   text-transform: uppercase;
   color: #1B1B25;
   font-size: 14px;
+  margin-left: 3px;
 `
 export const CurrencyWrap = styled.div`
   font-family: "Helvetica Reg", sans-serif;

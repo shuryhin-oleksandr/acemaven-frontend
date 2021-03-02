@@ -56,7 +56,7 @@ const SliderHeaderComponent:React.FC<PropsType> = ({background_img,background_si
                     <span>{title_text[2]}</span>
                 </Title>
                 <SubTitle subtitle_max_width={subtitle_max_width}>{subtitle_text}</SubTitle>
-                <RouteButton path='#' text='GET STARTED' callback={callback}/>
+                <RouteButton text='GET STARTED' callback={callback}/>
             </HeaderContent>
         </Outer>
     )

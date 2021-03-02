@@ -44,7 +44,7 @@ const ShippingModePart = () => {
                 <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: '76px'}}><RouteButton
                     callback={() => {
                         dispatch(authActions.setOpenSignIn(true));
-                    }} text='GET STARTED' textColor='white' back='#1B1B25' path='#' w='203px'/></div>
+                    }} text='GET STARTED' textColor='white' back='#1B1B25' w='203px'/></div>
             </ModesInner>
         </ModesWrapper>
     )

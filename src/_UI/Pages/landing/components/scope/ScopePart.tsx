@@ -54,7 +54,6 @@ const ScopePart = () => {
             dispatch(authActions.setSignUpAsAgent(false));
             dispatch(authActions.setOpenSignUp(true));
           }}
-          path="#"
           text="START AS CLIENT"
           back="#1B1B25"
           textColor="white"
@@ -66,7 +65,6 @@ const ScopePart = () => {
             dispatch(authActions.setOpenSignUp(true));
           }}
           border="1px solid #1B1B25"
-          path="#"
           text="START AS AGENT"
           textColor="#1B1B25"
           back="transparent"

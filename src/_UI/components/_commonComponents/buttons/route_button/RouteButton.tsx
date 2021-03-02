@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 type PropsType = {
   text?: string;
   back?: string;
   w?: string;
   textColor?: string;
-  path: string;
+  path?: string;
   border?: string;
   h?: string;
   fontSize?: string;
@@ -27,25 +27,24 @@ const RouteButton: React.FC<PropsType> = ({
   path,
   callback,
 }) => {
+  const history = useHistory();
   return (
-    <div style={{ textDecoration: "none" }}
-             // to={path}
+    <ButtonWrap
+      fontSize={fontSize}
+      h={h}
+      border={border}
+      back={back}
+      w={w}
+      textColor={textColor}
+      hover_color={hover_color}
+      onClick={() => {
+        callback && callback();
+        path && history.push(path);
+        console.log("2");
+      }}
     >
-      <ButtonWrap
-        fontSize={fontSize}
-        h={h}
-        border={border}
-        back={back}
-        w={w}
-        textColor={textColor}
-        hover_color={hover_color}
-        onClick={() => {
-          callback && callback();
-        }}
-      >
-        {text}
-      </ButtonWrap>
-    </div>
+      {text}
+    </ButtonWrap>
   );
 };
 

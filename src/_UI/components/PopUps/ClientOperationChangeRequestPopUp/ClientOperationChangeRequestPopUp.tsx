@@ -62,6 +62,7 @@ import Layout from "../../BaseLayout/Layout";
 import ClientChangeRequestPopUpForm from "../ClientChangeRequestPopUpForm/ClientChangeRequestPopUpForm";
 import { EditTwoTone } from "@material-ui/icons";
 import BaseTooltip from "../../_commonComponents/baseTooltip/BaseTooltip";
+import ChargesChangeTable from "./ChargesChangeTable/ChargesChangeTable";
 
 const useStyles = makeStyles({
   container: {
@@ -604,53 +605,32 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
           {recalculated_charges && !addGroupMode && (
             <SectionWrapper>
               <SectionTitle>Charges</SectionTitle>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <div style={{ padding: "12px 18px 12px 0" }}>
+              <div>
+                <div style={{ padding: "12px 18px", marginBottom: "30px" }}>
                   <InfoRow margin_right="25px">
-                    <InfoRowLabel>BEFORE REQUEST</InfoRowLabel>
-                    {!!operation_info.charges?.totals.BRL && (
-                      <InfoRowValue>
-                        Charges in BRL
-                        <span style={{ marginLeft: "20px" }}>
-                          {operation_info.charges?.totals.BRL}
-                        </span>
-                      </InfoRowValue>
-                    )}
-                    {!!operation_info.charges?.totals.USD && (
-                      <InfoRowValue>
-                        Charges in USD
-                        <span style={{ marginLeft: "20px" }}>
-                          {operation_info.charges?.totals.USD}
-                        </span>
-                      </InfoRowValue>
-                    )}
+                    <InfoRowLabel font_color={"#1ab8e5"}>
+                      BEFORE REQUEST
+                    </InfoRowLabel>
+                    <ChargesChangeTable
+                      operation_charges={operation_info.charges}
+                      number_of_docs={operation_info?.number_of_documents}
+                    />
                   </InfoRow>
                 </div>
                 <div
                   style={{
                     border: "1px solid #1AB8E5",
                     padding: "12px 18px",
-                    marginLeft: "200px",
                   }}
                 >
                   <InfoRow margin_right="25px">
-                    <InfoRowLabel>AFTER REQUEST</InfoRowLabel>
-                    {!!recalculated_charges?.totals.BRL && (
-                      <InfoRowValue>
-                        Charges in BRL
-                        <span style={{ marginLeft: "20px" }}>
-                          {recalculated_charges?.totals.BRL}
-                        </span>
-                      </InfoRowValue>
-                    )}
-                    {!!recalculated_charges?.totals.USD && (
-                      <InfoRowValue>
-                        Charges in USD
-                        <span style={{ marginLeft: "20px" }}>
-                          {recalculated_charges?.totals.USD}
-                        </span>
-                      </InfoRowValue>
-                    )}
+                    <InfoRowLabel font_color={"#1ab8e5"}>
+                      AFTER REQUEST
+                    </InfoRowLabel>
+                    <ChargesChangeTable
+                      operation_charges={recalculated_charges}
+                      number_of_docs={getValues("number_of_documents")}
+                    />
                   </InfoRow>
                 </div>
               </div>

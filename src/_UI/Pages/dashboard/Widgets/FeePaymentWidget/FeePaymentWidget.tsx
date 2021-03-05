@@ -23,6 +23,7 @@ import { useStyles } from "../WidgetTableStyles";
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 import { useHistory } from "react-router-dom";
+import { AppUserRolesType } from "../../../../../_BLL/types/commonTypes";
 
 const FeePaymentWidget: React.FC = () => {
   //hooks
@@ -40,6 +41,13 @@ const FeePaymentWidget: React.FC = () => {
   const billing_list = useSelector(
     (state: AppStateType) => state.client_billing.client_billing_operations_list
   );
+  let current_user_role = useSelector(
+    (state: AppStateType) => state.profile.authUserInfo?.roles
+  );
+
+  let billing_admin_role =
+    current_user_role?.includes(AppUserRolesType.BILLING) ||
+    current_user_role?.includes(AppUserRolesType.MASTER);
 
   return billing_list.length > 0 ? (
     <BaseWidget heading="pending of Booking Fee payment">
@@ -67,7 +75,8 @@ const FeePaymentWidget: React.FC = () => {
               key={item.id}
               className={classes.row}
               onClick={() => {
-                history.push(`/operations/${item.id}`);
+                // history.push(`/operations/${item.id}`);
+                billing_admin_role && history.push(`/billing_pending/`);
               }}
             >
               <TableCell className={classes.innerCell}>

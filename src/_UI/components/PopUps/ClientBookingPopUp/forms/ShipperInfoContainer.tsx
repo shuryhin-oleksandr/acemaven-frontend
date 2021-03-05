@@ -81,7 +81,7 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
     console.log("finalData",finalData);
 
     dispatch(postBooking(finalData, props.quotes_mode));
-    dispatch(bookingActions.changeBookingStep("fee-table"));
+    // dispatch(bookingActions.changeBookingStep("fee-table"));
   };
 
 

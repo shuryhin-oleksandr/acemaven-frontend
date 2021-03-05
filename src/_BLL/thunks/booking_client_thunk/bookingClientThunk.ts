@@ -26,10 +26,12 @@ export const postBooking = (data: PostBookingData, quotes_mode?: boolean) => {
       if (!quotes_mode) {
         let res = await bookingApi.postBooking(data);
         dispatch(bookingActions.setRecalculatedBooking(res.data));
+        dispatch(bookingActions.changeBookingStep("fee-table"));
       } else {
         let quote_archive_id = getState().client_quotes.future_archive_quote_id;
         let res = await bookingApi.postBooking(data);
         dispatch(bookingActions.setRecalculatedBooking(res.data));
+        dispatch(bookingActions.changeBookingStep("fee-table"));
         await quotesClientAPI.archiveQuote(quote_archive_id);
       }
     } catch (e) {

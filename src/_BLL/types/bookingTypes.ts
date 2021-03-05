@@ -106,3 +106,11 @@ export type BookingShipmentDetailsType = {
   booking_notes: string,
   booking: number
 }
+
+export type TransactionType = {
+  booking:number,
+  charge:string,
+  qr_code:string,
+  status:string,
+  txid:string
+}

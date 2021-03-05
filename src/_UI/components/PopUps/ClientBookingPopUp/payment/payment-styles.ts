@@ -21,3 +21,9 @@ export const Message = styled.div`
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;
 `;
+
+export const QRWrapper = styled.div`
+margin-top: 30px;
+display:flex;
+justify-content: center;
+`

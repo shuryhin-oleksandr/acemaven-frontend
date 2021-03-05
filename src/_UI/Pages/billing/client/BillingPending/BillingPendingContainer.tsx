@@ -8,12 +8,16 @@ import ModalWindow from "../../../../components/_commonComponents/ModalWindow/Mo
 import CancelPendingBilling from "../../../../components/PopUps/CancelPendingBillingPopup/CancelPendingBillingPopup";
 import { clientBillingActions } from "../../../../../_BLL/reducers/billing/client/ClientBillingReducer";
 import SpinnerForAuthorizedPages from "../../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+import BillingPaymentPopUp from "../../../../components/PopUps/BillingPaymentPopUp/BillingPaymentPopUp";
 
 const BillingPendingContainer: React.FC = () => {
   let dispatch = useDispatch();
 
   const [isCancelByClient, setIsCancelByClient] = useState(false);
   const [bookingId, setBookingId] = useState(0);
+  const [billingPaymentPopUpVisible, setBillingPaymentPopUpVisible] = useState(
+    false
+  );
 
   useEffect(() => {
     dispatch(getClientBillingOperationsThunk("", "pending", "", ""));
@@ -30,9 +34,17 @@ const BillingPendingContainer: React.FC = () => {
     setBookingId(id);
     setIsCancelByClient(showPopup);
   };
+
+  const processPayment = (showPopup: boolean, id: number) => {
+    setBookingId(id);
+    setBillingPaymentPopUpVisible(showPopup);
+  };
+
   const isFetching = useSelector(
     (state: AppStateType) => state.client_billing.isFetching
   );
+
+  const booking = billing_list.find((b) => b.id === bookingId);
 
   return (
     <Layout>
@@ -42,12 +54,19 @@ const BillingPendingContainer: React.FC = () => {
           id={bookingId}
         />
       </ModalWindow>
+      <ModalWindow isOpen={billingPaymentPopUpVisible}>
+        <BillingPaymentPopUp
+          setBillingPaymentPopUpVisible={setBillingPaymentPopUpVisible}
+          booking={booking}
+        />
+      </ModalWindow>
       {isFetching ? (
         <SpinnerForAuthorizedPages />
       ) : (
         <BillingPendingPage
           billing_list={billing_list}
           cancelBooking={cancelBooking}
+          processPayment={processPayment}
         />
       )}
     </Layout>

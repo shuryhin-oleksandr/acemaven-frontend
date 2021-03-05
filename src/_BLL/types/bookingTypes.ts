@@ -1,5 +1,5 @@
 import { CargoGroupType } from "./search/search_types";
-import {CargoGroupQuoteType, RateQuoteType} from "./quotes/quotesTypes";
+import { CargoGroupQuoteType, RateQuoteType } from "./quotes/quotesTypes";
 
 export type CargoDetailsValue = {
   id: string;
@@ -40,36 +40,41 @@ export type PostBookingData = {
   date_to: string;
   freight_rate: number;
   shipper?: ShipperType;
-  existing_shipper?:number;
+  existing_shipper?: number;
 };
 
 export type CostBookingType = {
-  freight_rate?: any,
-  doc_fee: {currency: string, cost: number, subtotal: number, volume?: number},
-  total_freight_rate: {BRL?: number, USD?: number},
-  total_surcharge: {BRL?: number, USD?: number},
-  totals: {BRL?: number, USD?: number},
-  service_fee?: {cost : number, currency : string, subtotal : number},
+  freight_rate?: any;
+  doc_fee: {
+    currency: string;
+    cost: number;
+    subtotal: number;
+    volume?: number;
+  };
+  total_freight_rate: { BRL?: number; USD?: number };
+  total_surcharge: { BRL?: number; USD?: number };
+  totals: { BRL?: number; USD?: number };
+  service_fee?: { cost: number; currency: string; subtotal: number };
   pay_to_book?: {
-    currency : string
-    booking_fee : number,
-    pay_to_book : number,
-    service_fee : number
-  },
+    currency: string;
+    booking_fee: number;
+    pay_to_book: number;
+    service_fee: number;
+  };
   cargo_groups: Array<{
-    volume: number,
-    cargo_type: string,
-    freight: {currency: string, cost: number, subtotal: number},
-    other: {currency: string, cost: number, subtotal: number},
-    handling: {currency: string, cost: number, subtotal: number}
-    cargo_group?: CargoGroupQuoteType
-  }>
-}
+    volume: number;
+    cargo_type: string;
+    freight: { currency: string; cost: number; subtotal: number };
+    other: { currency: string; cost: number; subtotal: number };
+    handling: { currency: string; cost: number; subtotal: number };
+    cargo_group?: CargoGroupQuoteType;
+  }>;
+};
 export type BookingInfoType = {
-  id:number;
+  id: number;
   aceid: string;
   cargo_groups: CargoGroupQuoteType[];
-  release_type?: {id: number, title: string};
+  release_type?: { id: number; title: string };
   number_of_documents?: number;
   date_from: string;
   date_to: string;
@@ -79,38 +84,38 @@ export type BookingInfoType = {
   status: string;
   client: string;
   client_contact_person: string;
-  week_range: {week_from: number; week_to: number},
-  charges: CostBookingType,
-  is_assigned: boolean
-}
+  week_range: { week_from: number; week_to: number };
+  charges: CostBookingType;
+  is_assigned: boolean;
+};
 
 export type BookingShipmentDetailsType = {
-  booking_number: string,
-  booking_number_with_carrier?: string,
-  flight_number?: string,
-  vessel?: string,
-  voyage?: string,
-  container_number?:	string,
-  mawb?: string,
-  date_of_departure :string,
-  date_of_arrival: string,
-  document_cut_off_date?: string,
-  cargo_cut_off_date?: string,
-  cargo_pick_up_location?: string,
-  cargo_pick_up_location_address?: string
-  cargo_drop_off_location?: string,
-  cargo_drop_off_location_address?:	string,
-  empty_pick_up_location?: string,
-  empty_pick_up_location_address?: string,
-  container_free_time?:	number,
-  booking_notes: string,
-  booking: number
-}
+  booking_number: string;
+  booking_number_with_carrier?: string;
+  flight_number?: string;
+  vessel?: string;
+  voyage?: string;
+  container_number?: string;
+  mawb?: string;
+  date_of_departure: string;
+  date_of_arrival: string;
+  document_cut_off_date?: string;
+  cargo_cut_off_date?: string;
+  cargo_pick_up_location?: string;
+  cargo_pick_up_location_address?: string;
+  cargo_drop_off_location?: string;
+  cargo_drop_off_location_address?: string;
+  empty_pick_up_location?: string;
+  empty_pick_up_location_address?: string;
+  container_free_time?: number;
+  booking_notes: string;
+  booking: number;
+};
 
 export type TransactionType = {
-  booking:number,
-  charge:string,
-  qr_code:string,
-  status:string,
-  txid:string
-}
+  booking: number;
+  charge: string;
+  qr_code: string;
+  status: string;
+  txid: string;
+};

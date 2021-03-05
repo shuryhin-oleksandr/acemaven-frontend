@@ -7,11 +7,13 @@ import NoQuotesCard from "../../../quotes/NoQuotesCard";
 type PropsType = {
   billing_list: BillingOperationType[];
   cancelBooking: (showPopup: boolean, id: number) => void;
+  processPayment?: (showPopup: boolean, id: number) => void;
 };
 
 const BillingPendingPage: React.FC<PropsType> = ({
   billing_list,
   cancelBooking,
+  processPayment,
 }) => {
   return (
     <Wrapper>
@@ -19,9 +21,11 @@ const BillingPendingPage: React.FC<PropsType> = ({
         <Heading>Pending of booking fee payment</Heading>
         {billing_list.length > 0 ? (
           billing_list.map((i) => (
-            <BillingCard billing={i}
-                         key={i.id}
-                         cancelBooking={cancelBooking}
+            <BillingCard
+              billing={i}
+              key={i.id}
+              cancelBooking={cancelBooking}
+              processPayment={processPayment}
             />
           ))
         ) : (

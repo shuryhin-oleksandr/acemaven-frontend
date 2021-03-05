@@ -20,7 +20,7 @@ type PropsType = {
   newSearch?: any;
   close_totals?: VoidFunctionType;
   quotes_mode?: boolean;
-  transactions: TransactionType[];
+  transactions?: TransactionType[];
 };
 
 const ActiveQRPayment: React.FC<PropsType> = ({
@@ -67,7 +67,14 @@ const ActiveQRPayment: React.FC<PropsType> = ({
         once it’s completed.
       </Message>
       <QRWrapper>
-        <QRCode renderAs="svg" value={transactions[0].qr_code} />
+        <QRCode
+          renderAs="svg"
+          value={
+            transactions && transactions.length > 0
+              ? transactions[0].qr_code
+              : ""
+          }
+        />
       </QRWrapper>
     </Container>
   );

@@ -50,7 +50,7 @@ const useStyles = makeStyles({
 });
 
 type PropsType = {
-  operation_charges?: CostBookingType;
+  operation_charges?: any;
   number_of_docs?: number | null;
 };
 
@@ -81,7 +81,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {operation_charges?.cargo_groups?.map((s) => (
+          {operation_charges?.cargo_groups?.map((s:any) => (
             <TableRow key={s.cargo_type} className={classes.info_row}>
               <TableCell className={classes.innerCell} scope="row">
                 {s.volume}

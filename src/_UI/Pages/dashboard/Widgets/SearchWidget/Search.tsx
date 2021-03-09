@@ -139,7 +139,6 @@ const Search: React.FC<PropsType> = ({
   const watchFieldArray = watch("cargo_groups");
 
   const onSubmit = (values: any) => {
-    debugger
     let finalData;
     if (dates.length > 0) {
       setDuplicatedCargoError("");

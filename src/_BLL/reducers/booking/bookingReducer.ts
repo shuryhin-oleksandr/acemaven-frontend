@@ -10,6 +10,7 @@ import {
 } from "src/_BLL/types/search/search_types";
 
 const initialState = {
+  isFetching: false,
   booking_step: "shipping-form",
   current_booking_freight_rate_id: null as number | null,
   booking_dates: null as { date_from: string; date_to: string } | null,
@@ -28,6 +29,11 @@ export const bookingReducer = (
   action: commonBookingActions
 ): InitialStateType => {
   switch (action.type) {
+    case "SET_IS_LOADING":
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      };
     case "CHANGE_BOOKING_STEP":
       return {
         ...state,
@@ -84,6 +90,8 @@ type AC<T> = T extends { [key: string]: (...args: any[]) => infer U }
 export type commonBookingActions = AC<typeof bookingActions>;
 
 export const bookingActions = {
+  setIsLoading: (isFetching: boolean) =>
+    ({ type: "SET_IS_LOADING", isFetching } as const),
   changeBookingStep: (step: string) =>
     ({ type: "CHANGE_BOOKING_STEP", step } as const),
   set_current_booking_freight_rate_id: (id: number) =>

@@ -23,6 +23,7 @@ export const getReleaseTypeChoices = () => {
 export const postBooking = (data: PostBookingData, quotes_mode?: boolean) => {
   return async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
     try {
+      dispatch(bookingActions.setIsLoading(true));
       if (!quotes_mode) {
         let res = await bookingApi.postBooking(data);
         dispatch(bookingActions.setRecalculatedBooking(res.data));
@@ -36,6 +37,8 @@ export const postBooking = (data: PostBookingData, quotes_mode?: boolean) => {
       }
     } catch (e) {
       console.log(e.response);
+    } finally {
+      dispatch(bookingActions.setIsLoading(false));
     }
   };
 };
@@ -43,12 +46,16 @@ export const postBooking = (data: PostBookingData, quotes_mode?: boolean) => {
 export const changeBooking = (id: number, patchObj: any, setIsOpen: any) => {
   return async (dispatch: any) => {
     try {
-     await bookingApi.changeBooking(id, patchObj);
+      await bookingApi.changeBooking(id, patchObj);
       setIsOpen(false);
       await dispatch(getClientExactOperationThunk(id));
     } catch (e) {
       console.log("error", e.response.data.error);
-      dispatch(bookingActions.setChangeBookingError("Entered dates mismatch with surcharges or freight rate dates."));
+      dispatch(
+        bookingActions.setChangeBookingError(
+          "Entered dates mismatch with surcharges or freight rate dates."
+        )
+      );
     }
   };
 };

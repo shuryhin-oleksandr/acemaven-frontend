@@ -51,68 +51,70 @@ const FeePaymentWidget: React.FC = () => {
 
   return billing_list.length > 0 ? (
     <BaseWidget heading="pending of Booking Fee payment">
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className={classes.cell} align="left" />
-            <TableCell className={classes.cell} align="left">
-              Reservation No.
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              Route
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              Date
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              Status
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {billing_list.map((item) => (
-            <TableRow
-              key={item.id}
-              className={classes.row}
-              onClick={() => {
-                // history.push(`/operations/${item.id}`);
-                billing_admin_role && history.push(`/billing_pending/`);
-              }}
-            >
-              <TableCell className={classes.innerCell}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    paddingRight: 10,
-                  }}
-                >
-                  <img
-                    src={
-                      item.shipping_type === ShippingTypesEnum.SEA
-                        ? ShipIcon
-                        : PlaneIcon
-                    }
-                    alt=""
-                  />
-                </div>
+      <div style={{ maxHeight: "300px", overflow: "auto" }}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.cell} align="left" />
+              <TableCell className={classes.cell} align="left">
+                Reservation No.
               </TableCell>
-              <TableCell className={classes.boldCell} align="left">
-                {item.aceid}
+              <TableCell className={classes.cell} align="left">
+                Route
               </TableCell>
-              <TableCell className={classes.innerCell} align="left">
-                {`${item.origin.code} - ${item.destination.code}`}
+              <TableCell className={classes.cell} align="left">
+                Date
               </TableCell>
-              <TableCell className={classes.innerCell} align="left">
-                {moment(item.date_created, "DD-MM-YYYY").format("DD/MM")}
-              </TableCell>
-              <TableCell className={classes.innerCell} align="left">
-                {item.status}
+              <TableCell className={classes.cell} align="left">
+                Status
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {billing_list.map((item) => (
+              <TableRow
+                key={item.id}
+                className={classes.row}
+                onClick={() => {
+                  // history.push(`/operations/${item.id}`);
+                  billing_admin_role && history.push(`/billing_pending/`);
+                }}
+              >
+                <TableCell className={classes.innerCell}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      paddingRight: 10,
+                    }}
+                  >
+                    <img
+                      src={
+                        item.shipping_type === ShippingTypesEnum.SEA
+                          ? ShipIcon
+                          : PlaneIcon
+                      }
+                      alt=""
+                    />
+                  </div>
+                </TableCell>
+                <TableCell className={classes.boldCell} align="left">
+                  {item.aceid}
+                </TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                  {`${item.origin.code} - ${item.destination.code}`}
+                </TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                  {moment(item.date_created, "DD-MM-YYYY").format("DD/MM")}
+                </TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                  {item.status}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </BaseWidget>
   ) : null;
 };

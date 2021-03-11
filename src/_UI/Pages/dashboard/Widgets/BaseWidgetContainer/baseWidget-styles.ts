@@ -1,4 +1,4 @@
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const shown_anim = keyframes`
   0% {
@@ -7,7 +7,7 @@ const shown_anim = keyframes`
   100% {
     opacity: 1;
   }
-`
+`;
 
 export const Container = styled.div`
   background: #ffffff;
@@ -15,7 +15,7 @@ export const Container = styled.div`
   border-radius: 7px;
   padding: 15px;
   margin-bottom: 15px;
-  animation: ${shown_anim} ease-in-out .3s;
+  animation: ${shown_anim} ease-in-out 0.3s;
 `;
 
 export const Heading = styled.h1`

@@ -102,6 +102,7 @@ const ExactOperationContainer = ({...props}) => {
             (operation_info?.status === AppOperationBookingStatusesType.CHANGE_REQUEST) ||
             (operation_info?.status === AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST) ||
             (operation_info?.status === AppOperationBookingStatusesType.AWAITING_PAYMENT) ||
+            (operation_info?.status === AppOperationBookingStatusesType.BOOKING_FEE_PENDING) ||
             (operation_info?.status === AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS)) {
             history.push("/operations_active")
         }

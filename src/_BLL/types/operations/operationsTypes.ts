@@ -10,6 +10,7 @@ export enum AppOperationBookingStatusesType {
     CANCELED_BY_CLIENT = 'Operation Canceled by Client',
     CANCELLED_BY_AGENT = 'Operation Canceled by Agent',
     CANCELLED_BY_SYSTEM = 'Operation Canceled by the System',
+    BOOKING_FEE_PENDING = 'Booking Fee Pending',
     CHANGE_REQUEST = 'Booking Change Requested',
     CONFIRMED_CHANGE_REQUEST = 'Booking Change Confirmed',
     AWAITING_PAYMENT = 'Awaiting Payment',

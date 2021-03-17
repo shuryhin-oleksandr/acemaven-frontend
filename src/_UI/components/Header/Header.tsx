@@ -84,7 +84,7 @@ const useStyles = makeStyles({
     backgroundColor: "#FFFFFF",
     border: "1px solid #828282",
     padding: "20px",
-    width: "470px",
+    maxWidth: "500px",
   },
 });
 

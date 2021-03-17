@@ -14,7 +14,8 @@ type PropsStyle = {
     w? : string,
     flex_direction?: string,
     top?:string,
-    belong_to?: string
+    belong_to?: string,
+    max_width?:string
 }
 
 export const Outer = styled.form`
@@ -86,6 +87,7 @@ export const FormTitle = styled.div`
 `;
 export const OptionsButtonsWrap = styled.div<PropsStyle>`
   min-width: 150px;
+  max-width: ${({max_width})=>max_width?max_width:"unset"};
   height: 40px;
   background-color: #ECECEC;
   border-radius: 2px;

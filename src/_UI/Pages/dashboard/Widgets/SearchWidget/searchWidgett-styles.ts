@@ -5,22 +5,25 @@ type PropsStyle = {
   bottom?: string;
   scroll?: boolean;
   justify_content?: string;
+  fields_amount?: number;
+  shipping_value?: number;
 };
 
 export const RelativeWrapper = styled.div`
   position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
 `;
 
 export const Container = styled.div<PropsStyle>`
   background: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
-  padding: 20px 30px 12px 30px;
+  padding: 20px 30px 15px 30px;
   max-height: 500px;
   overflow: ${({ scroll }) => (scroll ? "scroll" : "visible")};
-  max-width: 800px;
+  max-width: 950px;
   width: 100%;
-  margin-bottom: 15px;
 `;
 
 export const Heading = styled.div`
@@ -38,13 +41,15 @@ export const FieldWrapper = styled.div`
 `;
 
 export const ButtonGroup = styled.div<PropsStyle>`
+  margin-top: 11px;
   display: flex;
   align-items: center;
   justify-content: ${({ justify_content }) =>
     justify_content ? justify_content : "space-between"};
-  position: sticky;
-  bottom: ${({ bottom }) => (bottom ? bottom : "22px")};
-  right: ${({ right }) => (right ? right : "30px")};
+  position: ${({ shipping_value }) =>
+    shipping_value && shipping_value === 3 ? "absolute" : "relative"};
+  bottom: ${({ shipping_value }) => (shipping_value === 3 ? "17px" : "0px")};
+  right: ${({ shipping_value }) => (shipping_value === 3 ? "30px" : "0px")};
 `;
 
 export const AddImg = styled.img`

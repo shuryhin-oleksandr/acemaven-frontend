@@ -24,14 +24,12 @@ export const TotalPart = styled.div`
   display: flex;
   align-items: center;
   padding: 5px 10px;
-  margin-right: 10px;
 `
 export const TotalDescriptions = styled.div`
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;
   color: black;
   padding-top: 5px;
-  margin-right: 15px;
 `
 export const CalculateButton = styled.button`
   height: 30px;

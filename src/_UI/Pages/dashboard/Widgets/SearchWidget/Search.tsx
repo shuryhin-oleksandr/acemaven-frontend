@@ -65,10 +65,7 @@ import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
 
-
 type PropsType = {
-  right?: string;
-  bottom?: string;
   shippingTypes: ShippingTypeType[];
   setOpenCalcPopup: (value: boolean) => void;
   shippingValue: number;
@@ -99,10 +96,7 @@ type PropsType = {
   setDates: any;
 };
 
-
 const Search: React.FC<PropsType> = ({
-  bottom,
-  right,
   setOpenCalcPopup,
   shippingValue,
   setShippingValue,
@@ -128,7 +122,6 @@ const Search: React.FC<PropsType> = ({
   setDates,
   ...props
 }) => {
-
   //REACT HOOK FORM
   const { fields, append, remove } = useFieldArray({
     control,
@@ -151,17 +144,17 @@ const Search: React.FC<PropsType> = ({
           destination: Number(sessionStorage.getItem("destination_id")),
           origin: Number(sessionStorage.getItem("origin_id")),
           cargo_groups: values.cargo_groups.map((c: any) =>
-              c.frozen
-                  ? {
-                    container_type: c.container_type,
-                    frozen: c.frozen,
-                    volume: Number(c.volume),
-                  }
-                  : {
-                    container_type: c.container_type,
-                    dangerous: c.dangerous,
-                    volume: Number(c.volume),
-                  }
+            c.frozen
+              ? {
+                  container_type: c.container_type,
+                  frozen: c.frozen,
+                  volume: Number(c.volume),
+                }
+              : {
+                  container_type: c.container_type,
+                  dangerous: c.dangerous,
+                  volume: Number(c.volume),
+                }
           ),
         };
 
@@ -175,19 +168,19 @@ const Search: React.FC<PropsType> = ({
         //if there are no duplicates
         if (uniqCargoArr.length === finalData.cargo_groups.length) {
           const arrWithDescription = finalData.cargo_groups.map(
-              (c: any, index: number) => ({
-                ...c,
-                description: "",
-                id: index + 1,
-              })
+            (c: any, index: number) => ({
+              ...c,
+              description: "",
+              id: index + 1,
+            })
           );
           dispatch(
-              bookingActions.set_current_booking_cargo_groups(arrWithDescription)
+            bookingActions.set_current_booking_cargo_groups(arrWithDescription)
           );
           setDuplicatedCargoError("");
           search_result.length === 0 && search_success
-              ? dispatch(postSearchQuoteThunk(finalData, history))
-              : // @ts-ignore
+            ? dispatch(postSearchQuoteThunk(finalData, history))
+            : // @ts-ignore
               dispatch(searchRatesOffersThunk(finalData));
         } else {
           //if there are duplicates
@@ -202,31 +195,31 @@ const Search: React.FC<PropsType> = ({
           destination: Number(sessionStorage.getItem("destination_id")),
           origin: Number(sessionStorage.getItem("origin_id")),
           cargo_groups: cargo_groups_list?.map((c) =>
-              c.packaging_type
-                  ? {
-                    packaging_type: c.packaging_type,
-                    dangerous: c.dangerous,
-                    volume: Number(c.volume),
-                    weight: Number(c.weight),
-                    length: Number(c.length),
-                    width: Number(c.width),
-                    height: Number(c.height),
-                    total_wm: c.total_wm,
-                    length_measurement: c.length_measurement,
-                    weight_measurement: c.weight_measurement,
-                  }
-                  : {
-                    container_type: c.container_type,
-                    dangerous: c.dangerous,
-                    volume: Number(c.volume),
-                    weight: Number(c.weight),
-                    length: Number(c.length),
-                    width: Number(c.width),
-                    height: Number(c.height),
-                    total_wm: c.total_wm,
-                    length_measurement: c.length_measurement,
-                    weight_measurement: c.weight_measurement,
-                  }
+            c.packaging_type
+              ? {
+                  packaging_type: c.packaging_type,
+                  dangerous: c.dangerous,
+                  volume: Number(c.volume),
+                  weight: Number(c.weight),
+                  length: Number(c.length),
+                  width: Number(c.width),
+                  height: Number(c.height),
+                  total_wm: c.total_wm,
+                  length_measurement: c.length_measurement,
+                  weight_measurement: c.weight_measurement,
+                }
+              : {
+                  container_type: c.container_type,
+                  dangerous: c.dangerous,
+                  volume: Number(c.volume),
+                  weight: Number(c.weight),
+                  length: Number(c.length),
+                  width: Number(c.width),
+                  height: Number(c.height),
+                  total_wm: c.total_wm,
+                  length_measurement: c.length_measurement,
+                  weight_measurement: c.weight_measurement,
+                }
           ),
         };
 
@@ -238,33 +231,37 @@ const Search: React.FC<PropsType> = ({
         });
         const uniqCargoArr = uniqWith(arrWithoutValues, isEqual);
         //!!checking if cargo groups that are non containerized are not empty
-        if(finalData.cargo_groups && finalData.cargo_groups.length > 0) {
+        if (finalData.cargo_groups && finalData.cargo_groups.length > 0) {
           //if there are no duplicates --> submit
           if (uniqCargoArr.length === finalData.cargo_groups?.length) {
             //dispatch(searchActions.setDuplicatedError(""));
             search_result.length === 0 && search_success
-                ? dispatch(postSearchQuoteThunk(finalData, history))
-                : // @ts-ignore
+              ? dispatch(postSearchQuoteThunk(finalData, history))
+              : // @ts-ignore
                 dispatch(searchRatesOffersThunk(finalData));
           } else {
             dispatch(
-                searchActions.setDuplicatedError("You have duplicated cargo groups")
+              searchActions.setDuplicatedError(
+                "You have duplicated cargo groups"
+              )
             );
           }
         } else {
           //if cargos are empty --> set error
-          dispatch(searchActions.setDuplicatedError("One cargo group at least is required"));
-          console.log('error')
+          dispatch(
+            searchActions.setDuplicatedError(
+              "One cargo group at least is required"
+            )
+          );
+          console.log("error");
         }
-
-
       }
 
       dispatch(
-          bookingActions.set_booking_dates({
-            date_from: finalData.date_from,
-            date_to: finalData.date_to,
-          })
+        bookingActions.set_booking_dates({
+          date_from: finalData.date_from,
+          date_to: finalData.date_to,
+        })
       );
     } else {
       setDuplicatedCargoError("Please, enter dates");
@@ -299,16 +296,14 @@ const Search: React.FC<PropsType> = ({
     shippingValueReset();
   }, [shippingValue]);
 
-
   //LOCAL STATE
   const shippingModeOptions =
-      mode === ShippingTypesEnum.AIR
-          ? shippingTypes[0]?.shipping_modes
-          : shippingTypes[1]?.shipping_modes;
+    mode === ShippingTypesEnum.AIR
+      ? shippingTypes[0]?.shipping_modes
+      : shippingTypes[1]?.shipping_modes;
 
   let container_types = shippingModeOptions?.find((s) => s.id === shippingValue)
-      ?.container_types;
-
+    ?.container_types;
 
   //HANDLERS
   //delete cargo groups from cargo list after calculation
@@ -325,18 +320,18 @@ const Search: React.FC<PropsType> = ({
   };
   //origin & destination change handlers
   let onOriginChangeHandler = (value: any) => {
-   if (value.value.length >= 3) {
-    dispatch(getPorts("", value.value, "origin", mode));
-     }
+    if (value.value.length >= 3) {
+      dispatch(getPorts("", value.value, "origin", mode));
+    }
   };
   let onDestinationChangeHandler = (value: any) => {
     if (value.value.length >= 3) {
-    props.origin_port_value?.is_local
+      props.origin_port_value?.is_local
         ? dispatch(getPorts(false, value.value, "destination", mode))
         : dispatch(getPorts(true, value.value, "destination", mode));
     }
   };
-//handler for close origin & destination ports list
+  //handler for close origin & destination ports list
   let closePortsHandler = (port: PortType, field: string) => {
     dispatch(rateActions.setOriginPortValue(port));
     setValue(field, port.display_name);
@@ -350,7 +345,7 @@ const Search: React.FC<PropsType> = ({
     reset();
     dispatch(searchActions.setSearchSuccess(false));
     dispatch(searchActions.clearCargoList([]));
-    dispatch(searchActions.setSearchResult([]))
+    dispatch(searchActions.setSearchResult([]));
     setShippingValue(0);
     setDates([]);
   };
@@ -384,10 +379,9 @@ const Search: React.FC<PropsType> = ({
   };
 
   let openCalcPopupAnaClearDuplicationError = () => {
-    setOpenCalcPopup(true)
+    setOpenCalcPopup(true);
     setDuplicatedCargoError("");
-  }
-
+  };
 
   return (
     <RelativeWrapper>
@@ -396,10 +390,10 @@ const Search: React.FC<PropsType> = ({
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
             style={{
-              display: "flex",
-              alignItems: "end",
-              justifyContent: "space-between",
-              marginBottom: "10px",
+              display: "grid",
+              gridTemplateColumns: "repeat(5,1fr)",
+              gridColumnGap: "15px",
+              rowGap: "8px",
             }}
           >
             <OptionsDeliveryButtons
@@ -410,6 +404,7 @@ const Search: React.FC<PropsType> = ({
               searchValue=""
               disabled={disabled}
               thunkName="search_widget"
+              max_width={"160px"}
             />
             <Controller
               name="shipping_mode"
@@ -423,18 +418,18 @@ const Search: React.FC<PropsType> = ({
                   options={shippingModeOptions}
                   callback={setShippingValue}
                   error={errors?.shipping_mode?.message}
-                  max_width={"18%"}
                   label={"Shipping mode"}
                   hideLabel={true}
                   margin_bottom={"0px"}
                   disabled={disabled}
                   placeholder="Shipping Mode"
+                  background="#ECECEC"
                 />
               }
             />
             <div
               style={{
-                width: "18%",
+                // width: "18%",
                 display: "flex",
                 flexDirection: "column",
                 position: "relative",
@@ -458,11 +453,12 @@ const Search: React.FC<PropsType> = ({
                     }
                   }, 200)
                 }}*/
-                // background="#ECECEC"
+                background="#ECECEC"
                 marginBottom="0"
                 messagePaddingTop="4px"
                 // onBlur={blurHandler}
                 disabled={disabled}
+                min_width={"140px"}
               />
               {props.origin_ports && props.origin_ports?.length > 0 && (
                 <Scrollbars
@@ -471,7 +467,7 @@ const Search: React.FC<PropsType> = ({
                     zIndex: 10,
                     borderRadius: 5,
                     border: "1px solid rgba(0,0,0,0.5)",
-                    top: 45
+                    top: 45,
                   }}
                   autoHeight={true}
                   autoHeightMax={110}
@@ -491,7 +487,7 @@ const Search: React.FC<PropsType> = ({
             </div>
             <div
               style={{
-                width: "18%",
+                // width: "18%",
                 display: "flex",
                 flexDirection: "column",
                 position: "relative",
@@ -506,6 +502,8 @@ const Search: React.FC<PropsType> = ({
                 placeholder="Destination"
                 error={errors?.destination}
                 onChange={onDestinationChangeHandler}
+                background="#ECECEC"
+                min_width={"140px"}
                 /*onBlur={() => {
                   setTimeout(() => {
                     if (sessionStorage.getItem("destination_id"))
@@ -515,7 +513,6 @@ const Search: React.FC<PropsType> = ({
                       }
                   }, 200)
                 }}*/
-                // background="#ECECEC"
                 marginBottom="0"
                 messagePaddingTop="4px"
                 disabled={disabled}
@@ -528,7 +525,7 @@ const Search: React.FC<PropsType> = ({
                     zIndex: 10,
                     borderRadius: 5,
                     border: "1px solid rgba(0,0,0,0.5)",
-                    top: 45
+                    top: 45,
                   }}
                   autoHeight={true}
                   autoHeightMax={110}
@@ -547,6 +544,7 @@ const Search: React.FC<PropsType> = ({
               )}
             </div>
             <Dates
+              width={"100%"}
               setDates={setDates}
               extraDateNumber={mode === "sea" ? 9 : 2}
               dates={dates}
@@ -554,11 +552,11 @@ const Search: React.FC<PropsType> = ({
               shippingValueReset={shippingValueReset}
               placeholder={"Shipment Dates"}
             />
-          </div>
-          {!!duplicatedCargoError ? (
-            <ErrorMessage>{duplicatedCargoError}</ErrorMessage>
-          ) : null}
-          {shippingValue === 3 ? (
+            {/*</div>*/}
+            {!!duplicatedCargoError ? (
+              <ErrorMessage>{duplicatedCargoError}</ErrorMessage>
+            ) : null}
+            {shippingValue === 3 ? (
               <FCLFieldArray
                 fields={fields}
                 control={control}
@@ -583,30 +581,28 @@ const Search: React.FC<PropsType> = ({
                   container_types={props.container_types}
                 />
               )
-            )
-          }
+            )}
+          </div>
           <ButtonGroup
-            bottom={bottom}
-            right={right}
+            shipping_value={shippingValue}
+            bottom={"0"}
+            right={"0"}
             justify_content={
-              ![1,2,4,5].find(i=>i===shippingValue) ?
-                  "flex-end"
-                  :
-                  search_success ?
-                      "flex-end"
-                      :
-                      "space-between"
+              ![1, 2, 4, 5].find((i) => i === shippingValue)
+                ? "flex-end"
+                : search_success
+                ? "flex-end"
+                : "space-between"
             }
           >
-            {!search_success &&
-              [1,2,4,5].find(i=>i===shippingValue) && (
-                <CalculateButton
-                  type="button"
-                  onClick={openCalcPopupAnaClearDuplicationError}
-                >
-                  Calculate w/m
-                </CalculateButton>
-              )}
+            {!search_success && [1, 2, 4, 5].find((i) => i === shippingValue) && (
+              <CalculateButton
+                type="button"
+                onClick={openCalcPopupAnaClearDuplicationError}
+              >
+                Calculate w/m
+              </CalculateButton>
+            )}
             <div style={{ display: "flex" }}>
               {watchFieldArray.length > 0 &&
                 !!watchFieldArray[0].container_type &&
@@ -627,10 +623,12 @@ const Search: React.FC<PropsType> = ({
               {!search_success ? (
                 <BaseButton type="submit">Search</BaseButton>
               ) : search_result.length !== 0 ? (
-                <BaseButton onClick={(e) => {
-                  e.preventDefault();
-                  newSearch();
-                }}>
+                <BaseButton
+                  onClick={(e) => {
+                    e.preventDefault();
+                    newSearch();
+                  }}
+                >
                   New Search
                 </BaseButton>
               ) : null}

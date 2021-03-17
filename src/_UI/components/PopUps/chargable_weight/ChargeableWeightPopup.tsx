@@ -70,7 +70,6 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
 
     const dispatch = useDispatch()
     const onSubmit = (values: CargoGroupType) => {
-        debugger
         if (!editable_cargo_group) {
             values.volume
                 ? getCalculation({...values, shipping_type: current_shipping_type})

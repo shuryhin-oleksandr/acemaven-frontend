@@ -13,7 +13,6 @@ import SearchCheckbox from "src/_UI/components/_commonComponents/customCheckbox/
 //icons
 import RemoveIcon from "../../../../../assets/icons/widgets/remove-icon.svg";
 
-
 type PropsType = {
   fields: any;
   control: any;
@@ -46,34 +45,31 @@ const FCLField: React.FC<PropsType> = ({
   const [isCheck, setIsCheck] = useState(false);
 
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        borderBottom: "1px solid #E0E0E0",
-        alignItems: "center",
-      }}
-    >
-      <Controller
-        control={control}
-        name={`cargo_groups[${index}].container_type`}
-        defaultValue={item.container_type}
-        rules={{
-          required: "Field is required",
-        }}
-        as={
-          <SurchargeRateSelect
-            error={errors?.shipping_mode?.message}
-            options={container_types}
-            max_width="140px"
-            margin_right="16px"
-            background="#ECECEC"
-            callback={setChosenContainer}
-            disabled={disabled}
-            placeholder="Container Type"
-          />
-        }
-      />
+    <>
+      <div style={{ gridColumnStart: 1 }}>
+        <Controller
+          control={control}
+          name={`cargo_groups[${index}].container_type`}
+          defaultValue={item.container_type}
+          rules={{
+            required: "Field is required",
+          }}
+          as={
+            <SurchargeRateSelect
+              error={errors?.shipping_mode?.message}
+              options={container_types}
+              // max_width="18%"
+              // margin_right="16px"
+              background="#ECECEC"
+              callback={setChosenContainer}
+              disabled={disabled}
+              placeholder="Container Type"
+              margin_bottom={"0px"}
+              hideLabel={true}
+            />
+          }
+        />
+      </div>
       <Controller
         defaultValue={item.volume}
         control={control}
@@ -84,8 +80,8 @@ const FCLField: React.FC<PropsType> = ({
         as={
           <div
             style={{
-              marginRight: "10px",
-              width: "130px",
+              // marginRight: "16px",
+              // maxWidth: "18%",
               display: "flex",
             }}
           >
@@ -107,10 +103,12 @@ const FCLField: React.FC<PropsType> = ({
           as={
             <SurchargeRateSelect
               background="#ECECEC"
-              max_width="123px"
+              // max_width="18%"
               options={frozen_choices}
               disabled={disabled}
               placeholder="Frozen"
+              margin_bottom={"0px"}
+              hideLabel={true}
             />
           }
         />
@@ -126,13 +124,26 @@ const FCLField: React.FC<PropsType> = ({
       )}
       {fields.length > 1 && !disabled && (
         <IconButton
+          style={{
+            justifySelf: "flex-start",
+            alignSelf: "center",
+          }}
           onClick={() => remove(index)}
-          style={{ padding: "10px", marginLeft: "15px" }}
         >
           <img src={RemoveIcon} alt="remove" />
         </IconButton>
       )}
-    </div>
+      {fields.length > 1 && index !== fields.length - 1 && (
+        <div
+          style={{
+            gridColumn: "1/-1",
+            height: "1px",
+            backgroundColor: "#E0E0E0",
+            marginBottom: "5px",
+          }}
+        />
+      )}
+    </>
   );
 };
 

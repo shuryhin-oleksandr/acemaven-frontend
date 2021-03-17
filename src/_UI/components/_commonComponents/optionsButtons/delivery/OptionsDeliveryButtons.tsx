@@ -33,7 +33,8 @@ type PropsType = {
     thunkName?: string;
     my_operations?: string;
     operation_status?: string,
-    dates?: string[]
+    dates?: string[],
+    max_width?:string
 };
 
 const OptionsDeliveryButtons: React.FC<PropsType> = ({
@@ -41,6 +42,7 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
                                                          mode,
                                                          disabled,
                                                          dates,
+                                                         max_width,
                                                          ...props
                                                      }) => {
     const dispatch = useDispatch();
@@ -157,7 +159,7 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
     };
 
     return (
-        <OptionsButtonsWrap>
+        <OptionsButtonsWrap max_width={max_width}>
             <OptionButton
                 onClick={() => {
                     !disabled && dispatchDeliveryHandler("sea");

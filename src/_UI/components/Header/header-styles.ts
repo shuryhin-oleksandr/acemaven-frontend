@@ -103,7 +103,7 @@ export const TodayHeaderTitle = styled.div`
   font-family: "Helvetica Bold", sans-serif;
   color: #000000;
   font-size: 15px;
-  margin-right: 10px;
+  margin-right: 15px;
 `;
 export const TodayHeaderDate = styled.div`
   font-family: "Helvetica Reg", sans-serif;

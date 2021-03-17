@@ -12,7 +12,8 @@ type PropsStyle = {
   color_label? : string,
   font_weight?: string,
   label_uppercase?: boolean,
-  min_height?: string
+  min_height?: string,
+  min_width?:string
 };
 
 export const InputOuter = styled.div<PropsStyle>`
@@ -20,6 +21,7 @@ export const InputOuter = styled.div<PropsStyle>`
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  min-width: ${({min_width}) => (min_width ? min_width : "unset")};
   max-width: ${({max_width }) => (max_width ? max_width : "100%")};
   margin-bottom: ${({ marginBottom }) =>
     marginBottom ? marginBottom : "15px"};

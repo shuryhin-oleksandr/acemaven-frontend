@@ -9,11 +9,11 @@ type PropsStyle = {
   marginBottom?: string;
   background?: string;
   messagePaddingTop?: string;
-  color_label? : string,
-  font_weight?: string,
-  label_uppercase?: boolean,
-  min_height?: string,
-  min_width?:string
+  color_label?: string;
+  font_weight?: string;
+  label_uppercase?: boolean;
+  min_height?: string;
+  min_width?: string;
 };
 
 export const InputOuter = styled.div<PropsStyle>`
@@ -21,11 +21,11 @@ export const InputOuter = styled.div<PropsStyle>`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  min-width: ${({min_width}) => (min_width ? min_width : "unset")};
-  max-width: ${({max_width }) => (max_width ? max_width : "100%")};
+  min-width: ${({ min_width }) => (min_width ? min_width : "unset")};
+  max-width: ${({ max_width }) => (max_width ? max_width : "100%")};
   margin-bottom: ${({ marginBottom }) =>
     marginBottom ? marginBottom : "15px"};
-  min-height: ${({min_height}) => min_height && min_height};
+  min-height: ${({ min_height }) => min_height && min_height};
 `;
 export const Field = styled.input<PropsStyle>`
   padding: 10px;
@@ -66,17 +66,20 @@ export const Field = styled.input<PropsStyle>`
     transition: 0.5s;
   }
   &:disabled {
-    background-color: #ECECEC;
+    background-color: #ececec;
+    color: #7C7C89;
   }
 `;
 
 export const Label = styled.div<PropsStyle>`
-  font-family: ${({font_weight}) => font_weight ? "Helvetica Bold, sans-serif" : "Helvetica Reg, sans-serif" } ;
+  font-family: ${({ font_weight }) =>
+    font_weight ? "Helvetica Bold, sans-serif" : "Helvetica Reg, sans-serif"};
   font-size: 14px;
-  color: ${({color_label}) => color_label ? color_label : 'black'};
+  color: ${({ color_label }) => (color_label ? color_label : "black")};
   margin-bottom: 9px;
   opacity: 1;
-  text-transform: ${({label_uppercase}) => label_uppercase ? 'uppercase' : 'capitalize'};
+  text-transform: ${({ label_uppercase }) =>
+    label_uppercase ? "uppercase" : "capitalize"};
 `;
 export const HelperText = styled.div<PropsStyle>`
   padding-top: ${({ messagePaddingTop }) =>

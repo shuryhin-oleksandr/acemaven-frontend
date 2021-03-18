@@ -58,8 +58,6 @@ const FCLField: React.FC<PropsType> = ({
             <SurchargeRateSelect
               error={errors?.shipping_mode?.message}
               options={container_types}
-              // max_width="18%"
-              // margin_right="16px"
               background="#ECECEC"
               callback={setChosenContainer}
               disabled={disabled}

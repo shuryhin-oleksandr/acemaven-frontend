@@ -30,7 +30,7 @@ padding: 100px 0;
 `
 
 export const CardContainer = styled.div<{bookingPopupVisible?: boolean}>`
-  max-width: 900px;
+  max-width: 950px;
   min-width: 500px;
   width: 100%;
   border: 1px solid #7c7c89;

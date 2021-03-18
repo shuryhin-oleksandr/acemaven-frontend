@@ -544,7 +544,7 @@ const Search: React.FC<PropsType> = ({
               )}
             </div>
             <Dates
-              width={"100%"}
+              width={"166px"}
               setDates={setDates}
               extraDateNumber={mode === "sea" ? 9 : 2}
               dates={dates}

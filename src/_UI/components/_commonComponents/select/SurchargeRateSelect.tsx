@@ -21,7 +21,8 @@ type IProps = {
   name?: string;
   register?: any;
   margin_right?: string;
-  disabled?:boolean
+  disabled?: boolean;
+  value?:any
 };
 
 const useStyles = makeStyles(() => ({
@@ -32,7 +33,7 @@ const useStyles = makeStyles(() => ({
   selectEmpty: (props: any) => ({
     width: "100%",
     height: "40px",
-    color: "#828282",
+    color: props.value ? "#1B1B25" : "#828282",
     fontSize: "14px",
     fontFamily: "Helvetica Light",
     fontStyle: "normal",
@@ -103,8 +104,8 @@ const SurchargeRateSelect: React.FC<IProps> = ({
   const classes = useStyles({
     margin_bottom: props.margin_bottom,
     background: props.background,
+    value: props.value,
   });
-
   return (
     <SelectContainer maxW={props.max_width} marginRight={props.margin_right}>
       <FormControl className={classes.formControl}>

@@ -1,4 +1,4 @@
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const skelet_appear = keyframes`
   0% {
@@ -7,16 +7,17 @@ const skelet_appear = keyframes`
   100% {
     opacity: 1;
   }
-`
+`;
 
 type PropsStyle = {
-    mode?: string,
-    w? : string,
-    flex_direction?: string,
-    top?:string,
-    belong_to?: string,
-    max_width?:string
-}
+  mode?: string;
+  w?: string;
+  flex_direction?: string;
+  top?: string;
+  belong_to?: string;
+  max_width?: string;
+  small_size?: boolean;
+};
 
 export const Outer = styled.form`
   width: 100%;
@@ -24,13 +25,13 @@ export const Outer = styled.form`
   display: flex;
   flex-direction: column;
   padding: 50px 80px 30px 30px;
-  animation: ${skelet_appear} ease-in-out .4s;
+  animation: ${skelet_appear} ease-in-out 0.4s;
 `;
 
 export const OptionsDeliveryWrapper = styled.div`
   margin-bottom: 20px;
   width: 150px;
-`
+`;
 
 export const HeaderWrapper = styled.div`
   width: 100%;
@@ -39,41 +40,41 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const ActionsWrapper = styled.div`
-display: flex;
-`
+  display: flex;
+`;
 
 export const Cancel = styled.button<PropsStyle>`
-font-family: "Helvetica Reg", sans-serif;
-font-size: 14px;
-background: white;
-outline: none;
-border: 1px solid #3B3B41;
-height: 40px;
-max-width: ${({w}) => w ? w : '115px'};
-width: 100%;
-color: #3B3B41;
-transition: .3s;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  background: white;
+  outline: none;
+  border: 1px solid #3b3b41;
+  height: 40px;
+  max-width: ${({ w }) => (w ? w : "115px")};
+  width: 100%;
+  color: #3b3b41;
+  transition: 0.3s;
 
-&:hover {
- transition: .3s;
- background-color: #E0E0E0;
-cursor: pointer
-}
-`
+  &:hover {
+    transition: 0.3s;
+    background-color: #e0e0e0;
+    cursor: pointer;
+  }
+`;
 export const RegisterButton = styled.button`
-outline: none;
-border: none;
-background-color: black;
-color: white;
-font-family: "Helvetica Reg", sans-serif;
-font-size: 14px;
-height: 40px;
-width: 170px;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-right: 15px;
-padding: 0;
+  outline: none;
+  border: none;
+  background-color: black;
+  color: white;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  height: 40px;
+  width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  padding: 0;
 
   &:hover {
     cursor: pointer;
@@ -87,24 +88,23 @@ export const FormTitle = styled.div`
 `;
 export const OptionsButtonsWrap = styled.div<PropsStyle>`
   min-width: 150px;
-  max-width: ${({max_width})=>max_width?max_width:"unset"};
-  height: 40px;
-  background-color: #ECECEC;
+  max-width: ${({ max_width }) => (max_width ? max_width : "unset")};
+  height: ${({ small_size }) => (small_size ? "31px" : "40px")};
+  background-color: #ececec;
   border-radius: 2px;
-  border: 1px solid #ECECEC;
+  border: 1px solid #ececec;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px;
- 
-`
+`;
 export const OptionButton = styled.div<PropsStyle>`
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 68px;
   max-width: 68px;
-  height: 32px;
+  height: ${({ small_size }) => (small_size ? "23px" : "32px")};
   background-color: ${({ mode }) =>
     mode === "sea" ? "#1AB8E5" : "transparent"};
   border-radius: 2px;
@@ -112,7 +112,6 @@ export const OptionButton = styled.div<PropsStyle>`
     mode === "sea" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
   transition: 0.3s;
   font-family: "Helvetica Reg", sans-serif;
-  
 
   &:hover {
     cursor: pointer;
@@ -124,7 +123,7 @@ export const OptionButtonPlane = styled.div<PropsStyle>`
   justify-content: center;
   min-width: 68px;
   max-width: 68px;
-  height: 32px;
+  height: ${({ small_size }) => (small_size ? "23px" : "32px")};
   background-color: ${({ mode }) =>
     mode === "air" ? "#1AB8E5" : "transparent"};
   border-radius: 2px;
@@ -132,7 +131,7 @@ export const OptionButtonPlane = styled.div<PropsStyle>`
     mode === "air" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
   transition: 0.3s;
   font-family: "Helvetica Reg", sans-serif;
-  color: ${({ mode }) => mode === "air" ? "#1AB8E5" : "transparent"};
+  color: ${({ mode }) => (mode === "air" ? "#1AB8E5" : "transparent")};
 
   &:hover {
     cursor: pointer;
@@ -143,14 +142,14 @@ export const FormWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-  border-bottom: 1px solid #115B86;
+  border-bottom: 1px solid #115b86;
   padding-bottom: 35px;
 `;
 
 export const FormContent = styled.div`
   display: flex;
   width: 100%;
-`
+`;
 export const GroupWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -187,31 +186,31 @@ export const Port = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-family: "Helvetica Reg", sans-serif;
-  color: #7C7C89;
+  color: #7c7c89;
   font-size: 14px;
-  transition: .3s;
+  transition: 0.3s;
   padding: 0 5px;
   border-radius: 5px;
-  
-  
+
   &:hover {
     cursor: pointer;
     color: white;
-    background-color: #115B86;
-    transition: .3s;
+    background-color: #115b86;
+    transition: 0.3s;
   }
-`
+`;
 
 export const SurchargesDatesFilter = styled.div<PropsStyle>`
   display: flex;
-  flex-direction: ${({flex_direction}) => flex_direction ? flex_direction : 'column'};
-`
-export const ErrorChargesServerMessage = styled.div<{text_align?: string}>`
+  flex-direction: ${({ flex_direction }) =>
+    flex_direction ? flex_direction : "column"};
+`;
+export const ErrorChargesServerMessage = styled.div<{ text_align?: string }>`
   width: 100%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    text-align: ${({text_align}) => text_align ? text_align : 'end'};
-    color: #E76767;
-    font-family: "Helvetica Reg", sans-serif;
-    font-size: 14px;
-`
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: ${({ text_align }) => (text_align ? text_align : "end")};
+  color: #e76767;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+`;

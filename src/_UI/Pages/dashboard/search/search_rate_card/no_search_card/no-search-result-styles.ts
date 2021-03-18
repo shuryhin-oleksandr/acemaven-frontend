@@ -3,10 +3,11 @@ import styled from 'styled-components'
 
 export const NoSearchContainer = styled.div`
   display: flex;
-  max-width: 800px;
+  max-width: 950px;
   width: 100%;
   border: 1px solid #bdbdbd;
   background-color: white;
+  margin-top: 15px;
 `
 export const NoSearchInner = styled.div`
   width: 100%;

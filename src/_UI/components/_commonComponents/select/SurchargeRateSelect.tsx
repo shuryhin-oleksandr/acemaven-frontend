@@ -22,7 +22,9 @@ type IProps = {
   register?: any;
   margin_right?: string;
   disabled?: boolean;
-  value?:any
+  value?:any;
+  small_size?:boolean;
+  without_border?:boolean
 };
 
 const useStyles = makeStyles(() => ({
@@ -32,16 +34,20 @@ const useStyles = makeStyles(() => ({
   }),
   selectEmpty: (props: any) => ({
     width: "100%",
-    height: "40px",
+    height: props.small_size ? "31px" : "40px",
     color: props.value ? "#1B1B25" : "#828282",
     fontSize: "14px",
     fontFamily: "Helvetica Light",
     fontStyle: "normal",
     transition: ".3",
     backgroundColor: props.background ? props.background : "unset",
+    borderWidth: 0,
 
     "& .MuiSelect-icon": {
       color: "rgba(0, 0, 0, 0.23)",
+    },
+    "& .PrivateNotchedOutline-root-18": {
+      borderWidth: props.without_border ? "0" : "1px",
     },
 
     "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
@@ -105,6 +111,8 @@ const SurchargeRateSelect: React.FC<IProps> = ({
     margin_bottom: props.margin_bottom,
     background: props.background,
     value: props.value,
+    small_size:props.small_size,
+    without_border:props.without_border,
   });
   return (
     <SelectContainer maxW={props.max_width} marginRight={props.margin_right}>

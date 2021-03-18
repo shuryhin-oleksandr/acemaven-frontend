@@ -34,7 +34,8 @@ type PropsType = {
     my_operations?: string;
     operation_status?: string,
     dates?: string[],
-    max_width?:string
+    max_width?:string,
+    small_size?:boolean
 };
 
 const OptionsDeliveryButtons: React.FC<PropsType> = ({
@@ -43,6 +44,7 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
                                                          disabled,
                                                          dates,
                                                          max_width,
+                                                         small_size,
                                                          ...props
                                                      }) => {
     const dispatch = useDispatch();
@@ -159,22 +161,24 @@ const OptionsDeliveryButtons: React.FC<PropsType> = ({
     };
 
     return (
-        <OptionsButtonsWrap max_width={max_width}>
+        <OptionsButtonsWrap max_width={max_width} small_size={small_size}>
             <OptionButton
                 onClick={() => {
                     !disabled && dispatchDeliveryHandler("sea");
                 }}
                 mode={mode}
+                small_size={small_size}
             >
-                <img src={mode === "sea" ? shipActive : ship} alt=""/>
+                <img height={small_size?"16px":"auto"} src={mode === "sea" ? shipActive : ship} alt=""/>
             </OptionButton>
             <OptionButtonPlane
                 onClick={() => {
                     !disabled && dispatchDeliveryHandler("air");
                 }}
                 mode={mode}
+                small_size={small_size}
             >
-                <img src={mode === "air" ? planeActive : plane} alt=""/>
+                <img height={small_size?"16px":"auto"} src={mode === "air" ? planeActive : plane} alt=""/>
             </OptionButtonPlane>
         </OptionsButtonsWrap>
     );

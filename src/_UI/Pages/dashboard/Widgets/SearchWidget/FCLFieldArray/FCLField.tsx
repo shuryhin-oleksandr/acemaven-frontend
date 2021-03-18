@@ -64,6 +64,8 @@ const FCLField: React.FC<PropsType> = ({
               placeholder="Container Type"
               margin_bottom={"0px"}
               hideLabel={true}
+              small_size={true}
+              without_border={true}
             />
           }
         />
@@ -89,6 +91,9 @@ const FCLField: React.FC<PropsType> = ({
               type="number"
               disabled={disabled}
               placeholder="Volume"
+              height={"31px"}
+              without_border={true}
+
             />
           </div>
         }
@@ -101,12 +106,14 @@ const FCLField: React.FC<PropsType> = ({
           as={
             <SurchargeRateSelect
               background="#ECECEC"
-              // max_width="18%"
               options={frozen_choices}
               disabled={disabled}
               placeholder="Frozen"
               margin_bottom={"0px"}
               hideLabel={true}
+              small_size={true}
+              without_border={true}
+
             />
           }
         />
@@ -116,7 +123,7 @@ const FCLField: React.FC<PropsType> = ({
           setIsCheck={setIsCheck}
           name={`cargo_groups[${index}].dangerous`}
           inputref={register}
-          labelText="DANGEROUS"
+          labelText="Dangerous"
           disabled={disabled}
         />
       )}

@@ -405,6 +405,7 @@ const Search: React.FC<PropsType> = ({
               disabled={disabled}
               thunkName="search_widget"
               max_width={"160px"}
+              small_size={true}
             />
             <Controller
               name="shipping_mode"
@@ -424,12 +425,13 @@ const Search: React.FC<PropsType> = ({
                   disabled={disabled}
                   placeholder="Shipping Mode"
                   background="#ECECEC"
+                  small_size={true}
+                  without_border={true}
                 />
               }
             />
             <div
               style={{
-                // width: "18%",
                 display: "flex",
                 flexDirection: "column",
                 position: "relative",
@@ -444,6 +446,7 @@ const Search: React.FC<PropsType> = ({
                 placeholder="Origin"
                 error={errors?.origin}
                 onChange={onOriginChangeHandler}
+                height={"31px"}
                 /*onBlur={() => {
                   setTimeout(() => {
                     if (!!sessionStorage.getItem("origin_id")) {
@@ -459,6 +462,7 @@ const Search: React.FC<PropsType> = ({
                 // onBlur={blurHandler}
                 disabled={disabled}
                 min_width={"140px"}
+                without_border={true}
               />
               {props.origin_ports && props.origin_ports?.length > 0 && (
                 <Scrollbars
@@ -487,7 +491,6 @@ const Search: React.FC<PropsType> = ({
             </div>
             <div
               style={{
-                // width: "18%",
                 display: "flex",
                 flexDirection: "column",
                 position: "relative",
@@ -504,6 +507,8 @@ const Search: React.FC<PropsType> = ({
                 onChange={onDestinationChangeHandler}
                 background="#ECECEC"
                 min_width={"140px"}
+                height={"31px"}
+                without_border={true}
                 /*onBlur={() => {
                   setTimeout(() => {
                     if (sessionStorage.getItem("destination_id"))
@@ -552,7 +557,11 @@ const Search: React.FC<PropsType> = ({
               shippingValueReset={shippingValueReset}
               placeholder={"Shipment Dates"}
             />
-            {/*</div>*/}
+            <div
+                style={{
+                  gridColumn: "1/-1",
+                }}
+            />
             {!!duplicatedCargoError ? (
               <ErrorMessage>{duplicatedCargoError}</ErrorMessage>
             ) : null}
@@ -621,7 +630,9 @@ const Search: React.FC<PropsType> = ({
                 )}
 
               {!search_success ? (
-                <BaseButton type="submit">Search</BaseButton>
+                <BaseButton style={{ height: "35px" }} type="submit">
+                  Search
+                </BaseButton>
               ) : search_result.length !== 0 ? (
                 <BaseButton
                   onClick={(e) => {

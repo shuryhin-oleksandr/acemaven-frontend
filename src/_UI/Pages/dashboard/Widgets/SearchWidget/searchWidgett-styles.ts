@@ -33,6 +33,7 @@ export const Heading = styled.div`
   font-size: 30px;
   line-height: 36px;
   font-family: "Helvetica Bold", sans-serif;
+  color:black;
 `;
 
 export const FieldWrapper = styled.div`

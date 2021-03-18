@@ -13,7 +13,7 @@ export const Container = styled.div`
   background: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
-  padding: 15px;
+  padding: 15px 20px;
   margin-bottom: 15px;
   animation: ${shown_anim} ease-in-out 0.3s;
 `;
@@ -26,4 +26,5 @@ export const Heading = styled.h1`
   font-family: "Helvetica Bold", sans-serif;
   letter-spacing: 2px;
   text-transform: uppercase;
+  color: #1B1B25;
 `;

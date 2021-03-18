@@ -18531,8 +18531,10 @@ textarea.rs-picker-search-input {
 .rs-picker-toggle.rs-btn-lg .rs-picker-toggle-clean {
   right: 32px;
 }
+/*here*/
 .rs-picker-default .rs-picker-toggle.rs-btn-lg {
   padding-left: 15px;
+  height:31px;
 }
 .rs-picker-input:not(.rs-picker-tag)
   .rs-picker-toggle.rs-btn-lg
@@ -18584,7 +18586,7 @@ textarea.rs-picker-search-input {
 .rs-picker-daterange .rs-picker-toggle.rs-btn-lg .rs-picker-toggle-clean,
 .rs-picker-date .rs-picker-toggle.rs-btn-lg .rs-picker-toggle-caret,
 .rs-picker-daterange .rs-picker-toggle.rs-btn-lg .rs-picker-toggle-caret {
-  top: 10px;
+  top: 5px;
 }
 .rs-picker-subtle
   .rs-picker-date
@@ -18604,18 +18606,21 @@ textarea.rs-picker-search-input {
   .rs-picker-toggle-caret {
   top: 9px;
 }
+
+/*here*/
 .rs-picker-date .rs-picker-toggle.rs-btn-lg .rs-picker-toggle-caret,
 .rs-picker-daterange .rs-picker-toggle.rs-btn-lg .rs-picker-toggle-caret {
-  right: 16px;
+  right: 8px;
 }
 .rs-picker-date .rs-picker-toggle.rs-btn-lg .rs-picker-toggle-clean,
 .rs-picker-daterange .rs-picker-toggle.rs-btn-lg .rs-picker-toggle-clean {
   right: 36px;
 }
+
+/*here*/
 .rs-picker-default .rs-picker-toggle.rs-btn-lg {
-  padding-top: 9px;
+  padding-top: 5px;
   padding-bottom: 9px;
-  border: 1px solid #bdbdbd;
 }
 .rs-picker-toggle.rs-btn-lg .rs-picker-value-count {
   line-height: 22px;
@@ -19082,6 +19087,9 @@ textarea.rs-picker-search-input {
 .rs-picker-daterange .rs-picker-toggle-clean {
   right: 38px;
 }
+
+/*here*/
+
 .rs-picker-toggle-caret {
   display: inline-block;
   margin-left: 2px;
@@ -19089,7 +19097,7 @@ textarea.rs-picker-search-input {
   top: 8px;
   right: 12px;
   font-weight: normal;
-  color: #8e8e93;
+  color: #7C7C89;
 }
 .rs-picker-toggle-caret::before {
   font-family: "rsuite-icon-font" !important;

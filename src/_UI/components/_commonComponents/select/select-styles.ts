@@ -5,6 +5,7 @@ export const SelectContainer = styled.div<PropsStyle>`
   width: 100%;
   max-width: ${({maxW}) => maxW ? maxW : '100%'};
   margin-right: ${({marginRight}) => marginRight ? marginRight : '0px'};
+  height:30px;
 `
 
 type PropsStyle = {

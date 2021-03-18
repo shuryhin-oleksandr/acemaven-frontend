@@ -14,6 +14,7 @@ type PropsStyle = {
   label_uppercase?: boolean;
   min_height?: string;
   min_width?: string;
+  without_border?: boolean;
 };
 
 export const InputOuter = styled.div<PropsStyle>`
@@ -37,7 +38,8 @@ export const Field = styled.input<PropsStyle>`
   max-width: ${({ max_width }) => (max_width ? max_width : "420px")};
   width: 100%;
   height: ${({ height }) => (height ? height : "40px")};
-  border: ${({ error }) => (error ? "1px solid #7C7C89" : "1px solid #BDBDBD")};
+  border: ${({ error, without_border }) =>
+    without_border ? "0" : error ? "1px solid #7C7C89" : "1px solid #BDBDBD"};
   border-radius: 4px;
   outline: none;
   background: ${({ error, background }) =>
@@ -67,7 +69,7 @@ export const Field = styled.input<PropsStyle>`
   }
   &:disabled {
     background-color: #ececec;
-    color: #7C7C89;
+    color: #7c7c89;
   }
 `;
 

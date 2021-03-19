@@ -41,7 +41,6 @@ const useStyles = makeStyles(() => ({
     fontStyle: "normal",
     transition: ".3",
     backgroundColor: props.background ? props.background : "unset",
-    borderWidth: 0,
 
     "& .MuiSelect-icon": {
       color: "rgba(0, 0, 0, 0.23)",

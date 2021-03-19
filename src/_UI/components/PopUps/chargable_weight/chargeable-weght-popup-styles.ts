@@ -53,7 +53,7 @@ export const FormRow = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   border-bottom: 1px solid #e0e0e0;
   padding: 10px 0 0;
 `

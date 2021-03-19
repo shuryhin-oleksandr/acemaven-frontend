@@ -6,7 +6,7 @@ export const Outer = styled.div`
   margin-bottom: 30px;
 `
 export const ActionsWrapRadio = styled.div`
-  padding-top: 7px;
+  padding-top: 25px;
 `
 export const CommonWrap = styled.div`
   display: flex;

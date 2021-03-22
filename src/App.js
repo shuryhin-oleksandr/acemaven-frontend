@@ -15,6 +15,7 @@ import {
   stopReceiveChatNotifications,
 } from "./_BLL/thunks/chat_notifications_thunk/chat_notifications_thunk";
 
+
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const isInit = useSelector((state) => state.auth.isInit);

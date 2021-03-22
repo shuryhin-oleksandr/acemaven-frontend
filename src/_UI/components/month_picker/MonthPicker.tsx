@@ -1,6 +1,6 @@
 import React from "react";
 import { DateRangePicker } from "rsuite";
-import "../../Pages/dashboard/custom-rsuite-default.css";
+
 import moment from "moment";
 
 type PropsType = {

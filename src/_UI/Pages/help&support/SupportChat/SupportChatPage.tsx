@@ -32,7 +32,7 @@ const SupportChatPage: React.FC<PropsType> = () => {
   return ticket ? (
     <SupportOuter>
       <SupportInner>
-        <div style={{ maxWidth: "1000px" }}>
+        <div style={{ paddingRight: "400px" }}>
           <SupportTitle>Help and Support</SupportTitle>
           <SupportChatHeader>
             <TopicWrap>

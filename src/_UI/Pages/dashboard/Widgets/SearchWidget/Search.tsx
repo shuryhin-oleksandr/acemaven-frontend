@@ -549,6 +549,7 @@ const Search: React.FC<PropsType> = ({
               )}
             </div>
             <Dates
+              search_styles={true}
               width={"166px"}
               setDates={setDates}
               extraDateNumber={mode === "sea" ? 9 : 2}
@@ -558,9 +559,9 @@ const Search: React.FC<PropsType> = ({
               placeholder={"Shipment Dates"}
             />
             <div
-                style={{
-                  gridColumn: "1/-1",
-                }}
+              style={{
+                gridColumn: "1/-1",
+              }}
             />
             {!!duplicatedCargoError ? (
               <ErrorMessage>{duplicatedCargoError}</ErrorMessage>

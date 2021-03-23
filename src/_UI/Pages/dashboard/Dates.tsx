@@ -14,6 +14,7 @@ type PropsType = {
   placeholder?: string;
   width?: string;
   openCallback?: any;
+  search_styles?: boolean;
 };
 
 const Dates: React.FC<PropsType> = ({
@@ -25,6 +26,7 @@ const Dates: React.FC<PropsType> = ({
   placeholder,
   width,
   openCallback,
+  search_styles,
 }) => {
   const { allowedRange } = DateRangePicker;
   const tillTheEnd =
@@ -34,6 +36,7 @@ const Dates: React.FC<PropsType> = ({
 
   return (
     <Picker
+      search_styles={search_styles}
       disabled={disabled}
       appearance="default"
       isoWeek={true}
@@ -64,25 +67,29 @@ export default Dates;
 const Picker = styled(DateRangePicker)<DateRangePickerProps>`
   &.rs-picker-default,
   & .rs-picker-toggle.rs-btn-lg {
-    height: 31px !important;
+    height: ${({ search_styles }) =>
+      search_styles ? "31px" : "40px"} !important; !important;
   }
 
   & .rs-picker-toggle-caret {
     right: 8px !important;
-    top: 5px !important;
+    top: ${({ search_styles }) =>
+      search_styles ? "5px" : "8px"} !important; !important;
     color: #7c7c89;
     margin-left: 2px;
   }
 
   & .rs-picker-toggle.rs-btn-lg {
-    padding-top: 5px;
+    padding-top: ${({ search_styles }) =>
+      search_styles ? "5px" : "8px"} !important;
     padding-bottom: 9px;
     padding-left: 10px;
   }
 
   & .rs-picker-toggle,
   & .rs-btn {
-    background: #ececec !important;
+    background: ${({ search_styles }) =>
+      search_styles ? "#ececec" : "white"} !important;
   }
 
   & .rs-picker-toggle-placeholder {
@@ -105,15 +112,20 @@ const Picker = styled(DateRangePicker)<DateRangePickerProps>`
   }
 
   & .rs-picker-toggle {
-    border-width: 0 !important;
+    border: ${({ search_styles }) =>
+      search_styles ? "none" : "1px solid #bdbdbd"} !important; !important;
   }
   & .rs-picker-toggle-clean {
-    top: 5px !important;
+    top: ${({ search_styles }) => (search_styles ? "5px" : "8px")} !important;
   }
   &.rs-picker-disabled {
     opacity: 1 !important;
     .rs-picker-toggle {
       background-color: #ececec !important;
+      
+    }
+    &.rs-picker-has-value .rs-picker-toggle-value{
+      color:#7c7c89 !important;
     }
   }
 `;

@@ -28,8 +28,15 @@ const BillingCompletePage: React.FC<PropsType> = ({
   return (
     <Wrapper>
       <Content>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Heading>Completed</Heading>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "30px",
+          }}
+        >
+          <Heading without_margin>Completed</Heading>
           <div
             style={{
               display: "flex",

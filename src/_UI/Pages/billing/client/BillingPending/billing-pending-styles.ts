@@ -10,12 +10,10 @@ export const Content = styled.div`
   padding: 50px 80px 50px 30px;
 `;
 
-export const Heading = styled.div`
+export const Heading = styled.div<{ without_margin?: boolean }>`
   font-family: "Helvetica Bold", sans-serif;
   font-size: 48px;
   line-height: 57px;
   color: #000000;
-  margin-bottom: 30px;
+  margin-bottom: ${({ without_margin }) => (without_margin ? 0 : "30px")};
 `;
-
-

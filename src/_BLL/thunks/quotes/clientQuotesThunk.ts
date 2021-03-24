@@ -11,7 +11,9 @@ export const postSearchQuoteThunk = (data:any, history: any) => {
             sessionStorage.removeItem("origin_id");
             sessionStorage.removeItem("destination_id")
         }catch (e) {
-            console.log(e);
+            if(e.response.data.origin || e.response.data.destination){
+                dispatch(quotesClientActions.setResponseError("Please, check origin and destination of your search request and try again."));
+            }
         }
     }
 }

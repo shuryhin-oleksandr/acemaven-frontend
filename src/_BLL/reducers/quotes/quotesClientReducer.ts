@@ -6,7 +6,8 @@ const initialState = {
     isFetching: false,
     quotes_list: [] as QuoteType[],
     post_quote_success: false,
-    future_archive_quote_id: 0
+    future_archive_quote_id: 0,
+    response_error:  null as String | null
 }
 
 type InitialStateType = typeof initialState
@@ -50,6 +51,11 @@ export const quotesClientReducer = (state = initialState, action: commonQuotesCl
                 ...state,
                 future_archive_quote_id: action.id
             }
+        case "SET_RESPONSE_ERROR":
+            return {
+                ...state,
+                response_error:action.er
+            }
         default: return state
     }
 }
@@ -63,5 +69,6 @@ export const quotesClientActions = {
     setPostClientQuoteSuccess: (success: boolean) => ({type: 'SET_POST_CLIENT_QUOTE_SUCCESS', success} as const),
     setActivateQuote: (id: number, is_active: boolean) => ({type: 'SET_ACTIVATE_QUOTE', id, is_active} as const),
     deleteQuoteFromList: (id: number) => ({type: "DELETE_QUOTE_FROM_LIST", id} as const),
-    setFutureArchiveQuoteId: (id: number) => ({type: 'SET_FUTURE_ARCHIVE_QUOTE_ID', id} as const)
+    setFutureArchiveQuoteId: (id: number) => ({type: 'SET_FUTURE_ARCHIVE_QUOTE_ID', id} as const),
+    setResponseError:(er:string|null)=>({type:"SET_RESPONSE_ERROR", er} as const),
 };

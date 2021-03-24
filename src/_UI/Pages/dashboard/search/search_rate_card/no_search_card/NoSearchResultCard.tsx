@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {
   ButtonsWrapper,
+  ErrorMes,
   NewSearchButton,
   NoSearchContainer,
   NoSearchInner,
   NoSearchText,
   QuoteButton,
 } from "./no-search-result-styles";
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType } from "../../../../../../_BLL/store";
+import { quotesClientActions } from "../../../../../../_BLL/reducers/quotes/quotesClientReducer";
 
 type PropsType = {
   newSearch: any;
@@ -20,16 +24,24 @@ const NoSearchResultCard: React.FC<PropsType> = ({
   onSubmit,
 }) => {
   const [confirmationMode, setConfirmationMode] = useState(false);
+  let error = useSelector(
+    (state: AppStateType) => state.client_quotes.response_error
+  );
+  let dispatch = useDispatch();
   useEffect(() => {
     return () => {
       setConfirmationMode(false);
+      dispatch(quotesClientActions.setResponseError(null));
     };
   }, []);
   return (
     <NoSearchContainer>
       <NoSearchInner>
         {confirmationMode ? (
-          <NoSearchText>Are you sure you want to post a quote?</NoSearchText>
+          <>
+            <NoSearchText>Are you sure you want to post a quote?</NoSearchText>
+            {error && <ErrorMes>{error}</ErrorMes>}
+          </>
         ) : (
           <NoSearchText>
             Your search did not return any results; you can post it online as a
@@ -41,18 +53,28 @@ const NoSearchResultCard: React.FC<PropsType> = ({
 
         <ButtonsWrapper>
           {confirmationMode ? (
-            <>
-              <QuoteButton onClick={() => handleSubmit(onSubmit)()}>
-                Yes
-              </QuoteButton>
+            error ? (
               <NewSearchButton
                 onClick={() => {
                   setConfirmationMode(false);
                 }}
               >
-                No
+                Ok
               </NewSearchButton>
-            </>
+            ) : (
+              <>
+                <QuoteButton onClick={() => handleSubmit(onSubmit)()}>
+                  Yes
+                </QuoteButton>
+                <NewSearchButton
+                  onClick={() => {
+                    setConfirmationMode(false);
+                  }}
+                >
+                  No
+                </NewSearchButton>
+              </>
+            )
           ) : (
             <>
               <QuoteButton onClick={() => setConfirmationMode(true)}>

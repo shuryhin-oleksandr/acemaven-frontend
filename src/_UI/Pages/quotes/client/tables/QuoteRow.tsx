@@ -43,7 +43,7 @@ const useStyles = makeStyles({
         borderBottom: '1px solid #BDBDBD',
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
-        width: '220px',
+        // width: '220px',
         color: '#1B1B25',
         position: 'relative',
         paddingLeft: '63px',
@@ -154,10 +154,10 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                     }
                     <br/> <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>{day_from}{'-'}{date_to}</span>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="center" onClick={getCargoGroupsFromQuote}>
+                <TableCell className={classes.innerCell} align="left" onClick={getCargoGroupsFromQuote}>
                     <OffersSpan new_offer={!!quote.unchecked_offers}>{quote.offers}</OffersSpan>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="center">
+                <TableCell className={classes.innerCell} align="left">
                     <StatusSpan status={quote.is_active}>{quote.is_active ? 'Active' : 'Paused'}</StatusSpan>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="right">

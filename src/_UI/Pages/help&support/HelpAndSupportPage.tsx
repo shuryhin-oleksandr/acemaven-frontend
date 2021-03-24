@@ -34,10 +34,8 @@ const HelpAndSupportPage: React.FC<PropsType> = ({ setNewTopic }) => {
       <SupportInner>
         <SupportTitle>Help and Support</SupportTitle>
         <SupportContent>
-          <AddTopicOption>
-            <AddTopicText onClick={() => setNewTopic(true)}>
-              + Add New
-            </AddTopicText>
+          <AddTopicOption onClick={() => setNewTopic(true)}>
+            <AddTopicText>+ Add New</AddTopicText>
           </AddTopicOption>
           {tickets_list.map((t) => (
             <TopicCard key={t.id} ticket={t} />

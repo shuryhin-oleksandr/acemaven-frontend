@@ -47,21 +47,23 @@ const useStyles = makeStyles({
         paddingRight: "12px",
     },
     shipping_cell: {
-        width: '220px',
+        // width: '220px',
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: '1px solid #828282',
         paddingLeft: '63px',
-        padding: '0'
+        padding: '0',
+        paddingRight:"25px"
     },
     cell: {
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: '1px solid #828282',
-        width: '150px',
-        padding: '0'
+        // width: '150px',
+        padding: '0',
+        paddingRight: "10px"
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
@@ -167,7 +169,7 @@ const ClientQuotesTable: React.FC<PropsType> = ({my_quotes_list, activeInactiveQ
                                                           thunkName='quotes'
                                         />
                                     </TableCell>
-                                    <TableCell className={classes.cell} align="center">
+                                    <TableCell className={classes.cell} align="left">
                                         OFFERS
                                     </TableCell>
                                     <TableCell className={classes.cell} align="right">

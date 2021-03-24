@@ -23,8 +23,8 @@ import {checkToken} from "../../_BLL/thunks/auth/authThunks";
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
 
 const ValidationSchema = Yup.object().shape({
-  first_name: Yup.string().required("Please, enter your name"),
-  last_name: Yup.string().required("Please, enter your last name"),
+  first_name: Yup.string().trim().required("Please, enter your name"),
+  last_name: Yup.string().trim().required("Please, enter your last name"),
   email: Yup.string()
     .email("Invalid email")
     .required("Please, enter your email"),
@@ -38,7 +38,7 @@ const ValidationSchema = Yup.object().shape({
   phone: Yup.string()
     .matches(phoneRegex, "Phone number is not valid")
     .required("Please, enter your phone number"),
-  position: Yup.string().required("Please, enter your position"),
+  position: Yup.string().trim().required("Please, enter your position"),
 });
 
 const CreateAccountPage = ({ history }) => {

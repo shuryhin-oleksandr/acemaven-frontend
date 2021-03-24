@@ -50,8 +50,8 @@ height: 100%;
 
 export const PhotoWrap = styled.div`
   img {
-    width: 185px;
-    height: 185px;
+    max-width: 185px;
+    max-height: 185px;
   }
 `
 

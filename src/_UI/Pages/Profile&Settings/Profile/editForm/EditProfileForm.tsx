@@ -168,8 +168,8 @@ const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChang
 export default EditProfileForm
 
 const Photo = styled.img`
-  width: 185px;
-  height: 185px;
+  max-width: 185px;
+  max-height: 185px;
 `;
 
 const CloseIcon = styled.img`

@@ -238,7 +238,7 @@ const Header: React.FC = () => {
           }
         >
           <PhotoWrap>
-            <img src={profilePhoto ? profilePhoto : user} alt="" />
+            <img style={{objectFit: "cover"}} src={profilePhoto ? profilePhoto : user} alt="" />
           </PhotoWrap>
         </Tooltip>
       </Info>

@@ -14,7 +14,7 @@ type PropsStyle = {
   label_uppercase?: boolean;
   min_height?: string;
   min_width?: string;
-  without_border?: boolean;
+  without_border?: number;
 };
 
 export const InputOuter = styled.div<PropsStyle>`

@@ -22,9 +22,9 @@ type IProps = {
   register?: any;
   margin_right?: string;
   disabled?: boolean;
-  value?:any;
-  small_size?:boolean;
-  without_border?:boolean
+  value?: any;
+  small_size?: string;
+  without_border?: number;
 };
 
 const useStyles = makeStyles(() => ({
@@ -110,8 +110,8 @@ const SurchargeRateSelect: React.FC<IProps> = ({
     margin_bottom: props.margin_bottom,
     background: props.background,
     value: props.value,
-    small_size:props.small_size,
-    without_border:props.without_border,
+    small_size: props.small_size,
+    without_border: props.without_border,
   });
   return (
     <SelectContainer maxW={props.max_width} marginRight={props.margin_right}>

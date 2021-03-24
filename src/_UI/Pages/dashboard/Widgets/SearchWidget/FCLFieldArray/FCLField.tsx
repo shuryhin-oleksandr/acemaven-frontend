@@ -64,8 +64,8 @@ const FCLField: React.FC<PropsType> = ({
               placeholder="Container Type"
               margin_bottom={"0px"}
               hideLabel={true}
-              small_size={true}
-              without_border={true}
+              small_size="true"
+              without_border={+true}
             />
           }
         />
@@ -92,7 +92,7 @@ const FCLField: React.FC<PropsType> = ({
               disabled={disabled}
               placeholder="Volume"
               height={"31px"}
-              without_border={true}
+              without_border={+true}
 
             />
           </div>
@@ -111,8 +111,8 @@ const FCLField: React.FC<PropsType> = ({
               placeholder="Frozen"
               margin_bottom={"0px"}
               hideLabel={true}
-              small_size={true}
-              without_border={true}
+              small_size="true"
+              without_border={+true}
 
             />
           }

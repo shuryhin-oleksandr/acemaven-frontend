@@ -425,8 +425,8 @@ const Search: React.FC<PropsType> = ({
                   disabled={disabled}
                   placeholder="Shipping Mode"
                   background="#ECECEC"
-                  small_size={true}
-                  without_border={true}
+                  small_size="true"
+                  without_border={+true}
                 />
               }
             />
@@ -462,7 +462,7 @@ const Search: React.FC<PropsType> = ({
                 // onBlur={blurHandler}
                 disabled={disabled}
                 min_width={"140px"}
-                without_border={true}
+                without_border={+true}
               />
               {props.origin_ports && props.origin_ports?.length > 0 && (
                 <Scrollbars
@@ -508,7 +508,7 @@ const Search: React.FC<PropsType> = ({
                 background="#ECECEC"
                 min_width={"140px"}
                 height={"31px"}
-                without_border={true}
+                without_border={+true}
                 /*onBlur={() => {
                   setTimeout(() => {
                     if (sessionStorage.getItem("destination_id"))
@@ -549,7 +549,7 @@ const Search: React.FC<PropsType> = ({
               )}
             </div>
             <Dates
-              search_styles={true}
+              search_styles={+true}
               width={"166px"}
               setDates={setDates}
               extraDateNumber={mode === "sea" ? 9 : 2}

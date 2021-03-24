@@ -14,7 +14,7 @@ type PropsType = {
   placeholder?: string;
   width?: string;
   openCallback?: any;
-  search_styles?: boolean;
+  search_styles?: number;
 };
 
 const Dates: React.FC<PropsType> = ({

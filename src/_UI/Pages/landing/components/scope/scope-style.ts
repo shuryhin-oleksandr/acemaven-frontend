@@ -23,6 +23,8 @@ align-items: center;
 `
 export const ScopeIcon = styled.div`
 margin-bottom: 28px;
+    pointer-events: none;
+    user-select: none;
 `
 export const ScopeTitle = styled.div`
 color: #115B86;
@@ -30,6 +32,7 @@ font-family: "Helvetica Light", sans-serif;
 font-size: 30px;
 line-height: 35px;
 margin-bottom: 18px;
+user-select: none;
 `
 export const ScopeSubtitle = styled.div`
 color: #3B3B41;
@@ -40,6 +43,7 @@ max-width: 244px;
 min-width: 244px;
 width: 100%;
 text-align: center;
+user-select: none;
 `
 export const ScopeNavigation = styled.div`
   display: flex;

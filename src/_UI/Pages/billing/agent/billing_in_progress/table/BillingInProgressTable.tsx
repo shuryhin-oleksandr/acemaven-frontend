@@ -34,7 +34,8 @@ const useStyles = makeStyles({
         fontSize: '16px',
         borderBottom: '1px solid #828282',
         paddingLeft: '63px',
-        padding: '0'
+        padding: '0',
+        paddingRight: "15px"
     },
     root: {
         '& > *': {
@@ -51,7 +52,8 @@ const useStyles = makeStyles({
         fontSize: '16px',
         borderBottom: '1px solid #828282',
         width: '150px',
-        padding: '0'
+        padding: '0',
+        paddingRight: "15px"
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',

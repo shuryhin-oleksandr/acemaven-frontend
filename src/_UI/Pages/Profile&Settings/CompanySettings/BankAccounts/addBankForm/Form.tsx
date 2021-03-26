@@ -65,6 +65,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        max_width='447px'
                        max="3"
                        min_height='70px'
+                       type="number"
             />
             <FormField name='branch'
                        placeholder='0000-0'

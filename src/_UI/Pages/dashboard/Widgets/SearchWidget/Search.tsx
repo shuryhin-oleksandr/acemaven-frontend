@@ -558,14 +558,14 @@ const Search: React.FC<PropsType> = ({
               shippingValueReset={shippingValueReset}
               placeholder={"Shipment Dates"}
             />
+            {!!duplicatedCargoError ? (
+                <ErrorMessage duplicatedCargoError={duplicatedCargoError}>{duplicatedCargoError}</ErrorMessage>
+            ) : null}
             <div
               style={{
                 gridColumn: "1/-1",
               }}
             />
-            {!!duplicatedCargoError ? (
-              <ErrorMessage>{duplicatedCargoError}</ErrorMessage>
-            ) : null}
             {shippingValue === 3 ? (
               <FCLFieldArray
                 fields={fields}

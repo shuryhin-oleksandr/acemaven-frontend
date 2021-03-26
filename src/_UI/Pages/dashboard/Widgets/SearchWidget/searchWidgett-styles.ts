@@ -33,7 +33,7 @@ export const Heading = styled.div`
   font-size: 30px;
   line-height: 36px;
   font-family: "Helvetica Bold", sans-serif;
-  color:black;
+  color: black;
 `;
 
 export const FieldWrapper = styled.div`
@@ -63,8 +63,10 @@ export const RemoveImg = styled.img`
   margin-left: 15px;
 `;
 
-export const ErrorMessage = styled.div`
+export const ErrorMessage = styled.div<{ duplicatedCargoError: string }>`
   color: #e76767;
   font-family: "Helvetica Reg", sans-serif;
   font-size: 12px;
+  grid-column-start: ${({ duplicatedCargoError }) =>
+    duplicatedCargoError.startsWith("Please") ? 5 : 1};
 `;

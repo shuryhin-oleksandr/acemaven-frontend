@@ -154,6 +154,7 @@ const EditUserCardForm: React.FC<PropsType> = ({setEditMode, dispatch, worker}) 
                                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                            })}
                            error={errors?.email}
+                           pattern_message="Email is not valid"
                 />
             </FormContainer>
         </EditCardContainer>

@@ -44,6 +44,7 @@ height: 70px;
 border-radius: 50%;
 z-index: 50;
 transform: rotate(45deg);
+object-fit: cover;
 }
 `
 export const InfoWrap = styled.div`

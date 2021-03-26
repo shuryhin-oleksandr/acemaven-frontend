@@ -112,6 +112,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                            })}
                            error={errors?.email}
                            server_error={server_error?.email ? server_error.email[0] : ''}
+                           pattern_message="Email is not valid"
                 />
             </FormWrap>
         </FormContainer>

@@ -58,6 +58,7 @@ export const MessageWrapper = styled.div<{ direction?: string, justify?: string 
   justify-content: ${({justify}) => justify ? justify : 'flex-start'};
 `
 export const PhotoWrapper = styled.div<{ margin_right?: string, margin_left?: string }>`
+
   width: 40px;
   height: 40px;
   border-radius: 100px;
@@ -65,6 +66,7 @@ export const PhotoWrapper = styled.div<{ margin_right?: string, margin_left?: st
   margin-left: ${({margin_left}) => margin_left ? margin_left : '19px'};
    
    img {
+      object-fit: cover;
       width: 40px;
       height: 40px;
       border-radius: 100px;

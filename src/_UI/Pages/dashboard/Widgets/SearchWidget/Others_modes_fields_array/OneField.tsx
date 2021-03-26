@@ -57,7 +57,7 @@ const OneField: React.FC<PropsType> = ({
     //     <OneFieldContent >
     <>
       <TotalPart
-        style={{ gridColumnStart: 1 }}
+        style={{ gridColumnStart: 1, gridColumnEnd:3 }}
         onClick={() => !search_success && setEditMode(Number(cargo.id))}
       >
         Total: {cargo ? cargo.total_wm : ""}w/m

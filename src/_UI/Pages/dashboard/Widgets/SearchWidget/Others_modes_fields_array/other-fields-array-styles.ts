@@ -1,18 +1,18 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const OneFieldWrapper = styled.div`
   width: 100%;
-`
+`;
 export const OneFieldContent = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
   padding: 12px 0;
-  
+
   &:hover {
     cursor: pointer;
   }
-`
+`;
 export const TotalPart = styled.div`
   min-width: 130px;
   min-height: 30px;
@@ -24,13 +24,16 @@ export const TotalPart = styled.div`
   display: flex;
   align-items: center;
   padding: 5px 10px;
-`
+`;
 export const TotalDescriptions = styled.div`
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;
   color: black;
-  padding-top: 5px;
-`
+  grid-column-end: 4;
+  grid-column-start: 3;
+  display: flex;
+  align-items: center;
+`;
 export const CalculateButton = styled.button`
   height: 30px;
   width: 130px;
@@ -40,12 +43,11 @@ export const CalculateButton = styled.button`
   color: #1b1b25;
   font-family: "Helvetica Reg", sans-serif;
   font-size: 13px;
-  transition: .3s;
-  
+  transition: 0.3s;
+
   &:hover {
-    cursor:pointer;
-    transition: .3s;
-    background-color: rgba(0, 0, 0, .07);
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: rgba(0, 0, 0, 0.07);
   }
-  
-`
+`;

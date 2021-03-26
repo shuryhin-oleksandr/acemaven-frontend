@@ -50,13 +50,14 @@ export const getCompanyInfo = (id: number) => {
         }
     };
 };
-export const editCompanyInfo = (id: number, editData: CompanyInfoType) => {
+export const editCompanyInfo = (id: number, editData: CompanyInfoType, setEdit:any) => {
     return async (dispatch: Dispatch<commonProfileActions>) => {
         try {
             dispatch(profileActions.setIsFetching(true));
             let res = await profileSettingsAPI.editCompanyInfoData(id, editData);
             dispatch(profileActions.setCompanyInfo(res.data));
             dispatch(profileActions.setIsFetching(false));
+            setEdit && setEdit(false)
         } catch (e) {
             console.log("error", e.response);
             dispatch(profileActions.setIsFetching(false));

@@ -31,8 +31,8 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
 
     let onSubmit = (values: EditCompanyInfo) => {
 
-        dispatch(editCompanyInfo(companyInfo?.id as number, values))
-        setEdit && setEdit(false)
+        dispatch(editCompanyInfo(companyInfo?.id as number, values, setEdit))
+
     }
 
     useEffect(() => {
@@ -71,7 +71,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                 <Wrapper>
                     <InputWrap w='48%'>
                         <FormField name='address_line_first'
-                                   error={errors?.address1}
+                                   error={errors?.address_line_first}
                                    placeholder='str. 27'
                                    label='Address'
                                    inputRef={register({
@@ -86,22 +86,33 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                     <InputWrap w='48%'>
                         <FormField name='zip_code'
                                    placeholder='000000'
-                                   error={errors?.zipCode}
+                                   error={errors?.zip_code}
                                    label='Zip Code'
                                    inputRef={register({
-                                       required: 'Field is required'
+                                       required: 'Field is required',
+                                       pattern: {
+                                           value: /^[a-zA-Z0-9](.){3,10}[a-zA-Z0-9]$/,
+                                           message: 'Invalid format'
+                                       }
                                    })}
+                                   pattern_message="Invalid format"
                         />
                     </InputWrap>
                 </Wrapper>
                 <InputWrap w='48%'>
                     <FormField name='phone'
-                               error={errors?.phoneNumber}
+                               error={errors?.phone}
                                placeholder='+375296665544'
                                label='Phone Number'
                                inputRef={register({
-                                   required: 'Field is required'
-                               })}
+                                   required: 'Field is required',
+                                   pattern: {
+                                       value: /^(\+)([0-9]){10,13}$/,
+                                       message: "Invalid number"
+
+                                   }})}
+                               pattern_message="Invalid number"
+
                     />
                     {company_type !== 'client' && <FormField name='website'
                                                              label='Website'

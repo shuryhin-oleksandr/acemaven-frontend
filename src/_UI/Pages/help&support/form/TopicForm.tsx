@@ -47,6 +47,8 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
     dispatch(postNewTicketThunk(values, history));
   };
 
+  const trapSpacesForRequiredFields = (value: any) => !!value.trim();
+
   return (
     <SupportOuter>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -88,23 +90,36 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
                   label={"Operation No."}
                   name={"aceid"}
                   error={errors?.aceid}
-                  inputRef={register({ required: "Field is required" })}
+                  inputRef={register({
+                    required: "Field is required",
+                    minLength:3,
+                    validate: { trapSpacesForRequiredFields },
+                  })}
                   max_width={"170px"}
+                  min={"3"}
                 />
               )}
               <FormField
                 label={"Topic"}
                 name={"topic"}
                 error={errors?.topic}
-                inputRef={register({ required: "Field is required" })}
+                inputRef={register({
+                  required: "Field is required",
+                  minLength:3,
+                  validate: { trapSpacesForRequiredFields },
+                })}
                 max_width={"606px"}
+                min={"3"}
               />
             </FormFieldsWrap>
             <Controller
               name="description"
               control={control}
               defaultValue=""
-              rules={{ required: "Field is required" }}
+              rules={{
+                required: "Field is required",
+                validate: { trapSpacesForRequiredFields },
+              }}
               as={
                 <div style={{ width: "100%", marginBottom: "50px" }}>
                   <TextareaLabel>Describe your problem</TextareaLabel>

@@ -37,7 +37,7 @@ const TopicCard: React.FC<PropsType> = ({ ticket }) => {
             <TopicName>Topic:</TopicName>
             <TopicReason>{ticket.topic}</TopicReason>
           </TopicWrap>
-          <TopicWrap>
+          <TopicWrap width="110px" >
             <img
               src={
                 ticket.status === "in_progress"

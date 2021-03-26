@@ -74,9 +74,10 @@ export const TopicHeader = styled.div`
   align-items: center;
   margin-bottom: 13.5px;
 `;
-export const TopicWrap = styled.div`
+export const TopicWrap = styled.div<{ width?: string }>`
   display: flex;
   align-items: center;
+  width: ${({ width }) => (width ? width : "auto")};
 `;
 export const TopicName = styled.div<{ color?: string }>`
   font-family: "Helvetica Bold", sans-serif;

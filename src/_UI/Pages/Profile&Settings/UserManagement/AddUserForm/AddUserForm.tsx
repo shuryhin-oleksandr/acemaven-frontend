@@ -108,7 +108,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                            label='Email'
                            inputRef={register({
                                required: 'Field is required',
-                               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                               pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
                            })}
                            error={errors?.email}
                            server_error={server_error?.email ? server_error.email[0] : ''}

@@ -32,7 +32,10 @@ const Info:React.FC<PropsType> = ({setEdit, companyInfo, company_type, current_u
                 </Field>
                 <Field>
                     <Label>Address</Label>
-                    <TextWrap>{companyInfo?.address_line_first + ',' + ' ' + companyInfo?.address_line_second}</TextWrap>
+                    <TextWrap>
+                        {companyInfo?.address_line_first}
+                        {companyInfo?.address_line_second && (","+" "+ companyInfo?.address_line_second)}
+                    </TextWrap>
                 </Field>
                 <Field>
                     <Label>Zip Code</Label>

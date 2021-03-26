@@ -44,7 +44,9 @@ const ChangePasswordPage: React.FC<PropsType> = ({setChangeMode}) => {
     };
 
     let matchPasswords = (value: string) => {
+
         let pass = getValues("new_password1");
+        console.log(pass,value);
         if (value !== pass) {
             setError("Passwords don't match!");
         } else {

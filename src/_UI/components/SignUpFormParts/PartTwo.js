@@ -86,6 +86,9 @@ const PartTwo = ({ changePage, error }) => {
         {error && error.master_email && (
           <ErrorServerMessage>{error.master_email[0]}</ErrorServerMessage>
         )}
+        {error && error.email && (
+          <ErrorServerMessage>{error.email[0]}</ErrorServerMessage>
+        )}
         {error && error.zip_code && (
           <ErrorServerMessage>{error.zip_code[0].replace('Invalid format.', 'Zip code has invalid format.')}</ErrorServerMessage>
         )}

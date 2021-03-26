@@ -30,6 +30,7 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #828282",
     paddingLeft: "63px",
     padding: "0",
+    paddingRight:"15px"
   },
   cell: {
     color: "#115B86",
@@ -38,6 +39,8 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #828282",
     width: "150px",
     padding: "0",
+    paddingRight:"15px"
+
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",

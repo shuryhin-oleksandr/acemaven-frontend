@@ -149,7 +149,7 @@ export type commonProfileActions = AC<typeof profileActions>;
 
 export const profileActions = {
     setIsFetching: (isFetching: boolean) => ({type: "SET_IS_FETCHING", isFetching} as const),
-    setAuthUserInfo: (userInfo: IAuthUserInfo) => ({type: "SET_AUTH_USER_INFO", userInfo} as const),
+    setAuthUserInfo: (userInfo: IAuthUserInfo | null) => ({type: "SET_AUTH_USER_INFO", userInfo} as const),
     setCompanyInfo: (companyInfo: CompanyInfoType) => ({type: "SET_COMPANY_INFO", companyInfo} as const),
     setBanksList: (banksList: Array<IAddNewBank>) => ({type: "SET_BANKS_LIST", banksList} as const),
     setNewToBanksList: (bank: IAddNewBank) => ({type: "SET_NEW_TO_BANKS", bank} as const),

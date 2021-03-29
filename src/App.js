@@ -14,6 +14,7 @@ import {
   startReceiveChatNotifications,
   stopReceiveChatNotifications,
 } from "./_BLL/thunks/chat_notifications_thunk/chat_notifications_thunk";
+import {profileActions} from "./_BLL/reducers/profileReducer";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       dispatch(getAuthUserInfo());
       startReceiveNotifications(dispatch);
       startReceiveChatNotifications(dispatch);
+      dispatch(profileActions.setAuthUserInfo(null));
       return () => {
         stopReceiveNotifications(dispatch);
         stopReceiveChatNotifications(dispatch);

@@ -383,7 +383,7 @@ const Search: React.FC<PropsType> = ({
     setOpenCalcPopup(true);
     setDuplicatedCargoError("");
   };
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <RelativeWrapper>

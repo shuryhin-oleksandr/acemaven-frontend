@@ -1,16 +1,26 @@
 {
-  "sign_in": {
-    "searchTitle": "BBB",
-    "sign_in_button": "Sign in",
-    "policy_checkbox": {
-      "first_part": "I accept the",
-      "second_part": "User Agreement",
-      "third_part": "and",
-      "fourth_part": "Privacy Policy"
-    },
-    "validation_comment": "Please provide valid username",
-    "instruction": "Please provide your Instagram username to continue logging in",
-    "privacy_policy": "https://staging.aqool.io/mainPrivacyPolicy",
-    "user_agreements": "https://staging.aqool.io/mainTermsAndConditions"
+  "Register": {
+    "searchTitle": "Search Rates",
+    "Register":  "Solicitud de Registro",
+    "Client":"Cliente",
+    "Agent": "Agente",
+    "Company Name":"Nombre de Empresa",
+    "Email": "Correio eletrônico",
+    "Address":"Dirección",
+    "State": "Estado / Provincia",
+    "City": "Ciudad",
+    "Zip Code": "Codigo Postal",
+    "Phone Number":"Teléfono",
+    "Tax ID No.": "VAT",
+    "No. Of Employees":"No. De Funcionarios",
+    "Website": "Sitio Web",
+    "Contact person info":"Persona para contacto",
+    "Name": "Nombre",
+    "Last Name":"Apellido",
+    "Position in the Company":"Posición em la compañia",
+    "Password": "Contraseña",
+    "NEXT":"SEGUINTE",
+    "BACK": "ATRÁS",
+    "Create new account": "Criar novos Conta"
   }
 }

@@ -4,6 +4,7 @@ import BaseInputGroup from "../base/BaseInputGroup";
 import { ErrorMessage, useFormikContext } from "formik";
 import BaseNextButton from "../base/BaseNextButton";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const PartOne = ({ changePage }) => {
   const { values, touched, errors } = useFormikContext();
@@ -44,13 +45,15 @@ const PartOne = ({ changePage }) => {
     !values.tax_id ||
     errors.tax_id;
 
+  const { t } = useTranslation();
+
   return (
     <>
       <BaseInputGroup
         name="name"
-        placeholder="Company Name"
+        placeholder={t('Register/Company Name')}
         values={values}
-        labelText="Company Name"
+        labelText={t('Register/Company Name')}
         marginBot={46}
         valid={touched.name && !errors.name}
         error={touched.name && errors.name}
@@ -59,7 +62,7 @@ const PartOne = ({ changePage }) => {
         name="phone"
         placeholder="+000000000000"
         values={values}
-        labelText="Phone number"
+        labelText={t('Register/Phone Number')}
         marginBot={46}
         valid={touched.phone && !errors.phone}
         error={touched.phone && errors.phone}
@@ -68,7 +71,7 @@ const PartOne = ({ changePage }) => {
         name="address_line_first"
         placeholder="Address Line 1"
         values={values}
-        labelText="Address"
+        labelText={t('Register/Address')}
         marginBot={15}
         withoutErrorMessage
         valid={touched.address_line_first && !errors.address_line_first}
@@ -84,36 +87,36 @@ const PartOne = ({ changePage }) => {
       </div>
       <BaseInputGroup
         name="state"
-        placeholder="State"
+        placeholder={t('Register/State')}
         values={values}
-        labelText="State"
+        labelText={t('Register/State')}
         marginBot={46}
         valid={touched.state && !errors.state}
         error={touched.state && errors.state}
       />
       <BaseInputGroup
         name="city"
-        placeholder="City"
+        placeholder={t('Register/City')}
         values={values}
-        labelText="City"
+        labelText={t('Register/City')}
         marginBot={46}
         valid={touched.city && !errors.city}
         error={touched.city && errors.city}
       />
       <BaseInputGroup
         name="zip_code"
-        placeholder="Zip Code"
+        placeholder={t('Register/Zip Code')}
         values={values}
-        labelText="Zip Code"
+        labelText={t('Register/Zip Code')}
         marginBot={46}
         valid={touched.zip_code && !errors.zip_code}
         error={touched.zip_code && errors.zip_code}
       />
       <BaseInputGroup
         name="tax_id"
-        placeholder="Tax id Number"
+        placeholder={t('Register/Tax ID No.')}
         values={values}
-        labelText="Tax id Number"
+        labelText={t('Register/Tax ID No.')}
         marginBot={46}
         valid={touched.tax_id && !errors.tax_id}
         error={touched.tax_id && errors.tax_id}
@@ -122,9 +125,9 @@ const PartOne = ({ changePage }) => {
         <>
           <BaseInputGroup
             name="employees_number"
-            placeholder="No. of employees"
+            placeholder={t('Register/No. Of Employees')}
             values={values}
-            labelText="No. of employees"
+            labelText={t('Register/No. Of Employees')}
             marginBot={46}
             type="number"
             valid={touched.employees_number && !errors.employees_number}
@@ -132,9 +135,9 @@ const PartOne = ({ changePage }) => {
           />
           <BaseInputGroup
             name="website"
-            placeholder="Website"
+            placeholder={t('Register/Website')}
             values={values}
-            labelText="Website"
+            labelText={t('Register/Website')}
             marginBot={46}
             valid={touched.website && !errors.website}
             error={touched.website && errors.website}
@@ -157,7 +160,7 @@ const PartOne = ({ changePage }) => {
           }
           onClick={() => changePage(false)}
         >
-          NEXT
+            {t('Register/NEXT')}
         </BaseNextButton>
       </div>
     </>

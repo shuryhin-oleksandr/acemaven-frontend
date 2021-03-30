@@ -12,6 +12,7 @@ import ModalWindow from "../components/_commonComponents/ModalWindow/ModalWindow
 import { authActions } from "../../_BLL/reducers/authReducer";
 import { companySignUp } from "../../_BLL/thunks/auth/authThunks";
 import { AppStateType } from "../../_BLL/store";
+import {useTranslation} from "react-i18next";
 
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
 const taxIdRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
@@ -85,14 +86,14 @@ const SignUpPage = () => {
   const [firstPage, changePage] = useState(true);
 
   let start_as_agent = useSelector((state) => state.auth.signUpAsAgent);
-
+  const { t } = useTranslation();
   return (
     <ModalWindow isOpen={isSignUp && !finishPopup}>
       <RegisterFormTemplate
         openFlow={() => dispatch(authActions.setOpenSignUp(false))}
       >
         <RegisterHead
-          title="Register"
+          title={t('Register/Register')}
           buttonText="Log in"
           popupCallback={() => popupCallback()}
         />
@@ -134,7 +135,7 @@ const SignUpPage = () => {
                     <div style={{ marginBottom: "46px" }}>
                       <div style={{ marginBottom: 10 }}>
                         <BaseFormikRadioButton
-                          label="Client"
+                          label={t('Register/Client')}
                           value="client"
                           name="type"
                           formikValues={values}
@@ -142,7 +143,7 @@ const SignUpPage = () => {
                       </div>
                       <div>
                         <BaseFormikRadioButton
-                          label="Agent"
+                          label={t('Register/Agent')}
                           value="agent"
                           name="type"
                           formikValues={values}

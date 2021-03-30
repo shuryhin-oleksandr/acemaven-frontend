@@ -3,8 +3,8 @@ import React from "react";
 import styled from "styled-components";
 
 
-const BaseBackButton = ({ onClick }) => {
-  return <StyledButton onClick={onClick}>BACK</StyledButton>;
+const BaseBackButton = ({ onClick,children }) => {
+  return <StyledButton onClick={onClick}>{children}</StyledButton>;
 };
 
 export default BaseBackButton;

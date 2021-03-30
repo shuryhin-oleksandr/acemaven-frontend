@@ -1,16 +1,27 @@
 {
-  "sign_in": {
-    "searchTitle": "AAAAA",
-    "sign_in_button": "Sign in",
-    "policy_checkbox": {
-      "first_part": "I accept the",
-      "second_part": "User Agreement",
-      "third_part": "and",
-      "fourth_part": "Privacy Policy"
-    },
-    "validation_comment": "Please provide valid username",
-    "instruction": "Please provide your Instagram username to continue logging in",
-    "privacy_policy": "https://staging.aqool.io/mainPrivacyPolicy",
-    "user_agreements": "https://staging.aqool.io/mainTermsAndConditions"
+  "Register": {
+    "searchTitle": "Search Rates",
+    "Register":  "Solicitude de Cadastro",
+    "Client":"Cliente",
+    "Agent": "Agente",
+    "Company Name":"Nome da Empresa",
+    "Email": "Correio eletrônico",
+    "Address":"Endereço",
+    "State": "Estado",
+    "City": "Cidade",
+    "Zip Code": "CEP",
+    "Phone Number":"Telefone",
+    "Tax ID No.": "CNPJ",
+    "No. Of Employees":"No. De Funcionarios",
+    "Website": "Página Web",
+    "Contact person info":"Informações de contato",
+    "Name": "Nome",
+    "Last Name":"Sobrenome",
+    "Position in the Company":"Cargo na Empresa",
+    "Password": "Número de Telefone",
+    "NEXT":"SEGUINTE",
+    "BACK": "ATRÁS",
+    "Create new account": "Criar novos Conta"
   }
 }
+

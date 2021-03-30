@@ -1,16 +1,25 @@
 {
-  "sign_in": {
+  "Register": {
     "searchTitle": "Search Rates",
-    "sign_in_button": "Sign in",
-    "policy_checkbox": {
-      "first_part": "I accept the",
-      "second_part": "User Agreement",
-      "third_part": "and",
-      "fourth_part": "Privacy Policy"
-    },
-    "validation_comment": "Please provide valid username",
-    "instruction": "Please provide your Instagram username to continue logging in",
-    "privacy_policy": "https://staging.aqool.io/mainPrivacyPolicy",
-    "user_agreements": "https://staging.aqool.io/mainTermsAndConditions"
+    "Register":  "Register",
+    "Client":"Client",
+    "Agent": "Agent",
+    "Company Name":"Company Name",
+    "Email": "Email",
+    "Address":"Address",
+    "State": "State",
+    "City": "City",
+    "Zip Code": "Zip Code",
+    "Phone Number":"Phone Number",
+    "Tax ID No.": "Tax ID No.",
+    "No. Of Employees":"No. Of Employees",
+    "Website": "Website",
+    "Contact person info":"Contact person info",
+    "Name": "Name",
+    "Last Name":"Last Name",
+    "Position in the Company":"Position in the Company",
+    "NEXT": "NEXT",
+    "BACK": "BACK",
+    "Create new account": "CREATE NEW ACCOUNT"
   }
 }

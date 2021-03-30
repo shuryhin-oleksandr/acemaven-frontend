@@ -64,6 +64,7 @@ import {
 import { CalculateButton } from "./Others_modes_fields_array/other-fields-array-styles";
 //icons
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
+import { useTranslation } from "react-i18next";
 
 type PropsType = {
   shippingTypes: ShippingTypeType[];
@@ -382,11 +383,12 @@ const Search: React.FC<PropsType> = ({
     setOpenCalcPopup(true);
     setDuplicatedCargoError("");
   };
+  const { t, i18n } = useTranslation();
 
   return (
     <RelativeWrapper>
       <Container scroll={watchFieldArray.length > 3}>
-        <Heading>Search Rates</Heading>
+        <Heading>{t("sign_in/searchTitle")}</Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
             style={{
@@ -559,7 +561,9 @@ const Search: React.FC<PropsType> = ({
               placeholder={"Shipment Dates"}
             />
             {!!duplicatedCargoError ? (
-                <ErrorMessage duplicatedCargoError={duplicatedCargoError}>{duplicatedCargoError}</ErrorMessage>
+              <ErrorMessage duplicatedCargoError={duplicatedCargoError}>
+                {duplicatedCargoError}
+              </ErrorMessage>
             ) : null}
             <div
               style={{

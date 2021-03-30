@@ -1,0 +1,16 @@
+{
+  "sign_in": {
+    "searchTitle": "Search Rates",
+    "sign_in_button": "Sign in",
+    "policy_checkbox": {
+      "first_part": "I accept the",
+      "second_part": "User Agreement",
+      "third_part": "and",
+      "fourth_part": "Privacy Policy"
+    },
+    "validation_comment": "Please provide valid username",
+    "instruction": "Please provide your Instagram username to continue logging in",
+    "privacy_policy": "https://staging.aqool.io/mainPrivacyPolicy",
+    "user_agreements": "https://staging.aqool.io/mainTermsAndConditions"
+  }
+}

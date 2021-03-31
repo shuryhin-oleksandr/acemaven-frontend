@@ -2,7 +2,7 @@ import React, { useState } from "react";
 //material ui
 import { IconButton } from "@material-ui/core";
 //types
-import {ShipperType} from "../../../../../../../_BLL/types/bookingTypes";
+import { ShipperType } from "../../../../../../../_BLL/types/bookingTypes";
 //styles
 import {
   SectionTitle,
@@ -17,16 +17,29 @@ import {
 //icons
 import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow.svg";
 import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
-
-
+import { useSelector } from "react-redux";
+import { AppStateType } from "../../../../../../../_BLL/store";
+import { AppCompaniesTypes } from "../../../../../../../_BLL/types/commonTypes";
 
 type PropsType = {
-    shipper_info: ShipperType | null,
-    client_info: {company: string, contact_person: string}
-}
+  shipper_info: ShipperType | null;
+  client_info: { company: string; contact_person: string };
+  agent_info: { company: string | null; contact_person: string | null };
+  direction?: string;
+};
 
-const ShipmentPartsBlock: React.FC<PropsType> = ({shipper_info, client_info}) => {
+const ShipmentPartsBlock: React.FC<PropsType> = ({
+  shipper_info,
+  client_info,
+  agent_info,
+  direction,
+}) => {
   const [isHidden, setHidden] = useState(false);
+  let company_type = useSelector(
+    (state: AppStateType) =>
+      state.profile.authUserInfo?.companies &&
+      state.profile.authUserInfo?.companies[0].type
+  );
   return (
     <SectionWrapper
       style={{
@@ -53,79 +66,171 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({shipper_info, client_info}) =>
       <SectionTitle>SHIPMENT PARTS</SectionTitle>
       {!isHidden && (
         <div>
-            {client_info.company !== shipper_info?.name &&
-            <ShipmentPartsRow>
-                <div
+          {/*{client_info.company !== shipper_info?.name && (*/}
+          {/*  <ShipmentPartsRow>*/}
+          {/*    <div*/}
+          {/*      style={{*/}
+          {/*        display: "flex",*/}
+          {/*        width: "58.5%",*/}
+          {/*        justifyContent: "space-between",*/}
+          {/*      }}*/}
+          {/*    >*/}
+          {/*      <InfoRow>*/}
+          {/*        <InfoRowLabel>CLIENT</InfoRowLabel>*/}
+          {/*        <InfoRowValue>{client_info.company}</InfoRowValue>*/}
+          {/*      </InfoRow>*/}
+          {/*      <InfoRow>*/}
+          {/*        <InfoRowLabel>CONTACT PERSON</InfoRowLabel>*/}
+          {/*        <InfoRowValue>{client_info.contact_person}</InfoRowValue>*/}
+          {/*      </InfoRow>*/}
+          {/*    </div>*/}
+          {/*  </ShipmentPartsRow>*/}
+          {/*)}*/}
+          {company_type === AppCompaniesTypes.CLIENT
+            ? !!agent_info.company &&
+              !!agent_info.contact_person && (
+                <ShipmentPartsRow style={{ borderBottom: "none" }}>
+                  <div
                     style={{
-                        display: "flex",
-                        width: '58.5%',
-                        justifyContent: 'space-between'
+                      display: "flex",
+                      width: "100%",
+                      // justifyContent: "space-between",
                     }}
-                >
-                    <InfoRow >
+                  >
+                    <div
+                      style={{
+                        width: "20%",
+                        borderBottom: "1px solid #dcdcdc",
+                      }}
+                    >
+                      <InfoRow>
+                        <InfoRowLabel>AGENT</InfoRowLabel>
+                        <InfoRowValue>{agent_info.company}</InfoRowValue>
+                      </InfoRow>
+                    </div>
+                    <div
+                      style={{
+                        width: "20%",
+                        borderBottom: "1px solid #dcdcdc",
+                      }}
+                    >
+                      <InfoRow>
+                        <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                        <InfoRowValue>{agent_info.contact_person}</InfoRowValue>
+                      </InfoRow>
+                    </div>
+                  </div>
+                </ShipmentPartsRow>
+              )
+            : client_info.company !== shipper_info?.name && (
+                <ShipmentPartsRow style={{ borderBottom: "none" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      // justifyContent: "space-between",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "20%",
+                        borderBottom: "1px solid #dcdcdc",
+                      }}
+                    >
+                      <InfoRow>
                         <InfoRowLabel>CLIENT</InfoRowLabel>
                         <InfoRowValue>{client_info.company}</InfoRowValue>
-                    </InfoRow>
-                    <InfoRow>
+                      </InfoRow>
+                    </div>
+                    <div
+                      style={{
+                        width: "20%",
+                        borderBottom: "1px solid #dcdcdc",
+                      }}
+                    >
+                      <InfoRow>
                         <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
-                        <InfoRowValue>{client_info.contact_person}</InfoRowValue>
-                    </InfoRow>
-                </div>
-            </ShipmentPartsRow>
-            }
-          <ShipmentPartsRow style={{ marginBottom: 0, borderBottom: "none" }}>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>SHIPPER</InfoRowLabel>
-                <InfoRowValue>{shipper_info?.name}</InfoRowValue>
-              </InfoRow>
-              <InfoRow>
-                <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
-                <InfoRowValue>{shipper_info?.contact_name}</InfoRowValue>
-              </InfoRow>
-            </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-                {shipper_info?.address_line_first &&
-                <InfoRow>
-                    <InfoRowLabel>ADDRESS</InfoRowLabel>
-                    <InfoRowValue>{shipper_info?.address_line_first}{','}{shipper_info?.address_line_second}</InfoRowValue>
-                </InfoRow>}
+                        <InfoRowValue>
+                          {client_info.contact_person}
+                        </InfoRowValue>
+                      </InfoRow>
+                    </div>
+                  </div>
+                </ShipmentPartsRow>
+              )}
 
-              <InfoRow>
-                <InfoRowLabel>EMAIL</InfoRowLabel>
-                <InfoRowValue>{shipper_info?.email}</InfoRowValue>
-              </InfoRow>
-            </div>
-            <div
-              style={{
-                width: "20%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <InfoRow>
-                <InfoRowLabel>PHONE NUMBER 1</InfoRowLabel>
-                <InfoRowValue>{shipper_info?.phone}</InfoRowValue>
-              </InfoRow>
-                {shipper_info?.phone_additional && <InfoRow>
-                    <InfoRowLabel>PHONE NUMBER 2</InfoRowLabel>
-                    <InfoRowValue>{shipper_info?.phone_additional}</InfoRowValue>
+          {company_type === AppCompaniesTypes.AGENT && direction === "import" && (
+            <ShipmentPartsRow style={{ marginBottom: 0, borderBottom: "none" }}>
+              <div
+                style={{
+                  width: "20%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <InfoRow>
+                  <InfoRowLabel>SHIPPER</InfoRowLabel>
+                  <InfoRowValue>{shipper_info?.name}</InfoRowValue>
                 </InfoRow>
-                }
-            </div>
-          </ShipmentPartsRow>
+                <InfoRow>
+                  <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                  <InfoRowValue>{shipper_info?.contact_name}</InfoRowValue>
+                </InfoRow>
+              </div>
+              <div
+                style={{
+                  width: "20%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <InfoRow>
+                  <InfoRowLabel>ADDRESS</InfoRowLabel>
+                  <InfoRowValue>{shipper_info?.city}</InfoRowValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoRowLabel>EMAIL</InfoRowLabel>
+                  <InfoRowValue>{shipper_info?.email}</InfoRowValue>
+                </InfoRow>
+              </div>
+              <div
+                style={{
+                  width: "20%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <InfoRow>
+                  <InfoRowLabel>PHONE NUMBER 1</InfoRowLabel>
+                  <InfoRowValue>{shipper_info?.phone}</InfoRowValue>
+                </InfoRow>
+                {shipper_info?.phone_additional && (
+                  <InfoRow>
+                    <InfoRowLabel>PHONE NUMBER 2</InfoRowLabel>
+                    <InfoRowValue>
+                      {shipper_info?.phone_additional}
+                    </InfoRowValue>
+                  </InfoRow>
+                )}
+              </div>
+            </ShipmentPartsRow>
+          )}
+          {company_type === AppCompaniesTypes.CLIENT && (
+            <ShipmentPartsRow style={{ marginBottom: 0, borderBottom: "none" }}>
+              <div
+                style={{
+                  width: "20%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <InfoRow>
+                  <InfoRowLabel>SHIPPER</InfoRowLabel>
+                  <InfoRowValue>{shipper_info?.name}</InfoRowValue>
+                </InfoRow>
+              </div>
+            </ShipmentPartsRow>
+          )}
         </div>
       )}
     </SectionWrapper>

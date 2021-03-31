@@ -1,6 +1,5 @@
 import React from "react";
 import PendingPayment from "./PendingPayment";
-import ActivePayment from "./ActivePayment";
 import { VoidFunctionType } from "src/_BLL/types/commonTypes";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
 import ActiveQRPayment from "./ActiveQRPayment";
@@ -47,7 +46,6 @@ const PaymentContainer: React.FC<PropsType> = ({
       close_totals={props.close_totals}
     />
   ) : (
-    // <ActivePayment/>
     <ActiveQRPayment
       setBookingPopupVisible={setBookingPopupVisible}
       setWidgetsVisible={setWidgetsVisible}

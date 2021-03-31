@@ -17,7 +17,7 @@ import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg"
 type PropsType = {
     payment_due_by: string,
     agent_bank_account: AgentBankAccountType | undefined,
-    agent_name: string
+    agent_name: string | null
 }
 
 const PaymentDueByForClient: React.FC<PropsType> = ({payment_due_by, agent_bank_account, agent_name}) => {

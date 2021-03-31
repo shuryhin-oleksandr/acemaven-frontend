@@ -188,7 +188,8 @@ export type OperationType = {
     status: string,
     cargo_groups: CargoGroupQuoteType[],
     freight_rate: RateQuoteType,
-    agent_contact_person: string,
+    agent:string | null,
+    agent_contact_person: string | null,
     agent_bank_account?: AgentBankAccountType
     shipper?: ShipperType,
     charges?: CostBookingType,

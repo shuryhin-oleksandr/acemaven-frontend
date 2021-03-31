@@ -49,8 +49,8 @@ export const SectionTitle = styled.div<{ margin_bottom?: string }>`
 
 export const ShipmentPartsRow = styled.div`
   display: flex;
-  width: 60%;
-  justify-content: space-between;
+  //width: 60%;
+  //justify-content: space-between;
   border-bottom: 1px solid #dcdcdc;
   margin-bottom: 25px;
 `;

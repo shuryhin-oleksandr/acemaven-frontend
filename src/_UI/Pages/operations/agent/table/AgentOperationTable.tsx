@@ -20,7 +20,7 @@ import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarS
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        paddingRight: 12
+        paddingRight: 12,
     },
     shipping_cell: {
         width: '220px',
@@ -32,6 +32,10 @@ const useStyles = makeStyles({
         padding: '0',
         paddingRight:"15px"
 
+    },
+    empty: {
+        width: "10px",
+        borderBottom:"none"
     },
     cell: {
         color: '#115B86',
@@ -97,6 +101,7 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                 <Table aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
+                            <TableCell className={classes.empty} align="left" />
                             <TableCell className={classes.shipping_cell} align="left">
                                 <TableCellContent setSearchValue={props.setSearchValue}
                                                   setSearchMode={props.setSearchMode}

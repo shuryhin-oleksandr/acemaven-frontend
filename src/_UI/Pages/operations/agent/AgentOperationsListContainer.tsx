@@ -70,7 +70,7 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
                 <HideButton isHide={isHide} onClick={() => isHide ? setIsHide((false)) : setIsHide(true)}>
                     <img src={hide_map_icon} alt=""/>
                 </HideButton>}
-                <OperationsContent isHide={isHide} status={props.operation_status}>
+                <OperationsContent style={{padding:"50px 80px 50px 0"}} isHide={isHide} status={props.operation_status}>
                     <OperationHeader>
                         <OperationTitle>
                             Operations
@@ -96,18 +96,20 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
                             />
                         </div>
                     </OperationHeader>
-                    <AgentOperationTable setSearchMode={setSearchMode}
-                                         isSearchMode={props.isSearchMode}
-                                         mode={props.mode}
-                                         setMode={props.setMode}
-                                         searchValue={props.searchValue}
-                                         setSearchValue={props.setSearchValue}
-                                         search_column={props.search_column}
-                                         setSearchColumn={props.setSearchColumn}
-                                         operations_list={props.operations_list}
-                                         my_operations={props.my_operations}
-                                         operation_status={props.operation_status}
-                    />
+                    <div style={{ width:"100%", height:"100%"}}>
+                        <AgentOperationTable setSearchMode={setSearchMode}
+                                             isSearchMode={props.isSearchMode}
+                                             mode={props.mode}
+                                             setMode={props.setMode}
+                                             searchValue={props.searchValue}
+                                             setSearchValue={props.setSearchValue}
+                                             search_column={props.search_column}
+                                             setSearchColumn={props.setSearchColumn}
+                                             operations_list={props.operations_list}
+                                             my_operations={props.my_operations}
+                                             operation_status={props.operation_status}
+                        />
+                    </div>
                 </OperationsContent>
             </OperationsInner>
         </OperationsWrapper>

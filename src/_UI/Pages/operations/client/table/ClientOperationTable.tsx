@@ -22,6 +22,10 @@ const useStyles = makeStyles({
     height: 400,
     overflowY: "scroll",
   },
+  empty: {
+    width: "10px",
+    borderBottom:"none"
+  },
   shipping_cell: {
     width: "220px",
     color: "#115B86",
@@ -95,6 +99,8 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
+
+              <TableCell className={classes.empty} align="left" />
               <TableCell className={classes.shipping_cell} align="left">
                 <TableCellContent
                   setSearchValue={props.setSearchValue}

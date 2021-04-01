@@ -44,12 +44,15 @@ const BookingCardContainer: React.FC = () => {
     }
 
     useEffect(() => {
-        current_user_role?.includes['master'] && dispatch(getMyAgentsThunk())
         dispatch(getBookingInfoByIdThunk(Number(id)))
         return () => {
             unmountHandler()
         }
     }, [dispatch])
+
+    useEffect(() => {
+        current_user_role?.includes('master') && dispatch(getMyAgentsThunk())
+    }, [dispatch, current_user_role]);
 
     //thunk
     let assignConfirmationFunction = () => {
@@ -71,7 +74,6 @@ const BookingCardContainer: React.FC = () => {
     let agents_workers = useSelector(getMyAgents) //only users who have role = 'agent' can be assigned
     let exact_booking_info = useSelector(getExactBookingInfo)
     let isFetching = useSelector(getIsFetching)
-
 
     return (
         <Layout>

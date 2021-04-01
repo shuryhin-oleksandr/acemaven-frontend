@@ -35,7 +35,7 @@ export const PopupTitle = styled.div`
   margin-bottom: 33px;
 `
 export const UsersList = styled.div`
-  height: 440px;
+  max-height: 440px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;

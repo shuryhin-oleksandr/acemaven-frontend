@@ -29,10 +29,11 @@ const AssignAgentPopup:React.FC<PropsType> = ({setAssignAgent, agents, setAgentF
         setAssignAgent(false)
         setAssignConfirmation(true)
     }
+    console.log("agents",agents);
 
     return (
         <PopupWrapper>
-            <PopupInner>
+            <PopupInner height="auto">
                 <IconButton onClick={() => setAssignAgent(false)}
                             style={{top: '20px', right: '20px',width: '12px',height: '12px', position: 'absolute'}}
                 >
@@ -43,7 +44,7 @@ const AssignAgentPopup:React.FC<PropsType> = ({setAssignAgent, agents, setAgentF
                     <UsersList>
                         {agents?.map(a => {
                             return (
-                                <UserRow>
+                                <UserRow key={a.id}>
                                 <UserRowInfo>
                                     <UserPhoto><img src={a.photo ? a.photo : user} alt=''/></UserPhoto>
                                     <UserInfo>

@@ -43,8 +43,9 @@ const OperationsInProgressWidget: React.FC = () => {
 
     return (
         <>
-        {latest_list[0]
+        {operations_list.length>0
                 ? <BaseWidget heading="operations in progress">
+                <div style={{maxHeight:210, overflowY:"auto"}}>
                         <Table className={classes.table} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -65,7 +66,7 @@ const OperationsInProgressWidget: React.FC = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {latest_list.map((operation, index: number) => (
+                                {operations_list.map((operation, index: number) => (
                                     <TableRow key={operation?.id + index} className={classes.row} onClick={() => goToPage(operation?.id)}>
                                         <TableCell className={classes.innerCell}>
                                             <div
@@ -80,7 +81,7 @@ const OperationsInProgressWidget: React.FC = () => {
                                             </div>
                                         </TableCell>
                                         <TableCell className={classes.boldCell} align="left">
-                                            {operation?.shipment_details && (operation?.shipment_details.length > 0) && operation?.shipment_details[0].booking_number}
+                                            {operation?.shipment_details && (operation?.shipment_details.length > 0) ? operation?.shipment_details[0].booking_number:"-"}
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="left">
                                             {operation?.freight_rate.origin.code} -{' '}
@@ -96,6 +97,7 @@ const OperationsInProgressWidget: React.FC = () => {
                                 ))}
                             </TableBody>
                         </Table>
+                </div>
                     </BaseWidget>
                 : null
         }

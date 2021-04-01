@@ -50,6 +50,7 @@ const AgentBillingInProgressPage: React.FC<PropsType> = ({ ...props }) => {
               mode={props.mode}
               setMode={props.setMode}
               thunkName={props.thunkName}
+              operation_status={props.billing_status}
             />
           </div>
           <BillingInProgressTable

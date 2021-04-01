@@ -35,4 +35,5 @@ export const ContentTitle = styled.div`
 `
 export const ContentTable = styled.div`
   margin-left: -30px;
+  height: 100%;
 `

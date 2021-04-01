@@ -43,6 +43,8 @@ const useStyles = makeStyles({
   container: {
     boxShadow: "none",
     paddingRight: 12,
+    height:"600px",
+    overflowY:"auto"
   },
   table: {
     "& .MuiTableHead-root": {},
@@ -60,6 +62,7 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #115B86",
     padding: "0",
     paddingBottom: "15px",
+    backgroundColor:"white"
   },
   cell: {
     color: "#115B86",
@@ -69,6 +72,7 @@ const useStyles = makeStyles({
     padding: "0",
     paddingBottom: "15px",
     paddingRight: "30px",
+    backgroundColor:"white"
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -83,7 +87,12 @@ const useStyles = makeStyles({
   },
   empty: {
     width: "10px",
-    borderBottom:"none"
+    borderBottom:"none",
+  },
+  emptyHeader: {
+    width: "10px",
+    borderBottom:"none",
+    backgroundColor:"white"
   },
   innerCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -177,14 +186,14 @@ const AgentBookingListTable: React.FC<PropsType> = ({
       : null;
 
   return (
-    <ScrollbarStyled {...{
-      style: {width: "100%", height: '420px'}
-    }}>
+    // <ScrollbarStyled {...{
+    //   style: {width: "100%", height: '100%'}
+    // }}>
       <TableContainer className={classes.container} component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
+        <Table stickyHeader className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.empty} align="left" />
+              <TableCell className={classes.emptyHeader} align="left" />
               <TableCell className={classes.shipping_cell} align="left" />
               <TableCell className={classes.cell} align="left">
                   ACE ID
@@ -348,7 +357,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
           </TableBody>
         </Table>
       </TableContainer>
-    </ScrollbarStyled>
+    // </ScrollbarStyled>
   );
 };
 

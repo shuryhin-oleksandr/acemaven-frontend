@@ -30,12 +30,13 @@ const useStyles = makeStyles({
         borderBottom: '1px solid #828282',
         paddingLeft: '63px',
         padding: '0',
-        paddingRight:"15px"
-
+        paddingRight:"15px",
+        backgroundColor:"white"
     },
     empty: {
         width: "10px",
-        borderBottom:"none"
+        borderBottom:"none",
+        backgroundColor:"white"
     },
     cell: {
         color: '#115B86',
@@ -44,7 +45,8 @@ const useStyles = makeStyles({
         borderBottom: '1px solid #828282',
         width: '150px',
         padding: "0",
-        paddingRight:"15px"
+        paddingRight:"15px",
+        backgroundColor:"white"
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
@@ -96,9 +98,8 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
     const classes = useStyles();
 
     return (
-        <ScrollbarStyled {...{style: {width: "100%", height: '100%'}}}>
             <TableContainer className={classes.container} component={Paper}>
-                <Table aria-label="collapsible table">
+                <Table stickyHeader aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.empty} align="left" />
@@ -219,7 +220,6 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </ScrollbarStyled>
     )
 }
 

@@ -70,7 +70,7 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
                 <HideButton isHide={isHide} onClick={() => isHide ? setIsHide((false)) : setIsHide(true)}>
                     <img src={hide_map_icon} alt=""/>
                 </HideButton>}
-                <OperationsContent style={{padding:"50px 80px 50px 0"}} isHide={isHide} status={props.operation_status}>
+                <OperationsContent style={{padding:"0 80px 50px 0"}} isHide={isHide} status={props.operation_status}>
                     <OperationHeader>
                         <OperationTitle>
                             Operations
@@ -96,7 +96,6 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
                             />
                         </div>
                     </OperationHeader>
-                    <div style={{ width:"100%", height:"100%"}}>
                         <AgentOperationTable setSearchMode={setSearchMode}
                                              isSearchMode={props.isSearchMode}
                                              mode={props.mode}
@@ -109,7 +108,6 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
                                              my_operations={props.my_operations}
                                              operation_status={props.operation_status}
                         />
-                    </div>
                 </OperationsContent>
             </OperationsInner>
         </OperationsWrapper>

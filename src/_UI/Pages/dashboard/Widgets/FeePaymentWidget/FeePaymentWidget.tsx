@@ -52,7 +52,7 @@ const FeePaymentWidget: React.FC = () => {
   return billing_list.length > 0 ? (
     <BaseWidget heading="pending of Booking Fee payment">
       <div style={{ maxHeight: "300px", overflow: "auto" }}>
-        <Table className={classes.table} aria-label="simple table">
+        <Table stickyHeader className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell className={classes.cell} align="left" />
@@ -108,7 +108,7 @@ const FeePaymentWidget: React.FC = () => {
                   {moment(item.date_created, "DD-MM-YYYY").format("DD/MM")}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                  {item.status}
+                  <div style={{ overflow:"auto",textOverflow: "ellipsis", width:"100px" }}>{item.status}</div>
                 </TableCell>
               </TableRow>
             ))}

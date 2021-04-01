@@ -218,4 +218,5 @@ export type LatestTrackingWidgetType = {
     route: string
     shipping_type: string
     status: string
+    booking: number
 }

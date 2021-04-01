@@ -18,11 +18,12 @@ export const useStyles = makeStyles({
   },
   cell: {
     color: "#115B86",
-    fontFamily: "Helvetica Bold",
+    fontFamily: "Helvetica Reg",
     fontSize: "14px",
     borderBottom: "1px solid #115B86",
     padding: "0",
     paddingBottom: "7px",
+    backgroundColor: "white"
   },
   innerCell: {
     fontFamily: "Helvetica Light",

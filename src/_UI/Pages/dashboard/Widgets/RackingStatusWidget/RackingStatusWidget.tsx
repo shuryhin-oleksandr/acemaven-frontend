@@ -86,7 +86,7 @@ const RackingStatusWidget: React.FC = () => {
                     style={{
                       overflow: "auto",
                       textOverflow: "ellipsis",
-                      width: "100px",
+                      maxWidth: "100px",
                     }}
                   >
                     {item.status}

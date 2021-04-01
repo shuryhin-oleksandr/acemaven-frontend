@@ -36,15 +36,16 @@ const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
 
     return (
         <BillingProgressWrapper>
-            <BillingProgressInner>
+            <BillingProgressInner style={{padding:"50px 70px 50px 0"}}>
                 <BillingProgressContent>
                     <div style={{
                         width: '100%',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        alignItems: 'baseline'
+                        alignItems: 'center',
+                        marginBottom: "25px"
                     }}>
-                        <BillingTitle>Billing Completed</BillingTitle>
+                        <BillingTitle margin_bottom="0" style={{ paddingLeft: 30 }}>Billing Completed</BillingTitle>
                         <div style={{display: 'flex', width: '450px', justifyContent: 'space-between'}}>
                             <div style={{ marginRight: "15px" }}>
                                 <MonthPicker

@@ -27,7 +27,7 @@ const BillingDetailsPageContainer:React.FC = () => {
     }, [])
 
     //local state
-    let local_time = moment(new Date()).format(" DD/MM  h:mm a");
+    let local_time = moment(new Date()).format(" DD/MM  HH:mm ");
 
     //data from store
     let billing_details = useSelector(getBillingOperationDetailsSelector)

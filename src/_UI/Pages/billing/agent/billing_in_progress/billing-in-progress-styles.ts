@@ -34,7 +34,7 @@ export const BookingNumberWrapper = styled.div<{border_bottom?: string, padding_
   border-bottom: ${({border_bottom}) => border_bottom ? border_bottom : 'none'};
 `
 export const BookingSpan = styled.div`
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Thin", sans-serif;
   font-size: 24px;
   color: #828282;
   text-transform: uppercase;

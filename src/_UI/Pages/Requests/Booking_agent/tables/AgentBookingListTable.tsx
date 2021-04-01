@@ -22,8 +22,8 @@ import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarS
 //styles
 import { ModeIcon } from "src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharges-style";
 //icons
-import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
-import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
+import ship_surcharge from "../../../../assets/icons/long-ship-icon-for-tables.svg";
+import plane_surcharge from "../../../../assets/icons/long-plane-icon-for-tables.svg";
 
 
 type PropsType = {
@@ -42,7 +42,7 @@ type PropsType = {
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
-    paddingRight: 12
+    paddingRight: 12,
   },
   table: {
     "& .MuiTableHead-root": {},
@@ -50,6 +50,7 @@ const useStyles = makeStyles({
   row: {
     "&:hover": {
       cursor: "pointer",
+      backgroundColor:"#E0E0E0"
     },
   },
   shipping_cell: {
@@ -78,6 +79,11 @@ const useStyles = makeStyles({
     paddingRight: "40px",
     height: "72px",
     width: "50px",
+    verticalAlign:"top !important"
+  },
+  empty: {
+    width: "10px",
+    borderBottom:"none"
   },
   innerCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -87,7 +93,10 @@ const useStyles = makeStyles({
     height: "72px",
     padding: "0",
     paddingRight: "30px",
+    paddingTop:"13px",
+    paddingBottom:"10px",
     width: "170px",
+    verticalAlign:"top !important"
   },
   customTooltip: {
     maxWidth: 330,
@@ -175,6 +184,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell className={classes.empty} align="left" />
               <TableCell className={classes.shipping_cell} align="left" />
               <TableCell className={classes.cell} align="left">
                   ACE ID
@@ -254,6 +264,11 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 onClick={() => setCardOpen(row.id)}
               >
                 <TableCell
+                    className={classes.empty}
+                    align="left"
+                    component="th"
+                    scope="row"/>
+                <TableCell
                   className={classes.innerMainCell}
                   align="left"
                   component="th"
@@ -287,8 +302,9 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                   <div
                     style={{
                       color: "black",
-                      fontFamily: "Helvetica Light",
+                      fontFamily: "Helvetica Light, sans-serif",
                       fontSize: "24px",
+                      marginTop:"-4px"
                     }}
                   >
                     {row.origin}
@@ -311,8 +327,8 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                   <div>{row.date_to}</div>
                   <div>
                     {row.week_from === row.week_to
-                      ? `Week ${row.week_from}`
-                      : `Week ${row.week_from} - Week ${row.week_to}`}
+                      ? `WEEK ${row.week_from}`
+                      : `WEEK ${row.week_from} - WEEK ${row.week_to}`}
                   </div>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

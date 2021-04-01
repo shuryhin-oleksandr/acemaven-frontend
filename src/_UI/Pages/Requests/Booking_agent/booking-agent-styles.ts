@@ -34,5 +34,5 @@ export const ContentTitle = styled.div`
   color: black;
 `
 export const ContentTable = styled.div`
-  
+  margin-left: -30px;
 `

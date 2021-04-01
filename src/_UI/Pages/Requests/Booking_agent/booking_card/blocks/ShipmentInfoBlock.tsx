@@ -28,7 +28,7 @@ const ShipmentInfoBlock:React.FC<PropsType> = ({shipper, client, client_contact,
             <GeneralBookingContent>
                 <ValuesShipmentWrapper >
                     <div style={{display: 'flex'}}>
-                        <CalendarIcon style={{width: '87px', height: '96px'}}>
+                        <CalendarIcon >
                             <img src={calendar_icon} alt=""/>
                         </CalendarIcon>
                         <InfoRow margin_right='50px' margin_bottom='0px'>
@@ -44,17 +44,17 @@ const ShipmentInfoBlock:React.FC<PropsType> = ({shipper, client, client_contact,
                             <InfoRowValue>{exact_booking_info?.date_from} - {exact_booking_info?.date_to}</InfoRowValue>
                         </InfoRow>
                     </div>
-                    <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
+                    <div style={{marginRight:80, display: 'flex', flexDirection: 'column'}}>
                         <InfoRow >
                             <InfoRowLabel>CLIENT</InfoRowLabel>
                             <InfoRowValue>{client}</InfoRowValue>
                         </InfoRow>
                         <InfoRow>
                             <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
-                            <InfoRowValue>D{client_contact}</InfoRowValue>
+                            <InfoRowValue>{client_contact}</InfoRowValue>
                         </InfoRow>
                     </div>
-                    <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
+                    <div style={{marginRight:80, display: 'flex', flexDirection: 'column'}}>
                         <InfoRow>
                             <InfoRowLabel>SHIPPER NAME</InfoRowLabel>
                             <InfoRowValue>
@@ -88,7 +88,7 @@ const ShipmentInfoBlock:React.FC<PropsType> = ({shipper, client, client_contact,
                             </InfoRowValue>
                         </InfoRow>
                     </div>
-                    <div style={{width: '25%', display: 'flex', flexDirection: 'column',}}>
+                    <div style={{marginRight:80, display: 'flex', flexDirection: 'column',}}>
                         <InfoRow>
                             <InfoRowLabel>PHONE NUMBER 1</InfoRowLabel>
                             <InfoRowValue>

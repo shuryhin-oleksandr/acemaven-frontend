@@ -160,13 +160,13 @@ export const FormOperationButton = styled.button`
   }
 `
 export const GeneralShipType = styled.div<{margin_top?: string}>`
-  width: 99px;
-  height: 99px;
+  //width: 99px;
+  //height: 99px;
   margin-right: 15px;
   margin-top: ${({margin_top}) => margin_top ? margin_top : '-5px' };
   img {
-    width: 100%;
-    height: 100%;
+    //width: 100%;
+    //height: 100%;
   }
 `
 export const InfoRow = styled.div<{margin_right?: string, margin_bottom?: string}>`

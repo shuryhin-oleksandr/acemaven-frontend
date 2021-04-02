@@ -67,6 +67,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
     const classes = useStyles();
 
     return (
+        <div style={{width:"100%", borderBottom:"1px solid #BDBDBD"}}>
         <HandlingSurchargeContainer style={{maxWidth: '834px'}}>
             <HandlingTitle>Handling (surcharge)</HandlingTitle>
             {/*<ScrollbarStyled {...{style: { height: 300 }}}>*/}
@@ -139,6 +140,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
                 </TableContainer>
             {/*</ScrollbarStyled>*/}
         </HandlingSurchargeContainer>
+        </div>
     )
 }
 

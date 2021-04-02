@@ -137,7 +137,7 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                     <div style={{fontSize:18, fontFamily: 'Helvetica Bold, sans-serif'}}>{operation.aceid}</div>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    <div style={{ fontSize:"24px", marginTop:"-5px"}}>
+                    <div style={{ fontSize:"24px", marginTop:"-5px", lineHeight:1.3}}>
                         <div>{operation.freight_rate.origin.code}</div>
                         <div>{operation.freight_rate.destination.code}</div>
                     </div>

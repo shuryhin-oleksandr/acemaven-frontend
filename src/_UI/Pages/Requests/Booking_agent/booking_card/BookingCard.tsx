@@ -30,7 +30,7 @@ import {
     GeneralBookingContent,
     GeneralShipType,
     InfoRow,
-    InfoRowLabel, InfoRowValue, ValuesShipmentWrapper,
+    InfoRowLabel, InfoRowValue, ValuesShipmentWrapper, RouteName,
 } from "./booking-card-style";
 import {GeneralTitle} from "../../../quotes/agent/table/agent-quotes-styles";
 //icons
@@ -102,9 +102,9 @@ const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, a
                                     alt=""/></GeneralShipType>
                                 <InfoRow margin_right='28px'>
                                     <InfoRowLabel>ROUTE</InfoRowLabel>
-                                    <InfoRowValue font_size='34px' style={{fontFamily:"Helvetica Thin, sans-serif", marginTop:"-5px"}}>
-                                        <div>{exact_booking_info?.freight_rate.origin.code}</div>
-                                        <div>{exact_booking_info?.freight_rate.destination.code}</div>
+                                    <InfoRowValue style={{fontFamily:"Helvetica Thin, sans-serif"}}>
+                                        <RouteName>{exact_booking_info?.freight_rate.origin.code}</RouteName>
+                                        <RouteName>{exact_booking_info?.freight_rate.destination.code}</RouteName>
                                     </InfoRowValue>
                                 </InfoRow>
                                 <ValuesShipmentWrapper>

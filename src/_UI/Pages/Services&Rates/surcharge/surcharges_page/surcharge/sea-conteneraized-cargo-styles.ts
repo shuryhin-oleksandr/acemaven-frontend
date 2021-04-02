@@ -36,7 +36,7 @@ export const HandlingSurchargeContainer = styled.div<PropsStyle>`
   margin-left: ${({margin_left}) => margin_left ? margin_left : '0px'};
   max-width: ${({max_width}) => max_width ? max_width : '478px'};
   max-height: ${({max_height}) => max_height ? max_height : '420px'};
-  min-height: 360px;
+  min-height: 250px;
 `
 export const HandlingTitle = styled.div<{margin_bottom?: string, margin_right?: string}>`
   text-transform: uppercase;

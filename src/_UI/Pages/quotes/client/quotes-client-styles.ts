@@ -18,7 +18,7 @@ export const ClientQuotesInner = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 50px 80px 50px 30px;
+  padding: 50px 80px 50px 0;
 `
 
 export const NoQuotesOuter = styled.div`
@@ -66,7 +66,7 @@ export const CargosOuter = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: center;
+  justify-content: flex-start;
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;    
   max-height: 80px;

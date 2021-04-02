@@ -22,6 +22,7 @@ export const HeaderTitle = styled.div`
   font-size: 48px;
   line-height: 57.26px;
   color: black;
+  padding-left: 30px;
 `
 export const StatusSpan = styled.div<PropsStyle>`
   color: #115b86;
@@ -33,3 +34,10 @@ export const OffersSpan = styled.div<{new_offer?: boolean}>`
     font-size: 18px;
     color: ${({new_offer}) => new_offer ? "#115b86" : "black"};
 `
+
+export const RouteName = styled.div`
+  font-family: "Helvetica Thin", sans-serif;
+  font-size: 24px;
+  color: #000000;
+  line-height: 1;
+`;

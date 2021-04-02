@@ -18,13 +18,13 @@ import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 import OfferDescription from "./OfferDescription";
 //styles
 import {ModeIcon, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
-import {OffersSpan, StatusSpan} from "./client-quotes-table-styles";
+import {OffersSpan, StatusSpan, RouteName} from "./client-quotes-table-styles";
 import {CargosOuter} from "../quotes-client-styles";
 //icons
 import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
 import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
-import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
-import air_type from '../../../../assets/icons/rates&services/plane-surcharge.svg';
+import sea_type from "../../../../assets/icons/long-ship-icon-for-tables.svg";
+import air_type from '../../../../assets/icons/long-plane-icon-for-tables.svg';
 import close_icon from '../../../../../_UI/assets/icons/close-icon.svg'
 
 
@@ -36,7 +36,8 @@ const useStyles = makeStyles({
         },
         '&:hover': {
             transition: '.3s',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            backgroundColor: "#E0E0E0",
         }
     },
     innerMainCell: {
@@ -47,7 +48,10 @@ const useStyles = makeStyles({
         color: '#1B1B25',
         position: 'relative',
         paddingLeft: '63px',
-        height: '72px'
+        paddingTop: "13px",
+        paddingBottom: 13,
+        height: '72px',
+        verticalAlign: "top !important",
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
@@ -56,6 +60,9 @@ const useStyles = makeStyles({
         color: '#1B1B25',
         height: '72px',
         padding: '0 ',
+        paddingTop: "13px",
+        paddingBottom: 13,
+        verticalAlign: "top !important",
     },
     innerRow: {
         transition: '.3s',
@@ -89,6 +96,15 @@ const useStyles = makeStyles({
         alignItems: "center",
         justifyContent: "center",
         padding: "15px",
+    },
+    empty: {
+        width: "10px",
+        borderBottom: "none",
+    },
+    emptyHeader: {
+        width: "10px",
+        borderBottom: "none",
+        backgroundColor: "white",
     },
 });
 
@@ -134,11 +150,20 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
     return (
         <React.Fragment>
             <TableRow className={classes.root}>
+                <TableCell
+                    className={classes.empty}
+                    align="left"
+                    component="th"
+                    scope="row"
+                />
                 <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
                     <ModeIcon src={quote.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
                     <SpanMode>{quote.shipping_mode.title}</SpanMode>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left"><div>{quote.origin.code}</div><div>{quote.destination.code}</div></TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                    <RouteName>{quote.origin.code}</RouteName>
+                    <RouteName>{quote.destination.code}</RouteName>
+                </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <CargosOuter>
                         {quote.cargo_groups.map((c, index) => {
@@ -160,13 +185,13 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                 <TableCell className={classes.innerCell} align="left">
                     <StatusSpan status={quote.is_active}>{quote.is_active ? 'Active' : 'Paused'}</StatusSpan>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="right">
+                <TableCell className={classes.innerCell} align="center">
                     <Tooltip
                         arrow
                         title="Quotes can be paused or reactivated using this button. "
                         classes={{ tooltip: classes.customTooltip }}
                     >
-                        <IconButton onClick={() => activeInactiveQuote(Number(quote.id), !quote.is_active)}>
+                        <IconButton style={{padding:0, marginRight:10}} onClick={() => activeInactiveQuote(Number(quote.id), !quote.is_active)}>
                             <img style={{width: '24px', height: '24px'}} src={!quote.is_active ? play_icon : pause_icon} alt=""/>
                         </IconButton>
                     </Tooltip>
@@ -175,7 +200,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                         title="Quotes can be cancelled using this button. "
                         classes={{ tooltip: classes.customTooltip }}
                     >
-                        <IconButton onClick={() => deleteQuoteByClient(Number(quote.id))}>
+                        <IconButton style={{padding:0}} onClick={() => deleteQuoteByClient(Number(quote.id))}>
                             <img src={close_icon} alt=""/>
                         </IconButton>
                     </Tooltip>

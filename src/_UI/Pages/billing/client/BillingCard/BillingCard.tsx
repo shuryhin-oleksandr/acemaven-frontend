@@ -85,7 +85,7 @@ const BillingCard: React.FC<PropTypes> = ({
             />
             <div>{`${billing.origin.code} - ${billing.destination.code}`}</div>
           </Route>
-          {billing.status !== "Operation Complete" &&
+          {billing.operation_status !== "completed" &&
             (current_user_role?.includes("master") ||
               current_user_role?.includes("billing")) && (
               <Row>

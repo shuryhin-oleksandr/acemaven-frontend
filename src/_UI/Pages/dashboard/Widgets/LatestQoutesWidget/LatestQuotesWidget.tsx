@@ -51,12 +51,15 @@ const LatestQuotesWidget: React.FC = () => {
     let setCardOpen = (quote_id: number) => {
         history.push(`/quotes/${quote_id}`)
     }
+    let goToClientsQuotes = ( ) => {
+        history.push(`/quotes`)
+    }
 
 
     return (
         <>
             {latest_list.length > 0 && latest_list[0] ?
-                <BaseWidget heading={company_type?.type === AppCompaniesTypes.CLIENT ? "latest quotes receive" : "QUOTES"}>
+                <BaseWidget heading={company_type?.type === AppCompaniesTypes.CLIENT ? "latest quotes received" : "QUOTES"}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -75,8 +78,12 @@ const LatestQuotesWidget: React.FC = () => {
                         <TableBody>
                             {latest_list.map((quote, idx) => (
                                 <TableRow key={idx}
-                                          className={company_type?.type === AppCompaniesTypes.AGENT ? classes.row:""}
-                                          onClick={() => company_type?.type === AppCompaniesTypes.AGENT && setCardOpen(Number(quote.id))}
+                                          className={ classes.row}
+                                          onClick={() => company_type?.type === AppCompaniesTypes.AGENT ?
+                                              setCardOpen(Number(quote.id))
+                                          :
+                                              goToClientsQuotes()
+                                          }
                                 >
                                     <TableCell className={classes.innerCell}>
                                         <div

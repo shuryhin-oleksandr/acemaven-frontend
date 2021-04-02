@@ -98,7 +98,7 @@ const Rate: React.FC<PropsType> = ({
   const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(
     false
   );
-
+  console.log("existing_surcharge",existing_surcharge);
   //data from store
   let edit_success = useSelector(getEditSuccess);
   const empty_surcharge = useSelector(getEmptyExistingSurcharge);

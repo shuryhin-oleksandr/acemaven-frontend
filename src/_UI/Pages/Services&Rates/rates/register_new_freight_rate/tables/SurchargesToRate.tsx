@@ -23,7 +23,7 @@ type PropsType = {
 
 
 const SurchargesToRate:React.FC<PropsType> = ({ existing_surcharge}) => {
-    const [isFullView, setFullView] = useState(false)
+    const [isFullView, setFullView] = useState(true)
 
     return (
         <SurchargeForRateContainer >

@@ -49,7 +49,9 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
-        paddingRight: "12px", height: '100%'
+        paddingRight: "12px", height: '100%',
+        maxHeight:320,
+        maxWidth:1100
     },
     table: {
         "& .MuiTableHead-root": {},
@@ -65,6 +67,7 @@ const useStyles = makeStyles({
         fontSize: "16px",
         borderBottom: "1px solid #115B86",
         padding: "16px 0",
+        backgroundColor: "white",
     },
     innerMainCell: {
         borderBottom: "1px solid #E0E0E0;",
@@ -98,7 +101,7 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
     }
 
     return (
-        <div style={{width: '100%', maxWidth: '1100px'}}>
+        <div style={{width: '100%', paddingBottom: 30, borderBottom:"1px solid #BDBDBD"}}>
             <div style={{width: '100%', display: 'flex', alignItems: 'center', position: 'relative'}}>
                 <HandlingTitle margin_right='20px'>RATES</HandlingTitle>
                 {awareMessage
@@ -127,7 +130,7 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
             {isFullView
             &&
             <TableContainer className={classes.container} component={Paper}>
-                <Table  className={classes.table} aria-label="simple table">
+                <Table stickyHeader  className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             {rate?.shipping_mode.id === 2 ||

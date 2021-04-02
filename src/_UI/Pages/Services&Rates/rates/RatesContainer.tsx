@@ -77,8 +77,8 @@ const RatesContainer: React.FC = () => {
               {newRateMode ? (
                   <RegisterNewFreightRateContainer setNewRateMode={setNewRateMode} />
               ) : (
-                  <Container>
-                    <HeaderOuter>
+                  <Container style={{padding:"50px 80px 30px 0"}}>
+                    <HeaderOuter style={{paddingLeft:30}}>
                       <MainTitle>Freight rates</MainTitle>
                       <ActionsWrapper>
                         <RegisterButton onClick={() => setNewRateMode(true)}>

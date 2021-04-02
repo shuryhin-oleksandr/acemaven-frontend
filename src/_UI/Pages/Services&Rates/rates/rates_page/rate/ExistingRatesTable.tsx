@@ -127,7 +127,7 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
             {isFullView
             &&
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table  className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             {rate?.shipping_mode.id === 2 ||

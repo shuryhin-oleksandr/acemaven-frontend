@@ -62,7 +62,7 @@ export const FieldOuter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 `
 export const Label = styled.div`
   text-transform: uppercase;

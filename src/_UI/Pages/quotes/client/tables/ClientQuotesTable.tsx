@@ -61,6 +61,7 @@ const useStyles = makeStyles({
   },
   shipping_cell: {
     // width: '220px',
+    maxWidth: '200px',
     color: "#115B86",
     fontFamily: "Helvetica Bold",
     fontSize: "16px",
@@ -111,11 +112,13 @@ const useStyles = makeStyles({
     padding: "15px",
   },
   empty: {
-    width: "10px",
+    width: "30px",
+    padding:0,
     borderBottom: "none",
   },
   emptyHeader: {
-    width: "10px",
+    width: "30px",
+    padding:0,
     borderBottom: "none",
     backgroundColor: "white",
   },

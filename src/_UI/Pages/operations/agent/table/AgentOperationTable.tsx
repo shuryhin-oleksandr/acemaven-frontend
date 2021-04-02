@@ -34,7 +34,8 @@ const useStyles = makeStyles({
         backgroundColor:"white"
     },
     empty: {
-        width: "10px",
+        width: "30px",
+        padding:0,
         borderBottom:"none",
         backgroundColor:"white"
     },

@@ -22,7 +22,8 @@ const useStyles = makeStyles({
     overflowY: "scroll",
   },
   empty: {
-    width: "10px",
+    width: "30px",
+    padding:0,
     borderBottom: "none",
     backgroundColor:"white"
   },

@@ -29,7 +29,8 @@ const ModalWindow:React.FC<PropsType> = ({children, isOpen}) => {
           padding: 0,
         },
         overlay: {
-          backgroundColor: "rgba(0, 0, 0, .3)"
+          backgroundColor: "rgba(0, 0, 0, .3)",
+            zIndex:15
         }
       }}
     >

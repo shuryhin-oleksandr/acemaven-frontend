@@ -99,11 +99,13 @@ const useStyles = makeStyles({
     padding: "15px",
   },
   empty: {
-    width: "10px",
+    width: "30px",
+    padding:0,
     borderBottom: "none",
   },
   emptyHeader: {
-    width: "10px",
+    width: "30px",
+    padding:0,
     borderBottom: "none",
     backgroundColor: "white",
   },

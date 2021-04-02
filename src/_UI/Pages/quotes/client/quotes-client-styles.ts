@@ -25,6 +25,7 @@ export const NoQuotesOuter = styled.div`
   max-width: 794px;
   width: 100%;
   border: 1px solid #bdbdbd;
+  margin-left: 30px;
 `
 export const NoQuotesContent = styled.div`
   padding: 60px 72px;

@@ -7,11 +7,11 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {QuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 //styles
 import {ModeIcon, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
-import {StatusSpan} from "../../client/tables/client-quotes-table-styles";
+import {RouteName, StatusSpan} from "../../client/tables/client-quotes-table-styles";
 import {DoneIcon, SubmitQuoteButton, SubmittedWrapper} from "./agent-quotes-styles";
 //icons
-import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
-import air_type from '../../../../assets/icons/rates&services/plane-surcharge.svg'
+import sea_type from "../../../../assets/icons/long-ship-icon-for-tables.svg";
+import air_type from '../../../../assets/icons/long-plane-icon-for-tables.svg'
 import moment from "moment";
 import {CargosOuter} from "../../client/quotes-client-styles";
 
@@ -23,18 +23,22 @@ const useStyles = makeStyles({
         },
         '&:hover': {
             transition: '.3s',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            backgroundColor: "#E0E0E0",
         }
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
-        width: '220px',
+        // width: '220px',
         color: '#1B1B25',
         position: 'relative',
-        paddingLeft: '63px',
-        height: '72px'
+        paddingLeft: '0',
+        height: '72px',
+        paddingTop: "13px",
+        paddingBottom: 13,
+        // verticalAlign: "top !important",
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
@@ -43,6 +47,9 @@ const useStyles = makeStyles({
         color: '#1B1B25',
         height: '72px',
         padding: '0',
+        paddingTop: "13px",
+        paddingBottom: 13,
+        // verticalAlign: "top !important",
     },
     innerRow: {
         transition: '.3s',
@@ -66,7 +73,18 @@ const useStyles = makeStyles({
         borderBottom: 0,
         fontFamily: 'Helvetica Light',
         fontSize: '14px'
-    }
+    },
+    empty: {
+        width: "30px",
+        padding:0,
+        borderBottom: "none",
+    },
+    emptyHeader: {
+        width: "30px",
+        padding:0,
+        borderBottom: "none",
+        backgroundColor: "white",
+    },
 });
 
 type PropsType = {
@@ -84,13 +102,19 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
 
     return (
         <TableRow className={classes.root} onClick={() => setCardOpen(Number(quote.id))}>
+            <TableCell
+                className={classes.empty}
+                align="left"
+                component="th"
+                scope="row"
+            />
             <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
-                <ModeIcon src={quote.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
-                <SpanMode>{quote.origin.code}</SpanMode>
+                <img src={quote.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
+                <RouteName style={{display:"inline-block", marginLeft:20}}>{quote.origin.code}</RouteName>
             </TableCell>
-            <TableCell className={classes.innerCell} align="left">{quote.destination.code}</TableCell>
+            <TableCell className={classes.innerCell} align="left"><RouteName>{quote.destination.code}</RouteName></TableCell>
             <TableCell className={classes.innerCell} align="left">{quote.shipping_mode.title}</TableCell>
-            <TableCell className={classes.innerCell} align="center">
+            <TableCell className={classes.innerCell} align="left">
                 <CargosOuter>
                     {quote.cargo_groups.map((c, index) => {
                         return <span key={index}>{c.volume}{' x '}{c.packaging_type ? c.packaging_type?.description : c.container_type?.code}

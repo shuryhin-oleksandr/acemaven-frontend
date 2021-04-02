@@ -51,19 +51,31 @@ const useStyles = makeStyles({
         borderBottom: 0,
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
-        padding: '5px 10px'
+        padding: '5px 10px',
+
     },
     collapseMainInnerCell: {
-        borderBottom: 0,
+        borderBottom:"1px solid #E0E0E0",
         fontFamily: 'Helvetica Reg',
         fontSize: '14px',
-        padding: '0 7px'
+        padding: '0 7px',
     },
     collapseInnerCell: {
-        borderBottom: 0,
+        borderBottom:"1px solid #E0E0E0",
         fontFamily: 'Helvetica Light',
-        fontSize: '14px'
-    }
+        fontSize: '14px',
+    },
+    empty: {
+        width: "30px",
+        padding:0,
+        borderBottom:"1px solid #E0E0E0",
+    },
+    emptyHeader: {
+        width: "30px",
+        padding:0,
+        borderBottom: "none",
+        backgroundColor: "white",
+    },
 });
 
 const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, offerViewedHandler, quote, ...props}) => {
@@ -98,13 +110,14 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
         <>
             {offers.map((o, index) => <>
                     <TableRow key={index}>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0,paddingLeft:30, borderBottom:"none" }} colSpan={6}>
                             <Collapse in={isOpen} timeout="auto" unmountOnExit>
                                 <Box>
                                     <Table size="small" aria-label="purchases">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell className={classes.collapseCell} align="center">OFFER NO</TableCell>
+                                                <TableCell className={classes.emptyHeader} align="left" />
+                                                <TableCell className={classes.collapseCell} align="left">OFFER NO</TableCell>
                                                 <TableCell className={classes.collapseCell}>CARRIER</TableCell>
                                                 <TableCell align="left" className={classes.collapseCell}>TRANSIT TIME</TableCell>
                                                 <TableCell align="left" className={classes.collapseCell}>TOTAL USD</TableCell>
@@ -114,7 +127,13 @@ const OfferDescription:React.FC<PropsType> = ({isOpen, offers, setShowRating, of
                                         </TableHead>
                                         <TableBody>
                                             <TableRow className={classes.innerRow}>
-                                                <TableCell className={classes.collapseMainInnerCell} component="th" scope="row" align="center">
+                                                <TableCell
+                                                    className={classes.empty}
+                                                    align="left"
+                                                    component="th"
+                                                    scope="row"
+                                                />
+                                                <TableCell className={classes.collapseMainInnerCell} component="th" scope="row" align="left">
                                                     {o.id}
                                                 </TableCell>
                                                 <TableCell className={classes.collapseInnerCell} align="left">

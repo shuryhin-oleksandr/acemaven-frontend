@@ -16,6 +16,7 @@ export const QuotesTableHeader = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 33px;
+
 `
 export const HeaderTitle = styled.div`
   font-family: "Helvetica Bold", sans-serif;

@@ -50,7 +50,8 @@ const useStyles = makeStyles({
         verticalAlign:"top !important"
     },
     empty: {
-        width: "10px",
+        width: "30px",
+        padding:0,
         borderBottom:"none"
     },
     innerCell: {

@@ -35,7 +35,7 @@ type PropsType = {
 const BookingAgentPage: React.FC<PropsType> = ({bookingList, ...props}) => {
   return (
     <BookingWrapper>
-      <BookingContent>
+      <BookingContent style={{padding: "50px 80px 50px 0"}}>
         <ContentHeader>
           <ContentTitle>Bookings</ContentTitle>
           <OptionsDeliveryButtons

@@ -164,6 +164,9 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
                                          setValue={setValue}
                                          setFormMode={setFormMode}
                                          required_dates={true}
+                                         label_margin_bottom="0"
+                                         input_height="33px"
+                                         margin_top="3px"
                         />
                     </FieldsWrap>
                 </InfoWrap>

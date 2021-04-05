@@ -39,7 +39,7 @@ let change_img_animation = keyframes`
 export const ModeIcon = styled.img`
   position: absolute;
   left: 0;
-  top: 22%;
+  //top: 10px;
   //animation: ${change_img_animation} ease-in-out infinite 4s alternate;
   -webkit-transition: opacity 1s ease-in-out;
   -moz-transition: opacity 1s ease-in-out;
@@ -49,7 +49,7 @@ export const ModeIcon = styled.img`
 export const ModeIconBlue = styled.img`
   position: absolute;
   left: 0;
-  top: 22%;
+   //top: 10px;
   animation: ${change_img_animation} ease-in-out infinite 1s alternate;
   -webkit-transition: opacity 1s ease-in-out;
   -moz-transition: opacity 1s ease-in-out;

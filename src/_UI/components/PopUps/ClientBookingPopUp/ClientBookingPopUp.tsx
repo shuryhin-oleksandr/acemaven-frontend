@@ -326,6 +326,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                         new_total_paid={new_total.is_paid}
                         quotes_mode={props.quotes_mode}
                         transactions={new_total.transactions}
+                        service_fee={new_total?.charges?.service_fee ?new_total?.charges?.service_fee:null}
                     />
                 )}
             </PopupContent>

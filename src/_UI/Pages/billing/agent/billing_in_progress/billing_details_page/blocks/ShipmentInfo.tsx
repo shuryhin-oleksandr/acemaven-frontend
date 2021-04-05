@@ -23,25 +23,25 @@ const ShipmentInfo: React.FC<PropsType> = ({billing_details}) => {
         <SectionWrapper style={{marginBottom: '33px'}}>
             <SectionTitle>SHIPMENT INFO</SectionTitle>
             <ShipmentPartsRow style={{marginBottom: 0, borderBottom: "none"}}>
-                <InfoRow>
+                <InfoRow margin_right="35px">
                     <InfoRowLabel>CLIENT</InfoRowLabel>
                     <InfoRowValue>{billing_details?.client}</InfoRowValue>
                 </InfoRow>
-                <InfoRow>
+                <InfoRow margin_right="35px">
                     <InfoRowLabel>ROUTE</InfoRowLabel>
                     <InfoRowValue>{billing_details?.origin.code} - {billing_details?.destination.code}</InfoRowValue>
                 </InfoRow>
-                <InfoRow>
+                <InfoRow margin_right="35px">
                     <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
                     <InfoRowValue>{billing_details?.shipping_mode}</InfoRowValue>
                 </InfoRow>
                 {billing_details?.shipping_type === ShippingTypesEnum.SEA &&
-                <InfoRow>
+                <InfoRow margin_right="35px">
                     <InfoRowLabel>SHIP</InfoRowLabel>
                     <InfoRowValue>{billing_details?.vessel}</InfoRowValue>
                 </InfoRow>
                 }
-                <InfoRow>
+                <InfoRow margin_right="35px">
                     <InfoRowLabel>CARRIER</InfoRowLabel>
                     <InfoRowValue>{billing_details?.carrier}</InfoRowValue>
                 </InfoRow>

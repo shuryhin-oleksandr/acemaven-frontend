@@ -28,7 +28,8 @@ import {
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        paddingRight: "12px"
+        paddingRight: "12px",
+        maxHeight:300
     },
     table: {
         minWidth: 479,
@@ -42,7 +43,9 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: '1px solid #115B86',
-        padding: ' 0'
+        padding: ' 0',
+        backgroundColor: "white",
+
     },
     innerCell: {
         borderBottom: 'none',
@@ -64,11 +67,12 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
     const classes = useStyles();
 
     return (
+        <div style={{width:"100%", borderBottom:"1px solid #BDBDBD"}}>
         <HandlingSurchargeContainer style={{maxWidth: '834px'}}>
             <HandlingTitle>Handling (surcharge)</HandlingTitle>
-            <ScrollbarStyled {...{style: { height: 300 }}}>
+            {/*<ScrollbarStyled {...{style: { height: 300 }}}>*/}
                 <TableContainer className={classes.container} component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
+                    <Table stickyHeader className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell className={classes.cell}>CONTAINER TYPE</TableCell>
@@ -134,8 +138,9 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </ScrollbarStyled>
+            {/*</ScrollbarStyled>*/}
         </HandlingSurchargeContainer>
+        </div>
     )
 }
 

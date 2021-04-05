@@ -48,7 +48,7 @@ const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, 
                     <GeneralTitle>DOCUMENTS</GeneralTitle>
                     <ActionsInfoWrapper >
                         {!isHiddenDocs && <InfoBlock>
-                            <InfoRow margin_right='73px'>
+                            <InfoRow margin_right='80px'>
                                 <InfoRowLabel>RELEASE TYPE</InfoRowLabel>
                                 <InfoRowValue>{release_type.title}</InfoRowValue>
                             </InfoRow>

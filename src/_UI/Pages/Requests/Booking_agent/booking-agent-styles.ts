@@ -26,6 +26,7 @@ export const ContentHeader = styled.div`
   display: flex;
   justify-content: space-between; 
   margin-bottom: 36px;
+  padding-left: 30px;
 `
 export const ContentTitle = styled.div`
   font-family: "Helvetica Bold", sans-serif;
@@ -34,5 +35,5 @@ export const ContentTitle = styled.div`
   color: black;
 `
 export const ContentTable = styled.div`
-  
+  height: 100%;
 `

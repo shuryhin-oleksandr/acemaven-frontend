@@ -13,6 +13,7 @@ import { getFiveLatestHelper } from "../../../../../_BLL/helpers/widgets/getFive
 import moment from "moment";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
+import { useHistory } from "react-router-dom";
 
 const RackingStatusWidget: React.FC = () => {
   const classes = useStyles();
@@ -22,64 +23,80 @@ const RackingStatusWidget: React.FC = () => {
   );
 
   const latest_list = getFiveLatestHelper(list);
-
+  const history = useHistory();
   return (
     <BaseWidget heading="latest tracking Status update">
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className={classes.cell} align="left" />
-            <TableCell className={classes.cell} align="left">
-              Reservation No.
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              Route
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              Date
-            </TableCell>
-            <TableCell className={classes.cell} align="left">
-              Status
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {latest_list.map((item, idx) => (
-            <TableRow key={item.booking_number + '-' + idx}>
-              <TableCell className={classes.innerCell}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    paddingRight: 10,
-                  }}
-                >
-                  <img
-                    src={
-                      item.shipping_type === ShippingTypesEnum.SEA
-                        ? ShipIcon
-                        : PlaneIcon
-                    }
-                    alt=""
-                  />
-                </div>
+      <div style={{ maxHeight: "200px", overflow: "auto" }}>
+        <Table stickyHeader className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.cell} align="left" />
+              <TableCell className={classes.cell} align="left">
+                Reservation No.
               </TableCell>
-              <TableCell className={classes.boldCell} align="left">
-                {item.booking_number}
+              <TableCell className={classes.cell} align="left">
+                Route
               </TableCell>
-              <TableCell className={classes.innerCell} align="left">
-                {item.route}
+              <TableCell className={classes.cell} align="left">
+                Date
               </TableCell>
-              <TableCell className={classes.innerCell} align="left">
-                {moment(item.date_created.slice(6)).format("DD/MM")}
-              </TableCell>
-              <TableCell className={classes.innerCell} align="left">
-                {item.status}
+              <TableCell className={classes.cell} align="left">
+                Status
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {latest_list.map((item, idx) => (
+              <TableRow
+                key={item.booking_number + "-" + idx}
+                className={classes.row}
+                onClick={() => {
+                  history.push(`/operations/${item.booking}`);
+                }}
+              >
+                <TableCell className={classes.innerCell}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      paddingRight: 10,
+                    }}
+                  >
+                    <img
+                      src={
+                        item.shipping_type === ShippingTypesEnum.SEA
+                          ? ShipIcon
+                          : PlaneIcon
+                      }
+                      alt=""
+                    />
+                  </div>
+                </TableCell>
+                <TableCell className={classes.boldCell} align="left">
+                  {item.booking_number}
+                </TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                  {item.route}
+                </TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                  {moment(item.date_created.slice(6)).format("DD/MM")}
+                </TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                  <div
+                    style={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      maxWidth: "100px",
+                    }}
+                  >
+                    {item.status}
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </BaseWidget>
   );
 };

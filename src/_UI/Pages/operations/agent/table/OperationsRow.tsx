@@ -16,21 +16,24 @@ import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 import {ModeIcon, ModeIconBlue, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
 import {CargosOuter} from "../../../quotes/client/quotes-client-styles";
 //icons
-import sea_type from "../../../../assets/icons/rates&services/ship-surcharge.svg";
-import air_type from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-import blue_sea_type from '../../../../assets/icons/operations/blue_ship.svg';
-import blue_air_type from '../../../../assets/icons/operations/blue_plane.svg';
+import sea_type from "../../../../assets/icons/long-ship-icon-for-tables.svg";
+import air_type from "../../../../assets/icons/long-plane-icon-for-tables.svg";
+import blue_sea_type from '../../../../assets/icons/blue-long-ship-icon-for-tables.svg';
+import blue_air_type from '../../../../assets/icons/blue-long-plane-icon-for-tables.svg';
 
 
 const useStyles = makeStyles({
     root: {
         '& > *': {
             borderBottom: 'unset',
+
+
         },
         '&:hover': {
             transition: '.3s',
-            cursor: 'pointer'
-        }
+            cursor: 'pointer',
+            backgroundColor:"#E0E0E0"
+        },
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
@@ -39,8 +42,17 @@ const useStyles = makeStyles({
         width: '220px',
         color: '#1B1B25',
         position: 'relative',
+        padding: 0,
+        paddingTop:15,
+        paddingBottom:10,
         paddingLeft: '63px',
-        height: '72px'
+        height: '72px',
+        verticalAlign:"top !important"
+    },
+    empty: {
+        width: "30px",
+        padding:0,
+        borderBottom:"none"
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
@@ -49,6 +61,9 @@ const useStyles = makeStyles({
         color: '#1B1B25',
         height: '72px',
         padding: '0',
+        paddingTop:15,
+        paddingBottom:10,
+        verticalAlign:"top !important"
     },
     innerRow: {
         transition: '.3s',
@@ -106,6 +121,7 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
     return (
         <React.Fragment>
             <TableRow className={classes.root} onClick={goToPageHandler}>
+                <TableCell className={classes.empty} align="left" />
                 <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
                     {company_type?.type === AppCompaniesTypes.AGENT
                         ? (!operation?.has_change_request
@@ -119,14 +135,16 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                         : <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
                     }
 
-                    <SpanMode>{operation.aceid}</SpanMode>
+                    <div style={{fontSize:18, fontFamily: 'Helvetica Bold, sans-serif'}}>{operation.aceid}</div>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    <div>{operation.freight_rate.origin.code}</div>
-                    <div>{operation.freight_rate.destination.code}</div>
+                    <div style={{ fontSize:"24px", marginTop:"-5px", lineHeight:1.3}}>
+                        <div>{operation.freight_rate.origin.code}</div>
+                        <div>{operation.freight_rate.destination.code}</div>
+                    </div>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    <CargosOuter>
+                    <CargosOuter style={{justifyContent: "flex-start", padding:0}}>
                         {company_type?.type === AppCompaniesTypes.AGENT
                             ? operation.cargo_groups.map((c, index) => {
                                 return <span
@@ -153,7 +171,7 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                     </span>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    {operation.agent_contact_person}
+                    {operation.agent_contact_person?operation.agent_contact_person:"-"}
                 </TableCell>
             </TableRow>
         </React.Fragment>

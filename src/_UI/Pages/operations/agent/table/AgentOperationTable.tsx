@@ -20,7 +20,7 @@ import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarS
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        paddingRight: 12
+        paddingRight: 12,
     },
     shipping_cell: {
         width: '220px',
@@ -30,8 +30,14 @@ const useStyles = makeStyles({
         borderBottom: '1px solid #828282',
         paddingLeft: '63px',
         padding: '0',
-        paddingRight:"15px"
-
+        paddingRight:"15px",
+        backgroundColor:"white"
+    },
+    empty: {
+        width: "30px",
+        padding:0,
+        borderBottom:"none",
+        backgroundColor:"white"
     },
     cell: {
         color: '#115B86',
@@ -40,7 +46,8 @@ const useStyles = makeStyles({
         borderBottom: '1px solid #828282',
         width: '150px',
         padding: "0",
-        paddingRight:"15px"
+        paddingRight:"15px",
+        backgroundColor:"white"
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
@@ -92,11 +99,11 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
     const classes = useStyles();
 
     return (
-        <ScrollbarStyled {...{style: {width: "100%", height: '100%'}}}>
             <TableContainer className={classes.container} component={Paper}>
-                <Table aria-label="collapsible table">
+                <Table stickyHeader aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
+                            <TableCell className={classes.empty} align="left" />
                             <TableCell className={classes.shipping_cell} align="left">
                                 <TableCellContent setSearchValue={props.setSearchValue}
                                                   setSearchMode={props.setSearchMode}
@@ -214,7 +221,6 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </ScrollbarStyled>
     )
 }
 

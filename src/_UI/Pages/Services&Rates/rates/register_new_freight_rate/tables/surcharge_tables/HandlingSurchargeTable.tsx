@@ -33,7 +33,8 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: '1px solid #115B86',
-        padding: '16px'
+        padding: '16px',
+        backgroundColor: "white",
     },
     innerCell: {
         borderBottom: 'none',
@@ -51,7 +52,7 @@ const HandlingSurchargeTable:React.FC<PropsType> = ({containers}) => {
         <HandlingSurchargeContainer style={{maxWidth: '834px', marginRight: '50px'}}>
             <HandlingTitle>Handling</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table stickyHeader className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.cell}>CONTAINER TYPE</TableCell>

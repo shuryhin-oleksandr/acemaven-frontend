@@ -28,7 +28,7 @@ type PropsType = {
 const BillingDetailsPage: React.FC<PropsType> = ({billing_details, goBackHandler, local_time}) => {
 
 
-
+    console.log("billing_details",billing_details);
     return (
         <BillingProgressWrapper>
             <BillingProgressInner>

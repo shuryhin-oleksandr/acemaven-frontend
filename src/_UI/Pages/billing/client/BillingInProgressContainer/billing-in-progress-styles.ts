@@ -74,7 +74,7 @@ export const InfoText = styled.span`
 `;
 
 export const MainInfo = styled.div`
-min-width: 270px;
+min-width: 320px;
 `;
 
 export const Row = styled.div`

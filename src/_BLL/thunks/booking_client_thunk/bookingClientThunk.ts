@@ -8,6 +8,7 @@ import { PostBookingData } from "../../types/bookingTypes";
 import { AppStateType } from "../../store";
 import { quotesClientAPI } from "../../../_DAL/API/quotes/client/quotesClientAPI";
 import { getClientExactOperationThunk } from "../operations/client/OperationsClientThunk";
+import {profileActions} from "../../reducers/profileReducer";
 
 export const getReleaseTypeChoices = () => {
   return async (dispatch: Dispatch<commonBookingActions>) => {
@@ -37,6 +38,7 @@ export const postBooking = (data: PostBookingData, quotes_mode?: boolean) => {
       }
     } catch (e) {
       console.log(e.response);
+      dispatch(bookingActions.setServerBookingError(e.response.data.error));
     } finally {
       dispatch(bookingActions.setIsLoading(false));
     }

@@ -14,17 +14,14 @@ import TableCell from "@material-ui/core/TableCell";
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import TableBody from "@material-ui/core/TableBody";
 //types
-import {
-  BookingInfoType
-} from "../../../../../_BLL/types/bookingTypes";
+import { BookingInfoType } from "../../../../../_BLL/types/bookingTypes";
 //components
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 //styles
 import { ModeIcon } from "src/_UI/Pages/Services&Rates/surcharge/surcharges_page/surcharges-style";
 //icons
-import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
-import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-
+import ship_surcharge from "../../../../assets/icons/long-ship-icon-for-tables.svg";
+import plane_surcharge from "../../../../assets/icons/long-plane-icon-for-tables.svg";
 
 type PropsType = {
   searchValue: string;
@@ -42,7 +39,9 @@ type PropsType = {
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
-    paddingRight: 12
+    paddingRight: 12,
+    height: "600px",
+    overflowY: "auto",
   },
   table: {
     "& .MuiTableHead-root": {},
@@ -50,6 +49,7 @@ const useStyles = makeStyles({
   row: {
     "&:hover": {
       cursor: "pointer",
+      backgroundColor: "#E0E0E0",
     },
   },
   shipping_cell: {
@@ -59,6 +59,7 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #115B86",
     padding: "0",
     paddingBottom: "15px",
+    backgroundColor: "white",
   },
   cell: {
     color: "#115B86",
@@ -68,6 +69,7 @@ const useStyles = makeStyles({
     padding: "0",
     paddingBottom: "15px",
     paddingRight: "30px",
+    backgroundColor: "white",
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -78,6 +80,18 @@ const useStyles = makeStyles({
     paddingRight: "40px",
     height: "72px",
     width: "50px",
+    verticalAlign: "top !important",
+  },
+  empty: {
+    width: "30px",
+    padding: 0,
+    borderBottom: "none",
+  },
+  emptyHeader: {
+    width: "30px",
+    padding: 0,
+    borderBottom: "none",
+    backgroundColor: "white",
   },
   innerCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -87,7 +101,10 @@ const useStyles = makeStyles({
     height: "72px",
     padding: "0",
     paddingRight: "30px",
+    paddingTop: "13px",
+    paddingBottom: "10px",
     width: "170px",
+    verticalAlign: "top !important",
   },
   customTooltip: {
     maxWidth: 330,
@@ -113,7 +130,6 @@ const AgentBookingListTable: React.FC<PropsType> = ({
   bookingList,
 }) => {
   const classes = useStyles();
-
 
   const history = useHistory();
   let setCardOpen = (booking_id: number) => {
@@ -168,171 +184,182 @@ const AgentBookingListTable: React.FC<PropsType> = ({
       : null;
 
   return (
-    <ScrollbarStyled {...{
-      style: {width: "100%", height: '420px'}
-    }}>
-      <TableContainer className={classes.container} component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell className={classes.shipping_cell} align="left" />
-              <TableCell className={classes.cell} align="left">
-                  ACE ID
-              </TableCell>
-              <TableCell className={classes.cell} align="left">
-                <TableCellContent
-                  setSearchValue={setSearchValue}
-                  setSearchMode={setSearchMode}
-                  direction={directory}
-                  type={mode}
-                  column_name="shipping_mode"
-                  searchValue={searchValue}
-                  isSearchMode={isSearchMode}
-                  title="SHIPPING MODE"
-                  searchColumn={searchColumn}
-                  setSearchColumn={setSearchColumn}
-                  thunkName="agent_booking"
-                  withoutSearch={true}
+    <TableContainer className={classes.container} component={Paper}>
+      <Table stickyHeader className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell className={classes.emptyHeader} align="left" />
+            <TableCell className={classes.shipping_cell} align="left" />
+            <TableCell className={classes.cell} align="left">
+              ACE ID
+            </TableCell>
+            <TableCell className={classes.cell} align="left">
+              <TableCellContent
+                setSearchValue={setSearchValue}
+                setSearchMode={setSearchMode}
+                direction={directory}
+                type={mode}
+                column_name="shipping_mode"
+                searchValue={searchValue}
+                isSearchMode={isSearchMode}
+                title="SHIPPING MODE"
+                searchColumn={searchColumn}
+                setSearchColumn={setSearchColumn}
+                thunkName="agent_booking"
+                withoutSearch={true}
+              />
+            </TableCell>
+            <TableCell className={classes.cell} align="left">
+              <TableCellContent
+                setSearchValue={setSearchValue}
+                setSearchMode={setSearchMode}
+                direction={directory}
+                type={mode}
+                column_name="route"
+                searchValue={searchValue}
+                isSearchMode={isSearchMode}
+                title="ROUTE"
+                searchColumn={searchColumn}
+                setSearchColumn={setSearchColumn}
+                thunkName="agent_booking"
+              />
+            </TableCell>
+            <TableCell className={classes.cell} align="left">
+              <TableCellContent
+                setSearchValue={setSearchValue}
+                setSearchMode={setSearchMode}
+                direction={directory}
+                type={mode}
+                column_name="client"
+                searchValue={searchValue}
+                isSearchMode={isSearchMode}
+                title="CLIENT"
+                searchColumn={searchColumn}
+                setSearchColumn={setSearchColumn}
+                thunkName="agent_booking"
+              />
+            </TableCell>
+            <TableCell className={classes.cell} align="left">
+              <TableCellContent
+                setSearchValue={setSearchValue}
+                setSearchMode={setSearchMode}
+                direction={directory}
+                type={mode}
+                column_name="shipment_date"
+                searchValue={searchValue}
+                isSearchMode={isSearchMode}
+                title="SHIPMENT DATE"
+                searchColumn={searchColumn}
+                setSearchColumn={setSearchColumn}
+                thunkName="agent_booking"
+                withoutSearch={true}
+              />
+            </TableCell>
+            <TableCell className={classes.cell} align="left">
+              STATUS
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row) => (
+            <TableRow
+              key={row.id}
+              className={classes.row}
+              onClick={() => setCardOpen(row.id)}
+            >
+              <TableCell
+                className={classes.empty}
+                align="left"
+                component="th"
+                scope="row"
+              />
+              <TableCell
+                className={classes.innerMainCell}
+                align="left"
+                component="th"
+                scope="row"
+              >
+                <ModeIcon
+                  src={
+                    row.shipping_mode === "air"
+                      ? plane_surcharge
+                      : ship_surcharge
+                  }
+                  alt=""
                 />
               </TableCell>
-              <TableCell className={classes.cell} align="left">
-                <TableCellContent
-                  setSearchValue={setSearchValue}
-                  setSearchMode={setSearchMode}
-                  direction={directory}
-                  type={mode}
-                  column_name="route"
-                  searchValue={searchValue}
-                  isSearchMode={isSearchMode}
-                  title="ROUTE"
-                  searchColumn={searchColumn}
-                  setSearchColumn={setSearchColumn}
-                  thunkName="agent_booking"
-                />
+              <TableCell className={classes.innerCell} align="left">
+                <span
+                  style={{
+                    color: "black",
+                    fontFamily: "Helvetica Bold",
+                    fontSize: "18px",
+                  }}
+                >
+                  {row.aceid}
+                </span>
               </TableCell>
-              <TableCell className={classes.cell} align="left">
-                <TableCellContent
-                  setSearchValue={setSearchValue}
-                  setSearchMode={setSearchMode}
-                  direction={directory}
-                  type={mode}
-                  column_name="client"
-                  searchValue={searchValue}
-                  isSearchMode={isSearchMode}
-                  title="CLIENT"
-                  searchColumn={searchColumn}
-                  setSearchColumn={setSearchColumn}
-                  thunkName="agent_booking"
-                />
+              <TableCell className={classes.innerCell} align="left">
+                <span
+                  style={{
+                    color: "black",
+                    fontFamily: "Helvetica Light",
+                    fontSize: "18px",
+                  }}
+                >
+                  {row.shipping_mode}
+                </span>
               </TableCell>
-              <TableCell className={classes.cell} align="left">
-                <TableCellContent
-                  setSearchValue={setSearchValue}
-                  setSearchMode={setSearchMode}
-                  direction={directory}
-                  type={mode}
-                  column_name="shipment_date"
-                  searchValue={searchValue}
-                  isSearchMode={isSearchMode}
-                  title="SHIPMENT DATE"
-                  searchColumn={searchColumn}
-                  setSearchColumn={setSearchColumn}
-                  thunkName="agent_booking"
-                  withoutSearch={true}
-                />
+              <TableCell className={classes.innerCell} align="left">
+                <div
+                  style={{
+                    color: "black",
+                    fontFamily: "Helvetica Light, sans-serif",
+                    fontSize: "24px",
+                    marginTop: "-4px",
+                  }}
+                >
+                  {row.origin}
+                </div>
+                <div
+                  style={{
+                    color: "black",
+                    fontFamily: "Helvetica Light",
+                    fontSize: "24px",
+                  }}
+                >
+                  {row.destination}
+                </div>
               </TableCell>
-              <TableCell className={classes.cell} align="left">
-               STATUS
+              <TableCell className={classes.innerCell} align="left">
+                {row.client}
+              </TableCell>
+              <TableCell className={classes.innerCell} align="left">
+                <div>{row.date_from} -</div>
+                <div>{row.date_to}</div>
+                <div>
+                  {row.week_from === row.week_to
+                    ? `WEEK ${row.week_from}`
+                    : `WEEK ${row.week_from} - WEEK ${row.week_to}`}
+                </div>
+              </TableCell>
+              <TableCell className={classes.innerCell} align="left">
+                <span
+                  style={{
+                    color: "black",
+                    fontFamily: "Helvetica Light",
+                    fontSize: "18px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {row.status}
+                </span>
               </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows?.map((row) => (
-              <TableRow
-                key={row.id}
-                className={classes.row}
-                onClick={() => setCardOpen(row.id)}
-              >
-                <TableCell
-                  className={classes.innerMainCell}
-                  align="left"
-                  component="th"
-                  scope="row"
-                >
-                  <ModeIcon src={row.shipping_mode === 'air' ? plane_surcharge : ship_surcharge} alt="" />
-                </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  <span
-                    style={{
-                      color: "black",
-                      fontFamily: "Helvetica Bold",
-                      fontSize: "18px",
-                    }}
-                  >
-                    {row.aceid}
-                  </span>
-                </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  <span
-                    style={{
-                      color: "black",
-                      fontFamily: "Helvetica Light",
-                      fontSize: "18px",
-                    }}
-                  >
-                    {row.shipping_mode}
-                  </span>
-                </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  <div
-                    style={{
-                      color: "black",
-                      fontFamily: "Helvetica Light",
-                      fontSize: "24px",
-                    }}
-                  >
-                    {row.origin}
-                  </div>
-                  <div
-                    style={{
-                      color: "black",
-                      fontFamily: "Helvetica Light",
-                      fontSize: "24px",
-                    }}
-                  >
-                    {row.destination}
-                  </div>
-                </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  {row.client}
-                </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  <div>{row.date_from} -</div>
-                  <div>{row.date_to}</div>
-                  <div>
-                    {row.week_from === row.week_to
-                      ? `Week ${row.week_from}`
-                      : `Week ${row.week_from} - Week ${row.week_to}`}
-                  </div>
-                </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                  <span
-                    style={{
-                      color: "black",
-                      fontFamily: "Helvetica Light",
-                      fontSize: "18px",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {row.status}
-                  </span>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </ScrollbarStyled>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

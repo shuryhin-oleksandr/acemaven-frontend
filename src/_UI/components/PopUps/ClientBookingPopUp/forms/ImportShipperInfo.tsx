@@ -5,7 +5,12 @@ import {
   InputGroupName,
   BackButton,
 } from "../client-popup-styles";
-import { InputsWrapper, InputColWrapper, Notification } from "./shipper-styles";
+import {
+  InputsWrapper,
+  InputColWrapper,
+  Notification,
+  ErrorMes,
+} from "./shipper-styles";
 import BaseButton from "../../../base/BaseButton";
 import FormField from "../../../_commonComponents/Input/FormField";
 import { Controller } from "react-hook-form";
@@ -13,6 +18,7 @@ import SurchargeRateSelect from "../../../_commonComponents/select/SurchargeRate
 import { useDispatch, useSelector } from "react-redux";
 import { getPartnersThunk } from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import { AppStateType } from "../../../../../_BLL/store";
+import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
 
 type PropsType = {
   control: any;
@@ -37,7 +43,16 @@ const ImportShipperInfo: React.FC<PropsType> = ({
     dispatch(getPartnersThunk());
   }, []);
 
+  useEffect(() => {
+    return () => {
+      dispatch(bookingActions.setServerBookingError(null));
+    };
+  }, []);
+
   let partners = useSelector((state: AppStateType) => state.search.partners);
+  let server_booking_error = useSelector(
+    (state: AppStateType) => state.booking.booking_server_error
+  );
 
   const [partnerChoice, setPartnerChoice] = useState(-1);
   const disabled = partnerChoice !== -1;
@@ -75,7 +90,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
           <BackButton onClick={() => setFormStep(formStep - 1)} type="button">
             Back
           </BackButton>
-          <BaseButton type="submit">Next</BaseButton>
+          <BaseButton type="submit">BOOK</BaseButton>
         </div>
       </HeadingFormWrapper>
       <InputGroupName>Overseas shipper</InputGroupName>
@@ -168,6 +183,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
           />
         </InputColWrapper>
       </InputsWrapper>
+      {server_booking_error && <ErrorMes>{server_booking_error}</ErrorMes>}
     </>
   );
 };

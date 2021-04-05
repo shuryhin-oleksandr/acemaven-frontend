@@ -25,3 +25,10 @@ export const Notification = styled.div`
   margin-top: -10px;
   margin-bottom: 10px;
 `;
+
+export const ErrorMes = styled.div`
+  margin-bottom: 15px;
+  font-family: "Helvetica Reg", sans-serif;
+  font-size: 14px;
+  color: #e76767;
+`;

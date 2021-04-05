@@ -19,8 +19,13 @@ import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarS
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
-    height: 400,
     overflowY: "scroll",
+  },
+  empty: {
+    width: "30px",
+    padding:0,
+    borderBottom: "none",
+    backgroundColor:"white"
   },
   shipping_cell: {
     width: "220px",
@@ -30,7 +35,8 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #828282",
     paddingLeft: "63px",
     padding: "0",
-    paddingRight:"15px"
+    paddingRight: "15px",
+    backgroundColor:"white"
   },
   cell: {
     color: "#115B86",
@@ -39,8 +45,8 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #828282",
     width: "150px",
     padding: "0",
-    paddingRight:"15px"
-
+    paddingRight: "15px",
+    backgroundColor:"white"
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -83,18 +89,18 @@ type PropsType = {
   setSearchColumn: (value: string) => void;
   operations_list: OperationType[];
   my_operations?: string;
-  operation_status?: string
+  operation_status?: string;
 };
 
 const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
   const classes = useStyles();
 
   return (
-    <ScrollbarStyled {...{style: {width: "100%", height: 400}}}>
       <TableContainer className={classes.container} component={Paper}>
-        <Table aria-label="collapsible table">
+        <Table stickyHeader aria-label="collapsible table">
           <TableHead>
             <TableRow>
+              <TableCell className={classes.empty} align="left" />
               <TableCell className={classes.shipping_cell} align="left">
                 <TableCellContent
                   setSearchValue={props.setSearchValue}
@@ -226,15 +232,15 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
           </TableHead>
           <TableBody>
             {props.operations_list.map((operation, index) => (
-              <OperationsRow key={index}
-                             operation={operation}
-                             operation_status={props.operation_status}
+              <OperationsRow
+                key={index}
+                operation={operation}
+                operation_status={props.operation_status}
               />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </ScrollbarStyled>
   );
 };
 

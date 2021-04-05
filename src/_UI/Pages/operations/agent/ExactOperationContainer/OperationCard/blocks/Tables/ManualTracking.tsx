@@ -406,6 +406,7 @@ const Notification = styled.div`
   letter-spacing: 0.209px;
   color: #00c5ff;
   align-self: flex-start;
+  margin-bottom: 20px;
 `;
 
 const Wrap = styled.form`

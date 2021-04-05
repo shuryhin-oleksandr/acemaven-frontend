@@ -81,7 +81,7 @@ const BookingCard: React.FC<PropsType> = ({
                 {search_result?.freight_rate.origin.display_name} -{" "}
                 {search_result?.freight_rate.destination.display_name}
               </Direction>
-              <Carrier>*{search_result?.freight_rate.company.name}</Carrier>
+              {search_result?.freight_rate.carrier!=="disclosed"&& <Carrier>*{search_result?.freight_rate.carrier}</Carrier>}
             </DirectionWrap>
           </GeneralWrap>
           <AdditionalWrap>

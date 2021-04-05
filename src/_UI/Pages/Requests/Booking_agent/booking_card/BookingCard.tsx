@@ -30,12 +30,12 @@ import {
     GeneralBookingContent,
     GeneralShipType,
     InfoRow,
-    InfoRowLabel, InfoRowValue, ValuesShipmentWrapper,
+    InfoRowLabel, InfoRowValue, ValuesShipmentWrapper, RouteName,
 } from "./booking-card-style";
 import {GeneralTitle} from "../../../quotes/agent/table/agent-quotes-styles";
 //icons
-import sea_icon from '../../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
-import air_icon from '../../../../assets/icons/rates&services/plane-surcharge.svg'
+import sea_icon from '../../../../../_UI/assets/icons/big-ship-icon-for-general.svg'
+import air_icon from '../../../../assets/icons/big-plane-icon-for-general.svg'
 import close_icon from '../../../../assets/icons/close-icon.svg'
 
 
@@ -76,7 +76,6 @@ const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, a
                                     marginRight: '5px'
                                 }}>STATUS</span>
                                     <span style={{
-                                        fontFamily: 'Helvetica Light',
                                         fontSize: '18px',
                                         textTransform: 'lowercase'
                                     }}>
@@ -98,18 +97,18 @@ const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, a
                         <GeneralBookingInfo>
                             <GeneralTitle>GENERAL INFO</GeneralTitle>
                             <GeneralBookingContent>
-                                <GeneralShipType><img
+                                <GeneralShipType margin_top={"3px"}><img
                                     src={exact_booking_info?.shipping_type === 'sea' ? sea_icon : air_icon}
                                     alt=""/></GeneralShipType>
-                                <InfoRow margin_right='27px'>
+                                <InfoRow margin_right='28px'>
                                     <InfoRowLabel>ROUTE</InfoRowLabel>
-                                    <InfoRowValue font_size='36px'>
-                                        {exact_booking_info?.freight_rate.origin.code}
-                                        <br/> {exact_booking_info?.freight_rate.destination.code}
+                                    <InfoRowValue style={{fontFamily:"Helvetica Thin, sans-serif"}}>
+                                        <RouteName>{exact_booking_info?.freight_rate.origin.code}</RouteName>
+                                        <RouteName>{exact_booking_info?.freight_rate.destination.code}</RouteName>
                                     </InfoRowValue>
                                 </InfoRow>
                                 <ValuesShipmentWrapper>
-                                    <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
+                                    <div style={{marginRight:80, display: 'flex', flexDirection: 'column'}}>
                                         <InfoRow>
                                             <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
                                             <InfoRowValue>{exact_booking_info?.freight_rate.shipping_mode.title}</InfoRowValue>
@@ -122,7 +121,7 @@ const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, a
                                             </InfoRowValue>
                                         </InfoRow>
                                     </div>
-                                    <div style={{width: '25%', display: 'flex', flexDirection: 'column'}}>
+                                    <div style={{marginRight:80, display: 'flex', flexDirection: 'column'}}>
                                         <InfoRow>
                                             <InfoRowLabel>STATUS</InfoRowLabel>
                                             <InfoRowValue>{local_time}<br/>

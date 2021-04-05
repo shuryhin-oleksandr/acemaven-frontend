@@ -74,7 +74,7 @@ import close_icon from '../../../assets/icons/close-icon.svg'
 const useStyles = makeStyles({
     customTooltip: {
         maxWidth: 330,
-        height: 60,
+        minHeight: 60,
         fontFamily: "Helvetica Reg",
         fontSize: "14px",
         display: "flex",

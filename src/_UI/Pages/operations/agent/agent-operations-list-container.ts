@@ -32,6 +32,7 @@ export const OperationTitle = styled.div`
   font-family: "Helvetica Bold", sans-serif;
   color: black;
   font-size: 48px;
+  padding-left: 30px;
 `
 export const HideButton = styled.button<{isHide?: boolean}>`
   outline: none;

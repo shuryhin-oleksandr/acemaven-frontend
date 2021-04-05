@@ -29,6 +29,7 @@ export type BillingOperationType = {
   shipping_mode: string;
   payment_due_by: string;
   status: string;
+  operation_status:string;
   carrier: string;
   charges: ChargeCalculationType;
   vessel: string;

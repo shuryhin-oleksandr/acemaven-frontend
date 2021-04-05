@@ -39,24 +39,28 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        paddingRight: 12
+        paddingRight: 12,
+        maxHeight:600
     },
     shipping_cell: {
-        width: '220px',
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
-        borderBottom: '1px solid #828282',
+        borderBottom: "1px solid #115B86",
         paddingLeft: '63px',
-        padding: '0'
+        padding: '0',
+        paddingBottom: 15,
+        backgroundColor: "white",
     },
     cell: {
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
-        borderBottom: '1px solid #828282',
-        width: '150px',
-        padding: '0'
+        borderBottom: "1px solid #115B86",
+        padding: '0',
+        paddingRight: "10px",
+        paddingBottom: 15,
+        backgroundColor: "white",
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
@@ -86,6 +90,17 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         padding: '15px'
     },
+    empty: {
+        width: "30px",
+        padding:0,
+        borderBottom: "none",
+    },
+    emptyHeader: {
+        width: "30px",
+        padding:0,
+        borderBottom: "none",
+        backgroundColor: "white",
+    },
 });
 
 const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearchValue, mode, setMode, search_column,
@@ -108,11 +123,12 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
             </QuotesTableHeader>
             {agent_quotes_list.length === 0
                 ? <NoQuotesCard text={"There are no active quotes at the moment."}/>
-                : <ScrollbarStyled {...{style: {height: 400}}}>
+                :
                     <TableContainer className={classes.container} component={Paper}>
-                        <Table aria-label="collapsible table">
+                        <Table stickyHeader aria-label="collapsible table">
                             <TableHead>
                                 <TableRow>
+                                    <TableCell className={classes.emptyHeader} align="left" />
                                     <TableCell className={classes.shipping_cell} align="left">
                                         <TableCellContent setSearchValue={setSearchValue}
                                                           setSearchMode={setSearchMode}
@@ -155,7 +171,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                                           thunkName='quotes_agent'
                                         />
                                     </TableCell>
-                                    <TableCell className={classes.cell} align="center">
+                                    <TableCell className={classes.cell} align="left">
                                         VOLUME
                                     </TableCell>
                                     <TableCell className={classes.cell} align="left">
@@ -173,7 +189,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
 
                         </Table>
                     </TableContainer>
-                </ScrollbarStyled>
+
             }
         </QuotesTableContainer>
     )

@@ -69,7 +69,7 @@ export const FieldsWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  margin-right: 50px;
+  margin-right: 40px;
 `;
 export const FieldOuter = styled.div`
   width: 100%;
@@ -77,20 +77,21 @@ export const FieldOuter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom:13px;
 `;
 export const Label = styled.div`
   text-transform: uppercase;
   color: #115b86;
   font-family: "Helvetica Bold", sans-serif;
   font-size: 14px;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 `;
 
 export const RouteName = styled.div`
   font-family: "Helvetica Thin", sans-serif;
   font-size: 38px;
   color: #000000;
+  line-height: 1;
 `;
 
 export const Content = styled.div<PropsStyle>`
@@ -98,4 +99,5 @@ export const Content = styled.div<PropsStyle>`
   font-family: "Helvetica Light", sans-serif;
   font-size: 18px;
   text-transform: capitalize;
+  line-height: 1;
 `;

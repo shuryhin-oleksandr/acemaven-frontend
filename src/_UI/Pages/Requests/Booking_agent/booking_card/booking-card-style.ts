@@ -160,13 +160,13 @@ export const FormOperationButton = styled.button`
   }
 `
 export const GeneralShipType = styled.div<{margin_top?: string}>`
-  width: 99px;
-  height: 99px;
-  margin-right: 15px;
+  //width: 99px;
+  //height: 99px;
+  margin-right: 30px;
   margin-top: ${({margin_top}) => margin_top ? margin_top : '-5px' };
   img {
-    width: 100%;
-    height: 100%;
+    //width: 100%;
+    //height: 100%;
   }
 `
 export const InfoRow = styled.div<{margin_right?: string, margin_bottom?: string}>`
@@ -225,3 +225,9 @@ export const AgentBankValue = styled.div`
   font-size: 14px;
   text-transform: capitalize;
 `
+export const RouteName = styled.div`
+  font-family: "Helvetica Thin", sans-serif;
+  font-size: 38px;
+  color: #000000;
+  line-height: 1;
+`;

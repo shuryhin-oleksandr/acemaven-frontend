@@ -53,6 +53,10 @@ const ShipperInfoContainer: React.FC<PropsType> = ({
     (state: AppStateType) => state.booking.isFetching
   );
 
+  let server_booking_error = useSelector(
+      (state: AppStateType) => state.booking.booking_server_error
+  );
+
   let freight_rate_id = useSelector(
     (state: AppStateType) => state.booking.current_booking_freight_rate_id
   );

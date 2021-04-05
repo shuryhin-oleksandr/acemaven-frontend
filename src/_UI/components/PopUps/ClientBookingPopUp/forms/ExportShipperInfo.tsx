@@ -8,6 +8,7 @@ import {
   InputsWrapper,
   InputColWrapper,
   IsShipperWrapper,
+  ErrorMes,
 } from "./shipper-styles";
 import SearchCheckbox from "../../../_commonComponents/customCheckbox/searchCheckbox";
 import React, { useEffect, useState } from "react";
@@ -15,8 +16,9 @@ import BaseButton from "../../../base/BaseButton";
 import FormField from "../../../_commonComponents/Input/FormField";
 import { CompanyInfoType } from "../../../../../_BLL/types/profileSettingsType";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType } from "../../../../../_BLL/store";
+import {bookingActions} from "../../../../../_BLL/reducers/booking/bookingReducer";
 
 type PropsType = {
   control: any;
@@ -41,6 +43,16 @@ const ExportShipperInfo: React.FC<PropsType> = ({
 }) => {
   const dispatch = useDispatch();
   const [isCheck, setIsCheck] = useState(true);
+
+  let server_booking_error = useSelector(
+    (state: AppStateType) => state.booking.booking_server_error
+  );
+
+  useEffect(()=>{
+    return ()=>{
+      dispatch(bookingActions.setServerBookingError(null))
+    }
+  },[])
 
   useEffect(() => {
     if (isCheck) {
@@ -79,7 +91,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             //   dispatch(bookingActions.changeBookingStep("fee-table"));
             // }}
           >
-            Next
+            BOOK
           </BaseButton>
         </div>
       </HeadingFormWrapper>
@@ -178,6 +190,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           />
         </InputColWrapper>
       </InputsWrapper>
+      {server_booking_error && <ErrorMes>{server_booking_error}</ErrorMes>}
     </>
   );
 };

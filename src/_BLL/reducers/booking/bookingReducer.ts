@@ -20,6 +20,7 @@ const initialState = {
   current_booking_freight_rate: null as SearchResultType | null,
   recalculated_cost: null as any | null,
   booking_dates_error: null as string | null,
+  booking_server_error: null as string | null,
 };
 
 type InitialStateType = typeof initialState;
@@ -79,6 +80,11 @@ export const bookingReducer = (
         ...state,
         booking_dates_error: action.error,
       };
+    case "SET_SERVER_BOOKING_ERROR":
+      return {
+        ...state,
+        booking_server_error: action.error,
+      };
     default:
       return state;
   }
@@ -123,4 +129,6 @@ export const bookingActions = {
     ({ type: "SET_RECALCULATED_COST", new_total } as const),
   setChangeBookingError: (error: string | null) =>
     ({ type: "SET_BOOKING_ERROR", error } as const),
+  setServerBookingError: (error: string | null) =>
+    ({ type: "SET_SERVER_BOOKING_ERROR", error } as const),
 };

@@ -105,7 +105,7 @@ const OperationsInProgressWidget: React.FC = () => {
                     <TableCell className={classes.innerCell} align="left">
                       <div
                         style={{
-                          overflow: "auto",
+                          overflow: "hidden",
                           textOverflow: "ellipsis",
                           maxWidth: "100px",
                         }}

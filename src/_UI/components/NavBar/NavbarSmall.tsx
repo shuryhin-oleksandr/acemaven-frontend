@@ -133,7 +133,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name='PROFILE & SETTINGS'
+                              name='PROFILE'
 
                     />
                     <MenuLink icon={support}
@@ -141,7 +141,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name='HELP AND SUPPORT'
+                              name='HELP'
 
                     />
                 </NavSmallContainer>

@@ -68,7 +68,7 @@ export const ChatExtension = styled.div`
   width: 200px;
   background-color: #3b3b41;
   color: white;
-  padding-top: 45px;
+  padding-top: 50px;
   font-family: "Helvetica Reg", sans-serif;
   font-size: 15px;
   line-height: 17.2px;
@@ -117,23 +117,22 @@ export const NavButton = styled.button<{ add_color?: boolean }>`
 `;
 
 export const LinkWrap = styled.div`
+padding: 20px 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 60px;
+  //min-height: 60px;
   &:hover {
     cursor: pointer;
   }
 `;
 export const Outer = styled.div`
   width: 100%;
-  height: 100%;
   text-decoration: none;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
 `;
 
 export const Name = styled.div<PropsStyles>`
@@ -148,7 +147,6 @@ export const Name = styled.div<PropsStyles>`
 `;
 export const IconWrap = styled.div`
   width: 50px;
-  //margin-right: 10px;
   display: flex;
   padding: 0 20px 0 10px;
   align-items: center;
@@ -165,9 +163,13 @@ export const NestedWrap = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  min-height: 40px;
+  min-height: 45px;
+  
+    &:first-child {
+    margin-top: 15px;
+  }
   &:last-child {
-    margin-bottom: 10px;
+    margin-bottom: -15px;
   }
 
   a {

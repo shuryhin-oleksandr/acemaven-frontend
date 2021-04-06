@@ -1,7 +1,7 @@
 {
   "Register": {
     "searchTitle": "Search Rates",
-    "Register": "Register",
+    "Register": "Sign up request",
     "Client": "Client",
     "Agent": "Agent",
     "Company Name": "Company Name",
@@ -14,7 +14,7 @@
     "Tax ID No.": "Tax ID No.",
     "No. Of Employees": "No. Of Employees",
     "Website": "Website",
-    "Contact person info": "Contact person info",
+    "Contact person info": "Contact info",
     "Name": "Name",
     "Last Name": "Last Name",
     "Position in the Company": "Position in the Company",
@@ -37,7 +37,7 @@
     "Branch No.": "Branch No.",
     "Account No.": "Account No.",
     "Tax ID No.": "Is missing in this form",
-    "Fullfill the form at the right": "Complete the fields on the left",
+    "Full fill the form at the right": "Complete the fields on the left",
     "Set as default": "Set as default",
     "You have completed all the fields.": "You have completed all the steps. Thank you!",
     "Got it!": "Got it!"
@@ -51,6 +51,7 @@
     "COMPLETE ACCOUNT": "FINISH"
   },
   "Dashboard": {
+    "Dashboard": "Dashboard",
     "Operations in progress": "Latest Updates",
     "Booking No.": "Booking No.",
     "Route": "Route",
@@ -70,11 +71,9 @@
     "SEARCH": "GO",
     "PENDING OF BOOKING FEE PAYMENT": "PENDING OF BOOKING FEE PAYMENT",
     "Reservation No.": "ACEID",
-    "Date": "Date",
     "Status": "doesn’t go here",
     "LATEST TRACKING UPDATES": "LATEST TRACKING UPDATES",
     "LATEST TRACKING STATUS UPDATES": "LATEST SHIPMENT UPDATES",
-    "Hide Widgets": "Hide Widgets",
     "Please enter the details of your cargo": "Please enter the details of your cargo",
     "Packaging type": "Packaging type",
     "No. of packs": "No. of packs",
@@ -101,8 +100,8 @@
     "REQUESTS": "REQUESTS",
     "BOOKINGS": "BOOKINGS",
     "QUOTES": "QUOTES",
-    "OPERATIONS": "IN PROGRESS",
-    "ACTIVE": "ACTIVE",
+    "OPERATIONS": "OPERATIONS",
+    "ACTIVE": "IN PROGRESS",
     "Mine": "Mine",
     "All": "All",
     "Sea": "Sea",
@@ -134,7 +133,7 @@
     "STATUS": "STATUS"
   },
   "Bookings": {
-    "Bookings": "Booking",
+    "Booking": "Booking",
     "STATUS": "STATUS",
     "ACCEPT": "ACCEPT",
     "REJECT": "REJECT",
@@ -183,12 +182,16 @@
     "SHIPMENT DATE": "SHIPMENT DATE",
     "SUBMIT QUOTE": "SUBMIT QUOTE",
     "SUBMITTED": "SUBMITTED",
-    "WITHDRAW OFFER": "WITHDRAW OFFER"
+    "WITHDRAW OFFER": "WITHDRAW OFFER",
+    "Active": "Active",
+    "Pause": "Pause",
+    "OFFER NO.": "OFFER NO."
   },
   "Quote bid screen": {
     "CARRIER": "CARRIER",
     "EXPIRATION DATE": "EXPIRATION DATE",
     "FRATE RATES": "FREIGHT RATES",
+    "CONTAINER TYPE": "CONTAINER TYPE",
     "CURRENCY": "CURRENCY",
     "HANDLING": "HANDLING",
     "ADDITIONAL SURCHARGES": "ADDITIONAL SURCHARGES",
@@ -220,7 +223,6 @@
   },
   "Operations": {
     "Operations": "Operations",
-    "Translations most of the Operation labels can be located in Bookings ": "Translations most of the Operation labels can be located in Bookings ",
     "SHIPMENT TRACKING": "SHIPMENT TRACKING",
     "COMMENTS": "COMMENTS",
     "STATUS": "STATUS",
@@ -237,16 +239,7 @@
     "CONFIRM BOOKING": "CONFIRM BOOKING",
     "MAKE CHANGE": "UPDATE SHIPMENT",
     "CANCEL OPERATION": "CANCEL OPERATION",
-    "COMPLETE OPERATION": "SET AS COMPLETE",
-    "CARRIER": "CARRIER",
-    "CURRENCY": "CURRENCY",
-    "HANDLING": "HANDLING",
-    "CHARGE": "CHARGE",
-    "CONDITION": "CONDITION",
-    "SEND": "SEND",
-    "CANCEL": "CANCEL",
-    "SALVAR": "SALVAR",
-    "NO": "NO"
+    "COMPLETE OPERATION": "SET AS COMPLETE"
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirm Shipment Completion",
@@ -277,10 +270,9 @@
     "Default bank": "Default account"
   },
   "User Management": {
+    "User Management": "User Management",
     "Add new": "Add new",
-    "Are you sure you want to edit user info?": "Are you sure you want to edit user info?",
-    "CANCEL": "CANCEL",
-    "CANCEL": "CANCEL"
+    "Are you sure you want to edit user info?": "Are you sure you want to edit user info?"
   },
   "Billing": {
     "Exchange Rate": "Exchange Rate",
@@ -295,7 +287,9 @@
     "PAY DUE": "PAY DUE",
     "SHIP": "VESSEL",
     "Billing Completed": "Billing Completed",
-    "Time Range": "Time Range"
+    "Time Range": "Time Range",
+    "PAY": "PAY",
+    "CANCEL BOOKING": "CANCEL BOOKING"
   },
   "Surcharges": {
     "Surcharges": "Surcharges",
@@ -315,8 +309,13 @@
     "OTHER SURCHARGES": "OTHER SURCHARGES",
     "DANGEROUS CARGO FEE": "DANGEROUS CARGO FEE",
     "Wanna save the last changes?": "Save your last changes?",
-    "SAVE CHANGES": "YES",
-    "CANCEL": "NO",
+    "YES": "YES",
+    "NO": "NO",
+    "CONDITION": "CONDITION",
+    "COLD CARGO FEE": "COLD CARGO FEE",
+    "There is already the surcharge for these dates. Do you want to create new or change existed?": "It already exists a surchage for these dates. Do you want to created a new one or change the existing one?",,
+    "SAVE CHANGES": "SAVE CHANGES",
+    "CANCEL": "CANCEL",
     "The time range is overlapping with existed surcharge": "This time range overlaps an existing surcharge",
     "w/m": "w/m",
     " this option will indicate that the charge will be calculated by the chargeable weight(w/m) of the cargo": "this option indicated that this cost will be calculated by the chargeable weight (w/m) of the cargo",
@@ -328,6 +327,7 @@
     "this means that the value indicated will be considered once in the shipment": "this cost will be billed once per shipment"
   },
   "Freight rates": {
+    "Freight rates": "Freight rates",
     "ACTIONS": "ACTIONS",
     "Rates can be paused or reactivated using this button": "Rates can be paused or reactivated using this button",
     "Use this registry as a template for a new rate": "Use this registry as a template for a new rate",
@@ -339,22 +339,7 @@
   "Help and Support": {
     "Help and Support": "Help and Support",
     "Topic": "Topic",
-    "POST": "POST",
-    "PROCEED": "PROCEED",
-    "CHARGES": "CHARGES",
-    "SHIP": "VESSEL",
-    "CURRENCIES": "CURRENCIES",
-    "SPREAD": "SPREAD",
-    "DATE": "DATE",
-    "PROCEED": "PROCEED",
-    "CHARGES": "CHARGES",
-    "SHIP": "VESSEL",
-    "CURRENCIES": "CURRENCIES",
-    "SPREAD": "SPREAD",
-    "DATE": "DATE",
-    "PROCEED": "PROCEED",
-    "CHARGES": "CHARGES",
-    "SHIP": "VESSEL"
+    "POST": "POST"
   },
   "Booking process": {
     "Booking process": "Booking request steps",
@@ -373,13 +358,9 @@
     "CONFIRM AND SEND": "CONFIRM AND SEND"
   },
   "Company profile": {
+    "Company profile": "Company profile",
     "Rating": "Rating",
     "Reviews": "Reviews"
-  },
-  "Quotes": {
-    "Active": "Active",
-    "Pause": "Pause",
-    "OFFER NO.": "OFFER NO."
   },
   "Reviews": {
     "Reviews": "Reviews",
@@ -392,6 +373,7 @@
     "Partner companies for shipments": "Partner companies for shipments"
   },
   "Email notifications": {
+    "Email notifications": "Email notifications",
     "Sea Import Shipment Arrival Alert": "Sea Import Shipment Arrival Alert",
     "Will alert you a specific number of days before the Estimated Time of Arrival of an import shipment.": "Will alert you a specific number of days before the Estimated Time of Arrival of an import shipment.",
     "Export Shipment Arrival Alert": "Export Shipment Arrival Alert",
@@ -407,10 +389,7 @@
     "Topic": "Topic",
     "Describe your problem": "Describe your problem"
   },
-
-  "Billing": {
-    "PAY": "PAY",
-    "CANCEL BOOKING": "CANCEL BOOKING",
+  "Statuses": {
     "Booking Fee Pending": "Booking Fee Pending",
     "Booking Request Received": "Booking Request Received",
     "Booking Request in Progress": "Booking Request in Progress",
@@ -422,5 +401,9 @@
     "Shipment in progress": "Shipment in progress",
     "Payment due by ": "Payment due",
     "Operation Complete": "Operation Complete"
+  },
+  "Role": {
+    "Client": "Client",
+    "Agent": "Agent"
   }
 }

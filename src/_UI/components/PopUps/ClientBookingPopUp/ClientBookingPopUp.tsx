@@ -269,76 +269,112 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               </TableContainer>
             </HiddenTable>
             <TableTotal>
-              <TotalLine>
-                <TotalName>
-                  TOTAL FREIGHT in{" "}
-                  {new_total?.charges?.total_freight_rate?.BRL >= 0
-                    ? "BRL"
-                    : "USD"}
-                </TotalName>
-                <TotalValue>
-                  {new_total?.charges?.total_freight_rate?.BRL >= 0
-                    ? new_total?.charges?.total_freight_rate?.BRL
-                    : new_total?.charges?.total_freight_rate?.USD}
-                </TotalValue>
-              </TotalLine>
-              {new_total?.charges?.total_surcharge?.BRL && (
-                <TotalLine>
-                  <TotalName>CHARGES IN BRL</TotalName>
-                  <TotalValue>
-                    {new_total?.charges?.total_surcharge?.BRL}
-                  </TotalValue>
-                </TotalLine>
-              )}
-              {new_total?.charges?.total_surcharge?.USD && (
-                <TotalLine>
-                  <TotalName>CHARGES IN USD</TotalName>
-                  <TotalValue>
-                    {new_total?.charges?.total_surcharge?.USD}
-                  </TotalValue>
-                </TotalLine>
-              )}
               {new_total?.charges?.totals && (
                 <>
                   {new_total?.charges?.totals?.USD && (
                     <TotalLine>
-                      <TotalName>TOTALS IN USD</TotalName>
+                      <TotalName>CHARGES IN USD:</TotalName>
                       <TotalValue>{new_total?.charges?.totals?.USD}</TotalValue>
                     </TotalLine>
                   )}
                   {new_total?.charges?.totals?.EUR && (
                     <TotalLine>
-                      <TotalName>TOTALS IN EUR</TotalName>
+                      <TotalName>CHARGES IN EUR:</TotalName>
                       <TotalValue>{new_total?.charges?.totals?.EUR}</TotalValue>
                     </TotalLine>
                   )}
                   {new_total?.charges?.totals?.BRL && (
                     <TotalLine>
-                      <TotalName>TOTALS IN BRL</TotalName>
+                      <TotalName>CHARGES IN BRL:</TotalName>
                       <TotalValue>{new_total?.charges?.totals?.BRL}</TotalValue>
                     </TotalLine>
                   )}
                 </>
               )}
-              <TotalLine>
-                <TotalName>
-                  ACEMAVEN SERVICE FEE: IN{" "}
-                  {new_total?.charges?.service_fee?.currency === "BRL"
-                    ? "BRL"
-                    : "USD"}
-                </TotalName>
-                <TotalValue>
-                  {new_total?.charges?.service_fee?.subtotal}
-                </TotalValue>
-              </TotalLine>
-              <TotalLine>
-                <TotalName>
-                  TO BOOK IN {new_total?.charges?.pay_to_book?.currency}
-                </TotalName>
-                <TotalValue>
-                  {new_total?.charges?.pay_to_book?.pay_to_book}
-                </TotalValue>
-              </TotalLine>
+
+              {new_total?.charges?.pay_to_book && (
+                <TotalLine>
+                  <TotalName>
+                    BOOKING FEE IN{" "}
+                    {new_total?.charges?.pay_to_book?.currency === "BRL"
+                      ? "BRL"
+                      : "USD"}
+                    :
+                  </TotalName>
+                  <TotalValue>
+                    {new_total?.charges?.pay_to_book?.booking_fee}
+                  </TotalValue>
+                </TotalLine>
+              )}
+              {new_total?.charges?.service_fee && (
+                <TotalLine>
+                  <TotalName>
+                    ACEMAVEN SERVICE FEE IN{" "}
+                    {new_total?.charges?.service_fee?.currency === "BRL"
+                      ? "BRL"
+                      : "USD"}
+                    :
+                  </TotalName>
+                  <TotalValue>
+                    {new_total?.charges?.service_fee?.subtotal}
+                  </TotalValue>
+                </TotalLine>
+              )}
+
+              {new_total?.charges?.exchange_rates?.USD && (
+                <TotalLine>
+                  <TotalName>ACEMAVEN USD EXCHANGE RATE:</TotalName>
+                  <TotalValue>
+                    {new_total?.charges?.exchange_rates?.USD}
+                  </TotalValue>
+                </TotalLine>
+              )}
+              {new_total?.charges?.exchange_rates?.EUR && (
+                <TotalLine>
+                  <TotalName>ACEMAVEN EUR EXCHANGE RATE:</TotalName>
+                  <TotalValue>
+                    {new_total?.charges?.exchange_rates?.EUR}
+                  </TotalValue>
+                </TotalLine>
+              )}
+              {new_total?.charges?.pay_to_book && (
+                <TotalLine>
+                  <TotalName>
+                    TO BOOK IN {new_total?.charges?.pay_to_book?.currency}:
+                  </TotalName>
+                  <TotalValue>
+                    {new_total?.charges?.pay_to_book?.pay_to_book}
+                  </TotalValue>
+                </TotalLine>
+              )}
+              {new_total?.charges?.totals_pure && (
+                <>
+                  {new_total?.charges?.totals_pure?.USD && (
+                    <TotalLine>
+                      <TotalName>TOTAL CHARGES IN USD:</TotalName>
+                      <TotalValue>
+                        {new_total?.charges?.totals_pure?.USD}
+                      </TotalValue>
+                    </TotalLine>
+                  )}
+                  {new_total?.charges?.totals_pure?.EUR && (
+                    <TotalLine>
+                      <TotalName>TOTAL CHARGES IN EUR:</TotalName>
+                      <TotalValue>
+                        {new_total?.charges?.totals_pure?.EUR}
+                      </TotalValue>
+                    </TotalLine>
+                  )}
+                  {new_total?.charges?.totals_pure?.BRL && (
+                    <TotalLine>
+                      <TotalName>TOTAL CHARGES IN BRL:</TotalName>
+                      <TotalValue>
+                        {new_total?.charges?.totals_pure?.BRL}
+                      </TotalValue>
+                    </TotalLine>
+                  )}
+                </>
+              )}
             </TableTotal>
           </HiddenWrapper>
         )}

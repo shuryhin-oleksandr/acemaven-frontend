@@ -123,7 +123,7 @@ const BookingCard: React.FC<PropsType> = ({
           <CalculationLine>
             <CalcName>
               Total Freight in{" "}
-              {search_result?.total_freight_rate.USD ? "BRL" : "USD"} :
+              {search_result?.total_freight_rate.USD ? "USD" : "BRL"} :
             </CalcName>
             <CalcValue>
               {search_result?.total_freight_rate.USD

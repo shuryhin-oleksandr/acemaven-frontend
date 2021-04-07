@@ -185,35 +185,19 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                         </HiddenTable>
                         <TableTotal>
                             <TotalLine>
-                                <TotalName>
-                                    TOTAL FREIGHT IN {search_result?.total_freight_rate.USD
-                                    ? "BRL"
-                                    : "USD" }
-                                </TotalName>
-                                <TotalValue>
-                                    {search_result.total_freight_rate.USD
-                                        ? search_result.total_freight_rate.USD
-                                        : search_result.total_freight_rate.BRL}
-                                </TotalValue>
-                            </TotalLine>
-                            <TotalLine>
-                                <TotalName>
-                                    CHARGES IN {search_result?.total_surcharge.BRL
+                                <TotalName style={{fontFamily:"Helvetica Reg, sans-serif"}}>
+                                    CHARGES IN {search_result?.totals.BRL
                                     ? "BRL"
                                     : "USD"
                                 }
                                 </TotalName>
-                                <TotalValue>
-                                    {search_result.total_surcharge.BRL
-                                        ? search_result.total_surcharge.BRL
-                                        : search_result.total_surcharge.USD
+                                <TotalValue style={{fontFamily:"Helvetica Reg, sans-serif"}}>
+                                    {search_result.totals.BRL
+                                        ? search_result.totals.BRL
+                                        : search_result.totals.USD
                                     }
                                 </TotalValue>
                             </TotalLine>
-                            {search_result.service_fee &&  <TotalLine>
-                                <TotalName>ACEMAVEN SERVICE FEE: IN {search_result.service_fee?.currency}</TotalName>
-                                <TotalValue>{search_result.service_fee?.cost}</TotalValue>
-                            </TotalLine>}
                         </TableTotal>
                     </HiddenWrapper>}
                 </CardInner>

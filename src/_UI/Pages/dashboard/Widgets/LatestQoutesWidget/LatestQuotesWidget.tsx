@@ -26,6 +26,7 @@ import {BookLittleButton} from "../../../quotes/client/quotes-client-styles";
 //icons
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -54,24 +55,24 @@ const LatestQuotesWidget: React.FC = () => {
     let goToClientsQuotes = ( ) => {
         history.push(`/quotes`)
     }
-
+const {t} = useTranslation() ;
 
     return (
         <>
             {latest_list.length > 0 && latest_list[0] ?
-                <BaseWidget heading={company_type?.type === AppCompaniesTypes.CLIENT ? "latest quotes received" : "QUOTES"}>
+                <BaseWidget heading={company_type?.type === AppCompaniesTypes.CLIENT ? t("Dashboard/latest quotes received") : t("Dashboard Menu/QUOTES") }>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell className={classes.cell} align="left"/>
                                 <TableCell className={classes.cell} align="left">
-                                    Route
+                                    {t("Dashboard/Route")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    Volume
+                                    {t("Dashboard/Volume")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    Departure Date
+                                    {t("Dashboard/Departure Date")}
                                 </TableCell>
                             </TableRow>
                         </TableHead>

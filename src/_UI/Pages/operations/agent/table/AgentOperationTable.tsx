@@ -15,6 +15,7 @@ import {OperationType} from "../../../../../_BLL/types/operations/operationsType
 import TableCellContent from "../../../../components/_commonComponents/tables/TableCellContent";
 import OperationsRow from "./OperationsRow";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -97,7 +98,7 @@ type PropsType = {
 const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
 
     const classes = useStyles();
-
+const {t} = useTranslation();
     return (
             <TableContainer className={classes.container} component={Paper}>
                 <Table stickyHeader aria-label="collapsible table">
@@ -128,7 +129,7 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                                   column_name='route'
                                                   searchValue={props.searchValue}
                                                   isSearchMode={props.isSearchMode}
-                                                  title='ROUTE'
+                                                  title={t("Bookings/ROUTE")}
                                                   searchColumn={props.search_column}
                                                   setSearchColumn={props.setSearchColumn}
                                                   withoutSearch={true}
@@ -138,7 +139,7 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                 />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                VOLUME
+                                {t("Bookings/VOLUME")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
                                 {/*<TableCellContent setSearchValue={props.setSearchValue}
@@ -156,7 +157,7 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                                   //search should be done at backend later
                                                   withoutSearch={true}
                                 />*/}
-                                DATES
+                                {t("Bookings/DATES")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
                                 <TableCellContent setSearchValue={props.setSearchValue}
@@ -166,7 +167,7 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                                   column_name='carrier'
                                                   searchValue={props.searchValue}
                                                   isSearchMode={props.isSearchMode}
-                                                  title='CARRIER'
+                                                  title={t("Quote bid screen/CARRIER")}
                                                   searchColumn={props.search_column}
                                                   setSearchColumn={props.setSearchColumn}
                                                   thunkName='operations'
@@ -182,7 +183,7 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                                   column_name='status'
                                                   searchValue={props.searchValue}
                                                   isSearchMode={props.isSearchMode}
-                                                  title='STATUS'
+                                                  title={t("Operations/STATUS")}
                                                   searchColumn={props.search_column}
                                                   setSearchColumn={props.setSearchColumn}
                                                   withoutSearch={true}
@@ -202,7 +203,7 @@ const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
                                               column_name='agent'
                                               searchValue={props.searchValue}
                                               isSearchMode={props.isSearchMode}
-                                              title='AGENT'
+                                              title={t("Role/AGENT")}
                                               searchColumn={props.search_column}
                                               setSearchColumn={props.setSearchColumn}
                                               withoutSearch={true}

@@ -42,6 +42,7 @@ import {
 } from "../../../Pages/dashboard/search/search_rate_card/search-card-styles";
 //icons
 import close from "../../../assets/icons/close-icon.svg";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -140,11 +141,11 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
         setWidgetsVisible && setWidgetsVisible(true);
         props.quotes_mode && dispatch(quotesClientActions.setFutureArchiveQuoteId(0))
     }
-
+const {t} = useTranslation();
     return (
         <PopupContainer>
             <PopupContent>
-                <Heading>Booking process</Heading>
+                <Heading>{t("Booking process/Booking process")}</Heading>
                 <IconButton style={{position: 'absolute', top: '21px', right: '21px'}}
                             onClick={closePopupHandler}
                 >

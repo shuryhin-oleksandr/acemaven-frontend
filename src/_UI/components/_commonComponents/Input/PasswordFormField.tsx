@@ -3,6 +3,7 @@ import FormField from "./FormField";
 import eye from "../../../assets/icons/mdi_eye.svg";
 import closeIcon from "../../../assets/icons/mdi_eye-off.svg";
 import styled from "styled-components";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     placeholder?: string,
@@ -22,11 +23,11 @@ type PropsType = {
 const PasswordFormField:React.FC<PropsType> = ({errors, label, name, register, ...props}) => {
     return (
         <PasswordWrapper>
-            <FormField label='Password'
+            <FormField label={label}
                        inputRef={register({
                            required: 'Field is required'
                        })}
-                       placeholder='Password'
+                       placeholder={props.placeholder}
                        name={name}
                        error={errors?.password}
                        type={props.showPassword ? 'text' : 'password'}

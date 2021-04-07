@@ -14,6 +14,7 @@ import moment from "moment";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 import { useHistory } from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const RackingStatusWidget: React.FC = () => {
   const classes = useStyles();
@@ -24,24 +25,25 @@ const RackingStatusWidget: React.FC = () => {
 
   const latest_list = getFiveLatestHelper(list);
   const history = useHistory();
+  const {t} = useTranslation();
   return (
-    <BaseWidget heading="latest tracking Status update">
+    <BaseWidget heading={t("Dashboard/latest tracking Status update")}>
       <div style={{ maxHeight: "200px", overflow: "auto" }}>
         <Table stickyHeader className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell className={classes.cell} align="left" />
               <TableCell className={classes.cell} align="left">
-                Reservation No.
+                {t("Dashboard/Reservation No.")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                Route
+                {t("Dashboard/Route")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                Date
+                {t("Dashboard/Date")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                Status
+                {t("Dashboard/Status")}
               </TableCell>
             </TableRow>
           </TableHead>

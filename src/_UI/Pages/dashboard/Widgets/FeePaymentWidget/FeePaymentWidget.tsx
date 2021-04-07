@@ -24,6 +24,7 @@ import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 import { useHistory } from "react-router-dom";
 import { AppUserRolesType } from "../../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 const FeePaymentWidget: React.FC = () => {
   //hooks
@@ -48,25 +49,26 @@ const FeePaymentWidget: React.FC = () => {
   let billing_admin_role =
     current_user_role?.includes(AppUserRolesType.BILLING) ||
     current_user_role?.includes(AppUserRolesType.MASTER);
+  const { t } = useTranslation();
 
   return billing_list.length > 0 ? (
-    <BaseWidget heading="pending of Booking Fee payment">
+    <BaseWidget heading={t("Dashboard/PENDING OF BOOKING FEE PAYMENT")}>
       <div style={{ maxHeight: "300px", overflow: "auto" }}>
         <Table stickyHeader className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell className={classes.cell} align="left" />
               <TableCell className={classes.cell} align="left">
-                Reservation No.
+                {t("Dashboard/Reservation No.")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                Route
+                {t("Dashboard/Route")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                Date
+                {t("Dashboard/Date")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                Status
+                {t("Dashboard/Status")}
               </TableCell>
             </TableRow>
           </TableHead>

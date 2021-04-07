@@ -388,7 +388,7 @@ const Search: React.FC<PropsType> = ({
   return (
     <RelativeWrapper>
       <Container scroll={watchFieldArray.length > 3}>
-        <Heading>{t("sign_in/searchTitle")}</Heading>
+        <Heading>{t("Dashboard/Search rates")}</Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
             style={{
@@ -425,7 +425,7 @@ const Search: React.FC<PropsType> = ({
                   hideLabel={true}
                   margin_bottom={"0px"}
                   disabled={disabled}
-                  placeholder="Shipping Mode"
+                  placeholder={t("Dashboard/Shipping Mode")}
                   background="#ECECEC"
                   small_size="true"
                   without_border={+true}
@@ -445,7 +445,7 @@ const Search: React.FC<PropsType> = ({
                   //validate: () => sessionStorage.getItem("origin_id") ? true : "Choose from the list"
                 })}
                 name="origin"
-                placeholder="Origin"
+                placeholder={t("Dashboard/Origin")}
                 error={errors?.origin}
                 onChange={onOriginChangeHandler}
                 height={"31px"}
@@ -504,7 +504,7 @@ const Search: React.FC<PropsType> = ({
                   //validate: () => sessionStorage.getItem("destination_id") ? true : "Choose from the list"
                 })}
                 name="destination"
-                placeholder="Destination"
+                placeholder={t("Dashboard/Destination")}
                 error={errors?.destination}
                 onChange={onDestinationChangeHandler}
                 background="#ECECEC"
@@ -558,7 +558,7 @@ const Search: React.FC<PropsType> = ({
               dates={dates}
               disabled={disabled}
               shippingValueReset={shippingValueReset}
-              placeholder={"Shipment Dates"}
+              placeholder={t("Dashboard/Shipment Date")}
             />
             {!!duplicatedCargoError ? (
               <ErrorMessage duplicatedCargoError={duplicatedCargoError}>
@@ -614,7 +614,7 @@ const Search: React.FC<PropsType> = ({
                 type="button"
                 onClick={openCalcPopupAnaClearDuplicationError}
               >
-                Calculate w/m
+                {t("Dashboard/Calculate w/m")}
               </CalculateButton>
             )}
             <div style={{ display: "flex" }}>
@@ -624,7 +624,7 @@ const Search: React.FC<PropsType> = ({
                 !search_success &&
                 shippingValue === ShippingModeEnum.FCL && (
                   <BaseTooltip
-                    title={"Add more cargo groups by clicking on plus"}
+                    title={t("Dashboard/Add more cargo groups by clicking on plus")}
                   >
                     <AddImg
                       onClick={() => append({ name: "cargo_groups" })}
@@ -636,7 +636,7 @@ const Search: React.FC<PropsType> = ({
 
               {!search_success ? (
                 <BaseButton style={{ height: "35px" }} type="submit">
-                  Search
+                  {t("Dashboard/SEARCH")}
                 </BaseButton>
               ) : search_result.length !== 0 ? (
                 <BaseButton
@@ -645,7 +645,7 @@ const Search: React.FC<PropsType> = ({
                     newSearch();
                   }}
                 >
-                  New Search
+                  {t("Dashboard/NEW SEARCH")}
                 </BaseButton>
               ) : null}
             </div>

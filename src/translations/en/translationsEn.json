@@ -20,7 +20,8 @@
     "Position in the Company": "Position in the Company",
     "NEXT": "NEXT",
     "BACK": "BACK",
-    "Create new account": "CREATE NEW ACCOUNT"
+    "Create new account": "CREATE NEW ACCOUNT",
+    "Roles": "Roles"
   },
   "Create Master Account": {
     "Create Master Account": "Create Master Account"
@@ -57,30 +58,36 @@
     "Route": "Route",
     "Date": "Date",
     "New Requests": "New Requests",
+    "Request": "Request",
     "Quotes": "Quotes",
     "Volume": "Volume",
     "Departure Date": "Departure Date",
     "Hide Widgets": "Hide Widgets",
+    "Show Widgets": "Show Widgets",
     "Search rates": "Rates search",
     "Shipping Mode": "Shipping Mode",
     "Origin": "Origin",
     "Destination": "Destination",
     "Shipment Date": "Shipment Date",
     "Container Type": "Container Type",
+    "Calculate w/m": "Calculate w/m",
     "Add more cargo groups by clicking on plus": "Add more cargo groups by clicking here",
     "SEARCH": "GO",
     "PENDING OF BOOKING FEE PAYMENT": "PENDING OF BOOKING FEE PAYMENT",
     "Reservation No.": "ACEID",
-    "Status": "doesn’t go here",
+    "Status": "Status",
     "LATEST TRACKING UPDATES": "LATEST TRACKING UPDATES",
     "LATEST TRACKING STATUS UPDATES": "LATEST SHIPMENT UPDATES",
+    "latest quotes received": "latest quotes received",
+    "latest tracking Status update": "latest tracking Status update",
     "Please enter the details of your cargo": "Please enter the details of your cargo",
     "Packaging type": "Packaging type",
+    "ULD type": "ULD type",
     "No. of packs": "No. of packs",
-    "Weight (kg)": "Weight (kg)",
-    "Height (cm)": "Height (cm)",
-    "Length (cm)": "Length (cm)",
-    "Width (cm)": "Width (cm)",
+    "Weight": "Weight",
+    "Height": "Height",
+    "Length": "Length",
+    "Width": "Width",
     "Dangerous": "Dangerous",
     "Total": "Total",
     "Transit Time": "Transit Time",
@@ -106,6 +113,7 @@
     "All": "All",
     "Sea": "Sea",
     "Air": "Air",
+    "FEE PENDING": "FEE PENDING",
     "COMPLETED": "COMPLETED",
     "CANCELED": "CANCELED",
     "RATES & SERVICES": "RATES & SERVICES",
@@ -118,7 +126,9 @@
     "PROFILE & SETTINGS": "PROFILE & SETTINGS",
     "My Profile": "My Profile",
     "Company Settings": "Company Settings",
-    "HELP & SUPPORT": "HELP & SUPPORT"
+    "HELP & SUPPORT": "HELP & SUPPORT",
+    "USER MANAGEMENT": "USER MANAGEMENT",
+    "SETTINGS": "SETTINGS"
   },
   "Booking Columns": {
     "SHIPPING MODE": "SHIPPING MODE",
@@ -171,7 +181,9 @@
     "CHARGE": "TYPE",
     "CURRENCY": "CURRENCY",
     "COST": "COST",
-    "SUBTOTAL": "SUBTOTAL"
+    "SUBTOTAL": "SUBTOTAL",
+    "post_quote_question??": "Are you sure you want to post a quote?",
+    "your_search_": "Your search did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy is protected, the agents won’t know who posted the quote until you book the offer"
   },
   "Quotes": {
     "Quotes": "Quotes",
@@ -185,7 +197,9 @@
     "WITHDRAW OFFER": "WITHDRAW OFFER",
     "Active": "Active",
     "Pause": "Pause",
-    "OFFER NO.": "OFFER NO."
+    "OFFER NO.": "OFFER NO.",
+    "OFFERS": "OFFERS",
+    "There are no active quotes at the moment.": "There are no active quotes at the moment."
   },
   "Quote bid screen": {
     "CARRIER": "CARRIER",
@@ -239,7 +253,9 @@
     "CONFIRM BOOKING": "CONFIRM BOOKING",
     "MAKE CHANGE": "UPDATE SHIPMENT",
     "CANCEL OPERATION": "CANCEL OPERATION",
-    "COMPLETE OPERATION": "SET AS COMPLETE"
+    "COMPLETE OPERATION": "SET AS COMPLETE",
+    "All": "All",
+    "My": "My"
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirm Shipment Completion",
@@ -261,7 +277,11 @@
     "My Profile": "My Profile",
     "CHANGE PASSWORD": "CHANGE PASSWORD",
     "SAVE CHANGES": "SAVE CHANGES",
-    "CANCEL": "CANCEL"
+    "CANCEL": "CANCEL",
+    "Old Password": "Old Password",
+    "New Password": "New Password",
+    "Confirm Password": "Confirm password",
+    "Password": "Password"
   },
   "Company Settings": {
     "Company Info": "Company Info",
@@ -313,7 +333,7 @@
     "NO": "NO",
     "CONDITION": "CONDITION",
     "COLD CARGO FEE": "COLD CARGO FEE",
-    "There is already the surcharge for these dates. Do you want to create new or change existed?": "It already exists a surchage for these dates. Do you want to created a new one or change the existing one?",,
+    "There is already the surcharge for these dates. Do you want to create new or change existed?": "It already exists a surchage for these dates. Do you want to created a new one or change the existing one?",
     "SAVE CHANGES": "SAVE CHANGES",
     "CANCEL": "CANCEL",
     "The time range is overlapping with existed surcharge": "This time range overlaps an existing surcharge",
@@ -381,7 +401,8 @@
     "Operation Details Change": "Shipment Details Change",
     "Operation detail changes that are not updates to the departure or arrival dates of the shipment.": "Operation detail changes that are not updates to the departure or arrival dates of the shipment.",
     "YES": "YES",
-    "NO": "NO"
+    "NO": "NO",
+    "OK": "OK"
   },
   "Support": {
     "New ticket": "New ticket",
@@ -404,6 +425,12 @@
   },
   "Role": {
     "Client": "Client",
-    "Agent": "Agent"
+    "Agent": "Agent",
+    "billing": "billing",
+    "master": "master",
+    "support": "support",
+    "client": "client",
+    "agent": "agent",
+    "AGENT": "AGENT"
   }
 }

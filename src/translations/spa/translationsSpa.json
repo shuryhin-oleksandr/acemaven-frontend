@@ -1,6 +1,6 @@
 {
   "Register": {
-    "searchTitle": "Search Rates",
+    "searchTitle": "dhfdtjufjf",
     "Register":  "Solicitud de Registro",
     "Client":"Cliente",
     "Agent": "Agente",
@@ -21,7 +21,8 @@
     "Password": "Contraseña",
     "NEXT":"SEGUINTE",
     "BACK": "ATRÁS",
-    "Create new account": "Criar novos Conta"
+    "Create new account": "Criar novos Conta",
+    "Roles": ""
   },
   "Create Master Account": {
     "Create Master Account": "Crear Conta Master"
@@ -58,30 +59,36 @@
     "Route": "Ruta",
     "Date": "Fecha",
     "New Requests": "Nuevas solicitudes",
+    "Request": "Solicitudes",
     "Quotes": "Cotizaciones",
     "Volume": "Volumen",
     "Departure Date": "Fecha de Embarque",
     "Hide Widgets": "Ocultar Widgets",
+    "Show Widgets": "",
     "Search rates": "Búsqueda de fletes",
     "Shipping Mode": "Tipo de Embarque",
     "Origin": "Origen",
     "Destination": "Destino",
     "Shipment Date": "Fecha de Embarque",
     "Container Type": "Tipo de Contenedor",
+    "Calculate w/m": " w/m",
     "Add more cargo groups by clicking on plus": "Adicionar otro grupo de cargas com diferente embalage/contenedores",
     "SEARCH": "IR",
     "PENDING OF BOOKING FEE PAYMENT": "RESERVAS PENDIENTES DE SOLICITUD",
     "Reservation No.": "ACEID",
-    "Status": "",
+    "Status": "Estado",
     "LATEST TRACKING UPDATES": "COTIZACIONES RECIBIDAS",
     "LATEST TRACKING STATUS UPDATES": "EMBARQUES COM ACTUALIZACIONES RECIENTES",
+    "latest quotes received": "",
+    "latest tracking Status update": "",
     "Please enter the details of your cargo": "Por favor, adicione los detalles de su carga",
     "Packaging type": "Tipo de Embalaje",
+    "ULD type": "",
     "No. of packs": "No. de volumenes",
-    "Weight (kg)": "Peso (kg)",
-    "Height (cm)": "Alto (cm)",
-    "Length (cm)": "Largo (cm)",
-    "Width (cm)": "Ancho (cm)",
+    "Weight": "Peso",
+    "Height": "Alto",
+    "Length": "Largo",
+    "Width": "Ancho",
     "Dangerous": "Peligrosa",
     "Total": "Total",
     "Transit Time": "Tiempo de Tránsito",
@@ -107,6 +114,7 @@
     "All": "Todas",
     "Sea": "Aéreas",
     "Air": "Marítimas",
+    "FEE PENDING": "",
     "COMPLETED": "FINALIZADAS",
     "CANCELED": "CANCELADAS",
     "RATES & SERVICES": "TARIFAS Y SERVICIOS",
@@ -119,7 +127,9 @@
     "PROFILE & SETTINGS": "PERFIL Y CONFIGURACIONES",
     "My Profile": "Mi Perfil",
     "Company Settings": "Configuraciones de la Organización",
-    "HELP & SUPPORT": "AYUDA Y SOPORTE"
+    "HELP & SUPPORT": "AYUDA Y SOPORTE",
+    "USER MANAGEMENT": "",
+    "SETTINGS": "CONFIGURACIONES"
   },
   "Booking Columns": {
     "SHIPPING MODE": "TIPO DE EMBARQUE",
@@ -172,7 +182,9 @@
     "CHARGE": "DESCRIPCION DE LA CARGA",
     "CURRENCY": "MONEDA",
     "COST": "VALOR",
-    "SUBTOTAL": "SUBTOTAL"
+    "SUBTOTAL": "SUBTOTAL",
+    "post_quote_question?": "",
+    "your_search_": ""
   },
   "Quotes": {
     "Quotes": "Cotizaciones",
@@ -186,7 +198,9 @@
     "WITHDRAW OFFER": "CANCELAR OFERTA",
     "Active": "Activa",
     "Pause": "Pausada",
-    "OFFER NO.": "OFERTA NO."
+    "OFFER NO.": "OFERTA NO.",
+    "OFFERS": "",
+    "There are no active quotes at the moment.": ""
   },
   "Quote bid screen": {
     "CARRIER": "TRANSPORTADOR",
@@ -240,7 +254,9 @@
     "CONFIRM BOOKING": "CONFIRMAR RESERVA",
     "MAKE CHANGE": "ACTUALIZAR EMBARQUE",
     "CANCEL OPERATION": "CANCELAR EMBARQUE",
-    "COMPLETE OPERATION": "FINALIZAR EMBARQUE"
+    "COMPLETE OPERATION": "FINALIZAR EMBARQUE",
+    "All": "Todas",
+    "My": "Mi"
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirmar conclusión del embarque",
@@ -262,7 +278,11 @@
     "My Profile": "Mi Perfil",
     "CHANGE PASSWORD": "CAMBIAR CONTRASEÑA",
     "SAVE CHANGES": "SALVAR",
-    "CANCEL": "CANCELAR"
+    "CANCEL": "CANCELAR",
+    "Old Password": "",
+    "New Password": "",
+    "Confirm Password": "",
+    "Password": "Сontraseña"
   },
   "Company Settings": {
     "Company Info": "Datos de la Empresa",
@@ -382,7 +402,8 @@
     "Operation Details Change": "Cambio de detalles de los embarque",
     "Operation detail changes that are not updates to the departure or arrival dates of the shipment.": "Cambios en los detalles de la operación que no son actualizaciones de las fechas de salida o llegada del embarque.",
     "YES": "SI",
-    "NO": "NO"
+    "NO": "NO",
+    "OK": "OK"
   },
   "Support": {
     "New ticket": "Nuevo llamado",
@@ -405,7 +426,13 @@
   },
   "Role": {
     "Client": "Cliente",
-    "Agent": ""
+    "Agent": "Agente",
+    "billing": "",
+    "master": "",
+    "support": "",
+    "client": "",
+    "agent": "agente",
+    "AGENT": "AGENTE"
   }
 }
 

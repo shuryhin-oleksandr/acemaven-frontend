@@ -14,6 +14,7 @@ import {InputWrap, SubmitButton, Wrapper} from "../../../ActivateCompany/CreateN
 import FormField from "src/_UI/components/_commonComponents/Input/FormField";
 //styles
 import {ButtonsWrap, FormContainer, FormWrap} from "./company-info-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -42,7 +43,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
             })
         }
     }, [setValue, companyInfo])
-
+ const {t} = useTranslation();
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
             <FormWrap>
@@ -50,8 +51,8 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                     <InputWrap w='48%'>
                         <FormField name='city'
                                    error={errors?.city}
-                                   placeholder='City'
-                                   label='City'
+                                   placeholder={t("Register/City")}
+                                   label={t("Register/City")}
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
@@ -59,9 +60,9 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                     </InputWrap>
                     <InputWrap w='48%'>
                         <FormField name='state'
-                                   placeholder='State'
+                                   placeholder={t("Register/State")}
                                    error={errors?.state}
-                                   label='State'
+                                   label={t("Register/State")}
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
@@ -73,7 +74,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                         <FormField name='address_line_first'
                                    error={errors?.address_line_first}
                                    placeholder='str. 27'
-                                   label='Address'
+                                   label={t("Register/Address")}
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
@@ -87,7 +88,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                         <FormField name='zip_code'
                                    placeholder='000000'
                                    error={errors?.zip_code}
-                                   label='Zip Code'
+                                   label={t("Register/Zip Code")}
                                    inputRef={register({
                                        required: 'Field is required',
                                        pattern: {
@@ -103,7 +104,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                     <FormField name='phone'
                                error={errors?.phone}
                                placeholder='+375296665544'
-                               label='Phone Number'
+                               label={t("Register/Phone Number")}
                                inputRef={register({
                                    required: 'Field is required',
                                    pattern: {
@@ -115,7 +116,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
 
                     />
                     {company_type !== 'client' && <FormField name='website'
-                                                             label='Website'
+                                                             label={t("Register/Website")}
                                                              placeholder='www.company.com'
                                                              error={errors?.website}
                                                              inputRef={register({
@@ -131,9 +132,9 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                                   height: '40px', marginRight: '25px', marginBottom: '10px'
                               }}
                 >
-                    Save changes
+                  {t("My Profile/SAVE CHANGES")}
                 </SubmitButton>
-                <CancelEditButton text='CANCEL' setIsEdit={setEdit}/>
+                <CancelEditButton text={t("My Profile/CANCEL")} setIsEdit={setEdit}/>
             </ButtonsWrap>
         </FormContainer>
     )

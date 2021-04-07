@@ -179,6 +179,7 @@ export const NestedWrap = styled.div`
   &:hover {
     cursor: pointer;
   }
+  text-transform: uppercase;
 `;
 export const NestedName = styled.div<PropsStyles>`
   width: 100%;

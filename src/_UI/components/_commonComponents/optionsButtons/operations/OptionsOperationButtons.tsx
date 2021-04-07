@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {getAgentsOperationsThunk} from "../../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {CurrentShippingType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {getClientOperationsThunk} from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -44,7 +45,7 @@ const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) 
             :
             dispatch(getClientOperationsThunk(mode,'',"",props.searchColumn,props.searchValue, props.operation_status))
     };
-
+  const {t} = useTranslation();
     return (
         <OptionsButtonsWrap>
             <OptionMineButton
@@ -61,7 +62,7 @@ const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) 
                 }}
                 belong_to={props.my_operations}
             >
-                My
+              {t("Operations/My")}
             </OptionMineButton>
             <OptionAllButton
                 onClick={() => {
@@ -71,7 +72,7 @@ const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) 
                 }}
                belong_to={props.my_operations}
             >
-               All
+              {t("Operations/All")}
             </OptionAllButton>
         </OptionsButtonsWrap>
     )

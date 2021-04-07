@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../../../_BLL/store";
 import { quotesClientActions } from "../../../../../../_BLL/reducers/quotes/quotesClientReducer";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   newSearch: any;
@@ -34,20 +35,19 @@ const NoSearchResultCard: React.FC<PropsType> = ({
       dispatch(quotesClientActions.setResponseError(null));
     };
   }, []);
+
+  const {t} = useTranslation();
   return (
     <NoSearchContainer>
       <NoSearchInner>
         {confirmationMode ? (
           <>
-            <NoSearchText>Are you sure you want to post a quote?</NoSearchText>
+            <NoSearchText>{t("Bookings/post_quote_question?")}</NoSearchText>
             {error && <ErrorMes>{error}</ErrorMes>}
           </>
         ) : (
           <NoSearchText>
-            Your search did not return any results; you can post it online as a
-            quote for freight forwarders to submit their rates or adjust your
-            filters and search again. Your privacy is protected, the agents
-            won’t know who posted the quote until you book the offer
+            {t("Bookings/your_search_?")}
           </NoSearchText>
         )}
 
@@ -59,33 +59,34 @@ const NoSearchResultCard: React.FC<PropsType> = ({
                   setConfirmationMode(false);
                 }}
               >
-                Ok
+                {t("Email notifications/OK")}
+
               </NewSearchButton>
             ) : (
               <>
                 <QuoteButton onClick={() => handleSubmit(onSubmit)()}>
-                  Yes
+                  {t("Email notifications/YES")}
                 </QuoteButton>
                 <NewSearchButton
                   onClick={() => {
                     setConfirmationMode(false);
                   }}
                 >
-                  No
+                  {t("Email notifications/NO")}
                 </NewSearchButton>
               </>
             )
           ) : (
             <>
               <QuoteButton onClick={() => setConfirmationMode(true)}>
-                POST AS A QUOTE
+                {t("Dashboard/POST AS QUOTE")}
               </QuoteButton>
               <NewSearchButton
                 onClick={() => {
                   newSearch();
                 }}
               >
-                NEW SEARCH
+                {t("Dashboard/NEW SEARCH")}
               </NewSearchButton>
             </>
           )}

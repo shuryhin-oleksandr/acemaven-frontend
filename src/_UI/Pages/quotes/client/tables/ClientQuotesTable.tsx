@@ -25,6 +25,7 @@ import {
   QuotesTableContainer,
   QuotesTableHeader,
 } from "./client-quotes-table-styles";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   my_quotes_list: QuoteType[];
@@ -137,11 +138,11 @@ const ClientQuotesTable: React.FC<PropsType> = ({
   let offerViewedHandler = (offer_id: number) => {
     dispatch(makeOfferViewedThunk(offer_id));
   };
-
+const {t} = useTranslation();
   return (
     <QuotesTableContainer>
       <QuotesTableHeader>
-        <HeaderTitle>Quotes</HeaderTitle>
+        <HeaderTitle>{t("Quotes/Quotes")}</HeaderTitle>
         <OptionsDeliveryButtons
           directory=""
           searchColumn={props.search_column}
@@ -168,7 +169,7 @@ const ClientQuotesTable: React.FC<PropsType> = ({
                     column_name="shipping_mode"
                     searchValue={props.searchValue}
                     isSearchMode={props.isSearchMode}
-                    title="SHIPPING MODE"
+                    title={t("Quotes/SHIPPING MODE")}
                     searchColumn={props.search_column}
                     setSearchColumn={props.setSearchColumn}
                     thunkName="quotes"
@@ -183,14 +184,14 @@ const ClientQuotesTable: React.FC<PropsType> = ({
                     column_name="route"
                     searchValue={props.searchValue}
                     isSearchMode={props.isSearchMode}
-                    title="ROUTE"
+                    title={t("Booking Columns/ROUTE")}
                     searchColumn={props.search_column}
                     setSearchColumn={props.setSearchColumn}
                     thunkName="quotes"
                   />
                 </TableCell>
                 <TableCell className={classes.cell} align="left">
-                  VOLUME
+                  {t("Quotes/VOLUME")}
                 </TableCell>
                 <TableCell className={classes.cell} align="left">
                   <TableCellContent
@@ -201,14 +202,14 @@ const ClientQuotesTable: React.FC<PropsType> = ({
                     column_name="date_from"
                     searchValue={props.searchValue}
                     isSearchMode={props.isSearchMode}
-                    title="SHIPMENT DATE"
+                    title={t("Quotes/SHIPMENT DATE")}
                     searchColumn={props.search_column}
                     setSearchColumn={props.setSearchColumn}
                     thunkName="quotes"
                   />
                 </TableCell>
                 <TableCell className={classes.cell} align="left">
-                  OFFERS
+                  {t("Quotes/OFFERS")}
                 </TableCell>
                 <TableCell className={classes.cell} align="right">
                   <TableCellContent
@@ -219,14 +220,14 @@ const ClientQuotesTable: React.FC<PropsType> = ({
                     column_name="is_active"
                     searchValue={props.searchValue}
                     isSearchMode={props.isSearchMode}
-                    title="STATUS"
+                    title={t("Bookings/STATUS")}
                     searchColumn={props.search_column}
                     setSearchColumn={props.setSearchColumn}
                     thunkName="quotes"
                   />
                 </TableCell>
                 <TableCell className={classes.cell} align="right">
-                  ACTIONS
+                  {t("Freight rates/ACTIONS")}
                 </TableCell>
               </TableRow>
             </TableHead>

@@ -32,6 +32,7 @@ import active_billing from '../../assets/icons/sidebar/active_billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import support from '../../assets/icons/sidebar/support.svg';
 import active_support from '../../assets/icons/sidebar/active_support.svg';
+import {useTranslation} from "react-i18next";
 
 
 interface IProps {
@@ -57,6 +58,42 @@ const NavBar: React.FC<IProps> = ({...props}) => {
     //isFetching from store for different sections
     const operationsFetching = useSelector(getIsFetchingOperationSelector)
 
+    const {t} = useTranslation();
+    const menuLinks ={
+        profileLinks: [
+            {name: t("Dashboard Menu/My Profile"), path: '/settings/profile'},
+            {name: t("Dashboard Menu/Company Settings"), path: '/settings/company'},
+            {name: t("Dashboard Menu/USER MANAGEMENT"), path: '/settings/user/management'},
+            {name: t("Dashboard Menu/SETTINGS"), path: '/settings/general'}
+        ],
+        operationsLinks: [
+            {name: t("Dashboard Menu/ACTIVE"), path: '/operations_active'},
+            {name: t("Dashboard Menu/COMPLETED"), path: '/operations_completed'},
+            {name: t("Dashboard Menu/CANCELED"), path: '/operations_cancelled'},
+        ],
+        billingLinks: [
+            {name: t("Dashboard Menu/Exchange Rate"), path: '/billing_exchange'},
+            {name: t("Dashboard Menu/Billing In Progress"), path: '/billing_in_progress'},
+            {name: t("Dashboard Menu/COMPLETED"), path: '/billing_completed'}
+        ],
+        billingWithoutExchangeLinks: [
+            {name: t("Dashboard Menu/Billing In Progress"), path: '/billing_in_progress'},
+            {name: t("Dashboard Menu/COMPLETED"), path: '/billing_completed'}
+        ],
+        clientBillingLinks: [
+            {name: t("Dashboard Menu/FEE PENDING"), path: '/billing_pending'},
+            {name: t("Dashboard Menu/Billing In Progress"), path: '/billing_in_progress_client'},
+            {name: t("Dashboard Menu/COMPLETED"), path: '/billing_complete'}
+        ],
+        ratesLinks: [
+            {name: t("Dashboard Menu/Rates"), path: '/services/rates'},
+            {name: t("Dashboard Menu/Surcharges"), path: '/services/surcharges'}
+        ],
+        requestLinks: [
+            {name: t("Dashboard Menu/BOOKINGS"), path:"/requests/booking/"},
+            {name: t("Dashboard Menu/QUOTES"), path:"/quotes/"}
+        ]
+    }
 
     return (
         <ScrollbarStyled {...{
@@ -71,7 +108,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                         ? <MenuLink icon={requests}
                                     activeIcon={active_requests}
                                     path='/quotes'
-                                    name='QUOTES'
+                                    name={t("Dashboard Menu/QUOTES")}
                                     setChecked={setChecked}
                                     checkedLink={checkedLink}
 
@@ -80,10 +117,10 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                             &&
                             <MenuLink icon={requests}
                                       activeIcon={active_requests}
-                                      name='REQUESTS'
+                                      name={t("Dashboard Menu/REQUESTS")}
                                       setChecked={setChecked}
                                       checkedLink={checkedLink}
-                                      nestedLinks={requestLinks}
+                                      nestedLinks={menuLinks.requestLinks}
 
                             />
                         )
@@ -92,8 +129,8 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                 &&
                 <MenuLink icon={operations}
                           activeIcon={active_operations}
-                          name='OPERATIONS'
-                          nestedLinks={operationsLinks}
+                          name={t("Dashboard Menu/OPERATIONS")}
+                          nestedLinks={menuLinks.operationsLinks}
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           path='#'
@@ -107,7 +144,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                     (billing_and_agent_option || master_option || agent_option)
                     && <MenuLink icon={rates}
                                  nestedLinks={ratesLinks}
-                                 name='RATES & SERVICES'
+                                 name={t("Dashboard Menu/RATES & SERVICES")}
                                  setChecked={setChecked}
                                  checkedLink={checkedLink}
                                  activeIcon={activeRates}
@@ -115,11 +152,11 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                 }
                 {(company_type && company_type[0].type === AppCompaniesTypes.AGENT) &&
                 <MenuLink icon={billing}
-                          name='BILLING'
+                          name={t("Dashboard Menu/BILLING")}
                           nestedLinks={
                               (billing_and_agent_option || billing_option || master_option)
-                                  ? billingLinks
-                                  : billingWithoutExchangeLinks
+                                  ? menuLinks.billingLinks
+                                  : menuLinks.billingWithoutExchangeLinks
                           }
                           setChecked={setChecked}
                           checkedLink={checkedLink}
@@ -129,8 +166,8 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                 {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT)
                 &&
                 <MenuLink icon={billing}
-                          name='BILLING'
-                          nestedLinks={clientBillingLinks}
+                          name={t("Dashboard Menu/BILLING")}
+                          nestedLinks={menuLinks.clientBillingLinks}
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           activeIcon={active_billing}
@@ -138,15 +175,15 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                 }
                 <MenuLink icon={settings}
                           activeIcon={activeSettings}
-                          nestedLinks={profileLinks}
+                          nestedLinks={menuLinks.profileLinks}
                           current_user_role={current_user_role}
-                          name='PROFILE & SETTINGS'
+                          name={t("Dashboard Menu/PROFILE & SETTINGS")}
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                 />
                 <MenuLink icon={support}
                           path='/support'
-                          name='HELP AND SUPPORT'
+                          name={t("Dashboard Menu/HELP & SUPPORT")}
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           activeIcon={active_support}

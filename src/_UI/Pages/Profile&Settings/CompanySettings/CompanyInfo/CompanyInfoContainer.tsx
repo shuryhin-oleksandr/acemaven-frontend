@@ -17,6 +17,7 @@ import {
     InfoText,
     LineWrap,
 } from './company-info-styles'
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -29,7 +30,7 @@ const CompanyInfoContainer: React.FC<PropsType> = ({company_type, current_user_r
     const [edit, setEdit] = useState(false)
 
     let companyInfo = useSelector((state: AppStateType) => state.profile.companyInfo)
-
+const {t} = useTranslation();
 
     return (
         <>
@@ -39,11 +40,11 @@ const CompanyInfoContainer: React.FC<PropsType> = ({company_type, current_user_r
                     <InfoInner>
                         <InfoHeader>
                             <InfoBlock>
-                                <InfoLabel>Company Name</InfoLabel>
+                                <InfoLabel>{t("Register/Company Name")}</InfoLabel>
                                 <InfoText>{companyInfo?.name}</InfoText>
                             </InfoBlock>
                             <InfoBlock>
-                                <InfoLabel>Tax id Number</InfoLabel>
+                                <InfoLabel>{t("Register/Tax ID No.")}</InfoLabel>
                                 <InfoText>{companyInfo?.tax_id}</InfoText>
                             </InfoBlock>
                         </InfoHeader>

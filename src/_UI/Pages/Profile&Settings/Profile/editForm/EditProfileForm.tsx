@@ -25,6 +25,7 @@ import {Label} from 'src/_UI/components/_commonComponents/ProfileinfoBlock/profi
 import {FullfilledWrap} from "../../../ActivateCompany/AdditionalUser/additional-user-styles";
 //icons
 import Close from "../../../../assets/icons/close-icon.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -70,11 +71,11 @@ const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChang
     }
 
     const [img, setImg] = useState("");
-
+  const {t} = useTranslation();
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
             <HeaderWrap>
-                <ProfileTitle>My Profile</ProfileTitle>
+                <ProfileTitle>{t("My Profile/My Profile")}</ProfileTitle>
                 {!isChangeMode && <ButtonsWrap>
                     <SubmitButton type='submit'
                                   style={{
@@ -82,15 +83,15 @@ const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChang
                                       height: '40px', marginRight: '25px'
                                   }}
                     >
-                        SAVE CHANGES
+                      {t("Surcharges/SAVE CHANGES")}
                     </SubmitButton>
-                    <CancelEditButton setIsEdit={setIsEdit} text='CANCEL'/>
+                    <CancelEditButton setIsEdit={setIsEdit} text={t("My Profile/CANCEL")}/>
                 </ButtonsWrap>}
             </HeaderWrap>
             <FormWrap>
                 <RolesWrap>
-                    <Label>Roles</Label>
-                    {profile?.roles?.map(r => <Roles key={r}><Role role={r}>{r}</Role></Roles>)}
+                    <Label>{t("Register/Roles")}</Label>
+                    {profile?.roles?.map(r => <Roles key={r}><Role role={r}>{t(`Role/${r}`)}</Role></Roles>)}
                 </RolesWrap>
                 {img ? (
                     <div style={{
@@ -116,27 +117,27 @@ const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChang
                 )}
                 <FullfilledWrap style={{marginBottom: '0'}}>
                     <InputWrap w='47%'>
-                        <FormField label='Name'
+                        <FormField label={t("Register/Name")}
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
-                                   placeholder='Name'
+                                   placeholder= {t("Register/Name")}
                                    name='first_name'
                                    error={errors?.first_name}
                         />
                     </InputWrap>
                     <InputWrap w='47%'>
-                        <FormField label='Last Name'
+                        <FormField label={t("Register/Last Name")}
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
-                                   placeholder='Last Name'
+                                   placeholder={t("Register/Last Name")}
                                    name='last_name'
                                    error={errors?.last_name}
                         />
                     </InputWrap>
                 </FullfilledWrap>
-                <FormField label='Phone Number'
+                <FormField label={t("Register/Phone Number")}
                            inputRef={register({
                                required: 'Field is required',
                                maxLength: 13,
@@ -148,16 +149,16 @@ const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChang
                            max='13'
                            pattern_message='Phone number has to include only + and numbers'
                 />
-                <FormField label='Position in the Company'
+                <FormField label={t("Register/Position in the Company")}
                            inputRef={register({
                                required: 'Field is required'
                            })}
-                           placeholder='Position in the Company'
+                           placeholder={t("Register/Position in the Company")}
                            name='position'
                            error={errors?.position}
                 />
-                <ChangePasswordButton type='button' onClick={() => setChangeMode(true)}>CHANGE
-                    PASSWORD</ChangePasswordButton>
+                <ChangePasswordButton type='button' onClick={() => setChangeMode(true)}>
+                  {t("My Profile/CHANGE PASSWORD")}</ChangePasswordButton>
 
             </FormWrap>
         </FormContainer>

@@ -15,6 +15,7 @@ import TableCellContent from "../../../../components/_commonComponents/tables/Ta
 import OperationsRow from "../../agent/table/OperationsRow";
 import { CurrentShippingType } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -94,7 +95,7 @@ type PropsType = {
 
 const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
   const classes = useStyles();
-
+const {t} = useTranslation();
   return (
       <TableContainer className={classes.container} component={Paper}>
         <Table stickyHeader aria-label="collapsible table">
@@ -127,7 +128,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   column_name="route"
                   searchValue={props.searchValue}
                   isSearchMode={props.isSearchMode}
-                  title="ROUTE"
+                  title={t("Bookings/ROUTE")}
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   withoutSearch={true}
@@ -145,7 +146,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   column_name="shipping_mode"
                   searchValue={props.searchValue}
                   isSearchMode={props.isSearchMode}
-                  title="SHIPPING MODE"
+                  title={t("Bookings/SHIPPING MODE")}
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   withoutSearch={true}
@@ -170,7 +171,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                                                 //search should be done at backend later
                                                 withoutSearch={true}
                               />*/}
-                DATES
+                {t("Bookings/DATES")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
                 <TableCellContent
@@ -181,7 +182,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   column_name="carrier"
                   searchValue={props.searchValue}
                   isSearchMode={props.isSearchMode}
-                  title="CARRIER"
+                  title={t("Quote bid screen/CARRIER")}
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   thunkName="operations_client"
@@ -198,7 +199,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   column_name="status"
                   searchValue={props.searchValue}
                   isSearchMode={props.isSearchMode}
-                  title="STATUS"
+                  title={t("Operations/STATUS")}
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   withoutSearch={true}
@@ -219,7 +220,7 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
                   column_name="agent"
                   searchValue={props.searchValue}
                   isSearchMode={props.isSearchMode}
-                  title="AGENT"
+                  title={t("Role/AGENT")}
                   searchColumn={props.search_column}
                   setSearchColumn={props.setSearchColumn}
                   withoutSearch={true}

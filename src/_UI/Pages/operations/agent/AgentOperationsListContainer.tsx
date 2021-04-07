@@ -24,6 +24,7 @@ import MapComponent from "../../dashboard/MapComponent/MapComponent";
 import {MapWrapper} from "../../dashboard/dashboard-styles";
 //icons
 import hide_map_icon from '../../../assets/icons/operations/hide_map.svg'
+import {useTranslation} from "react-i18next";
 
 
 
@@ -54,7 +55,7 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
     let air_events = [...autoTrackWithEventsHelper(props.operations_list), ...manualTrackWithEventsHelper(props.operations_list)]
 
 
-
+const {t} = useTranslation();
     return (
         <OperationsWrapper>
             {!isHide && props.operation_status === 'active'
@@ -73,7 +74,7 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
                 <OperationsContent style={{padding:"0 80px 50px 0"}} isHide={isHide} status={props.operation_status}>
                     <OperationHeader>
                         <OperationTitle>
-                            Operations
+                            {t("Operations/Operations")}
                         </OperationTitle>
                         <div style={{display: 'flex', width: '315px', justifyContent: 'space-between'}}>
                             <OptionsOperationButtons mode={props.mode}

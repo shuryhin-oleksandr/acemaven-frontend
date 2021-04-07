@@ -26,6 +26,7 @@ import billing from '../../assets/icons/sidebar/billing.svg';
 import active_billing from '../../assets/icons/sidebar/active_billing.svg';
 import settings from '../../assets/icons/sidebar/settings.svg';
 import support from '../../assets/icons/sidebar/support.svg';
+import {useTranslation} from "react-i18next";
 
 
 interface IProps {
@@ -54,6 +55,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
     let client_operation = useSelector(getExactClientOperationSelector)
     let operation_chat = (type === AppCompaniesTypes.AGENT) ? agent_operation : client_operation
 
+const {t} = useTranslation();
 
     return (
         <ScrollbarStyled {...{
@@ -72,7 +74,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                                       setChecked={setChecked}
                                       checkedLink={checkedLink}
                                       setSmallBar={props.setSmallBar}
-                                      name='QUOTES'
+                                      name={t("Dashboard Menu/QUOTES")}
                             />
                             : ((billing_and_agent_option || agent_option || master_option)
                                 &&
@@ -81,7 +83,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                                           setChecked={setChecked}
                                           checkedLink={checkedLink}
                                           setSmallBar={props.setSmallBar}
-                                          name='REQUESTS'
+                                          name={t("Dashboard Menu/REQUESTS")}
                                 />
                             )
                     }
@@ -92,7 +94,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name='OPERATIONS'
+                              name={t("Dashboard Menu/OPERATIONS")}
                     />
                     }
                     {
@@ -105,7 +107,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                                   setChecked={setChecked}
                                   checkedLink={checkedLink}
                                   setSmallBar={props.setSmallBar}
-                                  name='RATES & SERVICES'
+                                  name={t("Dashboard Menu/RATES & SERVICES")}
 
                         />
                     }
@@ -115,7 +117,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name='BILLING'
+                              name={t("Dashboard Menu/BILLING")}
                     />
                     }
                     {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT) &&
@@ -125,7 +127,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               activeIcon={active_billing}
                               path='#'
                               setSmallBar={props.setSmallBar}
-                              name='BILLING'
+                              name={t("Dashboard Menu/BILLING")}
                     />
                     }
                     <MenuLink icon={settings}
@@ -133,7 +135,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name='PROFILE & SETTINGS'
+                              name={t("Dashboard Menu/PROFILE & SETTINGS")}
 
                     />
                     <MenuLink icon={support}
@@ -141,7 +143,7 @@ const NavBarSmall: React.FC<IProps> = ({...props}) => {
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name='HELP AND SUPPORT'
+                              name={t("Dashboard Menu/HELP & SUPPORT")}
 
                     />
                 </NavSmallContainer>

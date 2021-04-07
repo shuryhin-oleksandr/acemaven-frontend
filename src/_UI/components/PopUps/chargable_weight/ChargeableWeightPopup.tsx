@@ -32,6 +32,7 @@ import height from '../../../../_UI/assets/icons/widgets/height.svg';
 import length from '../../../../_UI/assets/icons/widgets/length.svg';
 import width from '../../../../_UI/assets/icons/widgets/width.svg';
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg';
+import {useTranslation} from "react-i18next";
 
 
 let useStyles = makeStyles({
@@ -142,7 +143,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
         setOpenCalcPopup(false)
         dispatch(searchActions.setEditableCargoGroupToNull(null))
     }
-
+  const {t} = useTranslation();
     return (
         <ChargeableWeightOuter onSubmit={handleSubmit(onSubmit)}>
             <ChargeableWeightInner>
@@ -156,7 +157,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                             }}>
                     <img src={close_icon} alt=""/>
                 </IconButton>
-                <CargoTitle>Please enter the details of your cargo</CargoTitle>
+                <CargoTitle>{t("Dashboard/Please enter the details of your cargo")}</CargoTitle>
                 <>
                     <CalculationWrapper>
                         <FormRow>
@@ -169,7 +170,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                               }}
                                               as={
                                                   <FormSelect error={errors?.container_type?.message}
-                                                              label='ULD type'
+                                                              label={t('Dashboard/ULD type')}
                                                               placeholder='Placeholder'
                                                               maxW='140px'
                                                               options={container_types}
@@ -184,7 +185,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                               }}
                                               as={
                                                   <FormSelect error={errors?.packaging_type?.message}
-                                                              label='Packaging type'
+                                                              label={t('Dashboard/Packaging type')}
                                                               placeholder='Placeholder'
                                                               maxW='140px'
                                                               options={packaging_types}
@@ -195,7 +196,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                 <FormField error={errors?.volume}
                                            name='volume'
                                            inputRef={register({required: true})}
-                                           label='No. of packs'
+                                           label={t('Dashboard/No. of packs')}
                                            max_width='135px'
                                            type='number'
                                            defaultValue='1'
@@ -211,7 +212,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                             <WeightWrapper>
                                                 <WeightIcon><img src={weight} alt=""/></WeightIcon>
                                                 <FormField error={errors?.weight}
-                                                           label={selectedValueWeight === 'kg' ? 'Weight, kgs' : 'Weight, t'}
+                                                           label={selectedValueWeight === 'kg' ? t("Dashboard/Weight") + ', kgs' : t("Dashboard/Weight") + ', t'}
                                                            max_width='90px'
                                                            placeholder={selectedValueWeight === 'kg' ? '0, kg' : '0, t'}
                                                            type='number'
@@ -265,7 +266,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                             <WeightWrapper>
                                                 <WeightIcon><img src={height} alt=""/></WeightIcon>
                                                 <FormField error={errors?.height}
-                                                           label={selectedValueLength === 'cm' ? 'Height, cm' : 'Height, m'}
+                                                           label={selectedValueLength === 'cm' ? t("Dashboard/Height") + ', cm' : t("Dashboard/Height") +  ', m'}
                                                            max_width='90px'
                                                            placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
                                                            type='number'
@@ -284,7 +285,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                             <WeightWrapper>
                                                 <WeightIcon><img src={length} alt=""/></WeightIcon>
                                                 <FormField error={errors?.length}
-                                                           label={selectedValueLength === 'cm' ? 'Length, cm' : 'Length, m'}
+                                                           label={selectedValueLength === 'cm' ? t("Dashboard/Length") + ', cm' : t("Dashboard/Length") + ', m'}
                                                            max_width='90px'
                                                            placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
                                                            type='number'
@@ -304,7 +305,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                             <WeightWrapper>
                                                 <WeightIcon><img src={width} alt=""/></WeightIcon>
                                                 <FormField error={errors?.width}
-                                                           label={selectedValueLength === 'cm' ? 'Width, cm' : 'Width, m'}
+                                                           label={selectedValueLength === 'cm' ? t("Dashboard/Width") +', cm' : t("Dashboard/Width") +', m'}
                                                            max_width='90px'
                                                            placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
                                                            type='number'
@@ -355,15 +356,15 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                             //setIsDangerous={setIsDangerous}
                                                setValue={setValue}
                                                setIsCheck={setIsCheck}
-                                               span_text='Dangerous'
+                                               span_text={t("Dashboard/Dangerous")}
                         />
                     </CheckboxWrap>
                 </>
                 <NewPackageWrapper>
                 </NewPackageWrapper>
                 <ActionsWrapper>
-                    <ConfirmButton type='submit'>CONFIRM</ConfirmButton>
-                    <CancelButton onClick={() => closeHandler()} type='button'>CANCEL</CancelButton>
+                    <ConfirmButton type='submit'>{t("Bookings/CONFIRM")}</ConfirmButton>
+                    <CancelButton onClick={() => closeHandler()} type='button'>{t("Bookings/CANCEL")}</CancelButton>
                 </ActionsWrapper>
             </ChargeableWeightInner>
         </ChargeableWeightOuter>

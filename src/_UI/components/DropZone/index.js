@@ -23,7 +23,7 @@ const DropZone = ({ setImg, name, setFile }) => {
     isDragReject,
   } = useDropzone({ onDrop });
 
-  return (
+ return (
     <div className="container">
       <Container
         {...getRootProps({ isDragActive, isDragAccept, isDragReject })}

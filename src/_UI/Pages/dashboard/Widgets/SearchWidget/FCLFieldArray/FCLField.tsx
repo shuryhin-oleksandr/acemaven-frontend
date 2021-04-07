@@ -12,6 +12,7 @@ import FormField from "../../../../../components/_commonComponents/Input/FormFie
 import SearchCheckbox from "src/_UI/components/_commonComponents/customCheckbox/searchCheckbox";
 //icons
 import RemoveIcon from "../../../../../assets/icons/widgets/remove-icon.svg";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   fields: any;
@@ -43,7 +44,7 @@ const FCLField: React.FC<PropsType> = ({
     container_types?.length > 0 &&
     container_types.find((c) => c.id === chosenContainer);
   const [isCheck, setIsCheck] = useState(false);
-
+  const {t} = useTranslation();
   return (
     <>
       <div style={{ gridColumnStart: 1 }}>
@@ -61,7 +62,7 @@ const FCLField: React.FC<PropsType> = ({
               background="#ECECEC"
               callback={setChosenContainer}
               disabled={disabled}
-              placeholder="Container Type"
+              placeholder={t("Dashboard/Container Type")}
               margin_bottom={"0px"}
               hideLabel={true}
               small_size="true"
@@ -90,7 +91,7 @@ const FCLField: React.FC<PropsType> = ({
               marginBottom="5px"
               type="number"
               disabled={disabled}
-              placeholder="Volume"
+              placeholder={t("Dashboard/Volume")}
               height={"31px"}
               without_border={+true}
 
@@ -123,7 +124,7 @@ const FCLField: React.FC<PropsType> = ({
           setIsCheck={setIsCheck}
           name={`cargo_groups[${index}].dangerous`}
           inputref={register}
-          labelText="Dangerous"
+          labelText={t("Dashboard/Dangerous")}
           disabled={disabled}
         />
       )}

@@ -17,6 +17,7 @@ import ProfileInfoField from "../../../../components/_commonComponents/Profilein
 //icons
 import editIcon from "../../../../assets/icons/profile/editProfile.svg";
 import photo from "../../../../assets/icons/profile/border-radius.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -27,11 +28,11 @@ type PropsType = {
 const ProfileInfo: React.FC<PropsType> = ({setIsEdit, isEdit}) => {
 
     let profilePhoto = useSelector((state: AppStateType) => state.profile.authUserInfo?.photo)
-
+const {t} = useTranslation();
     return (
         <ProfileInner>
             <HeaderWrap>
-                <ProfileTitle>My Profile</ProfileTitle>
+                <ProfileTitle>{t("Dashboard Menu/My Profile")}</ProfileTitle>
                 <EditButton onClick={() => !isEdit ? setIsEdit(true) : setIsEdit(false)}>
                     <img src={editIcon} alt=""/>
                 </EditButton>

@@ -21,6 +21,7 @@ import {
 } from "./edit-form-styles";
 //icons
 import closeIcon from "../../../../../_UI/assets/icons/close-icon.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -64,6 +65,7 @@ const ChangePasswordPage: React.FC<PropsType> = ({setChangeMode}) => {
             reset()
         }
     }, [success])
+  const {t} = useTranslation();
 
     return (
         <ChangeFormWrap onSubmit={handleSubmit(onSubmit)}>
@@ -71,11 +73,11 @@ const ChangePasswordPage: React.FC<PropsType> = ({setChangeMode}) => {
                 <img src={closeIcon} alt=""/>
             </CloseButton>
             <FormField
-                label="Old Password"
+                label={t("My Profile/Old Password")}
                 inputRef={register({
                     required: "Old Password is required",
                 })}
-                placeholder="Password"
+                placeholder={t("My Profile/Password")}
                 name="old_password"
                 error={errors?.old_password?.message}
                 type="password"
@@ -87,21 +89,21 @@ const ChangePasswordPage: React.FC<PropsType> = ({setChangeMode}) => {
             )}
             <PasswordFormField
                 name="new_password1"
-                label="New Password"
+                label={t("My Profile/New Password")}
                 getValues={getValues}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
                 errors={errors}
-                placeholder="New Password"
+                placeholder={t("My Profile/Password")}
                 register={register}
             />
             <FormField
-                label="Confirm Password"
+                label={t("My Profile/Confirm Password")}
                 inputRef={register({
                     required: "Confirm Password is required",
                     //pattern: /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,25}$/
                 })}
-                placeholder="Confirm password"
+                placeholder={t("My Profile/Confirm Password")}
                 name="new_password2"
                 error={errors?.new_password2?.message}
                 type="password"
@@ -121,7 +123,7 @@ const ChangePasswordPage: React.FC<PropsType> = ({setChangeMode}) => {
             {success && <SuccessMessage>Password was changed!</SuccessMessage>}
             <ActionsButtons>
                 <ChangePasswordButton type="submit">
-                    CHANGE PASSWORD
+                  {t("My Profile/CHANGE PASSWORD")}
                 </ChangePasswordButton>
             </ActionsButtons>
         </ChangeFormWrap>

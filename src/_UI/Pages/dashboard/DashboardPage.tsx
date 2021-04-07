@@ -50,6 +50,7 @@ import {
     Back,
 } from "./dashboard-styles";
 import {getMyInfoSelector} from "../../../_BLL/selectors/profile/profileSelectors";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -166,7 +167,7 @@ const DashboardPage: React.FC<PropsType> = ({
     const latest_tracking_list = useSelector(
         (state: AppStateType) => state.client_operations.latest_tracking_widget_data
     );
-
+  const {t} = useTranslation();
     return (
         <DashboardWrapper>
             {bookingPopupVisible && currentBookingRate &&
@@ -249,7 +250,7 @@ const DashboardPage: React.FC<PropsType> = ({
             {(user_roles?.includes('master') || user_roles?.includes('agent')) &&
             <ButtonBox>
                 <WidgetButton onClick={() => setWidgetsVisible(!widgetsVisible)}>
-                    {widgetsVisible ? "Hide widgets" : "Show widgets"}
+                    {widgetsVisible ? t("Dashboard/Hide Widgets") : t("Dashboard/Show Widgets")}
                 </WidgetButton>
             </ButtonBox>
             }

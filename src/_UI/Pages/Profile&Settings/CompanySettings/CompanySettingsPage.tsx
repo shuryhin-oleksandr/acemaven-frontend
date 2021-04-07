@@ -13,6 +13,7 @@ import CompanyInfoContainer from "./CompanyInfo/CompanyInfoContainer";
 import BankAccountsContainer from "./BankAccounts/BankAccountsContainer";
 //styles
 import {CompanyInner, CompanySettingsContainer, PageTitle} from "./company-settings-styles";
+import {useTranslation} from "react-i18next";
 
 
 export const useStyles = makeStyles((theme: Theme) => ({
@@ -89,17 +90,17 @@ const CompanySettingsPage: React.FC<PropsType> = ({company_type, current_user_ro
     const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
         setValue(newValue);
     };
-
+    const {t} = useTranslation();
     const tabs = [
-        <Tab className={classes.tabButton} label="Company info" value="1" key={1}/>,
-        <Tab className={classes.tabButton} label="Bank Accounts" value="2" key={2}/>,
+        <Tab className={classes.tabButton} label={t("Company Settings/Company Info")} value="1" key={1}/>,
+        <Tab className={classes.tabButton} label={t("Company Settings/Bank Accounts")} value="2" key={2}/>,
         //<Tab className={classes.tabButton} label="Credit Cards" value="3" key={3}/>
     ]
 
     return (
         <CompanySettingsContainer>
             <CompanyInner>
-                <PageTitle>Company Settings</PageTitle>
+                <PageTitle>{t("Dashboard Menu/Company Settings")}</PageTitle>
                 <div className={classes.root}>
                     <TabContext value={value}>
                         <AppBar className={classes.header} position="static">

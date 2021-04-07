@@ -19,6 +19,7 @@ import {useStyles} from "../WidgetTableStyles";
 //icons
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -38,21 +39,21 @@ const RequestWidget: React.FC<PropsType> = ({requests}) => {
     const goToPage = (id: number) => {
         history.push(`/requests/booking/${id}`)
     }
-
+const {t} = useTranslation();
     return (
-        <BaseWidget heading="NEW REQUESTS">
+        <BaseWidget heading={t("Dashboard/New Requests")}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell className={classes.cell} align="left"/>
                         <TableCell className={classes.cell} align="left">
-                            Route
+                            {t("Dashboard/Route")}
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
-                            Volume
+                            {t("Dashboard/Volume")}
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
-                            Departure Date
+                            {t("Dashboard/Departure Date")}
                         </TableCell>
                     </TableRow>
                 </TableHead>

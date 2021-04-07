@@ -23,6 +23,7 @@ import { useStyles } from "../WidgetTableStyles";
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 const OperationsInProgressWidget: React.FC = () => {
   //hooks
@@ -39,27 +40,27 @@ const OperationsInProgressWidget: React.FC = () => {
   const goToPage = (id: number) => {
     history.push(`/operations/${id}`);
   };
-
+  const { t } = useTranslation();
   return (
     <>
       {operations_list.length > 0 ? (
-        <BaseWidget heading="operations in progress">
+        <BaseWidget heading={t("Dashboard/Operations in progress")}>
           <div style={{ maxHeight: 210, overflowY: "auto" }}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell className={classes.cell} align="left" />
                   <TableCell className={classes.cell} align="left">
-                    Reservation No.
+                    {t("Dashboard/Reservation No.")}
                   </TableCell>
                   <TableCell className={classes.cell} align="left">
-                    Route
+                     {t("Dashboard/Route")}
                   </TableCell>
                   <TableCell className={classes.cell} align="left">
-                    Date
+                    {t("Dashboard/Date")}
                   </TableCell>
                   <TableCell className={classes.cell} align="left">
-                    Status
+                    {t("Dashboard/Status")}
                   </TableCell>
                   <TableCell className={classes.cell} align="center" />
                 </TableRow>

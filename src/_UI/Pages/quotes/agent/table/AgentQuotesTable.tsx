@@ -18,6 +18,7 @@ import AgentQuoteRow from "./AgentQuoteRow";
 //styles
 import {HeaderTitle, QuotesTableContainer, QuotesTableHeader} from "../../client/tables/client-quotes-table-styles";
 import NoQuotesCard from "../../NoQuotesCard";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -108,11 +109,11 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
 
     const classes = useStyles();
 
-
+    const {t} = useTranslation();
     return (
         <QuotesTableContainer>
             <QuotesTableHeader>
-                <HeaderTitle>Quotes</HeaderTitle>
+                <HeaderTitle>{t("Quotes/Quotes")}</HeaderTitle>
                 <OptionsDeliveryButtons directory=''
                                         searchColumn={search_column}
                                         searchValue={searchValue}
@@ -122,7 +123,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                 />
             </QuotesTableHeader>
             {agent_quotes_list.length === 0
-                ? <NoQuotesCard text={"There are no active quotes at the moment."}/>
+                ? <NoQuotesCard text={t("Quotes/There are no active quotes at the moment.")}/>
                 :
                     <TableContainer className={classes.container} component={Paper}>
                         <Table stickyHeader aria-label="collapsible table">
@@ -137,7 +138,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                                           column_name='origin'
                                                           searchValue={searchValue}
                                                           isSearchMode={isSearchMode}
-                                                          title='ORIGIN'
+                                                          title={t("Quotes/ORIGIN")}
                                                           searchColumn={search_column}
                                                           setSearchColumn={setSearchColumn}
                                                           thunkName='quotes_agent'
@@ -151,7 +152,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                                           column_name='destination'
                                                           searchValue={searchValue}
                                                           isSearchMode={isSearchMode}
-                                                          title='DESTINATION'
+                                                          title={t("Quotes/DESTINATION")}
                                                           searchColumn={search_column}
                                                           setSearchColumn={setSearchColumn}
                                                           thunkName='quotes_agent'
@@ -165,17 +166,17 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                                           column_name='shipping_mode'
                                                           searchValue={searchValue}
                                                           isSearchMode={isSearchMode}
-                                                          title='SHIPPING MODE'
+                                                          title={t("Quotes/SHIPPING MODE")}
                                                           searchColumn={search_column}
                                                           setSearchColumn={setSearchColumn}
                                                           thunkName='quotes_agent'
                                         />
                                     </TableCell>
                                     <TableCell className={classes.cell} align="left">
-                                        VOLUME
+                                        {t("Quotes/VOLUME")}
                                     </TableCell>
                                     <TableCell className={classes.cell} align="left">
-                                        SHIPMENT DATE
+                                        {t("Quotes/SHIPMENT DATE")}
                                     </TableCell>
                                     <TableCell className={classes.cell} align="right"/>
                                 </TableRow>

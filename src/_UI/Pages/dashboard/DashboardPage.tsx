@@ -162,6 +162,7 @@ const DashboardPage: React.FC<PropsType> = ({
 
     const events = [...auto_events, ...manual_events]
 
+    console.log("ENENTS",events);
 
     const latest_tracking_list = useSelector(
         (state: AppStateType) => state.client_operations.latest_tracking_widget_data

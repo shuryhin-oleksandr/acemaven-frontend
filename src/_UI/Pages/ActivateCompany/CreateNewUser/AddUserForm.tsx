@@ -180,7 +180,7 @@ export const SubmitButton = styled.button`
 font-family: "Helvetica Reg", sans-serif;
 font-size: 14px;
 text-transform: uppercase;
-background-color: #7C7C89;
+background-color: black;
 min-height: 40px;
 max-width: 180px;
 width: 100%;
@@ -192,7 +192,6 @@ transition: .3s;
 
   &:hover {
     cursor: pointer;
-    background-color: black;
     transition: .3s;
   }
 `

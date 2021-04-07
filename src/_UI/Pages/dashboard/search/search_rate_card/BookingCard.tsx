@@ -55,6 +55,7 @@ const BookingCard: React.FC<PropsType> = ({
   ...props
 }) => {
   const dispatch = useDispatch();
+  console.log("search_result", search_result);
   return (
     <UpperWrapper
       onClick={() =>
@@ -81,7 +82,9 @@ const BookingCard: React.FC<PropsType> = ({
                 {search_result?.freight_rate.origin.display_name} -{" "}
                 {search_result?.freight_rate.destination.display_name}
               </Direction>
-              {search_result?.freight_rate.carrier!=="disclosed"&& <Carrier>*{search_result?.freight_rate.carrier}</Carrier>}
+              {search_result?.freight_rate.carrier !== "disclosed" && (
+                <Carrier>*{search_result?.freight_rate.carrier}</Carrier>
+              )}
             </DirectionWrap>
           </GeneralWrap>
           <AdditionalWrap>
@@ -99,11 +102,13 @@ const BookingCard: React.FC<PropsType> = ({
             </DateLine>
           </AdditionalWrap>
         </GeneralPart>
-        <RatingPartContainer
-          showRatingPopup={showRatingPopup}
-          company={search_result?.freight_rate.company}
-          setClickedReview={props.setClickedReview}
-        />
+        {!!search_result?.freight_rate.company?.name && (
+          <RatingPartContainer
+            showRatingPopup={showRatingPopup}
+            company={search_result?.freight_rate.company}
+            setClickedReview={props.setClickedReview}
+          />
+        )}
       </InfoPart>
       <TotalPart>
         <CalculationWrap>

@@ -126,28 +126,28 @@ const BillingCard: React.FC<PropTypes> = ({
             </Row>
           )}
         </MainInfo>
-        <ChargesBlock>
-          <div style={{ width: "45%" }}>
-            {!!billing.charges.totals.USD && (
-              <ChargeRow>
-                <ChargeTitle>CHARGES IN USD</ChargeTitle>
-                <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
-              </ChargeRow>
-            )}
-            {!!billing.charges.totals.BRL && (
-              <ChargeRow>
-                <ChargeTitle>CHARGES IN BRL</ChargeTitle>
-                <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
-              </ChargeRow>
-            )}
-            {!!billing.charges.totals.EUR && (
-              <ChargeRow>
-                <ChargeTitle>CHARGES IN EUR</ChargeTitle>
-                <ChargeValue>{billing.charges.totals.EUR}</ChargeValue>
-              </ChargeRow>
-            )}
-          </div>
-          {billing.status !== "Operation Complete" && (
+        {billing.status !== "Operation Complete" && (
+          <ChargesBlock>
+            <div style={{ width: "45%" }}>
+              {!!billing.charges.totals.USD && (
+                <ChargeRow>
+                  <ChargeTitle>CHARGES IN USD</ChargeTitle>
+                  <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
+                </ChargeRow>
+              )}
+              {!!billing.charges.totals.BRL && (
+                <ChargeRow>
+                  <ChargeTitle>CHARGES IN BRL</ChargeTitle>
+                  <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
+                </ChargeRow>
+              )}
+              {!!billing.charges.totals.EUR && (
+                <ChargeRow>
+                  <ChargeTitle>CHARGES IN EUR</ChargeTitle>
+                  <ChargeValue>{billing.charges.totals.EUR}</ChargeValue>
+                </ChargeRow>
+              )}
+            </div>
             <div style={{ width: "45%", position: "relative" }}>
               <ToBookText>to Book:</ToBookText>
               <ChargeRow>
@@ -163,8 +163,8 @@ const BillingCard: React.FC<PropTypes> = ({
                 </ChargeValue>
               </ChargeRow>
             </div>
-          )}
-        </ChargesBlock>
+          </ChargesBlock>
+        )}
       </InformationWrapper>
     </CardContainer>
   );

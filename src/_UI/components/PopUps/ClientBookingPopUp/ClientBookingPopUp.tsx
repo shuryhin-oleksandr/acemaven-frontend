@@ -310,7 +310,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                                 <TotalValue>{new_total?.charges?.service_fee?.subtotal}</TotalValue>
                             </TotalLine>
                             <TotalLine>
-                                <TotalName>SUBTOTAL IN {new_total?.charges?.pay_to_book?.currency}</TotalName>
+                                <TotalName>TO BOOK IN {new_total?.charges?.pay_to_book?.currency}</TotalName>
                                 <TotalValue>{new_total?.charges?.pay_to_book?.pay_to_book}</TotalValue>
                             </TotalLine>
                         </TableTotal>

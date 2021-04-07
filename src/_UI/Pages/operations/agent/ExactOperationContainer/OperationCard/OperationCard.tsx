@@ -87,24 +87,26 @@ const OperationCard: React.FC<PropsType> = ({
         <ContentHeader>
           <BookingInfo>
             <OperationNumber>{operation_info?.aceid}</OperationNumber>
-            <BookingNumberBlockContainer shipment={shipment} />
+            {shipment?.booking_number && (
+              <BookingNumberBlockContainer shipment={shipment} />
+            )}
             {shipment?.booking_number_with_carrier &&
               company_type?.type === AppCompaniesTypes.AGENT && (
                 <BookingNumberWithCarrierBlockContainer shipment={shipment} />
               )}
             <BookingStatus>
-              <span style={{ color: "#1ab8e5", marginRight: "5px" }}>
+              <span style={{ color: "#1ab8e5", marginRight: "8px" }}>
                 STATUS
               </span>
-              <span
-                style={{
-                  fontFamily: "Helvetica Light",
-                  fontSize: "18px",
-                  textTransform: "lowercase",
-                }}
-              >
-                {local_time}
-              </span>{" "}
+              {/*<span*/}
+              {/*  style={{*/}
+              {/*    fontFamily: "Helvetica Light",*/}
+              {/*    fontSize: "18px",*/}
+              {/*    textTransform: "lowercase",*/}
+              {/*  }}*/}
+              {/*>*/}
+              {/*  {local_time}*/}
+              {/*</span>{" "}*/}
               <span style={{ textTransform: "uppercase" }}>
                 {operation_info?.status}
               </span>

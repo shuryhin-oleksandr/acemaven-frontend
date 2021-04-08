@@ -32,6 +32,7 @@ import {
 //icons
 import send_icon from "../../../assets/icons/operations/send_mesage.svg";
 import user_icon from "../../../assets/icons/profile/defaultUserPhoto.svg";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   message_history: MessageType[];
@@ -95,7 +96,7 @@ const Chat: React.FC<PropsType> = ({
     //       console.log(reader.result);
     //   };
   };
-
+  const {t} = useTranslation();
   return (
     <ChatWrapper>
       <ChatInner>
@@ -129,7 +130,7 @@ const Chat: React.FC<PropsType> = ({
             </UploadWrapper>
             <MessageInputWrapper>
               <MessageInput
-                placeholder="Message..."
+                placeholder={t("Bookings/Message")}
                 value={inputText}
                 //onFocus={() => props.focusHandler()}
                 //onBlur={() => props.blurHandler()}

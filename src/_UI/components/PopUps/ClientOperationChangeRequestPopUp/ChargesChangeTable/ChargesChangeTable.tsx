@@ -16,6 +16,7 @@ import {
   TotalValue,
 } from "../../../../Pages/dashboard/search/search_rate_card/search-card-styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -68,6 +69,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
   ];
 
   const classes = useStyles();
+  const {t} = useTranslation();
   return (
     <TableContainer className={classes.container} component={Paper}>
       <Table aria-label="simple table">
@@ -75,7 +77,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
           <TableRow>
             {column_object.map((c: any, index: number) => (
               <TableCell key={index} className={classes.cell} align={c.align}>
-                {c.name}
+                {t(`Bookings/${c.name}`)}
               </TableCell>
             ))}
           </TableRow>

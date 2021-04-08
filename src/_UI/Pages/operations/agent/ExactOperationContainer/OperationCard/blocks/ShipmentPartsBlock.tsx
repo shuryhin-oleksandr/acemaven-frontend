@@ -20,6 +20,7 @@ import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.s
 import { useSelector } from "react-redux";
 import { AppStateType } from "../../../../../../../_BLL/store";
 import { AppCompaniesTypes } from "../../../../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   shipper_info: ShipperType | null;
@@ -40,6 +41,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
       state.profile.authUserInfo?.companies &&
       state.profile.authUserInfo?.companies[0].type
   );
+  const {t} = useTranslation();
   return (
     <SectionWrapper
       style={{
@@ -63,7 +65,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
         />
       </IconButton>
 
-      <SectionTitle>SHIPMENT PARTS</SectionTitle>
+      <SectionTitle>{t("Operations/SHIPMENT PARTS")}</SectionTitle>
       {!isHidden && (
         <div>
           {/*{client_info.company !== shipper_info?.name && (*/}
@@ -104,7 +106,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                       }}
                     >
                       <InfoRow>
-                        <InfoRowLabel>AGENT</InfoRowLabel>
+                        <InfoRowLabel>{t("Role/AGENT")}</InfoRowLabel>
                         <InfoRowValue>{agent_info.company}</InfoRowValue>
                       </InfoRow>
                     </div>
@@ -115,7 +117,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                       }}
                     >
                       <InfoRow>
-                        <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                        <InfoRowLabel>{t("Bookings/CONTACT PERSON")}</InfoRowLabel>
                         <InfoRowValue>{agent_info.contact_person}</InfoRowValue>
                       </InfoRow>
                     </div>
@@ -138,7 +140,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                       }}
                     >
                       <InfoRow>
-                        <InfoRowLabel>CLIENT</InfoRowLabel>
+                        <InfoRowLabel>{t("Bookings/CLIENT")}</InfoRowLabel>
                         <InfoRowValue>{client_info.company}</InfoRowValue>
                       </InfoRow>
                     </div>
@@ -149,7 +151,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                       }}
                     >
                       <InfoRow>
-                        <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                        <InfoRowLabel>{t("Bookings/CONTACT PERSON")}</InfoRowLabel>
                         <InfoRowValue>
                           {client_info.contact_person}
                         </InfoRowValue>
@@ -169,11 +171,11 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                 }}
               >
                 <InfoRow>
-                  <InfoRowLabel>SHIPPER</InfoRowLabel>
+                  <InfoRowLabel>{t("Booking process/SHIPPER")}</InfoRowLabel>
                   <InfoRowValue>{shipper_info?.name}</InfoRowValue>
                 </InfoRow>
                 <InfoRow>
-                  <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                  <InfoRowLabel>{t("Bookings/CONTACT PERSON")}</InfoRowLabel>
                   <InfoRowValue>{shipper_info?.contact_name}</InfoRowValue>
                 </InfoRow>
               </div>
@@ -185,11 +187,11 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                 }}
               >
                 <InfoRow>
-                  <InfoRowLabel>ADDRESS</InfoRowLabel>
+                  <InfoRowLabel>{t("Bookings/ADDRESS")}</InfoRowLabel>
                   <InfoRowValue>{shipper_info?.city}</InfoRowValue>
                 </InfoRow>
                 <InfoRow>
-                  <InfoRowLabel>EMAIL</InfoRowLabel>
+                  <InfoRowLabel>{t("Bookings/EMAIL")}</InfoRowLabel>
                   <InfoRowValue>{shipper_info?.email}</InfoRowValue>
                 </InfoRow>
               </div>
@@ -201,12 +203,12 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                 }}
               >
                 <InfoRow>
-                  <InfoRowLabel>PHONE NUMBER 1</InfoRowLabel>
+                  <InfoRowLabel>{t("Bookings/PHONE NUMBER")} 1</InfoRowLabel>
                   <InfoRowValue>{shipper_info?.phone}</InfoRowValue>
                 </InfoRow>
                 {shipper_info?.phone_additional && (
                   <InfoRow>
-                    <InfoRowLabel>PHONE NUMBER 2</InfoRowLabel>
+                    <InfoRowLabel>{t("Bookings/PHONE NUMBER")} 2</InfoRowLabel>
                     <InfoRowValue>
                       {shipper_info?.phone_additional}
                     </InfoRowValue>
@@ -225,7 +227,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                 }}
               >
                 <InfoRow>
-                  <InfoRowLabel>SHIPPER</InfoRowLabel>
+                  <InfoRowLabel>{t("Booking process/SHIPPER")}</InfoRowLabel>
                   <InfoRowValue>{shipper_info?.name}</InfoRowValue>
                 </InfoRow>
               </div>

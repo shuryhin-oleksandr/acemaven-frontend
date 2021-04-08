@@ -107,5 +107,6 @@ const CheckMark = styled.span<PropsStyle>`
 `
 
 const SpanRole = styled.span<PropsStyle>`
- color: ${({isCheck}) => !isCheck ? ' #4F4F4F' : '#115B86'}
+ color: ${({isCheck}) => !isCheck ? ' #4F4F4F' : '#115B86'};
+ text-transform: capitalize;
 `

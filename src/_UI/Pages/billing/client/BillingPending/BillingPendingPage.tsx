@@ -3,6 +3,7 @@ import { Content, Heading, Wrapper } from "./billing-pending-styles";
 import BillingCard from "../BillingCard/BillingCard";
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import NoQuotesCard from "../../../quotes/NoQuotesCard";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   billing_list: BillingOperationType[];
@@ -15,10 +16,11 @@ const BillingPendingPage: React.FC<PropsType> = ({
   cancelBooking,
   processPayment,
 }) => {
+  const {t} = useTranslation();
   return (
     <Wrapper>
       <Content>
-        <Heading>Pending of booking fee payment</Heading>
+        <Heading>{t("Dashboard/PENDING OF BOOKING FEE PAYMENT")}</Heading>
         {billing_list.length > 0 ? (
           billing_list.map((i) => (
             <BillingCard
@@ -30,7 +32,7 @@ const BillingPendingPage: React.FC<PropsType> = ({
           ))
         ) : (
           <NoQuotesCard
-            text={"There are no operations pending of booking fee payment."}
+            text={t("Dashboard/There are no operations pending of booking fee payment.")}
           />
         )}
       </Content>

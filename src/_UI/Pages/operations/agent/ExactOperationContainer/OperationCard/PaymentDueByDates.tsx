@@ -25,6 +25,7 @@ import save_icon from "../../../../../assets/icons/profile/add.svg";
 
 
 import {CalendarWrapper} from "../../../../../components/_commonComponents/calendar/calendar-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -65,10 +66,10 @@ const PaymentDueByDates: React.FC<PropsType> = ({payment_due_by, operation_id}) 
         }
     }, [payment_due_by])
 
-
+    const {t} = useTranslation();
     return (
         <form style={{display: "flex", alignItems: 'baseline', width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
-            <InfoRowLabel style={{marginRight: '10px'}}>PAYMENT DUE BY:</InfoRowLabel>
+            <InfoRowLabel style={{marginRight: '10px'}}>{t("Operations/PAYMENT DUE BY")}:</InfoRowLabel>
             <>
                 {payment_due_by
                     ? <InfoRowValue>{payment_due_by}</InfoRowValue>

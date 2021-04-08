@@ -10,6 +10,7 @@ import CustomCheckbox from "../../../../components/_commonComponents/customCheck
 import {CheckboxWrap} from "../../../ActivateCompany/CreateNewUser/AddUserForm";
 //styles
 import {FormContainer, FormWrap, Label} from "./add-user-form-styles";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -47,14 +48,14 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
     const master = watch('roles.master')
     const isRoleRequired = !agent && !billing && !master
 
-
+  const {t} = useTranslation();
     return (
         <FormContainer>
             <FormWrap onSubmit={handleSubmit(onSubmit)}>
                 <FinishFormButtons closeCallback={setIsAdd}/>
                 <FormField name='first_name'
-                           placeholder='Name'
-                           label='Name'
+                           placeholder={t("Register/Name")}
+                           label={t("Register/Name")}
                            inputRef={register({
                                required: 'Field is required'
                            })}
@@ -62,8 +63,8 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                            server_error={server_error?.first_name ? server_error.first_name[0] : ''}
                 />
                 <FormField name='last_name'
-                           placeholder='Last Name'
-                           label='Last Name'
+                           placeholder={t("Register/Last Name")}
+                           label={t("Register/Last Name")}
                            inputRef={register({
                                required:'Field is required'
                            })}
@@ -71,13 +72,13 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                            server_error={server_error?.last_name ? server_error.last_name[0] : ''}
                 />
                 <CheckboxWrap>
-                   <Label>Roles</Label>
+                   <Label>{t("Register/Roles")}</Label>
                     <CustomCheckbox
                         name='roles.master'
                         inputRef={register({
                             required: isRoleRequired
                         })}
-                        role='Master'
+                        role={t("Role/master")}
                         disabled={agent || billing}
                         error={errors?.roles?.master}
                         clearErrors={clearErrors}
@@ -87,7 +88,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                         inputRef={register({
                             required: isRoleRequired
                         })}
-                        role='Agent'
+                        role={t("Role/agent")}
                         disabled={master}
                         error={errors?.roles?.agent}
                         clearErrors={clearErrors}
@@ -97,15 +98,15 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                         inputRef={register({
                             required: isRoleRequired
                         })}
-                        role='Billing'
+                        role={t("Role/billing")}
                         disabled={master}
                         error={errors?.roles?.billing}
                         clearErrors={clearErrors}
                     />
                 </CheckboxWrap>
                 <FormField name='email'
-                           placeholder='Email'
-                           label='Email'
+                           placeholder={t("Register/Email")}
+                           label={t("Register/Email")}
                            inputRef={register({
                                required: 'Field is required',
                                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/

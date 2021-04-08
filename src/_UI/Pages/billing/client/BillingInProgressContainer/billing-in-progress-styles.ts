@@ -13,6 +13,7 @@ export const Heading = styled.div`
   line-height: 57px;
   color: #000000;
   margin-bottom: 20px;
+  text-transform: capitalize;
 `;
 
 export const Inner = styled.div`

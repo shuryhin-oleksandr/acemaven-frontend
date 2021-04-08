@@ -9,6 +9,7 @@ import OptionsDeliveryButtons from "../../../../components/_commonComponents/opt
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import MonthPicker from "../../../../components/month_picker/MonthPicker";
 import NoQuotesCard from "../../../quotes/NoQuotesCard";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   billing_list: BillingOperationType[];
@@ -25,6 +26,7 @@ const BillingCompletePage: React.FC<PropsType> = ({
   dates,
   setDates,
 }) => {
+  const {t} = useTranslation();
   return (
     <Wrapper>
       <Content>
@@ -36,7 +38,7 @@ const BillingCompletePage: React.FC<PropsType> = ({
             marginBottom: "30px",
           }}
         >
-          <Heading without_margin>Completed</Heading>
+          <Heading without_margin>{t("Dashboard Menu/Completed")}</Heading>
           <div
             style={{
               display: "flex",
@@ -50,7 +52,7 @@ const BillingCompletePage: React.FC<PropsType> = ({
                 setDates={setDates}
                 dates={dates}
                 width="240px"
-                placeholder="Choose month"
+                placeholder={t("Bookings/Choose month")}
               />
             </div>
             <OptionsDeliveryButtons
@@ -67,7 +69,7 @@ const BillingCompletePage: React.FC<PropsType> = ({
         {billing_list.length > 0 ? (
           billing_list.map((i) => <BillingCard billing={i} key={i.id} />)
         ) : (
-          <NoQuotesCard text={"There are no completed operations."} />
+          <NoQuotesCard text={t("Dashboard/There are no completed operations.")} />
         )}
       </Content>
     </Wrapper>

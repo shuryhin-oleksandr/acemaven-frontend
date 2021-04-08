@@ -31,6 +31,7 @@ import {
 //icons
 import ship from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../assets/icons/rates&services/plane-surcharge.svg";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   button_display: boolean;
@@ -55,6 +56,7 @@ const BookingCard: React.FC<PropsType> = ({
   ...props
 }) => {
   const dispatch = useDispatch();
+  const {t} = useTranslation();
   return (
     <UpperWrapper
       onClick={() =>
@@ -86,13 +88,13 @@ const BookingCard: React.FC<PropsType> = ({
           </GeneralWrap>
           <AdditionalWrap>
             <DateLine>
-              <DateName>Transit time</DateName>
+              <DateName>{t("Dashboard/Transit time")}</DateName>
               <DateValue>
-                {search_result?.freight_rate.transit_time} days
+                {search_result?.freight_rate.transit_time} {t("Billing/days")}
               </DateValue>
             </DateLine>
             <DateLine>
-              <DateName>Rate Expiration Date:</DateName>
+              <DateName>{t("Dashboard/Rate Expiration Date")}:</DateName>
               <DateValue>
                 {search_result?.freight_rate.expiration_date}
               </DateValue>
@@ -109,7 +111,7 @@ const BookingCard: React.FC<PropsType> = ({
         <CalculationWrap>
           {search_result?.cargo_groups.map((c: any, index: any) => (
             <CalculationLine key={index} marginBottom="10px">
-              <CalcName>Freight x {c.cargo_type}:</CalcName>
+              <CalcName>{t("Dashboard/Freight")} x {c.cargo_type}:</CalcName>
               <CalcValue>
                 {c.freight.currency} {c.freight.subtotal}
               </CalcValue>
@@ -117,7 +119,7 @@ const BookingCard: React.FC<PropsType> = ({
           ))}
           <CalculationLine>
             <CalcName>
-              Total Freight in{" "}
+              {t("Dashboard/Total Freight")} {" "}
               {search_result?.total_freight_rate.USD ? "BRL" : "USD"} :
             </CalcName>
             <CalcValue>
@@ -128,7 +130,7 @@ const BookingCard: React.FC<PropsType> = ({
           </CalculationLine>
           <CalculationLine marginBottom="10px">
             <CalcName>
-              Surcharges in {search_result?.total_surcharge.BRL ? "BRL" : "USD"}{" "}
+              {t("Dashboard/Surcharges in")} {search_result?.total_surcharge.BRL ? "BRL" : "USD"}{" "}
               :
             </CalcName>
             <CalcValue>
@@ -139,7 +141,7 @@ const BookingCard: React.FC<PropsType> = ({
           </CalculationLine>
           {search_result?.service_fee && (
             <CalculationLine>
-              <CalcName>Acemaven Service Fee:</CalcName>
+              <CalcName>{t("Dashboard/Acemaven Service Fee")}:</CalcName>
               <CalcValue>
                 {search_result?.service_fee?.currency}{" "}
                 {search_result?.service_fee?.subtotal}
@@ -166,7 +168,7 @@ const BookingCard: React.FC<PropsType> = ({
           }}
           button_display={button_display}
         >
-          BOOK
+          {t("Dashboard/BOOK")}
         </BookButton>
       </TotalPart>
     </UpperWrapper>

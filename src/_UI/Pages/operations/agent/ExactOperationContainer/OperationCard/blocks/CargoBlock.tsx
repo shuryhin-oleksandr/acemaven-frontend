@@ -15,6 +15,7 @@ import {
 //icons
 import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow.svg";
 import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -27,7 +28,7 @@ type PropsType = {
 
 const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_cargo_groups, operation_shipping_mode, free_time, status}) => {
     const [isHidden, setHidden] = useState(false);
-
+    const {t} = useTranslation();
 
     return (
         <SectionWrapper style={{position: "relative"}}>
@@ -37,7 +38,7 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
                 <img src={isHidden ? down_arrow : up_arrow} alt="" style={{width: "14px"}}/>
             </IconButton>
             <div>
-                <SectionTitle>CARGO</SectionTitle>
+                <SectionTitle>{t("Bookings/CARGO")}</SectionTitle>
                 {!isHidden && (
                     <>
                         {operation_shipping_type === ShippingTypesEnum.SEA
@@ -50,7 +51,7 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
                         &&
                         <div style={{display: "flex", marginBottom: '20px'}}>
                             <InfoRowLabel style={{marginRight: '5px'}}>
-                                CONTAINER FREE TIME:
+                              {t("Bookings/CONTAINER FREE TIME")}:
                                 <span style={{fontFamily: 'Helvetica Light', color: '#000000'}}>
                         {free_time}{' '}{free_time === 1 ? 'day' : 'days'}</span>
                             </InfoRowLabel>

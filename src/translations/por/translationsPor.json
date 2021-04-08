@@ -22,7 +22,8 @@
     "NEXT":"SEGUINTE",
     "BACK": "ATRÁS",
     "Create new account": "Criar novos Conta",
-    "Roles": ""
+    "Roles": "",
+    "Contact Name": ""
   },
 
   "Create Master Account": {
@@ -95,15 +96,19 @@
     "Transit Time": "Tempo de Trânsito",
     "Rate Expiration Date": "Data de Vencimento do Frete",
     "Freight": "Frete",
-    "Total Freight": "Frete Total",
+    "Total Freight": "Frete Total em",
     "Surcharges in": "Taxas em",
-    "Admaven Service Fee": "Taxa de Serviço da Acemaven",
+    "Acemaven Service Fee": "Taxa de Serviço da Acemaven",
     "BOOK": "RESERVAR",
     "Your rate did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy will be protected, the agents won't know who posted the quote until you book the offer.": "Sua pesquisa não retornou nenhum resultado; você pode publicá-la online como uma cotação para agentes de carga enviarem suas tarifas ou ajustar seus filtros e pesquisar novamente. A sua privacidade estará protegida, os agentes não saberão quem postou o a cotação até que você reserve a oferta.",
     "POST AS QUOTE": "PUBLICAR COMO COTAÇÃO",
     "NEW SEARCH": "NOVA PESQUISA",
     "**Will be displayed after booking confirmation": "**Será mostrado com a confirmação da reserva",
-    "***Will be displayed after payment is completed": "***Será mostrado após envío da reserva"
+    "***Will be displayed after payment is completed": "***Será mostrado após envío da reserva",
+    "There are no operations pending of booking fee payment.": "",
+    "Map is not available": "",
+    "There are no operations in progress.": "",
+    "There are no completed operations.": ""
   },
   "Dashboard Menu": {
     "REQUESTS": "SOLICITAÇÕES",
@@ -173,19 +178,39 @@
     "NO. OF DOCUMENTS": "NUMERO DE DOCUMENTOS",
     "CARGO": "CARGA",
     "VOLUME": "VOLUME",
-    "PACKAGING ": "EMBALAGEM",
+    "PACKAGING": "EMBALAGEM",
     "CARGO DESCRIPTION": "DESCROÇÃO DA CARGA",
     "NO. OF PACKS": "NO. DE EMBALAGENS",
     "PACKAGING TYPE": "TIPO DE EMBALAGEM",
     "HEIGHT, WIDTH, LENGTH, WEIGHT": "ALTURA, LARGURA, COMPRIMENTO, PESO",
     "CHARGES": "CUSTOS",
+    "CHARGES IN": "ENCARGOS EM",
     "TYPE": "TIPO",
     "CHARGE": "TIPO",
     "CURRENCY": "MOEDA",
     "COST": "VALOR",
     "SUBTOTAL": "SUBTOTAL",
     "post_quote_question?": "",
-    "your_search_": ""
+    "your_search_": "",
+    "NO.": "NUMERO",
+    "BOOKING WITH CARRIER": "",
+    "UPDATE": "",
+    "CONFIRM CHARGES": "CONFIRMAR CUSTOS",
+    "TAKE OVER": "",
+    "REQUEST CHANGE": "",
+    "COMPLETE": "",
+    "TRIP": "",
+    "ESTIMATED TIME OF DEPARTURE": "",
+    "ESTIMATED TIME OF ARRIVAL": "",
+    "DOCUMENTS CUT OFF": "",
+    "CARGO CUT OFF": "",
+    "ACTUAL TIME OF ARRIVAL": "",
+    "CONTAINER FREE TIME": "",
+    "Message": "...",
+    "GET ASSISTANCE": "",
+    "to Book": "",
+    "Booking Fee": "Taxa de Resera",
+    "Choose month": ""
   },
   "Quotes": {
     "Quotes": "Cotações",
@@ -210,6 +235,8 @@
     "CONTAINER TYPE": "TIPO DE CONTÊINER",
     "CURRENCY": "MOEDA",
     "HANDLING": "MANIPULAÇÃO",
+    "FREIGHT": "",
+    "OTHERS": "",
     "ADDITIONAL SURCHARGES": "TAXAS ADICIONAIS",
     "CHARGE": "CUSTO",
     "CONDITION": "CONDIÇÃO",
@@ -289,7 +316,8 @@
     "Company Info": "Dados da Organização",
     "Bank Accounts": "Dados Bancarios",
     "SET AS DEFAULT": "DEFINIR COMO PRINCIPAL",
-    "Default bank": "Conta principal"
+    "Default bank": "Conta principal",
+    "Settings": "Definições"
   },
   "User Management": {
     "User Management": "Gerenciamento de usuários",
@@ -311,7 +339,12 @@
     "Billing Completed": "Cobrança finalizada",
     "Time Range": "Período",
     "PAY": "PAGAR",
-    "CANCEL BOOKING": "CANCELAR SOLICITAÃO"
+    "PAY TO": "PAGAR PARA",
+    "CANCEL BOOKING": "CANCELAR SOLICITAÃO",
+    "Payment process": "",
+    "days": "dias",
+    "Mesaage_Bil_Allow": "",
+    "Are you sure you want to cancel booking": ""
   },
   "Surcharges": {
     "Surcharges": "Taxas",
@@ -346,7 +379,8 @@
     "per no. of packs": "por no. de volumes",
     " this cost will be calculated by the number of packs in the shipment": "esse custo será calculado pelo número de volumes no embarque",
     "fixed": "fixo",
-    "this means that the value indicated will be considered once in the shipment": "a taxa será de valor único e cobrada uma vez só no embarque"
+    "this means that the value indicated will be considered once in the shipment": "a taxa será de valor único e cobrada uma vez só no embarque",
+    "TOTAL FREIGHT IN": ""
   },
   "Freight rates": {
     "Freight rates": "Tarífas de fretes",
@@ -377,12 +411,14 @@
     "NEXT": "SEGUINTE",
     "PAYMENT": "PAGAMENTO",
     "PIX QR": "QR DO PIX",
-    "CONFIRM AND SEND": "CONFIRMAR E ENVIAR"
+    "CONFIRM AND SEND": "CONFIRMAR E ENVIAR",
+    "DETAILS": "DETALHES"
   },
   "Company profile": {
     "Company profile": "Perfil do agente",
     "Rating": "Qualificação",
-    "Reviews": "Avaliação"
+    "Reviews": "Avaliação",
+    "Agent Rating": ""
   },
   "Reviews": {
     "Reviews": "Avaliações",
@@ -392,19 +428,8 @@
     "SUBMIT": "ENVIAR"
   },
   "Partners table": {
+    "Partners table": "",
     "Partner companies for shipments": "Empresas parceiras para embarques "
-  },
-  "Email notifications": {
-    "Email notifications": "Notificações por email",
-    "Sea Import Shipment Arrival Alert": "Alerta de chegada de embarques de importação marítima",
-    "Will alert you a specific number of days before the Estimated Time of Arrival of an import shipment.": "Você será avisado um número específico de dias antes do horário estimado de chegada de um embarque de importação.",
-    "Export Shipment Arrival Alert": "Alerta de chegada de embarque de exportação",
-    "Will alert you when the arrival date of a export shipment  of you is set.": "Le avisará cuando un embarque de exportación llegue a su destino.",
-    "Operation Details Change": "Mudança de detalhes dos embarques",
-    "Operation detail changes that are not updates to the departure or arrival dates of the shipment.": "Mudanças nos detalhes dos embarques não relacionadas as datas de saída ou chegada.",
-    "YES": "SIM",
-    "NO": "NÃO",
-    "OK": "OK"
   },
   "Support": {
     "New ticket": "Novo chamado",
@@ -434,6 +459,66 @@
     "client": "",
     "agent": "agente",
     "AGENT": "AGENTE"
+  },
+  "Email notifications": {
+    "Email notifications": "Notificações por email",
+    "Sea Import Shipment Arrival Alert": "Alerta de chegada de embarques de importação marítima",
+    "Will alert_Sea": "Você será avisado um número específico de dias antes do horário estimado de chegada de um embarque de importação.",
+    "Export Shipment Arrival Alert": "Alerta de chegada de embarque de exportação",
+    "Will alert_Export": "Le avisará cuando un embarque de exportación llegue a su destino.",
+    "Operation Details Change": "Mudança de detalhes dos embarques",
+    "Operation_Operation": "Mudanças nos detalhes dos embarques não relacionadas as datas de saída ou chegada.",
+    "Surcharge Expiration": "",
+    "Freight Rate Expiration": "",
+    "Number of days_Surcharge": "",
+    "Number of days_Freight": "",
+    "Import Shipment Departure Alert": "",
+    "Will alert_Import": "",
+    "YES": "SIM",
+    "NO": "NÃO",
+    "OK": "OK"
+  },
+  "Month": {
+    "January": "Janeiro",
+    "February": "Fevereiro",
+    "March": "Março",
+    "April": "Abril",
+    "May": "Maio",
+    "June": "Junho",
+    "July": "Julho",
+    "August": "Agosto",
+    "September":"Setembro",
+    "October": "Outubro",
+    "November": "Novembro",
+    "December":"Dezembro",
+    "Jan": "Jan",
+    "Feb": "Fev",
+    "Mar": "Mar",
+    "Apr": "Abr",
+    "Ma": "Mai",
+    "Jun": "Jun",
+    "Jul": "Jul",
+    "Aug": "Ago",
+    "Sep":"Set",
+    "Oct": "Out",
+    "Nov": "Nov",
+    "Dec":"Dez"
+  },
+  "Week": {
+    "Monday": "Segunda-feira",
+    "Tuesday": "Terça-feira",
+    "Wednesday": "Quarta-feira",
+    "Thursday": "Quinta-feira",
+    "Friday": "Sexta-feira",
+    "Saturday": "Sabado",
+    "Sunday": "Domingo",
+    "Mon": "Se",
+    "Tue": "Te",
+    "Wed": "Qu",
+    "Thu": "Qu",
+    "Fri": "Se",
+    "Sat": "Sa",
+    "Sun": "Do"
   }
 }
 

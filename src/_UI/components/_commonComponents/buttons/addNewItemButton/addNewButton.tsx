@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -8,9 +9,10 @@ type PropsType = {
 }
 
 const AddNewButton:React.FC<PropsType> = ({setIsAdd, disabled}) => {
+    const {t} = useTranslation();
     return (
         <AddButton onClick={() => setIsAdd(true)} disabled={!!disabled}>
-            + Add new
+            + {t("User Management/Add new")}
         </AddButton>
     )
 }

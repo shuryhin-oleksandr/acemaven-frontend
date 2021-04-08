@@ -15,6 +15,7 @@ import BookingCard from "../../../Pages/dashboard/search/search_rate_card/Bookin
 import ChargesChangeTable from "../ClientOperationChangeRequestPopUp/ChargesChangeTable/ChargesChangeTable";
 import BaseButton from "../../base/BaseButton";
 import ActiveQRPayment from "../ClientBookingPopUp/payment/ActiveQRPayment";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setBillingPaymentPopUpVisible: (value: boolean) => void;
@@ -28,11 +29,11 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
   const dispatch = useDispatch();
   // let result_obj = { ...booking?.charges, freight_rate: booking?.freight_rate };
   const [QRStep, setQRStep] = useState(false);
-
+  const {t} = useTranslation();
   return (
     <PopUpWrapper>
       <PopUpInner>
-        <Heading>Payment process</Heading>
+        <Heading>{t("Billing/Payment process")}</Heading>
         <IconButton
           onClick={() => setBillingPaymentPopUpVisible(false)}
           style={{ position: "absolute", top: "20px", right: "20px" }}
@@ -61,14 +62,14 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                 alignItems: "center",
               }}
             >
-              <Title>CHARGES</Title>
+              <Title>{t("Bookings/CHARGES")}</Title>
               <BaseButton
                 onClick={() => {
                   setQRStep(true);
                 }}
                 type="button"
               >
-                Pay
+                {t("Billing/PAY")}
               </BaseButton>
             </div>
             <ChargesChangeTable

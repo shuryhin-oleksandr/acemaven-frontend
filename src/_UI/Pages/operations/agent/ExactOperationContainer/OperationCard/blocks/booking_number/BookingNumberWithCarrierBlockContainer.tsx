@@ -3,6 +3,7 @@ import React from 'react'
 import {ShipmentDetailsType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
 //styles
 import {BookingTitle, NumberOfBooking} from "../../operation-card-style";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -11,10 +12,11 @@ type PropsType = {
 }
 
 const BookingNumberWithCarrierBlockContainer: React.FC<PropsType> = ({shipment}) => {
+  const {t} = useTranslation();
     return (
         <div style={{display: "flex"}}>
-            <BookingTitle>BOOKING WITH CARRIER</BookingTitle>
-            <NumberOfBooking>No {shipment?.booking_number_with_carrier}</NumberOfBooking>
+            <BookingTitle>{t("Bookings/BOOKING WITH CARRIER")}</BookingTitle>
+            <NumberOfBooking>{t("Bookings/NO")} {shipment?.booking_number_with_carrier}</NumberOfBooking>
         </div>
     )
 }

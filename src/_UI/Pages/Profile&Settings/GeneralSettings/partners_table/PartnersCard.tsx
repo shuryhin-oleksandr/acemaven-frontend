@@ -9,6 +9,7 @@ import {
   SpanWrap,
   TextWrap,
 } from "./partenrs-table-style";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -16,45 +17,46 @@ type PropsType = {
 };
 
 const PartnersCard: React.FC<PropsType> = ({ partner }) => {
+  const {t} = useTranslation();
   return (
     <PartnersCardOuter>
       <CardContent>
         <SpanWrap>
-          <LabelWrap>Company name</LabelWrap>
+          <LabelWrap>{t("Register/Company Name")}</LabelWrap>
           <TextWrap>{partner.name}</TextWrap>
         </SpanWrap>
         {partner.address_line_first && (
           <SpanWrap>
-            <LabelWrap>Address</LabelWrap>
+            <LabelWrap>{t("Register/Address")}</LabelWrap>
             <TextWrap>{partner.address_line_first}</TextWrap>
           </SpanWrap>
         )}
         <SpanWrap>
-          <LabelWrap>City</LabelWrap>
+          <LabelWrap>{t("Register/City")}</LabelWrap>
           <TextWrap>{partner.city}</TextWrap>
         </SpanWrap>
         {partner.state && (
           <SpanWrap>
-            <LabelWrap>State</LabelWrap>
+            <LabelWrap>{t("Register/State")}</LabelWrap>
             <TextWrap>{partner.state}</TextWrap>
           </SpanWrap>
         )}
         {partner.zip_code && (
           <SpanWrap>
-            <LabelWrap>Zip code</LabelWrap>
+            <LabelWrap>{t("Register/Zip Code")}</LabelWrap>
             <TextWrap>{partner.zip_code}</TextWrap>
           </SpanWrap>
         )}
         <SpanWrap>
-          <LabelWrap>Phone number</LabelWrap>
+          <LabelWrap>{t("Register/Phone Number")}</LabelWrap>
           <TextWrap>{partner.phone}</TextWrap>
         </SpanWrap>
         <SpanWrap>
-          <LabelWrap>Email address</LabelWrap>
+          <LabelWrap>{t("Register/Email")}</LabelWrap>
           <TextWrap>{partner.email}</TextWrap>
         </SpanWrap>
         <SpanWrap>
-          <LabelWrap>Contact name</LabelWrap>
+          <LabelWrap>{t("Register/Contact Name")}</LabelWrap>
           <TextWrap>{partner.contact_name}</TextWrap>
         </SpanWrap>
       </CardContent>

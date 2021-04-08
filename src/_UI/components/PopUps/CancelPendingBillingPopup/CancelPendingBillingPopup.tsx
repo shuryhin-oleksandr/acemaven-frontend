@@ -13,6 +13,7 @@ import {
   YesButton,
 } from "./cancel-pending-billing-styles";
 import {cancelClientPendingBooking} from "../../../../_BLL/thunks/billing/agent/ClientBillingThunks";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -25,6 +26,7 @@ const CancelPendingBilling: React.FC<PropsType> = ({
   id,
 }) => {
   const dispatch = useDispatch();
+  const {t} = useTranslation();
   return (
     <CancelOperationByClientWrapper>
       <CancelOperationByClientInner>
@@ -34,7 +36,7 @@ const CancelPendingBilling: React.FC<PropsType> = ({
         >
           <img src={close_icon} alt="" />
         </IconButton>
-        <Question>Are you sure you want to cancel booking?</Question>
+        <Question>{t("Billing/Are you sure you want to cancel booking")}?</Question>
         <ButtonsWrapper>
           <YesButton
             onClick={() => {
@@ -42,14 +44,14 @@ const CancelPendingBilling: React.FC<PropsType> = ({
 
             }}
           >
-            Yes
+            {t("Surcharges/YES")}
           </YesButton>
           <CancelButton
             onClick={() => {
               setIsCancelByClient(false);
             }}
           >
-            No
+            {t("Surcharges/NO")}
           </CancelButton>
         </ButtonsWrapper>
       </CancelOperationByClientInner>

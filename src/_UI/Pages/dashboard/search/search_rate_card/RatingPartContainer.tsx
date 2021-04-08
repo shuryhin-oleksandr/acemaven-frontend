@@ -6,6 +6,7 @@ import {Rating} from "@material-ui/lab";
 //styles
 import {CompanyName,  RatingPart, } from "./search-card-styles";
 import {StarsWrapper} from "../../../../components/PopUps/client_review_popup/client-review-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -26,7 +27,7 @@ const RatingPartContainer:React.FC<PropsType> = ({showRatingPopup, company, ...p
         showRatingPopup(true)
         props.setClickedReview && props.setClickedReview(company.id)
     }
-
+    const {t} = useTranslation();
     return (
         <RatingPart >
                <CompanyName>{company?.name}</CompanyName>
@@ -42,7 +43,7 @@ const RatingPartContainer:React.FC<PropsType> = ({showRatingPopup, company, ...p
                         readOnly
                     />
                 </StarsWrapper>
-                : <span style={{fontFamily: 'Helvetica Reg', fontSize: '13px', color: '#7C7C89'}}>*Agent Rating</span>
+                : <span style={{fontFamily: 'Helvetica Reg', fontSize: '13px', color: '#7C7C89'}}>*{t("Company profile/Agent Rating")}</span>
             }
 
                    {/* <NoRatingUnderText>

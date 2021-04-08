@@ -17,5 +17,6 @@ export const RadioLabel = styled.div`
   font-size: 16px;
   color: #3B3B41;
   margin-left: 5px;
+  fr
   
 `

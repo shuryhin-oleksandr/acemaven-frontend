@@ -13,6 +13,7 @@ import { Title, Container, Message, QRWrapper } from "./payment-styles";
 import { getClientQuotesThunk } from "../../../../../_BLL/thunks/quotes/clientQuotesThunk";
 import QRCode from "qrcode.react";
 import { TransactionType } from "../../../../../_BLL/types/bookingTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
@@ -44,7 +45,7 @@ const ActiveQRPayment: React.FC<PropsType> = ({
       dispatch(getClientQuotesThunk("sea", "", "", ""));
     props.close_totals && props.close_totals();
   };
-
+  const {t} = useTranslation();
   return (
     <Container>
       <div
@@ -55,16 +56,13 @@ const ActiveQRPayment: React.FC<PropsType> = ({
           justifyContent: "space-between",
         }}
       >
-        <Title>PAYMENT</Title>
+        <Title>{t("Booking process/PAYMENT")}</Title>
         <BaseButton onClick={clickHandler} type="button">
-          FINISH
+          {t("Complete Profile/COMPLETE ACCOUNT")}
         </BaseButton>
       </div>
       <Message>
-        Allow a few moments after making the payment while we process it. If
-        this doesn’t happen right away, you can still close this window and we
-        will confirm the transaction and send the booking request to the agent
-        once it’s completed.
+        {t("Billing/Mesaage_Bil_Allow")}
       </Message>
       <QRWrapper>
         <QRCode

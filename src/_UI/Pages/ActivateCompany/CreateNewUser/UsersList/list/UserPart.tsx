@@ -18,6 +18,7 @@ import {IAddNewUserData} from "../../../../../../_BLL/types/addNewUserTypes";
 import {getColor} from "../../../../../../_BLL/helpers/colorWrapMaker";
 import deleteIcon from '../../../../../assets/icons/delete.svg';
 import user from '../../../../../assets/icons/profile/defaultUserPhoto.svg';
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -39,7 +40,7 @@ const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser, setEdit
         setColorWrap(getColor(u?.roles))
     }, [u])
 
-
+    const {t} = useTranslation();
     return (
         <Container max_width={max_width}>
             <Inner>
@@ -62,8 +63,8 @@ const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser, setEdit
                         </div>
                         }
                     </ActionWrap>
-                    <Role>Roles: {u?.roles?.map(r => <SpanName key={r} role={r}>{r}</SpanName>)}</Role>
-                    <Email>Email: <SpanEmail>{u?.email}</SpanEmail></Email>
+                    <Role>{t("Register/Roles")}: {u?.roles?.map(r => <SpanName key={r} role={r}>{r}</SpanName>)}</Role>
+                    <Email>{t("Register/Email")}: <SpanEmail>{u?.email}</SpanEmail></Email>
                 </InfoWrap>
             </Inner>
         </Container>

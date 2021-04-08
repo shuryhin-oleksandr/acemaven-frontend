@@ -13,6 +13,7 @@ import {
     SettingsSubtitle,
     SettingsTitle
 } from "../../../../Pages/Profile&Settings/GeneralSettings/general-settings-styles";
+import {useTranslation} from "react-i18next";
 
 
 let useStyles = makeStyles({
@@ -51,7 +52,7 @@ const SettingsNotificationRadio: React.FC<PropsType> = ({title, subtitle, name, 
 
     const {control} = useFormContext()
 
-
+    const {t} = useTranslation();
     return (
         <Outer>
             <SettingsTitle>{title}</SettingsTitle>
@@ -73,7 +74,7 @@ const SettingsNotificationRadio: React.FC<PropsType> = ({title, subtitle, name, 
                                        color="default"
                                        size='small'
                                 />
-                                <RadioLabel>Yes</RadioLabel>
+                                <RadioLabel>{t("Email notifications/YES")}</RadioLabel>
                             </CommonWrap>
                             <CommonWrap>
                                 <Radio className={classes.root}
@@ -81,7 +82,7 @@ const SettingsNotificationRadio: React.FC<PropsType> = ({title, subtitle, name, 
                                        color="default"
                                        size='small'
                                 />
-                                <RadioLabel>No</RadioLabel>
+                                <RadioLabel>{t("Email notifications/NO")}</RadioLabel>
                             </CommonWrap>
                         </RadioGroup>
                     }

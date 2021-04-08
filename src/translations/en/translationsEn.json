@@ -21,7 +21,8 @@
     "NEXT": "NEXT",
     "BACK": "BACK",
     "Create new account": "CREATE NEW ACCOUNT",
-    "Roles": "Roles"
+    "Roles": "Roles",
+    "Contact Name": "Contact Name"
   },
   "Create Master Account": {
     "Create Master Account": "Create Master Account"
@@ -93,15 +94,19 @@
     "Transit Time": "Transit Time",
     "Rate Expiration Date": "Rate Expiration Date",
     "Freight": "Freight",
-    "Total Freight": "Total Freight",
+    "Total Freight": "Total Freight in",
     "Surcharges in": "Surcharges in",
-    "Admaven Service Fee": "Admaven Service Fee",
+    "Acemaven Service Fee": "Acemaven Service Fee",
     "BOOK": "BOOK",
     "Your rate did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy will be protected, the agents won't know who posted the quote until you book the offer.": "Your rate did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy will be protected, the agents won't know who posted the quote until you book the offer.",
     "POST AS QUOTE": "POST AS QUOTE",
     "NEW SEARCH": "NEW SEARCH",
     "**Will be displayed after booking confirmation": "**Will be displayed after booking confirmation",
-    "***Will be displayed after payment is completed": "***Will be displayed after payment is completed"
+    "***Will be displayed after payment is completed": "***Will be displayed after payment is completed",
+    "There are no operations pending of booking fee payment.": "There are no operations pending of booking fee payment.",
+    "Map is not available": "Map is not available.",
+    "There are no operations in progress.": "There are no operations in progress.",
+    "There are no completed operations.": "There are no completed operations."
   },
   "Dashboard Menu": {
     "REQUESTS": "REQUESTS",
@@ -171,19 +176,39 @@
     "NO. OF DOCUMENTS": "NO. OF DOCUMENTS",
     "CARGO": "CARGO",
     "VOLUME": "VOLUME",
-    "PACKAGING ": "PACKAGING ",
+    "PACKAGING": "PACKAGING ",
     "CARGO DESCRIPTION": "CARGO DESCRIPTION",
     "NO. OF PACKS": "NO. OF PACKS",
     "PACKAGING TYPE": "PACKAGING TYPE",
     "HEIGHT, WIDTH, LENGTH, WEIGHT": "HEIGHT, WIDTH, LENGTH, WEIGHT",
     "CHARGES": "CHARGES",
+    "CHARGES IN": "CHARGES IN",
     "TYPE": "TYPE",
-    "CHARGE": "TYPE",
+    "CHARGE": "CHARGE",
     "CURRENCY": "CURRENCY",
     "COST": "COST",
     "SUBTOTAL": "SUBTOTAL",
     "post_quote_question??": "Are you sure you want to post a quote?",
-    "your_search_": "Your search did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy is protected, the agents won’t know who posted the quote until you book the offer"
+    "your_search_": "Your search did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy is protected, the agents won’t know who posted the quote until you book the offer",
+    "NO.": "NO",
+    "BOOKING WITH CARRIER": "BOOKING WITH CARRIER",
+    "UPDATE": "UPDATE",
+    "CONFIRM CHARGES": "CONFIRM CHARGES",
+    "TAKE OVER": "TAKE OVER",
+    "REQUEST CHANGE": "REQUEST CHANGE",
+    "COMPLETE": "COMPLETE",
+    "TRIP": "TRIP",
+    "ESTIMATED TIME OF DEPARTURE": "ESTIMATED TIME OF DEPARTURE",
+    "ESTIMATED TIME OF ARRIVAL": "ESTIMATED TIME OF ARRIVAL",
+    "DOCUMENTS CUT OFF": "DOCUMENTS CUT OFF",
+    "CARGO CUT OFF": "CARGO CUT OFF",
+    "ACTUAL TIME OF ARRIVAL": "ACTUAL TIME OF ARRIVAL",
+    "CONTAINER FREE TIME": "CONTAINER FREE TIME",
+    "Message": "Message...",
+    "GET ASSISTANCE": "GET ASSISTANCE",
+    "to Book": "to Book",
+    "Booking Fee": "Booking Fee",
+    "Choose month": "Choose month"
   },
   "Quotes": {
     "Quotes": "Quotes",
@@ -208,6 +233,8 @@
     "CONTAINER TYPE": "CONTAINER TYPE",
     "CURRENCY": "CURRENCY",
     "HANDLING": "HANDLING",
+    "FREIGHT": "FREIGHT",
+    "OTHERS": "OTHERS",
     "ADDITIONAL SURCHARGES": "ADDITIONAL SURCHARGES",
     "CHARGE": "CHARGE",
     "CONDITION": "CONDITION",
@@ -227,7 +254,7 @@
     "Documents Cut Off Date": "Documents Cut Off Date",
     "Cargo Cut Off Date": "Cargo Cut Off Date",
     "Booking Notes": "Booking Notes",
-    "Empty Pickup Location": "Empty Pickup Location",
+    "Empty Pickup Location": "Empty Pick up Location",
     "Cargo Drop Off Location": "Cargo Drop Off Location",
     "Address": "Address",
     "Container Free Time": "Container Free Time",
@@ -287,7 +314,8 @@
     "Company Info": "Company Info",
     "Bank Accounts": "Bank Accounts",
     "SET AS DEFAULT": "SET AS DEFAULT",
-    "Default bank": "Default account"
+    "Default bank": "Default account",
+    "Settings": "Settings"
   },
   "User Management": {
     "User Management": "User Management",
@@ -309,7 +337,12 @@
     "Billing Completed": "Billing Completed",
     "Time Range": "Time Range",
     "PAY": "PAY",
-    "CANCEL BOOKING": "CANCEL BOOKING"
+    "PAY TO": "PAY TO",
+    "CANCEL BOOKING": "CANCEL BOOKING",
+    "Payment process": "Payment process",
+    "days": "days",
+    "Mesaage_Bil_Allow":"Allow a few moments after making the payment while we process it. If this doesn’t happen right away, you can still close this window and we will confirm the transaction and send the booking request to the agent once it’s completed.",
+    "Are you sure you want to cancel booking": "Are you sure you want to cancel booking"
   },
   "Surcharges": {
     "Surcharges": "Surcharges",
@@ -344,7 +377,8 @@
     "per no. of packs": "per no. of packs",
     " this cost will be calculated by the number of packs in the shipment": "this cost will be calculated by the number of packages in the shipment",
     "fixed": "fixed",
-    "this means that the value indicated will be considered once in the shipment": "this cost will be billed once per shipment"
+    "this means that the value indicated will be considered once in the shipment": "this cost will be billed once per shipment",
+    "TOTAL FREIGHT IN": "TOTAL FREIGHT IN"
   },
   "Freight rates": {
     "Freight rates": "Freight rates",
@@ -375,12 +409,14 @@
     "NEXT": "NEXT",
     "PAYMENT": "PAYMENT",
     "PIX QR": "PIX QR",
-    "CONFIRM AND SEND": "CONFIRM AND SEND"
+    "CONFIRM AND SEND": "CONFIRM AND SEND",
+    "DETAILS": "DETAILS"
   },
   "Company profile": {
     "Company profile": "Company profile",
     "Rating": "Rating",
-    "Reviews": "Reviews"
+    "Reviews": "Reviews",
+    "Agent Rating": "Agent Rating"
   },
   "Reviews": {
     "Reviews": "Reviews",
@@ -390,20 +426,10 @@
     "SUBMIT": "SUBMIT"
   },
   "Partners table": {
+    "Partners table": "Partners Table",
     "Partner companies for shipments": "Partner companies for shipments"
   },
-  "Email notifications": {
-    "Email notifications": "Email notifications",
-    "Sea Import Shipment Arrival Alert": "Sea Import Shipment Arrival Alert",
-    "Will alert you a specific number of days before the Estimated Time of Arrival of an import shipment.": "Will alert you a specific number of days before the Estimated Time of Arrival of an import shipment.",
-    "Export Shipment Arrival Alert": "Export Shipment Arrival Alert",
-    "Will alert you when the arrival date of a export shipment  of you is set.": "Will alert you when an export shipment arrives to its destination.",
-    "Operation Details Change": "Shipment Details Change",
-    "Operation detail changes that are not updates to the departure or arrival dates of the shipment.": "Operation detail changes that are not updates to the departure or arrival dates of the shipment.",
-    "YES": "YES",
-    "NO": "NO",
-    "OK": "OK"
-  },
+
   "Support": {
     "New ticket": "New ticket",
     "Category": "Category",
@@ -421,7 +447,9 @@
     "Operation canceled by Client": "Operation canceled by Client",
     "Shipment in progress": "Shipment in progress",
     "Payment due by ": "Payment due",
-    "Operation Complete": "Operation Complete"
+    "Operation Complete": "Operation Complete",
+    "Operation canceled by Agent": "Operation Canceled by Agent",
+    "Operation canceled by the System": "Operation Canceled by the System"
   },
   "Role": {
     "Client": "Client",
@@ -432,5 +460,23 @@
     "client": "client",
     "agent": "agent",
     "AGENT": "AGENT"
+  },
+  "Email notifications": {
+    "Email notifications": "Email Notifications",
+    "Sea Import Shipment Arrival Alert": "Sea Import Shipment Arrival Alert",
+    "Will alert_Sea": "Will alert you a specific number of days before the Estimated Time of Arrival of an import shipment.",
+    "Export Shipment Arrival Alert": "Export Shipment Arrival Alert",
+    "Will alert_Export": "Will alert you when an export shipment arrives to its destination.",
+    "Operation Details Change": "Shipment Details Change",
+    "Operation_Operation": "Operation detail changes that are not updates to the departure or arrival dates of the shipment.",
+    "Surcharge Expiration": "Surcharge Expiration",
+    "Freight Rate Expiration": "Freight Rate Expiration",
+    "Number of days_Surcharge": "Number of days to notify before a surcharge expires",
+    "Number of days_Freight": "Number of days to notify before a freight rate expires",
+    "Import Shipment Departure Alert": "Import Shipment Departure Alert",
+    "Will alert_Import": "Will alert when the departure date of and import shipment of you is set.",
+    "YES": "YES",
+    "NO": "NO",
+    "OK": "OK"
   }
 }

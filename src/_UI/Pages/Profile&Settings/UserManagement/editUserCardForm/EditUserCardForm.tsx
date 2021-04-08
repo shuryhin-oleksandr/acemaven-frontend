@@ -22,6 +22,7 @@ import {EditCardContainer, FormContainer, Label, PhotoWrap} from "./edit-card-st
 import user from '../../../../../_UI/assets/icons/profile/defaultUserPhoto.svg'
 import closeIcon from "../../../../assets/icons/profile/closeForm.svg";
 import done from "../../../../assets/icons/profile/add.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -83,7 +84,7 @@ const EditUserCardForm: React.FC<PropsType> = ({setEditMode, dispatch, worker}) 
         setColorWrap(getColor(worker?.roles))
     }, [worker])
 
-
+    const {t} = useTranslation();
     return (
         <EditCardContainer>
             <FormContainer onSubmit={handleSubmit(onSubmit)} isOpenPopup={isOpenPopup}>
@@ -98,29 +99,29 @@ const EditUserCardForm: React.FC<PropsType> = ({setEditMode, dispatch, worker}) 
                 </ActionsWrap>
                 <PhotoWrap colorette={colorWrap}><img src={worker?.photo ? worker?.photo : user} alt=""/></PhotoWrap>
                 <FormField name='first_name'
-                           placeholder='Name'
-                           label='Name'
+                           placeholder={t("Register/Name")}
+                           label={t("Register/Name")}
                            inputRef={register({
                                required: 'Field is required'
                            })}
                            error={errors?.first_name}
                 />
                 <FormField name='last_name'
-                           placeholder='Last Name'
-                           label='Last Name'
+                           placeholder={t("Register/Last Name")}
+                           label={t("Register/Last Name")}
                            inputRef={register({
                                required: 'Field is required'
                            })}
                            error={errors?.last_name}
                 />
                 <CheckboxWrap>
-                    <Label>Roles</Label>
+                    <Label>{t("Register/Roles")}</Label>
                     <CustomCheckbox
                         name='roles.master'
                         inputRef={register({
                             required: isRoleRequired
                         })}
-                        role='Master'
+                        role={t("Role/master")}
                         disabled={agent || billing}
                         error={errors?.roles?.master}
                         clearErrors={clearErrors}
@@ -130,7 +131,7 @@ const EditUserCardForm: React.FC<PropsType> = ({setEditMode, dispatch, worker}) 
                         inputRef={register({
                             required: isRoleRequired
                         })}
-                        role='Agent'
+                        role={t("Role/agent")}
                         disabled={master}
                         error={errors?.roles?.agent}
                         clearErrors={clearErrors}
@@ -140,15 +141,15 @@ const EditUserCardForm: React.FC<PropsType> = ({setEditMode, dispatch, worker}) 
                         inputRef={register({
                             required: isRoleRequired
                         })}
-                        role='Billing'
+                        role={t("Role/billing")}
                         disabled={master}
                         error={errors?.roles?.billing}
                         clearErrors={clearErrors}
                     />
                 </CheckboxWrap>
                 <FormField name='email'
-                           placeholder='Email'
-                           label='Email'
+                           placeholder={t("Register/Email")}
+                           label={t("Register/Email")}
                            inputRef={register({
                                required: 'Field is required',
                                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/

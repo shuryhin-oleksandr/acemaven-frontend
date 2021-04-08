@@ -12,6 +12,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import {CargoGroupQuoteType} from "../../../../../../../../_BLL/types/quotes/quotesTypes";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
     container: {
@@ -60,7 +61,7 @@ type PropsType = {
 
 const CargoGroupsTable:React.FC<PropsType> = ({cargo_groups, object_shipping_mode}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return (
         <ShippingModeBlock>
             <ShippingModeLabel>{object_shipping_mode?.title}</ShippingModeLabel>
@@ -70,30 +71,30 @@ const CargoGroupsTable:React.FC<PropsType> = ({cargo_groups, object_shipping_mod
                         {cargo_groups && cargo_groups[0]?.container_type
                             ? <TableRow>
                                 <TableCell className={classes.cell} align="left">
-                                    VOLUME
+                                    {t("Bookings/VOLUME")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    PACKAGING
+                                    {t("Bookings/PACKAGING")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    CARGO DESCRIPTIONS
+                                    {t("Bookings/CARGO DESCRIPTION")}
                                 </TableCell>
                             </TableRow>
                             : <TableRow>
                                 <TableCell className={classes.cell} align="left">
-                                    VOLUME
+                                    {t("Bookings/VOLUME")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    NO. OF PACKS
+                                    {t("Bookings/NO. OF PACKS")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    PACKAGING TYPE
+                                    {t("Bookings/PACKAGING TYPE")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    HEIGHT, WIDTH, LENGTH, WEIGHT
+                                    {t("Bookings/HEIGHT, WIDTH, LENGTH, WEIGHT")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    CARGO DESCRIPTIONS
+                                    {t("Bookings/CARGO DESCRIPTION")}
                                 </TableCell>
                             </TableRow>
                         }

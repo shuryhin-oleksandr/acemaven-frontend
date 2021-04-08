@@ -31,6 +31,7 @@ import {
 import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import IconLocation from "../../../../assets/icons/location_blue.svg";
+import {useTranslation} from "react-i18next";
 
 type PropTypes = {
   billing: BillingOperationType;
@@ -54,7 +55,7 @@ const BillingCard: React.FC<PropTypes> = ({
   let current_user_role = useSelector(
     (state: AppStateType) => state.profile.authUserInfo?.roles
   );
-
+  const {t} = useTranslation();
   return (
     <CardContainer>
       {hasOriginCoordinates && hasDestinationCoordinates ? (
@@ -68,7 +69,7 @@ const BillingCard: React.FC<PropTypes> = ({
       ) : (
         <NoMap>
           <img src={IconLocation} alt="" style={{ marginRight: "7px" }} />
-          Map is not available.
+          {t("Dashboard/Map is not available")}
         </NoMap>
       )}
 
@@ -94,14 +95,14 @@ const BillingCard: React.FC<PropTypes> = ({
                     processPayment && processPayment(true, billing.id)
                   }
                 >
-                  PAY
+                  {t("Billing/PAY")}
                 </ConfirmButton>
                 <RejectButton
                   onClick={() => {
                     cancelBooking && cancelBooking(true, billing.id);
                   }}
                 >
-                  CANCEL
+                  {t("My Profile/CANCEL")}
                 </RejectButton>
               </Row>
             )}
@@ -112,16 +113,16 @@ const BillingCard: React.FC<PropTypes> = ({
             <InfoText>{billing.aceid}</InfoText>
           </Row>
           <Row>
-            <InfoTitle>STATUS</InfoTitle>
-            <InfoText>{billing.status}</InfoText>
+            <InfoTitle>{t("Bookings/STATUS")}</InfoTitle>
+            <InfoText>{t(`Statuses/${billing.status}`)}</InfoText>
           </Row>
           <Row>
-            <InfoTitle>shipping mode</InfoTitle>
+            <InfoTitle>{t("Bookings/SHIPPING MODE")}</InfoTitle>
             <InfoText>{billing.shipping_mode}</InfoText>
           </Row>
           {billing.dates && (
             <Row>
-              <InfoTitle>DATES</InfoTitle>
+              <InfoTitle>{t("Bookings/DATES")}</InfoTitle>
               <InfoText>{billing.dates}</InfoText>
             </Row>
           )}
@@ -130,34 +131,34 @@ const BillingCard: React.FC<PropTypes> = ({
           <div style={{ width: "45%" }}>
             {!!billing.charges.totals.USD && (
               <ChargeRow>
-                <ChargeTitle>CHARGES IN USD</ChargeTitle>
+                <ChargeTitle>{t("Bookings/CHARGES IN")} USD</ChargeTitle>
                 <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
               </ChargeRow>
             )}
             {!!billing.charges.totals.BRL && (
               <ChargeRow>
-                <ChargeTitle>CHARGES IN BRL</ChargeTitle>
+                <ChargeTitle>{t("Bookings/CHARGES IN")} BRL</ChargeTitle>
                 <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
               </ChargeRow>
             )}
             {!!billing.charges.totals.EUR && (
               <ChargeRow>
-                <ChargeTitle>CHARGES IN EUR</ChargeTitle>
+                <ChargeTitle>{t("Bookings/CHARGES IN")} EUR</ChargeTitle>
                 <ChargeValue>{billing.charges.totals.EUR}</ChargeValue>
               </ChargeRow>
             )}
           </div>
           {billing.status !== "Operation Complete" && (
             <div style={{ width: "45%", position: "relative" }}>
-              <ToBookText>to Book:</ToBookText>
+              <ToBookText>{t("Bookings/to Book")}:</ToBookText>
               <ChargeRow>
-                <ChargeTitle>Acemaven Service Fee</ChargeTitle>
+                <ChargeTitle>{t("Dashboard/Acemaven Service Fee")}</ChargeTitle>
                 <ChargeValue>
                   {`${billing.charges.pay_to_book?.currency} ${billing.charges.pay_to_book?.service_fee}`}
                 </ChargeValue>
               </ChargeRow>
               <ChargeRow>
-                <ChargeTitle>Booking Fee</ChargeTitle>
+                <ChargeTitle>{t("Bookings/Booking Fee")}</ChargeTitle>
                 <ChargeValue>
                   {`${billing.charges.pay_to_book?.currency} ${billing.charges.pay_to_book?.booking_fee}`}
                 </ChargeValue>

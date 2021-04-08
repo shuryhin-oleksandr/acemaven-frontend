@@ -22,7 +22,8 @@
     "NEXT":"SEGUINTE",
     "BACK": "ATRÁS",
     "Create new account": "Criar novos Conta",
-    "Roles": ""
+    "Roles": "",
+    "Contact Name": ""
   },
   "Create Master Account": {
     "Create Master Account": "Crear Conta Master"
@@ -94,15 +95,19 @@
     "Transit Time": "Tiempo de Tránsito",
     "Rate Expiration Date": "Fecha de Vencimiento del Flete",
     "Freight": "Flete",
-    "Total Freight": "Flete total",
+    "Total Freight": "Flete total en",
     "Surcharges in": "Tasas en",
-    "Admaven Service Fee": "Tasa de Servicio de Acemaven",
+    "Acemaven Service Fee": "Tasa de Servicio de Acemaven",
     "BOOK": "RESERVAR",
     "Your rate did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy will be protected, the agents won't know who posted the quote until you book the offer.": "Su búsqueda no ha obtenido ningún resultado; puede publicarla en línea como una cotización para que los transitarios envíen sus tarifas o ajuste sus filtros y busque nuevamente. Su privacidad estará protegida, los agentes no sabrán quién publicó la cotización hasta que reserve la oferta.",
     "POST AS QUOTE": "PUBLICAR COMO COTIZACION",
     "NEW SEARCH": "NUEVA BUSQUEDA",
     "**Will be displayed after booking confirmation": "**Será mostrado com la confirmación de la reserva",
-    "***Will be displayed after payment is completed": "**Será mostrado después del envío de la reserva"
+    "***Will be displayed after payment is completed": "**Será mostrado después del envío de la reserva",
+    "There are no operations pending of booking fee payment.": "",
+    "Map is not available": "",
+    "There are no operations in progress.": "",
+    "There are no completed operations.": ""
   },
   "Dashboard Menu": {
     "REQUESTS": "SOLICITUDES",
@@ -172,19 +177,39 @@
     "NO. OF DOCUMENTS": "NUMERO DE DOCUMENTOS",
     "CARGO": "CARGA",
     "VOLUME": "VOLUMEN",
-    "PACKAGING ": "EMBALAJE",
+    "PACKAGING": "EMBALAJE",
     "CARGO DESCRIPTION": "DESCRIPCION DE LA CARGA",
     "NO. OF PACKS": "NO. DE EMBALAJES",
     "PACKAGING TYPE": "TIPO DE EMBALAJE",
     "HEIGHT, WIDTH, LENGTH, WEIGHT": "ALTURA, ANCHO, LARGO, PESO",
     "CHARGES": "COSTOS",
+    "CHARGES IN": "CARGOS EN",
     "TYPE": "TIPO",
     "CHARGE": "DESCRIPCION DE LA CARGA",
     "CURRENCY": "MONEDA",
     "COST": "VALOR",
     "SUBTOTAL": "SUBTOTAL",
     "post_quote_question?": "",
-    "your_search_": ""
+    "your_search_": "",
+    "NO.": "NUMERO",
+    "BOOKING WITH CARRIER": "",
+    "UPDATE": "",
+    "CONFIRM CHARGES": "CONFIRMAR COSTOS",
+    "TAKE OVER": "",
+    "REQUEST CHANGE": "",
+    "COMPLETE": "",
+    "TRIP": "",
+    "ESTIMATED TIME OF DEPARTURE": "",
+    "ESTIMATED TIME OF ARRIVAL": "",
+    "DOCUMENTS CUT OFF": "",
+    "CARGO CUT OFF": "",
+    "ACTUAL TIME OF ARRIVAL": "",
+    "CONTAINER FREE TIME": "",
+    "Message": "...",
+    "GET ASSISTANCE": "",
+    "to Book": "",
+    "Booking Fee": "Tasa de Solicitud",
+    "Choose month": ""
   },
   "Quotes": {
     "Quotes": "Cotizaciones",
@@ -209,6 +234,8 @@
     "CONTAINER TYPE": "TIPO DE CONTENEDOR",
     "CURRENCY": "MONEDA",
     "HANDLING": "MANIPULACION",
+    "FREIGHT": "",
+    "OTHERS": "",
     "ADDITIONAL SURCHARGES": "TASAS ADICIONALES",
     "CHARGE": "COSTO",
     "CONDITION": "CONDICION",
@@ -288,7 +315,8 @@
     "Company Info": "Datos de la Empresa",
     "Bank Accounts": "Datos Bancarios",
     "SET AS DEFAULT": "DEFINIR COMO PRINCIPAL",
-    "Default bank": "Cuenta principal"
+    "Default bank": "Cuenta principal",
+    "Settings": "Configuraciones"
   },
   "User Management": {
     "User Management": "Gerenciamento de usuarios",
@@ -310,7 +338,12 @@
     "Billing Completed": "Facturación finalizada",
     "Time Range": "Período",
     "PAY": "PAGAR",
-    "CANCEL BOOKING": "CANCELAR SOLICITUD"
+    "PAY TO": "PAGARA",
+    "CANCEL BOOKING": "CANCELAR SOLICITUD",
+    "Payment process": "",
+    "days": "días",
+    "Mesaage_Bil_Allow": "",
+    "Are you sure you want to cancel booking": ""
   },
   "Surcharges": {
     "Surcharges": "Tasas",
@@ -345,7 +378,8 @@
     "per no. of packs": "por número de volúmenes",
     " this cost will be calculated by the number of packs in the shipment": "esta tasa será calculada por el número de volúmenes del embarque",
     "fixed": "fijo",
-    "this means that the value indicated will be considered once in the shipment": "la tasa será única y cobrada una sola vez por embarque"
+    "this means that the value indicated will be considered once in the shipment": "la tasa será única y cobrada una sola vez por embarque",
+    "TOTAL FREIGHT IN": ""
   },
   "Freight rates": {
     "Freight rates": "Tarifas de fletes",
@@ -376,12 +410,14 @@
     "NEXT": "SIGUIENTE",
     "PAYMENT": "PAGO",
     "PIX QR": "QR DEL PIX",
-    "CONFIRM AND SEND": "CONFIRMAR Y ENVIAR"
+    "CONFIRM AND SEND": "CONFIRMAR Y ENVIAR",
+    "DETAILS": "DETALLHES"
   },
   "Company profile": {
     "Company profile": "Perfil del agente",
     "Rating": "Calificación",
-    "Reviews": "Reseñas"
+    "Reviews": "Reseñas",
+    "Agent Rating": ""
   },
   "Reviews": {
     "Reviews": "Reseñas",
@@ -391,19 +427,8 @@
     "SUBMIT": "ENVIAR"
   },
   "Partners table": {
+    "Partners table": "",
     "Partner companies for shipments": "Empresas colaboradoras para embarques"
-  },
-  "Email notifications": {
-    "Email notifications": "Notificaciónes de Correo Electrónico",
-    "Sea Import Shipment Arrival Alert": "Alerta de llegada de embarques de importación marítima",
-    "Will alert you a specific number of days before the Estimated Time of Arrival of an import shipment.": "Se le avisará un número específico de días antes de la hora estimada de llegada de un embarque de importación.",
-    "Export Shipment Arrival Alert": "Alerta de llegada de embarque de exportación",
-    "Will alert you when the arrival date of a export shipment  of you is set.": "Ele o notificará quando um embarque de exportação chegar ao seu destino. ",
-    "Operation Details Change": "Cambio de detalles de los embarque",
-    "Operation detail changes that are not updates to the departure or arrival dates of the shipment.": "Cambios en los detalles de la operación que no son actualizaciones de las fechas de salida o llegada del embarque.",
-    "YES": "SI",
-    "NO": "NO",
-    "OK": "OK"
   },
   "Support": {
     "New ticket": "Nuevo llamado",
@@ -433,6 +458,66 @@
     "client": "",
     "agent": "agente",
     "AGENT": "AGENTE"
+  },
+  "Email notifications": {
+    "Email notifications": "Notificaciónes de Correo Electrónico",
+    "Sea Import Shipment Arrival Alert": "Alerta de llegada de embarques de importación marítima",
+    "Will alert_Sea": "Se le avisará un número específico de días antes de la hora estimada de llegada de un embarque de importación.",
+    "Export Shipment Arrival Alert": "Alerta de llegada de embarque de exportación",
+    "Will alert_Export": "Ele o notificará quando um embarque de exportação chegar ao seu destino.",
+    "Operation Details Change": "Cambio de detalles de los embarque",
+    "Operation_Operation": "Cambios en los detalles de la operación que no son actualizaciones de las fechas de salida o llegada del embarque.",
+    "Surcharge Expiration": "",
+    "Freight Rate Expiration": "",
+    "Number of days_Surcharge": "",
+    "Number of days_Freight": "",
+    "Import Shipment Departure Alert": "",
+    "Will alert_Import": "",
+    "YES": "SI",
+    "NO": "NO",
+    "OK": "OK"
+  },
+  "Month": {
+    "January": "Enero",
+    "February": "Febrero",
+    "March": "Marzo",
+    "April": "Abril",
+    "May": "Mayo",
+    "June": "Junio",
+    "July": "Julio",
+    "August": "Agosto",
+    "September":"Septiembre",
+    "October": "Octubre",
+    "November": "Noviembro",
+    "December":"Diciembro",
+    "Jan": "Enero",
+    "Feb": "Feb",
+    "Mar": "Marzo",
+    "Apr": "Abr",
+    "Ma": "Mayo",
+    "Jun": "Jun",
+    "Jul": "Jul",
+    "Aug": "Agosto",
+    "Sep":"Sept",
+    "Oct": "Oct",
+    "Nov": "Nov",
+    "Dec":"Dic"
+  },
+  "Week": {
+    "Monday": "Lunes",
+    "Tuesday": "Martes",
+    "Wednesday": "Miercoles",
+    "Thursday": "Jueves",
+    "Friday": "Viernes",
+    "Saturday": "Sabado",
+    "Sunday": "Domingo",
+    "Mon": "Lun",
+    "Tue": "Mar",
+    "Wed": "Mie",
+    "Thu": "Jue",
+    "Fri": "Vie",
+    "Sat": "Sab",
+    "Sun": "Dom"
   }
 }
 

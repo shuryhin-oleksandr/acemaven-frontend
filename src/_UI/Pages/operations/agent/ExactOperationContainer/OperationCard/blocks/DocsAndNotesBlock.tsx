@@ -13,6 +13,7 @@ import {SectionTitle, SectionWrapper} from "../operation-card-style";
 //icons
 import down_arrow from "../../../../../../assets/icons/rates&services/show_arrow.svg";
 import up_arrow from "../../../../../../assets/icons/rates&services/hide_arrow.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -22,6 +23,7 @@ type PropsType = {
 
 const DocsAndNotesBlock: React.FC<PropsType> = ({notes, docs}) => {
     const [isHidden, setHidden] = useState(false);
+    const {t} = useTranslation();
     return (
         <SectionWrapper
             style={{
@@ -48,12 +50,12 @@ const DocsAndNotesBlock: React.FC<PropsType> = ({notes, docs}) => {
             </IconButton>
             {docs.release_type &&
             <div style={{width: "45%"}}>
-                <SectionTitle>DOCUMENTS</SectionTitle>
+                <SectionTitle>{t("Bookings/DOCUMENTS")}</SectionTitle>
                 {!isHidden && (
                     <div style={{display: "flex"}}>
                         <div style={{width: "40%", display: "flex", flexDirection: "column",}}>
                             <InfoRow>
-                                <InfoRowLabel>Release type</InfoRowLabel>
+                                <InfoRowLabel>{t("Bookings/RELEASE TYPE")}</InfoRowLabel>
                                 <InfoRowValue>{docs.release_type.title}</InfoRowValue>
                             </InfoRow>
                         </div>
@@ -65,7 +67,7 @@ const DocsAndNotesBlock: React.FC<PropsType> = ({notes, docs}) => {
                             }}
                         >
                             <InfoRow>
-                                <InfoRowLabel>No. of Documents</InfoRowLabel>
+                                <InfoRowLabel>{t("Bookings/NO. OF PACKS")}</InfoRowLabel>
                                 <InfoRowValue>{docs.number_of_documents}</InfoRowValue>
                             </InfoRow>
                         </div>
@@ -75,10 +77,10 @@ const DocsAndNotesBlock: React.FC<PropsType> = ({notes, docs}) => {
             }
             {notes.length > 0
             && <div style={{width: "45%"}}>
-                <SectionTitle>NOTES</SectionTitle>
+                <SectionTitle>{t("Operations/NOTES")}</SectionTitle>
                 {!isHidden && (
                     <InfoRow>
-                        <InfoRowLabel>Your comment to the client</InfoRowLabel>
+                        <InfoRowLabel>{t("Operations/Your comment to the client")}</InfoRowLabel>
                         <InfoRowValue>
                             {notes[0].booking_notes}
                         </InfoRowValue>

@@ -30,6 +30,7 @@ export const LabelWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  white-space: nowrap;
 `;
 export const TextWrap = styled.div`
   color: #4f4f4f;

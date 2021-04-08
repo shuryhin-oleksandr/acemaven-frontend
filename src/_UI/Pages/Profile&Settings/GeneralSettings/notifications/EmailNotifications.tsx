@@ -17,6 +17,7 @@ import SettingsNotificationRadio
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 //styles
 import {SettingsWrap} from "../general-settings-styles";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -62,7 +63,7 @@ const EmailNotifications: React.FC<{ my_settings: settingsType | null }> = ({my_
         my_settings && Object.keys(changed_fields).length > 0 &&  dispatch(changeMySettingsThunk(my_settings?.id, changed_fields))
     }
 
-
+    const {t} = useTranslation();
     return (
         <ScrollbarStyled {...{
             style: {width: "100%"},
@@ -75,8 +76,8 @@ const EmailNotifications: React.FC<{ my_settings: settingsType | null }> = ({my_
                     {(company_type === AppCompaniesTypes.AGENT)
                     &&
                     <>
-                        <SettingsNotificationCard title='Surcharge Expiration'
-                                                  subtitle='Number of days to notify before a surcharge expires'
+                        <SettingsNotificationCard title={t("Email notifications/Surcharge Expiration")}
+                                                  subtitle={t("Email notifications/Number of days_Surcharge")}
                                                   switch_name='surcharge_expiration'
                                                   name='surcharge_expiration_days'
                                                   notification={{
@@ -86,8 +87,8 @@ const EmailNotifications: React.FC<{ my_settings: settingsType | null }> = ({my_
                                                   submitThunk={submitThunk}
 
                         />
-                        <SettingsNotificationCard title='Freight Rate Expiration'
-                                                  subtitle='Number of days to notify before a freight rate expires'
+                        <SettingsNotificationCard title={t("Email notifications/Freight Rate Expiration")}
+                                                  subtitle={t("Email notifications/Number of days_Freight")}
                                                   switch_name='freight_rate_expiration'
                                                   name='freight_rate_expiration_days'
                                                   notification={{
@@ -98,8 +99,8 @@ const EmailNotifications: React.FC<{ my_settings: settingsType | null }> = ({my_
                         />
                     </>
                     }
-                    <SettingsNotificationCard title='Sea Import Shipment Arrival Alert'
-                                              subtitle='Will alert you a specific number of days before the Estimated Time of Arrival date of an import shipment (0 will be no notification).'
+                    <SettingsNotificationCard title={t("Email notifications/Sea Import Shipment Arrival Alert")}
+                                              subtitle={t("Email notifications/Will alert_Sea")}
                                               switch_name='sea_import_shipment_arrival_alert'
                                               name='sea_import_shipment_arrival_alert_days'
                                               notification={{
@@ -109,18 +110,18 @@ const EmailNotifications: React.FC<{ my_settings: settingsType | null }> = ({my_
                                               submitThunk={submitThunk}
 
                     />
-                    <SettingsNotificationRadio title='Import Shipment Departure Alert'
-                                               subtitle='Will alert when the departure date of and import shipment of you is set.'
+                    <SettingsNotificationRadio title={t("Email notifications/Import Shipment Departure Alert")}
+                                               subtitle={t("Email notifications/Will alert_Import")}
                                                name='import_shipment_departure_alert'
                                                submitThunk={submitThunk}
                     />
-                    <SettingsNotificationRadio title='Export Shipment Arrival Alert'
-                                               subtitle='Will alert when the arrival date of an export shipment of you is set.'
+                    <SettingsNotificationRadio title={t("Email notifications/Export Shipment Arrival Alert")}
+                                               subtitle={t("Email notifications/Will alert_Export")}
                                                name='export_shipment_arrival_alert'
                                                submitThunk={submitThunk}
                     />
-                    <SettingsNotificationRadio title='Operation Details Change'
-                                               subtitle='Operation detail changes that are not updates to the departure (Actual Time of Departure) or arrival (Actual Time of Arrival) dates of the shipment'
+                    <SettingsNotificationRadio title={t("Email notifications/Operation Details Change")}
+                                               subtitle={t("Email notifications/Operation_Operation")}
                                                name='operation_details_change'
                                                submitThunk={submitThunk}
                     />

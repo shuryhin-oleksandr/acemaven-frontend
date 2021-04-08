@@ -152,14 +152,14 @@ const {t} = useTranslation();
                     <ChatLinkWrap>
                         <NavButton onClick={() => props.setChatOpen && props.setChatOpen(false)}
                                    add_color={!props.isChatOpen}>
-                            DETAILS
+                            {t("Booking process/DETAILS")}
                         </NavButton>
                     </ChatLinkWrap>
                     {(operation_chat?.chat?.has_perm_to_read || operation_chat?.chat?.has_perm_to_write) &&
                     <ChatLinkWrap>
                         <NavButton onClick={() => props.setChatOpen && props.setChatOpen(true)}
                                     add_color={props.isChatOpen}>
-                            GET ASSISTANCE
+                            {t("Bookings/GET ASSISTANCE")}
                         </NavButton>
                     </ChatLinkWrap>
                     }

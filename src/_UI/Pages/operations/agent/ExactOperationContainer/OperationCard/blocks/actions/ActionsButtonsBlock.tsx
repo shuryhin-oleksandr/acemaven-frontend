@@ -15,6 +15,7 @@ import {
     ConfirmButton,
     RejectButton
 } from "../../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -38,7 +39,7 @@ type PropsType = {
 const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, company_type, setReviewPopup, ...props}) => {
 
     const departedStatus = operation_info.tracking?.some(t => t.status === "Aircraft Departed" || t.status === "Vessel Departed");
-
+    const {t} = useTranslation();
     return (
         <ActionsButtons>
             {(operation_info?.status === AppOperationBookingStatusesType.CONFIRMED ||
@@ -50,7 +51,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
             && (my_name === props.agent_contact_name)
             &&
             <AcceptButton style={{width: '146px'}} onClick={() => props.setEdit(true)}>
-                UPDATE
+                {t("Bookings/UPDATE")}
             </AcceptButton>
             }
             {!props.ATD
@@ -62,7 +63,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                 && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
                 &&
                 <AcceptButton style={{width: '206px'}} onClick={() => props.setChangeRequestPopup(true)}>
-                    CONFIRM CHANGES
+                    {t("Bookings/CONFIRM CHANGES")}
                 </AcceptButton>
                 }
                 {company_type?.type === AppCompaniesTypes.AGENT
@@ -74,11 +75,11 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                                 && operation_info?.status !== AppOperationBookingStatusesType.SHIPMENT_IN_PROGRESS
                                 &&
                                 <ConfirmButton onClick={() => props.openAcceptPopup(true)}>
-                                    CONFIRM BOOKING
+                                    {t("Operations/CONFIRM BOOKING")}
                                 </ConfirmButton>
                             )
                             : <AcceptButton onClick={() => props.setTakeOver(true)}>
-                                TAKE OVER
+                          {t("Bookings/TAKE OVER")}
                             </AcceptButton>
                     )
                     : (company_type?.type === AppCompaniesTypes.CLIENT && departedStatus ? null :
@@ -93,13 +94,13 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                                         <ConfirmButton disabled={true}
                                                        onClick={() => props.setClientChangRequestPopupVisible(true)}
                                         >
-                                            REQUEST CHANGE
+                                            {t("Bookings/REQUEST CHANGE")}
                                         </ConfirmButton>
                                     </span>
                                 </BaseTooltip>
                                 :
                                 <ConfirmButton onClick={() => props.setClientChangRequestPopupVisible(true)}>
-                                    REQUEST CHANGE
+                                    {t("Bookings/REQUEST CHANGE")}
                                 </ConfirmButton>
                     )
                 }
@@ -108,7 +109,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
 
             {props.ATD && company_type?.type === AppCompaniesTypes.AGENT
             && <BaseButton onClick={() => props.setCompleteOperationPopup(true)}
-                           style={{marginRight: '15px'}}>COMPLETE</BaseButton>
+                           style={{marginRight: '15px'}}> {t("Bookings/COMPLETE")}</BaseButton>
             }
 
             {company_type?.type === AppCompaniesTypes.AGENT
@@ -120,12 +121,12 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                     )
                     && (my_name === props.agent_contact_name)
                     &&
-                    <RejectButton onClick={() => props.setIsCancelByAgent(true)}>CANCEL OPERATION</RejectButton>
+                    <RejectButton onClick={() => props.setIsCancelByAgent(true)}>{t("Operations/CANCEL OPERATION")}</RejectButton>
                 )
                 : (my_name === props.client_contact_name
                     && !props.ATD &&
                     <RejectButton onClick={() => props.setIsCancelByClient(true)}>
-                        CANCEL OPERATION
+                        {t("Operations/CANCEL OPERATION")}
                     </RejectButton>
                 )
             }

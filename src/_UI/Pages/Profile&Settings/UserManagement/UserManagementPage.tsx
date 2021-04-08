@@ -14,6 +14,7 @@ import EditUserCardForm from "./editUserCardForm/EditUserCardForm";
 import AddUserForm from "./AddUserForm/AddUserForm";
 //styles
 import {CardsOuter, ManagementContainer, ManagementInner, ManagTitle} from "./user-management-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -48,12 +49,12 @@ const UserManagementPage: React.FC<PropsType> = ({workersList, dispatch, my_id, 
             dispatch(profileActions.setAddingUserError(null))
         }
     }, [success])
-
+    const {t} = useTranslation();
     return (
         <ManagementContainer>
             <ManagementInner>
                 <ManagTitle>
-                    User Management
+                    {t("User Management/User Management")}
                 </ManagTitle>
                 {current_user_roles.includes('master') &&
                 (!isAdd

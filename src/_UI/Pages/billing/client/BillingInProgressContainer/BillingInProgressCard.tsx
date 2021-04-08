@@ -20,12 +20,14 @@ import air_type from "../../../../assets/icons/rates&services/plane-surcharge.sv
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import moment from "moment";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   billing: BillingOperationType;
 };
 
 const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
+  const {t} =useTranslation();
   return (
     <BillingCardContainer>
       <Route>
@@ -45,16 +47,16 @@ const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
       </Route>
       <MainInfo>
         <Row>
-          <InfoTitle>STATUS</InfoTitle>
+          <InfoTitle>{t("Bookings/STATUS")}</InfoTitle>
           <InfoText>{billing.status}</InfoText>
         </Row>
         <Row>
-          <InfoTitle>shipping mode</InfoTitle>
+          <InfoTitle>{t("Bookings/SHIPPING MODE")}</InfoTitle>
           <InfoText>{billing.shipping_mode}</InfoText>
         </Row>
         {billing.dates && (
           <Row>
-            <InfoTitle>DATES</InfoTitle>
+            <InfoTitle>{t("Bookings/DATES")}</InfoTitle>
             <InfoText>{billing.dates}</InfoText>
           </Row>
         )}
@@ -69,19 +71,19 @@ const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
           )}
           {!!billing.charges.totals.USD && (
             <ChargeRow>
-              <ChargeTitle>CHARGES IN USD</ChargeTitle>
+              <ChargeTitle>{t("Bookings/CHARGES IN")} USD</ChargeTitle>
               <ChargeValue>{billing.charges.totals.USD.toFixed(2)}</ChargeValue>
             </ChargeRow>
           )}
           {!!billing.charges.totals.BRL && (
             <ChargeRow>
-              <ChargeTitle>CHARGES IN BRL</ChargeTitle>
+              <ChargeTitle>{t("Bookings/CHARGES IN")} BRL</ChargeTitle>
               <ChargeValue>{billing.charges.totals.BRL.toFixed(2)}</ChargeValue>
             </ChargeRow>
           )}
           {!!billing.charges.totals.EUR && (
             <ChargeRow>
-              <ChargeTitle>CHARGES IN EUR</ChargeTitle>
+              <ChargeTitle>{t("Bookings/CHARGES IN")} EUR</ChargeTitle>
               <ChargeValue>{billing.charges.totals.EUR.toFixed(2)}</ChargeValue>
             </ChargeRow>
           )}

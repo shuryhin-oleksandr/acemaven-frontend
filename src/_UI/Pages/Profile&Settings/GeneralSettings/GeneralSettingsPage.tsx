@@ -18,6 +18,7 @@ import {
     GeneralInner,
     GeneralTitle
 } from "./general-settings-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -32,16 +33,16 @@ const GeneralSettingsPage: React.FC<PropsType> = ({company_type, my_settings}) =
     const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
         setValue(newValue);
     };
-
+    const {t} = useTranslation();
     const tabs = [
-        <Tab className={classes.tabButton} label="Email Notifications" value="1"/>,
-        <Tab className={classes.tabButton} label="Partners Table" value="2"/>
+        <Tab className={classes.tabButton} label={t("Email notifications/Email notifications")} value="1"/>,
+        <Tab className={classes.tabButton} label={t("Partners table/Partners table")}  value="2"/>
     ]
 
     return (
         <GeneralContainer>
             <GeneralInner>
-                <GeneralTitle>Settings</GeneralTitle>
+                <GeneralTitle>{t("Company Settings/Settings")}</GeneralTitle>
                 <div className={classes.root}>
                     <TabContext value={value}>
                         <AppBar className={classes.header} position="static">

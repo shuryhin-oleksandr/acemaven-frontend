@@ -16,6 +16,7 @@ import sea_icon from "../../../../../../../assets/icons/big-ship-icon-for-genera
 import air_icon from "../../../../../../../assets/icons/big-plane-icon-for-general.svg";
 import {AppCompaniesTypes} from "../../../../../../../../_BLL/types/commonTypes";
 import {userCompaniesType} from "../../../../../../../../_BLL/types/authTypes";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -25,15 +26,16 @@ type PropsType = {
 }
 
 const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, company_type}) => {
+    const {t} = useTranslation();
     return (
         <SectionWrapper>
-            <SectionTitle>GENERAL INFO</SectionTitle>
+            <SectionTitle>{t("Bookings/GENERAL INFO")}</SectionTitle>
             <GeneralBookingContent>
                 <GeneralShipType margin_top="0">
                     <img src={operation_info?.shipping_type === "sea" ? sea_icon : air_icon} alt=""/>
                 </GeneralShipType>
                 <InfoRow margin_right="27px">
-                    <InfoRowLabel>ROUTE</InfoRowLabel>
+                    <InfoRowLabel>{t("Bookings/ROUTE")}</InfoRowLabel>
                     <InfoRowValue>
                         <RouteName>{operation_info?.freight_rate?.origin?.code}</RouteName>
                         <RouteName>{operation_info?.freight_rate?.destination?.code}</RouteName>
@@ -48,11 +50,11 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, c
                         }}
                     >
                         <InfoRow>
-                            <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/SHIPPING MODE")}</InfoRowLabel>
                             <InfoRowValue>{operation_info?.freight_rate?.shipping_mode?.title}</InfoRowValue>
                         </InfoRow>
                         <InfoRow>
-                            <InfoRowLabel>CARRIER</InfoRowLabel>
+                            <InfoRowLabel>{t("Quote bid screen/CARRIER")}</InfoRowLabel>
                             <InfoRowValue>
                                 {operation_info?.freight_rate?.carrier?.title}
                             </InfoRowValue>
@@ -68,24 +70,24 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, c
                         {shipment?.vessel
                             ? <div style={{display: "flex", flexDirection: "column", marginRight: '46px'}}>
                                 <InfoRow>
-                                    <InfoRowLabel>VESSEL</InfoRowLabel>
+                                    <InfoRowLabel>{t("Booking Confirmation/Vessel")}</InfoRowLabel>
                                     <InfoRowValue>{shipment?.vessel}</InfoRowValue>
                                 </InfoRow>
                                 <InfoRow>
-                                    <InfoRowLabel>TRIP</InfoRowLabel>
+                                    <InfoRowLabel>{t("Bookings/TRIP")}</InfoRowLabel>
                                     <InfoRowValue>{shipment?.voyage}</InfoRowValue>
                                 </InfoRow>
                             </div>
                             : <div style={{display: "flex", flexDirection: "column", marginRight: '46px'}}>
                                 {company_type?.type === AppCompaniesTypes.AGENT &&
                                 <InfoRow>
-                                    <InfoRowLabel>MAWB</InfoRowLabel>
+                                    <InfoRowLabel>{t("Booking Confirmation/MAWB")}</InfoRowLabel>
                                     <InfoRowValue>{shipment?.mawb}</InfoRowValue>
                                 </InfoRow>
                                 }
 
                                 <InfoRow>
-                                    <InfoRowLabel>FLIGHT NUMBER</InfoRowLabel>
+                                    <InfoRowLabel>{t("Bookings/Flight Number")}</InfoRowLabel>
                                     <InfoRowValue>{shipment?.flight_number}</InfoRowValue>
                                 </InfoRow>
                             </div>
@@ -93,7 +95,7 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, c
                         <div style={{display: "flex", flexDirection: "column"}}>
                             {shipment?.empty_pick_up_location &&
                             <InfoRow>
-                                <InfoRowLabel>EMPTY PICKUP LOCATION</InfoRowLabel>
+                                <InfoRowLabel>{t("Booking Confirmation/Empty Pickup Location")}</InfoRowLabel>
                                 <InfoRowValue>
                                     <span style={{color: '#115B86'}}>location:</span> {shipment?.empty_pick_up_location},
                                     <br/> <span
@@ -103,7 +105,7 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, c
                             }
                             {shipment?.cargo_drop_off_location &&
                             <InfoRow>
-                                <InfoRowLabel>CARGO DROP OFF LOCATION </InfoRowLabel>
+                                <InfoRowLabel>{t("Booking Confirmation/Cargo Drop Off Location")}</InfoRowLabel>
                                 <InfoRowValue>
                                     <span
                                         style={{color: '#115B86'}}>location:</span> {shipment?.cargo_drop_off_location},
@@ -113,7 +115,7 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, c
                             </InfoRow>}
                             {shipment?.cargo_pick_up_location &&
                             <InfoRow>
-                                <InfoRowLabel>CARGO PICK UP LOCATION </InfoRowLabel>
+                                <InfoRowLabel>{t("Booking Confirmation/Empty Pickup Location")}</InfoRowLabel>
                                 <InfoRowValue>
                                     <span
                                         style={{color: '#115B86'}}>location:</span> {shipment?.cargo_pick_up_location},

@@ -12,6 +12,7 @@ import {
 //icons
 import down_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
 import up_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -31,16 +32,16 @@ const PaymentDueByForClient: React.FC<PropsType> = ({payment_due_by, agent_bank_
         }
         return true;
     }
-
+    const {t} = useTranslation();
     return (
         <>
             <div style={{display: 'flex',}}>
-                <InfoRowLabel style={{marginRight: '10px'}}>PAYMENT DUE BY:</InfoRowLabel>
+                <InfoRowLabel style={{marginRight: '10px'}}>{t("Operations/PAYMENT DUE BY")}:</InfoRowLabel>
                 <InfoRowValue>{payment_due_by ? payment_due_by : ''}</InfoRowValue>
             </div>
             {payment_due_by &&
             <div style={{display: 'flex',}}>
-                <InfoRowLabel style={{marginRight: '10px'}}>PAY TO:</InfoRowLabel>
+                <InfoRowLabel style={{marginRight: '10px'}}>{t("Billing/PAY TO")}:</InfoRowLabel>
                 <InfoRowValue>{agent_name}</InfoRowValue>
             </div>
             }

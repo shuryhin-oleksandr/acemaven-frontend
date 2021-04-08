@@ -1,5 +1,6 @@
 import {CargoGroupQuoteType, RateQuoteType} from "../quotes/quotesTypes";
 import {CostBookingType, ShipperType} from "../bookingTypes";
+import {useTranslation} from "react-i18next";
 
 
 export enum AppOperationBookingStatusesType {

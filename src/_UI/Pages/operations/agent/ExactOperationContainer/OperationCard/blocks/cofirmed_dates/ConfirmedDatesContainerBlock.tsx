@@ -18,6 +18,7 @@ import {
 import {SectionTitle, SectionWrapper} from "../../operation-card-style";
 //icons
 import calendar_icon from "../../../../../../../assets/icons/date_1.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -33,17 +34,17 @@ const ConfirmedDatesContainerBlock: React.FC<PropsType> = ({shipment, operation_
     let c = moment(operation_info?.date_to, 'DD/MM/YYYY').toDate()
     let date_to = moment(c).format('DD/MM')
 
-
+    const {t} = useTranslation();
     return (
         <SectionWrapper>
-            <SectionTitle>DATES</SectionTitle>
+            <SectionTitle>{t("Bookings/DATES")}</SectionTitle>
             <GeneralBookingContent>
                 <div style={{display: "flex"}}>
                     <CalendarIcon style={{width: "87px", height: "96px"}}>
                         <img src={calendar_icon} alt=""/>
                     </CalendarIcon>
                     <InfoRow margin_right="50px" margin_bottom="0px">
-                        <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
+                        <InfoRowLabel>{t("Quotes/SHIPMENT DATE")}</InfoRowLabel>
                         <span style={{
                             width: "150px",
                             fontSize: "24px",

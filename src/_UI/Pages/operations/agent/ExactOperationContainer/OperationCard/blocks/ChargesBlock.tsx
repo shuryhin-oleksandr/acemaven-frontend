@@ -19,6 +19,7 @@ import {
   TotalName,
   TotalValue,
 } from "../../../../../dashboard/search/search_rate_card/search-card-styles";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -72,13 +73,15 @@ const ChargesBlock: React.FC<PropsType> = ({
 }) => {
   const classes = useStyles();
 
+  const {t} = useTranslation();
+
   const column_object = [
-    { name: "VOLUME", align: "left" },
-    { name: "TYPE", align: "left" },
-    { name: "CHARGE", align: "left" },
-    { name: "CURRENCY", align: "left" },
-    { name: "COST", align: "right" },
-    { name: "SUBTOTAL", align: "right" },
+    { name: t("Bookings/VOLUME"), align: "left" },
+    { name: t("Bookings/TYPE"), align: "left" },
+    { name: t("Bookings/CHARGE"), align: "left" },
+    { name: t("Bookings/CURRENCY"), align: "left" },
+    { name: t("Bookings/COST"), align: "right" },
+    { name: t("Bookings/SUBTOTAL"), align: "right" },
   ];
 
   return (

@@ -37,6 +37,7 @@ import {
 } from "./operation-card-style";
 //icons
 import close_icon from "../../../../../assets/icons/close-icon.svg";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   operation_info: OperationType;
@@ -74,7 +75,7 @@ const OperationCard: React.FC<PropsType> = ({
 }) => {
   let shipment =
     operation_info?.shipment_details && operation_info?.shipment_details[0];
-
+  const {t} = useTranslation();
   return (
     <CardWrapper>
       <CardContent>
@@ -94,7 +95,7 @@ const OperationCard: React.FC<PropsType> = ({
               )}
             <BookingStatus>
               <span style={{ color: "#1ab8e5", marginRight: "5px" }}>
-                STATUS
+               {t("Operations/STATUS")}
               </span>
               <span
                 style={{
@@ -106,7 +107,7 @@ const OperationCard: React.FC<PropsType> = ({
                 {local_time}
               </span>{" "}
               <span style={{ textTransform: "uppercase" }}>
-                {operation_info?.status}
+                {t(`Statuses/${operation_info?.status}`)}
               </span>
             </BookingStatus>
           </BookingInfo>
@@ -115,7 +116,7 @@ const OperationCard: React.FC<PropsType> = ({
             AppOperationBookingStatusesType.COMPLETED &&
           !operation_info.has_review ? (
             <ConfirmButton onClick={() => setReviewPopup(true)}>
-              LEAVE A REVIEW
+              {t("Reviews/Leave a review")}
             </ConfirmButton>
           ) : (
             operation_info?.status !==
@@ -206,7 +207,7 @@ const OperationCard: React.FC<PropsType> = ({
           />
         )}
         <SectionWrapper>
-          <SectionTitle>CHARGES</SectionTitle>
+          <SectionTitle>{t("Bookings/CHARGES")}</SectionTitle>
           {company_type?.type === AppCompaniesTypes.AGENT
             ? my_name === operation_info?.agent_contact_person &&
               (operation_info?.status ===

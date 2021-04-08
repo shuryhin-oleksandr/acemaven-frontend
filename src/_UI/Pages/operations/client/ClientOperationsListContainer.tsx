@@ -19,6 +19,7 @@ import {
   autoTrackWithEventsHelper,
   manualTrackWithEventsHelper
 } from "../../../../_BLL/helpers/tracker/autoTracksWithEventsHelper";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setSearchMode: (value: boolean) => void;
@@ -45,7 +46,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
 
   //AIR
   let air_events = [...autoTrackWithEventsHelper(props.operations_list), ...manualTrackWithEventsHelper(props.operations_list)]
-
+  const {t} = useTranslation();
   return (
     <OperationsWrapper>
       {!isHide && props.operation_status === 'active' && (
@@ -66,7 +67,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
         </HideButton>}
         <OperationsContent isHide={isHide} style={{padding:"10px 80px 50px 0"}} status={props.operation_status}>
           <OperationHeader>
-            <OperationTitle>Operations</OperationTitle>
+            <OperationTitle>{t("Operations/Operations")}</OperationTitle>
             <div
               style={{
                 display: "flex",

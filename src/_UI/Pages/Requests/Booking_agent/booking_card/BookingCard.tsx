@@ -45,7 +45,8 @@ type PropsType = {
   setAssignAgent: (value: boolean) => void;
   setRejectPopupOpen: (value: boolean) => void;
   acceptBookingOnMe: VoidFunctionType;
-  exact_booking_info: BookingInfoType | null;
+  // exact_booking_info: BookingInfoType | null;
+  exact_booking_info: any;
   history: any;
   isFetching: boolean;
 };
@@ -104,7 +105,7 @@ const BookingCard: React.FC<PropsType> = ({
                   </span>
                 </BookingStatus>
               </BookingInfo>
-              <ActionsButtons>
+              <ActionsButtons style={{ marginTop: 10 }}>
                 {!exact_booking_info?.is_assigned && current_role && (
                   <AssignButton onClick={() => setAssignAgent(true)}>
                     ASSIGN
@@ -210,6 +211,7 @@ const BookingCard: React.FC<PropsType> = ({
               booking_shipping_mode={
                 exact_booking_info?.freight_rate.shipping_mode
               }
+              charges_today_exchange={exact_booking_info?.charges_today}
             />
           </CardContent>
         </CardWrapper>

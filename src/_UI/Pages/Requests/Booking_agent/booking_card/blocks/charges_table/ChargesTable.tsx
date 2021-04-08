@@ -8,6 +8,14 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import { CostBookingType } from "../../../../../../../_BLL/types/bookingTypes";
+import {
+  HiddenWrapper,
+  TableTotal,
+  TotalLine,
+  TotalName,
+  TotalValue,
+} from "../../../../../dashboard/search/search_rate_card/search-card-styles";
+import { AppOperationBookingStatusesType } from "../../../../../../../_BLL/types/operations/operationsTypes";
 
 const useStyles = makeStyles({
   container: {
@@ -50,9 +58,20 @@ const useStyles = makeStyles({
 
 type PropsType = {
   charges_cost: any;
+  charges_today_exchange:
+    | {
+        total_today: number;
+        "EUR exchange rate"?: number;
+        "USD exchange rate"?: number;
+      }
+    | null
+    | undefined;
 };
 
-const ChargesTable: React.FC<PropsType> = ({ charges_cost }) => {
+const ChargesTable: React.FC<PropsType> = ({
+  charges_cost,
+  charges_today_exchange,
+}) => {
   const classes = useStyles();
 
   return (
@@ -140,26 +159,36 @@ const ChargesTable: React.FC<PropsType> = ({ charges_cost }) => {
               {charges_cost?.doc_fee.subtotal}
             </TableCell>
           </TableRow>
-          <TableRow className={classes.row}>
-            <TableCell className={classes.innerCell} align="left" />
-            <TableCell className={classes.innerCell} align="left" />
-            <TableCell className={classes.innerCell} align="left" />
-            <TableCell className={classes.innerCell} align="center" />
-            <TableCell className={classes.innerCell} align="right">
-              <div>CHARGES IN BRL</div>
-              <div>CHARGES IN USD</div>
-            </TableCell>
-            <TableCell className={classes.innerCell} align="right">
-              {charges_cost?.total_surcharge.BRL &&
-                charges_cost?.total_surcharge.BRL}
-              {charges_cost?.total_surcharge.USD &&
-                charges_cost?.total_surcharge.USD}
-            </TableCell>
-          </TableRow>
         </TableBody>
       </Table>
+      <TableTotal>
+        {charges_cost?.totals_pure && (
+          <>
+            {charges_cost?.totals_pure?.USD && (
+              <TotalLine>
+                <TotalName>CHARGES IN USD:</TotalName>
+                <TotalValue>{charges_cost?.totals_pure?.USD}</TotalValue>
+              </TotalLine>
+            )}
+            {charges_cost?.totals_pure?.EUR && (
+              <TotalLine>
+                <TotalName>CHARGES IN EUR:</TotalName>
+                <TotalValue>{charges_cost?.totals_pure?.EUR}</TotalValue>
+              </TotalLine>
+            )}
+            {charges_cost?.totals_pure?.BRL && (
+              <TotalLine>
+                <TotalName>CHARGES IN BRL:</TotalName>
+                <TotalValue>{charges_cost?.totals_pure?.BRL}</TotalValue>
+              </TotalLine>
+            )}
+          </>
+        )}
+      </TableTotal>
     </TableContainer>
   );
 };
 
 export default ChargesTable;
+
+//FIX TOTAL_PURE in the end!!

@@ -51,7 +51,7 @@ export const BookingStatus = styled.span`
 export const ActionsButtons = styled.div`
   display: flex;
   @media (max-width: 1280px) {
-    flex-direction: row-reverse;
+    //flex-direction: row-reverse;
     flex-wrap: wrap;
   }
 `
@@ -122,7 +122,7 @@ export const RejectButton = styled.button <{margin?: string}>`
   }
   
    @media (max-width: 1280px) {
-    width: 205px;
+    //width: 205px;
     font-size: 12px;
     margin-right: 15px;
   }

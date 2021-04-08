@@ -126,14 +126,14 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
                     <div>{s.other.currency}</div>
                   </TableCell>
                   <TableCell className={classes.innerCell} align="right">
-                    <div>{s.freight.cost}</div>
+                    <div>{s.freight.cost_pure}</div>
                     <div>{s.handling.cost}</div>
                     {s.cold && <div>{s.cold.cost}</div>}
                     {s.dangerous && <div>{s.dangerous.cost}</div>}
                     <div>{s.other.cost}</div>
                   </TableCell>
                   <TableCell className={classes.innerCell} align="right">
-                    <div>{s.freight.subtotal}</div>
+                    <div>{s.freight.subtotal_pure}</div>
                     <div>{s.handling.subtotal}</div>
                     {s.cold && <div>{s.cold.subtotal}</div>}
                     {s.dangerous && <div>{s.dangerous.subtotal}</div>}
@@ -167,81 +167,6 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
         </TableContainer>
       </HiddenTable>
       <TableTotal>
-        {operation_charges?.totals && (
-          <>
-            {operation_charges?.totals?.USD && (
-              <TotalLine>
-                <TotalName>CHARGES IN USD:</TotalName>
-                <TotalValue>{operation_charges?.totals?.USD}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals?.EUR && (
-              <TotalLine>
-                <TotalName>CHARGES IN EUR:</TotalName>
-                <TotalValue>{operation_charges?.totals?.EUR}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals?.BRL && (
-              <TotalLine>
-                <TotalName>CHARGES IN BRL:</TotalName>
-                <TotalValue>{operation_charges?.totals?.BRL}</TotalValue>
-              </TotalLine>
-            )}
-          </>
-        )}
-
-        {operation_charges?.pay_to_book && (
-          <TotalLine>
-            <TotalName>
-              BOOKING FEE IN{" "}
-              {operation_charges?.pay_to_book?.currency === "BRL"
-                ? "BRL"
-                : "USD"}
-              :
-            </TotalName>
-            <TotalValue>
-              {operation_charges?.pay_to_book?.booking_fee}
-            </TotalValue>
-          </TotalLine>
-        )}
-        {operation_charges?.service_fee && (
-          <TotalLine>
-            <TotalName>
-              ACEMAVEN SERVICE FEE IN{" "}
-              {operation_charges?.service_fee?.currency === "BRL"
-                ? "BRL"
-                : "USD"}
-              :
-            </TotalName>
-            <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>
-          </TotalLine>
-        )}
-
-        {operation_charges?.exchange_rates?.USD && (
-          <TotalLine>
-            <TotalName>ACEMAVEN USD EXCHANGE RATE:</TotalName>
-            <TotalValue>{operation_charges?.exchange_rates?.USD}</TotalValue>
-          </TotalLine>
-        )}
-        {operation_charges?.exchange_rates?.EUR && (
-          <TotalLine>
-            <TotalName>ACEMAVEN EUR EXCHANGE RATE:</TotalName>
-            <TotalValue>{operation_charges?.exchange_rates?.EUR}</TotalValue>
-          </TotalLine>
-        )}
-        {operation_charges?.pay_to_book && (
-          <TotalLine>
-            <TotalName>
-              {status === AppOperationBookingStatusesType.BOOKING_FEE_PENDING
-                ? "TO BOOK IN"
-                : "PAID TO BOOK IN"}{" "}
-              {operation_charges?.pay_to_book?.currency}:
-            </TotalName>
-            <TotalValue>
-              {operation_charges?.pay_to_book?.pay_to_book}
-            </TotalValue>
-          </TotalLine>
-        )}
         {operation_charges?.totals_pure && (
           <>
             {operation_charges?.totals_pure?.USD && (

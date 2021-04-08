@@ -38,6 +38,7 @@ import {
 } from "../../../Pages/dashboard/search/search_rate_card/search-card-styles";
 //icons
 import close from "../../../assets/icons/close-icon.svg";
+import { log } from "util";
 
 const useStyles = makeStyles({
   container: {
@@ -217,31 +218,35 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                             <div>FREIGHT</div>
                             <div>HANDLING</div>
                             {s.cold && <div>COLD</div>}
+                            {s.dangerous && <div>DANGEROUS</div>}
                             <div>OTHERS</div>
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
-                            <div>{s.freight?.currency}</div>
-                            <div>{s.handling?.currency}</div>
+                            <div>{s.freight.currency}</div>
+                            <div>{s.handling.currency}</div>
                             {s.cold && <div>{s.cold.currency}</div>}
-                            <div>{s.other?.currency}</div>
+                            {s.dangerous && <div>{s.dangerous.currency}</div>}
+                            <div>{s.other.currency}</div>
                           </TableCell>
                           <TableCell
                             className={classes.innerCell}
                             align="right"
                           >
-                            <div>{s.freight?.cost}</div>
-                            <div>{s.handling?.cost}</div>
+                            <div>{s.freight.cost}</div>
+                            <div>{s.handling.cost}</div>
                             {s.cold && <div>{s.cold.cost}</div>}
-                            <div>{s.other?.cost}</div>
+                            {s.dangerous && <div>{s.dangerous.cost}</div>}
+                            <div>{s.other.cost}</div>
                           </TableCell>
                           <TableCell
                             className={classes.innerCell}
                             align="right"
                           >
-                            <div>{s.freight?.subtotal}</div>
-                            <div>{s.handling?.subtotal}</div>
+                            <div>{s.freight.subtotal}</div>
+                            <div>{s.handling.subtotal}</div>
                             {s.cold && <div>{s.cold.subtotal}</div>}
-                            <div>{s.other?.subtotal}</div>
+                            {s.dangerous && <div>{s.dangerous.subtotal}</div>}
+                            <div>{s.other.subtotal}</div>
                           </TableCell>
                         </TableRow>
                       )

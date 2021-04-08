@@ -37,6 +37,7 @@ import {
 } from "./operation-card-style";
 //icons
 import close_icon from "../../../../../assets/icons/close-icon.svg";
+import ChargesBlockAgent from "./blocks/ChargesBlockAgent";
 
 type PropsType = {
   operation_info: OperationType;
@@ -243,13 +244,25 @@ const OperationCard: React.FC<PropsType> = ({
                   agent_name={operation_info?.agent_contact_person}
                 />
               )}
-          <ChargesBlock
-            operation_charges={
-              operation_info?.charges ? operation_info?.charges : null
-            }
-            number_of_docs={operation_info?.number_of_documents}
-            charges_today_exchange={operation_info?.charges_today}
-          />
+          {company_type?.type === AppCompaniesTypes.CLIENT ? (
+            <ChargesBlock
+              operation_charges={
+                operation_info?.charges ? operation_info?.charges : null
+              }
+              number_of_docs={operation_info?.number_of_documents}
+              charges_today_exchange={operation_info?.charges_today}
+              status={operation_info?.status}
+            />
+          ) : (
+            <ChargesBlockAgent
+              operation_charges={
+                operation_info?.charges ? operation_info?.charges : null
+              }
+              number_of_docs={operation_info?.number_of_documents}
+              charges_today_exchange={operation_info?.charges_today}
+              status={operation_info?.status}
+            />
+          )}
         </SectionWrapper>
         {(operation_info?.shipment_details &&
           operation_info?.shipment_details.length > 0) ||

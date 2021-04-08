@@ -67,7 +67,7 @@ type PropsType = {
   status?: string;
 };
 
-const ChargesBlock: React.FC<PropsType> = ({
+const ChargesBlockAgent: React.FC<PropsType> = ({
   operation_charges,
   number_of_docs,
   charges_today_exchange,
@@ -289,4 +289,4 @@ const ChargesBlock: React.FC<PropsType> = ({
   );
 };
 
-export default ChargesBlock;
+export default ChargesBlockAgent;

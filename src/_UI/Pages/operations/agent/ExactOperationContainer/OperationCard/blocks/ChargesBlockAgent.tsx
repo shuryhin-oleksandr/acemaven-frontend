@@ -61,6 +61,10 @@ type PropsType = {
         total_today: number;
         "EUR exchange rate"?: number;
         "USD exchange rate"?: number;
+        today_exchange_rate: {
+          currency: string;
+          exchange_rate: number;
+        };
       }
     | null
     | undefined;
@@ -187,25 +191,36 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
                 <TotalValue>{operation_charges?.totals_pure?.BRL}</TotalValue>
               </TotalLine>
             )}
-            {status !== AppOperationBookingStatusesType.BOOKING_FEE_PENDING && (
-              <TotalLine>
-                <TotalName>TOTAL TODAY:</TotalName>
-                <TotalValue>{operation_charges?.total_today}</TotalValue>
-              </TotalLine>
-            )}
-
             {charges_today_exchange &&
               status !== AppOperationBookingStatusesType.BOOKING_FEE_PENDING &&
               Object.keys(charges_today_exchange).length > 0 &&
               charges_today_exchange?.total_today && (
-                <TotalLine>
-                  <TotalName font_family="Helvetica Bold, sans-serif">
-                    Total Today
-                  </TotalName>
-                  <TotalValue font_family="Helvetica Bold, sans-serif">
-                    {charges_today_exchange?.total_today}
-                  </TotalValue>
-                </TotalLine>
+                <>
+                  {charges_today_exchange.today_exchange_rate.exchange_rate !==
+                    1 && (
+                    <TotalLine>
+                      <TotalName>
+                        Today's{" "}
+                        {charges_today_exchange.today_exchange_rate.currency}{" "}
+                        Exchange rate:
+                      </TotalName>
+                      <TotalValue>
+                        {
+                          charges_today_exchange.today_exchange_rate
+                            .exchange_rate
+                        }
+                      </TotalValue>
+                    </TotalLine>
+                  )}
+                  <TotalLine>
+                    <TotalName font_family="Helvetica Bold, sans-serif">
+                      TOTAL TODAY:
+                    </TotalName>
+                    <TotalValue font_family="Helvetica Bold, sans-serif">
+                      {charges_today_exchange?.total_today}
+                    </TotalValue>
+                  </TotalLine>
+                </>
               )}
           </>
         )}

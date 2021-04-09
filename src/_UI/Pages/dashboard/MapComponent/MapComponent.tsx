@@ -41,8 +41,8 @@ const MapComponent: React.FC<Interface> = (props) => {
     >
       {props.events &&
         props.events.length > 0 &&
-        props.events.map((ev: any, index: number) => (
-          <div key={index}>
+        props.events.map((ev: any) => (
+          <div key={ev.aceid}>
             {isOpen && (
               <InfoBox
                 defaultPosition={
@@ -66,13 +66,22 @@ const MapComponent: React.FC<Interface> = (props) => {
                     <InfoBoxLabel style={{ marginBottom: 5 }}>
                       ACEID:
                     </InfoBoxLabel>
-                    {/*<div>BOOKING ID</div>*/}
+                    {ev.booking_number && (
+                      <InfoBoxLabel style={{ marginBottom: 5 }}>
+                        BOOKING ID:
+                      </InfoBoxLabel>
+                    )}
                     <InfoBoxLabel>ROUTE:</InfoBoxLabel>
                   </LabelsWrapper>
                   <div>
                     <InfoBoxValue style={{ marginBottom: 5 }}>
                       {ev.aceid}
                     </InfoBoxValue>
+                    {ev.booking_number && (
+                      <InfoBoxLabel style={{ marginBottom: 5 }}>
+                        {ev.booking_number}
+                      </InfoBoxLabel>
+                    )}
                     <InfoBoxValue>
                       {ev.origin_code} - {ev.destination_code}
                     </InfoBoxValue>

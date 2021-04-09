@@ -55,7 +55,6 @@ const BookingCard: React.FC<PropsType> = ({
   ...props
 }) => {
   const dispatch = useDispatch();
-  console.log("search_result", search_result);
   return (
     <UpperWrapper
       onClick={() =>

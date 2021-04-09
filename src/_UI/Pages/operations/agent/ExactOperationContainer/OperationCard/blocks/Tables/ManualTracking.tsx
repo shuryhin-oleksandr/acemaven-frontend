@@ -44,6 +44,7 @@ import save_icon from "../../../../../../../assets/icons/profile/add.svg";
 import Garbage from "../../../../../../../assets/icons/garbage-icon.svg";
 //styled components
 import styled from "styled-components";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -126,7 +127,7 @@ const useStyles = makeStyles({
 });
 
 let columns = [
-    {name: ""},
+    {name: "DATE"},
     {name: "STATUS"},
     {name: "COMMENTS"},
     {name: ""},
@@ -224,7 +225,7 @@ const ManualTracking: React.FC<PropsType> = ({
             }
         }
     };
-
+    const {t} = useTranslation();
 
     return (
         <Wrap onSubmit={handleSubmit(onSubmit)}>
@@ -241,7 +242,7 @@ const ManualTracking: React.FC<PropsType> = ({
                             <TableRow>
                                 {columns.map((s, idx) => (
                                     <TableCell key={idx} className={classes.cell} align="left">
-                                        {s.name}
+                                        {!!s.name?t(`Operations/${s.name}`):""}
                                     </TableCell>
                                 ))}
                             </TableRow>
@@ -260,7 +261,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                             }}
                                             as={
                                                 <SurchargeRateSelect
-                                                    placeholder={"Select status"}
+                                                    placeholder={t("Confirm Operation/Select status")}
                                                     options={statusOptions}
                                                     max_width="260px"
                                                     error={errors?.status?.message}
@@ -274,7 +275,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                                 inputRef={register({
                                                     required: "Field is required",
                                                 })}
-                                                placeholder="Add comment..."
+                                                placeholder={t("Confirm Operation/Add comment...")}
                                                 name="comment"
                                                 error={errors?.comment}
                                                 max_width={"100%"}

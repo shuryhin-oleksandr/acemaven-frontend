@@ -37,6 +37,7 @@ import {GeneralTitle} from "../../../quotes/agent/table/agent-quotes-styles";
 import sea_icon from '../../../../../_UI/assets/icons/big-ship-icon-for-general.svg'
 import air_icon from '../../../../assets/icons/big-plane-icon-for-general.svg'
 import close_icon from '../../../../assets/icons/close-icon.svg'
+import {useTranslation} from "react-i18next";
 
 
 
@@ -54,8 +55,8 @@ const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, a
     let current_user = useSelector((state: AppStateType) => state.profile.authUserInfo)
     let current_role = current_user?.roles?.includes(('master'))
     let local_time = moment(new Date()).format(' DD/MM  h:mm a');
-
-    return (
+    const {t} = useTranslation();
+      return (
         <>
             {isFetching || !exact_booking_info
                 ? <SpinnerForAuthorizedPages/>
@@ -68,13 +69,13 @@ const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, a
                         <ContentHeader>
                             <BookingInfo>
                                 <BookingNumber>
-                                    Booking {exact_booking_info?.aceid}
+                                    {t("Bookings/Booking")} {exact_booking_info?.aceid}
                                 </BookingNumber>
                                 <BookingStatus>
                                 <span style={{
                                     color: '#1ab8e5',
                                     marginRight: '5px'
-                                }}>STATUS</span>
+                                }}>{t("Bookings/STATUS")}</span>
                                     <span style={{
                                         fontSize: '18px',
                                         textTransform: 'lowercase'
@@ -83,25 +84,25 @@ const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, a
                                   </span>
                                     {' '}
                                     <span style={{textTransform: 'uppercase'}}>
-                                    {exact_booking_info?.status}
+                                    {t(`Statuses/${exact_booking_info?.status}`)}
                                   </span>
                                 </BookingStatus>
                             </BookingInfo>
                             <ActionsButtons>
                                 {!exact_booking_info?.is_assigned && current_role &&
-                                <AssignButton onClick={() => setAssignAgent(true)}>ASSIGN</AssignButton>}
-                                <AcceptButton onClick={acceptBookingOnMe}>ACCEPT</AcceptButton>
-                                <RejectButton onClick={() => setRejectPopupOpen(true)}>REJECT</RejectButton>
+                                <AssignButton onClick={() => setAssignAgent(true)}>{t("Bookings/ASSIGN")}</AssignButton>}
+                                <AcceptButton onClick={acceptBookingOnMe}>{t("Bookings/ACCEPT")}</AcceptButton>
+                                <RejectButton onClick={() => setRejectPopupOpen(true)}>{t("Bookings/REJECT")}</RejectButton>
                             </ActionsButtons>
                         </ContentHeader>
                         <GeneralBookingInfo>
-                            <GeneralTitle>GENERAL INFO</GeneralTitle>
+                            <GeneralTitle>{t("Bookings/GENERAL INFO")}</GeneralTitle>
                             <GeneralBookingContent>
                                 <GeneralShipType margin_top={"3px"}><img
                                     src={exact_booking_info?.shipping_type === 'sea' ? sea_icon : air_icon}
                                     alt=""/></GeneralShipType>
                                 <InfoRow margin_right='28px'>
-                                    <InfoRowLabel>ROUTE</InfoRowLabel>
+                                    <InfoRowLabel>{t("Bookings/ROUTE")}</InfoRowLabel>
                                     <InfoRowValue style={{fontFamily:"Helvetica Thin, sans-serif"}}>
                                         <RouteName>{exact_booking_info?.freight_rate.origin.code}</RouteName>
                                         <RouteName>{exact_booking_info?.freight_rate.destination.code}</RouteName>
@@ -110,11 +111,11 @@ const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, a
                                 <ValuesShipmentWrapper>
                                     <div style={{marginRight:80, display: 'flex', flexDirection: 'column'}}>
                                         <InfoRow>
-                                            <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
+                                            <InfoRowLabel>{t("Bookings/SHIPPING MODE")}</InfoRowLabel>
                                             <InfoRowValue>{exact_booking_info?.freight_rate.shipping_mode.title}</InfoRowValue>
                                         </InfoRow>
                                         <InfoRow>
-                                            <InfoRowLabel>TRANSIT TIME</InfoRowLabel>
+                                            <InfoRowLabel>{t("Bookings/TRANSIT TIME")}</InfoRowLabel>
                                             <InfoRowValue>{exact_booking_info?.freight_rate.transit_time
                                                 ? `${exact_booking_info?.freight_rate.transit_time} days `
                                                 : '0 days'}
@@ -123,10 +124,10 @@ const BookingCard: React.FC<PropsType> = ({setAssignAgent, setRejectPopupOpen, a
                                     </div>
                                     <div style={{marginRight:80, display: 'flex', flexDirection: 'column'}}>
                                         <InfoRow>
-                                            <InfoRowLabel>STATUS</InfoRowLabel>
+                                            <InfoRowLabel>{t("Bookings/STATUS")}</InfoRowLabel>
                                             <InfoRowValue>{local_time}<br/>
                                                 <span style={{textTransform: 'uppercase',}}>
-                                                {exact_booking_info?.status}
+                                                {t(`Statuses/${exact_booking_info?.status}`)}
                                             </span>
                                             </InfoRowValue>
                                         </InfoRow>

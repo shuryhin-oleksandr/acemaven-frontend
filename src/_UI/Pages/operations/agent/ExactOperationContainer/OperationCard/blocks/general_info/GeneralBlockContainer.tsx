@@ -108,9 +108,9 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, c
                                 <InfoRowLabel>{t("Booking Confirmation/Cargo Drop Off Location")}</InfoRowLabel>
                                 <InfoRowValue>
                                     <span
-                                        style={{color: '#115B86'}}>location:</span> {shipment?.cargo_drop_off_location},
+                                        style={{color: '#115B86'}}>{t("Operations/location")}:</span> {shipment?.cargo_drop_off_location},
                                     <br/> <span
-                                    style={{color: '#115B86'}}>address:</span> {shipment?.cargo_drop_off_location_address}
+                                    style={{color: '#115B86', textTransform:'lowercase'}}>{t("Bookings/ADDRESS")}:</span> {shipment?.cargo_drop_off_location_address}
                                 </InfoRowValue>
                             </InfoRow>}
                             {shipment?.cargo_pick_up_location &&
@@ -118,9 +118,9 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, c
                                 <InfoRowLabel>{t("Booking Confirmation/Empty Pickup Location")}</InfoRowLabel>
                                 <InfoRowValue>
                                     <span
-                                        style={{color: '#115B86'}}>location:</span> {shipment?.cargo_pick_up_location},
+                                        style={{color: '#115B86'}}>{t("Operations/location")}:</span> {shipment?.cargo_pick_up_location},
                                     <br/> <span
-                                    style={{color: '#115B86'}}>address:</span> {shipment?.cargo_pick_up_location_address}
+                                    style={{color: '#115B86', textTransform:'lowercase'}}>{t("Bookings/ADDRESS")}:</span> {shipment?.cargo_pick_up_location_address}
                                 </InfoRowValue>
                             </InfoRow>}
 

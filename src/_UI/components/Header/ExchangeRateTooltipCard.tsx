@@ -15,6 +15,7 @@ import {
   CurrencySpan,
   SumSpan,
 } from "./header-styles";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   moment_today: string;
@@ -33,11 +34,11 @@ const ExchangeRateTooltipCard: React.FC<PropsType> = ({
 
   let eur = props.last_exchange?.rates.find((r) => r.currency === "EUR");
   let eur_rate = eur?.rate && _.ceil(+eur?.rate, 2);
-
+  const {t} = useTranslation();
   return (
     <ExchangeRateTooltipContainer onClick={props.goToExchangePage}>
       <TodayHeader>
-        <TodayHeaderTitle>Today Exchange Rate</TodayHeaderTitle>
+        <TodayHeaderTitle>{t("Bookings/Today Exchange Rate")}</TodayHeaderTitle>
         <TodayHeaderDate>{moment_today}</TodayHeaderDate>
       </TodayHeader>
       <TodayExchange>

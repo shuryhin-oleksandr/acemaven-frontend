@@ -106,7 +106,10 @@
     "There are no operations pending of booking fee payment.": "There are no operations pending of booking fee payment.",
     "Map is not available": "Map is not available.",
     "There are no operations in progress.": "There are no operations in progress.",
-    "There are no completed operations.": "There are no completed operations."
+    "There are no completed operations.": "There are no completed operations.",
+    "There are no new messages": " There are no new messages",
+    "Today Exchange Rate": "Today Exchange Rate",
+    "There are no notifications yet": "There are no notifications yet"
   },
   "Dashboard Menu": {
     "REQUESTS": "REQUESTS",
@@ -154,7 +157,7 @@
     "REJECT": "REJECT",
     "ASSIGN": "ASSIGN",
     "Assign this booking to an agent": "Assign this booking to an agent",
-    "Are you sure you want to assign this Booking to ____": "Are you sure you want to assign this Booking to ____",
+    "Are you sure you want to assign this Booking to": "Are you sure you want to assign this Booking to",
     "CONFIRM": "CONFIRM",
     "CANCEL": "CANCEL",
     "GENERAL INFO": "SHIPMENT DETAILS",
@@ -164,7 +167,7 @@
     "DATES": "DATES",
     "DAYS": "DAYS",
     "DEADLINES": "DEADLINES",
-    "SHIPMENT INFO": "PARTS",
+    "SHIPMENT INFO": "SHIPMENT PARTS",
     "CLIENT": "CLIENT",
     "CONTACT PERSON": "CONTACT PERSON",
     "SHIPPER NAME": "SHIPPER NAME",
@@ -173,6 +176,7 @@
     "EMAIL": "EMAIL",
     "DOCUMENTS": "DOCUMENTS",
     "RELEASE TYPE": "RELEASE TYPE",
+    "Release type": "Release type",
     "NO. OF DOCUMENTS": "NO. OF DOCUMENTS",
     "CARGO": "CARGO",
     "VOLUME": "VOLUME",
@@ -208,7 +212,15 @@
     "GET ASSISTANCE": "GET ASSISTANCE",
     "to Book": "to Book",
     "Booking Fee": "Booking Fee",
-    "Choose month": "Choose month"
+    "Choose month": "Choose month",
+    "Do you want to reject the booking?": "Do you want to reject the booking?",
+    "Please, confirm_booking": "Please, confirm that the company is rejecting the booking request.",
+    "Comments": "Comments",
+    "Rejection reason":"Rejection reason",
+    "The request will be moved to the operations.": "The request will be moved to the operations.",
+    "You can find it in mine section.": "You can find it in mine section.",
+    "WEEK": "WEEK",
+    "There are no requests at the moment": "There are no requests at the moment. When a client send a booking request they will appear in this section."
   },
   "Quotes": {
     "Quotes": "Quotes",
@@ -223,6 +235,7 @@
     "Active": "Active",
     "Pause": "Pause",
     "OFFER NO.": "OFFER NO.",
+    "OFFER": "OFFER",
     "OFFERS": "OFFERS",
     "There are no active quotes at the moment.": "There are no active quotes at the moment."
   },
@@ -242,12 +255,23 @@
     "CANCEL": "CANCEL",
     "Do you want to save this rate  and  surcharge in your Rates?": "Do you want to save this offer in your Rates and make it searchable?",
     "SALVAR": "SALVAR",
-    "NO": "NO"
+    "NO": "NO",
+    "RATE":"RATE",
+    "RATE PER W/M":"RATE PER W/M",
+    "Open": "Open",
+    "Offer submitted": "Offer submitted",
+    "Carrier company name": "Carrier company name",
+    "I want to disclose the carrier info to the customers": "I want to disclose the carrier info to the customers",
+    "Total Today": "Total Today",
+    "Today’s": "Today’s",
+    "EXCHANGE RATE": "EXCHANGE RATE"
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Booking Confirmation",
-    "Please, type the required shipment details to confim the booking": "Please, type the required shipment details to confim the booking",
+    "Please, type the required shipment details to confim the booking": "Please, type the required shipment details to confirm the booking",
+    "Type the required shipments details to confirm booking": "Type the required shipments details to confirm booking",
     "Booking number": "Booking number",
+    "BOOKING NUMBER": "BOOKING NUMBER",
     "MAWB": "MAWB",
     "Estimated Time of Departure": "Estimated Time of Departure",
     "Estimated Time of Arrival": "Estimated Time of Arrival",
@@ -259,14 +283,26 @@
     "Address": "Address",
     "Container Free Time": "Container Free Time",
     "Flight Number": "Flight Number",
+    "FLIGHT NUMBER": "FLIGHT NUMBER",
     "Vessel": "Vessel",
-    "Voyage": "Voyage"
+    "Voyage": "Voyage",
+    "Booking Number With Carrier": "Booking Number With Carrier",
+    "BOOKING NUMBER WITH CARRIER": "BOOKING NUMBER WITH CARRIER",
+    "Container Number": "Container Number",
+    "CONTAINER NUMBER": "CONTAINER NUMBER",
+    "Cargo Pick Up Location": "Cargo Pick Up Location",
+    "Confirm": "Confirm",
+    "Cancel": "Cancel",
+    "This action_recalculate": "This action should recalculate the charges shown in the operation based on the new changes.",
+    "Documents": "Documents",
+    "Loading...": "Loading..."
   },
   "Operations": {
     "Operations": "Operations",
     "SHIPMENT TRACKING": "SHIPMENT TRACKING",
     "COMMENTS": "COMMENTS",
     "STATUS": "STATUS",
+    "DATE": "DATE",
     "CONTAINER REF.": "CONTAINER REF.",
     "PORTO": "PORTO",
     "NOTES": "BOOKING NOTES",
@@ -274,6 +310,7 @@
     "Your comments to the client": "Your comments to the client",
     "DOCUMENTS": "DOCUMENTS",
     "NO. OF DOCUMENTS": "NO. OF DOCUMENTS",
+    "No. of Documents": "No. of Documents",
     "SHIPMENT PARTS": "SHIPMENT PARTS",
     "CARGO": "CARGO",
     "PAYMENT DUE BY": "PAYMENT DUE BY",
@@ -282,7 +319,9 @@
     "CANCEL OPERATION": "CANCEL OPERATION",
     "COMPLETE OPERATION": "SET AS COMPLETE",
     "All": "All",
-    "My": "My"
+    "My": "My",
+    "FLIGHT": "FLIGHT",
+    "location": "location"
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirm Shipment Completion",
@@ -291,11 +330,13 @@
     "Cancellation could result in getting a bad review from the client or to be banned from the platform.": "Cancellation could result in getting a bad review from the client or to be banned from the platform.",
     "Cancellation reason": "Cancellation reason",
     "Your comments": "Your comments",
-    "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ": "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. "
+    "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ": "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ",
+    "Select status": "Select status",
+    "Add comment...": "Add comment..."
   },
   "Change Request": {
     "The client has requested the following changes": "The client has requested the following changes",
-    "Make additional changes in the operation as needed": "Make additional changes in the operation as needed"
+    "Make additional changes in the operation": "Make additional changes in the operation as needed"
   },
   "Notifications": {
     "Notifications": "Notifications"
@@ -308,7 +349,8 @@
     "Old Password": "Old Password",
     "New Password": "New Password",
     "Confirm Password": "Confirm password",
-    "Password": "Password"
+    "Password": "Password",
+    "Log out": "Log out"
   },
   "Company Settings": {
     "Company Info": "Company Info",
@@ -319,7 +361,7 @@
   },
   "User Management": {
     "User Management": "User Management",
-    "Add new": "Add new",
+    "Add new": "Add New",
     "Are you sure you want to edit user info?": "Are you sure you want to edit user info?"
   },
   "Billing": {
@@ -393,7 +435,9 @@
   "Help and Support": {
     "Help and Support": "Help and Support",
     "Topic": "Topic",
-    "POST": "POST"
+    "POST": "POST",
+    "Operation No.": "Operation No.",
+    "Unread messages": "Unread messages"
   },
   "Booking process": {
     "Booking process": "Booking request steps",
@@ -410,7 +454,10 @@
     "PAYMENT": "PAYMENT",
     "PIX QR": "PIX QR",
     "CONFIRM AND SEND": "CONFIRM AND SEND",
-    "DETAILS": "DETAILS"
+    "DETAILS": "DETAILS",
+    "TOTAL W/M": "TOTAL W/M",
+    "BEFORE REQUEST": "BEFORE REQUEST",
+    "AFTER REQUEST": "BEFORE REQUEST"
   },
   "Company profile": {
     "Company profile": "Company profile",
@@ -440,16 +487,17 @@
     "Booking Fee Pending": "Booking Fee Pending",
     "Booking Request Received": "Booking Request Received",
     "Booking Request in Progress": "Booking Request in Progress",
-    "Booking Request Rejected ": "Booking Request Rejected ",
+    "Booking Request Rejected": "Booking Request Rejected ",
     "Booking Confirmed": "Booking Confirmed",
-    "Booking Change Requested ": "Booking Change Requested ",
+    "Booking Change Requested": "Booking Change Requested ",
     "Booking Change Confirmed": "Booking Change Confirmed",
-    "Operation canceled by Client": "Operation canceled by Client",
+    "Operation Canceled by Client": "Operation canceled by Client",
     "Shipment in progress": "Shipment in progress",
-    "Payment due by ": "Payment due",
+    "Payment due by": "Payment due",
     "Operation Complete": "Operation Complete",
-    "Operation canceled by Agent": "Operation Canceled by Agent",
-    "Operation canceled by the System": "Operation Canceled by the System"
+    "Operation Canceled by Agent": "Operation Canceled by Agent",
+    "Operation Canceled by the System": "Operation Canceled by the System",
+    "Awaiting Payment": "Awaiting Payment"
   },
   "Role": {
     "Client": "Client",
@@ -477,6 +525,49 @@
     "Will alert_Import": "Will alert when the departure date of and import shipment of you is set.",
     "YES": "YES",
     "NO": "NO",
-    "OK": "OK"
+    "OK": "OK",
+    "Number of days": "Number of days"
+  },
+  "Month": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September":"September",
+    "October": "October",
+    "November": "November",
+    "December":"December",
+    "Jan": "Jan",
+    "Feb": "Feb",
+    "Mar": "Mar",
+    "Apr": "Apr",
+    "Ma": "Ma",
+    "Jun": "Jun",
+    "Jul": "Jul",
+    "Aug": "Aug",
+    "Sep":"Sep",
+    "Oct": "Oct",
+    "Nov": "Nov",
+    "Dec":"Dec"
+  },
+  "Week": {
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday",
+    "Saturday": "Saturday",
+    "Sunday": "Sunday",
+    "Mon": "Mon",
+    "Tue": "Tue",
+    "Wed": "Wed",
+    "Thu": "Thu",
+    "Fri": "Fri",
+    "Sat": "Sat",
+    "Sun": "Sun"
   }
 }

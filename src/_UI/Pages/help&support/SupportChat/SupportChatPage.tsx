@@ -20,6 +20,7 @@ import { TicketType } from "../../../../_BLL/types/support_types/support_types";
 import { useDispatch, useSelector } from "react-redux";
 import ChatContainer from "../../operations/chat/ChatContainer";
 import SpinnerForAuthorizedPages from "../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {};
 
@@ -28,15 +29,15 @@ const SupportChatPage: React.FC<PropsType> = () => {
     (state: AppStateType): TicketType | null =>
       state.support_reducer.current_ticket
   );
-
+  const {t} = useTranslation();
   return ticket ? (
     <SupportOuter>
       <SupportInner>
         <div style={{ paddingRight: "400px" }}>
-          <SupportTitle>Help and Support</SupportTitle>
+          <SupportTitle>{t("Help and Support/Help and Support")}</SupportTitle>
           <SupportChatHeader>
             <TopicWrap>
-              <TopicName color="#115B86">Topic:</TopicName>
+              <TopicName color="#115B86">{t("Help and Support/Topic")}:</TopicName>
               <TopicReason>{ticket?.topic}</TopicReason>
             </TopicWrap>
             <TopicWrap>
@@ -49,7 +50,7 @@ const SupportChatPage: React.FC<PropsType> = () => {
                 alt=""
               />
               <TopicStatus>
-                {ticket?.status === "in_progress" ? "In progress" : "Completed"}
+                {ticket?.status === "in_progress" ? t("Dashboard Menu/ACTIVE") : t("Dashboard Menu/COMPLETED")}
               </TopicStatus>
             </TopicWrap>
           </SupportChatHeader>

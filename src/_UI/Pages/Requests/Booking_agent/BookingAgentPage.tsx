@@ -13,6 +13,7 @@ import {
   ContentTable,
   ContentTitle,
 } from "./booking-agent-styles";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -33,11 +34,12 @@ type PropsType = {
 };
 
 const BookingAgentPage: React.FC<PropsType> = ({bookingList, ...props}) => {
+  const {t} = useTranslation();
   return (
     <BookingWrapper>
       <BookingContent style={{padding: "50px 80px 50px 0"}}>
         <ContentHeader>
-          <ContentTitle>Bookings</ContentTitle>
+          <ContentTitle>{t("Dashboard Menu/BOOKINGS")}</ContentTitle>
           <OptionsDeliveryButtons
             directory={props.directory}
             mode={props.mode}

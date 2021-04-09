@@ -15,6 +15,7 @@ import {ShippingModeEnum, ShippingTypesEnum} from "../../../../_BLL/types/rates&
 import {confirmChangeRequestThunk} from "../../../../_BLL/thunks/operations/agent/OperationsAgentThunk";
 import {useDispatch} from "react-redux";
 import { useHistory } from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     operation_info: OperationType | null
@@ -84,11 +85,11 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
 
     }
 
-
+    const {t} = useTranslation();
 
     return (
         <FormChangeRequestWrapper onSubmit={handleSubmit(onSubmit)}>
-            <FormChangeRequestTitle>Make additional changes in the operation</FormChangeRequestTitle>
+            <FormChangeRequestTitle>{t("Change Request/Make additional changes in the operation")}</FormChangeRequestTitle>
             <div style={{display: 'flex', width: '100%', justifyContent: 'space-between', borderBottom: '1px solid #7C7C89', paddingBottom: '25px', marginBottom: '25px'}}>
                 {operation_info?.shipping_type === ShippingTypesEnum.SEA
                     ? <>
@@ -97,7 +98,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                                    name='vessel'
                                    max_width='290px'
                                    color_label='#115B86'
-                                   label='VESSEL'
+                                   label={t('Billing/SHIP')}
                                    placeholder='Placeholder'
                                    font_weight='Helvetica Bold'
                                    defaultValue={shipment?.vessel}
@@ -107,7 +108,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                                    name='voyage'
                                    max_width='290px'
                                    color_label='#115B86'
-                                   label='TRIP'
+                                   label={t('Bookings/TRIP')}
                                    placeholder='Placeholder'
                                    font_weight='Helvetica Bold'
                                    defaultValue={shipment?.voyage}
@@ -119,7 +120,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                                    name='mawb'
                                    max_width='290px'
                                    color_label='#115B86'
-                                   label='MAWB'
+                                   label={t('Booking Confirmation/MAWB')}
                                    placeholder='Placeholder'
                                    font_weight='Helvetica Bold'
                                    defaultValue={shipment?.mawb}
@@ -129,7 +130,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                                    name='flight_number'
                                    max_width='290px'
                                    color_label='#115B86'
-                                   label='FLIGHT NUMBER'
+                                   label={t("Booking Confirmation/FLIGHT NUMBER")}
                                    placeholder='Placeholder'
                                    font_weight='Helvetica Bold'
                                    defaultValue={shipment?.flight_number}
@@ -141,7 +142,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                            name='booking_number'
                            max_width='290px'
                            color_label='#115B86'
-                           label='BOOKING NUMBER'
+                           label={t("Booking Confirmation/BOOKING NUMBER")}
                            placeholder='Placeholder'
                            font_weight='Helvetica Bold'
                            defaultValue={shipment?.booking_number}
@@ -154,7 +155,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                            name='booking_number_with_carrier'
                            max_width='290px'
                            color_label='#115B86'
-                           label='BOOKING NUMBER WITH CARRIER'
+                           label={t("Booking Confirmation/BOOKING NUMBER WITH CARRIER")}
                            placeholder='Placeholder'
                            font_weight='Helvetica Bold'
                            defaultValue={shipment?.booking_number_with_carrier}
@@ -164,7 +165,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                            name='container_number'
                            max_width='290px'
                            color_label='#115B86'
-                           label='CONTAINER NUMBER'
+                           label={t("Booking Confirmation/CONTAINER NUMBER")}
                            placeholder='Placeholder'
                            font_weight='Helvetica Bold'
                            defaultValue={shipment?.container_number}
@@ -237,7 +238,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                            name='container_free_time'
                            max_width='290px'
                            color_label='#115B86'
-                           label='CONTAINER FREE TIME'
+                           label={t('Bookings/CONTAINER FREE TIME')}
                            placeholder='0 days'
                            font_weight='Helvetica Bold'
                            defaultValue={shipment?.container_free_time ? shipment?.container_free_time : ''}
@@ -245,7 +246,7 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
             </div>
             }
             <ChangeRequestButtonsWrapper>
-                <ConfirmRequestButton type='submit'>CONFIRM</ConfirmRequestButton>
+                <ConfirmRequestButton type='submit'>{t("Bookings/CONFIRM")}</ConfirmRequestButton>
             </ChangeRequestButtonsWrapper>
         </FormChangeRequestWrapper>
     )

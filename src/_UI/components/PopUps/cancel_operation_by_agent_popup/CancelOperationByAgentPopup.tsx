@@ -20,6 +20,7 @@ import {
     CompleteCancelButton,
     CompleteConfirmButton
 } from "../complete_operation_by_agent/complete-operation-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -43,7 +44,7 @@ const CancelOperationByAgentPopup:React.FC<PropsType> = ({setIsCancelByAgent, ca
     }, [])
 
     let choices = useSelector(getCancellationChoicesSelector)
-
+    const {t} = useTranslation();
     return (
         <CancelOperationByAgentWrapper>
             <CancelOperationByAgentInner>
@@ -54,13 +55,12 @@ const CancelOperationByAgentPopup:React.FC<PropsType> = ({setIsCancelByAgent, ca
                 </IconButton>
                 <CancelOperationByAgentContent onSubmit={handleSubmit(onSubmit)}>
                     <CancelOperationTitle>
-                        Do you want to cancel the operation?
+                        {t("Confirm Operation/Do you want to cancel the operation?")}
                     </CancelOperationTitle>
                     <div style={{display: 'flex'}}>
                         <AwareOuter><img src={aware_icon} alt=""/></AwareOuter>
                         <CancelOperationSubtitle>
-                            Cancellation could result in getting a bad review from the client or be banned from the
-                            platform.
+                            {t("Confirm Operation/Cancellation could result in getting a bad review from the client or to be banned from the platform.")}
                         </CancelOperationSubtitle>
                     </div>
                     <Controller name='reason'
@@ -70,7 +70,7 @@ const CancelOperationByAgentPopup:React.FC<PropsType> = ({setIsCancelByAgent, ca
                                 }}
                                 defaultValue=''
                                 as={
-                                    <FormSelect label='Cancellation reason'
+                                    <FormSelect label={t('Confirm Operation/Cancellation reason')}
                                                          placeholder='Placeholder'
                                                          error={errors?.reason?.message}
                                                          options={choices}
@@ -91,17 +91,17 @@ const CancelOperationByAgentPopup:React.FC<PropsType> = ({setIsCancelByAgent, ca
                                 }}
                                 as={
                                     <div style={{width: '100%', marginBottom: '50px'}}>
-                                        <TextareaLabel>Your comments</TextareaLabel>
+                                        <TextareaLabel>{t("Confirm Operation/Your comments")}</TextareaLabel>
                                         <FormTextarea error={!!errors?.comment}
-                                                      placeholder='Comments..'
+                                                      placeholder={t('Bookings/Comments')}
                                         />
                                         {errors?.comment && <HelperText messagePaddingTop='4px'>Field is required</HelperText>}
                                     </div>
                                 }
                     />
                     <CompleteButtonsWrapper>
-                        <CompleteConfirmButton>confirm</CompleteConfirmButton>
-                        <CompleteCancelButton onClick={() => setIsCancelByAgent(false)}>cancel</CompleteCancelButton>
+                        <CompleteConfirmButton>{t("Bookings/CONFIRM")}</CompleteConfirmButton>
+                        <CompleteCancelButton onClick={() => setIsCancelByAgent(false)}>{t("Bookings/CANCEL")}</CompleteCancelButton>
                     </CompleteButtonsWrapper>
                 </CancelOperationByAgentContent>
             </CancelOperationByAgentInner>

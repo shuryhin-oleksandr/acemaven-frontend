@@ -23,6 +23,7 @@ import {
     HandlingTitle
 } from "../../../../Pages/Services&Rates/surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import {Field} from "../../../_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
     container: {
@@ -62,7 +63,7 @@ type PropsType = {
 const HandlingTable:React.FC<PropsType> = ({containers, ...props}) => {
 
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return (
         <HandlingSurchargeContainer max_height={'380px'} style={{maxWidth: '450px', marginRight: '20px'}}>
             <HandlingTitle margin_bottom='0px'>{props.table_name}</HandlingTitle>
@@ -72,8 +73,8 @@ const HandlingTable:React.FC<PropsType> = ({containers, ...props}) => {
                         <TableHead>
                             <TableRow>
                                 <TableCell className={classes.cell} align="left">{props.package_type}</TableCell>
-                                <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                                <TableCell className={classes.cell} align="right">CHARGE</TableCell>
+                                <TableCell className={classes.cell} align="left">{t("Quote bid screen/CURRENCY")}</TableCell>
+                                <TableCell className={classes.cell} align="right">{t("Quote bid screen/CHARGE")}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody className={classes.body}>

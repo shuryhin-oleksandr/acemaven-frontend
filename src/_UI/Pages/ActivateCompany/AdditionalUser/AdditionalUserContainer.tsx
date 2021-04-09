@@ -6,6 +6,7 @@ import {AppStateType} from "../../../../_BLL/store";
 import {useLocation} from "react-router";
 import {checkToken} from "../../../../_BLL/thunks/auth/authThunks";
 import CheckedTokenPopup from "../../../components/PopUps/checked_token/checkedTokenPopup";
+import {useTranslation} from "react-i18next";
 
 const AdditionalUserContainer:React.FC = () => {
 
@@ -17,14 +18,14 @@ const AdditionalUserContainer:React.FC = () => {
     useEffect(() => {
         dispatch(checkToken(location.search.substr(7)))
     }, [dispatch])
-
+    const {t} = useTranslation();
     return (
        <>
            {checkedTokenError
                ? <CheckedTokenPopup />
                : <Wrapper>
                    <Inner>
-                       <Title>Complete Profile</Title>
+                       <Title>{t("Complete Profile/Complete Profile")}</Title>
                        <UserCompleteForm token={location.search.substr(7)}
                                          email_error={email_error}
                        />

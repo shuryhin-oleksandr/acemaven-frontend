@@ -15,6 +15,7 @@ import {
 } from "./change-request-agent-styles";
 //icons
 import close_icon from '../../../assets/icons/close-icon.svg'
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -23,7 +24,7 @@ type PropsType = {
 }
 
 const AgentChangeRequestPopup: React.FC<PropsType> = ({setChangeRequestPopup, operation_info}) => {
-
+const {t} = useTranslation();
 
     return (
         <ChangeRequestWrapper>
@@ -34,7 +35,7 @@ const AgentChangeRequestPopup: React.FC<PropsType> = ({setChangeRequestPopup, op
                 </IconButton>
                 <ChangeRequestContent>
                     <ChangeRequestTitle>
-                        The client has requested the following changes
+                        {t("Change Request/The client has requested the following changes")}
                     </ChangeRequestTitle>
                     <ChangedInfoBlock operation_info={operation_info ? operation_info : null}/>
                     {(

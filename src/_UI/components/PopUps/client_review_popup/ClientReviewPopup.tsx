@@ -18,6 +18,7 @@ import { Rating } from "@material-ui/lab";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { useDispatch } from "react-redux";
 import {postCompaniesRating} from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setReviewPopup: (value: boolean) => void;
@@ -50,7 +51,7 @@ const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup, id }) => {
     dispatch(postCompaniesRating(data, id,setReviewPopup));
 
   };
-
+  const{t} = useTranslation();
   return (
     <Wrapper>
       <Inner onSubmit={handleSubmit(onSubmit)}>
@@ -61,11 +62,9 @@ const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup, id }) => {
           <img src={close_icon} alt="" />
         </IconButton>
         <Content>
-          <Title>Rate and review the shipment</Title>
+          <Title>{t("Reviews/Rate and review the shipment")}</Title>
           <Subtitle>
-            Leave your review on agent and his services. The review will be
-            approved by the platform’s support team and posted on the agent
-            profile page.
+            {t("Reviews/Leave your review...")}
           </Subtitle>
           <StarsWrapper>
             <StyledRating
@@ -91,7 +90,7 @@ const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup, id }) => {
             <div style={{ width: "100%", padding: "0 70px" }}>
               <FormTextarea
                 error={!!errors?.comment}
-                placeholder="Comments.."
+                placeholder={t("Bookings/Comments")}
               />
               {!!errors?.comment && (
                 <ErrorMessage>Field is required</ErrorMessage>
@@ -100,7 +99,7 @@ const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup, id }) => {
           }
         />
         <ButtonsWrapper>
-          <ConfirmButton>submit</ConfirmButton>
+          <ConfirmButton>{t("Reviews/SUBMIT")}</ConfirmButton>
         </ButtonsWrapper>
       </Inner>
     </Wrapper>

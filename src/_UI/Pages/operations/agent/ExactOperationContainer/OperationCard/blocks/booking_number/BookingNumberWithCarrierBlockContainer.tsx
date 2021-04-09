@@ -16,7 +16,7 @@ const BookingNumberWithCarrierBlockContainer: React.FC<PropsType> = ({shipment})
     return (
         <div style={{display: "flex"}}>
             <BookingTitle>{t("Bookings/BOOKING WITH CARRIER")}</BookingTitle>
-            <NumberOfBooking>{t("Bookings/NO")} {shipment?.booking_number_with_carrier}</NumberOfBooking>
+            <NumberOfBooking>{t("Quote bid screen/NO")} {shipment?.booking_number_with_carrier}</NumberOfBooking>
         </div>
     )
 }

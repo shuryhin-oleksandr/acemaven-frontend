@@ -110,7 +110,7 @@ const FeePaymentWidget: React.FC = () => {
                   {moment(item.date_created, "DD-MM-YYYY").format("DD/MM")}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                  <div style={{ overflow:"hidden",textOverflow: "ellipsis", width:"100px" }}>{item.status}</div>
+                  <div style={{ overflow:"hidden",textOverflow: "ellipsis", width:"100px" }}>{t(`Statuses/${item.status}`)}</div>
                 </TableCell>
               </TableRow>
             ))}

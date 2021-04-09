@@ -12,6 +12,7 @@ import {
     ValuesShipmentWrapper
 } from "../booking-card-style";
 import calendar_icon from "../../../../../assets/icons/date_1.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -22,9 +23,10 @@ type PropsType = {
 }
 
 const ShipmentInfoBlock:React.FC<PropsType> = ({shipper, client, client_contact, exact_booking_info}) => {
+    const {t} = useTranslation();
     return (
         <ShipmentInfo>
-            <GeneralTitle>SHIPMENT PARTS</GeneralTitle>
+            <GeneralTitle>{t("Bookings/SHIPMENT INFO")}</GeneralTitle>
             <GeneralBookingContent>
                 <ValuesShipmentWrapper >
                     <div style={{display: 'flex'}}>
@@ -37,8 +39,8 @@ const ShipmentInfoBlock:React.FC<PropsType> = ({shipper, client, client_contact,
                                 fontFamily: 'Helvetica Light', marginTop: '15px', marginBottom: '13px'
                             }}>
                                 {exact_booking_info?.week_range?.week_from === exact_booking_info?.week_range?.week_to
-                                    ? `WEEK ${exact_booking_info?.week_range?.week_from}`
-                                    : `WEEK ${exact_booking_info?.week_range?.week_from && exact_booking_info?.week_range?.week_from - exact_booking_info?.week_range?.week_to && exact_booking_info?.week_range?.week_to}`
+                                    ? `${t("Bookings/WEEK")} ${exact_booking_info?.week_range?.week_from}`
+                                    : `${t("Bookings/WEEK")} ${exact_booking_info?.week_range?.week_from && exact_booking_info?.week_range?.week_from - exact_booking_info?.week_range?.week_to && exact_booking_info?.week_range?.week_to}`
                                 }
                             </span>
                             <InfoRowValue>{exact_booking_info?.date_from} - {exact_booking_info?.date_to}</InfoRowValue>
@@ -46,43 +48,43 @@ const ShipmentInfoBlock:React.FC<PropsType> = ({shipper, client, client_contact,
                     </div>
                     <div style={{marginRight:80, display: 'flex', flexDirection: 'column'}}>
                         <InfoRow >
-                            <InfoRowLabel>CLIENT</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/CLIENT")}</InfoRowLabel>
                             <InfoRowValue>{client}</InfoRowValue>
                         </InfoRow>
                         <InfoRow>
-                            <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/CONTACT PERSON")}</InfoRowLabel>
                             <InfoRowValue>{client_contact}</InfoRowValue>
                         </InfoRow>
                     </div>
                     <div style={{marginRight:80, display: 'flex', flexDirection: 'column'}}>
                         <InfoRow>
-                            <InfoRowLabel>SHIPPER NAME</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/SHIPPER NAME")}</InfoRowLabel>
                             <InfoRowValue>
                                 {shipper?.name}
                             </InfoRowValue>
                         </InfoRow>
                         <InfoRow>
-                            <InfoRowLabel>CARRIER</InfoRowLabel>
+                            <InfoRowLabel>{t("Quote bid screen/CARRIER")}</InfoRowLabel>
                             <InfoRowValue>
                                 {exact_booking_info?.freight_rate.carrier.title}
                             </InfoRowValue>
                         </InfoRow>
                         {shipper?.address_line_first && shipper?.address_line_second
                         ? <InfoRow>
-                            <InfoRowLabel>ADDRESS</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/ADDRESS")}</InfoRowLabel>
                             <InfoRowValue>
                                 {shipper?.address_line_first && shipper?.address_line_first + shipper?.address_line_second && shipper?.address_line_second}
                             </InfoRowValue>
                         </InfoRow>
                             : <InfoRow>
-                                <InfoRowLabel>CITY</InfoRowLabel>
+                                <InfoRowLabel style={{textTransform: "uppercase"}}>{t("Register/City")}</InfoRowLabel>
                                 <InfoRowValue>
                                     {shipper?.city}
                                 </InfoRowValue>
                             </InfoRow>
                         }
                         <InfoRow>
-                            <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/CONTACT PERSON")}</InfoRowLabel>
                             <InfoRowValue>
                                 {shipper?.contact_name}
                             </InfoRowValue>
@@ -90,17 +92,17 @@ const ShipmentInfoBlock:React.FC<PropsType> = ({shipper, client, client_contact,
                     </div>
                     <div style={{marginRight:80, display: 'flex', flexDirection: 'column',}}>
                         <InfoRow>
-                            <InfoRowLabel>PHONE NUMBER 1</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/PHONE NUMBER")} 1</InfoRowLabel>
                             <InfoRowValue>
                                 {shipper?.phone}
                             </InfoRowValue>
                         </InfoRow>
                         {shipper?.phone_additional && <InfoRow>
-                            <InfoRowLabel>PHONE NUMBER 2</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/PHONE NUMBER")} 2</InfoRowLabel>
                             <InfoRowValue>{shipper?.phone_additional}</InfoRowValue>
                         </InfoRow>}
                         <InfoRow>
-                            <InfoRowLabel>EMAIL</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/EMAIL")}</InfoRowLabel>
                             <InfoRowValue>
                                 {shipper?.email}
                             </InfoRowValue>

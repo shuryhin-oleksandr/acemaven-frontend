@@ -8,6 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import {CostBookingType} from "../../../../../../../_BLL/types/bookingTypes";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
     container: {
@@ -56,32 +57,32 @@ type PropsType = {
 
 const ChargesTable:React.FC<PropsType> = ({charges_cost}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return (
         <TableContainer className={classes.container} component={Paper}>
             <Table className={classes.table} aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
                         <TableCell className={classes.cell} align="left">
-                            VOLUME
+                            {t("Bookings/VOLUME")}
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
-                            TYPE
+                            {t("Bookings/TYPE")}
                         </TableCell>
                         {/*<TableCell className={classes.cell} align="left">
                             CARGO DESCRIPTIONS
                         </TableCell>*/}
                         <TableCell className={classes.cell} align="left">
-                            CHARGE
+                            {t("Bookings/CHARGE")}
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
-                            CURRENCY
+                            {t("Bookings/CURRENCY")}
                         </TableCell>
                         <TableCell className={classes.cell} align="right">
-                            COST
+                            {t("Bookings/COST")}
                         </TableCell>
                         <TableCell className={classes.cell} align="right">
-                            SUBTOTAL
+                            {t("Bookings/SUBTOTAL")}
                         </TableCell>
                     </TableRow>
                 </TableHead>

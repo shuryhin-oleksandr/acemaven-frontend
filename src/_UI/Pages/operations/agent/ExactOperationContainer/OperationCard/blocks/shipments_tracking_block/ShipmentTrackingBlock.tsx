@@ -15,6 +15,7 @@ import { MapWrapper } from "../../../../../../dashboard/dashboard-styles";
 import styled from "styled-components";
 //icons
 import IconLocation from "../../../../../../../assets/icons/location_blue.svg";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -72,10 +73,10 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
   const hasDestinationCoordinates =
     destination_coordinates?.hasOwnProperty("latitude") &&
     destination_coordinates?.hasOwnProperty("longitude");
-
+  const {t} = useTranslation();
   return (
     <SectionWrapper>
-      <SectionTitle>SHIPMENT TRACKING</SectionTitle>
+      <SectionTitle>{t("Operations/SHIPMENT TRACKING")}</SectionTitle>
       {hasOriginCoordinates && hasDestinationCoordinates && lastItem ? (
         <SmallMapComponent
           isMarkerShown
@@ -95,7 +96,7 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
       ) : (
         <Notification>
           <img src={IconLocation} alt="" style={{ marginRight: "7px" }} />
-          Map is not available.
+          {t("Dashboard/Map is not available")}
         </Notification>
       )}
 

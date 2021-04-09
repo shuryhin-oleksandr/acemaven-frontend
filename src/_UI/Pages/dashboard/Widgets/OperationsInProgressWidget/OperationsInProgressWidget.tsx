@@ -111,7 +111,7 @@ const OperationsInProgressWidget: React.FC = () => {
                           maxWidth: "100px",
                         }}
                       >
-                        {operation?.status}
+                        {t(`Statuses/${operation?.status}`)}
                       </div>
                     </TableCell>
                   </TableRow>

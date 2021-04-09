@@ -37,6 +37,7 @@ import {
 import {GeneralTitle} from "../../../Pages/quotes/agent/table/agent-quotes-styles";
 //icons
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
+import {useTranslation} from "react-i18next";
 
 
 
@@ -212,7 +213,7 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
             openCreatePopup(false)
         }
     }, [existing_rate_for_quote, props.save_rate_result])
-
+    const {t} = useTranslation();
     return (
         <RegisterRateWrapper onSubmit={handleSubmit(onSubmit)}>
             <RegisterRateInner>
@@ -261,7 +262,7 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                                 width: '100%',
                                 marginRight: '35px'
                             }}>
-                                <GeneralTitle margin_bottom='15px'>EXPIRATION DATE</GeneralTitle>
+                                <GeneralTitle margin_bottom='15px'>{t("Quote bid screen/EXPIRATION DATE")}</GeneralTitle>
                                 <QuoteAgentExpirationDate control={control}
                                                           setValue={setValue}
                                                           date_to={String(quote?.date_to)}
@@ -275,7 +276,7 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                                 width: '100%',
                                 marginRight: '35px'
                             }}>
-                                <GeneralTitle margin_bottom='15px'>TRANSIT TIME</GeneralTitle>
+                                <GeneralTitle margin_bottom='15px'>{t("Bookings/TRANSIT TIME")}</GeneralTitle>
                                 <FormField name='transit_time'
                                            error={errors?.transit_time}
                                            inputRef={register({required: 'Field is required'})}
@@ -316,9 +317,9 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                     }
 
                     <FormButtonsWrapper>
-                        <FormButton type='submit'>SEND</FormButton>
+                        <FormButton type='submit'>{t("Quote bid screen/SEND")}</FormButton>
                         <FormCancelButton type={'button'}
-                                          onClick={() => openCreatePopup(false)}>CANCEL</FormCancelButton>
+                                          onClick={() => openCreatePopup(false)}>{t("Quote bid screen/CANCEL")}</FormCancelButton>
                     </FormButtonsWrapper>
                 </RegisterRateContent>
             </RegisterRateInner>

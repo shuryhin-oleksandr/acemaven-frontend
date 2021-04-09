@@ -18,12 +18,14 @@ import in_progress_icon from "../../assets/icons/support/in_progress.svg";
 import completed_icon from "../../assets/icons/support/completed.svg";
 import { TicketType } from "../../../_BLL/types/support_types/support_types";
 import { useHistory } from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   ticket: TicketType;
 };
 
 const TopicCard: React.FC<PropsType> = ({ ticket }) => {
+  const {t} = useTranslation();
   const history = useHistory();
   return (
     <TopicOuter
@@ -34,7 +36,7 @@ const TopicCard: React.FC<PropsType> = ({ ticket }) => {
       <TopicInner>
         <TopicHeader>
           <TopicWrap>
-            <TopicName>Topic:</TopicName>
+            <TopicName>{t("Help and Support/Topic")}:</TopicName>
             <TopicReason>{ticket.topic}</TopicReason>
           </TopicWrap>
           <TopicWrap width="110px" >
@@ -47,14 +49,14 @@ const TopicCard: React.FC<PropsType> = ({ ticket }) => {
               alt=""
             />
             <TopicStatus>
-              {ticket.status === "in_progress" ? "In progress" : "Completed"}
+              {ticket.status === "in_progress" ? t("Dashboard Menu/ACTIVE") : t("Dashboard Menu/COMPLETED")}
             </TopicStatus>
           </TopicWrap>
         </TopicHeader>
         <TopicDescription>{ticket.description}</TopicDescription>
         {!!ticket.unread_messages && (
           <UnreadMessageWrap>
-            <UnreadMessageTitle>Unread messages:</UnreadMessageTitle>
+            <UnreadMessageTitle>{t("Help and Support/Unread messages")}:</UnreadMessageTitle>
             <UnreadMessageCount>{ticket.unread_messages}</UnreadMessageCount>
           </UnreadMessageWrap>
         )}

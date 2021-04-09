@@ -27,6 +27,7 @@ import {
 } from "./accept-popup-styles";
 //icons
 import close_icon from '../../../../_UI/assets/icons/close-icon.svg'
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -69,7 +70,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
 
     let after_estimated = moment(exact_operation_info.date_to, 'DD/MM/YYYY').add(7, 'days').calendar();
     let after_estimated_date = moment(after_estimated).toDate()
-
+    const {t} = useTranslation();
     return (
         <AcceptWrapper>
             <AcceptInner>
@@ -77,10 +78,10 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                             style={{position: 'absolute', top: '20px', right: '20px'}}><img src={close_icon}
                                                                                             alt=""/></IconButton>
                 <AcceptContent>
-                    <AcceptContentTitle>Type the required shipments details to confirm booking</AcceptContentTitle>
+                    <AcceptContentTitle>{t("Booking Confirmation/Type the required shipments details to confirm booking")}</AcceptContentTitle>
                     <AcceptFormOuter onSubmit={handleSubmit(onSubmit)}>
                         <FormField error={errors?.booking_number}
-                                   label='Booking number'
+                                   label={t('Booking Confirmation/Booking number')}
                                    placeholder='Placeholder'
                                    max_width='100%'
                                    name='booking_number'
@@ -90,7 +91,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                         {shipping_mode === 'LCL'
                         && <>
                             <FormField error={errors?.booking_number_with_carrier}
-                                       label='Booking Number With Carrier'
+                                       label={t('Booking Confirmation/Booking Number With Carrier')}
                                        placeholder='Placeholder'
                                        max_width='100%'
                                        name='booking_number_with_carrier'
@@ -98,7 +99,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                                        booking_process={true}
                             />
                             <FormField error={errors?.container_number}
-                                       label='Container Number'
+                                       label={t("Booking Confirmation/Container Number")}
                                        placeholder='Placeholder'
                                        max_width='100%'
                                        inputRef={register({required: 'Field is required'})}
@@ -111,7 +112,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                         &&
                         <FormField error={errors?.mawb}
                                    name='mawb'
-                                   label='MAWB'
+                                   label={t('Booking Confirmation/MAWB')}
                                    placeholder='Placeholder'
                                    max_width='100%'
                                    inputRef={register({required: 'Field is required'})}
@@ -122,7 +123,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                             ? <FormField error={errors?.flight_number}
                                          name='flight_number'
                                          inputRef={register({required: 'Field is required'})}
-                                         label='Flight Number'
+                                         label={t('Booking Confirmation/Flight Number')}
                                          placeholder='Placeholder'
                                          max_width='100%'
                             />
@@ -130,7 +131,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                                 <FormField error={errors?.vessel}
                                            name='vessel'
                                            inputRef={register({required: 'Field is required'})}
-                                           label='Vessel'
+                                           label={t('Booking Confirmation/Vessel')}
                                            placeholder='Placeholder'
                                            max_width='310px'
                                 />
@@ -138,7 +139,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                                 <FormField error={errors?.voyage}
                                            name='voyage'
                                            inputRef={register({required: 'Field is required'})}
-                                           label='Voyage'
+                                           label={t('Booking Confirmation/Voyage')}
                                            placeholder='Placeholder'
                                            max_width='310px'
                                 />
@@ -154,8 +155,8 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                                           setValue={setValue}
                                           required_dates={true}
                                           required_time={true}
-                                          label1={'Estimated Time of Departure'}
-                                          label2={'Estimated Time of Arrival'}
+                                          label1={t('Booking Confirmation/Estimated Time of Departure')}
+                                          label2={t('Booking Confirmation/Estimated Time of Arrival')}
                                           time_name_first={'estimated_time.departure_time'}
                                           time_name_second={'estimated_time.arrival_time'}
                                           date_name_first={'estimated_time.from'}
@@ -176,8 +177,8 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                                              setValue={setValue}
                                              required_dates={true}
                                              required_time={true}
-                                             label1={'Documents Cut Off Date'}
-                                             label2={'Cargo Cut Off Date'}
+                                             label1={t('Booking Confirmation/Documents Cut Off Date')}
+                                             label2={t('Booking Confirmation/Cargo Cut Off Date')}
                                              time_name_first={'documents_cut_off.cut_off_time'}
                                              time_name_second={'cargo_cut_off.cut_off_time'}
                                              date_name_first={'documents_cut_off.from'}
@@ -198,8 +199,8 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                         && <FormField error={errors?.container_free_time}
                                       name='container_free_time'
                                       inputRef={register({required: 'Field is required'})}
-                                      label='Container Free time'
-                                      placeholder='Number of days'
+                                      label={t('Booking Confirmation/Container Free Time')}
+                                      placeholder={t('Email notifications/Number of days')}
                                       max_width='310px'
                         />
                         }
@@ -211,20 +212,20 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                                     }}
                                     as={
                                         <div style={{width: '100%'}}>
-                                            <TextareaLabel>{'Booking Notes'}</TextareaLabel>
+                                            <TextareaLabel>{t('Booking Confirmation/Booking Notes')}</TextareaLabel>
                                             <FormTextarea error={!!errors?.booking_notes}
-                                                          placeholder='Comments..'
+                                                          placeholder={('Bookings/Comments')}
                                             />
                                         </div>
                                     }
                         />
                         <AcceptPopupActions>
-                            <OutlineButton text='CONFIRM'
+                            <OutlineButton text={t('Bookings/CONFIRM')}
                                            type="submit"
                                            button_background='#7c7c89'
                                            margin_right='15px'
                             />
-                            <OutlineButton text='CANCEL'
+                            <OutlineButton text={t('Bookings/CANCEL')}
                                            type="button"
                                            button_background='white'
                                            borderColor='1px solid #3b3b41'

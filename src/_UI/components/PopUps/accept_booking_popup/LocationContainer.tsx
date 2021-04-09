@@ -2,6 +2,7 @@ import React from 'react'
 import LocationBlock from "./LocationBlock";
 import {ShipmentDetailsType} from "../../../../_BLL/types/operations/operationsTypes";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     register: any,
@@ -19,7 +20,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
 
     let today = moment(new Date()).format('DD/MM/YYYY')
     let disabled = props.documents_cut_off_date && props.documents_cut_off_date < today
-
+    const {t} = useTranslation();
     return (
         <>
             {direction === 'export'
@@ -27,7 +28,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                     {shipping_mode === 'FCL'
                     && <LocationBlock register={register}
                                       errors={errors}
-                                      label={'Empty Pick Up Location'}
+                                      label={t('Booking Confirmation/Empty PickUp Location')}
                                       field_name={'empty_pickup_location'}
                                       google_field_name={'empty_pickup_location_address'}
                                       google_label={true}
@@ -41,7 +42,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                     }
                     <LocationBlock register={register}
                                    errors={errors}
-                                   label={'Cargo Drop Off Location'}
+                                   label={t('Booking Confirmation/Cargo Drop Off Location')}
                                    field_name={'cargo_drop_off_location'}
                                    google_field_name={'cargo_drop_off_location_address'}
                                    google_label={true}
@@ -55,7 +56,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                 </>
                 : <LocationBlock register={register}
                                  errors={errors}
-                                 label={'Cargo Pick Up Location'}
+                                 label={t('Booking Confirmation/Cargo Pick Up Location')}
                                  field_name={'cargo_pick_up_location'}
                                  google_field_name={'cargo_pick_up_location_address'}
                                  google_label={true}

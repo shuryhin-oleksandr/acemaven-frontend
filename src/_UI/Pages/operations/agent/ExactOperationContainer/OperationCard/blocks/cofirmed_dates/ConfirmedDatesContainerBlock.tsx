@@ -70,34 +70,34 @@ const ConfirmedDatesContainerBlock: React.FC<PropsType> = ({shipment, operation_
                 <>
                     <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
                         <InfoRow>
-                            <InfoRowLabel>ESTIMATED TIME OF DEPARTURE</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/ESTIMATED TIME OF DEPARTURE")}</InfoRowLabel>
                             <InfoRowValue>{shipment?.date_of_departure}</InfoRowValue>
                         </InfoRow>
                         <InfoRow>
-                            <InfoRowLabel>ESTIMATED TIME OF ARRIVAL</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/ESTIMATED TIME OF ARRIVAL")}</InfoRowLabel>
                             <InfoRowValue>{shipment?.date_of_arrival}</InfoRowValue>
                         </InfoRow>
                     </div>
                     {shipment?.cargo_cut_off_date &&
                     <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
                         <InfoRow>
-                            <InfoRowLabel>DOCUMENTS CUT OFF </InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/DOCUMENTS CUT OFF")} </InfoRowLabel>
                             <InfoRowValue>{shipment?.document_cut_off_date}</InfoRowValue>
                         </InfoRow>
                         <InfoRow>
-                            <InfoRowLabel>CARGO CUT OFF </InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/CARGO CUT OFF")} </InfoRowLabel>
                             <InfoRowValue>{shipment?.cargo_cut_off_date}</InfoRowValue>
                         </InfoRow>
                     </div>
                     }
                     <div style={{width: "20%", display: "flex", flexDirection: "column",}}>
                         {shipment?.actual_date_of_departure && <InfoRow>
-                            <InfoRowLabel>ACTUAL TIME OF DEPARTURE</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/ACTUAL TIME OF DEPARTURE")}</InfoRowLabel>
                             <InfoRowValue>{shipment?.actual_date_of_departure}</InfoRowValue>
                         </InfoRow>
                         }
                         {shipment?.actual_date_of_arrival && <InfoRow>
-                            <InfoRowLabel>ACTUAL TIME OF ARRIVAL</InfoRowLabel>
+                            <InfoRowLabel>{t("Bookings/ACTUAL TIME OF ARRIVAL")}</InfoRowLabel>
                             <InfoRowValue>{shipment?.actual_date_of_arrival}</InfoRowValue>
                         </InfoRow>}
                     </div>

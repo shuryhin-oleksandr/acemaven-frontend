@@ -21,6 +21,7 @@ import {InfoRow, InfoRowLabel, InfoRowValue} from "../booking-card-style";
 //icons
 import down_arrow from '../../../../../../_UI/assets/icons/rates&services/show_arrow.svg'
 import up_arrow from '../../../../../../_UI/assets/icons/rates&services/hide_arrow.svg'
+import {useTranslation} from "react-i18next";
 
 
 
@@ -35,7 +36,7 @@ type PropsType = {
 const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, release_type, charges_cost, booking_shipping_mode}) => {
 
     const [isHiddenDocs, setHiddenDocs] = useState(false)
-
+    const {t} = useTranslation();
     return (
         <HiddenOuter>
             { release_type &&  <DocumentsWrapper>
@@ -45,15 +46,15 @@ const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, 
                     >
                         <img src={isHiddenDocs ? down_arrow : up_arrow} alt="" style={{width: '14px'}}/>
                     </IconButton>
-                    <GeneralTitle>DOCUMENTS</GeneralTitle>
+                    <GeneralTitle>{t("Bookings/DOCUMENTS")}</GeneralTitle>
                     <ActionsInfoWrapper >
                         {!isHiddenDocs && <InfoBlock>
                             <InfoRow margin_right='80px'>
-                                <InfoRowLabel>RELEASE TYPE</InfoRowLabel>
+                                <InfoRowLabel>{t("Bookings/RELEASE TYPE")}</InfoRowLabel>
                                 <InfoRowValue>{release_type.title}</InfoRowValue>
                             </InfoRow>
                             <InfoRow>
-                                <InfoRowLabel>NO. OF DOCUMENTS</InfoRowLabel>
+                                <InfoRowLabel>{t("Bookings/NO.OF DOCUMENTS")}</InfoRowLabel>
                                 <InfoRowValue>{number_of_documents}</InfoRowValue>
                             </InfoRow>
                         </InfoBlock>}
@@ -62,7 +63,7 @@ const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, 
             </DocumentsWrapper>}
             <CargoWrapper>
                 <DocumentsContent>
-                    <GeneralTitle>CARGO</GeneralTitle>
+                    <GeneralTitle>{t("Bookings/CARGO")}</GeneralTitle>
                     <ShippingModeTable cargo_groups={cargo_groups}
                                        booking_shipping_mode={booking_shipping_mode}
                     />
@@ -70,7 +71,7 @@ const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, 
             </CargoWrapper>
             <ChargesWrapper>
                 <DocumentsContent>
-                    <GeneralTitle>CHARGES</GeneralTitle>
+                    <GeneralTitle>{t("Bookings/CHARGES")}</GeneralTitle>
                     <ChargesTable charges_cost={charges_cost ? charges_cost : null}/>
                 </DocumentsContent>
             </ChargesWrapper>

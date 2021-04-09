@@ -16,6 +16,7 @@ import {HelperText} from "../../_commonComponents/Input/input-styles";
 import {useDispatch} from "react-redux";
 import {rejectAgentBookingByIdThunk} from "../../../../_BLL/thunks/booking_agent_thunk/bookingAgentThunk";
 import {useHistory, useParams} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     setRejectPopupOpen: (value:boolean) => void
@@ -37,7 +38,7 @@ const RejectBookingByAgentPopup:React.FC<PropsType> = ({setRejectPopupOpen}) => 
     const onSubmit = (values: {reason: string}) => {
         dispatch(rejectAgentBookingByIdThunk(id, values.reason, history))
     }
-
+  const {t} = useTranslation();
     return (
         <RejectWrapper>
             <RejectInner>
@@ -47,18 +48,18 @@ const RejectBookingByAgentPopup:React.FC<PropsType> = ({setRejectPopupOpen}) => 
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <RejectContent onSubmit={handleSubmit(onSubmit)}>
-                    <RejectTitle>Do you want to reject the booking?</RejectTitle>
+                    <RejectTitle>{t("Bookings/Do you want to reject the booking?")}</RejectTitle>
                     <RejectAware>
                         <img src={reject_aware_icon} alt=""/>
-                        <span>Please, confirm that the company is rejecting the booking request.</span>
+                        <span>{t("Bookings/Please, confirm_booking")}</span>
                     </RejectAware>
                     <div style={{width: '100%', marginBottom: '40px'}}>
-                        <RejectLabel>Rejection reason</RejectLabel>
+                        <RejectLabel>{t("Bookings/Rejection reason")}</RejectLabel>
                         <Controller name='reason'
                                     control={control}
                                     rules={{required: 'Field is required'}}
                                     as={
-                                        <RejectTextarea placeholder='Comments'
+                                        <RejectTextarea placeholder={t("Bookings/Comments")}
                                                         error={!!errors?.reason}
                                         />
                                     }
@@ -66,8 +67,8 @@ const RejectBookingByAgentPopup:React.FC<PropsType> = ({setRejectPopupOpen}) => 
                         {errors?.reason?.type === "required" && <HelperText>{errors?.reason?.message}</HelperText>}
                     </div>
                     <RejectActions>
-                        <RejectConfirmButton type='submit'>CONFIRM</RejectConfirmButton>
-                        <RejectCancelButton type='button' onClick={() => setRejectPopupOpen(false)}>CANCEL</RejectCancelButton>
+                        <RejectConfirmButton type='submit'>{t("Bookings/CONFIRM")}</RejectConfirmButton>
+                        <RejectCancelButton type='button' onClick={() => setRejectPopupOpen(false)}>{t("Bookings/CANCEL")}</RejectCancelButton>
                     </RejectActions>
                 </RejectContent>
             </RejectInner>

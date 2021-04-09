@@ -13,6 +13,7 @@ import BookingAgentPage from "./BookingAgentPage";
 import MovedToOperationsPopup from "../../../components/PopUps/moved_to_operations_popup/MovedToOperationsPopup";
 import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
 import SpinnerForAuthorizedPages from "../../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+import {useTranslation} from "react-i18next";
 
 
 const BookingAgentContainer: React.FC = () => {
@@ -24,9 +25,7 @@ const BookingAgentContainer: React.FC = () => {
     const [isSearchMode, setSearchMode] = useState(false);
     const [movedPopup, setMovedPopup] = useState(false)
 
-    const text = "There are no requests at the moment.\n" +
-        "                When a client send a booking request\n" +
-        "                they will appear in this section."
+    const text = "There are no requests at the moment"
 
     const dispatch = useDispatch();
 
@@ -43,7 +42,7 @@ const BookingAgentContainer: React.FC = () => {
             setMovedPopup(true)
         }
     }, [accept_success])
-
+    const {t} = useTranslation();
     return (
         <Layout>
             {isFetching
@@ -65,7 +64,7 @@ const BookingAgentContainer: React.FC = () => {
                                       isSearchMode={isSearchMode}
                                       setSearchMode={setSearchMode}
                                       dispatch={dispatch}
-                                      text={text}
+                                      text={t(`Bookings/${text}`)}
                     />
                 </>}
 

@@ -12,6 +12,7 @@ import TableBody from "@material-ui/core/TableBody";
 import {ChargesType} from "../../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 //components
 import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     charges:  ChargesType[]
@@ -53,7 +54,7 @@ const useStyles = makeStyles({
 
 const AgentSurchargeAdditional:React.FC<PropsType> = ({charges}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return (
       <ScrollbarStyled {...{style: { width: 800, height: 620}}}>
         <TableContainer className={classes.container} component={Paper}>
@@ -61,9 +62,9 @@ const AgentSurchargeAdditional:React.FC<PropsType> = ({charges}) => {
                 <TableHead>
                     <TableRow>
                         <TableCell className={classes.cell} align="left" />
-                        <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                        <TableCell className={classes.cell} align="left">CHARGE</TableCell>
-                        <TableCell className={classes.cell} align="left">CONDITIONS</TableCell>
+                        <TableCell className={classes.cell} align="left">{t("Quote bid screen/CURRENCY")}</TableCell>
+                        <TableCell className={classes.cell} align="left">{t("Quote bid screen/CHARGE")}</TableCell>
+                        <TableCell className={classes.cell} align="left">{t("Quote bid screen/CONDITION")}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

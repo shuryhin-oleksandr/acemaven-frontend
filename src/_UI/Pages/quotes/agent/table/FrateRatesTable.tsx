@@ -12,6 +12,7 @@ import TableBody from "@material-ui/core/TableBody";
 import {RateQuoteType} from "../../../../../_BLL/types/quotes/quotesTypes";
 //components
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -48,7 +49,7 @@ type PropsType = {
 
 const FrateRatesTable:React.FC<PropsType> = ({rate}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
 
     return (
         <ScrollbarStyled {...{style: {width: "100%", height: 280}}}>
@@ -57,9 +58,9 @@ const FrateRatesTable:React.FC<PropsType> = ({rate}) => {
                     <TableHead>
                         <TableRow>
                             {rate?.rates && rate.rates[0].container_type && <TableCell className={classes.cell} align="left">CONTAINER TYPE</TableCell>}
-                            <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                            <TableCell className={classes.cell} align="left">FREIGHT RATE</TableCell>
-                            <TableCell className={classes.cell} align="left">EXPIRATION DATE</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Quote bid screen/CURRENCY")}</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Quote bid screen/FRATE RATES")}</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Quote bid screen/EXPIRATION DATE")}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

@@ -12,6 +12,7 @@ import TableBody from "@material-ui/core/TableBody";
 import {TrackingBackendType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
 //styles
 import styled from "styled-components";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -81,7 +82,7 @@ const StatusTable: React.FC<PropsType> = ({tracking}) => {
     const classes = useStyles();
 
     const events = tracking.map(ae => ae.data.events[0])
-
+    const {t} = useTranslation();
     return (
         <TableWrapper>
             <TableContainer className={classes.container} component={Paper}>
@@ -89,13 +90,13 @@ const StatusTable: React.FC<PropsType> = ({tracking}) => {
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.cell} align="left">
-                                DATE
+                                {t("Billing/DATE")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                               FLIGHT
+                                {t("Operations/FLIGHT")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                STATUS
+                                {t("Operations/STATUS")}
                             </TableCell>
                         </TableRow>
                     </TableHead>

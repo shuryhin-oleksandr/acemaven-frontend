@@ -42,6 +42,7 @@ import no_message_icon from "../../assets/icons/no-email-icon.svg";
 import message_icon from "../../assets/icons/email-icon.svg";
 import card from "../../../_UI/assets/icons/card.svg";
 import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   customTooltip: {
@@ -132,7 +133,7 @@ const Header: React.FC = () => {
   const goToExchangePage = () => {
     history.push("/billing_exchange");
   };
-
+  const {t} = useTranslation();
   return (
     <HeaderContainer>
       <LogoWrap onClick={() => history.push("/")}>
@@ -172,7 +173,7 @@ const Header: React.FC = () => {
                 ))
               ) : (
                 <NoNotificationCard>
-                  There are no new messages
+                  {t("Dashboard/There are no new messages")}
                 </NoNotificationCard>
               )}
             </SectionWrapper>
@@ -205,7 +206,7 @@ const Header: React.FC = () => {
                 ))
               ) : (
                 <NoNotificationCard>
-                  There are no notifications yet
+                  {t("Dashboard/There are no notifications yet")}
                 </NoNotificationCard>
               )}
             </SectionWrapper>
@@ -226,13 +227,13 @@ const Header: React.FC = () => {
           title={
             <StyledUl>
               <StyledTooltipItem onClick={() => dispatch(signOut(history))}>
-                Log out
+                {t("My Profile/Log out")}
               </StyledTooltipItem>
               <NavLink
                 to="/settings/profile"
                 style={{ textDecoration: "none" }}
               >
-                <StyledTooltipItem>My profile</StyledTooltipItem>
+                <StyledTooltipItem>{t("My Profile/My Profile")}</StyledTooltipItem>
               </NavLink>
             </StyledUl>
           }

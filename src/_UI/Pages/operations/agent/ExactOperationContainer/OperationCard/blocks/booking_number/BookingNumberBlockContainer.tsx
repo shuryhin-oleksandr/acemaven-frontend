@@ -1,6 +1,7 @@
 import React from 'react'
 import {BookingTitle, NumberOfBooking} from "../../operation-card-style";
 import {ShipmentDetailsType} from "../../../../../../../../_BLL/types/operations/operationsTypes";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -9,11 +10,11 @@ type PropsType = {
 }
 
 const BookingNumberBlockContainer: React.FC<PropsType> = ({shipment}) => {
-
+  const {t} = useTranslation();
     return (
         <div style={{display: "flex"}}>
-            <BookingTitle>BOOKING</BookingTitle>
-            <NumberOfBooking>No {shipment?.booking_number}</NumberOfBooking>
+            <BookingTitle>{t("Bookings/Booking")}</BookingTitle>
+            <NumberOfBooking>{t("Quote bid screen/NO")} {shipment?.booking_number}</NumberOfBooking>
         </div>
     )
 }

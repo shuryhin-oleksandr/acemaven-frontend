@@ -18,6 +18,7 @@ import {
 import {HelperText} from "../../_commonComponents/Input/input-styles";
 //icons
 import close_icon from '../../../assets/icons/close-icon.svg';
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -54,7 +55,7 @@ const SaveTemporaryQuotePopup:React.FC<PropsType> = ({closePopup, freight, saveR
             dispatch(quotesAgentActions.setBadSavingRateToList(''))
         }
     }, [saveRateResult])
-
+    const {t} = useTranslation();
     return (
         <TemporaryWrapper>
             <TemporaryInner>
@@ -62,10 +63,10 @@ const SaveTemporaryQuotePopup:React.FC<PropsType> = ({closePopup, freight, saveR
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <TemporaryContent>
-                    <Question>Do you want to save the rate and surcharges in your rates?</Question>
+                    <Question>{("Quote bid screen/Do you want to save this rate  and  surcharge in your Rates?")}</Question>
                     <ButtonsContainer>
-                        <SaveButton onClick={saveHandler}>YES</SaveButton>
-                        <CancelButton onClick={cancelHandler}>NO</CancelButton>
+                        <SaveButton onClick={saveHandler}>{t("Surcharges/YES")}</SaveButton>
+                        <CancelButton onClick={cancelHandler}>{t("Surcharges/NO")}</CancelButton>
                     </ButtonsContainer>
                     {bad_saving_message && <HelperText style={{fontSize: '14px', textAlign: 'left'}}>{bad_saving_message}</HelperText>}
                 </TemporaryContent>

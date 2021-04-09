@@ -13,6 +13,7 @@ import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {getAssignSuccess} from "../../../../_BLL/selectors/booking/bookingAgentSelector";
 import {agentBookingActions} from "../../../../_BLL/reducers/booking/agentBookingReducer";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -36,6 +37,7 @@ const AssignConfirmationPopup:React.FC<PropsType> = ({setAssignAgent, setAssignC
             dispatch(agentBookingActions.setAssignSuccess(''))
         }
     }, [assign_success])
+    const {t} = useTranslation();
     return (
         <PopupWrapper >
             <PopupInner height='200px'>
@@ -45,11 +47,11 @@ const AssignConfirmationPopup:React.FC<PropsType> = ({setAssignAgent, setAssignC
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <PopupContent>
-                    <PopupTitle>Are you sure you want to assign {'this'} booking to <span style={{textTransform: 'capitalize'}}>{agent_full_name}</span> ?
+                    <PopupTitle>{t("Bookings/Are you sure you want to assign this Booking to")} {'this'}<span style={{textTransform: 'capitalize'}}>{agent_full_name}</span> ?
                     </PopupTitle>
                     <AssignActions>
-                        <AssignConfirm onClick={assign_thunk}>CONFIRM</AssignConfirm>
-                        <AssignCancel onClick={closeHandler}>CANCEL</AssignCancel>
+                        <AssignConfirm onClick={assign_thunk}>{t("Bookings/CONFIRM")}</AssignConfirm>
+                        <AssignCancel onClick={closeHandler}>{t("Bookings/CANCEL")}</AssignCancel>
                     </AssignActions>
                 </PopupContent>
             </PopupInner>

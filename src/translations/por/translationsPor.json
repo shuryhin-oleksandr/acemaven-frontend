@@ -25,7 +25,6 @@
     "Roles": "",
     "Contact Name": ""
   },
-
   "Create Master Account": {
     "Create Master Account": "Criar Conta Master"
   },
@@ -108,7 +107,10 @@
     "There are no operations pending of booking fee payment.": "",
     "Map is not available": "",
     "There are no operations in progress.": "",
-    "There are no completed operations.": ""
+    "There are no completed operations.": "",
+    "Today Exchange Rate": "",
+    "There are no new messages": "",
+    "There are no notifications yet": ""
   },
   "Dashboard Menu": {
     "REQUESTS": "SOLICITAÇÕES",
@@ -156,7 +158,7 @@
     "REJECT": "REJEITAR",
     "ASSIGN": "NOMEAR",
     "Assign this booking to an agent": "Atribuir reserva a um agente",
-    "Are you sure you want to assign this Booking to ____": " Está seguro de que desea asignar esta reserva a",
+    "Are you sure you want to assign this Booking to": " Está seguro de que desea asignar esta reserva a",
     "CONFIRM": "CONFIRMAR",
     "CANCEL": "CANCELAR",
     "GENERAL INFO": "DETALHES DO EMBARQUE",
@@ -175,7 +177,9 @@
     "EMAIL": "CORREIO ELETRÔNICO",
     "DOCUMENTS": "DOCUMENTOS",
     "RELEASE TYPE": "TIPO DE LIBERAÇÃO",
+    "Release type": "Tipo de liberação",
     "NO. OF DOCUMENTS": "NUMERO DE DOCUMENTOS",
+    "No. of Documents": "Numero de Documentos",
     "CARGO": "CARGA",
     "VOLUME": "VOLUME",
     "PACKAGING": "EMBALAGEM",
@@ -210,7 +214,15 @@
     "GET ASSISTANCE": "",
     "to Book": "",
     "Booking Fee": "Taxa de Resera",
-    "Choose month": ""
+    "Choose month": "",
+    "Do you want to reject the booking?": "",
+    "Please, confirm_booking": "",
+    "Comments": "",
+    "Rejection reason":"",
+    "The request will be moved to the operations.": "",
+    "You can find it in mine section.": "",
+    "WEEK": "SEMANA",
+    "There are no requests at the moment": ""
   },
   "Quotes": {
     "Quotes": "Cotações",
@@ -225,6 +237,7 @@
     "Active": "Activa",
     "Pause": "Pausada",
     "OFFER NO.": "OFERTA NO.",
+    "OFFER": "OFERTA",
     "OFFERS": "",
     "There are no active quotes at the moment.": ""
   },
@@ -244,12 +257,23 @@
     "CANCEL": "CANCELAR",
     "Do you want to save this rate  and  surcharge in your Rates?": "Deseja salvar e publicar essa oferta nas suas Tarifas?",
     "SALVAR": "SALVAR",
-    "NO": "NO"
+    "NO": "NO",
+    "RATE":"",
+    "RATE PER W/M":"",
+    "Open": "",
+    "Offer submitted": "",
+    "Carrier company name": "",
+    "I want to disclose the carrier info to the customers": "",
+    "Total Today": "",
+    "Today’s": "",
+    "EXCHANGE RATE": ""
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Confirmação de Reserva",
     "Please, type the required shipment details to confim the booking": "Por favor, insira os detalhes do embarque para confirmar a reserva.",
+    "Type the required shipments details to confirm booking": "Insira os detalhes do embarque para confirmar a reserva",
     "Booking number": "Número da Reserva",
+    "BOOKING NUMBER": "NÚMERO DA RESERVA",
     "MAWB": "MAWB",
     "Estimated Time of Departure": "Data Estimada pro Embarque",
     "Estimated Time of Arrival": "Data Estimada de Chegada",
@@ -261,14 +285,26 @@
     "Address": "Endereço",
     "Container Free Time": "Tempo livre dos Contêiners",
     "Flight Number": "Número de Voo",
+    "FLIGHT NUMBER": "NÚMERO DE VOO",
     "Vessel": "Navío",
-    "Voyage": "Viagem"
+    "Voyage": "Viagem",
+    "Booking Number With Carrier": "",
+    "BOOKING NUMBER WITH CARRIER": "",
+    "Container Number": "",
+    "CONTAINER NUMBER": "",
+    "Cargo Pick Up Location": "",
+    "Confirm": "Confirmar",
+    "Cancel": "Cancelar",
+    "This action_recalculate": "",
+    "Documents": "Documentos",
+    "Loading...": ""
   },
   "Operations": {
     "Operations": "Operações",
     "SHIPMENT TRACKING": "RASTREAMENTO DO EMBARQUE",
     "COMMENTS": "COMENTÁRIOS",
     "STATUS": "ESTADO",
+    "DATE": "DATA",
     "CONTAINER REF.": "NO. CONTÊINER",
     "PORTO": "PUERTO",
     "NOTES": "NOTAS",
@@ -284,7 +320,9 @@
     "CANCEL OPERATION": "CANCELAR EMBARQUE",
     "COMPLETE OPERATION": "FINALIZAR EMBARQUE",
     "All": "Todas",
-    "My": "Meu"
+    "My": "Meu",
+    "FLIGHT": "",
+    "location": "localização"
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirmar conclusão do embarque",
@@ -293,11 +331,13 @@
     "Cancellation could result in getting a bad review from the client or to be banned from the platform.": "O cancelamento pode resultar em uma crítica negativa do cliente ou ser banido da plataforma.",
     "Cancellation reason": "Motivo de cancelamento",
     "Your comments": "Por favor, comente",
-    "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ": "Por favor, mantenha as tarifas da sua empresa em dia para evitar críticas negativas com cancelamentos. Cabe agora ao cliente deixar uma nota baixa para sua empresa nesta operação."
+    "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ": "Por favor, mantenha as tarifas da sua empresa em dia para evitar críticas negativas com cancelamentos. Cabe agora ao cliente deixar uma nota baixa para sua empresa nesta operação.",
+    "Select status": "",
+    "Add comment...": ""
   },
   "Change Request": {
     "The client has requested the following changes": "O cliente solicitou as seguintes alterações na reserva",
-    "Make additional changes in the operation as needed": "Faça alterações adicionais nos detalhes se for necessario"
+    "Make additional changes in the operation": "Faça alterações adicionais nos detalhes se for necessario"
   },
   "Notifications": {
     "Notifications": "Notificações"
@@ -310,7 +350,8 @@
     "Old Password": "",
     "New Password": "",
     "Confirm Password": "",
-    "Password": "Senha"
+    "Password": "Senha",
+    "Log out": ""
   },
   "Company Settings": {
     "Company Info": "Dados da Organização",
@@ -395,7 +436,9 @@
   "Help and Support": {
     "Help and Support": "Ajuda e Suporte",
     "Topic": "Assunto",
-    "POST": "ENVIAR"
+    "POST": "ENVIAR",
+    "Operation No.": "",
+    "Unread messages": ""
   },
   "Booking process": {
     "Booking process": "Passos para solicitar a sua reserva",
@@ -412,7 +455,10 @@
     "PAYMENT": "PAGAMENTO",
     "PIX QR": "QR DO PIX",
     "CONFIRM AND SEND": "CONFIRMAR E ENVIAR",
-    "DETAILS": "DETALHES"
+    "DETAILS": "DETALHES",
+    "TOTAL W/M": "TOTAL W/M",
+    "BEFORE REQUEST": "",
+    "AFTER REQUEST": ""
   },
   "Company profile": {
     "Company profile": "Perfil do agente",
@@ -441,14 +487,17 @@
     "Booking Fee Pending": "Taxa de Resera Pendente",
     "Booking Request Received": "Solicitude de Reserva Recevida",
     "Booking Request in Progress": "Solicitação de reserva em andamento",
-    "Booking Request Rejected ": "Pedido de reserva rejeitado",
+    "Booking Request Rejected": "Pedido de reserva rejeitado",
     "Booking Confirmed": "Reserva confirmada",
-    "Booking Change Requested ": "Alteração na reserva confirmada",
+    "Booking Change Requested": "Alteração na reserva confirmada",
     "Booking Change Confirmed": "Alteração na reserva pendente",
-    "Operation canceled by Client": "Operação cancelada pelo cliente",
+    "Operation Canceled by Client": "Operação cancelada pelo cliente",
     "Shipment in progress": "Embarque em andamento",
-    "Payment due by ": "Pagamento pelo embarque pendente",
-    "Operation Complete": "Operação Completa"
+    "Payment due by": "Pagamento pelo embarque pendente",
+    "Operation Complete": "Operação Completa",
+    "Operation Canceled by Agent": "",
+    "Operation Canceled by the System": "",
+    "Awaiting Payment": ""
   },
   "Role": {
     "Client": "Cliente",
@@ -476,7 +525,8 @@
     "Will alert_Import": "",
     "YES": "SIM",
     "NO": "NÃO",
-    "OK": "OK"
+    "OK": "OK",
+    "Number of days": ""
   },
   "Month": {
     "January": "Janeiro",

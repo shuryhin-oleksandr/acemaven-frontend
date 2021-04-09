@@ -22,6 +22,7 @@ import {useHistory} from "react-router-dom";
 import {ErrorServerMessage} from "../../SignInPage";
 import {getFilesFormData} from "../../../../_BLL/helpers/MultipartFormDataHelper";
 import {HelperText} from "../../../components/_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -69,17 +70,17 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
         }
     }
 
-
+  const {t} = useTranslation();
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
             <FullfilledWrap>
                 <FillOuter>
-                    <Label>Email</Label>
+                    <Label>{t("Register/Email")}</Label>
                     <TextWrap>{checkedUser?.email}</TextWrap>
                     {email_error && <HelperText>Email already exists.</HelperText>}
                 </FillOuter>
                 <FillOuter>
-                    <Label>Roles</Label>
+                    <Label>{t("Register/Roles")}</Label>
                     <TextWrap style={{textTransform: "capitalize"}}>
                         {checkedUser?.roles.map((r: any, index: number) => <span key={index}>{r}{' '}</span>)}
                     </TextWrap>
@@ -89,22 +90,22 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
             <FullfilledWrap style={{marginBottom: "0"}}>
                 <InputWrap w="47%">
                     <FormField
-                        label="Name"
+                        label={t("Register/Name")}
                         inputRef={register({
                             required: "Field is required",
                         })}
-                        placeholder="Name"
+                        placeholder={t("Register/Name")}
                         name="first_name"
                         error={errors?.first_name}
                     />
                 </InputWrap>
                 <InputWrap w="47%">
                     <FormField
-                        label="Last Name"
+                        label={t("Register/Last Name")}
                         inputRef={register({
                             required: "Field is required",
                         })}
-                        placeholder="Last Name"
+                        placeholder={t("Register/Last Name")}
                         name="last_name"
                         error={errors?.last_name}
 
@@ -112,14 +113,14 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
                 </InputWrap>
             </FullfilledWrap>
             <FormField
-                label="Phone Number"
+                label={t("Register/Phone Number")}
                 inputRef={register({
                     required: "Field is required",
                     maxLength: 13,
                     minLength: 10,
                     pattern: /^(\+)?([0-9]){10,13}$/
                 })}
-                placeholder="Phone Number"
+                placeholder={t("Register/Phone Number")}
                 name="phone"
                 error={errors?.phone}
                 max='13'
@@ -127,22 +128,22 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
                 pattern_message='Phone number has to include only + and numbers'
             />
             <FormField
-                label="Position in the Company"
+                label={t("Register/Position in the Company")}
                 inputRef={register({
                     required: "Field is required",
                 })}
-                placeholder="Position in the Company"
+                placeholder={t("Register/Position in the Company")}
                 name="position"
                 error={errors?.position}
             />
             <PasswordFormField
                 name="password"
-                label="Password"
+                label={t("Complete Profile/Password")}
                 getValues={getValues}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
                 errors={errors}
-                placeholder="Password"
+                placeholder={t("Complete Profile/Password")}
                 register={register}
             />
             {passwordError && <ErrorServerMessage>{passwordError}</ErrorServerMessage>}
@@ -150,7 +151,7 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
                 inputRef={register({
                     required: "Field is required",
                 })}
-                placeholder="Confirm password"
+                placeholder={t("My Profile/Confirm Password")}
                 name="confirm_password"
                 error={errors?.confirm_password}
                 type="password"
@@ -181,7 +182,7 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
                     <DropZone setFile={setFile} name="photo" setImg={setImg}/>
                 </div>
             )}
-            <SubmitButton type="submit">Complete Profile</SubmitButton>
+            <SubmitButton type="submit">{t("Complete Profile/Complete Profile")}</SubmitButton>
         </FormContainer>
     );
 };

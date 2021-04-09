@@ -8,6 +8,7 @@ import {
 import {IconButton} from "@material-ui/core";
 import close_icon from '../../../assets/icons/close-icon.svg';
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     setCompleteOperationPopup: (value: boolean) => void,
@@ -15,6 +16,7 @@ type PropsType = {
 }
 
 const CompleteOperationPopup:React.FC<PropsType> = ({setCompleteOperationPopup, completeOperationHandler}) => {
+    const {t} = useTranslation();
     return (
         <CompleteOperationPopupWrapper>
             <CompleteOperationPopupInner>
@@ -24,14 +26,13 @@ const CompleteOperationPopup:React.FC<PropsType> = ({setCompleteOperationPopup, 
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <CompleteOperationPopupContent>
-                    <CompleteTitle>Confirm operation completion</CompleteTitle>
+                    <CompleteTitle>{t("Confirm Operation/Confirm Operation Completion")}</CompleteTitle>
                     <CompleteSubtitle>
-                        Do you confirm that the payment for the service has been received
-                        or has you reached a payment agreement with the client for this shipment?
+                        {t("Confirm Operation/Do you confirm that the payment for the service has been received or that you reached a payment agreement with the client for this shipment?")}
                     </CompleteSubtitle>
                     <CompleteButtonsWrapper>
-                        <CompleteConfirmButton onClick={completeOperationHandler}>confirm</CompleteConfirmButton>
-                        <CompleteCancelButton onClick={() => setCompleteOperationPopup(false)}>cancel</CompleteCancelButton>
+                        <CompleteConfirmButton onClick={completeOperationHandler}>{t("Booking Confirmation/Confirm")}</CompleteConfirmButton>
+                        <CompleteCancelButton onClick={() => setCompleteOperationPopup(false)}>{t("Booking Confirmation/Cancel")}</CompleteCancelButton>
                     </CompleteButtonsWrapper>
                 </CompleteOperationPopupContent>
             </CompleteOperationPopupInner>

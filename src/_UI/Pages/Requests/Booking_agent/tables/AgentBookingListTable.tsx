@@ -22,6 +22,7 @@ import { ModeIcon } from "src/_UI/Pages/Services&Rates/surcharge/surcharges_page
 //icons
 import ship_surcharge from "../../../../assets/icons/long-ship-icon-for-tables.svg";
 import plane_surcharge from "../../../../assets/icons/long-plane-icon-for-tables.svg";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   searchValue: string;
@@ -182,7 +183,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
           )
         )
       : null;
-
+  const {t} = useTranslation();
   return (
     <TableContainer className={classes.container} component={Paper}>
       <Table stickyHeader className={classes.table} aria-label="simple table">
@@ -191,7 +192,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
             <TableCell className={classes.emptyHeader} align="left" />
             <TableCell className={classes.shipping_cell} align="left" />
             <TableCell className={classes.cell} align="left">
-              ACE ID
+              {t("Dashboard/Reservation No.")}
             </TableCell>
             <TableCell className={classes.cell} align="left">
               <TableCellContent
@@ -202,7 +203,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 column_name="shipping_mode"
                 searchValue={searchValue}
                 isSearchMode={isSearchMode}
-                title="SHIPPING MODE"
+                title={t("Bookings/SHIPPING MODE")}
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
                 thunkName="agent_booking"
@@ -218,7 +219,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 column_name="route"
                 searchValue={searchValue}
                 isSearchMode={isSearchMode}
-                title="ROUTE"
+                title={t("Bookings/ROUTE")}
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
                 thunkName="agent_booking"
@@ -233,7 +234,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 column_name="client"
                 searchValue={searchValue}
                 isSearchMode={isSearchMode}
-                title="CLIENT"
+                title={t("Bookings/CLIENT")}
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
                 thunkName="agent_booking"
@@ -248,7 +249,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 column_name="shipment_date"
                 searchValue={searchValue}
                 isSearchMode={isSearchMode}
-                title="SHIPMENT DATE"
+                title={t("Bookings/SHIPMENT DATE")}
                 searchColumn={searchColumn}
                 setSearchColumn={setSearchColumn}
                 thunkName="agent_booking"
@@ -256,7 +257,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
-              STATUS
+              {t("Bookings/STATUS")}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -339,8 +340,8 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                 <div>{row.date_to}</div>
                 <div>
                   {row.week_from === row.week_to
-                    ? `WEEK ${row.week_from}`
-                    : `WEEK ${row.week_from} - WEEK ${row.week_to}`}
+                    ? `${t("Bookings/WEEK")} ${row.week_from}`
+                    : `${t("Bookings/WEEK")} ${row.week_from} - ${t("Bookings/WEEK")} ${row.week_to}`}
                 </div>
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
@@ -352,7 +353,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
                     textTransform: "uppercase",
                   }}
                 >
-                  {row.status}
+                  {t(`Statuses/${row.status}`)}
                 </span>
               </TableCell>
             </TableRow>

@@ -14,6 +14,7 @@ import {
 } from "./cancel-operation-by-client-styles";
 import { cancelClientOperation } from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import { useHistory } from "react-router";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setIsCancelByClient: (value: boolean) => void;
@@ -26,6 +27,7 @@ const CancelOperationByClientPopup: React.FC<PropsType> = ({
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const {t} = useTranslation();
   return (
     <CancelOperationByClientWrapper>
       <CancelOperationByClientInner>
@@ -35,7 +37,7 @@ const CancelOperationByClientPopup: React.FC<PropsType> = ({
         >
           <img src={close_icon} alt="" />
         </IconButton>
-        <Question>Are you sure you want to cancel operation?</Question>
+        <Question>{t("Confirm Operation/Do you want to cancel the operation?")}</Question>
         <ButtonsWrapper>
           <YesButton
             onClick={() => {
@@ -43,14 +45,14 @@ const CancelOperationByClientPopup: React.FC<PropsType> = ({
               setIsCancelByClient(false);
             }}
           >
-            Yes
+            {t("Surcharges/YES")}
           </YesButton>
           <CancelButton
             onClick={() => {
               setIsCancelByClient(false);
             }}
           >
-            No
+            {t("Surcharges/NO")}
           </CancelButton>
         </ButtonsWrapper>
       </CancelOperationByClientInner>

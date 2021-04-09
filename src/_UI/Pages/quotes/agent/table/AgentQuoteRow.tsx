@@ -14,6 +14,7 @@ import sea_type from "../../../../assets/icons/long-ship-icon-for-tables.svg";
 import air_type from '../../../../assets/icons/long-plane-icon-for-tables.svg'
 import moment from "moment";
 import {CargosOuter} from "../../client/quotes-client-styles";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -93,7 +94,7 @@ type PropsType = {
 }
 
 const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
-
+    const {t} = useTranslation();
     const classes = useStyles();
     let a = moment(quote.date_from, 'DD/MM/YYYY').toDate()
     let day_from = moment(a).format('D')
@@ -130,9 +131,9 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
                 {quote.is_submitted
                     ? <SubmittedWrapper>
                         <DoneIcon />
-                        <StatusSpan>Submitted</StatusSpan>
+                        <StatusSpan>{t("Quotes/SUBMITTED")}</StatusSpan>
                     </SubmittedWrapper>
-                    :  <SubmitQuoteButton>SUBMIT QUOTE</SubmitQuoteButton>
+                    :  <SubmitQuoteButton>{t("Quotes/SUBMIT QUOTE")}</SubmitQuoteButton>
                 }
             </TableCell>
         </TableRow>

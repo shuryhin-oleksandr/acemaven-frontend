@@ -63,6 +63,7 @@ import ClientChangeRequestPopUpForm from "../ClientChangeRequestPopUpForm/Client
 import { EditTwoTone } from "@material-ui/icons";
 import BaseTooltip from "../../_commonComponents/baseTooltip/BaseTooltip";
 import ChargesChangeTable from "./ChargesChangeTable/ChargesChangeTable";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -381,7 +382,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
   const clearDatesError = () => {
     dispatch(bookingActions.setChangeBookingError(null));
   };
-
+  const {t} = useTranslation();
   return (
     <PopupContainer>
       <PopupContent>
@@ -389,19 +390,18 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
           <img src={close} alt="" />
         </CloseBtn>
         <HeadingWrap>
-          <Heading>Requesting changes</Heading>
+          <Heading>{t("Bookings/REQUEST CHANGE")}</Heading>
           <HeadingText>
-            This action should recalculate the charges shown in the operation
-            based on the new changes.
+            {t("Booking Confirmation/This action_recalculate")}
           </HeadingText>
         </HeadingWrap>
         <form onSubmit={handleSubmit(onSubmit)}>
           {operation_info.release_type && (
             <SectionWrapper>
-              <SectionTitle>Documents</SectionTitle>
+              <SectionTitle>{t("Booking Confirmation/Documents")}</SectionTitle>
               <div style={{ display: "flex" }}>
                 <InfoRow margin_right="25px">
-                  <InfoRowLabel>RELEASE TYPE</InfoRowLabel>
+                  <InfoRowLabel>{t("Bookings/RELEASE TYPE")}</InfoRowLabel>
                   <Controller
                     name="release_type"
                     control={control}
@@ -409,20 +409,20 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                     as={
                       <SurchargeRateSelect
                         options={release_type_choices}
-                        placeholder="Release type"
+                        placeholder={t("Bookings/Release type")}
                       />
                     }
                   />
                 </InfoRow>
                 <InfoRow>
-                  <InfoRowLabel>NUMBER OF DOCUMENTS</InfoRowLabel>
+                  <InfoRowLabel>{t("Operations/NO. OF DOCUMENTS")}</InfoRowLabel>
                   <div style={{ paddingTop: "9px" }}>
                     <FormField
                       inputRef={register({
                         required: "Field is required",
                         min: 1,
                       })}
-                      placeholder="No. of Documents"
+                      placeholder={t("Operations/No. of Documents")}
                       name="number_of_documents"
                       defaultValue={operation_info.number_of_documents}
                       error={errors?.number_of_documents}
@@ -437,14 +437,14 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
           )}
           {operation_info.freight_rate.origin.is_local && (
             <SectionWrapper>
-              <SectionTitle>DATES</SectionTitle>
+              <SectionTitle>{t("Bookings/DATES")}</SectionTitle>
               <GeneralBookingContent>
                 <div style={{ display: "flex" }}>
                   <CalendarIcon style={{ width: "87px", height: "96px" }}>
                     <img src={calendar_icon} alt="" />
                   </CalendarIcon>
                   <InfoRow margin_right="50px" margin_bottom="0px">
-                    <InfoRowLabel>SHIPMENT DATE</InfoRowLabel>
+                    <InfoRowLabel>{t("Quotes/SHIPMENT DATE")}</InfoRowLabel>
                     <div style={{ marginBottom: "7px" }}>
                       <Dates
                         setDates={setDates}
@@ -453,7 +453,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                         }
                         dates={dates}
                         disabled={false}
-                        placeholder={`Week ${operation_info.week_range?.week_from} - Week ${operation_info.week_range?.week_to}`}
+                        placeholder={`${t("Bookings/WEEK")} ${operation_info.week_range?.week_from} - ${t("Bookings/WEEK")} ${operation_info.week_range?.week_to}`}
                         width={"auto"}
                         openCallback={clearDatesError}
                       />
@@ -469,7 +469,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
           )}
 
           <SectionWrapper>
-            <SectionTitle>CARGO</SectionTitle>
+            <SectionTitle>{t("Bookings/CARGO")}</SectionTitle>
             <ShippingModeText>
               {operation_info.freight_rate.shipping_mode.title}
             </ShippingModeText>
@@ -480,34 +480,34 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                   ShippingModeEnum.FCL ? (
                     <TableRow>
                       <TableCell className={classes.cell} align="left">
-                        VOLUME
+                        {t("Bookings/VOLUME")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                        CONTAINER_TYPE
+                        {t("Quote bid screen/CONTAINER TYPE")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                        CARGO DESCRIPTIONS
+                        {t("Booking process/CARGO DESCRIPTION")}
                       </TableCell>
                     </TableRow>
                   ) : (
                     <TableRow>
                       <TableCell className={classes.cell} align="left">
-                        VOLUME
+                        {t("Bookings/VOLUME")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                        TOTAL W/M
+                        {t("Booking process/TOTAL W/M")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
                         {operation_info.freight_rate.shipping_mode.id ===
                         ShippingModeEnum.ULD
-                          ? "CONTAINER TYPE"
-                          : "PACKAGING TYPE"}
+                          ? t("Quote bid screen/CONTAINER TYPE")
+                          : t("Bookings/PACKAGING TYPE")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                        HEIGHT, WIDTH, LENGTH, WEIGHT
+                        {t("Bookings/HEIGHT, WIDTH, LENGTH, WEIGHT")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                        CARGO DESCRIPTIONS
+                        {t("Bookings/CARGO DESCRIPTIONS")}
                       </TableCell>
                     </TableRow>
                   )}
@@ -604,12 +604,12 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
             )}
           {recalculated_charges && !addGroupMode && (
             <SectionWrapper>
-              <SectionTitle>Charges</SectionTitle>
+              <SectionTitle>{t("Billing/CHARGES")}</SectionTitle>
               <div>
                 <div style={{ padding: "12px 18px", marginBottom: "30px" }}>
                   <InfoRow margin_right="25px">
                     <InfoRowLabel font_color={"#1ab8e5"}>
-                      BEFORE REQUEST
+                      {t("Booking process/BEFORE REQUEST")}
                     </InfoRowLabel>
                     <ChargesChangeTable
                       operation_charges={operation_info.charges}
@@ -625,7 +625,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                 >
                   <InfoRow margin_right="25px">
                     <InfoRowLabel font_color={"#1ab8e5"}>
-                      AFTER REQUEST
+                      {t("Booking process/AFTER REQUEST")}
                     </InfoRowLabel>
                     <ChargesChangeTable
                       operation_charges={recalculated_charges}
@@ -637,8 +637,8 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
             </SectionWrapper>
           )}
           <ButtonsWrap>
-            <ConfirmButton type="submit">REQUEST</ConfirmButton>
-            <CancelButton onClick={() => setIsOpen(false)}>CANCEL</CancelButton>
+            <ConfirmButton style={{textTransform: "uppercase"}} type="submit">{t("Dashboard/Request")}</ConfirmButton>
+            <CancelButton onClick={() => setIsOpen(false)}>{t("Bookings/CANCEL")}</CancelButton>
           </ButtonsWrap>
         </form>
         <ModalWindow isOpen={addGroupMode}>

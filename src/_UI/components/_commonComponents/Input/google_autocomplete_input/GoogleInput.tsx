@@ -9,6 +9,7 @@ import {GoogleInputOuter, GoogleInputWrapper, LabelGoogleInput} from "./google-i
 import {HelperText} from "../input-styles";
 //icons
 import location_icon  from '../../../../../_UI/assets/icons/booking/location_icon.svg';
+import {useTranslation} from "react-i18next";
 
 
 
@@ -60,7 +61,7 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, g
             handleChange(props.defaultValue)
         }
     }, [props.defaultValue])
-
+    const {t} = useTranslation();
     return (
         <PlacesAutocomplete
             value={address}
@@ -74,7 +75,7 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, g
                                                            label_uppercase={props.label_uppercase}
                                                            font_weight={props.font_weight}
                         >
-                            Address
+                            {t("Booking Confirmation/Address")}
                         </LabelGoogleInput>
                         }
                         <GoogleInputWrapper error={errors?.google_field_name?.message}>

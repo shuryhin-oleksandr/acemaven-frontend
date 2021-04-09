@@ -24,6 +24,7 @@ import {
     HandlingTitle
 } from "../../../../Pages/Services&Rates/surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import {Field} from "../../../_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -69,18 +70,18 @@ const AdditionalSurchargesPopupTable:React.FC<PropsType> = ({charges, quote_ship
 
     const noConditions = ShippingModeEnum.FCL === quote_shipping_mode_id;
 
-
+    const {t} = useTranslation();
     return (
         <HandlingSurchargeContainer max_height='440px' max_width={!noConditions ? '730px' : '600px'} margin_left={noConditions ? '30px' : '0x'}>
-            <HandlingTitle margin_bottom='0px'>Additional surcharges </HandlingTitle>
+            <HandlingTitle margin_bottom='0px'>{t("Quote bid screen/Additional surcharges")}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.cell}>{' '}</TableCell>
-                            <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                            <TableCell className={classes.cell} align="left">CHARGE</TableCell>
-                            {!noConditions && <TableCell className={classes.cell} align="left">CONDITIONS</TableCell>}
+                            <TableCell className={classes.cell} align="left">{t("Quote bid screen/CURRENCY")}</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Quote bid screen/CHARGE")}</TableCell>
+                            {!noConditions && <TableCell className={classes.cell} align="left">{t("Quote bid screen/CONDITION")}</TableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>

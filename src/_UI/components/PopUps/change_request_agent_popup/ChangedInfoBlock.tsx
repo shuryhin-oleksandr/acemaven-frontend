@@ -9,6 +9,7 @@ import {
     InfoBlockOuter, InfoBlockValue, ValuesWrapper
 } from "./change-request-agent-styles";
 import {OperationType} from "../../../../_BLL/types/operations/operationsTypes";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -27,22 +28,22 @@ const ChangedInfoBlock: React.FC<PropsType> = ({operation_info}) => {
         number: operation_info?.change_requests && operation_info?.change_requests[0].number_of_documents,
         type: operation_info?.change_requests && operation_info?.change_requests[0].release_type?.title
     }
-
+    const [t] = useTranslation();
     return (
         <ChangedInfoBlockWrapper>
             {operation_info?.number_of_documents &&
                 ((operation_info?.number_of_documents !== changed_docs.number) || (operation_info?.release_type !== changed_docs.type))
             &&
             <InfoBlockOuter>
-                <GeneralTitle>DOCUMENTS</GeneralTitle>
+                <GeneralTitle>{t("Bookings/DOCUMENTS")}</GeneralTitle>
                 <InfoBlockInner>
                     <InfoBlockContent>
                         <ValuesWrapper>
-                            <InfoBlockLabel>Release type</InfoBlockLabel>
+                            <InfoBlockLabel>{t("Bookings/Release type")}</InfoBlockLabel>
                             <InfoBlockValue>{operation_info?.release_type?.title}</InfoBlockValue>
                         </ValuesWrapper>
                         <ValuesWrapper>
-                            <InfoBlockLabel>Number of documents</InfoBlockLabel>
+                            <InfoBlockLabel>{t("Bookings/NO.OF DOCUMENTS")}</InfoBlockLabel>
                             <InfoBlockValue>{operation_info?.number_of_documents}</InfoBlockValue>
                         </ValuesWrapper>
                         <div style={{
@@ -56,11 +57,11 @@ const ChangedInfoBlock: React.FC<PropsType> = ({operation_info}) => {
                             to
                         </div>
                         <ValuesWrapper back_color='rgba(17, 91, 134, .05)'>
-                            <InfoBlockLabel font_color='#115B86'>Release type</InfoBlockLabel>
+                            <InfoBlockLabel font_color='#115B86'>{t("Bookings/Release type")}</InfoBlockLabel>
                             <InfoBlockValue font_color='#115B86'>{changed_docs.type}</InfoBlockValue>
                         </ValuesWrapper>
                         <ValuesWrapper back_color='rgba(17, 91, 134, .05)'>
-                            <InfoBlockLabel font_color='#115B86'>Number of documents</InfoBlockLabel>
+                            <InfoBlockLabel font_color='#115B86'>{t("Operations/No. of Documents")}</InfoBlockLabel>
                             <InfoBlockValue font_color='#115B86'>{changed_docs.number}</InfoBlockValue>
                         </ValuesWrapper>
                     </InfoBlockContent>
@@ -69,13 +70,13 @@ const ChangedInfoBlock: React.FC<PropsType> = ({operation_info}) => {
             }
             {((initial_date.start !== changed_date.start) || (initial_date.to !== changed_date.to) ) &&
             <InfoBlockOuter>
-                <GeneralTitle>DATES</GeneralTitle>
+                <GeneralTitle>{t("Bookings/DATES")}</GeneralTitle>
                 <InfoBlockInner>
                     <InfoBlockContent>
                         <ValuesWrapper>
-                            <InfoBlockLabel>SHIPMENT DATE</InfoBlockLabel>
+                            <InfoBlockLabel>{t("Quotes/SHIPMENT DATE")}</InfoBlockLabel>
                             <InfoBlockValue>{operation_info?.date_from}{' '}{'-'}{' '}{operation_info?.date_to}</InfoBlockValue>
-                            <InfoBlockValue font_size='24px'>WEEK 47</InfoBlockValue>
+                            <InfoBlockValue font_size='24px'>{t("Bookings/WEEK")} 47</InfoBlockValue>
                         </ValuesWrapper>
                         <div style={{
                             fontFamily: 'Helvetica Bold',
@@ -88,13 +89,13 @@ const ChangedInfoBlock: React.FC<PropsType> = ({operation_info}) => {
                             to
                         </div>
                         <ValuesWrapper back_color='rgba(17, 91, 134, .05)'>
-                            <InfoBlockLabel font_color='#115B86'>SHIPMENT DATE</InfoBlockLabel>
+                            <InfoBlockLabel font_color='#115B86'>{t("Quotes/SHIPMENT DATE")}</InfoBlockLabel>
                             <InfoBlockValue font_color='#115B86'>
                                 {operation_info?.change_requests && operation_info?.change_requests[0].date_from}
                                 {' '}{'-'}{' '}
                                 {operation_info?.change_requests && operation_info?.change_requests[0].date_to}
                             </InfoBlockValue>
-                            <InfoBlockValue font_color='#115B86' font_size='24px'>WEEK 48</InfoBlockValue>
+                            <InfoBlockValue font_color='#115B86' font_size='24px'>{t("Bookings/WEEK")} 48</InfoBlockValue>
                         </ValuesWrapper>
                     </InfoBlockContent>
                 </InfoBlockInner>

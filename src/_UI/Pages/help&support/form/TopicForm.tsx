@@ -28,6 +28,7 @@ import { AppStateType } from "../../../../_BLL/store";
 import { postNewTicketThunk } from "../../../../_BLL/thunks/support_thunk/supportThunk";
 import { useHistory } from "react-router-dom";
 import { TicketType } from "../../../../_BLL/types/support_types/support_types";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setNewTopic: (value: boolean) => void;
@@ -48,19 +49,19 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
   };
 
   const trapSpacesForRequiredFields = (value: any) => !!value.trim();
-
+  const {t} = useTranslation();
   return (
     <SupportOuter>
       <form onSubmit={handleSubmit(onSubmit)}>
         <SupportInner>
           <TopicFormHeader>
-            <SupportTitle>New ticket</SupportTitle>
+            <SupportTitle>{t("Support/New ticket")}</SupportTitle>
             <TopicFormActionsWrap>
               <BaseButton style={{ marginRight: "10px" }} type="submit">
-                POST
+                {t("Help and Support/POST")}
               </BaseButton>
               <OutlineButton
-                text={"CANCEL"}
+                text={t("Bookings/CANCEL")}
                 borderColor={"1px solid #3b3b41"}
                 text_color={"#3b3b41"}
                 font_size={"14px"}
@@ -78,7 +79,7 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
                 rules={{ required: "Field is required" }}
                 as={
                   <SurchargeRateSelect
-                    label={"Category"}
+                    label={t("Support/Category")}
                     max_width={"170px"}
                     error={errors?.category?.message}
                     options={category_choices}
@@ -87,7 +88,7 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
               />
               {category_watch === "operations" && (
                 <FormField
-                  label={"Operation No."}
+                  label={t("Help and Support/Operation No.")}
                   name={"aceid"}
                   error={errors?.aceid}
                   inputRef={register({
@@ -100,7 +101,7 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
                 />
               )}
               <FormField
-                label={"Topic"}
+                label={t("Help and Support/Topic")}
                 name={"topic"}
                 error={errors?.topic}
                 inputRef={register({
@@ -122,10 +123,10 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
               }}
               as={
                 <div style={{ width: "100%", marginBottom: "50px" }}>
-                  <TextareaLabel>Describe your problem</TextareaLabel>
+                  <TextareaLabel>{t("Support/Describe your problem")}</TextareaLabel>
                   <FormTextarea
                     error={!!errors?.description}
-                    placeholder="Describe your problem..."
+                    placeholder={t("Support/Describe your problem")}
                   />
                   {errors?.description && (
                     <HelperText messagePaddingTop="4px">

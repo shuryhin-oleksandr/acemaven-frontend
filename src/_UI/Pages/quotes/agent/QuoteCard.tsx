@@ -69,6 +69,7 @@ import sea_type from '../../../../_UI/assets/icons/rates&services/ship-surcharge
 import air_type from '../../../assets/icons/rates&services/plane-surcharge.svg'
 import dates_icon from '../../../../_UI/assets/icons/date_1.svg'
 import close_icon from '../../../assets/icons/close-icon.svg'
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -152,7 +153,7 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
     let c = moment(props.exact_quote_info?.date_to, 'DD/MM/YYYY').toDate()
     let date_to = moment(c).format('DD/MM')
 
-
+    const {t} = useTranslation();
     return (
         <Layout>
             <ModalWindow isOpen={props.isCreatePopup}>
@@ -186,16 +187,16 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                     </IconButton>
                     <QuoteCardInner>
                         <CardHeader>
-                            <CardTitle>Quotes</CardTitle>
+                            <CardTitle>{t("Dashboard/Quotes")}</CardTitle>
                             {!props.exact_quote_info?.is_submitted
                                 ? <ActionsAgentWrap>
-                                    <QuoteOpenStatus>Open</QuoteOpenStatus>
+                                    <QuoteOpenStatus>{t("Quote bid screen/Open")}</QuoteOpenStatus>
                                     <Tooltip arrow
                                              title='To send an offer for this quote, you must select a carrier and have a rate and surcharge for it'
                                              classes={{tooltip: classes.customTooltip}}
                                     >
                                         <SubmitQuoteButton type={'submit'}>
-                                            SUBMIT QUOTE
+                                            {t("Quotes/SUBMIT QUOTE")}
                                         </SubmitQuoteButton>
                                     </Tooltip>
                                     <Tooltip arrow
@@ -203,24 +204,23 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                              classes={{tooltip: classes.customTooltip}}
                                     >
                                         <RejectButton onClick={props.rejectQuoteHandler}
-                                                      type={'button'}>REJECT</RejectButton>
+                                                      type={'button'}>{t("Bookings/REJECT")}</RejectButton>
                                     </Tooltip>
                                 </ActionsAgentWrap>
                                 : <ActionsAgentWrap>
-                                    <QuoteOpenStatus>Offer submitted</QuoteOpenStatus>
+                                    <QuoteOpenStatus>{t("Quote bid screen/Offer submitted")}</QuoteOpenStatus>
                                     <Tooltip arrow
                                              title='By clicking withdraw offer you will delete your offer for this quote.'
                                              classes={{tooltip: classes.customTooltip}}
                                     >
-                                        <RejectButton type={'button'} onClick={props.withdrawOfferHandler}>WITHDRAW
-                                            OFFER</RejectButton>
+                                        <RejectButton type={'button'} onClick={props.withdrawOfferHandler}>{t("Quotes/WITHDRAW OFFER")}</RejectButton>
                                     </Tooltip>
                                 </ActionsAgentWrap>
                             }
                         </CardHeader>
                         <QuoteInfo>
                             <GeneralInfo>
-                                <GeneralTitle>GENERAL INFO</GeneralTitle>
+                                <GeneralTitle>{t("Bookings/GENERAL INFO")}</GeneralTitle>
                                 <GeneralInfoContent>
                                     <ShipmentType>
                                         <img src={props.exact_quote_info?.shipping_type === 'sea' ? sea_type : air_type}
@@ -228,32 +228,32 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                     </ShipmentType>
                                     <Content>
                                         <ContentRow>
-                                            <RowTitle>SHIPPING MODE</RowTitle>
+                                            <RowTitle>{t("Bookings/SHIPPING MODE")}</RowTitle>
                                             <RowValue>{props.exact_quote_info?.shipping_mode.title}</RowValue>
                                         </ContentRow>
                                         <ContentRow>
-                                            <RowTitle>ORIGIN</RowTitle>
+                                            <RowTitle>{t("Quotes/ORIGIN")}</RowTitle>
                                             <RowValue>{props.exact_quote_info?.origin.display_name}</RowValue>
                                         </ContentRow>
                                         <ContentRow>
-                                            <RowTitle>DESTINATION</RowTitle>
+                                            <RowTitle>{t("Quotes/DESTINATION")}</RowTitle>
                                             <RowValue>{props.exact_quote_info?.destination.display_name}</RowValue>
                                         </ContentRow>
                                     </Content>
                                 </GeneralInfoContent>
                             </GeneralInfo>
                             <ShipmentInfo>
-                                <GeneralTitle>SHIPMENT INFO</GeneralTitle>
+                                <GeneralTitle>{t("Bookings/SHIPMENT INFO")}</GeneralTitle>
                                 <GeneralInfoContent>
                                     <ShipmentType margin_right='15.68px'>
                                         <img src={dates_icon} alt=""/>
                                     </ShipmentType>
                                     <ShipmentRow>
-                                        <ShipmentRowTitle>SHIPMENT DATE</ShipmentRowTitle>
+                                        <ShipmentRowTitle>{t("Quotes/SHIPMENT DATE")}</ShipmentRowTitle>
                                         <ShipmentRowWeek>
                                             {(props.exact_quote_info?.week_range.week_from !== props.exact_quote_info?.week_range.week_to)
-                                                ? `WEEK ${props.exact_quote_info?.week_range.week_from} - ${props.exact_quote_info?.week_range.week_to}`
-                                                : `WEEK ${props.exact_quote_info?.week_range.week_from}`
+                                                ? `${t("Bookings/WEEK")} ${props.exact_quote_info?.week_range.week_from} - ${props.exact_quote_info?.week_range.week_to}`
+                                                : `${t("Bookings/WEEK")} ${props.exact_quote_info?.week_range.week_from}`
                                             }
                                         </ShipmentRowWeek>
                                         <RowValue>{day_from}{'-'}{date_to}</RowValue>
@@ -262,7 +262,7 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                             </ShipmentInfo>
                         </QuoteInfo>
                         <CargoInfo>
-                            <GeneralTitle>CARGO</GeneralTitle>
+                            <GeneralTitle>{t("Bookings/CARGO")}</GeneralTitle>
                             <CargoShippingModeWrap>
                                 {props.exact_quote_info?.shipping_mode.title}
                             </CargoShippingModeWrap>
@@ -275,14 +275,14 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                 <CarrierInfo min_height={props.existing_rate_for_quote ? '400px' : '200px'}>
                                     <div style={{width: '100%'}}>
                                         <CarrierWrap>
-                                            <GeneralTitle>CARRIER</GeneralTitle>
+                                            <GeneralTitle>{t("Quote bid screen/CARRIER")}</GeneralTitle>
                                             <Controller control={control}
                                                         name='carrier'
                                                         defaultValue={''}
                                                         as={
                                                             <SurchargeRateSelect error={errors?.carrier?.message}
                                                                                  max_width='430px'
-                                                                                 placeholder='Carrier company name'
+                                                                                 placeholder={t('Quote bid screen/Carrier company name')}
                                                                                  options={props.carrier_list}
                                                             />
                                                         }
@@ -297,12 +297,12 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                                                isCheck={isCheck}
                                                                setIsCheck={setIsCheck}
                                                                value={isCheck}
-                                                               span_text='I want to disclose the carrier info to the customers'
+                                                               span_text={t("Quote bid screen/I want to disclose the carrier info to the customers")}
 
                                         />
                                     </div>
                                     {props.existing_rate_for_quote && <CarrierWrap>
-                                        <GeneralTitle>FREIGHT RATES</GeneralTitle>
+                                        <GeneralTitle>{t("Quote bid screen/FRATE RATES")}</GeneralTitle>
                                         <FrateRatesTable rate={props.existing_rate_for_quote}
                                         />
                                     </CarrierWrap>}

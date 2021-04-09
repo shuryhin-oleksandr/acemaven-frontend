@@ -17,6 +17,7 @@ import { IconButton } from "@material-ui/core";
 import close_icon from "../../../assets/icons/close-icon.svg";
 import user from "../../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
 import { IAddNewUserData } from "../../../../_BLL/types/addNewUserTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setAssignAgent: (value: boolean) => void;
@@ -40,7 +41,7 @@ const AssignAgentPopup: React.FC<PropsType> = ({
     setAssignConfirmation(true);
   };
   console.log("agents", agents);
-
+  const {t} = useTranslation();
   return (
     <PopupWrapper>
       <PopupInner height="auto">
@@ -57,7 +58,7 @@ const AssignAgentPopup: React.FC<PropsType> = ({
           <img src={close_icon} alt="" />
         </IconButton>
         <PopupContent>
-          <PopupTitle>Assign this booking to an agent</PopupTitle>
+          <PopupTitle>{t("Bookings/Assign this booking to an agent")}</PopupTitle>
           <UsersList>
             {agents?.map((a) => {
               return (
@@ -72,7 +73,7 @@ const AssignAgentPopup: React.FC<PropsType> = ({
                     </UserInfo>
                   </UserRowInfo>
                   <UserRowAssignButton onClick={() => assignHandler(a)}>
-                    ASSIGN
+                    {t("Bookings/ASSIGN")}
                   </UserRowAssignButton>
                 </UserRow>
               );

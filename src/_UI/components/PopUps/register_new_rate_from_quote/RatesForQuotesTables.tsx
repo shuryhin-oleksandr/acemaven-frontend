@@ -20,6 +20,7 @@ import {currency} from "../../../../_BLL/helpers/surcharge_helpers_methods&array
 //styles
 import {Field} from "../../_commonComponents/Input/input-styles";
 import {HandlingTitle} from "../../../Pages/Services&Rates/surcharge/surcharges_page/surcharge/sea-conteneraized-cargo-styles";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -69,10 +70,10 @@ const RatesForQuotesTable: React.FC<PropsType> = ({usageFees, quote_shipping_mod
 
     const classes = useStyles()
 
-
+    const {t} = useTranslation();
     return (
         <div style={{width: '100%', paddingBottom: '40px', borderBottom: '1px solid #bdbdbd', marginBottom: '20px'}}>
-            <HandlingTitle margin_bottom='0px'>FREIGHT RATE</HandlingTitle>
+            <HandlingTitle margin_bottom='0px'>{t("Freight rates/FREIGHT RATE")}</HandlingTitle>
             <ScrollbarStyled {...{
                 style: {width: 440},
                 autoHeight: true,
@@ -86,18 +87,18 @@ const RatesForQuotesTable: React.FC<PropsType> = ({usageFees, quote_shipping_mod
                             <TableRow>
                                 {usageFees?.length > 0 && quote_shipping_mode_id !== ShippingModeEnum.ULD
                                 && <TableCell className={classes.cell}>
-                                    CONTAINER TYPE
+                                    {t("Quote bid screen/CONTAINER TYPE")}
                                 </TableCell>
                                 }
                                 <TableCell className={classes.cell} align="left">
-                                    CURRENCY
+                                    {t("Quote bid screen/CURRENCY")}
                                 </TableCell>
                                 {usageFees?.length > 0 && quote_shipping_mode_id !== ShippingModeEnum.ULD
                                     ? (<TableCell className={classes.cell} align="left">
-                                        RATE
+                                      {t("Quote bid screen/RATE")}
                                     </TableCell>)
                                     : (<TableCell className={classes.cell} align="left">
-                                        RATE PER W/M
+                                      {t("Quote bid screen/RATE PER W/M")}
                                     </TableCell>)
                                 }
                             </TableRow>

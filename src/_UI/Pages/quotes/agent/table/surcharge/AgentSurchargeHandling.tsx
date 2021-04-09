@@ -10,6 +10,7 @@ import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 //components
 import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -46,16 +47,16 @@ const useStyles = makeStyles({
 
 const AgentSurchargeHandling:React.FC<PropsType> = ({usage_fees}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return (
       <ScrollbarStyled {...{style: {width: 500, height: 280}}}>
         <TableContainer className={classes.container} component={Paper}>
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell className={classes.cell} align="left">CONTAINER TYPE</TableCell>
-                        <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                        <TableCell className={classes.cell} align="left">CHARGE</TableCell>
+                        <TableCell className={classes.cell} align="left">{t("Quote bid screen/CONTAINER TYPE")}</TableCell>
+                        <TableCell className={classes.cell} align="left">{t("Quote bid screen/CURRENCY")}</TableCell>
+                        <TableCell className={classes.cell} align="left">{t("Quote bid screen/CHARGE")}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

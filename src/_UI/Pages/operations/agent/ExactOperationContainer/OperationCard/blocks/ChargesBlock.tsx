@@ -161,7 +161,7 @@ const ChargesBlock: React.FC<PropsType> = ({
       <TableTotal>
         <TotalLine>
           <TotalName>
-            TOTAL FREIGHT IN{" "}
+            {t("Surcharges/TOTAL FREIGHT IN")}{" "}
             {operation_charges?.total_freight_rate?.USD ? "USD" : "BRL"}
           </TotalName>
           <TotalValue>
@@ -172,7 +172,7 @@ const ChargesBlock: React.FC<PropsType> = ({
         </TotalLine>
         <TotalLine>
           <TotalName>
-            CHARGES IN {operation_charges?.total_surcharge?.BRL ? "BRL" : "USD"}
+            {t("Bookings/CHARGES IN")}{operation_charges?.total_surcharge?.BRL ? "BRL" : "USD"}
           </TotalName>
           <TotalValue>
             {operation_charges?.total_surcharge?.BRL
@@ -182,7 +182,7 @@ const ChargesBlock: React.FC<PropsType> = ({
         </TotalLine>
         {charges_today_exchange?.["USD exchange rate"] && (
           <TotalLine>
-            <TotalName>Today’s USD EXCHANGE RATE</TotalName>
+            <TotalName>{t("Quote bid screen/Today’s")} USD {t("Quote bid screen/EXCHANGE RATE")}</TotalName>
             <TotalValue>
               {charges_today_exchange?.["USD exchange rate"]}
             </TotalValue>
@@ -190,7 +190,7 @@ const ChargesBlock: React.FC<PropsType> = ({
         )}
         {charges_today_exchange?.["EUR exchange rate"] && (
           <TotalLine>
-            <TotalName>Today’s EUR EXCHANGE RATE</TotalName>
+            <TotalName>{t("Quote bid screen/Today’s")} EUR {t("Quote bid screen/EXCHANGE RATE")}</TotalName>
             <TotalValue>
               {charges_today_exchange?.["EUR exchange rate"]}
             </TotalValue>
@@ -201,7 +201,7 @@ const ChargesBlock: React.FC<PropsType> = ({
           charges_today_exchange?.total_today && (
             <TotalLine>
               <TotalName font_family="Helvetica Bold, sans-serif">
-                Total Today
+                {t("Quote bid screen/Total Today")}
               </TotalName>
               <TotalValue font_family="Helvetica Bold, sans-serif">
                 {charges_today_exchange?.total_today}

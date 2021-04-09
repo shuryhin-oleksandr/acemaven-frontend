@@ -116,9 +116,9 @@ const {t} = useTranslation() ;
                                             {company_type?.type === AppCompaniesTypes.AGENT
                                             && (!quote.is_submitted
                                                 ? <BookLittleButton
-                                                        onClick={() => setCardOpen(Number(quote?.id))}>Offer</BookLittleButton>
+                                                        onClick={() => setCardOpen(Number(quote?.id))}>{t("Quotes/OFFER")}</BookLittleButton>
                                                 : <span style={{color: '#115b86', fontFamily: 'Helvetica Bold, sans-serif', fontSize: '12px'}}>
-                                                        Submitted
+                                                        {t("Quotes/SUBMITTED")}
                                                 </span>
                                             )}
                                         </div>

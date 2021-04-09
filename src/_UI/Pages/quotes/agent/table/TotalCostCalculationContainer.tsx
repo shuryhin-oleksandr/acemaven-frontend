@@ -14,6 +14,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {ChargeCalculationType} from "../../../../../_BLL/types/quotes/quotesTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     calculation: ChargeCalculationType | null
@@ -56,11 +57,11 @@ const useStyles = makeStyles({
 
 const TotalCostCalculationContainer:React.FC<PropsType> = ({calculation}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return (
          <HiddenWrapper margin_top={'30px'}>
             <HiddenTitle>
-                CHARGES
+                {t("Bookings/CHARGES")}
             </HiddenTitle>
             <HiddenTable>
                 <TableContainer className={classes.container} component={Paper}>
@@ -68,22 +69,22 @@ const TotalCostCalculationContainer:React.FC<PropsType> = ({calculation}) => {
                         <TableHead>
                             <TableRow>
                                 <TableCell className={classes.cell}>
-                                    VOLUME
+                                    {t("Bookings/VOLUME")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    TYPE
+                                    {t("Bookings/TYPE")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    CHARGE
+                                    {t("Bookings/CHARGE")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    CURRENCY
+                                    {t("Bookings/CURRENCY")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="right">
-                                    COST
+                                    {t("Bookings/COST")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="right">
-                                    SUBTOTAL
+                                    {t("Bookings/SUBTOTAL")}
                                 </TableCell>
                             </TableRow>
                         </TableHead>
@@ -144,7 +145,7 @@ const TotalCostCalculationContainer:React.FC<PropsType> = ({calculation}) => {
             <TableTotal>
                 <TotalLine>
                     <TotalName>
-                        TOTAL FREIGHT IN {calculation?.total_freight_rate?.USD
+                        {t("Surcharges/TOTAL FREIGHT IN")} {calculation?.total_freight_rate?.USD
                         ? "BRL"
                         : "USD" }
                     </TotalName>
@@ -156,7 +157,7 @@ const TotalCostCalculationContainer:React.FC<PropsType> = ({calculation}) => {
                 </TotalLine>
                 <TotalLine>
                     <TotalName>
-                        CHARGES IN {calculation?.total_surcharge?.BRL
+                        {t("Bookings/CHARGES IN")} {calculation?.total_surcharge?.BRL
                         ? "BRL"
                         : "USD"
                     }

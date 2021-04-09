@@ -125,7 +125,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             name="address_line_first"
             error={errors.address_line_first}
           />
-          <div style={{ marginTop: -15 }}>
+          <div style={{ marginTop: -10 }}>
             <FormField
               inputRef={register}
               placeholder="Address"

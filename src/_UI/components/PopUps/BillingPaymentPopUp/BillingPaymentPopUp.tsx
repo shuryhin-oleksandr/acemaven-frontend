@@ -230,7 +230,8 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                 </TableContainer>
               </HiddenTable>
               <TableTotal>
-                {booking?.charges?.totals &&
+                {booking?.charges?.service_fee &&
+                  booking?.charges?.totals &&
                   Object.keys(booking?.charges.totals).map(
                     (key: any) =>
                       !!booking?.charges.totals[key] && (
@@ -286,18 +287,30 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                     </TotalValue>
                   </TotalLine>
                 )}
-                {booking?.charges?.totals_pure &&
-                  Object.keys(booking?.charges?.totals_pure).map(
-                    (key) =>
-                      !!booking?.charges?.totals_pure[key] && (
-                        <TotalLine>
-                          <TotalName>CHARGES IN {key}:</TotalName>
-                          <TotalValue>
-                            {booking?.charges?.totals_pure[key]}
-                          </TotalValue>
-                        </TotalLine>
-                      )
-                  )}
+                {booking?.charges?.totals_pure && (
+                  <>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        marginBottom: 5,
+                      }}
+                    >
+                      Remaining amount to be paid to the agent
+                    </div>
+                    {Object.keys(booking?.charges?.totals_pure).map(
+                      (key) =>
+                        !!booking?.charges?.totals_pure[key] && (
+                          <TotalLine>
+                            <TotalName>CHARGES IN {key}:</TotalName>
+                            <TotalValue>
+                              {booking?.charges?.totals_pure[key]}
+                            </TotalValue>
+                          </TotalLine>
+                        )
+                    )}
+                  </>
+                )}
               </TableTotal>
             </HiddenWrapper>
           </>

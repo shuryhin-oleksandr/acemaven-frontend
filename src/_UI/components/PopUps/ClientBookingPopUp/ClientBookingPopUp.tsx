@@ -332,18 +332,31 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                   </TotalValue>
                 </TotalLine>
               )}
-              {new_total?.charges?.totals_pure &&
-                Object.keys(new_total?.charges?.totals_pure).map(
-                  (key) =>
-                    !!new_total?.charges?.totals_pure[key] && (
-                      <TotalLine>
-                        <TotalName>CHARGES IN {key}:</TotalName>
-                        <TotalValue>
-                          {new_total?.charges?.totals_pure[key]}
-                        </TotalValue>
-                      </TotalLine>
-                    )
-                )}
+
+              {new_total?.charges?.totals_pure && (
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      marginBottom: 5,
+                    }}
+                  >
+                    Remaining amount to be paid to the agent
+                  </div>
+                  {Object.keys(new_total?.charges?.totals_pure).map(
+                    (key) =>
+                      !!new_total?.charges?.totals_pure[key] && (
+                        <TotalLine>
+                          <TotalName>CHARGES IN {key}:</TotalName>
+                          <TotalValue>
+                            {new_total?.charges?.totals_pure[key]}
+                          </TotalValue>
+                        </TotalLine>
+                      )
+                  )}
+                </>
+              )}
             </TableTotal>
           </HiddenWrapper>
         )}

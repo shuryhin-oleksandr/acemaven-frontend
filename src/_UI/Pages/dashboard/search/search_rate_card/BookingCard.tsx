@@ -112,7 +112,14 @@ const BookingCard: React.FC<PropsType> = ({
       <TotalPart>
         <CalculationWrap>
           {search_result?.cargo_groups.map((c: any, index: any) => (
-            <CalculationLine key={index} marginBottom="10px">
+            <CalculationLine
+              key={index}
+              marginBottom={
+                index === search_result?.cargo_groups.length - 1
+                  ? "15px"
+                  : "5px"
+              }
+            >
               <CalcName>Freight x {c.cargo_type} in:</CalcName>
               <CalcValue>
                 {c.freight.currency} {c.freight.subtotal}
@@ -143,7 +150,7 @@ const BookingCard: React.FC<PropsType> = ({
               )
           )}
           {search_result?.service_fee && (
-            <CalculationLine>
+            <CalculationLine style={{ marginTop: 10 }}>
               <CalcName>Acemaven Service Fee:</CalcName>
               <CalcValue>
                 {search_result?.service_fee?.currency}{" "}

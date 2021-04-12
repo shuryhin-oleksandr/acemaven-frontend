@@ -147,7 +147,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
   return (
     <PopupContainer>
       <PopupContent>
-        <Heading>t("Booking process/Booking process")}</Heading>
+        <Heading>{t("Booking process/Booking process")}</Heading>
         <IconButton
           style={{ position: "absolute", top: "21px", right: "21px" }}
           onClick={closePopupHandler}

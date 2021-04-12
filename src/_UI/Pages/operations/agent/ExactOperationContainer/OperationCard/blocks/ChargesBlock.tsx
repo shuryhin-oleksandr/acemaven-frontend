@@ -171,68 +171,34 @@ const ChargesBlock: React.FC<PropsType> = ({
         </TableContainer>
       </HiddenTable>
       <TableTotal>
-        {operation_charges?.totals && (
-          <>
-            {operation_charges?.totals?.USD && (
-              <TotalLine>
-                <TotalName>CHARGES IN USD:</TotalName>
-                <TotalValue>{operation_charges?.totals?.USD}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals?.EUR && (
-              <TotalLine>
-                <TotalName>CHARGES IN EUR:</TotalName>
-                <TotalValue>{operation_charges?.totals?.EUR}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals?.BRL && (
-              <TotalLine>
-                <TotalName>CHARGES IN BRL:</TotalName>
-                <TotalValue>{operation_charges?.totals?.BRL}</TotalValue>
-              </TotalLine>
-            )}
-          </>
-        )}
+        {operation_charges?.totals &&
+          Object.keys(operation_charges?.totals).map(
+            (key: any) =>
+              !!operation_charges?.totals[key] && (
+                <TotalLine>
+                  <TotalName>CHARGES IN {key}:</TotalName>
+                  <TotalValue>{operation_charges?.totals[key]}</TotalValue>
+                </TotalLine>
+              )
+          )}
 
-        {operation_charges?.pay_to_book && (
-          <TotalLine>
-            <TotalName>
-              BOOKING FEE IN{" "}
-              {operation_charges?.pay_to_book?.currency === "BRL"
-                ? "BRL"
-                : "USD"}
-              :
-            </TotalName>
-            <TotalValue>
-              {operation_charges?.pay_to_book?.booking_fee}
-            </TotalValue>
-          </TotalLine>
-        )}
+        {operation_charges?.booking_fee &&
+          Object.keys(operation_charges?.booking_fee).map((key: any) => (
+            <TotalLine>
+              <TotalName>BOOKING FEE IN {key}:</TotalName>
+              <TotalValue>{operation_charges?.booking_fee[key]}</TotalValue>
+            </TotalLine>
+          ))}
         {operation_charges?.service_fee && (
           <TotalLine>
             <TotalName>
-              ACEMAVEN SERVICE FEE IN{" "}
-              {operation_charges?.service_fee?.currency === "BRL"
-                ? "BRL"
-                : "USD"}
+              ACEMAVEN SERVICE FEE IN {operation_charges?.service_fee?.currency}
               :
             </TotalName>
             <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>
           </TotalLine>
         )}
 
-        {operation_charges?.exchange_rates?.USD && (
-          <TotalLine>
-            <TotalName>ACEMAVEN USD EXCHANGE RATE:</TotalName>
-            <TotalValue>{operation_charges?.exchange_rates?.USD}</TotalValue>
-          </TotalLine>
-        )}
-        {operation_charges?.exchange_rates?.EUR && (
-          <TotalLine>
-            <TotalName>ACEMAVEN EUR EXCHANGE RATE:</TotalName>
-            <TotalValue>{operation_charges?.exchange_rates?.EUR}</TotalValue>
-          </TotalLine>
-        )}
         {operation_charges?.pay_to_book && (
           <TotalLine>
             <TotalName>
@@ -248,57 +214,57 @@ const ChargesBlock: React.FC<PropsType> = ({
         )}
         {operation_charges?.totals_pure && (
           <>
-            {operation_charges?.totals_pure?.USD && (
-              <TotalLine>
-                <TotalName>TOTAL CHARGES IN USD:</TotalName>
-                <TotalValue>{operation_charges?.totals_pure?.USD}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals_pure?.EUR && (
-              <TotalLine>
-                <TotalName>TOTAL CHARGES IN EUR:</TotalName>
-                <TotalValue>{operation_charges?.totals_pure?.EUR}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals_pure?.BRL && (
-              <TotalLine>
-                <TotalName>TOTAL CHARGES IN BRL:</TotalName>
-                <TotalValue>{operation_charges?.totals_pure?.BRL}</TotalValue>
-              </TotalLine>
-            )}
-            {charges_today_exchange &&
-              status !== AppOperationBookingStatusesType.BOOKING_FEE_PENDING &&
-              Object.keys(charges_today_exchange).length > 0 &&
-              charges_today_exchange?.total_today && (
-                <>
-                  {charges_today_exchange.today_exchange_rate.exchange_rate !==
-                    1 && (
-                    <TotalLine>
-                      <TotalName>
-                        Today's{" "}
-                        {charges_today_exchange.today_exchange_rate.currency}{" "}
-                        Exchange rate:
-                      </TotalName>
-                      <TotalValue>
-                        {
-                          charges_today_exchange.today_exchange_rate
-                            .exchange_rate
-                        }
-                      </TotalValue>
-                    </TotalLine>
-                  )}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginBottom: 5,
+              }}
+            >
+              Remaining amount to be paid to the agent
+            </div>
+            {Object.keys(operation_charges?.totals_pure).map(
+              (key) =>
+                !!operation_charges?.totals_pure[key] && (
                   <TotalLine>
-                    <TotalName font_family="Helvetica Bold, sans-serif">
-                      Total Today
-                    </TotalName>
-                    <TotalValue font_family="Helvetica Bold, sans-serif">
-                      {charges_today_exchange?.total_today}
+                    <TotalName>CHARGES IN {key}:</TotalName>
+                    <TotalValue>
+                      {operation_charges?.totals_pure[key]}
                     </TotalValue>
                   </TotalLine>
-                </>
-              )}
+                )
+            )}
           </>
         )}
+
+        {charges_today_exchange &&
+          status !== AppOperationBookingStatusesType.BOOKING_FEE_PENDING &&
+          Object.keys(charges_today_exchange).length > 0 &&
+          charges_today_exchange?.total_today && (
+            <>
+              {charges_today_exchange.today_exchange_rate.exchange_rate !==
+                1 && (
+                <TotalLine>
+                  <TotalName>
+                    Today's{" "}
+                    {charges_today_exchange.today_exchange_rate.currency}{" "}
+                    Exchange rate:
+                  </TotalName>
+                  <TotalValue>
+                    {charges_today_exchange.today_exchange_rate.exchange_rate}
+                  </TotalValue>
+                </TotalLine>
+              )}
+              <TotalLine>
+                <TotalName font_family="Helvetica Bold, sans-serif">
+                  Total Today
+                </TotalName>
+                <TotalValue font_family="Helvetica Bold, sans-serif">
+                  {charges_today_exchange?.total_today}
+                </TotalValue>
+              </TotalLine>
+            </>
+          )}
       </TableTotal>
     </HiddenWrapper>
   );

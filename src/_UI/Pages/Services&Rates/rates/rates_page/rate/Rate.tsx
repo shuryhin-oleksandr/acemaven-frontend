@@ -98,7 +98,7 @@ const Rate: React.FC<PropsType> = ({
   const [newSurchargePopUpVisible, setNewSurchargePopUpVisible] = useState(
     false
   );
-  console.log("existing_surcharge",existing_surcharge);
+  console.log("existing_surcharge", existing_surcharge);
   //data from store
   let edit_success = useSelector(getEditSuccess);
   const empty_surcharge = useSelector(getEmptyExistingSurcharge);
@@ -135,7 +135,6 @@ const Rate: React.FC<PropsType> = ({
 
   const onSubmit = (values: any) => {
     let rates: any[] = [];
-    debugger;
 
     values.rates &&
       Object.keys(values.rates).forEach(
@@ -242,8 +241,8 @@ const Rate: React.FC<PropsType> = ({
               <FieldOuter>
                 <Label>Route</Label>
                 {/*<div style={{marginTop:"-5px"}}>*/}
-                  <RouteName>{rate?.origin.code}</RouteName>
-                  <RouteName>{rate?.destination.code}</RouteName>
+                <RouteName>{rate?.origin.code}</RouteName>
+                <RouteName>{rate?.destination.code}</RouteName>
                 {/*</div>*/}
               </FieldOuter>
             </FieldsWrap>

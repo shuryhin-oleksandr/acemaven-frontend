@@ -111,7 +111,7 @@ const AdditionalSurchargesPopupTable:React.FC<PropsType> = ({charges, quote_ship
                                 <TableCell className={classes.innerCell} align="left" >
                                     <Field name={`charges.${c.id}.charge`}
                                            ref={register}
-                                           placeholder={'0.00$'}
+                                           placeholder={'0.00'}
                                            defaultValue={'0'}
                                            max_width='95px'
                                     />

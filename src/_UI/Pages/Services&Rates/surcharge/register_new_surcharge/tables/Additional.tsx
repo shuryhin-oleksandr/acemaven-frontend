@@ -168,7 +168,7 @@ const Additional: React.FC<PropsType> = ({
                                         defaultValue={'0'}
                                         as={
                                             <Field max_width="100px"
-                                                   placeholder="0.00$"
+                                                   placeholder="0.00"
                                                    type="number"
                                                    step='0.01'
                                             />

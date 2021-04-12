@@ -73,7 +73,7 @@ const FCLField: React.FC<PropsType> = ({
                 />
             </TableCell>
             <TableCell className={classes.innerCell} align="left">
-                <Field placeholder='0.00$'
+                <Field placeholder='0.00'
                        name={`rates.${fee.id}.rate`}
                        ref={props.register({
                            //required: true,

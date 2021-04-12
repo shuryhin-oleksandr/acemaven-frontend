@@ -230,51 +230,32 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                 </TableContainer>
               </HiddenTable>
               <TableTotal>
-                {booking?.charges?.totals && (
-                  <>
-                    {booking?.charges?.totals?.USD && (
-                      <TotalLine>
-                        <TotalName>CHARGES IN USD:</TotalName>
-                        <TotalValue>{booking?.charges?.totals?.USD}</TotalValue>
-                      </TotalLine>
-                    )}
-                    {booking?.charges?.totals?.EUR && (
-                      <TotalLine>
-                        <TotalName>CHARGES IN EUR:</TotalName>
-                        <TotalValue>{booking?.charges?.totals?.EUR}</TotalValue>
-                      </TotalLine>
-                    )}
-                    {booking?.charges?.totals?.BRL && (
-                      <TotalLine>
-                        <TotalName>CHARGES IN BRL:</TotalName>
-                        <TotalValue>{booking?.charges?.totals?.BRL}</TotalValue>
-                      </TotalLine>
-                    )}
-                  </>
-                )}
-
-                {booking?.charges?.pay_to_book && (
-                  <TotalLine>
-                    <TotalName>
-                      BOOKING FEE IN{" "}
-                      {booking?.charges?.pay_to_book?.currency === "BRL"
-                        ? "BRL"
-                        : "USD"}
-                      :
-                    </TotalName>
-                    <TotalValue>
-                      {booking?.charges?.pay_to_book?.booking_fee}
-                    </TotalValue>
-                  </TotalLine>
-                )}
+                {booking?.charges?.totals &&
+                  Object.keys(booking?.charges.totals).map(
+                    (key: any) =>
+                      !!booking?.charges.totals[key] && (
+                        <TotalLine>
+                          <TotalName>CHARGES IN {key}:</TotalName>
+                          <TotalValue>
+                            {booking?.charges.totals[key]}
+                          </TotalValue>
+                        </TotalLine>
+                      )
+                  )}
+                {booking?.charges?.booking_fee &&
+                  Object.keys(booking?.charges?.booking_fee).map((key: any) => (
+                    <TotalLine>
+                      <TotalName>BOOKING FEE IN {key}:</TotalName>
+                      <TotalValue>
+                        {booking?.charges?.booking_fee[key]}
+                      </TotalValue>
+                    </TotalLine>
+                  ))}
                 {booking?.charges?.service_fee && (
                   <TotalLine>
                     <TotalName>
                       ACEMAVEN SERVICE FEE IN{" "}
-                      {booking?.charges?.service_fee?.currency === "BRL"
-                        ? "BRL"
-                        : "USD"}
-                      :
+                      {booking?.charges?.service_fee?.currency}:
                     </TotalName>
                     <TotalValue>
                       {booking?.charges?.service_fee?.subtotal}
@@ -282,22 +263,19 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                   </TotalLine>
                 )}
 
-                {booking?.charges?.exchange_rates?.USD && (
-                  <TotalLine>
-                    <TotalName>ACEMAVEN USD EXCHANGE RATE:</TotalName>
-                    <TotalValue>
-                      {booking?.charges?.exchange_rates?.USD}
-                    </TotalValue>
-                  </TotalLine>
-                )}
-                {booking?.charges?.exchange_rates?.EUR && (
-                  <TotalLine>
-                    <TotalName>ACEMAVEN EUR EXCHANGE RATE:</TotalName>
-                    <TotalValue>
-                      {booking?.charges?.exchange_rates?.EUR}
-                    </TotalValue>
-                  </TotalLine>
-                )}
+                {booking?.charges?.exchange_rates &&
+                  Object.keys(booking?.charges?.exchange_rates).length > 0 &&
+                  Object.keys(booking?.charges?.exchange_rates).map(
+                    (key: any) => (
+                      <TotalLine>
+                        <TotalName>ACEMAVEN {key} EXCHANGE RATE:</TotalName>
+                        <TotalValue>
+                          {booking?.charges?.exchange_rates[key]}
+                        </TotalValue>
+                      </TotalLine>
+                    )
+                  )}
+
                 {booking?.charges?.pay_to_book && (
                   <TotalLine>
                     <TotalName>
@@ -308,34 +286,18 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                     </TotalValue>
                   </TotalLine>
                 )}
-                {booking?.charges?.totals_pure && (
-                  <>
-                    {booking?.charges?.totals_pure?.USD && (
-                      <TotalLine>
-                        <TotalName>TOTAL CHARGES IN USD:</TotalName>
-                        <TotalValue>
-                          {booking?.charges?.totals_pure?.USD}
-                        </TotalValue>
-                      </TotalLine>
-                    )}
-                    {booking?.charges?.totals_pure?.EUR && (
-                      <TotalLine>
-                        <TotalName>TOTAL CHARGES IN EUR:</TotalName>
-                        <TotalValue>
-                          {booking?.charges?.totals_pure?.EUR}
-                        </TotalValue>
-                      </TotalLine>
-                    )}
-                    {booking?.charges?.totals_pure?.BRL && (
-                      <TotalLine>
-                        <TotalName>TOTAL CHARGES IN BRL:</TotalName>
-                        <TotalValue>
-                          {booking?.charges?.totals_pure?.BRL}
-                        </TotalValue>
-                      </TotalLine>
-                    )}
-                  </>
-                )}
+                {booking?.charges?.totals_pure &&
+                  Object.keys(booking?.charges?.totals_pure).map(
+                    (key) =>
+                      !!booking?.charges?.totals_pure[key] && (
+                        <TotalLine>
+                          <TotalName>CHARGES IN {key}:</TotalName>
+                          <TotalValue>
+                            {booking?.charges?.totals_pure[key]}
+                          </TotalValue>
+                        </TotalLine>
+                      )
+                  )}
               </TableTotal>
             </HiddenWrapper>
           </>

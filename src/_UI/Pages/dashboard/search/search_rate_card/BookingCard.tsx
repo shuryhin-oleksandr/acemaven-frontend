@@ -113,34 +113,35 @@ const BookingCard: React.FC<PropsType> = ({
         <CalculationWrap>
           {search_result?.cargo_groups.map((c: any, index: any) => (
             <CalculationLine key={index} marginBottom="10px">
-              <CalcName>Freight x {c.cargo_type}:</CalcName>
+              <CalcName>Freight x {c.cargo_type} in:</CalcName>
               <CalcValue>
                 {c.freight.currency} {c.freight.subtotal}
               </CalcValue>
             </CalculationLine>
           ))}
-          <CalculationLine>
-            <CalcName>
-              Total Freight in{" "}
-              {search_result?.total_freight_rate.USD ? "USD" : "BRL"} :
-            </CalcName>
-            <CalcValue>
-              {search_result?.total_freight_rate.USD
-                ? search_result?.total_freight_rate.USD
-                : search_result?.total_freight_rate.BRL}
-            </CalcValue>
-          </CalculationLine>
-          <CalculationLine marginBottom="10px">
-            <CalcName>
-              Surcharges in {search_result?.total_surcharge.BRL ? "BRL" : "USD"}{" "}
-              :
-            </CalcName>
-            <CalcValue>
-              {search_result?.total_surcharge.BRL
-                ? search_result?.total_surcharge.BRL
-                : search_result?.total_surcharge.USD}
-            </CalcValue>
-          </CalculationLine>
+
+          {Object.keys(search_result?.total_freight_rate).map(
+            (key) =>
+              !!search_result?.total_freight_rate[key] && (
+                <CalculationLine>
+                  <CalcName>Total Freight in:</CalcName>
+                  <CalcValue>
+                    {key} {search_result?.total_freight_rate[key]}
+                  </CalcValue>
+                </CalculationLine>
+              )
+          )}
+          {Object.keys(search_result?.total_surcharge).map(
+            (key) =>
+              !!search_result?.total_surcharge[key] && (
+                <CalculationLine>
+                  <CalcName>Surcharges in:</CalcName>
+                  <CalcValue>
+                    {key} {search_result?.total_surcharge[key]}
+                  </CalcValue>
+                </CalculationLine>
+              )
+          )}
           {search_result?.service_fee && (
             <CalculationLine>
               <CalcName>Acemaven Service Fee:</CalcName>

@@ -16,6 +16,10 @@ import { VoidFunctionType } from "../../../../../_BLL/types/commonTypes";
 import BookingCard from "./BookingCard";
 //styles
 import {
+  CalcName,
+  CalculationLine,
+  CalculationWrap,
+  CalcValue,
   CardContainer,
   CardInner,
   HiddenTable,
@@ -198,16 +202,15 @@ const SearchCard: React.FC<PropsType> = ({
               </TableContainer>
             </HiddenTable>
             <TableTotal>
-              <TotalLine>
-                <TotalName style={{ fontFamily: "Helvetica Reg, sans-serif" }}>
-                  CHARGES IN {search_result?.totals.BRL ? "BRL" : "USD"}
-                </TotalName>
-                <TotalValue style={{ fontFamily: "Helvetica Reg, sans-serif" }}>
-                  {search_result.totals.BRL
-                    ? search_result.totals.BRL
-                    : search_result.totals.USD}
-                </TotalValue>
-              </TotalLine>
+              {Object.keys(search_result.totals).map(
+                (key) =>
+                  !!search_result.totals[key] && (
+                    <TotalLine>
+                      <TotalName>CHARGES IN {key}:</TotalName>
+                      <TotalValue>{search_result.totals[key]}</TotalValue>
+                    </TotalLine>
+                  )
+              )}
             </TableTotal>
           </HiddenWrapper>
         )}

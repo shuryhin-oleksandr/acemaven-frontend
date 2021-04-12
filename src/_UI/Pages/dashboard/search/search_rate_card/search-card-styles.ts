@@ -214,7 +214,7 @@ export const TotalName = styled.div<{font_family?: string}>`
   line-height: 16.5px;
   margin-right: 120px;
   text-align: right;
-  width: 90%;
+  //width: 90%;
   display: flex;
   justify-content: flex-end;
 `;

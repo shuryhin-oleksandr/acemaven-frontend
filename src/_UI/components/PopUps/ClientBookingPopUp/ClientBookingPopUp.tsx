@@ -274,51 +274,33 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               </TableContainer>
             </HiddenTable>
             <TableTotal>
-              {new_total?.charges?.totals && (
-                <>
-                  {new_total?.charges?.totals?.USD && (
-                    <TotalLine>
-                      <TotalName>CHARGES IN USD:</TotalName>
-                      <TotalValue>{new_total?.charges?.totals?.USD}</TotalValue>
-                    </TotalLine>
-                  )}
-                  {new_total?.charges?.totals?.EUR && (
-                    <TotalLine>
-                      <TotalName>CHARGES IN EUR:</TotalName>
-                      <TotalValue>{new_total?.charges?.totals?.EUR}</TotalValue>
-                    </TotalLine>
-                  )}
-                  {new_total?.charges?.totals?.BRL && (
-                    <TotalLine>
-                      <TotalName>CHARGES IN BRL:</TotalName>
-                      <TotalValue>{new_total?.charges?.totals?.BRL}</TotalValue>
-                    </TotalLine>
-                  )}
-                </>
-              )}
+              {new_total?.charges?.totals &&
+                Object.keys(new_total?.charges.totals).map(
+                  (key: any) =>
+                    !!new_total?.charges.totals[key] && (
+                      <TotalLine>
+                        <TotalName>CHARGES IN {key}:</TotalName>
+                        <TotalValue>
+                          {new_total?.charges.totals[key]}
+                        </TotalValue>
+                      </TotalLine>
+                    )
+                )}
 
-              {new_total?.charges?.pay_to_book && (
-                <TotalLine>
-                  <TotalName>
-                    BOOKING FEE IN{" "}
-                    {new_total?.charges?.pay_to_book?.currency === "BRL"
-                      ? "BRL"
-                      : "USD"}
-                    :
-                  </TotalName>
-                  <TotalValue>
-                    {new_total?.charges?.pay_to_book?.booking_fee}
-                  </TotalValue>
-                </TotalLine>
-              )}
+              {new_total?.charges?.booking_fee &&
+                Object.keys(new_total?.charges?.booking_fee).map((key: any) => (
+                  <TotalLine>
+                    <TotalName>BOOKING FEE IN {key}:</TotalName>
+                    <TotalValue>
+                      {new_total?.charges?.booking_fee[key]}
+                    </TotalValue>
+                  </TotalLine>
+                ))}
               {new_total?.charges?.service_fee && (
                 <TotalLine>
                   <TotalName>
                     ACEMAVEN SERVICE FEE IN{" "}
-                    {new_total?.charges?.service_fee?.currency === "BRL"
-                      ? "BRL"
-                      : "USD"}
-                    :
+                    {new_total?.charges?.service_fee?.currency}:
                   </TotalName>
                   <TotalValue>
                     {new_total?.charges?.service_fee?.subtotal}
@@ -326,22 +308,19 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                 </TotalLine>
               )}
 
-              {new_total?.charges?.exchange_rates?.USD && (
-                <TotalLine>
-                  <TotalName>ACEMAVEN USD EXCHANGE RATE:</TotalName>
-                  <TotalValue>
-                    {new_total?.charges?.exchange_rates?.USD}
-                  </TotalValue>
-                </TotalLine>
-              )}
-              {new_total?.charges?.exchange_rates?.EUR && (
-                <TotalLine>
-                  <TotalName>ACEMAVEN EUR EXCHANGE RATE:</TotalName>
-                  <TotalValue>
-                    {new_total?.charges?.exchange_rates?.EUR}
-                  </TotalValue>
-                </TotalLine>
-              )}
+              {new_total?.charges?.exchange_rates &&
+                Object.keys(new_total?.charges?.exchange_rates).length > 0 &&
+                Object.keys(new_total?.charges?.exchange_rates).map(
+                  (key: any) => (
+                    <TotalLine>
+                      <TotalName>ACEMAVEN {key} EXCHANGE RATE:</TotalName>
+                      <TotalValue>
+                        {new_total?.charges?.exchange_rates[key]}
+                      </TotalValue>
+                    </TotalLine>
+                  )
+                )}
+
               {new_total?.charges?.pay_to_book && (
                 <TotalLine>
                   <TotalName>
@@ -352,34 +331,18 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                   </TotalValue>
                 </TotalLine>
               )}
-              {new_total?.charges?.totals_pure && (
-                <>
-                  {new_total?.charges?.totals_pure?.USD && (
-                    <TotalLine>
-                      <TotalName>TOTAL CHARGES IN USD:</TotalName>
-                      <TotalValue>
-                        {new_total?.charges?.totals_pure?.USD}
-                      </TotalValue>
-                    </TotalLine>
-                  )}
-                  {new_total?.charges?.totals_pure?.EUR && (
-                    <TotalLine>
-                      <TotalName>TOTAL CHARGES IN EUR:</TotalName>
-                      <TotalValue>
-                        {new_total?.charges?.totals_pure?.EUR}
-                      </TotalValue>
-                    </TotalLine>
-                  )}
-                  {new_total?.charges?.totals_pure?.BRL && (
-                    <TotalLine>
-                      <TotalName>TOTAL CHARGES IN BRL:</TotalName>
-                      <TotalValue>
-                        {new_total?.charges?.totals_pure?.BRL}
-                      </TotalValue>
-                    </TotalLine>
-                  )}
-                </>
-              )}
+              {new_total?.charges?.totals_pure &&
+                Object.keys(new_total?.charges?.totals_pure).map(
+                  (key) =>
+                    !!new_total?.charges?.totals_pure[key] && (
+                      <TotalLine>
+                        <TotalName>CHARGES IN {key}:</TotalName>
+                        <TotalValue>
+                          {new_total?.charges?.totals_pure[key]}
+                        </TotalValue>
+                      </TotalLine>
+                    )
+                )}
             </TableTotal>
           </HiddenWrapper>
         )}

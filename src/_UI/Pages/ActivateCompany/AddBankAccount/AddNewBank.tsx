@@ -17,6 +17,7 @@ import { AppStateType } from "../../../../_BLL/store";
 import { NavLink } from "react-router-dom";
 import RouteButton from "src/_UI/components/_commonComponents/buttons/route_button/RouteButton";
 import {CancelButton} from "../CreateNewUser/add-new-user-styles";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setIsOpen: (value: boolean) => void;
@@ -31,12 +32,12 @@ const AddNewBank: React.FC<PropsType> = ({ setIsOpen }) => {
   useEffect(() => {
     dispatch(getBanksList());
   }, [dispatch]);
-
+  const {t} = useTranslation();
   return (
     <Container>
       <AddWrap>
         <FormContainer>
-          <Title>Add bank account</Title>
+          <Title>{t("Add bank account/Add bank account")}</Title>
           <AddBankForm />
         </FormContainer>
         <ListWrap>
@@ -47,7 +48,7 @@ const AddNewBank: React.FC<PropsType> = ({ setIsOpen }) => {
       <ButtonsWrap>
         <NavWrap>
           <RouteButton path='/create/user'
-                       text='BACK'
+                       text={t('Booking process/BACK')}
                        back='transparent'
                        textColor='#3B3B41'
                        border='1px solid #3B3B41'
@@ -56,10 +57,10 @@ const AddNewBank: React.FC<PropsType> = ({ setIsOpen }) => {
                        fontSize='14px'
                        hover_color='rgba(0, 0, 0, .15)'
           />
-          <CancelButton onClick={() => setIsOpen(true)}>CANCEL</CancelButton>
+          <CancelButton onClick={() => setIsOpen(true)}>{t("Bookings/CANCEL")}</CancelButton>
         </NavWrap>
           <NavLink style={{ textDecoration: "none" }} to="/create/finish">
-            <BaseNextButton>NEXT</BaseNextButton>
+            <BaseNextButton>{t("Booking process/NEXT")}</BaseNextButton>
           </NavLink>
       </ButtonsWrap>
     </Container>

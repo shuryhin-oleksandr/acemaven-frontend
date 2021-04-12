@@ -11,6 +11,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     containers: any
@@ -47,17 +48,17 @@ const useStyles = makeStyles({
 
 const HandlingSurchargeTable:React.FC<PropsType> = ({containers}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return(
         <HandlingSurchargeContainer style={{maxWidth: '834px', marginRight: '50px'}}>
-            <HandlingTitle>Handling</HandlingTitle>
+            <HandlingTitle>{t("Quote bid screen/HANDLING")}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table stickyHeader className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell className={classes.cell}>CONTAINER TYPE</TableCell>
-                            <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                            <TableCell className={classes.cell} align="left">CHARGE</TableCell>
+                            <TableCell className={classes.cell}>{t("Surcharges/CONTAINER TYPE")}</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Bookings/CURRENCY")}</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Bookings/CHARGE")}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody className={classes.body}>

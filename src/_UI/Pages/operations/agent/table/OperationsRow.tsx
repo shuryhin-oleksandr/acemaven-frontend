@@ -20,6 +20,7 @@ import sea_type from "../../../../assets/icons/long-ship-icon-for-tables.svg";
 import air_type from "../../../../assets/icons/long-plane-icon-for-tables.svg";
 import blue_sea_type from '../../../../assets/icons/blue-long-ship-icon-for-tables.svg';
 import blue_air_type from '../../../../assets/icons/blue-long-plane-icon-for-tables.svg';
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -117,7 +118,7 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
 
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo?.companies[0]);
 
-
+    const {t} = useTranslation();
     return (
         <React.Fragment>
             <TableRow className={classes.root} onClick={goToPageHandler}>
@@ -167,7 +168,7 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <span style={{fontFamily: 'Helvetica Light', textTransform: 'uppercase'}}>
-                        {operation.status}
+                        {t(`Statuses/${operation.status}`)}
                     </span>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

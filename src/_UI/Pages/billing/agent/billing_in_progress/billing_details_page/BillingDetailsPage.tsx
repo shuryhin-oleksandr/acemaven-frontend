@@ -17,6 +17,7 @@ import {
 import {BillingTitle} from "../../exchange/agent-billing-styles";
 //icons
 import close_icon from '../../../../../assets/icons/close-icon.svg'
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -29,6 +30,7 @@ const BillingDetailsPage: React.FC<PropsType> = ({billing_details, goBackHandler
 
 
     console.log("billing_details",billing_details);
+    const {t} = useTranslation();
     return (
         <BillingProgressWrapper>
             <BillingProgressInner>
@@ -43,19 +45,19 @@ const BillingDetailsPage: React.FC<PropsType> = ({billing_details, goBackHandler
                     </BillingTitle>
                     <BookingNumberWrapper>
                         <BookingSpan>
-                            BOOKING
+                            {t("Bookings/Booking")}
                         </BookingSpan>
                         <NumberSpan>
-                            No {billing_details?.booking_number}
+                            {t("Surcharges/NO")} {billing_details?.booking_number}
                         </NumberSpan>
                     </BookingNumberWrapper>
                     <BookingNumberWrapper border_bottom='1px solid #bdbdbd'
                                           padding_bottom='27px'
                     >
-                        <StatusSpan>STATUS</StatusSpan>
+                        <StatusSpan>{t("Bookings/STATUS")}</StatusSpan>
                         <StatusDescriptionSpan>
                             {local_time}{' '}
-                        <span style={{fontFamily: 'Helvetica Reg', fontSize: '18px', textTransform: 'uppercase'}}>{billing_details?.status}</span>
+                        <span style={{fontFamily: 'Helvetica Reg', fontSize: '18px', textTransform: 'uppercase'}}>{t(`Statuses/${billing_details?.status}`)}</span>
                         </StatusDescriptionSpan>
                     </BookingNumberWrapper>
                     <ShipmentInfo billing_details={billing_details}/>

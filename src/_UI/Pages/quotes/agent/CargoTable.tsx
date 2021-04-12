@@ -10,6 +10,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 //types
 import {CargoGroupQuoteType} from "../../../../_BLL/types/quotes/quotesTypes";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -41,15 +42,15 @@ const useStyles = makeStyles({
 
 const CargoTable:React.FC<PropsType> = ({cargos}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return (
         <TableContainer className={classes.container} component={Paper}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell className={classes.cell} align="left">VOLUME</TableCell>
+                        <TableCell className={classes.cell} align="left">{t("Bookings/VOLUME")}</TableCell>
                         <TableCell className={classes.cell} align="left">
-                            {cargos && cargos[0].container_type ? 'CONTAINER TYPE' : 'PACKAGING TYPE'}
+                            {cargos && cargos[0].container_type ? t('Quote bid screen/CONTAINER TYPE') : t('Bookings/PACKAGING TYPE')}
                         </TableCell>
                     </TableRow>
                 </TableHead>

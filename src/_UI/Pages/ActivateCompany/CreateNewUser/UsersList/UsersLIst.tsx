@@ -5,6 +5,7 @@ import EmptyList from "./emptyList/EmptyList";
 import { IAddNewUserData} from "../../../../../_BLL/types/addNewUserTypes";
 import {useDispatch} from "react-redux";
 import {deleteEmployee} from "../../../../../_BLL/reducers/employeesAndBanksReducer";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -20,7 +21,7 @@ const UsersList:React.FC<PropsType> = ({usersList, my_id, my_roles}) => {
     const deleteUser = (id: number) => {
         dispatch(deleteEmployee(id))
     }
-
+    const {t} = useTranslation();
     return (
         <ListContainer>
             <ListInner>
@@ -32,7 +33,7 @@ const UsersList:React.FC<PropsType> = ({usersList, my_id, my_roles}) => {
                                                    my_id={my_id}
                                                    current_user_roles={my_roles}
                     />)
-                    : <EmptyList text='new user'/>
+                    : <EmptyList text={t("Create New User/Add User")}/>
                 }
             </ListInner>
         </ListContainer>

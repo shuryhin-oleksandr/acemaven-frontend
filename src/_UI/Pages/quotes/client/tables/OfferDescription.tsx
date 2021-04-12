@@ -27,6 +27,7 @@ import RatingInfoPopup from "../../../../components/PopUps/rating_info_popup/Rat
 //styles
 import { BookLittleButton } from "../quotes-client-styles";
 import { CardsAbsoluteWrapper } from "../../../dashboard/search/search_rate_card/search-card-styles";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   isOpen?: boolean;
@@ -112,7 +113,7 @@ const OfferDescription: React.FC<PropsType> = ({
   const currentBookingRate = useSelector(
     (state: AppStateType) => state.booking.current_booking_freight_rate
   );
-
+  const {t} = useTranslation();
   return (
     <TableRow>
       <TableCell
@@ -131,19 +132,19 @@ const OfferDescription: React.FC<PropsType> = ({
                 <TableRow>
                   <TableCell className={classes.emptyHeader} align="left" />
                   <TableCell className={classes.collapseCell} align="left">
-                    OFFER NO
+                    {t("Quotes/OFFER NO.")}
                   </TableCell>
                   <TableCell className={classes.collapseCell}>
-                    CARRIER
+                    {t("Quote bid screen/CARRIER")}
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    TRANSIT TIME
+                    {t("Bookings/TRANSIT TIME")}
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    TOTAL USD
+                    {t("Dashboard/TOTAL")} USD
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    TOTAL BRL
+                    {t("Dashboard/TOTAL")} BRL
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell} />
                 </TableRow>
@@ -204,7 +205,7 @@ const OfferDescription: React.FC<PropsType> = ({
                       <BookLittleButton
                         onClick={() => totalsHandler(o.id, quote?.id as number)}
                       >
-                        BOOK
+                        {t("Dashboard/BOOK")}
                       </BookLittleButton>
                     </TableCell>
                   </TableRow>

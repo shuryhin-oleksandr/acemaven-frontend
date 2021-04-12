@@ -10,12 +10,14 @@ import {
     CompleteConfirmButton
 } from "../complete_operation_by_agent/complete-operation-styles";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     setBadReviewHandler: VoidFunctionType
 }
 
 const AgentCancellationBadReviewPopup:React.FC<PropsType> = ({setBadReviewHandler}) => {
+    const {t} = useTranslation();
     return (
         <CancelOperationByAgentWrapper>
             <CancelOperationByAgentInner>
@@ -26,11 +28,10 @@ const AgentCancellationBadReviewPopup:React.FC<PropsType> = ({setBadReviewHandle
                 </IconButton>
                 <CancelOperationByAgentContent content_padding='118px 120px 60px'>
                         <CancelOperationSubtitle>
-                            Please, keep your company rates up to date to avoid bad reviews with cancellations.
-                            It’s now up to the current client to leave a low rate to your company for this operation.
+                            {("Confirm Operation/Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ")}
                         </CancelOperationSubtitle>
                     <CompleteButtonsWrapper>
-                        <CompleteConfirmButton onClick={setBadReviewHandler}>got it</CompleteConfirmButton>
+                        <CompleteConfirmButton onClick={setBadReviewHandler}>{t("Add bank account/Got it!")}</CompleteConfirmButton>
                     </CompleteButtonsWrapper>
                 </CancelOperationByAgentContent>
             </CancelOperationByAgentInner>

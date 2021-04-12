@@ -125,7 +125,7 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
             </TableCell>
             <TableCell className={classes.innerCell} align="center">
                 <div style={{fontFamily: 'Helvetica Light', fontSize: '15px', textAlign: 'start'}}>{day_from} - {date_to}</div>
-                <div style={{textAlign: 'start'}}>WEEK {quote.week_range.week_from}{quote.week_range.week_from !== quote.week_range.week_to && ` - ${quote.week_range.week_to}`}</div>
+                <div style={{textAlign: 'start'}}>{t("Bookings/WEEK")} {quote.week_range.week_from}{quote.week_range.week_from !== quote.week_range.week_to && ` - ${quote.week_range.week_to}`}</div>
             </TableCell>
             <TableCell className={classes.innerCell} align="center">
                 {quote.is_submitted

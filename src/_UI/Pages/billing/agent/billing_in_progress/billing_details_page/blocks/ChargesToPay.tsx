@@ -15,6 +15,7 @@ import TableBody from "@material-ui/core/TableBody";
 import {SectionTitle} from "../../../../../operations/agent/ExactOperationContainer/OperationCard/operation-card-style";
 import {InfoRowLabel, InfoRowValue} from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
 import {ChargeCalculationType} from "../../../../../../../_BLL/types/quotes/quotesTypes";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
     container: {
@@ -59,24 +60,24 @@ type PropsType = {
 
 const ChargesToPay: React.FC<PropsType> = ({charges, payment_due_by}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     const column_object = [
-        {name: 'VOLUME', align: 'left'},
-        {name: 'TYPE', align: 'left'},
-        {name: 'CHARGE', align: 'left'},
-        {name: 'CURRENCY', align: 'left'},
-        {name: 'COST', align: 'right'},
-        {name: 'SUBTOTAL', align: 'right'},
+        {name: t('Bookings/VOLUME'), align: 'left'},
+        {name: t('Bookings/TYPE'), align: 'left'},
+        {name: t('Bookings/CHARGE'), align: 'left'},
+        {name: t('Bookings/CURRENCY'), align: 'left'},
+        {name: t('Bookings/COST'), align: 'right'},
+        {name: t('Bookings/SUBTOTAL'), align: 'right'},
     ]
 
     let no_of_docs = charges?.doc_fee && (charges?.doc_fee?.subtotal/charges?.doc_fee?.cost)
 
     return (
         <>
-            <SectionTitle margin_bottom='17px'>CHARGES</SectionTitle>
+            <SectionTitle margin_bottom='17px'>{t("Bookings/CHARGES")}</SectionTitle>
             {payment_due_by &&
             <div style={{display: 'flex'}}>
-                <InfoRowLabel style={{marginRight: '10px'}}>PAYMENT DUE BY:</InfoRowLabel>
+                <InfoRowLabel style={{marginRight: '10px'}}>{t("Operations/PAYMENT DUE BY:")}</InfoRowLabel>
                 <InfoRowValue>{payment_due_by}</InfoRowValue>
             </div>
             }
@@ -150,7 +151,7 @@ const ChargesToPay: React.FC<PropsType> = ({charges, payment_due_by}) => {
                  <TableTotal>
                 <TotalLine>
                     <TotalName>
-                        TOTAL FREIGHT IN {charges?.total_freight_rate?.USD
+                        {t("Surcharges/TOTAL FREIGHT IN")} {charges?.total_freight_rate?.USD
                         ? "BRL"
                         : "USD" }
                     </TotalName>
@@ -162,7 +163,7 @@ const ChargesToPay: React.FC<PropsType> = ({charges, payment_due_by}) => {
                 </TotalLine>
                 <TotalLine>
                     <TotalName>
-                        CHARGES IN {charges?.total_surcharge?.BRL
+                        {t("Bookings/CHARGES IN")} {charges?.total_surcharge?.BRL
                         ? "BRL"
                         : "USD"
                     }

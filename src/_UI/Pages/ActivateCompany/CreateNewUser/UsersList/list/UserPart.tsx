@@ -63,7 +63,7 @@ const UserPart:React.FC<PropsType> = ({max_width, cardsMode, deleteUser, setEdit
                         </div>
                         }
                     </ActionWrap>
-                    <Role>{t("Register/Roles")}: {u?.roles?.map(r => <SpanName key={r} role={r}>{r}</SpanName>)}</Role>
+                    <Role>{t("Register/Roles")}: {u?.roles?.map(r => <SpanName key={r} role={r}>{t(`Role/${r}`)}</SpanName>)}</Role>
                     <Email>{t("Register/Email")}: <SpanEmail>{u?.email}</SpanEmail></Email>
                 </InfoWrap>
             </Inner>

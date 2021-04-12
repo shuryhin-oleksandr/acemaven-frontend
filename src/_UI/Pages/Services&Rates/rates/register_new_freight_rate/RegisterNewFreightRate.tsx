@@ -35,6 +35,7 @@ import {
     UnderTitle,
 } from "./form-styles";
 import {Outer} from "../../surcharge/register_new_surcharge/form-styles";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -145,14 +146,14 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({
         }
     }, [surcharge_block])
 
-
+    const {t} = useTranslation();
     return (
         <Outer onSubmit={handleSubmit(onSubmit)}>
             <HeaderWrapper>
-                <FormTitle>Freight rates</FormTitle>
+                <FormTitle>{t("Freight rates/Freight rates")}</FormTitle>
                 <ActionsWrapper>
-                    <RegisterButton disabled={!existing_surcharge} type="submit">SAVE</RegisterButton>
-                    <CancelButton text="CANCEL" setIsOpen={closeRateRegistration}/>
+                    <RegisterButton disabled={!existing_surcharge} type="submit">{t("Surcharges/REGISTER")}</RegisterButton>
+                    <CancelButton text={t("Surcharges/CANCEL")} setIsOpen={closeRateRegistration}/>
                 </ActionsWrapper>
             </HeaderWrapper>
             <div style={{marginBottom: "20px", width: "150px"}}>
@@ -186,7 +187,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({
             {
                 (adding_rate_error && adding_rate_error.length > 0)
                 && <ErrorServerMessage style={{textAlign: 'start'}}>
-                    Rate has to be equal or grater than zero and includes maximum 15 symbols
+                    {t("Surcharges/Rate_15symbols")}
                 </ErrorServerMessage>
             }
             {watchResultArr.length === 4
@@ -210,8 +211,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({
 
                 </>
                 : <UnderTitle>
-                    Please, complete the parameters of the freight rate for the value fields
-                    to appear
+                  {t("Surcharges/Please_fields")}
                 </UnderTitle>
             }
         </Outer>

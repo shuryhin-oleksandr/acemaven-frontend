@@ -172,7 +172,7 @@ const ChargesBlock: React.FC<PropsType> = ({
         </TotalLine>
         <TotalLine>
           <TotalName>
-            {t("Bookings/CHARGES IN")}{operation_charges?.total_surcharge?.BRL ? "BRL" : "USD"}
+            {t("Bookings/CHARGES IN")}{" "}{operation_charges?.total_surcharge?.BRL ? "BRL" : "USD"}
           </TotalName>
           <TotalValue>
             {operation_charges?.total_surcharge?.BRL

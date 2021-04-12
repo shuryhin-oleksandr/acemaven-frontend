@@ -32,6 +32,7 @@ import {Arrow} from "../../register_new_freight_rate/tables/surcharges-to-rate-s
 import close_icon from "../../../../../assets/icons/close-icon.svg";
 import show_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
 import hide_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -99,11 +100,11 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
         (value.value === '0') ? setAware(true) : setAware(false)
         setInputValue(value.value)
     }
-
+    const {t} = useTranslation();
     return (
         <div style={{width: '100%', paddingBottom: 30, borderBottom:"1px solid #BDBDBD"}}>
             <div style={{width: '100%', display: 'flex', alignItems: 'center', position: 'relative'}}>
-                <HandlingTitle margin_right='20px'>RATES</HandlingTitle>
+                <HandlingTitle margin_right='20px'>{t("Dashboard Menu/Rates")}</HandlingTitle>
                 {awareMessage
                 &&
                 <SpanAware>
@@ -117,7 +118,7 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
                     >
                         <img src={close_icon} alt="" style={{width: '6px'}}/>
                     </IconButton>
-                    <Title>Rate will be register as 0. Are you sure?</Title>
+                    <Title>{t("Bookings/Rate will be register as 0. Are you sure?")}</Title>
                 </SpanAware>
                 }
                 <Arrow type='button'
@@ -136,26 +137,26 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
                             {rate?.shipping_mode.id === 2 ||
                             (rate?.shipping_mode.id === 3 && (
                                 <TableCell className={classes.cell}>
-                                    CONTAINER TYPE
+                                    {t("Quote bid screen/CONTAINER TYPE")}
                                 </TableCell>
                             ))}
                             <TableCell className={classes.cell} align="left">
-                                CURRENCY
+                                {t("Bookings/CURRENCY")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                RATE
+                                {t("Quote bid screen/RATE")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                START DATE
+                                {t("Surcharges/START DATE")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                EXPIRATION DATE
+                                {t("Surcharges/EXPIRATION DATE")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                UPDATE BY
+                                {t("Surcharges/UPDATE BY")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                ON
+                                {t("Surcharges/ON")}
                             </TableCell>
                         </TableRow>
                     </TableHead>

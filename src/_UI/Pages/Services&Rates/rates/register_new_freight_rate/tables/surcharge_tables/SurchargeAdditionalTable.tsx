@@ -11,6 +11,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     charges: any
@@ -52,18 +53,18 @@ const useStyles = makeStyles({
 
 const SurchargeAdditionalTable:React.FC<PropsType> = ({charges}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return (
         <HandlingSurchargeContainer max_height='440px' max_width='948px '>
-            <HandlingTitle>Additional surcharges </HandlingTitle>
+            <HandlingTitle>{t("Surcharges/ADDITIONAL SURCHARGES")}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.cell}>{' '}</TableCell>
-                            <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                            <TableCell className={classes.cell} align="left">CHARGE</TableCell>
-                            <TableCell className={classes.cell} align="left">CONDITIONS</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Bookings/CURRENCY")}</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Bookings/CHARGE")}</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Bookings/CONDITIONS")}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

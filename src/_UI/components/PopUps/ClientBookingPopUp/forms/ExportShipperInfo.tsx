@@ -19,6 +19,7 @@ import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../../../_BLL/store";
 import {bookingActions} from "../../../../../_BLL/reducers/booking/bookingReducer";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   control: any;
@@ -77,13 +78,14 @@ const ExportShipperInfo: React.FC<PropsType> = ({
       setValue("email", "");
     }
   }, [setValue, isCheck]);
+  const {t} = useTranslation();
   return (
     <>
       <HeadingFormWrapper>
-        <HeadingFormText>Will your company be the shipper?</HeadingFormText>
+        <HeadingFormText>{t("Booking process/Will your company be the shipper?")}</HeadingFormText>
         <div>
           <BackButton onClick={() => setFormStep(formStep - 1)} type="button">
-            Back
+            {t("Booking process/BACK")}
           </BackButton>
           <BaseButton
             type="submit"
@@ -91,7 +93,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
             //   dispatch(bookingActions.changeBookingStep("fee-table"));
             // }}
           >
-            BOOK
+            {t("Dashboard/BOOK")}
           </BaseButton>
         </div>
       </HeadingFormWrapper>
@@ -101,90 +103,90 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           setIsCheck={setIsCheck}
           inputref={register}
           name="is_shipper"
-          labelText="My company will be the shipper"
+          labelText={t("Booking process/My company will be the shipper")}
         />
       </IsShipperWrapper>
-      <InputGroupName>Shipper</InputGroupName>
+      <InputGroupName>{t("Booking process/SHIPPER")}</InputGroupName>
       <InputsWrapper>
         <InputColWrapper>
           <FormField
-            label="Company Name"
+            label={t("Register/Company Name")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="Company Name"
+            placeholder={t("Register/Company Name")}
             name="name"
             error={errors.name}
           />
           <FormField
-            label="Address"
+            label={t("Register/Address")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="Address"
+            placeholder={t("Register/Address")}
             name="address_line_first"
             error={errors.address_line_first}
           />
           <div style={{ marginTop: -15 }}>
             <FormField
               inputRef={register}
-              placeholder="Address"
+              placeholder={t("Register/Address")}
               name="address_line_second"
             />
           </div>
           <FormField
-            label="State"
+            label={t("Register/State")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="State"
+            placeholder={t("Register/State")}
             name="state"
             error={errors.state}
           />
           <FormField
-            label="City"
+            label={t("Register/City")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="City"
+            placeholder={t("Register/City")}
             name="city"
             error={errors.city}
           />
           <FormField
-            label="Zip Code"
+            label={t("Register/Zip Code")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="Zip Code"
+            placeholder={t("Register/Zip Code")}
             name="zip_code"
             error={errors.zip_code}
           />
         </InputColWrapper>
         <InputColWrapper>
           <FormField
-            label="Contact name"
+            label={t("Register/Contact Name")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="Contact name"
+            placeholder={t("Register/Contact Name")}
             name="contact_name"
             error={errors.contact_name}
           />
           <FormField
-            label="Phone number"
+            label={t("Register/Phone Number")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="Phone number"
+            placeholder={t("Register/Phone Number")}
             name="phone"
             error={errors.phone}
           />
           <FormField
-            label="Email"
+            label={t("Register/Email")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="Email"
+            placeholder={t("Register/Email")}
             name="email"
             error={errors.email}
           />

@@ -9,6 +9,7 @@ import {
   deleteBankAccount,
   makeDefaultBank,
 } from "../../../../../_BLL/reducers/employeesAndBanksReducer";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   banksList?: Array<IAddNewBank> | null;
@@ -23,12 +24,12 @@ const BankListContainer: React.FC<PropsType> = ({ banksList }) => {
   const defaultBankCallback = (bankId: number) => {
     dispatch(makeDefaultBank(bankId, { is_default: true }));
   };
-
+  const {t} = useTranslation();
   return (
     <ListWrap>
       <ListInner>
         {banksList?.length === 0 ? (
-          <EmptyList text="bank account" />
+          <EmptyList text={t("Add bank account/Add bank account")} />
         ) : (
           banksList?.map((b) => (
             <BankCard

@@ -9,6 +9,7 @@ import SurchargesDates from "./SurchargeDates";
 import {directions} from "../../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 import {ShippingModeType} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -35,7 +36,7 @@ const SurchargeForm: React.FC<PropsType> = (
         locationChangeHandler, getDisabledSurchargesDates,required_dates,  watchResultArr, watchResultArrForDates, invalidDate
     }
     ) => {
-
+    const {t} = useTranslation();
     return (
         <FormWrap>
             <FormContent>
@@ -48,10 +49,10 @@ const SurchargeForm: React.FC<PropsType> = (
                             required: 'Field is required',
                         }}
                         as={
-                            <SurchargeRateSelect label="Carrier"
+                            <SurchargeRateSelect label={t("Quote bid screen/Carrier")}
                                                  options={carrierOptions}
                                                  error={errors?.carrier?.message}
-                                                 placeholder='Carrier'
+                                                 placeholder={t("Quote bid screen/Carrier")}
                             />
                         }
                     />
@@ -63,10 +64,10 @@ const SurchargeForm: React.FC<PropsType> = (
                             required: 'Field is required',
                         }}
                         as={
-                            <SurchargeRateSelect label="Direction"
+                            <SurchargeRateSelect label={t("Surcharges/Direction")}
                                                  options={directions}
                                                  error={errors?.direction?.message}
-                                                 placeholder='Direction'
+                                                 placeholder={t("Surcharges/Direction")}
                             />
                         }
                     />
@@ -79,11 +80,11 @@ const SurchargeForm: React.FC<PropsType> = (
                         }}
                         as={
                             <SurchargeRateSelect
-                                label="Shipping Mode"
+                                label={t("Dashboard/Shipping Mode")}
                                 options={shippingModeOptions}
                                 callback={setShippingValue}
                                 error={errors?.shipping_mode?.message}
-                                placeholder='Shipping Mode'
+                                placeholder={t("Dashboard/Shipping Mode")}
                             />
                         }
                     />
@@ -102,8 +103,8 @@ const SurchargeForm: React.FC<PropsType> = (
                             required: "Field is required",
                         })}
                         name="location"
-                        placeholder="Local port"
-                        label="Location"
+                        placeholder={t("Dashboard/Local port")}
+                        label={t("Operations/Location")}
                         error={errors?.location}
                         onChange={locationChangeHandler}
                         disabled={watchResultArr.length !== 3}

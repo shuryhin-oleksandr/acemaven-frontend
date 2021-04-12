@@ -26,6 +26,7 @@ import {
   HandlingSurchargeContainer,
   HandlingTitle,
 } from "./sea-conteneraized-cargo-styles";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -86,29 +87,29 @@ const Additional: React.FC<PropsType> = ({
     );
     return filtered[0].displayName;
   };
-
+  const {t} = useTranslation();
   return (
     <HandlingSurchargeContainer max_height="440px" max_width="948px ">
-      <HandlingTitle>Additional surcharges </HandlingTitle>
+      <HandlingTitle>{t("Quote bid screen/ADDITIONAL SURCHARGES")}</HandlingTitle>
       <TableContainer className={classes.container} component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell className={classes.cell}> </TableCell>
               <TableCell className={classes.cell} align="left">
-                CURRENCY
+                {t("Bookings/CURRENCY")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                CHARGE
+                {t("Bookings/CHARGE")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                CONDITIONS
+                {t("Bookings/CONDITIONS")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                UPDATE BY
+                {t("Surcharges/UPDATE BY")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                ON
+                {t("Surcharges/ON")}
               </TableCell>
             </TableRow>
           </TableHead>

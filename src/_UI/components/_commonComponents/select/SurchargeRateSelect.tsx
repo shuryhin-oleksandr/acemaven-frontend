@@ -113,6 +113,7 @@ const SurchargeRateSelect: React.FC<IProps> = ({
     small_size: props.small_size,
     without_border: props.without_border,
   });
+
   return (
     <SelectContainer maxW={props.max_width} marginRight={props.margin_right}>
       <FormControl className={classes.formControl}>

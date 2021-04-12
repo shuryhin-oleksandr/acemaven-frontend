@@ -15,6 +15,7 @@ import {
 //icons
 import show_arrow from '../../../../../../_UI/assets/icons/rates&services/show_arrow.svg';
 import hide_arrow from '../../../../../../_UI/assets/icons/rates&services/hide_arrow.svg';
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -24,12 +25,12 @@ type PropsType = {
 
 const SurchargesToRate:React.FC<PropsType> = ({ existing_surcharge}) => {
     const [isFullView, setFullView] = useState(true)
-
+    const {t} = useTranslation();
     return (
         <SurchargeForRateContainer >
             <SurchargeToRateInner>
                 <SurchargeTitle>
-                    <TextWrap>SURCHARGES</TextWrap>
+                    <TextWrap>{t("Surcharges/Surcharges")}</TextWrap>
                     <Arrow type='button' onClick={() => isFullView ? setFullView(false) : setFullView(true)}>
                         <img src={!isFullView ? show_arrow : hide_arrow} alt=""/>
                     </Arrow>

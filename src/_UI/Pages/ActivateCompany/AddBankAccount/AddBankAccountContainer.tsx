@@ -4,14 +4,15 @@ import AddNewBank from "./AddNewBank";
 import CancelPopup from "../../../components/PopUps/Cancel/CancelPopup";
 import LayoutWithoutNav from "../../../components/BaseLayout/LayoutWithoutNav";
 import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
+import {useTranslation} from "react-i18next";
 
 const AddBankAccountContainer: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const {t} = useTranslation();
   return (
     <Outer>
       <ModalWindow isOpen={isOpen}>
-        <CancelPopup things={'bank accounts'} setIsOpen={setIsOpen} />
+        <CancelPopup things={t("Booking Confirmation/Are you sure you want to cancel bank accounts adding?")} setIsOpen={setIsOpen} />
       </ModalWindow>
       <LayoutWithoutNav>
         <AddNewBank setIsOpen={setIsOpen} />

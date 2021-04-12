@@ -136,7 +136,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
       <TableTotal>
         <TotalLine>
           <TotalName>
-            TOTAL FREIGHT IN{" "}
+            {t("Surcharges/TOTAL FREIGHT IN")} {" "}
             {operation_charges?.total_freight_rate?.USD ? "USD" : "BRL"}
           </TotalName>
           <TotalValue>
@@ -147,7 +147,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
         </TotalLine>
         <TotalLine>
           <TotalName>
-            CHARGES IN {operation_charges?.total_surcharge?.BRL ? "BRL" : "USD"}
+            {t("Bookings/CHARGES IN")} {operation_charges?.total_surcharge?.BRL ? "BRL" : "USD"}
           </TotalName>
           <TotalValue>
             {operation_charges?.total_surcharge?.BRL

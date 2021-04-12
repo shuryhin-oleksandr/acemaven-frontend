@@ -63,7 +63,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                 && operation_info?.status !== AppOperationBookingStatusesType.CANCELED_BY_CLIENT
                 &&
                 <AcceptButton style={{width: '206px'}} onClick={() => props.setChangeRequestPopup(true)}>
-                    {t("Bookings/CONFIRM CHANGES")}
+                    {t("Bookings/CONFIRM CHARGES")}
                 </AcceptButton>
                 }
                 {company_type?.type === AppCompaniesTypes.AGENT

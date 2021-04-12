@@ -27,6 +27,7 @@ import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import play_icon from "../../../../assets/icons/rates&services/play_icon.svg";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import styled from "styled-components";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -136,7 +137,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
   let goToPage = (id: number) => {
     history.push(`/services/rate/${id}`);
   };
-
+  const {t} = useTranslation();
   return (
     <Outer>
       <TableContainer className={classes.container} component={Paper}>
@@ -154,7 +155,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   column_name="shipping_mode"
                   searchValue={props.searchValue}
                   isSearchMode={isSearchMode}
-                  title="SHIPPING MODE"
+                  title={t("Booking Columns/SHIPPING MODE")}
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                   thunkName="rates"
@@ -169,7 +170,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   column_name="carrier"
                   searchValue={props.searchValue}
                   isSearchMode={isSearchMode}
-                  title="CARRIER"
+                  title={t("Quote bid screen/CARRIER")}
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                   thunkName="rates"
@@ -184,7 +185,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   column_name="origin"
                   searchValue={props.searchValue}
                   isSearchMode={isSearchMode}
-                  title="ORIGIN"
+                  title={t("Quotes/ORIGIN")}
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                   thunkName="rates"
@@ -199,17 +200,17 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   column_name="destination"
                   searchValue={props.searchValue}
                   isSearchMode={isSearchMode}
-                  title="DESTINATION"
+                  title={t("Quotes/DESTINATION")}
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                   thunkName="rates"
                 />
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                <div style={{ display: "flex" }}>EXPIRATION DATE</div>
+                <div style={{ display: "flex" }}>{t("Quote bid screen/EXPIRATION DATE")}</div>
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                <div style={{ display: "flex" }}>ACTIONS</div>
+                <div style={{ display: "flex" }}>{t("Freight rates/ACTIONS")}</div>
               </TableCell>
             </TableRow>
           </TableHead>

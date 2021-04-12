@@ -28,6 +28,7 @@ import {
 } from "./search-card-styles";
 //icons
 import close_icon from '../../../../assets/icons/close-icon.svg'
+import {useTranslation} from "react-i18next";
 
 
 
@@ -79,7 +80,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
     const classes = useStyles();
 
     const [isShown, setShow] = useState(false)
-
+    const {t} = useTranslation();
     return (
             <CardContainer bookingPopupVisible={props.bookingPopupVisible}>
                 <CardInner>
@@ -98,7 +99,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                     />
                     {isShown && <HiddenWrapper>
                         <HiddenTitle>
-                            CHARGES
+                            {t("Bookings/CHARGES")}
                         </HiddenTitle>
                         <HiddenTable>
                             <TableContainer className={classes.container} component={Paper}>
@@ -106,22 +107,22 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                                     <TableHead>
                                         <TableRow>
                                             <TableCell className={classes.cell}>
-                                                VOLUME
+                                                {t("Bookings/VOLUME")}
                                             </TableCell>
                                             <TableCell className={classes.cell} align="left">
-                                                TYPE
+                                                {t("Bookings/TYPE")}
                                             </TableCell>
                                             <TableCell className={classes.cell} align="left">
-                                                CHARGE
+                                                {t("Bookings/CHARGE")}
                                             </TableCell>
                                             <TableCell className={classes.cell} align="left">
-                                                CURRENCY
+                                                {t("Bookings/CURRENCY")}
                                             </TableCell>
                                             <TableCell className={classes.cell} align="right">
-                                                COST
+                                                {t("Bookings/COST")}
                                             </TableCell>
                                             <TableCell className={classes.cell} align="right">
-                                                SUBTOTAL
+                                                {t("Bookings/SUBTOTAL")}
                                             </TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -186,7 +187,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                         <TableTotal>
                             <TotalLine>
                                 <TotalName>
-                                    TOTAL FREIGHT IN {search_result?.total_freight_rate.USD
+                                    {t("Surcharges/TOTAL FREIGHT IN")} {search_result?.total_freight_rate.USD
                                     ? "BRL"
                                     : "USD" }
                                 </TotalName>
@@ -198,7 +199,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                             </TotalLine>
                             <TotalLine>
                                 <TotalName>
-                                    CHARGES IN {search_result?.total_surcharge.BRL
+                                    {t("Bookings/CHARGES IN")} {search_result?.total_surcharge.BRL
                                     ? "BRL"
                                     : "USD"
                                 }
@@ -211,7 +212,7 @@ const SearchCard:React.FC<PropsType> = ({showRatingPopup, search_result,setBooki
                                 </TotalValue>
                             </TotalLine>
                             {search_result.service_fee &&  <TotalLine>
-                                <TotalName>ACEMAVEN SERVICE FEE: IN {search_result.service_fee?.currency}</TotalName>
+                                <TotalName>{t("Bookings/ACEMAVEN SERVICE FEE: IN")} {search_result.service_fee?.currency}</TotalName>
                                 <TotalValue>{search_result.service_fee?.cost}</TotalValue>
                             </TotalLine>}
                         </TableTotal>

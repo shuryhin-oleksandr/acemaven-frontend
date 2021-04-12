@@ -19,6 +19,7 @@ import {
 //icons
 import deleteIcon from '../../../../../assets/icons/delete.svg'
 import defaultIcon from '../../../../../assets/icons/defaultBank.svg'
+import {useTranslation} from "react-i18next";
 
 
 
@@ -33,7 +34,7 @@ type PropsType = {
 }
 
 const BankCard: React.FC<PropsType> = ({max_width, w, b, deleteBank, defaultBank, flex_direction, ...props}) => {
-
+    const {t} = useTranslation();
     return (
         <CardWrap max_width={max_width}>
             <CardContent>
@@ -48,34 +49,34 @@ const BankCard: React.FC<PropsType> = ({max_width, w, b, deleteBank, defaultBank
 
                 <Wrapper>
                     <LineWrap w={w} flex_direction={flex_direction}>
-                        <Label>Bank Name</Label>
+                        <Label>{t("Add bank account/Bank Name")}</Label>
                         <Data>{b?.bank_name}</Data>
                     </LineWrap>
                     <LineWrap w={w} flex_direction={flex_direction}>
-                        <Label>Bank No.</Label>
+                        <Label>{t("Add bank account/Bank No.")}</Label>
                         <Data>{b?.bank_number}</Data>
                     </LineWrap>
                     <LineWrap w={w} flex_direction={flex_direction}>
-                        <Label>Branch No.</Label>
+                        <Label>{t("Add bank account/Branch No.")}</Label>
                         <Data>{b?.branch}</Data>
                     </LineWrap>
                     <LineWrap w={w} flex_direction={flex_direction}>
-                        <Label>Account No.</Label>
+                        <Label>{t("Add bank account/Account No.")}</Label>
                         <Data>{b?.number}</Data>
                     </LineWrap>
                     <LineWrap w={w} flex_direction={flex_direction}>
-                        <Label>Account Type</Label>
+                        <Label>{t("Add bank account/Account Type")}</Label>
                         <Data>{b?.account_type}</Data>
                     </LineWrap>
                 </Wrapper>
                 <DefaultWrap>
                     {b?.is_default && <DefaultIcon><img src={defaultIcon} alt=""/></DefaultIcon>}
                     {b?.is_default
-                        ? <DefaultText>Default Bank</DefaultText>
+                        ? <DefaultText>{t("Company Settings/Default bank")}</DefaultText>
                         : (props.current_user_role?.includes('master') || props.current_user_role?.includes('billing'))
                         &&
                         <SetDefaultButton onClick={() => defaultBank && defaultBank(b?.id as number)}>
-                            Set as default
+                            {t("Company Settings/SET AS DEFAULT")}
                         </SetDefaultButton>
                     }
                 </DefaultWrap>

@@ -10,6 +10,7 @@ import {
 } from "./billing-in-progress-styles";
 import { BillingTitle } from "../exchange/agent-billing-styles";
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   search_column: string;
@@ -27,6 +28,7 @@ type PropsType = {
 };
 
 const AgentBillingInProgressPage: React.FC<PropsType> = ({ ...props }) => {
+  const {t} = useTranslation();
   return (
     <BillingProgressWrapper>
       <BillingProgressInner style={{padding:"50px 70px 50px 0"}}>
@@ -41,7 +43,7 @@ const AgentBillingInProgressPage: React.FC<PropsType> = ({ ...props }) => {
             }}
           >
             <BillingTitle margin_bottom="0" style={{ paddingLeft: 30 }}>
-              Billing in Progress
+              {t("Billing/Billing in Progress")}
             </BillingTitle>
             <OptionsDeliveryButtons
               directory=""

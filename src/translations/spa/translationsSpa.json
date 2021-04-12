@@ -1,25 +1,25 @@
 {
   "Register": {
     "searchTitle": "dhfdtjufjf",
-    "Register":  "Solicitud de Registro",
-    "Client":"Cliente",
+    "Register": "Solicitud de Registro",
+    "Client": "Cliente",
     "Agent": "Agente",
-    "Company Name":"Nombre de Empresa",
+    "Company Name": "Nombre de Empresa",
     "Email": "Correio eletrônico",
-    "Address":"Dirección",
+    "Address": "Dirección",
     "State": "Estado / Provincia",
     "City": "Ciudad",
     "Zip Code": "Codigo Postal",
-    "Phone Number":"Teléfono",
+    "Phone Number": "Teléfono",
     "Tax ID No.": "VAT",
-    "No. Of Employees":"No. De Funcionarios",
+    "No. Of Employees": "No. De Funcionarios",
     "Website": "Sitio Web",
-    "Contact person info":"Persona para contacto",
+    "Contact person info": "Persona para contacto",
     "Name": "Nombre",
-    "Last Name":"Apellido",
-    "Position in the Company":"Posición em la compañia",
+    "Last Name": "Apellido",
+    "Position in the Company": "Posición em la compañia",
     "Password": "Contraseña",
-    "NEXT":"SEGUINTE",
+    "NEXT": "SEGUINTE",
     "BACK": "ATRÁS",
     "Create new account": "Criar novos Conta",
     "Roles": "",
@@ -32,13 +32,16 @@
     "Create New User": "Adicionar nuevos usuarios",
     "Billing": "Facturación",
     "Add User": "Crear acceso",
-    "Cancel": "Omitir"
+    "Cancel": "Omitir",
+    "Fulfill the form at the left": ""
   },
   "Add bank account": {
     "Add bank account": "Adicionar datos bancarios",
     "Bank Name": "Nombre del Banco",
+    "Bank No.": "",
     "Branch No.": "Número de la Sucursal",
     "Account No.": "Número de Cuenta",
+    "Account Type": "",
     "Tax ID No.": "VAT",
     "Full fill the form at the right": "Digite las informaciones a la izquierda",
     "Set as default": "Seleccionar como principal",
@@ -61,6 +64,8 @@
     "Date": "Fecha",
     "New Requests": "Nuevas solicitudes",
     "Request": "Solicitudes",
+    "Requests": "Solicitudes",
+    "Chats": "",
     "Quotes": "Cotizaciones",
     "Volume": "Volumen",
     "Departure Date": "Fecha de Embarque",
@@ -69,7 +74,7 @@
     "Search rates": "Búsqueda de fletes",
     "Shipping Mode": "Tipo de Embarque",
     "Origin": "Origen",
-    "Destination": "Destino",
+    "Local port": "",
     "Shipment Date": "Fecha de Embarque",
     "Container Type": "Tipo de Contenedor",
     "Calculate w/m": " w/m",
@@ -91,6 +96,7 @@
     "Length": "Largo",
     "Width": "Ancho",
     "Dangerous": "Peligrosa",
+    "TOTAL": "TOTAL",
     "Total": "Total",
     "Transit Time": "Tiempo de Tránsito",
     "Rate Expiration Date": "Fecha de Vencimiento del Flete",
@@ -194,6 +200,7 @@
     "CURRENCY": "MONEDA",
     "COST": "VALOR",
     "SUBTOTAL": "SUBTOTAL",
+    "SUBTOTAL IN": "",
     "post_quote_question?": "",
     "your_search_": "",
     "NO.": "NUMERO",
@@ -218,11 +225,19 @@
     "Do you want to reject the booking?": "",
     "Please, confirm_booking": "",
     "Comments": "",
-    "Rejection reason":"",
+    "Rejection reason": "",
     "The request will be moved to the operations.": "",
     "You can find it in mine section.": "",
     "WEEK": "SEMANA",
-    "There are no requests at the moment": ""
+    "There are no requests at the moment": "",
+    "CONTINUE": "",
+    "ACEMAVEN SERVICE FEE: IN": "",
+    "You can choose partner or specify a new one.": "",
+    "Documentation": "",
+    "TOTALS IN": "",
+    "CONDITIONS": "",
+    "Rate will be register as 0. Are you sure?": "",
+    "MODE": ""
   },
   "Quotes": {
     "Quotes": "Cotizaciones",
@@ -239,10 +254,12 @@
     "OFFER NO.": "OFERTA NO.",
     "OFFER": "OFERTA",
     "OFFERS": "",
-    "There are no active quotes at the moment.": ""
+    "There are no active quotes at the moment.": "",
+    "There are_If your": ""
   },
   "Quote bid screen": {
     "CARRIER": "TRANSPORTADOR",
+    "Carrier": "Transportador",
     "EXPIRATION DATE": "FECHA DE EXPIRACION",
     "FRATE RATES": "TARIFA DE FLETE",
     "CONTAINER TYPE": "TIPO DE CONTENEDOR",
@@ -258,8 +275,8 @@
     "Do you want to save this rate  and  surcharge in your Rates?": "Desea guardar y publicar esta oferta en sus Tarifas?",
     "SALVAR": "GUARDAR",
     "NO": "NO",
-    "RATE":"",
-    "RATE PER W/M":"",
+    "RATE": "",
+    "RATE PER W/M": "",
     "Open": "",
     "Offer submitted": "",
     "Carrier company name": "",
@@ -271,7 +288,7 @@
   "Booking Confirmation": {
     "Booking Confirmation": "Confirmación de Reserva",
     "Please, type the required shipment details to confim the booking": "Por favor, digite los detalles del embarque para confirmar la reserva.",
-    "Type the required shipments details to confirm booking":"Digite los detalles del embarque para confirmar la reserva",
+    "Type the required shipments details to confirm booking": "Digite los detalles del embarque para confirmar la reserva",
     "Booking number": "Código de la Reserva",
     "BOOKING NUMBER": "CÓDIGO DE LA RESERVA",
     "MAWB": "MAWB",
@@ -297,7 +314,12 @@
     "Cancel": "Cancelar",
     "This action_recalculate": "",
     "Documents": "Documentos",
-    "Loading...": ""
+    "Loading...": "",
+    "Actual Time of Departure": "",
+    "Actual Time of Arrival": "",
+    "Are you sure you want to take over this booking?": "",
+    "Are you sure you want to cancel users adding?": "",
+    "Are you sure you want to cancel bank accounts adding?": ""
   },
   "Operations": {
     "Operations": "Operaciones",
@@ -322,7 +344,10 @@
     "All": "Todas",
     "My": "Mi",
     "FLIGHT": "",
-    "location": "localización"
+    "location": "localización",
+    "Location": "Localización",
+    "Update information in the Operation": "",
+    "You don't have permissions to write": ""
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirmar conclusión del embarque",
@@ -421,7 +446,15 @@
     " this cost will be calculated by the number of packs in the shipment": "esta tasa será calculada por el número de volúmenes del embarque",
     "fixed": "fijo",
     "this means that the value indicated will be considered once in the shipment": "la tasa será única y cobrada una sola vez por embarque",
-    "TOTAL FREIGHT IN": ""
+    "TOTAL FREIGHT IN": "",
+    "There_freight": "",
+    "SHIPPING TYPE": "",
+    "LOCATION": "",
+    "DIRECTION": "",
+    "Direction": "",
+    "Rate_15symbols": "",
+    "Please_fields": "",
+    "Charge_15numbers": ""
   },
   "Freight rates": {
     "Freight rates": "Tarifas de fletes",
@@ -431,7 +464,8 @@
     "FREIGHT RATE": "TARIFA",
     "Do you want to save the changes?": "Desea guardas los cambios?",
     "There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ": "No existen tasas que coincidan con esa tarifa y la misma no será publicada hasta que alguna no sea registrada.",
-    "REGISTER NEW SURCHARGE": "REGISTRAR TASA CORRESPONDIENTE"
+    "REGISTER NEW SURCHARGE": "REGISTRAR TASA CORRESPONDIENTE",
+    "New Surcharge": ""
   },
   "Help and Support": {
     "Help and Support": "Ayuda y Soporte",
@@ -458,7 +492,10 @@
     "DETAILS": "DETALLHES",
     "TOTAL W/M": "TOTAL W/M",
     "BEFORE REQUEST": "",
-    "AFTER REQUEST": ""
+    "AFTER REQUEST": "",
+    "Will your company be the shipper?": "",
+    "The booking request will be sent to the agent.": "",
+    "Your_Booking": ""
   },
   "Company profile": {
     "Company profile": "Perfil del agente",
@@ -473,10 +510,11 @@
     "Leave your review...": "Deje su opinión sobre el agente y sus servicios. Esta será aprobada por el equipo de soporte de la plataforma y publicada en la página del agente.",
     "SUBMIT": "ENVIAR"
   },
-  "Partners table": {
-    "Partners table": "",
-    "Partner companies for shipments": "Empresas colaboradoras para embarques"
-  },
+    "Partners table": {
+      "Partners table": "",
+      "Partner companies for shipments": "Empresas colaboradoras para embarques",
+      "Partners": ""
+    },
   "Support": {
     "New ticket": "Nuevo llamado",
     "Category": "Categoria",
@@ -537,10 +575,10 @@
     "June": "Junio",
     "July": "Julio",
     "August": "Agosto",
-    "September":"Septiembre",
+    "September": "Septiembre",
     "October": "Octubre",
     "November": "Noviembro",
-    "December":"Diciembro",
+    "December": "Diciembro",
     "Jan": "Enero",
     "Feb": "Feb",
     "Mar": "Marzo",
@@ -549,10 +587,10 @@
     "Jun": "Jun",
     "Jul": "Jul",
     "Aug": "Agosto",
-    "Sep":"Sept",
+    "Sep": "Sept",
     "Oct": "Oct",
     "Nov": "Nov",
-    "Dec":"Dic"
+    "Dec": "Dic"
   },
   "Week": {
     "Monday": "Lunes",

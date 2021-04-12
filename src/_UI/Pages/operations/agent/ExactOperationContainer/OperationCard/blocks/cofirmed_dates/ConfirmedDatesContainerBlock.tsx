@@ -53,8 +53,8 @@ const ConfirmedDatesContainerBlock: React.FC<PropsType> = ({shipment, operation_
                             marginBottom: "5px",
                         }}>
                   {(operation_info?.week_range?.week_from !== operation_info?.week_range?.week_to)
-                      ? `WEEK ${operation_info?.week_range?.week_from} - ${operation_info?.week_range?.week_to}`
-                      : `WEEK ${operation_info?.week_range?.week_from}`
+                      ? `${t("Bookings/WEEK")} ${operation_info?.week_range?.week_from} - ${operation_info?.week_range?.week_to}`
+                      : `${t("Bookings/WEEK")} ${operation_info?.week_range?.week_from}`
                   }
                 </span>
                         <InfoRowValue>{date_from} - {date_to}</InfoRowValue>

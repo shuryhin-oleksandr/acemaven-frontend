@@ -9,6 +9,7 @@ import {
 import {IconButton} from "@material-ui/core";
 import close_icon from '../../../assets/icons/close-icon.svg'
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     setTakeOver: (value: boolean) => void,
@@ -17,6 +18,7 @@ type PropsType = {
 
 
 const TakeOverOperationPopup:React.FC<PropsType> = ({setTakeOver, takeOverAsyncHandler}) => {
+    const {t} = useTranslation();
     return (
         <TakeOverWrapper>
             <TakeOverInner>
@@ -26,10 +28,10 @@ const TakeOverOperationPopup:React.FC<PropsType> = ({setTakeOver, takeOverAsyncH
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <TakeOverContent>
-                    <TakeOverTitle>Are you sure you want to take over this booking?</TakeOverTitle>
+                    <TakeOverTitle>{t("Booking Confirmation/Are you sure you want to take over this booking?")}</TakeOverTitle>
                     <TakeOverActions>
-                        <TakeOverButton onClick={takeOverAsyncHandler}>confirm</TakeOverButton>
-                        <CancelTakeOverButton onClick={() => setTakeOver(false)}>cancel</CancelTakeOverButton>
+                        <TakeOverButton onClick={takeOverAsyncHandler}>{t("Bookings/CONFIRM")}</TakeOverButton>
+                        <CancelTakeOverButton onClick={() => setTakeOver(false)}>{t("Bookings/CANCEL")}</CancelTakeOverButton>
                     </TakeOverActions>
                 </TakeOverContent>
             </TakeOverInner>

@@ -24,6 +24,7 @@ import {
   MainTitle,
   RegisterButton,
 } from "./surcharge-styles";
+import {useTranslation} from "react-i18next";
 
 const SurchargesContainer: React.FC = () => {
   const [mode, setMode] = useState("sea");
@@ -47,7 +48,7 @@ const SurchargesContainer: React.FC = () => {
   const dispatchHandler = (someFn: VoidFunctionType) => {
     return dispatch(someFn);
   };
-
+  const {t} = useTranslation();
   return (
     <>
       <ModalWindow isOpen={isOpen}>
@@ -65,10 +66,10 @@ const SurchargesContainer: React.FC = () => {
             ) : (
               <Container style={{ padding: "50px 80px 30px 0" }}>
                 <HeaderOuter>
-                  <MainTitle style={{ paddingLeft: 30 }}>Surcharges</MainTitle>
+                  <MainTitle style={{ paddingLeft: 30 }}>{t("Dashboard Menu/Surcharges")}</MainTitle>
                   <ActionsWrapper>
                     <RegisterButton onClick={() => setNewSurchargeMode(true)}>
-                      REGISTER NEW
+                      {t("Surcharges/REGISTER NEW")}
                     </RegisterButton>
                     <OptionsDeliveryButtons
                       mode={mode}

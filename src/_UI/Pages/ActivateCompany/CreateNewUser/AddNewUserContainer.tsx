@@ -9,6 +9,7 @@ import { getEmployees} from "../../../../_BLL/reducers/employeesAndBanksReducer"
 import {authActions} from "../../../../_BLL/reducers/authReducer";
 import LayoutWithoutNav from "../../../components/BaseLayout/LayoutWithoutNav";
 import ModalWindow from "../../../components/_commonComponents/ModalWindow/ModalWindow";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -28,11 +29,11 @@ const AddNewUserContainer:React.FC = () => {
         dispatch(authActions.setAuth(true))
         dispatch(getEmployees())
     }, [dispatch])
-
+    const {t} = useTranslation();
     return (
         <Outer>
             <ModalWindow isOpen={isOpen}>
-                <CancelPopup things={'users'} setIsOpen={setIsOpen}/>
+                <CancelPopup things={t("Booking Confirmation/Are you sure you want to cancel users adding?")} setIsOpen={setIsOpen}/>
             </ModalWindow>
             <LayoutWithoutNav>
                 <AddNewUser server_error={server_error}

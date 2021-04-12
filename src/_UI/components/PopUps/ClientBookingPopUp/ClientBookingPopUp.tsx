@@ -170,14 +170,14 @@ const {t} = useTranslation();
                 {bookingStep === "fee-table" && (
                     <HiddenWrapper>
                         <div style={{display: "flex"}}>
-                            <HiddenTitle>CHARGES</HiddenTitle>
+                            <HiddenTitle>{t("Bookings/CHARGES")}</HiddenTitle>
                             <BaseButton
                                 onClick={() => {
                                     dispatch(bookingActions.changeBookingStep("payment"));
                                 }}
                                 type="button"
                             >
-                                Next
+                                {t("Booking process/NEXT")}
                             </BaseButton>
                         </div>
                         <HiddenTable>
@@ -187,19 +187,19 @@ const {t} = useTranslation();
                                         <TableRow>
                                             <TableCell className={classes.cell}>VOLUME</TableCell>
                                             <TableCell className={classes.cell} align="left">
-                                                TYPE
+                                                {t("Bookings/TYPE")}
                                             </TableCell>
                                             <TableCell className={classes.cell} align="left">
-                                                CHARGE
+                                                {t("Bookings/CHARGE")}
                                             </TableCell>
                                             <TableCell className={classes.cell} align="left">
-                                                CURRENCY
+                                                {t("Bookings/CURRENCY")}
                                             </TableCell>
                                             <TableCell className={classes.cell} align="right">
-                                                COST
+                                                {t("Bookings/COST")}
                                             </TableCell>
                                             <TableCell className={classes.cell} align="right">
-                                                SUBTOTAL
+                                                {t("Bookings/SUBTOTAL")}
                                             </TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -262,8 +262,8 @@ const {t} = useTranslation();
                         </HiddenTable>
                         <TableTotal>
                             <TotalLine>
-                                <TotalName>TOTAL FREIGHT
-                                    in {new_total?.charges?.total_freight_rate?.BRL >= 0 ? 'BRL' : 'USD'}</TotalName>
+                                <TotalName> {t("Surcharges/TOTAL FREIGHT IN")}
+                                {new_total?.charges?.total_freight_rate?.BRL >= 0 ? 'BRL' : 'USD'}</TotalName>
                                 <TotalValue>
                                     {new_total?.charges?.total_freight_rate?.BRL >= 0
                                         ? new_total?.charges?.total_freight_rate?.BRL
@@ -272,13 +272,13 @@ const {t} = useTranslation();
                             </TotalLine>
                             {new_total?.charges?.total_surcharge?.BRL
                             && <TotalLine>
-                                <TotalName>CHARGES IN BRL</TotalName>
+                                <TotalName>{t("Bookings/CHARGES IN")} BRL</TotalName>
                                 <TotalValue>{new_total?.charges?.total_surcharge?.BRL}</TotalValue>
                             </TotalLine>
                             }
                             {new_total?.charges?.total_surcharge?.USD
                             && <TotalLine>
-                                <TotalName>CHARGES IN USD</TotalName>
+                                <TotalName>{t("Bookings/CHARGES IN")} USD</TotalName>
                                 <TotalValue>{new_total?.charges?.total_surcharge?.USD}</TotalValue>
                             </TotalLine>
                             }
@@ -287,31 +287,31 @@ const {t} = useTranslation();
                             <>
                                 {new_total?.charges?.totals?.USD &&
                                 <TotalLine>
-                                    <TotalName>TOTALS IN USD</TotalName>
+                                    <TotalName>{t("Bookings/TOTALS IN")} USD</TotalName>
                                     <TotalValue>{new_total?.charges?.totals?.USD}</TotalValue>
                                 </TotalLine>
                                 }
                                 {new_total?.charges?.totals?.EUR &&
                                 <TotalLine>
-                                    <TotalName>TOTALS IN EUR</TotalName>
+                                    <TotalName>{t("Bookings/TOTALS IN")} EUR</TotalName>
                                     <TotalValue>{new_total?.charges?.totals?.EUR}</TotalValue>
                                 </TotalLine>
                                 }
                                 {new_total?.charges?.totals?.BRL &&
                                 <TotalLine>
-                                    <TotalName>TOTALS IN BRL</TotalName>
+                                    <TotalName>{t("Bookings/TOTALS IN")} BRL</TotalName>
                                     <TotalValue>{new_total?.charges?.totals?.BRL}</TotalValue>
                                 </TotalLine>
                                 }
                             </>
                             }
                             <TotalLine>
-                                <TotalName>ACEMAVEN SERVICE FEE:
-                                    IN {new_total?.charges?.service_fee?.currency === 'BRL' ? 'BRL' : 'USD'}</TotalName>
+                                <TotalName>{t("Bookings/ACEMAVEN SERVICE FEE: IN")}
+                                {new_total?.charges?.service_fee?.currency === 'BRL' ? 'BRL' : 'USD'}</TotalName>
                                 <TotalValue>{new_total?.charges?.service_fee?.subtotal}</TotalValue>
                             </TotalLine>
                             <TotalLine>
-                                <TotalName>SUBTOTAL IN {new_total?.charges?.pay_to_book?.currency}</TotalName>
+                                <TotalName>{t("Bookings/SUBTOTAL IN")} {new_total?.charges?.pay_to_book?.currency}</TotalName>
                                 <TotalValue>{new_total?.charges?.pay_to_book?.pay_to_book}</TotalValue>
                             </TotalLine>
                         </TableTotal>

@@ -35,6 +35,7 @@ import {
 } from "../client-popup-styles";
 import { Field } from "../../../_commonComponents/Input/input-styles";
 import {getCargoGroupsListSelector} from "../../../../../_BLL/selectors/search/searchClientSelector";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -112,22 +113,22 @@ const CargoDetails: React.FC<PropsType> = ({
     );
     setFormStep(formStep + 1);
   };
-
+  const {t} = useTranslation();
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <HeadingFormWrapper>
         <HeadingFormText>
-          Please, fill basic information about the shipment
+          {t("Booking process/Please, fill basic information about the shipment")}
         </HeadingFormText>
-        <BaseButton type="submit">Next</BaseButton>
+        <BaseButton type="submit">{t("Register/NEXT")}</BaseButton>
       </HeadingFormWrapper>
-      <InputGroupName>Cargo details</InputGroupName>
+      <InputGroupName>{t("Booking process/CARGO DETAILS")}</InputGroupName>
       <FlexWrapper>
         <div style={{ width: 205 }}>
-          <ColName>Cargo</ColName>
+          <ColName>{t("Operations/CARGO")}</ColName>
         </div>
         <div style={{ flex: 1 }}>
-          <ColName>Cargo description</ColName>
+          <ColName>{t("Booking process/CARGO DESCRIPTION")}</ColName>
         </div>
       </FlexWrapper>
       <InputsWrapper>
@@ -161,7 +162,7 @@ const CargoDetails: React.FC<PropsType> = ({
         ShippingTypesEnum.SEA &&
         currentFreightRate.freight_rate.origin.is_local && (
           <DocumentationSection>
-            <InputGroupName>Documentation</InputGroupName>
+            <InputGroupName>{t("Bookings/Documentation")}</InputGroupName>
             <DocumentationRow>
               <DocumentationCol>
                 <Controller
@@ -173,21 +174,21 @@ const CargoDetails: React.FC<PropsType> = ({
                   }}
                   as={
                     <SurchargeRateSelect
-                      label="Release type"
+                      label={t("Bookings/Release type")}
                       options={release_type_choices}
                       error={errors?.release_type?.message}
-                      placeholder="Release type"
+                      placeholder={t("Bookings/Release type")}
                     />
                   }
                 />
               </DocumentationCol>
               <DocumentationCol>
                 <FormField
-                  label="No. of Documents"
+                  label={t("Operations/No. of Documents")}
                   inputRef={register({
                     required: "Field is required",
                   })}
-                  placeholder="No. of Documents"
+                  placeholder={t("Operations/No. of Documents")}
                   name="number_of_documents"
                   defaultValue={1}
                   error={errors?.number_of_documents}

@@ -1,19 +1,20 @@
 import React from 'react'
 //styles
 import {NoRatesContent, NoRatesOuter, RegisterButton} from "./table/agent-quotes-styles";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     openCreatePopup: (value: boolean) => void
 }
 
 const NoRateSurchargeCard:React.FC<PropsType> = ({openCreatePopup}) => {
+  const {t} = useTranslation();
     return (
         <NoRatesOuter>
             <NoRatesContent>
-                There are no freight rate and surcharges for these shipment dates.
-                The offer won't be created until a matching freight rate and surcharges agreement is created.
+              {t("Surcharges/There_freight")}
             </NoRatesContent>
-            <RegisterButton type={'button'} onClick={() => openCreatePopup(true)}>REGISTER NEW</RegisterButton>
+            <RegisterButton type={'button'} onClick={() => openCreatePopup(true)}>{t("Surcharges/REGISTER NEW")}</RegisterButton>
         </NoRatesOuter>
     )
 }

@@ -157,7 +157,7 @@ const Chat: React.FC<PropsType> = ({
               <ErrorOutlineOutlinedIcon />
             </NoPermissionIcon>
             <NoPermissionsMessage>
-              You don't have permissions to write
+              {t("Operations/You don't have permissions to write")}
             </NoPermissionsMessage>
           </NoPermissionsWrap>
         )}

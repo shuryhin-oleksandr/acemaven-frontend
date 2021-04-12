@@ -16,6 +16,7 @@ import FinishFormButtons
     from "../../../../../components/_commonComponents/buttons/actionsFormButtons/finishFormButtons";
 //styles
 import { FormContainer} from "./bank-form-styles";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -36,13 +37,13 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
         {name: 'Savings', id: 1, value: 'savings'},
         {name: 'Checking', id: 2, value: 'checking'}
     ]
-
+  const {t} = useTranslation();
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
             <FinishFormButtons closeCallback={setIsAdd}/>
-            <FormField label='Bank Name'
+            <FormField label={t('Add bank account/Bank Name')}
                        name='bank_name'
-                       placeholder='Bank Name'
+                       placeholder={t('Add bank account/Bank Name')}
                        error={errors?.bank_name}
                        inputRef={register({
                            required: 'Field is required',
@@ -53,7 +54,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        max="100"
                        min_height='70px'
             />
-            <FormField label='Bank Number'
+            <FormField label={t('Add bank account/Bank No.')}
                        name='bank_number'
                        placeholder='000'
                        error={errors?.bank_number}
@@ -69,7 +70,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
             />
             <FormField name='branch'
                        placeholder='0000-0'
-                       label='Branch Number'
+                       label={t('Add bank account/Branch No.')}
                        error={errors?.branch}
                        inputRef={register({
                            required: 'Field is required',
@@ -84,7 +85,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
             />
             <FormField name='number'
                        placeholder='0000000000000'
-                       label='Account Number'
+                       label={t('Add bank account/Account No.')}
                        error={errors?.number}
                        type='number'
                        inputRef={register({
@@ -105,7 +106,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                             required: 'Field is required'
                         }}
                         as={
-                            <FormSelect label='Account Type'
+                            <FormSelect label={t('Add bank account/Account Type')}
                                         options={options2}
                                         placeholder='Savings'
                                         error={errors?.account_type?.message}

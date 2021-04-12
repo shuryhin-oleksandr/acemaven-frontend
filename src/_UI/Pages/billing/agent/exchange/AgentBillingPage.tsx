@@ -12,6 +12,7 @@ import {
     Canvas, ExchangeSpan,
     ExchangeSpanWrap, Round
 } from "./agent-billing-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -23,12 +24,12 @@ type PropsType = {
 }
 
 const AgentBillingPage:React.FC<PropsType> = ({chartRef, exchange_list, setProceed, setRepeatedExchangeHandler, ...props}) => {
-
+    const {t} = useTranslation();
     return (
         <BillingWrapper>
             <BillingInner>
                 <BillingContent>
-                    <BillingTitle>Exchange Rate</BillingTitle>
+                    <BillingTitle>{t("Billing/Exchange Rate")}</BillingTitle>
                     <ExchangeTable exchange_list={exchange_list}
                                    setProceed={setProceed}
                                    setRepeatedExchangeHandler={setRepeatedExchangeHandler}

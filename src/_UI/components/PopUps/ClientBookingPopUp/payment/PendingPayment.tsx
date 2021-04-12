@@ -2,6 +2,7 @@ import React from "react";
 import { Title, Container, Message } from "./payment-styles";
 import BaseButton from "../../../base/BaseButton";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
@@ -16,6 +17,7 @@ const PendingPayment: React.FC<PropsType> = ({
   newSearch,
     ...props
 }) => {
+  const {t} = useTranslation();
   return (
     <Container>
       <div
@@ -26,7 +28,7 @@ const PendingPayment: React.FC<PropsType> = ({
           justifyContent: "space-between",
         }}
       >
-        <Title>PAYMENT</Title>
+        <Title>{t("Booking process/PAYMENT")}</Title>
         <BaseButton
           onClick={() => {
             setBookingPopupVisible(false);
@@ -36,13 +38,11 @@ const PendingPayment: React.FC<PropsType> = ({
           }}
           type="button"
         >
-          FINISH
+          {t("Complete Profile/COMPLETE ACCOUNT")}
         </BaseButton>
       </div>
       <Message>
-        Your booking request is still pending of payment, the person in charge
-        for processing payments in your company will be notified to process it
-        so it can be sent to the agent.
+        {t("Booking process/Your_Booking")}
       </Message>
     </Container>
   );

@@ -12,6 +12,7 @@ import {
     InfoRowLabel,
     InfoRowValue
 } from "../../../../../Requests/Booking_agent/booking_card/booking-card-style";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -19,30 +20,31 @@ type PropsType = {
 }
 
 const ShipmentInfo: React.FC<PropsType> = ({billing_details}) => {
+    const {t} = useTranslation();
     return (
         <SectionWrapper style={{marginBottom: '33px'}}>
-            <SectionTitle>SHIPMENT INFO</SectionTitle>
+            <SectionTitle>{t("Bookings/SHIPMENT INFO")}</SectionTitle>
             <ShipmentPartsRow style={{marginBottom: 0, borderBottom: "none"}}>
                 <InfoRow margin_right="35px">
-                    <InfoRowLabel>CLIENT</InfoRowLabel>
+                    <InfoRowLabel>{t("Bookings/CLIENT")}</InfoRowLabel>
                     <InfoRowValue>{billing_details?.client}</InfoRowValue>
                 </InfoRow>
                 <InfoRow margin_right="35px">
-                    <InfoRowLabel>ROUTE</InfoRowLabel>
+                    <InfoRowLabel>{t("Bookings/ROUTE")}</InfoRowLabel>
                     <InfoRowValue>{billing_details?.origin.code} - {billing_details?.destination.code}</InfoRowValue>
                 </InfoRow>
                 <InfoRow margin_right="35px">
-                    <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
+                    <InfoRowLabel>{t("Bookings/SHIPPING MODE")}</InfoRowLabel>
                     <InfoRowValue>{billing_details?.shipping_mode}</InfoRowValue>
                 </InfoRow>
                 {billing_details?.shipping_type === ShippingTypesEnum.SEA &&
                 <InfoRow margin_right="35px">
-                    <InfoRowLabel>SHIP</InfoRowLabel>
+                    <InfoRowLabel>{t("Billing/SHIP")}</InfoRowLabel>
                     <InfoRowValue>{billing_details?.vessel}</InfoRowValue>
                 </InfoRow>
                 }
                 <InfoRow margin_right="35px">
-                    <InfoRowLabel>CARRIER</InfoRowLabel>
+                    <InfoRowLabel>{t("Quote bid screen/CARRIER")}</InfoRowLabel>
                     <InfoRowValue>{billing_details?.carrier}</InfoRowValue>
                 </InfoRow>
             </ShipmentPartsRow>

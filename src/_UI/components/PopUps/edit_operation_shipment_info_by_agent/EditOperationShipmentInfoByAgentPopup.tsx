@@ -38,6 +38,7 @@ import {InfoRowLabel} from "../../../Pages/Requests/Booking_agent/booking_card/b
 import {CalendarWrapper} from "../../_commonComponents/calendar/calendar-styles";
 //icons
 import close_icon from "../../../assets/icons/close-icon.svg";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -145,7 +146,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
 
     let disabled_condition_1 = !!(actual_date_of_departure && actual_date_of_departure <= today)
     let disable_condition_2 = !!(actual_date_of_arrival && actual_date_of_arrival <= today)
-
+    const {t} = useTranslation();
     return (
         <ChangeRequestWrapper>
             <ChangeRequestInner>
@@ -154,7 +155,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                 </IconButton>
                 <ChangeRequestContent>
                     <ChangeRequestTitle>
-                        Update information in the Operation
+                        {t("Operations/Update information in the Operation")}
                     </ChangeRequestTitle>
                     <FormChangeRequestWrapper onSubmit={handleSubmit(onSubmit)}>
                         <div style={{
@@ -172,7 +173,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                name='vessel'
                                                max_width='290px'
                                                color_label='#115B86'
-                                               label='VESSEL'
+                                               label={t("VESSEL/SHIP")}
                                                placeholder='Placeholder'
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.vessel}
@@ -183,7 +184,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                name='voyage'
                                                max_width='290px'
                                                color_label='#115B86'
-                                               label='TRIP'
+                                               label={t("Bookings/TRIP")}
                                                placeholder='Placeholder'
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.voyage}
@@ -196,7 +197,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                name='mawb'
                                                max_width='290px'
                                                color_label='#115B86'
-                                               label='MAWB'
+                                               label={t("Booking Confirmation/MAWB")}
                                                placeholder='Placeholder'
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.mawb}
@@ -207,7 +208,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                name='flight_number'
                                                max_width='290px'
                                                color_label='#115B86'
-                                               label='FLIGHT NUMBER'
+                                               label={t("Booking Confirmation/FLIGHT NUMBER")}
                                                placeholder='Placeholder'
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.flight_number}
@@ -220,7 +221,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                        name='booking_number'
                                        max_width='290px'
                                        color_label='#115B86'
-                                       label='BOOKING NUMBER'
+                                       label={t("Booking Confirmation/BOOKING NUMBER")}
                                        placeholder='Placeholder'
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.booking_number}
@@ -242,7 +243,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                        name='booking_number_with_carrier'
                                        max_width='290px'
                                        color_label='#115B86'
-                                       label='BOOKING NUMBER WITH CARRIER'
+                                       label={t("Booking Confirmation/BOOKING NUMBER WITH CARRIER")}
                                        placeholder='Placeholder'
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.booking_number_with_carrier}
@@ -253,7 +254,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                        name='container_number'
                                        max_width='290px'
                                        color_label='#115B86'
-                                       label='CONTAINER NUMBER'
+                                       label={t("Booking Confirmation/CONTAINER NUMBER")}
                                        placeholder='Placeholder'
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.container_number}
@@ -292,8 +293,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                               setValue={setValue}
                                               required_dates={true}
                                               required_time={true}
-                                              label1={'Estimated Time of Departure'}
-                                              label2={'Estimated Time of Arrival'}
+                                              label1={t('Booking Confirmation/Estimated Time of Departure')}
+                                              label2={t('Booking Confirmation/Estimated Time of Arrival')}
                                               time_name_first={'estimated_time.departure_time'}
                                               time_name_second={'estimated_time.arrival_time'}
                                               date_name_first={'estimated_time.from'}
@@ -322,8 +323,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                                  setValue={setValue}
                                                  required_dates={true}
                                                  required_time={true}
-                                                 label1={'Documents Cut Off Date'}
-                                                 label2={'Cargo Cut Off Date'}
+                                                 label1={t('Booking Confirmation/Documents Cut Off Date')}
+                                                 label2={t('Booking Confirmation/Cargo Cut Off Date')}
                                                  time_name_first={'documents_cut_off.cut_off_time'}
                                                  time_name_second={'cargo_cut_off.cut_off_time'}
                                                  date_name_first={'documents_cut_off.from'}
@@ -352,8 +353,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                               setValue={setValue}
                                               required_dates={false}
                                               required_time={false}
-                                              label1={'Actual Time of Departure'}
-                                              label2={'Actual Time of Arrival'}
+                                              label1={t('Booking Confirmation/Actual Time of Departure')}
+                                              label2={t('Booking Confirmation/Actual Time of Arrival')}
                                               time_name_first={'actual_time_departure.departure_time'}
                                               time_name_second={'actual_time_arrival.arrival_time'}
                                               date_name_first={'actual_time_departure.from'}
@@ -382,7 +383,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                                        name='container_free_time'
                                        max_width='290px'
                                        color_label='#115B86'
-                                       label='CONTAINER FREE TIME'
+                                       label={t('Bookings/CONTAINER FREE TIME')}
                                        placeholder='0 days'
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.container_free_time ? shipment?.container_free_time : ''}
@@ -396,7 +397,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                             paddingBottom: '25px',
                             marginBottom: '25px'
                         }}>
-                            <InfoRowLabel style={{marginRight: '10px'}}>PAYMENT DUE BY</InfoRowLabel>
+                            <InfoRowLabel style={{marginRight: '10px'}}>{t("Operations/PAYMENT DUE BY")}</InfoRowLabel>
                             <CalendarWrapper max_width='150px' margin_top='0px' input_height='40px' margin_right='0px'
                                              style={{display: 'flex'}}>
                                 <Controller control={control}
@@ -427,7 +428,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                         </div>
                         <ChangeRequestButtonsWrapper>
                             <ConfirmRequestButton type='submit'>
-                                CONFIRM
+                                {t("Bookings/CONFIRM")}
                             </ConfirmRequestButton>
                         </ChangeRequestButtonsWrapper>
                     </FormChangeRequestWrapper>

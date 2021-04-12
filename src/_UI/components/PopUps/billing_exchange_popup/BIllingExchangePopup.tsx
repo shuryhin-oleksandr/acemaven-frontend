@@ -10,6 +10,7 @@ import {IconButton} from "@material-ui/core";
 import close_icon from '../../../assets/icons/close-icon.svg'
 import {CurrencyEnum} from "../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
 import {VoidFunctionType} from "../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     setProceed: (value: boolean) => void,
@@ -28,7 +29,7 @@ const BillingExchangePopup:React.FC<PropsType> = ({setProceed, repeated_exchange
         setProceed(false)
         setRepeatedExchangeHandler(null)
     }
-
+    const {t} = useTranslation();
     return  (
         <BillingPopupContainer>
             <BillingPopupContent>
@@ -38,7 +39,7 @@ const BillingExchangePopup:React.FC<PropsType> = ({setProceed, repeated_exchange
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <BillingExchangeTitle>
-                    Today's rate has been already set, if you proceed you will rewrite it with a new one
+                    {t("VESSEL/Today's rate has been already set, if you proceed you will rewrite it with a new one")}
                 </BillingExchangeTitle>
                 <BillingExchangeWrap>
                     <ExchangeWrap>
@@ -51,8 +52,8 @@ const BillingExchangePopup:React.FC<PropsType> = ({setProceed, repeated_exchange
                     </ExchangeWrap>
                 </BillingExchangeWrap>
                 <BillingButtonsWrap>
-                    <BillingProceedButton onClick={() => proceedRepeatedExchangeRate()}>PROCEED</BillingProceedButton>
-                    <BillingCancelButton onClick={cancelHandler}>CANCEL</BillingCancelButton>
+                    <BillingProceedButton onClick={() => proceedRepeatedExchangeRate()}>{t("VESSEL/PROCEED")}</BillingProceedButton>
+                    <BillingCancelButton onClick={cancelHandler}>{t("Bookings/CANCEL")}</BillingCancelButton>
                 </BillingButtonsWrap>
             </BillingPopupContent>
         </BillingPopupContainer>

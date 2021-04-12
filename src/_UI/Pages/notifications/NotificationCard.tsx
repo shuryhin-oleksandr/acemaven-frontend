@@ -18,6 +18,7 @@ import { markNotificationAsRead } from "../../../_BLL/thunks/notifications_thunk
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteChatNotification } from "../../../_BLL/thunks/chat_notifications_thunk/chat_notifications_thunk";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   close_button?: boolean;
@@ -81,7 +82,7 @@ const NotificationCard: React.FC<PropsType> = ({
     const path = findPath(object_id, action_path, section);
     history.push(path);
   };
-
+  const {t} = useTranslation();
   return (
     <CardOuter
       onClick={() => {
@@ -105,7 +106,7 @@ const NotificationCard: React.FC<PropsType> = ({
         <img src={chooseIcon(notification.section)} alt="" />
       </IconWrapper>
       <BlockWrapper>
-        <NotificationsBlock>{notification.section}</NotificationsBlock>
+        <NotificationsBlock>{t(`Dashboard/${notification.section}`)}</NotificationsBlock>
         <NotificationsDate>
           {moment(notification.date_created).format("YYYY-MM-DD hh:mm A")}
         </NotificationsDate>

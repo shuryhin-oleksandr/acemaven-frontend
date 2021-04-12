@@ -23,6 +23,7 @@ import {ExchangeRateType} from "../../../../../../_BLL/types/billing/billingType
 import FormField from "../../../../../components/_commonComponents/Input/FormField";
 //styles
 import {SubmitQuoteButton} from "../../../../quotes/agent/table/agent-quotes-styles";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -145,7 +146,7 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
             dispatch(agentBillingActions.setAddingExchangeSuccess(false))
         }
      }, [props.adding_exchange_success])
-
+    const {t} = useTranslation();
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <TableContainer className={classes.container} component={Paper}>
@@ -153,7 +154,7 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.shipping_cell} align="left">
-                                CURRENCIES
+                                {t("Billing/CURRENCIES")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
                                 USD
@@ -162,10 +163,10 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
                                 EUR
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                SPREAD % *
+                                {t("Billing/SPREAD")} % *
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                DATE
+                                {t("Billing/DATE")}
                             </TableCell>
                             <TableCell className={classes.cell} align="right"/>
                         </TableRow>
@@ -233,7 +234,7 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
                                 </span>
                             </TableCell>
                             <TableCell className={classes.innerCell} align="center">
-                                <SubmitQuoteButton type='submit'>ADD RATE</SubmitQuoteButton>
+                                <SubmitQuoteButton type='submit' style={{textTransform: "uppercase"}}>{t("Billing/Add rate")}</SubmitQuoteButton>
                             </TableCell>
                         </TableRow>
                     </TableBody>

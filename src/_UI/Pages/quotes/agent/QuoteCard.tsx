@@ -208,7 +208,7 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                     </Tooltip>
                                 </ActionsAgentWrap>
                                 : <ActionsAgentWrap>
-                                    <QuoteOpenStatus>{t("Quote bid screen/Offer submitted")}</QuoteOpenStatus>
+                                    <QuoteOpenStatus style={{textTransform:"uppercase"}}>{t("Quote bid screen/Offer submitted")}</QuoteOpenStatus>
                                     <Tooltip arrow
                                              title='By clicking withdraw offer you will delete your offer for this quote.'
                                              classes={{tooltip: classes.customTooltip}}

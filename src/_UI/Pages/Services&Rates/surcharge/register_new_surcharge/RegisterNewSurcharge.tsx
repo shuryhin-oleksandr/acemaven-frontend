@@ -31,6 +31,7 @@ import {
     RegisterButton
 } from './form-styles';
 import {UnderTitle} from "../../rates/register_new_freight_rate/form-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -146,14 +147,14 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
         }
     }, [adding_success])
 
-
+    const {t} = useTranslation();
     return (
         <Outer onSubmit={handleSubmit(onSubmit)}>
             <HeaderWrapper>
-                <FormTitle>New Surcharge</FormTitle>
+                <FormTitle>{t("Freight rates/New Surcharge")}</FormTitle>
                 <ActionsWrapper>
-                    <RegisterButton type='submit'>REGISTER</RegisterButton>
-                    <Cancel onClick={closeRegisterForm}>CANCEL</Cancel>
+                    <RegisterButton type='submit'>{t("Surcharges/REGISTER")}</RegisterButton>
+                    <Cancel onClick={closeRegisterForm}>{t("Surcharges/CANCEL")}</Cancel>
                 </ActionsWrapper>
             </HeaderWrapper>
             <OptionsDeliveryWrapper>
@@ -185,7 +186,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
             />
             {adding_error && adding_error?.length > 0
             && <ErrorChargesServerMessage text_align='start'>
-                Charge has to be equal or grater than 0 and includes max 15 numbers.
+
             </ErrorChargesServerMessage>
             }
             {
@@ -213,8 +214,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                         }
                     </>
                     : <UnderTitle>
-                        Please, complete the parameters of the surcharge for the value fields
-                        to appear
+                      {t("Surcharges/Please, complete the parameter of the surcharge for the value fields to appear")}
                     </UnderTitle>
             }
 

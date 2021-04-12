@@ -15,6 +15,7 @@ import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
 import {ShippingModeEnum} from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -86,24 +87,24 @@ const Cargos: React.FC<PropsType> = ({operation_info}) => {
 
     const change_requests_cargos = operation_info?.change_requests ? operation_info?.change_requests[0].cargo_groups : []
 
-
+    const {t} = useTranslation();
     let fcl_cargos_header = [
-        {name: 'VOLUME', align: "left"},
-        {name: 'CONTAINER TYPE', align: "left"},
-        {name: 'CARGO DESCRIPTIONS', align: "left"}
+        {name: t('Bookings/VOLUME'), align: "left"},
+        {name: t('Quote bid screen/CONTAINER TYPE'), align: "left"},
+        {name: t('Bookings/CARGO DESCRIPTION'), align: "left"}
     ]
     let other_cargos_header = [
-        {name: 'VOLUME', align: 'left'},
-        {name: 'NO. OF PACKS', align: 'left'},
-        {name: 'PACKAGING TYPE', align: 'left'},
-        {name: 'HEIGHT, WIDTH, LENGTH, WEIGHT', align: 'left'},
-        {name: 'CARGO DESCRIPTIONS', align: 'left'}
+        {name:  t('Bookings/VOLUME'), align: 'left'},
+        {name: t('Bookings/NO. OF PACKS'), align: 'left'},
+        {name: t('Bookings/PACKAGING TYPE'), align: 'left'},
+        {name: t('Bookings/HEIGHT, WIDTH, LENGTH, WEIGHT'), align: 'left'},
+        {name: t('Bookings/CARGO DESCRIPTIONS'), align: 'left'}
     ]
 
 
     return (
         <InfoBlockOuter>
-            <GeneralTitle margin_bottom='17px'>CARGO</GeneralTitle>
+            <GeneralTitle margin_bottom='17px'>{t("Bookings/CARGO")}</GeneralTitle>
             <ShippingModeBlock>
                 <ShippingModeLabel>{operation_info?.freight_rate.shipping_mode.title}</ShippingModeLabel>
                 <TableContainer className={classes.container} component={Paper}>

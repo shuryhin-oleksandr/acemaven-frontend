@@ -22,6 +22,7 @@ import {
 //icons
 import sea_type from "../../../../../assets/icons/long-ship-icon-for-tables.svg";
 import air_type from "../../../../../assets/icons/long-plane-icon-for-tables.svg";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -116,7 +117,7 @@ type PropsType = {
 
 const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
   const classes = useStyles();
-
+  const {t} = useTranslation();
   return (
     <TableContainer className={classes.container} component={Paper}>
       <Table stickyHeader aria-label="collapsible table">
@@ -149,7 +150,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
                 column_name="route"
                 searchValue={props.searchValue}
                 isSearchMode={props.isSearchMode}
-                title="ROUTE"
+                title={t("Booking Columns/ROUTE")}
                 searchColumn={props.search_column}
                 setSearchColumn={props.setSearchColumn}
                 thunkName={props.thunkName}
@@ -158,13 +159,13 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
-              MODE
+              {t("Bookings/MODE")}
             </TableCell>
             <TableCell className={classes.cell} align="left">
-              CHARGES (BRL)
+              {t("Bookings/CHARGES")} (BRL)
             </TableCell>
             <TableCell className={classes.cell} align="left">
-              CHARGES (USD)
+              {t("Bookings/CHARGES")} (USD)
             </TableCell>
             <TableCell className={classes.cell} align="right">
               <TableCellContent
@@ -175,7 +176,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
                 column_name="payment_due_by"
                 searchValue={props.searchValue}
                 isSearchMode={props.isSearchMode}
-                title="PAY DUE"
+                title={t("Billing/PAY DUE")}
                 searchColumn={props.search_column}
                 setSearchColumn={props.setSearchColumn}
                 thunkName={props.thunkName}
@@ -193,7 +194,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
                 column_name="status"
                 searchValue={props.searchValue}
                 isSearchMode={props.isSearchMode}
-                title="STATUS"
+                title={t("Bookings/STATUS")}
                 searchColumn={props.search_column}
                 setSearchColumn={props.setSearchColumn}
                 thunkName={props.thunkName}
@@ -298,7 +299,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
                       fontSize: "14px",
                     }}
                   >
-                    {billing.status}
+                    {t(`Statuses/${billing.status}`)}
                   </div>
                 </TableCell>
               </TableRow>

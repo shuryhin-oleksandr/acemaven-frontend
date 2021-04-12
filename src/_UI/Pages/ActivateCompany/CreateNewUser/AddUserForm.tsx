@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addEmployee, companyActions} from "../../../../_BLL/reducers/employeesAndBanksReducer";
 import {AppStateType} from "../../../../_BLL/store";
 import {AddUserError} from "../../../../_BLL/reducers/profileReducer";
+import {useTranslation} from "react-i18next";
 
 
 interface IProps {
@@ -53,27 +54,27 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
     }, [setValue, success_user])
 
 
-
+  const {t} = useTranslation();
     return (
         <FormContainer>
             <Title>Create New User</Title>
             <FormWrap onSubmit={handleSubmit(onSubmit)}>
                 <Wrapper>
                     <InputWrap w='47%'>
-                        <FormField label='Name'
+                        <FormField label={t('Register/Name')}
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
                                    error={errors?.first_name}
-                                   placeholder='Name'
+                                   placeholder={t('Register/Name')}
                                    name='first_name'
                                    server_error={errorEmployee?.first_name ? errorEmployee.first_name[0] : ''}
                         />
                     </InputWrap>
                     <InputWrap w='47%'>
-                        <FormField label='Last Name'
+                        <FormField label={t('Register/Last Name')}
                                    placeholder='Last Name'
-                                   name='last_name'
+                                   name={t('Register/Last Name')}
                                    inputRef={register({
                                        required: 'Field is required'
                                    })}
@@ -82,18 +83,18 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                         />
                     </InputWrap>
                 </Wrapper>
-                    <FormField label='Email'
+                    <FormField label={t('Register/Email')}
                                inputRef={register({
                                    required: 'Field is required',
                                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                                })}
-                               placeholder='Email'
+                               placeholder={t('Register/Email')}
                                name='email'
                                error={errors?.email}
                                server_error={errorEmployee?.email ? errorEmployee?.email[0] : ''}
                     />
-                    <FormField label='Position in the Company'
-                               placeholder='Position in the Company'
+                    <FormField label={t('Register/Position in the Company')}
+                               placeholder={t('Register/Position in the Company')}
                                name='position'
                                error={errors?.position}
                                inputRef={register({
@@ -133,7 +134,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                         clearErrors={clearErrors}
                     />
                 </CheckboxWrap>
-                     <SubmitButton type='submit'>ADD USER</SubmitButton>
+                     <SubmitButton type='submit'>{t("Create New User/Add User")}</SubmitButton>
             </FormWrap>
         </FormContainer>
     )

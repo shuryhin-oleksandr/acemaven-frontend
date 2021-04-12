@@ -34,6 +34,7 @@ import {useDispatch} from "react-redux";
 import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
 import {ErrorServerMessage} from "../../../Pages/SignInPage";
 import _ from "lodash";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -134,7 +135,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
     setIsOpen && setIsOpen(false)
     dispatch(rateActions.setAddingPopupError(null))
   }
-
+  const {t} = useTranslation();
   return (
     <PopupOuter>
       <PopupContent onSubmit={handleSubmit(onSubmit)}>
@@ -142,10 +143,10 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
           <img src={closeIcon} alt="" />
         </CloseButton>
         <HeaderWrapper>
-          <FormTitle>Register Surcharge</FormTitle>
+          <FormTitle>{t("Freight rates/REGISTER NEW SURCHARGE")}</FormTitle>
           <ActionsWrapper>
-            <RegisterButton type="submit">SAVE</RegisterButton>
-            <Cancel onClick={() => closePopup()}>CANCEL</Cancel>
+            <RegisterButton type="submit">{t("Surcharges/REGISTER")}</RegisterButton>
+            <Cancel onClick={() => closePopup()}>{t("Surcharges/CANCEL")}</Cancel>
           </ActionsWrapper>
         </HeaderWrapper>
         <InfoWrap>
@@ -174,11 +175,11 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
           </FieldsWrap>
           <FieldsWrap>
             <FieldOuter>
-              <Label>Direction</Label>
+              <Label>{t("Surcharges/DIRECTION")}</Label>
               <Content c="#115B86">{is_local_port?.is_local === true ? 'Export' : 'Import'}</Content>
             </FieldOuter>
             <FieldOuter>
-              <Label>Location</Label>
+              <Label>{t("Surcharges/LOCATION")}</Label>
               <Content c="#115B86">{is_local_port?.is_local === true ? is_local_port.name : destination_port_value?.name}</Content>
             </FieldOuter>
           </FieldsWrap>

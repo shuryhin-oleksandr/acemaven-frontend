@@ -13,6 +13,7 @@ import {
     BillingProgressWrapper
 } from "../billing_in_progress/billing-in-progress-styles";
 import {BillingTitle} from "../exchange/agent-billing-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -33,7 +34,7 @@ type PropsType = {
 
 const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
 
-
+    const {t} = useTranslation();
     return (
         <BillingProgressWrapper>
             <BillingProgressInner style={{padding:"50px 70px 50px 0"}}>
@@ -45,7 +46,7 @@ const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
                         alignItems: 'center',
                         marginBottom: "25px"
                     }}>
-                        <BillingTitle margin_bottom="0" style={{ paddingLeft: 30 }}>Billing Completed</BillingTitle>
+                        <BillingTitle margin_bottom="0" style={{ paddingLeft: 30 }}>{t("Billing/Billing Completed")}</BillingTitle>
                         <div style={{display: 'flex', width: '450px', justifyContent: 'space-between'}}>
                             <div style={{ marginRight: "15px" }}>
                                 <MonthPicker

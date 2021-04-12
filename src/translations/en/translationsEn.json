@@ -31,13 +31,17 @@
     "Create New User": "Add New Users",
     "Billing": "Billing",
     "Add User": "Add User",
-    "Cancel": "Skip"
+    "Cancel": "Skip",
+    "Are you sure you want to cancel": "Are you sure you want to cancel",
+    "Fulfill the form at the left": "Fulfill the form at the left"
   },
   "Add bank account": {
     "Add bank account": "Add bank account",
     "Bank Name": "Bank Name",
+    "Bank No.": "Bank No.",
     "Branch No.": "Branch No.",
     "Account No.": "Account No.",
+    "Account Type": "Account Type",
     "Tax ID No.": "Is missing in this form",
     "Full fill the form at the right": "Complete the fields on the left",
     "Set as default": "Set as default",
@@ -60,6 +64,8 @@
     "Date": "Date",
     "New Requests": "New Requests",
     "Request": "Request",
+    "Requests": "Requests",
+    "Chats": "Chats",
     "Quotes": "Quotes",
     "Volume": "Volume",
     "Departure Date": "Departure Date",
@@ -68,6 +74,7 @@
     "Search rates": "Rates search",
     "Shipping Mode": "Shipping Mode",
     "Origin": "Origin",
+    "Local port": "Local port",
     "Destination": "Destination",
     "Shipment Date": "Shipment Date",
     "Container Type": "Container Type",
@@ -90,6 +97,7 @@
     "Length": "Length",
     "Width": "Width",
     "Dangerous": "Dangerous",
+    "TOTAL": "TOTAL",
     "Total": "Total",
     "Transit Time": "Transit Time",
     "Rate Expiration Date": "Rate Expiration Date",
@@ -192,6 +200,7 @@
     "CURRENCY": "CURRENCY",
     "COST": "COST",
     "SUBTOTAL": "SUBTOTAL",
+    "SUBTOTAL IN": "SUBTOTAL IN",
     "post_quote_question??": "Are you sure you want to post a quote?",
     "your_search_": "Your search did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy is protected, the agents won’t know who posted the quote until you book the offer",
     "NO.": "NO",
@@ -220,7 +229,15 @@
     "The request will be moved to the operations.": "The request will be moved to the operations.",
     "You can find it in mine section.": "You can find it in mine section.",
     "WEEK": "WEEK",
-    "There are no requests at the moment": "There are no requests at the moment. When a client send a booking request they will appear in this section."
+    "There are no requests at the moment": "There are no requests at the moment. When a client send a booking request they will appear in this section.",
+    "CONTINUE": "CONTINUE",
+    "ACEMAVEN SERVICE FEE: IN": "ACEMAVEN SERVICE FEE: IN",
+    "You can choose partner or specify a new one.": "You can choose partner or specify a new one.",
+    "Documentation": "Documentation",
+    "TOTALS IN": "TOTALS IN",
+    "CONDITIONS": "CONDITIONS",
+    "Rate will be register as 0. Are you sure?": "Rate will be register as 0. Are you sure?",
+    "MODE": "MODE"
   },
   "Quotes": {
     "Quotes": "Quotes",
@@ -237,10 +254,12 @@
     "OFFER NO.": "OFFER NO.",
     "OFFER": "OFFER",
     "OFFERS": "OFFERS",
-    "There are no active quotes at the moment.": "There are no active quotes at the moment."
+    "There are no active quotes at the moment.": "There are no active quotes at the moment.",
+    "There are_If your": "There are no active quotes at the moment. If your searches don’t return any results, you will have the option to post them online for agents to bid on them. They will appear in this section."
   },
   "Quote bid screen": {
     "CARRIER": "CARRIER",
+    "Carrier": "Carrier",
     "EXPIRATION DATE": "EXPIRATION DATE",
     "FRATE RATES": "FREIGHT RATES",
     "CONTAINER TYPE": "CONTAINER TYPE",
@@ -295,7 +314,12 @@
     "Cancel": "Cancel",
     "This action_recalculate": "This action should recalculate the charges shown in the operation based on the new changes.",
     "Documents": "Documents",
-    "Loading...": "Loading..."
+    "Loading...": "Loading...",
+    "Actual Time of Departure": "Actual Time of Departure",
+    "Actual Time of Arrival": "Actual Time of Arrival",
+    "Are you sure you want to take over this booking?": "Are you sure you want to take over this booking?confirm",
+    "Are you sure you want to cancel users adding?": "Are you sure you want to cancel users adding?",
+    "Are you sure you want to cancel bank accounts adding?": "Are you sure you want to cancel bank accounts adding?"
   },
   "Operations": {
     "Operations": "Operations",
@@ -321,7 +345,10 @@
     "All": "All",
     "My": "My",
     "FLIGHT": "FLIGHT",
-    "location": "location"
+    "location": "location",
+    "Location": "Location",
+    "Update information in the Operation": "Update information in the Operation",
+    "You don't have permissions to write": "You don't have permissions to write"
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirm Shipment Completion",
@@ -420,7 +447,15 @@
     " this cost will be calculated by the number of packs in the shipment": "this cost will be calculated by the number of packages in the shipment",
     "fixed": "fixed",
     "this means that the value indicated will be considered once in the shipment": "this cost will be billed once per shipment",
-    "TOTAL FREIGHT IN": "TOTAL FREIGHT IN"
+    "TOTAL FREIGHT IN": "TOTAL FREIGHT IN",
+    "There_freight": "There are no freight rate and surcharges for these shipment dates. The offer won't be created until a matching freight rate and surcharges agreement is created.",
+    "SHIPPING TYPE": "SHIPPING TYPE",
+    "LOCATION": "LOCATION",
+    "DIRECTION": "DIRECTION",
+    "Direction": "Direction",
+    "Rate_15symbols": "Rate has to be equal or grater than zero and includes maximum 15 symbols",
+    "Please_fields": "Please, complete the parameters of the freight rate for the value fields to appear",
+    "Charge_15numbers": "Charge has to be equal or grater than 0 and includes max 15 numbers."
   },
   "Freight rates": {
     "Freight rates": "Freight rates",
@@ -430,7 +465,8 @@
     "FREIGHT RATE": "FREIGHT RATE",
     "Do you want to save the changes?": "Do you want to save these changes?",
     "There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ": "There are no surcharges that match this rate and it won't be live until one is registered.",
-    "REGISTER NEW SURCHARGE": "REGISTER MATCHING SURCHARGE"
+    "REGISTER NEW SURCHARGE": "REGISTER MATCHING SURCHARGE",
+    "New Surcharge": "New Surcharge"
   },
   "Help and Support": {
     "Help and Support": "Help and Support",
@@ -457,7 +493,10 @@
     "DETAILS": "DETAILS",
     "TOTAL W/M": "TOTAL W/M",
     "BEFORE REQUEST": "BEFORE REQUEST",
-    "AFTER REQUEST": "BEFORE REQUEST"
+    "AFTER REQUEST": "BEFORE REQUEST",
+    "Will your company be the shipper?": "Will your company be the shipper?",
+    "The booking request will be sent to the agent.": "The booking request will be sent to the agent.",
+    "": "Your booking request is still pending of payment, the person in charge for processing payments in your company will be notified to process it so it can be sent to the agent."
   },
   "Company profile": {
     "Company profile": "Company profile",
@@ -474,7 +513,8 @@
   },
   "Partners table": {
     "Partners table": "Partners Table",
-    "Partner companies for shipments": "Partner companies for shipments"
+    "Partner companies for shipments": "Partner companies for shipments",
+    "Partners": "Partners"
   },
 
   "Support": {

@@ -69,7 +69,7 @@ const AssignAgentPopup: React.FC<PropsType> = ({
                     </UserPhoto>
                     <UserInfo>
                       <UserName>{a.first_name + " " + a.last_name}</UserName>
-                      <UserRole>{a.roles.find((r) => r === "agent")}</UserRole>
+                      <UserRole>{t(`Role/${a.roles.find((r) => r === "agent")}`)}</UserRole>
                     </UserInfo>
                   </UserRowInfo>
                   <UserRowAssignButton onClick={() => assignHandler(a)}>

@@ -27,6 +27,7 @@ import {
   MainTitle,
   RegisterButton,
 } from "./rates-styles";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -68,7 +69,7 @@ const RatesContainer: React.FC = () => {
     dispatch(getRateInfoThunk(rate.id))
     setNewRateMode(true)
   }
-
+  const {t} = useTranslation();
   return (
       <Layout>
         {isFetching
@@ -79,10 +80,10 @@ const RatesContainer: React.FC = () => {
               ) : (
                   <Container style={{padding:"50px 80px 30px 0"}}>
                     <HeaderOuter style={{paddingLeft:30}}>
-                      <MainTitle>Freight rates</MainTitle>
+                      <MainTitle>{t("Freight rates/Freight rates")}</MainTitle>
                       <ActionsWrapper>
                         <RegisterButton onClick={() => setNewRateMode(true)}>
-                          REGISTER NEW
+                          {t("Surcharges/REGISTER NEW")}
                         </RegisterButton>
                         <OptionsDeliveryButtons
                             mode={mode}

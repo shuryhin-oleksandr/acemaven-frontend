@@ -34,6 +34,7 @@ import {
 import ship from '../../../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import plane from '../../../../../../_UI/assets/icons/rates&services/plane-surcharge.svg'
 import close_icon from '../../../../../assets/icons/close-icon.svg'
+import {useTranslation} from "react-i18next";
 
 
 
@@ -112,7 +113,7 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
     }
 
 
-
+    const {t} = useTranslation();
     return (
         <SurchargeContainer onSubmit={handleSubmit(onSubmit)}>
             <IconButton style={{position: 'absolute', top: '10px', right: '30px'}}
@@ -123,11 +124,11 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
             <SurchargeContent>
                 <Wrap>
                     <SurchargeTitle>
-                        Surcharge
+                        {t("Surcharges/Surcharges")}
                     </SurchargeTitle>
                     {formMode && <FormButtons>
-                        <SaveButton type='submit'>SAVE CHANGES</SaveButton>
-                        <CancelButtonWrap onClick={() => setFormMode(false)}>CANCEL</CancelButtonWrap>
+                        <SaveButton type='submit'>{t("My Profile/SAVE CHANGES")}</SaveButton>
+                        <CancelButtonWrap onClick={() => setFormMode(false)}>{t("Surcharges/CANCEL")}</CancelButtonWrap>
                     </FormButtons>
                     }
                 </Wrap>
@@ -137,21 +138,21 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
                     </ShippingMode>
                     <FieldsWrap>
                         <FieldOuter>
-                            <Label>Carrier</Label>
+                            <Label>{t("Quote bid screen/CARRIER")}</Label>
                             <Content>{surcharge?.carrier.title}</Content>
                         </FieldOuter>
                         <FieldOuter>
-                            <Label>Shipping mode</Label>
+                            <Label>{t("Bookings/SHIPPING MODE")}</Label>
                             <Content>{surcharge?.shipping_mode.title}</Content>
                         </FieldOuter>
                     </FieldsWrap>
                     <FieldsWrap>
                         <FieldOuter>
-                            <Label>Direction</Label>
+                            <Label>{t("Surcharges/DIRECTION")}</Label>
                             <Content c='#115B86'>{surcharge?.direction}</Content>
                         </FieldOuter>
                         <FieldOuter>
-                            <Label>Location</Label>
+                            <Label>{t("Surcharges/LOCATION")}</Label>
                             <Content c='#115B86'>{surcharge?.location.name}</Content>
                         </FieldOuter>
                     </FieldsWrap>

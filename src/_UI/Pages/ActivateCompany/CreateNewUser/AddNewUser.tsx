@@ -8,6 +8,7 @@ import {NavLink} from "react-router-dom";
 import {IAddNewUserData} from "../../../../_BLL/types/addNewUserTypes";
 import {AddUserError} from "../../../../_BLL/reducers/profileReducer";
 import {AppCompaniesTypes} from "../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -20,7 +21,7 @@ type PropsType = {
 }
 
 const AddNewUser:React.FC<PropsType> = ({setIsOpen, list, server_error, company_type, my_id, my_roles}) => {
-
+  const {t} = useTranslation();
     return (
         <AddContainer>
             <ContentWrap>
@@ -32,9 +33,9 @@ const AddNewUser:React.FC<PropsType> = ({setIsOpen, list, server_error, company_
             </ContentWrap>
             <LineWrap />
             <NavigationWrap>
-                <CancelButton onClick={() => setIsOpen(true)}>CANCEL</CancelButton>
+                <CancelButton onClick={() => setIsOpen(true)}>{t("Bookings/CANCEL")}</CancelButton>
                 <NavLink style={{textDecoration: "none"}} to={(company_type === AppCompaniesTypes.AGENT) ? '/create/bank' : '/create/finish'}>
-                    <BaseNextButton>NEXT</BaseNextButton>
+                    <BaseNextButton>{t("Booking process/NEXT")}</BaseNextButton>
                 </NavLink>
             </NavigationWrap>
         </AddContainer>

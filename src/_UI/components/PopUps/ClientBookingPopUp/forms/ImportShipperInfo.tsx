@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPartnersThunk } from "../../../../../_BLL/thunks/search_client_thunks/searchClientThunks";
 import { AppStateType } from "../../../../../_BLL/store";
 import { bookingActions } from "../../../../../_BLL/reducers/booking/bookingReducer";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   control: any;
@@ -79,21 +80,21 @@ const ImportShipperInfo: React.FC<PropsType> = ({
       setValue("email", "");
     }
   }, [partnerChoice]);
-
+  const {t} = useTranslation();
   return (
     <>
       <HeadingFormWrapper>
         <HeadingFormText>
-          Please fill overseas shipper company info:
+          {t("Booking process/Please fill overseas shipper company info")}:
         </HeadingFormText>
         <div>
           <BackButton onClick={() => setFormStep(formStep - 1)} type="button">
-            Back
+            {t("Booking process/BACK")}
           </BackButton>
-          <BaseButton type="submit">BOOK</BaseButton>
+          <BaseButton type="submit">{t("Dashboard/BOOK")}</BaseButton>
         </div>
       </HeadingFormWrapper>
-      <InputGroupName>Overseas shipper</InputGroupName>
+      <InputGroupName>{t("Booking process/OVERSEAS SHIPPER")}</InputGroupName>
       {partners.length > 0 && (
         <InputsWrapper>
           <InputColWrapper>
@@ -103,7 +104,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
               defaultValue="-1"
               as={
                 <SurchargeRateSelect
-                  label="Partners"
+                  label={t("Partners table/Partners")}
                   options={[
                     { title: "Specify new", id: -1 },
                     ...partnersOptions,
@@ -113,7 +114,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
               }
             />
             <Notification>
-              You can choose partner or specify a new one.
+              {t("Bookings/You can choose partner or specify a new one.")}
             </Notification>
           </InputColWrapper>
         </InputsWrapper>
@@ -122,31 +123,31 @@ const ImportShipperInfo: React.FC<PropsType> = ({
       <InputsWrapper>
         <InputColWrapper>
           <FormField
-            label="Company Name"
+            label={t("Register/Company Name")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="Company Name"
+            placeholder={t("Register/Company Name")}
             name="name"
             error={errors.name}
             disabled={disabled}
           />
           <FormField
-            label="City"
+            label={t("Register/City")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="City"
+            placeholder={t("Register/City")}
             name="city"
             error={errors.city}
             disabled={disabled}
           />
           <FormField
-            label="Contact name"
+            label={t("Register/Contact Name")}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="Contact name"
+            placeholder={t("Register/Contact Name")}
             name="contact_name"
             error={errors.contact_name}
             disabled={disabled}
@@ -154,29 +155,29 @@ const ImportShipperInfo: React.FC<PropsType> = ({
         </InputColWrapper>
         <InputColWrapper>
           <FormField
-            label="Phone number 1"
+            label={t("Register/Phone Number") + ' 1'}
             inputRef={register({
               required: "Field is required",
             })}
-            placeholder="Phone number"
+            placeholder={t("Register/Phone Number")}
             name="phone"
             error={errors.phone}
             disabled={disabled}
           />
           <FormField
-            label="Phone number 2"
+            label={t("Register/Phone Number") + ' 2'}
             inputRef={register}
-            placeholder="Phone number"
+            placeholder={t("Register/Phone Number")}
             name="phone_additional"
             disabled={disabled}
           />
           <FormField
-            label="Email"
+            label={t("Register/Email")}
             inputRef={register({
               required: "Field is required",
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
-            placeholder="Email"
+            placeholder={t("Register/Email")}
             name="email"
             error={errors.email}
             disabled={disabled}

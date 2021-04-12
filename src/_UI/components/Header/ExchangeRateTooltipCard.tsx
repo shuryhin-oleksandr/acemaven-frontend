@@ -38,7 +38,7 @@ const ExchangeRateTooltipCard: React.FC<PropsType> = ({
   return (
     <ExchangeRateTooltipContainer onClick={props.goToExchangePage}>
       <TodayHeader>
-        <TodayHeaderTitle>{t("Bookings/Today Exchange Rate")}</TodayHeaderTitle>
+        <TodayHeaderTitle>{t("Dashboard/Today Exchange Rate")}</TodayHeaderTitle>
         <TodayHeaderDate>{moment_today}</TodayHeaderDate>
       </TodayHeader>
       <TodayExchange>

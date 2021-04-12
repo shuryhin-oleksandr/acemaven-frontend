@@ -8,6 +8,7 @@ import {
 } from "./cancel-popup-styles";
 import close from "../../../../_UI/assets/icons/close-icon.svg";
 import {IconButton} from "@material-ui/core";
+import {useTranslation} from "react-i18next";
 
 type PropsTypes = {
   setIsOpen: (value: boolean) => void;
@@ -15,6 +16,7 @@ type PropsTypes = {
 };
 
 const CancelPopup: React.FC<PropsTypes> = ({ setIsOpen, things}) => {
+  const {t} = useTranslation();
   return (
     <PopupContainer>
       <PopupContent>
@@ -22,14 +24,14 @@ const CancelPopup: React.FC<PropsTypes> = ({ setIsOpen, things}) => {
           <img src={close} alt="" />
         </IconButton>
         <CancelTitle>
-          Are you sure you want to cancel {things} adding?
+         {things}
         </CancelTitle>
         <ButtonsWrap>
           <a style={{ textDecoration: "none", marginRight:'15px', width: '165px' }} href="/">
-            <CancelButton>CANCEL</CancelButton>
+            <CancelButton>{t("Bookings/CANCEL")}</CancelButton>
           </a>
           <CancelButton onClick={() => setIsOpen(false)}>
-            CONTINUE
+            {t("CONTINUE/CONTINUE")}
           </CancelButton>
         </ButtonsWrap>
       </PopupContent>

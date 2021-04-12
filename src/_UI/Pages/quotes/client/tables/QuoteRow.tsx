@@ -26,6 +26,7 @@ import pause_icon from "../../../../assets/icons/rates&services/pause.svg";
 import sea_type from "../../../../assets/icons/long-ship-icon-for-tables.svg";
 import air_type from '../../../../assets/icons/long-plane-icon-for-tables.svg';
 import close_icon from '../../../../../_UI/assets/icons/close-icon.svg'
+import {useTranslation} from "react-i18next";
 
 
 
@@ -148,7 +149,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
     let day_from = moment(a).format('D')
     let c = moment(quote.date_to, 'DD/MM/YYYY').toDate()
     let date_to = moment(c).format('D MMMM YYYY')
-
+    const {t} = useTranslation();
     return (
         <React.Fragment>
             <TableRow className={classes.root}>
@@ -176,8 +177,8 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     {(quote.week_range.week_from !== quote.week_range.week_to)
-                        ? `WEEK ${quote.week_range.week_from} - ${quote.week_range.week_to}`
-                        : `WEEK ${quote.week_range.week_from}`
+                        ? `${t("Bookings/WEEK")} ${quote.week_range.week_from} - ${quote.week_range.week_to}`
+                        : `${t("Bookings/WEEK")} ${quote.week_range.week_from}`
                     }
                     <br/> <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>{day_from}{'-'}{date_to}</span>
                 </TableCell>

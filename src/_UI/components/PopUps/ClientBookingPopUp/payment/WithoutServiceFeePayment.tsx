@@ -2,6 +2,7 @@ import React from "react";
 import { Title, Container, Message } from "./payment-styles";
 import BaseButton from "../../../base/BaseButton";
 import {VoidFunctionType} from "../../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     setBookingPopupVisible: (value: boolean) => void;
@@ -16,6 +17,7 @@ const WithoutServiceFeePayment: React.FC<PropsType> = ({
                                                  newSearch,
                                                  ...props
                                              }) => {
+  const {t} = useTranslation();
     return (
         <Container>
             <div
@@ -35,11 +37,11 @@ const WithoutServiceFeePayment: React.FC<PropsType> = ({
                     }}
                     type="button"
                 >
-                    FINISH
+                  {t("Complete Profile/COMPLETE ACCOUNT")}
                 </BaseButton>
             </div>
             <Message>
-                The booking request will be sent to the agent.
+              {t("Booking process/The booking request will be sent to the agent.")}
             </Message>
         </Container>
     );

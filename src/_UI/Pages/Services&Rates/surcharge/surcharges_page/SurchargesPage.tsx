@@ -20,6 +20,7 @@ import { surchargeActions } from "../../../../../_BLL/reducers/surcharge&rates/s
 import { CurrentShippingType } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { SurchargeObjectType } from "../../../../../_BLL/types/rates&surcharges/surchargesTypes";
 import { ModeIcon, Outer, SpanMode } from "./surcharges-style";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -181,7 +182,7 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
     props.dispatch(GetSurchargeForTooltip(id));
     props.setNewSurchargeMode(true);
   };
-
+  const {t} = useTranslation();
   return (
     <Outer>
       <TableContainer className={classes.container} component={Paper}>
@@ -198,7 +199,7 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
                   column_name="shipping_mode"
                   searchValue={props.searchValue}
                   isSearchMode={isSearchMode}
-                  title="SHIPPING TYPE"
+                  title={t("Surcharges/SHIPPING TYPE")}
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                 />
@@ -212,7 +213,7 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
                   column_name="carrier"
                   searchValue={props.searchValue}
                   isSearchMode={isSearchMode}
-                  title="CARRIER"
+                  title={t("Quote bid screen/CARRIER")}
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                 />
@@ -228,11 +229,11 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                   isSearchMode={isSearchMode}
-                  title="LOCATION"
+                  title={t("Surcharges/LOCATION")}
                 />
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                DIRECTION
+                {t("Surcharges/DIRECTION")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
                 <TableCellContent
@@ -243,7 +244,7 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
                   column_name="start_date"
                   searchValue={props.searchValue}
                   isSearchMode={isSearchMode}
-                  title="START DATE"
+                  title={t("Surcharges/START DATE")}
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                 />
@@ -257,7 +258,7 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
                   column_name="expiration_date"
                   searchValue={props.searchValue}
                   isSearchMode={isSearchMode}
-                  title="EXPIRATION DATE"
+                  title={t("Surcharges/EXPIRATION DATE")}
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                 />

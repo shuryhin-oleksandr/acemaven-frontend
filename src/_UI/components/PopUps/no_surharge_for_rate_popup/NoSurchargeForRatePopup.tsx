@@ -10,6 +10,7 @@ import {IconButton} from "@material-ui/core";
 import close_icon from '../../../assets/icons/close-icon.svg'
 import {useDispatch} from "react-redux";
 import {rateActions} from "../../../../_BLL/reducers/surcharge&rates/rateReducer";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -31,7 +32,7 @@ const NoSurchargeForRatePopup:React.FC<PropsType> = ({setNoSurchargePopup, setNe
         setNoSurchargePopup(false)
         dispatch(rateActions.setEmptyExistingSurcharge(""));
     }
-
+    const {t} = useTranslation();
     return (
         <NoPopupOuter>
             <NoPopupInner>
@@ -42,12 +43,10 @@ const NoSurchargeForRatePopup:React.FC<PropsType> = ({setNoSurchargePopup, setNe
                 </IconButton>
                 <NoPopupContent>
                     <NoPopupMessage>
-                        There are no surcharges. <br />
-                        The rate won’t be posted until a matching surcharge agreement is
-                        created
+                        {t("Freight rates/There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ")}
                     </NoPopupMessage>
                     <NoPopupButton onClick={surchargeHandler}>
-                        Register new surcharge
+                        {t("Freight rates/REGISTER NEW SURCHARGE")}
                     </NoPopupButton>
                 </NoPopupContent>
             </NoPopupInner>

@@ -10,6 +10,7 @@ import {
     getSurcharge
 } from "../../../../../_BLL/selectors/rates&surcharge/surchargeSelectors";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -90,11 +91,11 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
         }
     }, [location_id])
 
-
+    const {t} = useTranslation();
     return (
         <SurchargesDatesFilter flex_direction={props.flex_direction}>
             <Calendar
-                label='Start Date'
+                label={t("Surcharges/START DATE")}
                 name='from'
                 value={selectedDay.from}
                 handleDayChange={handleFromChange}
@@ -117,7 +118,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
                 margin_top={props.margin_top}
             />
             <Calendar
-                label='Expiration Date'
+                label={t("Surcharges/EXPIRATION DATE")}
                 name='to'
                 value={selectedDay.to}
                 handleDayChange={handleToChange}

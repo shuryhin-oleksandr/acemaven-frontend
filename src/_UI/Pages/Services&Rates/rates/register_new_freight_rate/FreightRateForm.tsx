@@ -14,6 +14,7 @@ import FormField from "../../../../components/_commonComponents/Input/FormField"
 import {FormWrap, GroupWrap} from "./form-styles";
 import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
 import {Port, PortsList} from "../../surcharge/register_new_surcharge/form-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -41,7 +42,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                                                   setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, rate_transit_error,
                                                   onDestinationChangeHandler, closePortsHandler, watchResultArr
                                               }) => {
-
+  const {t} = useTranslation();
     return (
         <FormWrap>
             <div style={{display: "flex", width: "100%", borderBottom: '1px solid #115B86', paddingBottom: '35px'}}>
@@ -54,10 +55,10 @@ const FreightRateForm: React.FC<PropsType> = ({
                             required: 'Field is required'
                         }}
                         as={
-                            <SurchargeRateSelect label="Carrier"
+                            <SurchargeRateSelect label={t("Quote bid screen/Carrier")}
                                                  options={carrierOptions}
                                                  error={errors?.carrier?.message}
-                                                 placeholder='Carrier'
+                                                 placeholder={t("Quote bid screen/Carrier")}
                             />}
                     />
                     <Controller
@@ -69,11 +70,11 @@ const FreightRateForm: React.FC<PropsType> = ({
                         }}
                         as={
                             <SurchargeRateSelect
-                                label="Shipping Mode"
+                                label={t("Dashboard/Shipping Mode")}
                                 options={shippingModeOptions}
                                 callback={setShippingValue}
                                 error={errors?.shipping_mode?.message}
-                                placeholder='Shipping Mode'
+                                placeholder={t("Dashboard/Shipping Mode")}
                             />
                         }
                     />
@@ -92,8 +93,8 @@ const FreightRateForm: React.FC<PropsType> = ({
                                 required: "Field is required",
                             })}
                             name="origin"
-                            placeholder="Local port"
-                            label="Origin"
+                            placeholder={t("Dashboard/Local port")}
+                            label={t("Dashboard/Origin")}
                             error={errors?.origin}
                             onChange={onOriginChangeHandler}
                         />
@@ -136,8 +137,8 @@ const FreightRateForm: React.FC<PropsType> = ({
                                 required: "Field is required",
                             })}
                             name="destination"
-                            placeholder="Local port"
-                            label="Destination"
+                            placeholder={t("Dashboard/Local port")}
+                            label={t("Dashboard/Destination")}
                             error={errors?.destination}
                             onChange={onDestinationChangeHandler}
                             disabled={watchResultArr.length < 3}
@@ -170,8 +171,8 @@ const FreightRateForm: React.FC<PropsType> = ({
 
                     <FormField
                         type='number'
-                        label="Transit time"
-                        placeholder="days"
+                        label={t("Dashboard/Transit Time")}
+                        placeholder={t("Billing/days")}
                         inputRef={register({
                             required: "Field is required",
                         })}

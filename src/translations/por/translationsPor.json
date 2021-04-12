@@ -32,13 +32,16 @@
     "Create New User": "Adicionar novos usuários",
     "Billing": "Faturamento",
     "Add User": "Gerar acesso",
-    "Cancel": "Pular"
+    "Cancel": "Pular",
+    "Fulfill the form at the left": ""
   },
   "Add bank account": {
     "Add bank account": "Adicionar dados bancarios",
     "Bank Name": "Nome do Banco",
+    "Bank No.": "",
     "Branch No.": "Numero da Agencia",
     "Account No.": "Numero da Conta",
+    "Account Type": "",
     "Tax ID No.": "CNPJ",
     "Full fill the form at the right": "Complete as informacoes a esqueda",
     "Set as default": "Marcar como principal",
@@ -61,6 +64,8 @@
     "Date": "Data",
     "New Requests": "Novas solicitações",
     "Request": "Solicitações",
+    "Requests": "Solicitações",
+    "Chats": "",
     "Quotes": "Cotações",
     "Volume": "Volume",
     "Departure Date": "Data de Embarque",
@@ -69,6 +74,7 @@
     "Search rates": "Pesquisa de fretes",
     "Shipping Mode": "Tipo de Embarque",
     "Origin": "Origem",
+    "Local port": "",
     "Destination": "Destino",
     "Shipment Date": "Data de Embarque",
     "Container Type": "Tipo de Contêiner",
@@ -91,6 +97,7 @@
     "Length": "Cumprimento",
     "Width": "Largura",
     "Dangerous": "Perigosa",
+    "TOTAL": "TOTAL",
     "Total": "Total",
     "Transit Time": "Tempo de Trânsito",
     "Rate Expiration Date": "Data de Vencimento do Frete",
@@ -194,6 +201,7 @@
     "CURRENCY": "MOEDA",
     "COST": "VALOR",
     "SUBTOTAL": "SUBTOTAL",
+    "SUBTOTAL IN": "",
     "post_quote_question?": "",
     "your_search_": "",
     "NO.": "NUMERO",
@@ -222,7 +230,15 @@
     "The request will be moved to the operations.": "",
     "You can find it in mine section.": "",
     "WEEK": "SEMANA",
-    "There are no requests at the moment": ""
+    "There are no requests at the moment": "",
+    "CONTINUE": "",
+    "ACEMAVEN SERVICE FEE: IN": "",
+    "You can choose partner or specify a new one.": "",
+    "Documentation": "",
+    "TOTALS IN": "",
+    "CONDITIONS": "",
+    "Rate will be register as 0. Are you sure?": "",
+    "MODE": ""
   },
   "Quotes": {
     "Quotes": "Cotações",
@@ -239,10 +255,12 @@
     "OFFER NO.": "OFERTA NO.",
     "OFFER": "OFERTA",
     "OFFERS": "",
-    "There are no active quotes at the moment.": ""
+    "There are no active quotes at the moment.": "",
+    "There are_If your": ""
   },
   "Quote bid screen": {
     "CARRIER": "TRANSPORTADOR",
+    "Carrier": "Transportador",
     "EXPIRATION DATE": "DATA DE VENCIMENTO",
     "FRATE RATES": "TARIFA DO FRETE",
     "CONTAINER TYPE": "TIPO DE CONTÊINER",
@@ -297,7 +315,12 @@
     "Cancel": "Cancelar",
     "This action_recalculate": "",
     "Documents": "Documentos",
-    "Loading...": ""
+    "Loading...": "",
+    "Actual Time of Departure": "",
+    "Actual Time of Arrival": "",
+    "Are you sure you want to take over this booking?": "",
+    "Are you sure you want to cancel users adding?": "",
+    "Are you sure you want to cancel bank accounts adding?": ""
   },
   "Operations": {
     "Operations": "Operações",
@@ -322,7 +345,10 @@
     "All": "Todas",
     "My": "Meu",
     "FLIGHT": "",
-    "location": "localização"
+    "location": "localização",
+    "Location": "Localização",
+    "Update information in the Operation": "",
+    "You don't have permissions to write": ""
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirmar conclusão do embarque",
@@ -421,7 +447,15 @@
     " this cost will be calculated by the number of packs in the shipment": "esse custo será calculado pelo número de volumes no embarque",
     "fixed": "fixo",
     "this means that the value indicated will be considered once in the shipment": "a taxa será de valor único e cobrada uma vez só no embarque",
-    "TOTAL FREIGHT IN": ""
+    "TOTAL FREIGHT IN": "",
+    "There_freight": "",
+    "SHIPPING TYPE": "",
+    "LOCATION": "",
+    "DIRECTION": "",
+    "Direction": "",
+    "Rate_15symbols": "",
+    "Please_fields": "",
+    "Charge_15numbers": ""
   },
   "Freight rates": {
     "Freight rates": "Tarífas de fretes",
@@ -431,7 +465,8 @@
     "FREIGHT RATE": "TARIFA",
     "Do you want to save the changes?": "Deseja guardar as alterações?",
     "There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ": "Não existem taxas que correspondam a essa tarifa e ela não será publicada até que uma seja cadastrada.",
-    "REGISTER NEW SURCHARGE": "CADASTRAR TAXA ASSOCIADA"
+    "REGISTER NEW SURCHARGE": "CADASTRAR TAXA ASSOCIADA",
+    "New Surcharge": ""
   },
   "Help and Support": {
     "Help and Support": "Ajuda e Suporte",
@@ -458,7 +493,10 @@
     "DETAILS": "DETALHES",
     "TOTAL W/M": "TOTAL W/M",
     "BEFORE REQUEST": "",
-    "AFTER REQUEST": ""
+    "AFTER REQUEST": "",
+    "Will your company be the shipper?": "",
+    "The booking request will be sent to the agent.": "",
+    "Your_Booking": ""
   },
   "Company profile": {
     "Company profile": "Perfil do agente",
@@ -475,7 +513,8 @@
   },
   "Partners table": {
     "Partners table": "",
-    "Partner companies for shipments": "Empresas parceiras para embarques "
+    "Partner companies for shipments": "Empresas parceiras para embarques ",
+    "Partners": ""
   },
   "Support": {
     "New ticket": "Novo chamado",

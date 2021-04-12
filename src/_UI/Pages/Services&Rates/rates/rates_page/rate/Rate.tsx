@@ -56,6 +56,7 @@ import play from "../../../../../assets/icons/rates&services/play_icon.svg";
 import ship from "../../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../../assets/icons/rates&services/plane-surcharge.svg";
 import close_icon from "../../../../../assets/icons/close-icon.svg";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   is_active: boolean;
@@ -187,7 +188,7 @@ const Rate: React.FC<PropsType> = ({
       setNoSurchargePopup(true);
     }
   }, [empty_surcharge]);
-
+  const {t} = useTranslation();
   return (
     <RateContainer onSubmit={handleSubmit(onSubmit)}>
       <IconButton
@@ -219,9 +220,9 @@ const Rate: React.FC<PropsType> = ({
         />
       </ModalWindow>
       <Wrap>
-        <RateTitle>Freight Rate</RateTitle>
+        <RateTitle>{t("Freight rates/Freight rates")}</RateTitle>
         <ButtonsWrap>
-          {formMode && <SaveButton type="submit">SAVE CHANGES</SaveButton>}
+          {formMode && <SaveButton type="submit">{("My Profile/SAVE CHANGES")}</SaveButton>}
           <PauseButton
             type="button"
             onClick={() =>
@@ -240,7 +241,7 @@ const Rate: React.FC<PropsType> = ({
             </ShippingMode>
             <FieldsWrap>
               <FieldOuter>
-                <Label>Route</Label>
+                <Label>{t("Dashboard/Route")}</Label>
                 {/*<div style={{marginTop:"-5px"}}>*/}
                   <RouteName>{rate?.origin.code}</RouteName>
                   <RouteName>{rate?.destination.code}</RouteName>
@@ -249,7 +250,7 @@ const Rate: React.FC<PropsType> = ({
             </FieldsWrap>
             <FieldsWrap>
               <FieldOuter>
-                <Label>Carrier</Label>
+                <Label>{t("Quote bid screen/CARRIER")}</Label>
                 <Controller
                   name="carrier"
                   control={control}
@@ -258,7 +259,7 @@ const Rate: React.FC<PropsType> = ({
                 />
               </FieldOuter>
               <FieldOuter>
-                <Label>Shipping mode</Label>
+                <Label>Sh{t("Quotes/SHIPPING MODE")}</Label>
                 <Controller
                   name="shipping_mode"
                   control={control}
@@ -269,7 +270,7 @@ const Rate: React.FC<PropsType> = ({
             </FieldsWrap>
             <FieldsWrap>
               <FieldOuter>
-                <Label>Status</Label>
+                <Label>{t("Bookings/STATUS")}</Label>
                 <Controller
                   name="carrier"
                   control={control}
@@ -280,7 +281,7 @@ const Rate: React.FC<PropsType> = ({
                 />
               </FieldOuter>
               <FieldOuter>
-                <Label>Transit time</Label>
+                <Label>{t("Bookings/TRANSIT TIME")}</Label>
                 <Controller
                   name="shipping_mode"
                   control={control}

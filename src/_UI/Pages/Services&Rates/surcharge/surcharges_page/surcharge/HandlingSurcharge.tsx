@@ -23,6 +23,7 @@ import {
     HandlingSurchargeContainer,
     HandlingTitle
 } from "./sea-conteneraized-cargo-styles";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -65,21 +66,21 @@ type PropsType = {
 
 const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props}) => {
     const classes = useStyles();
-
+    const {t} = useTranslation();
     return (
         <div style={{width:"100%", borderBottom:"1px solid #BDBDBD"}}>
         <HandlingSurchargeContainer style={{maxWidth: '834px'}}>
-            <HandlingTitle>Handling (surcharge)</HandlingTitle>
+            <HandlingTitle>{t("Surcharges/HANDLING")} ({("Surcharges/Surcharges")})</HandlingTitle>
             {/*<ScrollbarStyled {...{style: { height: 300 }}}>*/}
                 <TableContainer className={classes.container} component={Paper}>
                     <Table stickyHeader className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell className={classes.cell}>CONTAINER TYPE</TableCell>
-                                <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                                <TableCell className={classes.cell} align="left">CHARGE</TableCell>
-                                <TableCell className={classes.cell} align="left">UPDATE BY</TableCell>
-                                <TableCell className={classes.cell} align="left">ON</TableCell>
+                                <TableCell className={classes.cell}>{t("Surcharges/CONTAINER TYPE")}</TableCell>
+                                <TableCell className={classes.cell} align="left">{t("Bookings/CURRENCY")}</TableCell>
+                                <TableCell className={classes.cell} align="left">{t("Bookings/CHARGE")}</TableCell>
+                                <TableCell className={classes.cell} align="left">{t("Surcharges/UPDATE BY")}</TableCell>
+                                <TableCell className={classes.cell} align="left">{t("Surcharges/ON")}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody className={classes.body}>
@@ -100,7 +101,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
                                                     defaultValue={fee.currency.id}
                                                    as={
                                                         <SurchargeRateSelect options={currency}
-                                                                             placeholder='Currency'
+                                                                             placeholder={t('Quote bid screen/CURRENCY')}
                                                                              max_width='80px'
                                                         />
                                                     }

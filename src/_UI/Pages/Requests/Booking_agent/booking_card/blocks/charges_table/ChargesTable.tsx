@@ -162,28 +162,16 @@ const ChargesTable: React.FC<PropsType> = ({
         </TableBody>
       </Table>
       <TableTotal>
-        {charges_cost?.totals_pure && (
-          <>
-            {charges_cost?.totals_pure?.USD && (
-              <TotalLine>
-                <TotalName>CHARGES IN USD:</TotalName>
-                <TotalValue>{charges_cost?.totals_pure?.USD}</TotalValue>
-              </TotalLine>
-            )}
-            {charges_cost?.totals_pure?.EUR && (
-              <TotalLine>
-                <TotalName>CHARGES IN EUR:</TotalName>
-                <TotalValue>{charges_cost?.totals_pure?.EUR}</TotalValue>
-              </TotalLine>
-            )}
-            {charges_cost?.totals_pure?.BRL && (
-              <TotalLine>
-                <TotalName>CHARGES IN BRL:</TotalName>
-                <TotalValue>{charges_cost?.totals_pure?.BRL}</TotalValue>
-              </TotalLine>
-            )}
-          </>
-        )}
+        {charges_cost?.totals_pure &&
+          Object.keys(charges_cost?.totals_pure).map(
+            (key: any) =>
+              !!charges_cost?.totals_pure[key] && (
+                <TotalLine>
+                  <TotalName>CHARGES IN {key}:</TotalName>
+                  <TotalValue>{charges_cost?.totals_pure[key]}</TotalValue>
+                </TotalLine>
+              )
+          )}
       </TableTotal>
     </TableContainer>
   );

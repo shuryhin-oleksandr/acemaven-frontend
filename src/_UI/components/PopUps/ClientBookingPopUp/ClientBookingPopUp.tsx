@@ -274,7 +274,8 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               </TableContainer>
             </HiddenTable>
             <TableTotal>
-              {new_total?.charges?.totals &&
+              {new_total?.charges?.service_fee &&
+                new_total?.charges?.totals &&
                 Object.keys(new_total?.charges.totals).map(
                   (key: any) =>
                     !!new_total?.charges.totals[key] && (

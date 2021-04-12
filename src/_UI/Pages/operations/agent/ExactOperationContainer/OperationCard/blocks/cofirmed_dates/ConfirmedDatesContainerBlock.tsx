@@ -68,14 +68,16 @@ const ConfirmedDatesContainerBlock: React.FC<PropsType> = ({shipment, operation_
                 ) &&
                 <>
                     <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>
-                        <InfoRow>
+                        {shipment?.date_of_departure && <InfoRow>
                             <InfoRowLabel>ESTIMATED TIME OF DEPARTURE</InfoRowLabel>
                             <InfoRowValue>{shipment?.date_of_departure}</InfoRowValue>
-                        </InfoRow>
+                        </InfoRow>}
+                        {shipment?.date_of_arrival &&
                         <InfoRow>
                             <InfoRowLabel>ESTIMATED TIME OF ARRIVAL</InfoRowLabel>
                             <InfoRowValue>{shipment?.date_of_arrival}</InfoRowValue>
                         </InfoRow>
+                        }
                     </div>
                     {shipment?.cargo_cut_off_date &&
                     <div style={{display: "flex", flexDirection: "column", marginRight: '26px'}}>

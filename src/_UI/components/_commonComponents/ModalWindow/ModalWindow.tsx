@@ -30,7 +30,7 @@ const ModalWindow:React.FC<PropsType> = ({children, isOpen}) => {
         },
         overlay: {
           backgroundColor: "rgba(0, 0, 0, .3)",
-            zIndex:15
+            zIndex:6
         }
       }}
     >

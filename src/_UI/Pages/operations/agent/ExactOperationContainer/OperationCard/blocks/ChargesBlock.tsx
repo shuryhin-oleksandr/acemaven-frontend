@@ -266,13 +266,6 @@ const ChargesBlock: React.FC<PropsType> = ({
                 <TotalValue>{operation_charges?.totals_pure?.BRL}</TotalValue>
               </TotalLine>
             )}
-            {status !== AppOperationBookingStatusesType.BOOKING_FEE_PENDING && (
-              <TotalLine>
-                <TotalName>TOTAL TODAY:</TotalName>
-                <TotalValue>{operation_charges?.total_today}</TotalValue>
-              </TotalLine>
-            )}
-
             {charges_today_exchange &&
               status !== AppOperationBookingStatusesType.BOOKING_FEE_PENDING &&
               Object.keys(charges_today_exchange).length > 0 &&

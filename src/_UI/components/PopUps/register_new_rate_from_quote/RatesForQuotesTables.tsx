@@ -133,7 +133,7 @@ const RatesForQuotesTable: React.FC<PropsType> = ({usageFees, quote_shipping_mod
                                             />
                                         </TableCell>
                                         <TableCell className={classes.innerCell} align="left">
-                                            <Field placeholder='0.00$'
+                                            <Field placeholder='0.00'
                                                    max_width='100px'
                                                    name={`rates.${fee.id}.rate`}
                                                    ref={props.register({required: true})}
@@ -158,7 +158,7 @@ const RatesForQuotesTable: React.FC<PropsType> = ({usageFees, quote_shipping_mod
                                                 />
                                             </TableCell>
                                             <TableCell className={classes.innerCell} align="left">
-                                                <Field placeholder='0.00$'
+                                                <Field placeholder='0.00'
                                                        max_width='100px'
                                                        name={`rates.rate`}
                                                        ref={props.register({required: true})}

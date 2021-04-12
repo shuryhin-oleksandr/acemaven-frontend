@@ -141,7 +141,7 @@ const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, se
                                                                marginBottom="0"
                                                             //onChange={(e) => onChange(e, String(fees.id))}
                                                             //onBlur={() => setAware(false)}
-                                                               placeholder='0.00$'
+                                                               placeholder='0.00'
                                                                type='number'
                                                                step='0.01'
                                                         />

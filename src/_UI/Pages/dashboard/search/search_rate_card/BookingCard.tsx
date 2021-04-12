@@ -83,7 +83,9 @@ const BookingCard: React.FC<PropsType> = ({
                 {search_result?.freight_rate.origin.display_name} -{" "}
                 {search_result?.freight_rate.destination.display_name}
               </Direction>
-              {search_result?.freight_rate.carrier!=="disclosed"&& <Carrier>*{search_result?.freight_rate.carrier}</Carrier>}
+              {search_result?.freight_rate.carrier !== "disclosed" && (
+                <Carrier>*{search_result?.freight_rate.carrier}</Carrier>
+              )}
             </DirectionWrap>
           </GeneralWrap>
           <AdditionalWrap>
@@ -101,46 +103,56 @@ const BookingCard: React.FC<PropsType> = ({
             </DateLine>
           </AdditionalWrap>
         </GeneralPart>
-        <RatingPartContainer
-          showRatingPopup={showRatingPopup}
-          company={search_result?.freight_rate.company}
-          setClickedReview={props.setClickedReview}
-        />
+        {!!search_result?.freight_rate.company?.name && (
+          <RatingPartContainer
+            showRatingPopup={showRatingPopup}
+            company={search_result?.freight_rate.company}
+            setClickedReview={props.setClickedReview}
+          />
+        )}
       </InfoPart>
       <TotalPart>
         <CalculationWrap>
           {search_result?.cargo_groups.map((c: any, index: any) => (
-            <CalculationLine key={index} marginBottom="10px">
-              <CalcName>{t("Dashboard/Freight")} x {c.cargo_type}:</CalcName>
+            <CalculationLine
+              key={index}
+              marginBottom={
+                index === search_result?.cargo_groups.length - 1
+                  ? "15px"
+                  : "5px"
+              }
+            >
+              <CalcName>{t("Dashboard/Freight")} x {c.cargo_type} in:</CalcName>
               <CalcValue>
                 {c.freight.currency} {c.freight.subtotal}
               </CalcValue>
             </CalculationLine>
           ))}
-          <CalculationLine>
-            <CalcName>
-              {t("Dashboard/Total Freight")} {" "}
-              {search_result?.total_freight_rate.USD ? "BRL" : "USD"} :
-            </CalcName>
-            <CalcValue>
-              {search_result?.total_freight_rate.USD
-                ? search_result?.total_freight_rate.USD
-                : search_result?.total_freight_rate.BRL}
-            </CalcValue>
-          </CalculationLine>
-          <CalculationLine marginBottom="10px">
-            <CalcName>
-              {t("Dashboard/Surcharges in")} {search_result?.total_surcharge.BRL ? "BRL" : "USD"}{" "}
-              :
-            </CalcName>
-            <CalcValue>
-              {search_result?.total_surcharge.BRL
-                ? search_result?.total_surcharge.BRL
-                : search_result?.total_surcharge.USD}
-            </CalcValue>
-          </CalculationLine>
+
+          {Object.keys(search_result?.total_freight_rate).map(
+            (key) =>
+              !!search_result?.total_freight_rate[key] && (
+                <CalculationLine>
+                  <CalcName>{t("Dashboard/Total Freight")} in:</CalcName>
+                  <CalcValue>
+                    {key} {search_result?.total_freight_rate[key]}
+                  </CalcValue>
+                </CalculationLine>
+              )
+          )}
+          {Object.keys(search_result?.total_surcharge).map(
+            (key) =>
+              !!search_result?.total_surcharge[key] && (
+                <CalculationLine>
+                  <CalcName>{t("Dashboard/Surcharges in")}</CalcName>
+                  <CalcValue>
+                    {key} {search_result?.total_surcharge[key]}
+                  </CalcValue>
+                </CalculationLine>
+              )
+          )}
           {search_result?.service_fee && (
-            <CalculationLine>
+            <CalculationLine style={{ marginTop: 10 }}>
               <CalcName>{t("Dashboard/Acemaven Service Fee")}:</CalcName>
               <CalcValue>
                 {search_result?.service_fee?.currency}{" "}

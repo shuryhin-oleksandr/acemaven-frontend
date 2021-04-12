@@ -103,7 +103,7 @@ const HandlingTable:React.FC<PropsType> = ({containers, ...props}) => {
                                     <TableCell className={classes.innerCell} align="right">
                                         <Field name={`usage_fees.${c.id}.charge`}
                                                ref={props.register}
-                                               placeholder={'0.00$'}
+                                               placeholder={'0.00'}
                                                max_width='102px'
                                         />
                                     </TableCell>

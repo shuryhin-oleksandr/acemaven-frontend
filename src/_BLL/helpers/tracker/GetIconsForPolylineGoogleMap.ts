@@ -29,6 +29,7 @@ export const polylineIcons = (props: InterfaceFuncIcons) => {
         strokeWeight: 1,
         fillColor: "white",
         fillOpacity: 1,
+        scale: 1.5
       },
       fixedRotation:true,
       offset: offset,
@@ -41,6 +42,7 @@ export const polylineIcons = (props: InterfaceFuncIcons) => {
           strokeWeight: 1,
           fillColor: "white",
           fillOpacity: 1,
+          scale: 1.5
         },
         fixedRotation:true,
         offset: offset,
@@ -71,6 +73,7 @@ export const polylineIcons = (props: InterfaceFuncIcons) => {
       icon: {
         path: "M9 -1C9 4.52285 4.52285 9 -1 9C-6.52285 9 -11 4.52285 -11 -1C-11 -6.52285 -6.52285 -11 -1 -11C4.52285 -11 9 -6.52285 9 -1Z",
         strokeColor: "#FFFFFF",
+        scale:1.5
       },
       fixedRotation:true,
       offset: offset,
@@ -82,6 +85,7 @@ export const polylineIcons = (props: InterfaceFuncIcons) => {
         strokeOpacity: 1,
         fillColor: processType === "export" ? "#115B86" : processType === "import" ? "#86111F" : "#115B86",
         fillOpacity: 1,
+        scale:1.5
       },
       fixedRotation:true,
       offset: offset,

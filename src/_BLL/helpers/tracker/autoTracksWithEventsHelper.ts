@@ -8,8 +8,13 @@ export const autoTrackWithEventsHelper = (operations_list: any) => {
         ? o.tracking[0].data.events?.length > 0 && o
         : o.tracking[0].data?.data.locations?.length > 0 && o)
 
+
     return operations_for_drawing_on_map.map((o: any) => ({
         ...o.tracking_initial,
+        aceid: o.aceid,
+        booking_number: o.booking_number,
+        origin_code:o.freight_rate.origin.code,
+        destination_code:o.freight_rate.destination.code,
         locations: o.shipping_type === ShippingTypesEnum.AIR
             ? o.tracking?.map((ot: any) => ot?.data?.events.map((e: any) => ({
                 lat: e.ecefLatitude,
@@ -27,6 +32,10 @@ export const manualTrackWithEventsHelper = (operations_list: any) => {
     let operations_with_tracking = operations_list.filter((o: any) => o.tracking?.length > 0 && !o.automatic_tracking)
     return operations_with_tracking.map((o:OperationType) => ({
         ...o.tracking_initial,
+        aceid: o.aceid,
+        booking_number:o.booking_number,
+        origin_code:o.freight_rate.origin.code,
+        destination_code:o.freight_rate.destination.code,
         date_of_departure: o.shipment_details && o.shipment_details[0].date_of_departure,
         date_of_arrival: o.shipment_details && o.shipment_details[0].date_of_arrival,
         actual_date_of_departure: o.shipment_details && o.shipment_details[0].actual_date_of_departure,

@@ -19,7 +19,6 @@ import {
   TotalName,
   TotalValue,
 } from "../../../../../dashboard/search/search_rate_card/search-card-styles";
-import {useTranslation} from "react-i18next";
 import { AppOperationBookingStatusesType } from "../../../../../../../_BLL/types/operations/operationsTypes";
 
 const useStyles = makeStyles({
@@ -72,7 +71,7 @@ type PropsType = {
   status?: string;
 };
 
-const ChargesBlock: React.FC<PropsType> = ({
+const ChargesBlockAgent: React.FC<PropsType> = ({
   operation_charges,
   number_of_docs,
   charges_today_exchange,
@@ -80,15 +79,13 @@ const ChargesBlock: React.FC<PropsType> = ({
 }) => {
   const classes = useStyles();
 
-  const {t} = useTranslation();
-
   const column_object = [
-    { name: t("Bookings/VOLUME"), align: "left" },
-    { name: t("Bookings/TYPE"), align: "left" },
-    { name: t("Bookings/CHARGE"), align: "left" },
-    { name: t("Bookings/CURRENCY"), align: "left" },
-    { name: t("Bookings/COST"), align: "right" },
-    { name: t("Bookings/SUBTOTAL"), align: "right" },
+    { name: "VOLUME", align: "left" },
+    { name: "TYPE", align: "left" },
+    { name: "CHARGE", align: "left" },
+    { name: "CURRENCY", align: "left" },
+    { name: "COST", align: "right" },
+    { name: "SUBTOTAL", align: "right" },
   ];
 
   return (
@@ -133,14 +130,14 @@ const ChargesBlock: React.FC<PropsType> = ({
                     <div>{s.other.currency}</div>
                   </TableCell>
                   <TableCell className={classes.innerCell} align="right">
-                    <div>{s.freight.cost}</div>
+                    <div>{s.freight.cost_pure}</div>
                     <div>{s.handling.cost}</div>
                     {s.cold && <div>{s.cold.cost}</div>}
                     {s.dangerous && <div>{s.dangerous.cost}</div>}
                     <div>{s.other.cost}</div>
                   </TableCell>
                   <TableCell className={classes.innerCell} align="right">
-                    <div>{s.freight.subtotal}</div>
+                    <div>{s.freight.subtotal_pure}</div>
                     <div>{s.handling.subtotal}</div>
                     {s.cold && <div>{s.cold.subtotal}</div>}
                     {s.dangerous && <div>{s.dangerous.subtotal}</div>}
@@ -174,71 +171,16 @@ const ChargesBlock: React.FC<PropsType> = ({
         </TableContainer>
       </HiddenTable>
       <TableTotal>
-        {operation_charges?.totals &&
-          Object.keys(operation_charges?.totals).map(
+        {operation_charges?.totals_pure &&
+          Object.keys(operation_charges?.totals_pure).map(
             (key: any) =>
-              !!operation_charges?.totals[key] && (
+              !!operation_charges?.totals_pure[key] && (
                 <TotalLine>
-                  <TotalName>{t("Bookings/CHARGES IN")}{" "} {key}:</TotalName>
-                  <TotalValue>{operation_charges?.totals[key]}</TotalValue>
+                  <TotalName>CHARGES IN {key}:</TotalName>
+                  <TotalValue>{operation_charges?.totals_pure[key]}</TotalValue>
                 </TotalLine>
               )
           )}
-
-        {operation_charges?.booking_fee &&
-          Object.keys(operation_charges?.booking_fee).map((key: any) => (
-            <TotalLine>
-              <TotalName>BOOKING FEE IN {key}:</TotalName>
-              <TotalValue>{operation_charges?.booking_fee[key]}</TotalValue>
-            </TotalLine>
-          ))}
-        {operation_charges?.service_fee && (
-          <TotalLine>
-            <TotalName>
-              ACEMAVEN SERVICE FEE IN {operation_charges?.service_fee?.currency}
-              :
-            </TotalName>
-            <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>
-          </TotalLine>
-        )}
-
-        {operation_charges?.pay_to_book && (
-          <TotalLine>
-            <TotalName>
-              {status === AppOperationBookingStatusesType.BOOKING_FEE_PENDING
-                ? "TO BOOK IN"
-                : "PAID TO BOOK IN"}{" "}
-              {operation_charges?.pay_to_book?.currency}:
-            </TotalName>
-            <TotalValue>
-              {operation_charges?.pay_to_book?.pay_to_book}
-            </TotalValue>
-          </TotalLine>
-        )}
-        {operation_charges?.totals_pure && (
-          <>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                marginBottom: 5,
-              }}
-            >
-              Remaining amount to be paid to the agent
-            </div>
-            {Object.keys(operation_charges?.totals_pure).map(
-              (key) =>
-                !!operation_charges?.totals_pure[key] && (
-                  <TotalLine>
-                    <TotalName>CHARGES IN {key}:</TotalName>
-                    <TotalValue>
-                      {operation_charges?.totals_pure[key]}
-                    </TotalValue>
-                  </TotalLine>
-                )
-            )}
-          </>
-        )}
 
         {charges_today_exchange &&
           status !== AppOperationBookingStatusesType.BOOKING_FEE_PENDING &&
@@ -260,7 +202,7 @@ const ChargesBlock: React.FC<PropsType> = ({
               )}
               <TotalLine>
                 <TotalName font_family="Helvetica Bold, sans-serif">
-                  Total Today
+                  TOTAL TODAY:
                 </TotalName>
                 <TotalValue font_family="Helvetica Bold, sans-serif">
                   {charges_today_exchange?.total_today}
@@ -273,4 +215,4 @@ const ChargesBlock: React.FC<PropsType> = ({
   );
 };
 
-export default ChargesBlock;
+export default ChargesBlockAgent;

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {useState} from "react";
 //react-router-dom
-import {NavLink, useHistory} from "react-router-dom";
+import {NavLink, useHistory,useLocation} from "react-router-dom";
 //react-redux
 import {useDispatch, useSelector} from "react-redux";
 //components
@@ -37,6 +37,9 @@ const MenuLink: React.FC<IProps> = ({
     let [fullMenu, setFullMenu] = useState(false)
     const dispatch = useDispatch()
     const history = useHistory()
+    let location = useLocation();
+
+
 
     let clickHandler = () => {
         setChecked && setChecked(String(name))
@@ -65,14 +68,18 @@ const MenuLink: React.FC<IProps> = ({
                                     <NestedWrap key={l.name}>
                                         <NavLink onClick={() => dispatch(commonActions.setCurrentNavPath(l.path))}
                                                  to={l.path}>
-                                            <NestedName active={currentPath === l.path}>{l.name}</NestedName>
+
+
+
+
+                                            <NestedName active={location.pathname === l.path}>{l.name}</NestedName>
                                         </NavLink>
                                     </NestedWrap>
                                 )
                             } else return null
                         } else return <NestedWrap key={l.name}>
                             <NavLink onClick={(e) => handleClick(e, l.path)} to={l.path} >
-                                <NestedName active={currentPath === l.path}>{l.name}</NestedName>
+                                <NestedName active={location.pathname === l.path}>{l.name}</NestedName>
                             </NavLink>
                         </NestedWrap>
 

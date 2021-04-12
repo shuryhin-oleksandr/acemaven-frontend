@@ -165,7 +165,7 @@ const OfferDescription: React.FC<PropsType> = ({
                       scope="row"
                       align="left"
                     >
-                      {o.id}
+                      {index + 1}
                     </TableCell>
                     <TableCell
                       className={classes.collapseInnerCell}

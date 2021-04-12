@@ -639,7 +639,7 @@ const Search: React.FC<PropsType> = ({
                   {t("Dashboard/SEARCH")}
                 </BaseButton>
               ) : search_result.length !== 0 ? (
-                <BaseButton
+                <BaseButton style={{ height: "35px" }}
                   onClick={(e) => {
                     e.preventDefault();
                     newSearch();

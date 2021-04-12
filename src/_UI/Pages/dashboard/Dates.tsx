@@ -78,6 +78,9 @@ const Picker = styled(DateRangePicker)<DateRangePickerProps>`
     color: #7c7c89;
     margin-left: 2px;
   }
+   &.rs-picker-daterange-menu .rs-picker-menu {
+   z-index: 100 !important;
+   }
 
   & .rs-picker-toggle.rs-btn-lg {
     padding-top: ${({ search_styles }) =>

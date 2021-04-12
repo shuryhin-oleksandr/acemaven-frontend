@@ -195,9 +195,13 @@ export type OperationType = {
     shipper?: ShipperType,
     charges?: CostBookingType,
     charges_today?: {
-        total_today: number,
-        "EUR exchange rate"?: number,
-        "USD exchange rate"?: number,
+        total_today: number;
+        "EUR exchange rate"?: number;
+        "USD exchange rate"?: number;
+        today_exchange_rate: {
+            currency: string;
+            exchange_rate: number;
+        };
     } | null,
     client_contact_person?: string,
     client?: string,

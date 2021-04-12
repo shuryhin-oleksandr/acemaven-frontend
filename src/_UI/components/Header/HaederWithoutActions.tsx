@@ -27,10 +27,10 @@ const HeaderWithoutActions:React.FC = () => {
     return (
         <HeaderContainer>
             <LogoWrap>
-                <img style={{objectFit:"cover"}} src={logotype} alt=""/>
+                <img  src={logotype} alt=""/>
             </LogoWrap>
             <InfoWrap>
-                    <PhotoWrap><img src={profilePhoto ? profilePhoto : user} alt=""/></PhotoWrap>
+                    <PhotoWrap><img style={{objectFit:"cover"}} src={profilePhoto ? profilePhoto : user} alt=""/></PhotoWrap>
                 </InfoWrap>
 
         </HeaderContainer>

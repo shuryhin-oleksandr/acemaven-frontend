@@ -215,7 +215,7 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
                                         name={`rates.${r.id}.rate`}
                                         defaultValue={r.rate}
                                         render={({value, onChange}) => (
-                                            <Field placeholder="0.00$"
+                                            <Field placeholder="0.00"
                                                    max_width="100px"
                                                    type='number'
                                                    onChange={(e) => {onChange(e.currentTarget.value); changeHandler(e.currentTarget)}}

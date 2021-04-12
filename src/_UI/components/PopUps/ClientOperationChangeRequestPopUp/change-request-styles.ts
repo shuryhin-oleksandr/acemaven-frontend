@@ -13,7 +13,7 @@ export const PopupContainer = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  z-index: 600;
+  z-index: 599;
   animation: ${shownPopup} ease-in-out 0.3s;
   padding: 70px 0;
 `;

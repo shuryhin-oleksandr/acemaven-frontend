@@ -209,18 +209,18 @@ export const TotalLine = styled.div`
 `;
 export const TotalName = styled.div<{font_family?: string}>`
   color: #333333;
-  font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Light, sans-serif'} ;
+  font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Reg, sans-serif'} ;
   font-size: 14px;
   line-height: 16.5px;
   margin-right: 120px;
   text-align: right;
-  width: 90%;
+  //width: 90%;
   display: flex;
   justify-content: flex-end;
 `;
 export const TotalValue = styled.div<{font_family?: string}>`
   color: #333333;
-  font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Light, sans-serif'} ;
+  font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Reg, sans-serif'} ;
   font-size: 14px;
   line-height: 16.5px;
   width: 10%;

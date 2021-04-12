@@ -30,10 +30,19 @@ type PropsType = {
     number_of_documents: number,
     release_type: any,
     charges_cost: CostBookingType | null,
-    booking_shipping_mode: {id: number, title: string}
+    booking_shipping_mode: {id: number, title: string},
+    charges_today_exchange:
+        | {
+        total_today: number;
+        "EUR exchange rate"?: number;
+        "USD exchange rate"?: number;
+    }
+        | null
+        | undefined;
+
 }
 
-const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, release_type, charges_cost, booking_shipping_mode}) => {
+const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, release_type, charges_cost, booking_shipping_mode,charges_today_exchange}) => {
 
     const [isHiddenDocs, setHiddenDocs] = useState(false)
     const {t} = useTranslation();
@@ -72,7 +81,9 @@ const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, 
             <ChargesWrapper>
                 <DocumentsContent>
                     <GeneralTitle>{t("Bookings/CHARGES")}</GeneralTitle>
-                    <ChargesTable charges_cost={charges_cost ? charges_cost : null}/>
+                    <ChargesTable charges_cost={charges_cost ? charges_cost : null}
+                                  charges_today_exchange={charges_today_exchange}
+                    />
                 </DocumentsContent>
             </ChargesWrapper>
         </HiddenOuter>

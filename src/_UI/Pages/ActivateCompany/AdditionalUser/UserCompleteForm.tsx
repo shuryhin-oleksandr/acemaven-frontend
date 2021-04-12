@@ -190,8 +190,8 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
 export default UserCompleteForm;
 
 const Photo = styled.img`
-  width: 185px;
-  height: 185px;
+  max-width: 185px;
+  max-height: 185px;
 `;
 
 const CloseIcon = styled.img`

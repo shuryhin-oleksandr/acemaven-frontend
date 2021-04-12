@@ -38,6 +38,7 @@ import {
 //icons
 import close_icon from "../../../../../assets/icons/close-icon.svg";
 import {useTranslation} from "react-i18next";
+import ChargesBlockAgent from "./blocks/ChargesBlockAgent";
 
 type PropsType = {
   operation_info: OperationType;
@@ -88,24 +89,26 @@ const OperationCard: React.FC<PropsType> = ({
         <ContentHeader>
           <BookingInfo>
             <OperationNumber>{operation_info?.aceid}</OperationNumber>
-            <BookingNumberBlockContainer shipment={shipment} />
+            {shipment?.booking_number && (
+              <BookingNumberBlockContainer shipment={shipment} />
+            )}
             {shipment?.booking_number_with_carrier &&
               company_type?.type === AppCompaniesTypes.AGENT && (
                 <BookingNumberWithCarrierBlockContainer shipment={shipment} />
               )}
             <BookingStatus>
-              <span style={{ color: "#1ab8e5", marginRight: "5px" }}>
-               {t("Operations/STATUS")}
+              <span style={{ color: "#1ab8e5", marginRight: "8px" }}>
+                {t("Operations/STATUS")}
               </span>
-              <span
-                style={{
-                  fontFamily: "Helvetica Light",
-                  fontSize: "18px",
-                  textTransform: "lowercase",
-                }}
-              >
-                {local_time}
-              </span>{" "}
+              {/*<span*/}
+              {/*  style={{*/}
+              {/*    fontFamily: "Helvetica Light",*/}
+              {/*    fontSize: "18px",*/}
+              {/*    textTransform: "lowercase",*/}
+              {/*  }}*/}
+              {/*>*/}
+              {/*  {local_time}*/}
+              {/*</span>{" "}*/}
               <span style={{ textTransform: "uppercase" }}>
                 {t(`Statuses/${operation_info?.status}`)}
               </span>
@@ -242,13 +245,25 @@ const OperationCard: React.FC<PropsType> = ({
                   agent_name={operation_info?.agent_contact_person}
                 />
               )}
-          <ChargesBlock
-            operation_charges={
-              operation_info?.charges ? operation_info?.charges : null
-            }
-            number_of_docs={operation_info?.number_of_documents}
-            charges_today_exchange={operation_info?.charges_today}
-          />
+          {company_type?.type === AppCompaniesTypes.CLIENT ? (
+            <ChargesBlock
+              operation_charges={
+                operation_info?.charges ? operation_info?.charges : null
+              }
+              number_of_docs={operation_info?.number_of_documents}
+              charges_today_exchange={operation_info?.charges_today}
+              status={operation_info?.status}
+            />
+          ) : (
+            <ChargesBlockAgent
+              operation_charges={
+                operation_info?.charges ? operation_info?.charges : null
+              }
+              number_of_docs={operation_info?.number_of_documents}
+              charges_today_exchange={operation_info?.charges_today}
+              status={operation_info?.status}
+            />
+          )}
         </SectionWrapper>
         {(operation_info?.shipment_details &&
           operation_info?.shipment_details.length > 0) ||

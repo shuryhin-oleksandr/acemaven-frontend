@@ -85,11 +85,11 @@ const GeneralBlockContainer: React.FC<PropsType> = ({operation_info, shipment, c
                                     <InfoRowValue>{shipment?.mawb}</InfoRowValue>
                                 </InfoRow>
                                 }
-
+                                {shipment?.flight_number &&
                                 <InfoRow>
                                     <InfoRowLabel>{t("Bookings/Flight Number")}</InfoRowLabel>
                                     <InfoRowValue>{shipment?.flight_number}</InfoRowValue>
-                                </InfoRow>
+                                </InfoRow>}
                             </div>
                         }
                         <div style={{display: "flex", flexDirection: "column"}}>

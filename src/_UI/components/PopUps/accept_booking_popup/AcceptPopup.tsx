@@ -222,7 +222,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                         <AcceptPopupActions>
                             <OutlineButton text={t('Bookings/CONFIRM')}
                                            type="submit"
-                                           button_background='#7c7c89'
+                                           button_background='black'
                                            margin_right='15px'
                             />
                             <OutlineButton text={t('Bookings/CANCEL')}

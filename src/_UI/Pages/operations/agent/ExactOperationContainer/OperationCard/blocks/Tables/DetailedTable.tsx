@@ -15,6 +15,7 @@ import styled from "styled-components";
 import DetailedTableRow from "./DeatiledTableRow";
 import IconLocation from "../../../../../../../assets/icons/location_blue.svg";
 import { AppCompaniesTypes } from "../../../../../../../../_BLL/types/commonTypes";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -80,16 +81,16 @@ type PropsType = {
 
 const DetailedTable: React.FC<PropsType> = ({ tracking }) => {
   const classes = useStyles();
-
+  const {t} = useTranslation();
   let sea_column = [
-    { name: "CONTAINER REF." },
-    { name: "TYPE" },
-    { name: "DATE" },
-    { name: "STATUS" },
-    { name: "PORTO" },
-    { name: "SHIP" },
-    { name: "TRAVEL" },
-    { name: "ETA" },
+    { name: t("Operations/CONTAINER REF.") },
+    { name: t("Bookings/TYPE") },
+    { name: t("Operations/DATE") },
+    { name: t("Operations/STATUS")},
+    { name: t("Operations/PORTO") },
+    { name: t("Billing/SHIP") },
+    { name: t("Bookings/TRAVEL") },
+    { name: t("Bookings/ETA") },
   ];
 
   const rows =
@@ -125,8 +126,7 @@ const DetailedTable: React.FC<PropsType> = ({ tracking }) => {
   ) : (
     <Notification>
       <img src={IconLocation} alt="" style={{ marginRight: "7px" }} />
-      Automatic statuses for this shipment are not available yet. Statuses will
-      be updated soon.
+      {t("Operations/Automatic statuses for this shipment are not available, please keep the client up to date with the shipment milestones below.")}
     </Notification>
   );
 };

@@ -153,7 +153,7 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
                                 {t("Surcharges/EXPIRATION DATE")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                {t("Surcharges/UPDATE BY")}
+                                {t("Surcharges/UPDATED BY")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
                                 {t("Surcharges/ON")}

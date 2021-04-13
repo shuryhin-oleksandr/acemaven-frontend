@@ -98,9 +98,9 @@ const TotalCostCalculationContainer:React.FC<PropsType> = ({calculation}) => {
                                         {s.cargo_type}
                                     </TableCell>
                                     <TableCell className={classes.innerCell} align="left">
-                                        <div>FREIGHT</div>
-                                        <div>HANDLING</div>
-                                        <div>OTHERS</div>
+                                        <div>{t("Quote bid screen/FREIGHT")}</div>
+                                        <div>{t("Quote bid screen/HANDLING")}</div>
+                                        <div>{t("Quote bid screen/OTHERS")}</div>
                                     </TableCell>
                                     <TableCell className={classes.innerCell} align="left">
                                         <div>{s.freight.currency}</div>
@@ -126,7 +126,7 @@ const TotalCostCalculationContainer:React.FC<PropsType> = ({calculation}) => {
                                 <TableCell className={classes.innerCell} align="left" >
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
-                                    DOC FEE
+                                    {t("Surcharges/DOCUMENT FEE")}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
                                     {calculation?.doc_fee?.currency}

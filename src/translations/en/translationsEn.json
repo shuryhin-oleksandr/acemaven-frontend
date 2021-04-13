@@ -54,7 +54,9 @@
     "Phone Number": "Phone Number",
     "Password": "Password",
     "Drop photo here or select photo": "Drop photo here or select photo",
-    "COMPLETE ACCOUNT": "FINISH"
+    "COMPLETE ACCOUNT": "FINISH",
+    "PROFILE":"PROFILE",
+    "HELP": "HELP"
   },
   "Dashboard": {
     "Dashboard": "Dashboard",
@@ -117,7 +119,9 @@
     "There are no completed operations.": "There are no completed operations.",
     "There are no new messages": " There are no new messages",
     "Today Exchange Rate": "Today Exchange Rate",
-    "There are no notifications yet": "There are no notifications yet"
+    "There are no notifications yet": "There are no notifications yet",
+    "On service since": "On service since",
+    "Operations done": "Operations done"
   },
   "Dashboard Menu": {
     "REQUESTS": "REQUESTS",
@@ -125,6 +129,7 @@
     "QUOTES": "QUOTES",
     "OPERATIONS": "OPERATIONS",
     "ACTIVE": "IN PROGRESS",
+    "INACTIVE": "INACTIVE",
     "Mine": "Mine",
     "All": "All",
     "Sea": "Sea",
@@ -221,6 +226,7 @@
     "GET ASSISTANCE": "GET ASSISTANCE",
     "to Book": "to Book",
     "Booking Fee": "Booking Fee",
+    "BOOKING FEE IN": "BOOKING FEE IN",
     "Choose month": "Choose month",
     "Do you want to reject the booking?": "Do you want to reject the booking?",
     "Please, confirm_booking": "Please, confirm that the company is rejecting the booking request.",
@@ -231,13 +237,17 @@
     "WEEK": "WEEK",
     "There are no requests at the moment": "There are no requests at the moment. When a client send a booking request they will appear in this section.",
     "CONTINUE": "CONTINUE",
-    "ACEMAVEN SERVICE FEE: IN": "ACEMAVEN SERVICE FEE: IN",
+    "ACEMAVEN SERVICE FEE: IN": "ACEMAVEN SERVICE FEE IN",
     "You can choose partner or specify a new one.": "You can choose partner or specify a new one.",
     "Documentation": "Documentation",
     "TOTALS IN": "TOTALS IN",
     "CONDITIONS": "CONDITIONS",
     "Rate will be register as 0. Are you sure?": "Rate will be register as 0. Are you sure?",
-    "MODE": "MODE"
+    "MODE": "MODE",
+    "TO BOOK IN": "TO BOOK IN",
+    "PAID TO BOOK IN": "PAID TO BOOK IN",
+    "TRAVEL": "TRAVEL",
+    "ETA": "ETA"
   },
   "Quotes": {
     "Quotes": "Quotes",
@@ -283,7 +293,9 @@
     "I want to disclose the carrier info to the customers": "I want to disclose the carrier info to the customers",
     "Total Today": "Total Today",
     "Today’s": "Today’s",
-    "EXCHANGE RATE": "EXCHANGE RATE"
+    "EXCHANGE RATE": "EXCHANGE RATE",
+    "COLD": "COLD",
+    "DANGEROUS": "DANGEROUS"
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Booking Confirmation",
@@ -331,6 +343,7 @@
     "PORTO": "PORTO",
     "NOTES": "BOOKING NOTES",
     "Automatic statuses for this shipment are not available, please keep the client up to date with the shipment milestones below.": "Automatic statuses for this shipment are not available, please keep the client up to date with the shipment milestones below.",
+    "Automatic statuses for this shipment are not available yet. Statuses will be updated soon.": "Automatic statuses for this shipment are not available yet. Statuses will be updated soon.",
     "Your comments to the client": "Your comments to the client",
     "DOCUMENTS": "DOCUMENTS",
     "NO. OF DOCUMENTS": "NO. OF DOCUMENTS",

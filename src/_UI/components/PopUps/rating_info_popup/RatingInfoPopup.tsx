@@ -32,6 +32,7 @@ import sea from '../../../../_UI/assets/icons/rates&services/ship-surcharge.svg'
 import air from '../../../../_UI/assets/icons/rates&services/plane-surcharge.svg'
 import close from '../../../../_UI/assets/icons/close-icon.svg'
 import SpinnerForAuthorizedPages from "../../_commonComponents/spinner/SpinnerForAuthorizedPages";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -52,7 +53,7 @@ const RatingInfoPopup:React.FC<PropsType> = ({closeReviewPopupHandler, clickedRe
     //data from store
     const rating_data = useSelector(getSearchedCompanyRatingSelector)
     const isFetching = useSelector(getSearchIsFetching)
-
+    const {t} = useTranslation();
 
     return (
         <RatingPopupContainer>
@@ -75,18 +76,18 @@ const RatingInfoPopup:React.FC<PropsType> = ({closeReviewPopupHandler, clickedRe
                             </NameWrap>
                             <CompanyInfoWrap>
                                 <InfoLine>
-                                    <InfoTitle>On service since:</InfoTitle>
+                                    <InfoTitle>{t("Dashboard/On service since")}:</InfoTitle>
                                     <InfoValue>{rating_data?.date_created}</InfoValue>
                                 </InfoLine>
                                 <InfoLine>
-                                    <InfoTitle>Operations done:</InfoTitle>
+                                    <InfoTitle>{t("Dashboard/Operations done")}:</InfoTitle>
                                     <InfoValue>{rating_data?.operations_are_done}</InfoValue>
                                 </InfoLine>
                             </CompanyInfoWrap>
                         </CompanyWrap>
                         <RatingCardWrapper>
                             <Card>
-                                <CardTitle style={{color: '#000000'}}>Rating</CardTitle>
+                                <CardTitle style={{color: '#000000'}}>{t("Company profile/Rating")}</CardTitle>
                                 <Count>{rating_data?.rating}</Count>
                                 {rating_data && <RatingStars marginBottom={'0px'}
                                                              rating_value={rating_data?.rating}
@@ -95,7 +96,7 @@ const RatingInfoPopup:React.FC<PropsType> = ({closeReviewPopupHandler, clickedRe
                         </RatingCardWrapper>
                     </RatingHeader>
                     <ReviewWrapper>
-                        <ReviewTitle>REVIEWS ({rating_data?.reviews.length})</ReviewTitle>
+                        <ReviewTitle>{t("Company profile/Reviews")} ({rating_data?.reviews.length})</ReviewTitle>
                         <ScrollbarStyled {...{style: {height: 500}}}>
                             <ReviewsInner>
                                 {rating_data?.reviews.map(r => <ReviewCard review={r ? r : null}/>)}

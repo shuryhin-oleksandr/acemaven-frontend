@@ -133,21 +133,21 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell className={classes.cell}>VOLUME</TableCell>
+                        <TableCell className={classes.cell}>{t("Bookings/VOLUME")}</TableCell>
                         <TableCell className={classes.cell} align="left">
-                          TYPE
+                          {t("Bookings/TYPE")}
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
-                          CHARGE
+                          {t("Bookings/CHARGE")}
                         </TableCell>
                         <TableCell className={classes.cell} align="left">
-                          CURRENCY
+                          {t("Bookings/CURRENCY")}
                         </TableCell>
                         <TableCell className={classes.cell} align="right">
-                          COST
+                          {t("Bookings/COST")}
                         </TableCell>
                         <TableCell className={classes.cell} align="right">
-                          SUBTOTAL
+                          {t("Bookings/SUBTOTAL")}
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -171,11 +171,11 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                               className={classes.innerCell}
                               align="left"
                             >
-                              <div>FREIGHT</div>
-                              <div>HANDLING</div>
-                              {s.cold && <div>COLD</div>}
-                              {s.dangerous && <div>DANGEROUS</div>}
-                              <div>OTHERS</div>
+                              <div>{t("Quote bid screen/FREIGHT")}</div>
+                              <div>{t("Quote bid screen/HANDLING")}</div>
+                              {s.cold && <div>{t("Quote bid screen/COLD")}</div>}
+                              {s.dangerous && <div>{t("Quote bid screen/DANGEROUS")}</div>}
+                              <div>{t("Quote bid screen/OTHERS")}</div>
                             </TableCell>
                             <TableCell
                               className={classes.innerCell}
@@ -216,7 +216,7 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left" />
                         <TableCell className={classes.innerCell} align="left">
-                          DOC FEE
+                          {t("Surcharges/DOCUMENT FEE")}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
                           {booking?.charges?.doc_fee?.currency}
@@ -239,7 +239,7 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                     (key: any) =>
                       !!booking?.charges.totals[key] && (
                         <TotalLine>
-                          <TotalName>CHARGES IN {key}:</TotalName>
+                          <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
                           <TotalValue>
                             {booking?.charges.totals[key]}
                           </TotalValue>
@@ -249,7 +249,7 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                 {booking?.charges?.booking_fee &&
                   Object.keys(booking?.charges?.booking_fee).map((key: any) => (
                     <TotalLine>
-                      <TotalName>BOOKING FEE IN {key}:</TotalName>
+                      <TotalName>{t("Bookings/BOOKING FEE IN")}{" "}{key}:</TotalName>
                       <TotalValue>
                         {booking?.charges?.booking_fee[key]}
                       </TotalValue>
@@ -258,7 +258,7 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                 {booking?.charges?.service_fee && (
                   <TotalLine>
                     <TotalName>
-                      ACEMAVEN SERVICE FEE IN{" "}
+                      {t("Bookings/ACEMAVEN SERVICE FEE: IN")}{" "}
                       {booking?.charges?.service_fee?.currency}:
                     </TotalName>
                     <TotalValue>
@@ -272,7 +272,7 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                   Object.keys(booking?.charges?.exchange_rates).map(
                     (key: any) => (
                       <TotalLine>
-                        <TotalName>ACEMAVEN {key} EXCHANGE RATE:</TotalName>
+                        <TotalName>ACEMAVEN {key} {t("Quote bid screen/EXCHANGE RATE")}:</TotalName>
                         <TotalValue>
                           {booking?.charges?.exchange_rates[key]}
                         </TotalValue>
@@ -283,7 +283,7 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                 {booking?.charges?.pay_to_book && (
                   <TotalLine>
                     <TotalName>
-                      TO BOOK IN {booking?.charges?.pay_to_book?.currency}:
+                      {t("Bookings/TO BOOK IN")}{' '}{booking?.charges?.pay_to_book?.currency}:
                     </TotalName>
                     <TotalValue>
                       {booking?.charges?.pay_to_book?.pay_to_book}
@@ -305,7 +305,7 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                       (key) =>
                         !!booking?.charges?.totals_pure[key] && (
                           <TotalLine>
-                            <TotalName>CHARGES IN {key}:</TotalName>
+                            <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
                             <TotalValue>
                               {booking?.charges?.totals_pure[key]}
                             </TotalValue>

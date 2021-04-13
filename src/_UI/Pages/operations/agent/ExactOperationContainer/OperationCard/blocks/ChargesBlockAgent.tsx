@@ -20,6 +20,7 @@ import {
   TotalValue,
 } from "../../../../../dashboard/search/search_rate_card/search-card-styles";
 import { AppOperationBookingStatusesType } from "../../../../../../../_BLL/types/operations/operationsTypes";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -78,14 +79,14 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
   status,
 }) => {
   const classes = useStyles();
-
+  const {t} = useTranslation();
   const column_object = [
-    { name: "VOLUME", align: "left" },
-    { name: "TYPE", align: "left" },
-    { name: "CHARGE", align: "left" },
-    { name: "CURRENCY", align: "left" },
-    { name: "COST", align: "right" },
-    { name: "SUBTOTAL", align: "right" },
+    { name: t("Bookings/VOLUME"), align: "left" },
+    { name: t("Bookings/TYPE"), align: "left" },
+    { name: t("Bookings/CHARGE"), align: "left" },
+    { name: t("Bookings/CURRENCY"), align: "left" },
+    { name: t("Bookings/COST"), align: "right" },
+    { name: t("Bookings/SUBTOTAL"), align: "right" },
   ];
 
   return (
@@ -116,11 +117,11 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
                     {s.cargo_type}
                   </TableCell>
                   <TableCell className={classes.innerCell} align="left">
-                    <div>FREIGHT</div>
-                    <div>HANDLING</div>
-                    {s.cold && <div>COLD</div>}
-                    {s.dangerous && <div>DANGEROUS</div>}
-                    <div>OTHERS</div>
+                    <div>{t("Quote bid screen/FREIGHT")}</div>
+                    <div>{t("Quote bid screen/HANDLING")}</div>
+                    {s.cold && <div>{t("Quote bid screen/COLD")}</div>}
+                    {s.dangerous && <div>{t("Quote bid screen/DANGEROUS")}</div>}
+                    <div>{t("Quote bid screen/OTHERS")}</div>
                   </TableCell>
                   <TableCell className={classes.innerCell} align="left">
                     <div>{s.freight.currency}</div>
@@ -154,7 +155,7 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
                   align="left"
                 ></TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                  DOC FEE
+                  {t("Surcharges/DOCUMENT FEE")}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                   {operation_charges?.doc_fee?.currency}
@@ -176,7 +177,7 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
             (key: any) =>
               !!operation_charges?.totals_pure[key] && (
                 <TotalLine>
-                  <TotalName>CHARGES IN {key}:</TotalName>
+                  <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
                   <TotalValue>{operation_charges?.totals_pure[key]}</TotalValue>
                 </TotalLine>
               )
@@ -191,9 +192,9 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
                 1 && (
                 <TotalLine>
                   <TotalName>
-                    Today's{" "}
+                    {t("Quote bid screen/Today's")}{" "}
                     {charges_today_exchange.today_exchange_rate.currency}{" "}
-                    Exchange rate:
+                    {t("Billing/Exchange Rate")}:
                   </TotalName>
                   <TotalValue>
                     {charges_today_exchange.today_exchange_rate.exchange_rate}
@@ -202,7 +203,7 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
               )}
               <TotalLine>
                 <TotalName font_family="Helvetica Bold, sans-serif">
-                  TOTAL TODAY:
+                  {t("Quote bid screen/Total Today")}:
                 </TotalName>
                 <TotalValue font_family="Helvetica Bold, sans-serif">
                   {charges_today_exchange?.total_today}

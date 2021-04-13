@@ -60,7 +60,6 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
         color: '#1B1B25',
-        height: '72px',
         padding: '0',
         paddingTop:15,
         paddingBottom:10,

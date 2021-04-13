@@ -135,7 +135,7 @@ const {t} = useTranslation();
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name='PROFILE'
+                              name={t('Complete Profile/PROFILE')}
 
                     />
                     <MenuLink icon={support}
@@ -143,7 +143,7 @@ const {t} = useTranslation();
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name='HELP'
+                              name={t('Complete Profile/HELP')}
 
                     />
                 </NavSmallContainer>

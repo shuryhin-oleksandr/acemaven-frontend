@@ -150,11 +150,11 @@ const SearchCard: React.FC<PropsType> = ({
                           {s.cargo_type}
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
-                          <div>FREIGHT</div>
-                          <div>HANDLING</div>
-                          {s.cold && <div>COLD</div>}
-                          {s.dangerous && <div>DANGEROUS</div>}
-                          <div>OTHERS</div>
+                          <div>{t("Quote bid screen/FREIGHT")}</div>
+                          <div>{t("Quote bid screen/HANDLING")}</div>
+                          {s.cold && <div>{t("Quote bid screen/COLD")}</div>}
+                          {s.dangerous && <div>{t("Quote bid screen/DANGEROUS")}</div>}
+                          <div>{t("Quote bid screen/OTHERS")}</div>
                         </TableCell>
                         <TableCell className={classes.innerCell} align="left">
                           <div>{s.freight.currency}</div>
@@ -188,7 +188,7 @@ const SearchCard: React.FC<PropsType> = ({
                         align="left"
                       ></TableCell>
                       <TableCell className={classes.innerCell} align="left">
-                        DOC FEE
+                        {t("Surcharges/DOCUMENT FEE")}
                       </TableCell>
                       <TableCell className={classes.innerCell} align="left">
                         {search_result.doc_fee.currency}
@@ -209,7 +209,7 @@ const SearchCard: React.FC<PropsType> = ({
                 (key) =>
                   !!search_result.totals[key] && (
                     <TotalLine>
-                      <TotalName>{t("Bookings/CHARGES IN")}{key}:</TotalName>
+                      <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
                       <TotalValue>{search_result.totals[key]}</TotalValue>
                     </TotalLine>
                   )

@@ -132,19 +132,19 @@ const BillingCard: React.FC<PropTypes> = ({
             <div style={{ width: "45%" }}>
               {!!billing.charges.totals.USD && (
                 <ChargeRow>
-                  <ChargeTitle>CHARGES IN USD</ChargeTitle>
+                  <ChargeTitle>{t("Bookings/CHARGES IN")}{" "} USD</ChargeTitle>
                   <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
                 </ChargeRow>
               )}
               {!!billing.charges.totals.BRL && (
                 <ChargeRow>
-                  <ChargeTitle>CHARGES IN BRL</ChargeTitle>
+                  <ChargeTitle>{t("Bookings/CHARGES IN")}{" "}BRL</ChargeTitle>
                   <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
                 </ChargeRow>
               )}
               {!!billing.charges.totals.EUR && (
                 <ChargeRow>
-                  <ChargeTitle>CHARGES IN EUR</ChargeTitle>
+                  <ChargeTitle>{t("Bookings/CHARGES IN")}{" "}EUR</ChargeTitle>
                   <ChargeValue>{billing.charges.totals.EUR}</ChargeValue>
                 </ChargeRow>
               )}

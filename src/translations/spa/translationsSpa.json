@@ -54,7 +54,9 @@
     "Phone Number": "Número Telefónico",
     "Password": "Contraseña",
     "Drop photo here or select photo": "Arrastre su foto hacia aqui o haga clic  para seleccionar uma",
-    "COMPLETE ACCOUNT": "FINALIZAR"
+    "COMPLETE ACCOUNT": "FINALIZAR",
+    "PROFILE":"",
+    "HELP": ""
   },
   "Dashboard": {
     "Dashboard": "",
@@ -116,7 +118,9 @@
     "There are no completed operations.": "",
     "Today Exchange Rate": "",
     "There are no new messages": "",
-    "There are no notifications yet": ""
+    "There are no notifications yet": "",
+    "On service since": "",
+    "Operations done": ""
   },
   "Dashboard Menu": {
     "REQUESTS": "SOLICITUDES",
@@ -124,6 +128,7 @@
     "QUOTES": "COTIZACIONES",
     "OPERATIONS": "OPERACIONES",
     "ACTIVE": "EM MARCHA",
+    "INACTIVE": "",
     "Mine": "Mias",
     "All": "Todas",
     "Sea": "Aéreas",
@@ -221,6 +226,7 @@
     "GET ASSISTANCE": "",
     "to Book": "",
     "Booking Fee": "Tasa de Solicitud",
+    "BOOKING FEE IN": "",
     "Choose month": "",
     "Do you want to reject the booking?": "",
     "Please, confirm_booking": "",
@@ -237,7 +243,11 @@
     "TOTALS IN": "",
     "CONDITIONS": "",
     "Rate will be register as 0. Are you sure?": "",
-    "MODE": ""
+    "MODE": "",
+    "TO BOOK IN": "",
+    "PAID TO BOOK IN": "",
+    "TRAVEL": "",
+    "ETA": ""
   },
   "Quotes": {
     "Quotes": "Cotizaciones",
@@ -283,7 +293,9 @@
     "I want to disclose the carrier info to the customers": "",
     "Total Today": "",
     "Today’s": "",
-    "EXCHANGE RATE": ""
+    "EXCHANGE RATE": "",
+    "COLD": "",
+    "DANGEROUS": "PELIGROSA"
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Confirmación de Reserva",
@@ -331,6 +343,7 @@
     "PORTO": "PUERTO",
     "NOTES": "NOTAS",
     "Automatic statuses for this shipment are not available, please keep the client up to date with the shipment milestones below.": "El rastreo online no está disponible para este embarque, por favor mantenga al cliente actualizado con los eventos a continuación.",
+    "Automatic statuses for this shipment are not available yet. Statuses will be updated soon.": "",
     "Your comments to the client": "Sus comentarios sobre la reserva",
     "DOCUMENTS": "DOCUMENTOS",
     "NO. OF DOCUMENTS": "NO. DE DOCUMENTOS",

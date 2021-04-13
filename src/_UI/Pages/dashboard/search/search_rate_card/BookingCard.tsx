@@ -90,7 +90,7 @@ const BookingCard: React.FC<PropsType> = ({
           </GeneralWrap>
           <AdditionalWrap>
             <DateLine>
-              <DateName>{t("Dashboard/Transit time")}</DateName>
+              <DateName>{t("Dashboard/Transit Time")}</DateName>
               <DateValue>
                 {search_result?.freight_rate.transit_time} {t("Billing/days")}
               </DateValue>

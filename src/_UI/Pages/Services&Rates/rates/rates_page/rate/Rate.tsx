@@ -275,7 +275,7 @@ const Rate: React.FC<PropsType> = ({
                   control={control}
                   defaultValue={rate?.is_active}
                   as={
-                    <Content>{rate?.is_active ? "ACTIVE" : "INACTIVE"}</Content>
+                    <Content>{rate?.is_active ? t("Dashboard Menu/ACTIVE") : t("Dashboard Menu/INACTIVE")}</Content>
                   }
                 />
               </FieldOuter>
@@ -285,7 +285,7 @@ const Rate: React.FC<PropsType> = ({
                   name="shipping_mode"
                   control={control}
                   defaultValue={rate?.transit_time}
-                  as={<Content>{`${rate?.transit_time} days`}</Content>}
+                  as={<Content>{`${rate?.transit_time} ${t("Billing/days")}`}</Content>}
                 />
               </FieldOuter>
             </FieldsWrap>

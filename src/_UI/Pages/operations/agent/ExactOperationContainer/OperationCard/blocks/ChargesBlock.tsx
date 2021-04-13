@@ -119,11 +119,11 @@ const ChargesBlock: React.FC<PropsType> = ({
                     {s.cargo_type}
                   </TableCell>
                   <TableCell className={classes.innerCell} align="left">
-                    <div>FREIGHT</div>
-                    <div>HANDLING</div>
-                    {s.cold && <div>COLD</div>}
-                    {s.dangerous && <div>DANGEROUS</div>}
-                    <div>OTHERS</div>
+                    <div>{t("Quote bid screen/FREIGHT")}</div>
+                    <div>{t("Quote bid screen/HANDLING")}</div>
+                    {s.cold && <div>{t("Quote bid screen/COLD")}</div>}
+                    {s.dangerous && <div>{t("Quote bid screen/DANGEROUS")}</div>}
+                    <div>{t("Quote bid screen/OTHERS")}</div>
                   </TableCell>
                   <TableCell className={classes.innerCell} align="left">
                     <div>{s.freight.currency}</div>
@@ -157,7 +157,7 @@ const ChargesBlock: React.FC<PropsType> = ({
                   align="left"
                 ></TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                  DOC FEE
+                  {t("Surcharges/DOCUMENT FEE")}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                   {operation_charges?.doc_fee?.currency}
@@ -188,14 +188,14 @@ const ChargesBlock: React.FC<PropsType> = ({
         {operation_charges?.booking_fee &&
           Object.keys(operation_charges?.booking_fee).map((key: any) => (
             <TotalLine>
-              <TotalName>BOOKING FEE IN {key}:</TotalName>
+              <TotalName>{t("Bookings/BOOKING FEE IN")} {key}:</TotalName>
               <TotalValue>{operation_charges?.booking_fee[key]}</TotalValue>
             </TotalLine>
           ))}
         {operation_charges?.service_fee && (
           <TotalLine>
             <TotalName>
-              ACEMAVEN SERVICE FEE IN {operation_charges?.service_fee?.currency}
+              {t("Bookings/ACEMAVEN SERVICE FEE: IN")} {operation_charges?.service_fee?.currency}
               :
             </TotalName>
             <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>
@@ -206,8 +206,8 @@ const ChargesBlock: React.FC<PropsType> = ({
           <TotalLine>
             <TotalName>
               {status === AppOperationBookingStatusesType.BOOKING_FEE_PENDING
-                ? "TO BOOK IN"
-                : "PAID TO BOOK IN"}{" "}
+                ? t("Bookings/TO BOOK IN")
+                : t("Bookings/PAID TO BOOK IN")}{" "}
               {operation_charges?.pay_to_book?.currency}:
             </TotalName>
             <TotalValue>
@@ -230,7 +230,7 @@ const ChargesBlock: React.FC<PropsType> = ({
               (key) =>
                 !!operation_charges?.totals_pure[key] && (
                   <TotalLine>
-                    <TotalName>CHARGES IN {key}:</TotalName>
+                    <TotalName>{t("Bookings/CHARGES IN")} {key}:</TotalName>
                     <TotalValue>
                       {operation_charges?.totals_pure[key]}
                     </TotalValue>
@@ -249,9 +249,9 @@ const ChargesBlock: React.FC<PropsType> = ({
                 1 && (
                 <TotalLine>
                   <TotalName>
-                    Today's{" "}
+                    {t("Quote bid screen/Today’s")}{" "}
                     {charges_today_exchange.today_exchange_rate.currency}{" "}
-                    Exchange rate:
+                    {t("Billing/Exchange Rate")}:
                   </TotalName>
                   <TotalValue>
                     {charges_today_exchange.today_exchange_rate.exchange_rate}
@@ -260,7 +260,7 @@ const ChargesBlock: React.FC<PropsType> = ({
               )}
               <TotalLine>
                 <TotalName font_family="Helvetica Bold, sans-serif">
-                  Total Today
+                  {t("Quote bid screen/Total Today")}
                 </TotalName>
                 <TotalValue font_family="Helvetica Bold, sans-serif">
                   {charges_today_exchange?.total_today}

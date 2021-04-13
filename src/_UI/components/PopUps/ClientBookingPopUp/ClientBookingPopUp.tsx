@@ -187,7 +187,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell className={classes.cell}>VOLUME</TableCell>
+                      <TableCell className={classes.cell}>{t("Bookings/VOLUME")}</TableCell>
                       <TableCell className={classes.cell} align="left">
                           {t("Bookings/TYPE")}
                       </TableCell>
@@ -216,11 +216,11 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                             {s?.cargo_type}
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
-                            <div>FREIGHT</div>
-                            <div>HANDLING</div>
-                            {s.cold && <div>COLD</div>}
-                            {s.dangerous && <div>DANGEROUS</div>}
-                            <div>OTHERS</div>
+                            <div>{t("Quote bid screen/FREIGHT")}</div>
+                            <div>{t("Quote bid screen/HANDLING")}</div>
+                            {s.cold && <div>{t("Quote bid screen/COLD")}</div>}
+                            {s.dangerous && <div>{t("Quote bid screen/DANGEROUS")}</div>}
+                            <div>{t("Quote bid screen/OTHERS")}</div>
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
                             <div>{s.freight.currency}</div>
@@ -258,7 +258,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                       </TableCell>
                       <TableCell className={classes.innerCell} align="left" />
                       <TableCell className={classes.innerCell} align="left">
-                        DOC FEE
+                        {t("Surcharges/DOCUMENT FEE")}
                       </TableCell>
                       <TableCell className={classes.innerCell} align="left">
                         {new_total?.charges?.doc_fee?.currency}
@@ -281,7 +281,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                   (key: any) =>
                     !!new_total?.charges.totals[key] && (
                       <TotalLine>
-                        <TotalName>CHARGES IN {key}:</TotalName>
+                        <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
                         <TotalValue>
                           {new_total?.charges.totals[key]}
                         </TotalValue>
@@ -301,7 +301,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               {new_total?.charges?.service_fee && (
                 <TotalLine>
                   <TotalName>
-                    ACEMAVEN SERVICE FEE IN{" "}
+                    {t("Bookings/ACEMAVEN SERVICE FEE: IN")}{" "}
                     {new_total?.charges?.service_fee?.currency}:
                   </TotalName>
                   <TotalValue>
@@ -315,7 +315,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                 Object.keys(new_total?.charges?.exchange_rates).map(
                   (key: any) => (
                     <TotalLine>
-                      <TotalName>ACEMAVEN {key} EXCHANGE RATE:</TotalName>
+                      <TotalName>ACEMAVEN {key} {t("Quote bid screen/EXCHANGE RATE")}:</TotalName>
                       <TotalValue>
                         {new_total?.charges?.exchange_rates[key]}
                       </TotalValue>
@@ -326,7 +326,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               {new_total?.charges?.pay_to_book && (
                 <TotalLine>
                   <TotalName>
-                    TO BOOK IN {new_total?.charges?.pay_to_book?.currency}:
+                    {t("Bookings/TO BOOK IN")}{" "}{new_total?.charges?.pay_to_book?.currency}:
                   </TotalName>
                   <TotalValue>
                     {new_total?.charges?.pay_to_book?.pay_to_book}
@@ -349,7 +349,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                     (key) =>
                       !!new_total?.charges?.totals_pure[key] && (
                         <TotalLine>
-                          <TotalName>CHARGES IN {key}:</TotalName>
+                          <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
                           <TotalValue>
                             {new_total?.charges?.totals_pure[key]}
                           </TotalValue>

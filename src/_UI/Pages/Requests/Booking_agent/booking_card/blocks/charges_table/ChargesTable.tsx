@@ -114,11 +114,11 @@ const ChargesTable: React.FC<PropsType> = ({
                 {cc.cargo_type}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                <div>FREIGHT</div>
-                <div>HANDLING</div>
-                {cc.cold && <div>COLD</div>}
-                {cc.dangerous && <div>DANGEROUS</div>}
-                <div>OTHERS</div>
+                <div>{t("Quote bid screen/FREIGHT")}</div>
+                <div>{t("Quote bid screen/HANDLING")}</div>
+                {cc.cold && <div>{t("Quote bid screen/COLD")}</div>}
+                {cc.dangerous && <div>{t("Quote bid screen/DANGEROUS")}</div>}
+                <div>{t("Quote bid screen/OTHERS")}</div>
               </TableCell>
               <TableCell className={classes.innerCell} align="center">
                 <div>{cc.freight.currency}</div>
@@ -149,7 +149,7 @@ const ChargesTable: React.FC<PropsType> = ({
             </TableCell>
             <TableCell className={classes.innerCell_doc} align="left" />
             <TableCell className={classes.innerCell_doc} align="left">
-              DOC FEE
+              {t("Surcharges/DOCUMENT FEE")}
             </TableCell>
             <TableCell className={classes.innerCell_doc} align="center">
               {charges_cost?.doc_fee.currency}
@@ -169,7 +169,7 @@ const ChargesTable: React.FC<PropsType> = ({
             (key: any) =>
               !!charges_cost?.totals_pure[key] && (
                 <TotalLine>
-                  <TotalName>CHARGES IN {key}:</TotalName>
+                  <TotalName>{t("Bookings/CHARGES IN")}{' '}{key}:</TotalName>
                   <TotalValue>{charges_cost?.totals_pure[key]}</TotalValue>
                 </TotalLine>
               )

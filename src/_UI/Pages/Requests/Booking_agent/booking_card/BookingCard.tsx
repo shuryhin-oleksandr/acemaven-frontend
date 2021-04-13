@@ -109,17 +109,17 @@ const BookingCard: React.FC<PropsType> = ({
               <ActionsButtons style={{ marginTop: 10 }}>
                 {!exact_booking_info?.is_assigned && current_role && (
                   <AssignButton onClick={() => setAssignAgent(true)}>
-                    ASSIGN
+                    {t("Bookings/ASSIGN")}
                   </AssignButton>
                 )}
                 <AcceptButton onClick={acceptBookingOnMe}>ACCEPT</AcceptButton>
                 <RejectButton onClick={() => setRejectPopupOpen(true)}>
-                  REJECT
+                  {t("Bookings/REJECT")}
                 </RejectButton>
               </ActionsButtons>
             </ContentHeader>
             <GeneralBookingInfo>
-              <GeneralTitle>GENERAL INFO</GeneralTitle>
+              <GeneralTitle>{t("Bookings/GENERAL INFO")}</GeneralTitle>
               <GeneralBookingContent>
                 <GeneralShipType margin_top={"3px"}>
                   <img
@@ -132,7 +132,7 @@ const BookingCard: React.FC<PropsType> = ({
                   />
                 </GeneralShipType>
                 <InfoRow margin_right="28px">
-                  <InfoRowLabel>ROUTE</InfoRowLabel>
+                  <InfoRowLabel>{t("Bookings/ROUTE")}</InfoRowLabel>
                   <InfoRowValue
                     style={{ fontFamily: "Helvetica Thin, sans-serif" }}
                   >
@@ -153,13 +153,13 @@ const BookingCard: React.FC<PropsType> = ({
                     }}
                   >
                     <InfoRow>
-                      <InfoRowLabel>SHIPPING MODE</InfoRowLabel>
+                      <InfoRowLabel>{t("Bookings/SHIPPING MODE")}</InfoRowLabel>
                       <InfoRowValue>
                         {exact_booking_info?.freight_rate.shipping_mode.title}
                       </InfoRowValue>
                     </InfoRow>
                     <InfoRow>
-                      <InfoRowLabel>TRANSIT TIME</InfoRowLabel>
+                      <InfoRowLabel>{t("Bookings/TRANSIT TIME")}</InfoRowLabel>
                       <InfoRowValue>
                         {exact_booking_info?.freight_rate.transit_time
                           ? `${exact_booking_info?.freight_rate.transit_time} days `
@@ -175,7 +175,7 @@ const BookingCard: React.FC<PropsType> = ({
                     }}
                   >
                     <InfoRow>
-                      <InfoRowLabel>STATUS</InfoRowLabel>
+                      <InfoRowLabel>{t("Bookings/STATUS")}</InfoRowLabel>
                       <InfoRowValue>
                         {/*{local_time}*/}
                         {/*<br />*/}

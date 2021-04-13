@@ -104,9 +104,9 @@ const ChargesToPay: React.FC<PropsType> = ({charges, payment_due_by}) => {
                                         {s.cargo_type}
                                     </TableCell>
                                     <TableCell className={classes.innerCell} align="left">
-                                        <div>FREIGHT</div>
-                                        <div>HANDLING</div>
-                                        <div>OTHERS</div>
+                                        <div>{t("Quote bid screen/FREIGHT")}</div>
+                                        <div>{t("Quote bid screen/HANDLING")}</div>
+                                        <div>{t("Quote bid screen/OTHERS")}</div>
                                     </TableCell>
                                     <TableCell className={classes.innerCell} align="left">
                                         <div>{s.freight.currency}</div>
@@ -132,7 +132,7 @@ const ChargesToPay: React.FC<PropsType> = ({charges, payment_due_by}) => {
                                 <TableCell className={classes.innerCell} align="left" >
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
-                                    DOC FEE
+                                    {t("Surcharges/DOCUMENT FEE")}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
                                     {charges?.doc_fee?.currency}

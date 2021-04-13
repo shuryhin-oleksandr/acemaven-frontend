@@ -86,7 +86,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                     }}
                   >
                     <InfoRow>
-                      <InfoRowLabel>AGENT</InfoRowLabel>
+                      <InfoRowLabel>{t("Role/AGENT")}</InfoRowLabel>
                       <InfoRowValue>{agent_info.company}</InfoRowValue>
                     </InfoRow>
                   </div>
@@ -97,7 +97,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                     }}
                   >
                     <InfoRow>
-                      <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                      <InfoRowLabel>{t("Bookings/CONTACT PERSON")}</InfoRowLabel>
                       <InfoRowValue>{agent_info.contact_person}</InfoRowValue>
                     </InfoRow>
                   </div>
@@ -120,7 +120,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                   }}
                 >
                   <InfoRow>
-                    <InfoRowLabel>CLIENT</InfoRowLabel>
+                    <InfoRowLabel>{t("Bookings/CLIENT")}</InfoRowLabel>
                     <InfoRowValue>{client_info.company}</InfoRowValue>
                   </InfoRow>
                 </div>
@@ -131,7 +131,7 @@ const ShipmentPartsBlock: React.FC<PropsType> = ({
                   }}
                 >
                   <InfoRow>
-                    <InfoRowLabel>CONTACT PERSON</InfoRowLabel>
+                    <InfoRowLabel>{t("Bookings/CONTACT PERSON")}</InfoRowLabel>
                     <InfoRowValue>{client_info.contact_person}</InfoRowValue>
                   </InfoRow>
                 </div>

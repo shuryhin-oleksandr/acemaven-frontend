@@ -56,7 +56,6 @@ color: #1B1B25;
 margin-right: 10px;
 display: flex;
 text-align: end;
-width: 32%;
 justify-content: flex-end;
 `
 export const Data = styled.div`

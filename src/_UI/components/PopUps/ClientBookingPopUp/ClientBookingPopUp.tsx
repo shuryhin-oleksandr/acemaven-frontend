@@ -38,8 +38,8 @@ import {
 } from "../../../Pages/dashboard/search/search_rate_card/search-card-styles";
 //icons
 import close from "../../../assets/icons/close-icon.svg";
-import {useTranslation} from "react-i18next";
-
+import { useTranslation } from "react-i18next";
+import { Container, Message } from "./payment/payment-styles";
 
 const useStyles = makeStyles({
   container: {
@@ -143,7 +143,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
     props.quotes_mode &&
       dispatch(quotesClientActions.setFutureArchiveQuoteId(0));
   };
-    const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <PopupContainer>
       <PopupContent>
@@ -171,16 +171,37 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
         )}
         {bookingStep === "fee-table" && (
           <HiddenWrapper>
+            {!new_total?.charges?.service_fee && (
+              <Message>
+                {t(
+                  "Booking process/The booking request will be sent to the agent."
+                )}
+              </Message>
+            )}
             <div style={{ display: "flex" }}>
               <HiddenTitle>{t("Bookings/CHARGES")}</HiddenTitle>
-              <BaseButton
-                onClick={() => {
-                  dispatch(bookingActions.changeBookingStep("payment"));
-                }}
-                type="button"
-              >
-                  {t("Booking process/NEXT")}
-              </BaseButton>
+              {!!new_total?.charges?.service_fee ? (
+                <BaseButton
+                  onClick={() => {
+                    dispatch(bookingActions.changeBookingStep("payment"));
+                  }}
+                  type="button"
+                >
+                  {t("Billing/PAY")}
+                </BaseButton>
+              ) : (
+                <BaseButton
+                  onClick={() => {
+                    setBookingPopupVisible(false);
+                    setWidgetsVisible && setWidgetsVisible(true);
+                    newSearch && newSearch();
+                    props.close_totals && props.close_totals();
+                  }}
+                  type="button"
+                >
+                  {t("Complete Profile/COMPLETE ACCOUNT")}
+                </BaseButton>
+              )}
             </div>
             <HiddenTable>
               <TableContainer className={classes.container} component={Paper}>
@@ -189,19 +210,19 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                     <TableRow>
                       <TableCell className={classes.cell}>VOLUME</TableCell>
                       <TableCell className={classes.cell} align="left">
-                          {t("Bookings/TYPE")}
+                        {t("Bookings/TYPE")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                          {t("Bookings/CHARGE")}
+                        {t("Bookings/CHARGE")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                          {t("Bookings/CURRENCY")}
+                        {t("Bookings/CURRENCY")}
                       </TableCell>
                       <TableCell className={classes.cell} align="right">
-                          {t("Bookings/COST")}
+                        {t("Bookings/COST")}
                       </TableCell>
                       <TableCell className={classes.cell} align="right">
-                          {t("Bookings/SUBTOTAL")}
+                        {t("Bookings/SUBTOTAL")}
                       </TableCell>
                     </TableRow>
                   </TableHead>

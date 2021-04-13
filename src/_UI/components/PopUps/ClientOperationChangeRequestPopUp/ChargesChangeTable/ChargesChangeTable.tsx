@@ -144,6 +144,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
 
       <TableTotal>
         {operation_charges?.totals &&
+          operation_charges?.service_fee &&
           Object.keys(operation_charges?.totals).map(
             (key: any) =>
               !!operation_charges?.totals[key] && (

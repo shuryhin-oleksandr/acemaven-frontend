@@ -319,6 +319,16 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                     </TotalValue>
                   </TotalLine>
                 ))}
+              {/*{new_total?.charges?.pay_to_book && (*/}
+              {/*  <TotalLine>*/}
+              {/*    <TotalName>*/}
+              {/*      BOOKING FEE IN {new_total?.charges?.pay_to_book?.currency}:*/}
+              {/*    </TotalName>*/}
+              {/*    <TotalValue>*/}
+              {/*      {new_total?.charges?.pay_to_book?.booking_fee}*/}
+              {/*    </TotalValue>*/}
+              {/*  </TotalLine>*/}
+              {/*)}*/}
               {new_total?.charges?.service_fee && (
                 <TotalLine>
                   <TotalName>

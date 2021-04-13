@@ -37,7 +37,7 @@ export const QuoteButton = styled.div`
   border: none;
   color: white;
   height: 40px;
-  width: 204px;
+  //width: 204px;
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   display: flex;
@@ -45,6 +45,8 @@ export const QuoteButton = styled.div`
   align-items: center;
   margin-right: 10px;
   text-transform: capitalize;
+  padding-left: 30px;
+  padding-right: 30px;
 
   &:hover {
     cursor: pointer;
@@ -56,7 +58,7 @@ export const NewSearchButton = styled.div`
   border: 1px solid #4f4f4f;
   color: #4f4f4f;
   height: 40px;
-  width: 190px;
+  //width: 190px;
   font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   display: flex;
@@ -65,6 +67,8 @@ export const NewSearchButton = styled.div`
   margin-left: 10px;
   text-transform: capitalize;
   transition: 0.3s;
+  padding-left: 30px;
+  padding-right: 30px;
 
   &:hover {
     cursor: pointer;

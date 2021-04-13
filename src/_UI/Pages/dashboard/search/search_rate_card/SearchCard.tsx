@@ -32,9 +32,7 @@ import {
 } from "./search-card-styles";
 //icons
 import close_icon from "../../../../assets/icons/close-icon.svg";
-import {useTranslation} from "react-i18next";
-
-
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -91,7 +89,7 @@ const SearchCard: React.FC<PropsType> = ({
   const classes = useStyles();
 
   const [isShown, setShow] = useState(false);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <CardContainer bookingPopupVisible={props.bookingPopupVisible}>
       <CardInner>
@@ -124,19 +122,19 @@ const SearchCard: React.FC<PropsType> = ({
                     <TableRow>
                       <TableCell className={classes.cell}>VOLUME</TableCell>
                       <TableCell className={classes.cell} align="left">
-                          {t("Bookings/TYPE")}
+                        {t("Bookings/TYPE")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                          {t("Bookings/CHARGE")}
+                        {t("Bookings/CHARGE")}
                       </TableCell>
                       <TableCell className={classes.cell} align="left">
-                          {t("Bookings/CURRENCY")}
+                        {t("Bookings/CURRENCY")}
                       </TableCell>
                       <TableCell className={classes.cell} align="right">
-                          {t("Bookings/COST")}
+                        {t("Bookings/COST")}
                       </TableCell>
                       <TableCell className={classes.cell} align="right">
-                          {t("Bookings/SUBTOTAL")}
+                        {t("Bookings/SUBTOTAL")}
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -209,7 +207,9 @@ const SearchCard: React.FC<PropsType> = ({
                 (key) =>
                   !!search_result.totals[key] && (
                     <TotalLine>
-                      <TotalName>{t("Bookings/CHARGES IN")}{key}:</TotalName>
+                      <TotalName>
+                        {t("Bookings/CHARGES IN")} {key}:
+                      </TotalName>
                       <TotalValue>{search_result.totals[key]}</TotalValue>
                     </TotalLine>
                   )

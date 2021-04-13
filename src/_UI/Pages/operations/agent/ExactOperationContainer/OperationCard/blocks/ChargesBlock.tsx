@@ -19,7 +19,7 @@ import {
   TotalName,
   TotalValue,
 } from "../../../../../dashboard/search/search_rate_card/search-card-styles";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { AppOperationBookingStatusesType } from "../../../../../../../_BLL/types/operations/operationsTypes";
 
 const useStyles = makeStyles({
@@ -80,7 +80,7 @@ const ChargesBlock: React.FC<PropsType> = ({
 }) => {
   const classes = useStyles();
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const column_object = [
     { name: t("Bookings/VOLUME"), align: "left" },
@@ -179,7 +179,9 @@ const ChargesBlock: React.FC<PropsType> = ({
             (key: any) =>
               !!operation_charges?.totals[key] && (
                 <TotalLine>
-                  <TotalName>{t("Bookings/CHARGES IN")}{" "} {key}:</TotalName>
+                  <TotalName>
+                    {t("Bookings/CHARGES IN")} {key}:
+                  </TotalName>
                   <TotalValue>{operation_charges?.totals[key]}</TotalValue>
                 </TotalLine>
               )
@@ -201,6 +203,15 @@ const ChargesBlock: React.FC<PropsType> = ({
             <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>
           </TotalLine>
         )}
+
+        {operation_charges?.exchange_rates &&
+          Object.keys(operation_charges?.exchange_rates).length > 0 &&
+          Object.keys(operation_charges?.exchange_rates).map((key: any) => (
+            <TotalLine>
+              <TotalName>ACEMAVEN {key} EXCHANGE RATE:</TotalName>
+              <TotalValue>{operation_charges?.exchange_rates[key]}</TotalValue>
+            </TotalLine>
+          ))}
 
         {operation_charges?.pay_to_book && (
           <TotalLine>

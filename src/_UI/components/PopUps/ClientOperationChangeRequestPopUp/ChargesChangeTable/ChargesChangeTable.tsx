@@ -16,7 +16,7 @@ import {
   TotalValue,
 } from "../../../../Pages/dashboard/search/search_rate_card/search-card-styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -69,7 +69,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
   ];
 
   const classes = useStyles();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <TableContainer className={classes.container} component={Paper}>
       <Table aria-label="simple table">
@@ -143,97 +143,76 @@ const ChargesChangeTable: React.FC<PropsType> = ({
       </Table>
 
       <TableTotal>
-        {operation_charges?.totals && (
-          <>
-            {operation_charges?.totals?.USD && (
-              <TotalLine>
-                <TotalName>CHARGES IN USD:</TotalName>
-                <TotalValue>{operation_charges?.totals?.USD}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals?.EUR && (
-              <TotalLine>
-                <TotalName>CHARGES IN EUR:</TotalName>
-                <TotalValue>{operation_charges?.totals?.EUR}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals?.BRL && (
-              <TotalLine>
-                <TotalName>CHARGES IN BRL:</TotalName>
-                <TotalValue>{operation_charges?.totals?.BRL}</TotalValue>
-              </TotalLine>
-            )}
-          </>
-        )}
+        {operation_charges?.totals &&
+          Object.keys(operation_charges?.totals).map(
+            (key: any) =>
+              !!operation_charges?.totals[key] && (
+                <TotalLine>
+                  <TotalName>
+                    {t("Bookings/CHARGES IN")} {key}:
+                  </TotalName>
+                  <TotalValue>{operation_charges?.totals[key]}</TotalValue>
+                </TotalLine>
+              )
+          )}
 
-        {operation_charges?.pay_to_book && (
-          <TotalLine>
-            <TotalName>
-              BOOKING FEE IN{" "}
-              {operation_charges?.pay_to_book?.currency === "BRL"
-                ? "BRL"
-                : "USD"}
-              :
-            </TotalName>
-            <TotalValue>
-              {operation_charges?.pay_to_book?.booking_fee}
-            </TotalValue>
-          </TotalLine>
-        )}
+        {operation_charges?.booking_fee &&
+          Object.keys(operation_charges?.booking_fee).map((key: any) => (
+            <TotalLine>
+              <TotalName>BOOKING FEE IN {key}:</TotalName>
+              <TotalValue>{operation_charges?.booking_fee[key]}</TotalValue>
+            </TotalLine>
+          ))}
         {operation_charges?.service_fee && (
           <TotalLine>
             <TotalName>
-              ACEMAVEN SERVICE FEE IN{" "}
-              {operation_charges?.service_fee?.currency === "BRL"
-                ? "BRL"
-                : "USD"}
+              ACEMAVEN SERVICE FEE IN {operation_charges?.service_fee?.currency}
               :
             </TotalName>
             <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>
           </TotalLine>
         )}
 
-        {operation_charges?.exchange_rates?.USD && (
-          <TotalLine>
-            <TotalName>ACEMAVEN USD EXCHANGE RATE:</TotalName>
-            <TotalValue>{operation_charges?.exchange_rates?.USD}</TotalValue>
-          </TotalLine>
-        )}
-        {operation_charges?.exchange_rates?.EUR && (
-          <TotalLine>
-            <TotalName>ACEMAVEN EUR EXCHANGE RATE:</TotalName>
-            <TotalValue>{operation_charges?.exchange_rates?.EUR}</TotalValue>
-          </TotalLine>
-        )}
-        {operation_charges?.pay_to_book && (
-          <TotalLine>
-            <TotalName>
-              TO BOOK IN {operation_charges?.pay_to_book?.currency}:
-            </TotalName>
-            <TotalValue>
-              {operation_charges?.pay_to_book?.pay_to_book}
-            </TotalValue>
-          </TotalLine>
-        )}
+        {operation_charges?.exchange_rates &&
+          Object.keys(operation_charges?.exchange_rates).length > 0 &&
+          Object.keys(operation_charges?.exchange_rates).map((key: any) => (
+            <TotalLine>
+              <TotalName>ACEMAVEN {key} EXCHANGE RATE:</TotalName>
+              <TotalValue>{operation_charges?.exchange_rates[key]}</TotalValue>
+            </TotalLine>
+          ))}
+
+        {/*{operation_charges?.pay_to_book && (*/}
+        {/*  <TotalLine>*/}
+        {/*    <TotalName>*/}
+        {/*      TO BOOK IN {operation_charges?.pay_to_book?.currency}:*/}
+        {/*    </TotalName>*/}
+        {/*    <TotalValue>*/}
+        {/*      {operation_charges?.pay_to_book?.pay_to_book}*/}
+        {/*    </TotalValue>*/}
+        {/*  </TotalLine>*/}
+        {/*)}*/}
         {operation_charges?.totals_pure && (
           <>
-            {operation_charges?.totals_pure?.USD && (
-              <TotalLine>
-                <TotalName>TOTAL CHARGES IN USD:</TotalName>
-                <TotalValue>{operation_charges?.totals_pure?.USD}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals_pure?.EUR && (
-              <TotalLine>
-                <TotalName>TOTAL CHARGES IN EUR:</TotalName>
-                <TotalValue>{operation_charges?.totals_pure?.EUR}</TotalValue>
-              </TotalLine>
-            )}
-            {operation_charges?.totals_pure?.BRL && (
-              <TotalLine>
-                <TotalName>TOTAL CHARGES IN BRL:</TotalName>
-                <TotalValue>{operation_charges?.totals_pure?.BRL}</TotalValue>
-              </TotalLine>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginBottom: 5,
+              }}
+            >
+              Remaining amount to be paid to the agent
+            </div>
+            {Object.keys(operation_charges?.totals_pure).map(
+              (key) =>
+                !!operation_charges?.totals_pure[key] && (
+                  <TotalLine>
+                    <TotalName>CHARGES IN {key}:</TotalName>
+                    <TotalValue>
+                      {operation_charges?.totals_pure[key]}
+                    </TotalValue>
+                  </TotalLine>
+                )
             )}
           </>
         )}

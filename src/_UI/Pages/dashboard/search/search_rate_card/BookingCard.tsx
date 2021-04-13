@@ -31,7 +31,7 @@ import {
 //icons
 import ship from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 type PropsType = {
   button_display: boolean;
@@ -56,7 +56,7 @@ const BookingCard: React.FC<PropsType> = ({
   ...props
 }) => {
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <UpperWrapper
       onClick={() =>
@@ -90,7 +90,7 @@ const BookingCard: React.FC<PropsType> = ({
           </GeneralWrap>
           <AdditionalWrap>
             <DateLine>
-              <DateName>{t("Dashboard/Transit time")}</DateName>
+              <DateName>{t("Dashboard/Transit Time")}:</DateName>
               <DateValue>
                 {search_result?.freight_rate.transit_time} {t("Billing/days")}
               </DateValue>
@@ -122,7 +122,9 @@ const BookingCard: React.FC<PropsType> = ({
                   : "5px"
               }
             >
-              <CalcName>{t("Dashboard/Freight")} x {c.cargo_type} in:</CalcName>
+              <CalcName>
+                {t("Dashboard/Freight")} x {c.cargo_type} in:
+              </CalcName>
               <CalcValue>
                 {c.freight.currency} {c.freight.subtotal}
               </CalcValue>
@@ -144,7 +146,7 @@ const BookingCard: React.FC<PropsType> = ({
             (key) =>
               !!search_result?.total_surcharge[key] && (
                 <CalculationLine>
-                  <CalcName>{t("Dashboard/Surcharges in")}</CalcName>
+                  <CalcName>{t("Dashboard/Surcharges in")}:</CalcName>
                   <CalcValue>
                     {key} {search_result?.total_surcharge[key]}
                   </CalcValue>

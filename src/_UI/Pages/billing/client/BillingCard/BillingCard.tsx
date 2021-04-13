@@ -139,12 +139,14 @@ const BillingCard: React.FC<PropTypes> = ({
                 Object.keys(billing.charges?.totals).map(
                   (key: any) =>
                     !!billing.charges?.totals[key] && (
-                      <TotalLine>
-                        <TotalName>
+                      <ChargeRow>
+                        <ChargeTitle>
                           {t("Bookings/CHARGES IN")} {key}:
-                        </TotalName>
-                        <TotalValue>{billing.charges?.totals[key]}</TotalValue>
-                      </TotalLine>
+                        </ChargeTitle>
+                        <ChargeValue>
+                          {billing.charges?.totals[key]}
+                        </ChargeValue>
+                      </ChargeRow>
                     )
                 )}
             </div>

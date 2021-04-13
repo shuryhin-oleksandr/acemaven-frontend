@@ -33,6 +33,7 @@ import { AppStateType } from "../../../../../_BLL/store";
 import { calculateAdditionalCargoGroup } from "../../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import { ShippingModeEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import { CargoGroupQuoteType } from "../../../../../_BLL/types/quotes/quotesTypes";
+import {useTranslation} from "react-i18next";
 
 let useStyles = makeStyles({
   root: {
@@ -132,7 +133,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
     setAddGroupMode(false);
     setEditableGroupIndex(-1);
   };
-
+  const {t} = useTranslation();
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div
@@ -172,7 +173,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 as={
                   <FormSelect
                     error={errors?.container_type?.message}
-                    label="ULD type"
+                    label={t("Dashboard/ULD type")}
                     placeholder="Placeholder"
                     maxW="140px"
                     options={container_types_air}
@@ -191,7 +192,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 as={
                   <FormSelect
                     error={errors?.packaging_type?.message}
-                    label="Packaging type"
+                    label={t("Dashboard/Packaging type")}
                     placeholder="Placeholder"
                     maxW="140px"
                     options={packaging_types}
@@ -221,7 +222,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 })}
                 error={errors?.weight}
                 label={
-                  selectedValueWeight === "kg" ? "Weight, kgs" : "Weight, t"
+                  selectedValueWeight === "kg" ? `${t("Dashboard/Weight")}, kgs` : `${t("Dashboard/Weight")}, t`
                 }
                 max_width="90px"
                 placeholder={selectedValueWeight === "kg" ? "0, kg" : "0, t"}
@@ -362,7 +363,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                   span_text="Dangerous"
                 />
               </CheckboxWrap>
-              <InfoRowLabel>Description</InfoRowLabel>
+              <InfoRowLabel>{t("Bookings/DESCRIPTION")}</InfoRowLabel>
               <FormField
                 error={errors?.description}
                 max_width="100%"

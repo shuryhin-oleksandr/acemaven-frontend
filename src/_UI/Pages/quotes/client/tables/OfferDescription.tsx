@@ -141,10 +141,10 @@ const OfferDescription: React.FC<PropsType> = ({
                     {t("Bookings/TRANSIT TIME")}
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    {t("Dashboard/TOTAL")} USD
+                    {t("Dashboard/TOTAL")}{" "}USD
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    {t("Dashboard/TOTAL")} BRL
+                    {t("Dashboard/TOTAL")}{" "}BRL
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell} />
                 </TableRow>
@@ -182,7 +182,7 @@ const OfferDescription: React.FC<PropsType> = ({
                       {o.charges.freight_rate?.transit_time
                         ? o.charges.freight_rate?.transit_time
                         : 0}{" "}
-                      DAYS
+                      {t("Bookings/DAYS")}
                     </TableCell>
                     <TableCell
                       align="left"

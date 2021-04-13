@@ -122,7 +122,7 @@ const SearchCard: React.FC<PropsType> = ({
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell className={classes.cell}>VOLUME</TableCell>
+                      <TableCell className={classes.cell}>{t("Bookings/VOLUME")}</TableCell>
                       <TableCell className={classes.cell} align="left">
                           {t("Bookings/TYPE")}
                       </TableCell>

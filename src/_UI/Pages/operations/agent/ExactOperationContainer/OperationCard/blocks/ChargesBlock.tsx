@@ -179,7 +179,7 @@ const ChargesBlock: React.FC<PropsType> = ({
             (key: any) =>
               !!operation_charges?.totals[key] && (
                 <TotalLine>
-                  <TotalName>{t("Bookings/CHARGES IN")}{" "} {key}:</TotalName>
+                  <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
                   <TotalValue>{operation_charges?.totals[key]}</TotalValue>
                 </TotalLine>
               )
@@ -188,14 +188,14 @@ const ChargesBlock: React.FC<PropsType> = ({
         {operation_charges?.booking_fee &&
           Object.keys(operation_charges?.booking_fee).map((key: any) => (
             <TotalLine>
-              <TotalName>{t("Bookings/BOOKING FEE IN")} {key}:</TotalName>
+              <TotalName>{t("Bookings/BOOKING FEE IN")}{" "}{key}:</TotalName>
               <TotalValue>{operation_charges?.booking_fee[key]}</TotalValue>
             </TotalLine>
           ))}
         {operation_charges?.service_fee && (
           <TotalLine>
             <TotalName>
-              {t("Bookings/ACEMAVEN SERVICE FEE: IN")} {operation_charges?.service_fee?.currency}
+              {t("Bookings/ACEMAVEN SERVICE FEE: IN")}{" "}{operation_charges?.service_fee?.currency}
               :
             </TotalName>
             <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>
@@ -230,7 +230,7 @@ const ChargesBlock: React.FC<PropsType> = ({
               (key) =>
                 !!operation_charges?.totals_pure[key] && (
                   <TotalLine>
-                    <TotalName>{t("Bookings/CHARGES IN")} {key}:</TotalName>
+                    <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
                     <TotalValue>
                       {operation_charges?.totals_pure[key]}
                     </TotalValue>
@@ -260,7 +260,7 @@ const ChargesBlock: React.FC<PropsType> = ({
               )}
               <TotalLine>
                 <TotalName font_family="Helvetica Bold, sans-serif">
-                  {t("Quote bid screen/Total Today")}
+                  {t("Quote bid screen/Total Today")}:
                 </TotalName>
                 <TotalValue font_family="Helvetica Bold, sans-serif">
                   {charges_today_exchange?.total_today}

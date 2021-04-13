@@ -6,10 +6,7 @@ type PropsStyle = {
 }
 
 export const OptionsButtonsWrap = styled.div<PropsStyle>`
-  min-width: 199px;
-  max-width: 199px;
   height: 40px;
-  width: 100%;
   background-color: #ECECEC;
   border-radius: 2px;
   border: 1px solid #ECECEC;
@@ -24,7 +21,6 @@ export const OptionButtonImport = styled.div<PropsStyle>`
   align-items: center;
   justify-content: center;
   min-width: 95px;
-  max-width: 95px;
   height: 32px;
   background-color: ${({directory}) => directory ===  'import' ? '#1AB8E5' : 'transparent'};
   border-radius: 2px;
@@ -33,7 +29,7 @@ export const OptionButtonImport = styled.div<PropsStyle>`
   font-size: 14px;
   box-shadow: ${({directory}) => directory ===  'import' && '1px 1px 4px rgba(0, 0, 0, 0.25)'};
   transition: .3s;
-  
+  padding: 0 10px;
   &:hover {
     cursor: pointer;
   }
@@ -43,7 +39,6 @@ export const OptionButtonExport = styled.div<PropsStyle>`
   align-items: center;
   justify-content: center;
   min-width: 95px;
-  max-width: 95px;
   height: 32px;
   background-color: ${({directory}) => directory === 'export' ?  '#1AB8E5' : 'transparent'};
   border-radius: 2px;
@@ -52,6 +47,7 @@ export const OptionButtonExport = styled.div<PropsStyle>`
   font-size: 14px;
   box-shadow: ${({directory}) => (directory === 'export') && '1px 1px 4px rgba(0, 0, 0, 0.25)'};
   transition: .3s;
+  padding: 0 10px;
   
   &:hover {
     cursor: pointer;

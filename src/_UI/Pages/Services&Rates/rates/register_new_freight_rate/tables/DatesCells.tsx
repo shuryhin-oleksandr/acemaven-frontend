@@ -90,7 +90,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
         <>
             <TableCell className={classes.innerCell} onClick={() => setFormMode && setFormMode(true)}>
                     <Calendar
-                        label='Start Date'
+                        label={('Surcharges/START DATE')}
                         name={`rates.${id}.from`}
                         value={selectedDay.from}
                         handleDayChange={(from: string) => {
@@ -111,7 +111,7 @@ const DatesCells: React.FC<PropsType> = ({setValue, currentDates, control, error
                 </TableCell>
             <TableCell className={classes.innerCell} onClick={() => setFormMode && setFormMode(true)}>
                     <Calendar
-                        label='Expiration Date'
+                        label={('Surcharges/EXPIRATION DATE')}
                         name={`rates.${id}.to`}
                         value={selectedDay.to}
                         handleDayChange={(to: string) => {

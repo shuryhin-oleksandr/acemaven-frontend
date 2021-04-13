@@ -42,7 +42,7 @@ const NoSearchResultCard: React.FC<PropsType> = ({
       <NoSearchInner>
         {confirmationMode ? (
           <>
-            <NoSearchText>{t("Bookings/post_quote_question?")}</NoSearchText>
+            <NoSearchText>{t("Bookings/post_quote_question")}?</NoSearchText>
             {error && <ErrorMes>{error}</ErrorMes>}
           </>
         ) : (

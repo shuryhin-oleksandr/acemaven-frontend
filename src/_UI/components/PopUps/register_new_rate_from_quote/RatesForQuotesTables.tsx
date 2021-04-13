@@ -127,7 +127,7 @@ const RatesForQuotesTable: React.FC<PropsType> = ({usageFees, quote_shipping_mod
                                                         as={
                                                             <SurchargeRateSelect options={currency}
                                                                                  max_width='70px'
-                                                                                 placeholder='Currency'
+                                                                                 placeholder={t('Bookings/Currency')}
                                                             />
                                                         }
                                             />

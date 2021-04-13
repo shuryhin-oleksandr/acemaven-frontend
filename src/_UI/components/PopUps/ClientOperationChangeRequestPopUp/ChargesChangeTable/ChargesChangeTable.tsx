@@ -92,11 +92,11 @@ const ChargesChangeTable: React.FC<PropsType> = ({
                 {s?.cargo_type}
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
-                <div>FREIGHT</div>
-                <div>HANDLING</div>
-                {s.cold && <div>COLD</div>}
-                {s.dangerous && <div>DANGEROUS</div>}
-                <div>OTHERS</div>
+                <div>{t("Quote bid screen/FREIGHT")}</div>
+                <div>{t("Quote bid screen/HANDLING")}</div>
+                {s.cold && <div>{t("Quote bid screen/COLD")}</div>}
+                {s.dangerous && <div>{t("Quote bid screen/DANGEROUS")}</div>}
+                <div>{t("Quote bid screen/OTHERS")}</div>
               </TableCell>
               <TableCell className={classes.innerCell} align="left">
                 <div>{s.freight.currency}</div>
@@ -127,7 +127,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
             </TableCell>
             <TableCell className={classes.innerCell} align="left" />
             <TableCell className={classes.innerCell} align="left">
-              DOC FEE
+              {t("Surcharges/DOCUMENT FEE")}
             </TableCell>
             <TableCell className={classes.innerCell} align="left">
               {operation_charges?.doc_fee?.currency}
@@ -147,19 +147,19 @@ const ChargesChangeTable: React.FC<PropsType> = ({
           <>
             {operation_charges?.totals?.USD && (
               <TotalLine>
-                <TotalName>CHARGES IN USD:</TotalName>
+                <TotalName>{t("Bookings/CHARGES IN")}{" "}USD:</TotalName>
                 <TotalValue>{operation_charges?.totals?.USD}</TotalValue>
               </TotalLine>
             )}
             {operation_charges?.totals?.EUR && (
               <TotalLine>
-                <TotalName>CHARGES IN EUR:</TotalName>
+                <TotalName>C{t("Bookings/CHARGES IN")}{" "}EUR:</TotalName>
                 <TotalValue>{operation_charges?.totals?.EUR}</TotalValue>
               </TotalLine>
             )}
             {operation_charges?.totals?.BRL && (
               <TotalLine>
-                <TotalName>CHARGES IN BRL:</TotalName>
+                <TotalName>{t("Bookings/CHARGES IN")}{" "}BRL:</TotalName>
                 <TotalValue>{operation_charges?.totals?.BRL}</TotalValue>
               </TotalLine>
             )}
@@ -169,7 +169,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
         {operation_charges?.pay_to_book && (
           <TotalLine>
             <TotalName>
-              BOOKING FEE IN{" "}
+              {t("Bookings/BOOKING FEE IN")}{" "}
               {operation_charges?.pay_to_book?.currency === "BRL"
                 ? "BRL"
                 : "USD"}
@@ -183,7 +183,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
         {operation_charges?.service_fee && (
           <TotalLine>
             <TotalName>
-              ACEMAVEN SERVICE FEE IN{" "}
+              {t("Bookings/ACEMAVEN SERVICE FEE: IN")}{" "}
               {operation_charges?.service_fee?.currency === "BRL"
                 ? "BRL"
                 : "USD"}
@@ -195,20 +195,20 @@ const ChargesChangeTable: React.FC<PropsType> = ({
 
         {operation_charges?.exchange_rates?.USD && (
           <TotalLine>
-            <TotalName>ACEMAVEN USD EXCHANGE RATE:</TotalName>
+            <TotalName>ACEMAVEN USD {t("Quote bid screen/EXCHANGE RATE")}:</TotalName>
             <TotalValue>{operation_charges?.exchange_rates?.USD}</TotalValue>
           </TotalLine>
         )}
         {operation_charges?.exchange_rates?.EUR && (
           <TotalLine>
-            <TotalName>ACEMAVEN EUR EXCHANGE RATE:</TotalName>
+            <TotalName>ACEMAVEN EUR {t("Quote bid screen/EXCHANGE RATE")}:</TotalName>
             <TotalValue>{operation_charges?.exchange_rates?.EUR}</TotalValue>
           </TotalLine>
         )}
         {operation_charges?.pay_to_book && (
           <TotalLine>
             <TotalName>
-              TO BOOK IN {operation_charges?.pay_to_book?.currency}:
+              {t("Bookings/TO BOOK IN")} {operation_charges?.pay_to_book?.currency}:
             </TotalName>
             <TotalValue>
               {operation_charges?.pay_to_book?.pay_to_book}
@@ -219,19 +219,19 @@ const ChargesChangeTable: React.FC<PropsType> = ({
           <>
             {operation_charges?.totals_pure?.USD && (
               <TotalLine>
-                <TotalName>TOTAL CHARGES IN USD:</TotalName>
+                <TotalName>{t("Bookings/TOTAL CHARGES IN")} USD:</TotalName>
                 <TotalValue>{operation_charges?.totals_pure?.USD}</TotalValue>
               </TotalLine>
             )}
             {operation_charges?.totals_pure?.EUR && (
               <TotalLine>
-                <TotalName>TOTAL CHARGES IN EUR:</TotalName>
+                <TotalName>{t("Bookings/TOTAL CHARGES IN")} EUR:</TotalName>
                 <TotalValue>{operation_charges?.totals_pure?.EUR}</TotalValue>
               </TotalLine>
             )}
             {operation_charges?.totals_pure?.BRL && (
               <TotalLine>
-                <TotalName>TOTAL CHARGES IN BRL:</TotalName>
+                <TotalName>{t("Bookings/TOTAL CHARGES IN")} BRL:</TotalName>
                 <TotalValue>{operation_charges?.totals_pure?.BRL}</TotalValue>
               </TotalLine>
             )}

@@ -195,6 +195,7 @@
     "CARGO": "CARGA",
     "VOLUME": "VOLUME",
     "PACKAGING": "EMBALAGEM",
+    "DESCRIPTION": "DESCRIÇÃO",
     "CARGO DESCRIPTION": "DESCROÇÃO DA CARGA",
     "NO. OF PACKS": "NO. DE EMBALAGENS",
     "PACKAGING TYPE": "TIPO DE EMBALAGEM",
@@ -204,10 +205,11 @@
     "TYPE": "TIPO",
     "CHARGE": "TIPO",
     "CURRENCY": "MOEDA",
+    "Currency": "Moeda",
     "COST": "VALOR",
     "SUBTOTAL": "SUBTOTAL",
     "SUBTOTAL IN": "",
-    "post_quote_question?": "",
+    "post_quote_question": "",
     "your_search_": "",
     "NO.": "NUMERO",
     "BOOKING WITH CARRIER": "",
@@ -248,7 +250,9 @@
     "TO BOOK IN": "",
     "PAID TO BOOK IN": "",
     "TRAVEL": "",
-    "ETA": ""
+    "ETA": "",
+    "ETD": "",
+    "TOTAL CHARGES IN": ""
   },
   "Quotes": {
     "Quotes": "Cotações",

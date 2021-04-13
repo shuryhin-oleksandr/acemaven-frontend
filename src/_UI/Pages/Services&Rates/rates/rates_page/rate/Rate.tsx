@@ -221,7 +221,7 @@ const Rate: React.FC<PropsType> = ({
       <Wrap>
         <RateTitle>{t("Freight rates/Freight rates")}</RateTitle>
         <ButtonsWrap>
-          {formMode && <SaveButton type="submit">{("My Profile/SAVE CHANGES")}</SaveButton>}
+          {formMode && <SaveButton type="submit">{t("My Profile/SAVE CHANGES")}</SaveButton>}
           <PauseButton
             type="button"
             onClick={() =>

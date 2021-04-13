@@ -23,6 +23,7 @@ import {
     HandlingTitle
 } from "../../surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -75,7 +76,7 @@ const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, se
     //         setValue(`usage_fees.${id}.charge`, e.currentTarget.value)
     //     }
     // }
-
+    const {t} = useTranslation();
     return (
         <HandlingSurchargeContainer max_height='400px'>
             <HandlingTitle>{tableName}</HandlingTitle>
@@ -88,10 +89,10 @@ const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, se
                                     {type}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    CURRENCY
+                                    {t("Bookings/CURRENCY")}
                                 </TableCell>
                                 <TableCell className={classes.cell} align="left">
-                                    CHARGE
+                                    {t("Bookings/CHARGE")}
                                 </TableCell>
                             </TableRow>
                         </TableHead>

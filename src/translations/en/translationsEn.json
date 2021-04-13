@@ -193,7 +193,8 @@
     "NO. OF DOCUMENTS": "NO. OF DOCUMENTS",
     "CARGO": "CARGO",
     "VOLUME": "VOLUME",
-    "PACKAGING": "PACKAGING ",
+    "PACKAGING": "PACKAGING",
+    "DESCRIPTION": "DESCRIPTION",
     "CARGO DESCRIPTION": "CARGO DESCRIPTION",
     "NO. OF PACKS": "NO. OF PACKS",
     "PACKAGING TYPE": "PACKAGING TYPE",
@@ -203,10 +204,11 @@
     "TYPE": "TYPE",
     "CHARGE": "CHARGE",
     "CURRENCY": "CURRENCY",
+    "Currency": "Currency",
     "COST": "COST",
     "SUBTOTAL": "SUBTOTAL",
     "SUBTOTAL IN": "SUBTOTAL IN",
-    "post_quote_question??": "Are you sure you want to post a quote?",
+    "post_quote_question": "Are you sure you want to post a quote?",
     "your_search_": "Your search did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy is protected, the agents won’t know who posted the quote until you book the offer",
     "NO.": "NO",
     "BOOKING WITH CARRIER": "BOOKING WITH CARRIER",
@@ -247,7 +249,9 @@
     "TO BOOK IN": "TO BOOK IN",
     "PAID TO BOOK IN": "PAID TO BOOK IN",
     "TRAVEL": "TRAVEL",
-    "ETA": "ETA"
+    "ETA": "ETA",
+    "ETD":"ETD",
+    "TOTAL CHARGES IN": "TOTAL CHARGES IN"
   },
   "Quotes": {
     "Quotes": "Quotes",

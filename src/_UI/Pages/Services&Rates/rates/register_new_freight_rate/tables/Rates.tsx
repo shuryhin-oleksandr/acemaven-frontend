@@ -40,6 +40,7 @@ import {Arrow} from "./surcharges-to-rate-styles";
 import close_icon from '../../../../../assets/icons/close-icon.svg'
 import show_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
 import hide_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -148,11 +149,11 @@ const Rates: React.FC<PropsType> = ({
 
 
 
-
+    const {t} = useTranslation();
     return (
         <div>
             <div style={{width: '100%', display: 'flex', alignItems: 'center', position: 'relative'}}>
-                <HandlingTitle margin_right={'20px'}>RATES</HandlingTitle>
+                <HandlingTitle margin_right={'20px'}>{t("Dashboard Menu/Rates")}</HandlingTitle>
                 {awareMessage
                 &&
                 <SpanAware>
@@ -166,7 +167,7 @@ const Rates: React.FC<PropsType> = ({
                     >
                         <img src={close_icon} alt="" style={{width: '6px'}}/>
                     </IconButton>
-                    <Title>Rate will be register as 0. Are you sure?</Title>
+                    <Title>{t("Bookings/Rate will be register as 0. Are you sure?")}</Title>
                 </SpanAware>
                 }
                 <Arrow type='button'
@@ -185,21 +186,21 @@ const Rates: React.FC<PropsType> = ({
                             {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD &&
                             <TableCell className={classes.cell}>CONTAINER TYPE </TableCell>}
                             <TableCell className={classes.cell} align="left">
-                                CURRENCY
+                                {t("Quote bid screen/CURRENCY")}
                             </TableCell>
                             {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD
                                 ? (<TableCell className={classes.cell} align="left">
-                                    RATE
+                                  {t("Quote bid screen/RATE")}
                                 </TableCell>)
                                 : (<TableCell className={classes.cell} align="left">
-                                    RATE PER W/M
+                                    {t("Quote bid screen/RATE PER W/M")}
                                 </TableCell>)
                             }
                             <TableCell className={classes.cell} align="left">
-                                START DATE
+                                {t("Surcharges/START DATE")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                EXPIRATION DATE
+                                {t("Surcharges/EXPIRATION DATE")}
                             </TableCell>
                         </TableRow>
                     </TableHead>

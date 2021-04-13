@@ -90,7 +90,7 @@ const BookingCard: React.FC<PropsType> = ({
           </GeneralWrap>
           <AdditionalWrap>
             <DateLine>
-              <DateName>{t("Dashboard/Transit Time")}</DateName>
+              <DateName>{t("Dashboard/Transit Time")}:</DateName>
               <DateValue>
                 {search_result?.freight_rate.transit_time} {t("Billing/days")}
               </DateValue>
@@ -144,7 +144,7 @@ const BookingCard: React.FC<PropsType> = ({
             (key) =>
               !!search_result?.total_surcharge[key] && (
                 <CalculationLine>
-                  <CalcName>{t("Dashboard/Surcharges in")}</CalcName>
+                  <CalcName>{t("Dashboard/Surcharges in")}:</CalcName>
                   <CalcValue>
                     {key} {search_result?.total_surcharge[key]}
                   </CalcValue>

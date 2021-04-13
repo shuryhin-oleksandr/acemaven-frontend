@@ -151,7 +151,7 @@ const ChargesToPay: React.FC<PropsType> = ({charges, payment_due_by}) => {
                  <TableTotal>
                 <TotalLine>
                     <TotalName>
-                        {t("Surcharges/TOTAL FREIGHT IN")} {charges?.total_freight_rate?.USD
+                        {t("Surcharges/TOTAL FREIGHT IN")}{" "}{charges?.total_freight_rate?.USD
                         ? "BRL"
                         : "USD" }
                     </TotalName>
@@ -163,7 +163,7 @@ const ChargesToPay: React.FC<PropsType> = ({charges, payment_due_by}) => {
                 </TotalLine>
                 <TotalLine>
                     <TotalName>
-                        {t("Bookings/CHARGES IN")} {charges?.total_surcharge?.BRL
+                        {t("Bookings/CHARGES IN")}{" "}{charges?.total_surcharge?.BRL
                         ? "BRL"
                         : "USD"
                     }

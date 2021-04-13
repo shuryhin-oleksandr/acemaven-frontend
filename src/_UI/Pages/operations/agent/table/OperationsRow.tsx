@@ -63,7 +63,8 @@ const useStyles = makeStyles({
         padding: '0',
         paddingTop:15,
         paddingBottom:10,
-        verticalAlign:"top !important"
+        verticalAlign:"top !important",
+        paddingRight: '10px'
     },
     innerRow: {
         transition: '.3s',
@@ -157,7 +158,7 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                 <TableCell className={classes.innerCell} align="left">
                     { (shipment && shipment?.date_of_departure && shipment?.date_of_arrival)
                         ? <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>
-                            ETD: {shipment?.date_of_departure} <br/> ETA: {shipment?.date_of_arrival}
+                            {t("Bookings/ETD")}: {shipment?.date_of_departure} <br/> {t("Bookings/ETA")}: {shipment?.date_of_arrival}
                           </span>
                         : '-'
                     }

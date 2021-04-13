@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
   innerRow: {
@@ -49,6 +50,7 @@ type PropsType = {
 
 const DetailedInnerRowInfo: React.FC<PropsType> = ({ isOpen, events }) => {
   const classes = useStyles();
+  const {t} = useTranslation();
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
@@ -63,17 +65,17 @@ const DetailedInnerRowInfo: React.FC<PropsType> = ({ isOpen, events }) => {
               <TableHead>
                 <TableRow>
                   <TableCell className={classes.collapseCell} align="left">
-                    Date
+                    {t("Operations/DATE")}
                   </TableCell>
                   <TableCell className={classes.collapseCell}>STATUS</TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    PORTO
+                    {t("Operations/PORTO")}
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    SHIP
+                    {t("Billing/SHIP")}
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    TRAVEL
+                    {t("Bookings/TRAVEL")}
                   </TableCell>
                 </TableRow>
               </TableHead>

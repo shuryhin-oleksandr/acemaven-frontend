@@ -45,6 +45,7 @@ export const QuoteButton = styled.div`
   align-items: center;
   margin-right: 10px;
   text-transform: capitalize;
+  text-align: center;
 
   &:hover {
     cursor: pointer;

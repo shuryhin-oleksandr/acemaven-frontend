@@ -27,6 +27,7 @@ import {
     HandlingTitle,
 } from "../../surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles({
@@ -76,10 +77,10 @@ const Additional: React.FC<PropsType> = ({
     const classes = useStyles();
     const noConditions = ShippingModeEnum.FCL === shippingMode;
 
-
+    const {t} = useTranslation();
     return (
         <HandlingSurchargeContainer max_width="662px" max_height="490px">
-            <HandlingTitle>Additional surcharges</HandlingTitle>
+            <HandlingTitle>{t("Surcharges/ADDITIONAL SURCHARGES")}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
@@ -87,14 +88,14 @@ const Additional: React.FC<PropsType> = ({
                             <TableCell className={classes.cell}/>
                             {!noConditions && (
                                 <TableCell className={classes.cell} align="left">
-                                    CONDITIONS
+                                    {t("Bookings/CONDITIONS")}
                                 </TableCell>
                             )}
                             <TableCell className={classes.cell} align="left">
-                                CURRENCY
+                                {t("Bookings/CURRENCY")}
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
-                                CHARGE
+                                {t("Bookings/CHARGE")}
                             </TableCell>
                         </TableRow>
                     </TableHead>

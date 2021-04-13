@@ -186,7 +186,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                     <OffersSpan new_offer={!!quote.unchecked_offers}>{quote.offers}</OffersSpan>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    <StatusSpan status={quote.is_active}>{quote.is_active ? 'Active' : 'Paused'}</StatusSpan>
+                    <StatusSpan status={quote.is_active}>{quote.is_active ? t('Quotes/Active') : t('Quotes/Pause')}</StatusSpan>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="center">
                     <Tooltip

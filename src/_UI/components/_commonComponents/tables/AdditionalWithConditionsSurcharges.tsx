@@ -17,6 +17,7 @@ import SurchargeRateSelect from "../select/SurchargeRateSelect";
 import {Field} from "../Input/input-styles";
 import SurchargeRateConditionsSelect from "../select/SurchargeRateConditionsSelect";
 import {createDataConditions} from "../../../../_BLL/helpers/surcharge_helpers_methods&arrays";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles({
     container: {
@@ -70,18 +71,18 @@ const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ..
             [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
             0))
         : null
-
+    const {t} = useTranslation();
     return (
         <HandlingSurchargeContainer>
-            <HandlingTitle>Additional surcharges </HandlingTitle>
+            <HandlingTitle>{t("Quote bid screen/ADDITIONAL SURCHARGES")}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.cell}>{' '}</TableCell>
-                            <TableCell className={classes.cell} align="left">CONDITIONS</TableCell>
-                            <TableCell className={classes.cell} align="left">CURRENCY</TableCell>
-                            <TableCell className={classes.cell} align="left">CHARGE</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Bookings/CONDITIONS")}</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Bookings/CURRENCY")}</TableCell>
+                            <TableCell className={classes.cell} align="left">{t("Bookings/CHARGE")}</TableCell>
 
                         </TableRow>
                     </TableHead>
@@ -103,7 +104,7 @@ const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ..
                                                 defaultValue={row.conditions[0]?.title}
                                                 as={
                                                     <SurchargeRateConditionsSelect options={row.conditions}
-                                                                         placeholder='Currency'
+                                                                         placeholder={t('Bookings/Currency')}
                                                                          maxW='80px'
                                                     />
                                                 }
@@ -115,7 +116,7 @@ const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ..
                                                 defaultValue={row.currency[0]?.id}
                                                 as={
                                                     <SurchargeRateSelect options={row.currency}
-                                                                         placeholder='Currency'
+                                                                         placeholder={t('Bookings/Currency')}
                                                                          max_width='80px'
                                                     />
                                                 }

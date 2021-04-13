@@ -61,10 +61,7 @@ type PropsType = {
         total_today: number;
         "EUR exchange rate"?: number;
         "USD exchange rate"?: number;
-        today_exchange_rate: {
-          currency: string;
-          exchange_rate: number;
-        };
+        today_exchange_rate: any;
       }
     | null
     | undefined;
@@ -187,18 +184,16 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
           Object.keys(charges_today_exchange).length > 0 &&
           charges_today_exchange?.total_today && (
             <>
-              {charges_today_exchange.today_exchange_rate.exchange_rate !==
-                1 && (
-                <TotalLine>
-                  <TotalName>
-                    Today's{" "}
-                    {charges_today_exchange.today_exchange_rate.currency}{" "}
-                    Exchange rate:
-                  </TotalName>
-                  <TotalValue>
-                    {charges_today_exchange.today_exchange_rate.exchange_rate}
-                  </TotalValue>
-                </TotalLine>
+              {Object.keys(charges_today_exchange.today_exchange_rate).map(
+                (key: any) =>
+                  charges_today_exchange.today_exchange_rate[key] !== 1 && (
+                    <TotalLine>
+                      <TotalName>Today's {key} Exchange rate:</TotalName>
+                      <TotalValue>
+                        {charges_today_exchange.today_exchange_rate[key]}
+                      </TotalValue>
+                    </TotalLine>
+                  )
               )}
               <TotalLine>
                 <TotalName font_family="Helvetica Bold, sans-serif">

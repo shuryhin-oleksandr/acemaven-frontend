@@ -38,14 +38,15 @@ export const BillingCardContainer = styled.div`
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
   padding: 28px 40px 20px 25px;
   display: flex;
-  justify-content: space-between;
   margin-bottom: 15px;
   width: 100%;
+  max-width: 1350px;
 `;
 
 export const Route = styled.div`
   display: flex;
   align-items: flex-start;
+  min-width: 350px;
 `;
 
 export const RouteText = styled.div`
@@ -75,7 +76,7 @@ export const InfoText = styled.span`
 `;
 
 export const MainInfo = styled.div`
-min-width: 320px;
+  min-width: 350px;
 `;
 
 export const Row = styled.div`

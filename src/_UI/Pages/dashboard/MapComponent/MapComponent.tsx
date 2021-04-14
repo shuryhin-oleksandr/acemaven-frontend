@@ -78,9 +78,9 @@ const MapComponent: React.FC<Interface> = (props) => {
                       {ev.aceid}
                     </InfoBoxValue>
                     {ev.booking_number && (
-                      <InfoBoxLabel style={{ marginBottom: 5 }}>
+                      <InfoBoxValue style={{ marginBottom: 5 }}>
                         {ev.booking_number}
-                      </InfoBoxLabel>
+                      </InfoBoxValue>
                     )}
                     <InfoBoxValue>
                       {ev.origin_code} - {ev.destination_code}

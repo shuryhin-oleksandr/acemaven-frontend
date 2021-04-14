@@ -8,7 +8,7 @@ const ActivateEnd:React.FC = () => {
     return (
         <ActivateContainer>
             <ActivateInner>
-                <EndText>{t("Add bank account/You have completed all fields.")}</EndText>
+                <EndText>{t("Add bank account/You have completed all the fields.")}</EndText>
                 <a style={{textDecoration: "none"}} href='/'><EndButton style={{textTransform: "uppercase"}}>{t("Add bank account/Got it!")}</EndButton></a>
             </ActivateInner>
         </ActivateContainer>

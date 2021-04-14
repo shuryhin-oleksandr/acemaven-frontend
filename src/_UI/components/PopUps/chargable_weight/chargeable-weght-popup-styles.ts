@@ -10,7 +10,7 @@ export const ChargeableWeightOuter = styled.form`
   justify-content: center;
 `
 export const ChargeableWeightInner = styled.div`
-  padding: 40px 80px;
+  padding: 40px 60px;
   width: 100%;
   max-width: 672px;
   display: flex;
@@ -63,7 +63,7 @@ export const ButtonsCalcWrapper = styled.div`
 export const WeightWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 15px;
+  margin-right: 5px;
 `
 export const WeightIcon = styled.div`
   margin-right: 9px;

@@ -206,7 +206,7 @@ const ChargesBlock: React.FC<PropsType> = ({
           Object.keys(operation_charges?.exchange_rates).length > 0 &&
           Object.keys(operation_charges?.exchange_rates).map((key: any) => (
             <TotalLine>
-              <TotalName>ACEMAVEN {key} EXCHANGE RATE:</TotalName>
+              <TotalName>ACEMAVEN {key} {t("Quote bid screen/EXCHANGE RATE")}:</TotalName>
               <TotalValue>{operation_charges?.exchange_rates[key]}</TotalValue>
             </TotalLine>
           ))}

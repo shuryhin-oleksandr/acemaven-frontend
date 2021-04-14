@@ -72,7 +72,7 @@ export const ChatExtension = styled.div`
   font-family: "Helvetica Reg", sans-serif;
   font-size: 15px;
   line-height: 17.2px;
-  padding-left: 20px;
+  padding-left: 10px;
   text-transform: uppercase;
   display: flex;
   flex-direction: column;

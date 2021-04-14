@@ -31,7 +31,7 @@ const CancelPopup: React.FC<PropsTypes> = ({ setIsOpen, things}) => {
             <CancelButton>{t("Bookings/CANCEL")}</CancelButton>
           </a>
           <CancelButton onClick={() => setIsOpen(false)}>
-            {t("CONTINUE/CONTINUE")}
+            {t("Bookings/CONTINUE")}
           </CancelButton>
         </ButtonsWrap>
       </PopupContent>

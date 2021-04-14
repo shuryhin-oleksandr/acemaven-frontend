@@ -20,7 +20,7 @@ export const HeaderOuter = styled.div`
 `
 export const ActionsWrapper = styled.div`
   display: flex;
-  max-width: 569px;
+  max-width: 600px;
   width: 100%;
   justify-content: space-between;
   align-items: center;

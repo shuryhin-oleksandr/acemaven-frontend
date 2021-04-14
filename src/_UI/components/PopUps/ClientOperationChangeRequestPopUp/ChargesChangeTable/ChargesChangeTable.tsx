@@ -59,17 +59,18 @@ const ChargesChangeTable: React.FC<PropsType> = ({
   operation_charges,
   number_of_docs,
 }) => {
+  const { t } = useTranslation();
   const column_object = [
-    { name: "VOLUME", align: "left" },
-    { name: "TYPE", align: "left" },
-    { name: "CHARGE", align: "left" },
-    { name: "CURRENCY", align: "left" },
-    { name: "COST", align: "right" },
-    { name: "SUBTOTAL", align: "right" },
+    { name: t("Bookings/VOLUME"), align: "left" },
+    { name: t("Bookings/TYPE"), align: "left" },
+    { name: t("Bookings/CHARGE"), align: "left" },
+    { name: t("Bookings/CURRENCY"), align: "left" },
+    { name: t("Bookings/COST"), align: "right" },
+    { name: t("Bookings/SUBTOTAL"), align: "right" },
   ];
 
   const classes = useStyles();
-  const { t } = useTranslation();
+
   return (
     <TableContainer className={classes.container} component={Paper}>
       <Table aria-label="simple table">
@@ -160,14 +161,14 @@ const ChargesChangeTable: React.FC<PropsType> = ({
         {operation_charges?.booking_fee &&
           Object.keys(operation_charges?.booking_fee).map((key: any) => (
             <TotalLine>
-              <TotalName>BOOKING FEE IN {key}:</TotalName>
+              <TotalName>{t("Bookings/BOOKING FEE IN")} {key}:</TotalName>
               <TotalValue>{operation_charges?.booking_fee[key]}</TotalValue>
             </TotalLine>
           ))}
         {operation_charges?.service_fee && (
           <TotalLine>
             <TotalName>
-              ACEMAVEN SERVICE FEE IN {operation_charges?.service_fee?.currency}
+              {t("Bookings/ACEMAVEN SERVICE FEE: IN")} {operation_charges?.service_fee?.currency}
               :
             </TotalName>
             <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>
@@ -178,7 +179,7 @@ const ChargesChangeTable: React.FC<PropsType> = ({
           Object.keys(operation_charges?.exchange_rates).length > 0 &&
           Object.keys(operation_charges?.exchange_rates).map((key: any) => (
             <TotalLine>
-              <TotalName>ACEMAVEN {key} EXCHANGE RATE:</TotalName>
+              <TotalName>ACEMAVEN {key} {t("Quote bid screen/EXCHANGE RATE")}:</TotalName>
               <TotalValue>{operation_charges?.exchange_rates[key]}</TotalValue>
             </TotalLine>
           ))}
@@ -202,13 +203,13 @@ const ChargesChangeTable: React.FC<PropsType> = ({
                 marginBottom: 5,
               }}
             >
-              Remaining amount to be paid to the agent
+              {t("Bookings/Remaining amount to be paid to the agent")}
             </div>
             {Object.keys(operation_charges?.totals_pure).map(
               (key) =>
                 !!operation_charges?.totals_pure[key] && (
                   <TotalLine>
-                    <TotalName>CHARGES IN {key}:</TotalName>
+                    <TotalName>{t("Bookings/CHARGES IN")} {key}:</TotalName>
                     <TotalValue>
                       {operation_charges?.totals_pure[key]}
                     </TotalValue>

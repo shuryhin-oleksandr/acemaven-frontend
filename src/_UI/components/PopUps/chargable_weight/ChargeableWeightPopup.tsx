@@ -286,7 +286,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                                 <WeightIcon><img src={length} alt=""/></WeightIcon>
                                                 <FormField error={errors?.length}
                                                            label={selectedValueLength === 'cm' ? t("Dashboard/Length") + ', cm' : t("Dashboard/Length") + ', m'}
-                                                           max_width='90px'
+                                                           max_width='110px'
                                                            placeholder={selectedValueLength === 'cm' ? '0, cm' : '0, m'}
                                                            type='number'
                                                            defaultValue={editable_cargo_group ? editable_cargo_group.length : ''}

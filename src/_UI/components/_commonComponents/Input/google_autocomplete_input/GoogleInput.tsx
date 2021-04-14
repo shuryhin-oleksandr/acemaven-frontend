@@ -102,7 +102,7 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, g
                         {errors?.google_field_name && <HelperText>Field is required</HelperText>}
                     </GoogleInputOuter>
                     <div style={{marginTop: '-15px'}}>
-                        {loading && <div>Loading...</div>}
+                        {loading && <div>{t("Booking Confirmation/Loading...")}</div>}
                         {suggestions.map((suggestion, index) => {
                             const className = suggestion.active
                                 ? 'suggestion-item--active'

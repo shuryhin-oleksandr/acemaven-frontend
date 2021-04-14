@@ -202,7 +202,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
         {
           (adding_surcharge_error && adding_surcharge_error.length > 0)
         && <ErrorServerMessage style={{textAlign: 'start'}}>
-          Charge has to be equal or grater than zero and includes maximum 15 symbols
+            {t("Surcharges/Charge_15numbers")}
         </ErrorServerMessage>
         }
         {usageFees.length > 0 && <UsageFees control={control} setValue={setValue}

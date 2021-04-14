@@ -53,7 +53,7 @@ const CargoBlock: React.FC<PropsType> = ({operation_shipping_type, operation_car
                             <InfoRowLabel style={{marginRight: '5px'}}>
                               {t("Bookings/CONTAINER FREE TIME")}:
                                 <span style={{fontFamily: 'Helvetica Light', color: '#000000', marginLeft:8}}>
-                        {free_time}{' '}{free_time === 1 ? 'day' : 'days'}</span>
+                        {free_time}{' '}{free_time === 1 ? t('Billing/day') : t('Billing/days')}</span>
                             </InfoRowLabel>
                         </div>
                         }

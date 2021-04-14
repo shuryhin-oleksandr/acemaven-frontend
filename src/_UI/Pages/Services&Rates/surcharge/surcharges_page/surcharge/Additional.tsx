@@ -89,7 +89,7 @@ const Additional: React.FC<PropsType> = ({
   };
   const {t} = useTranslation();
   return (
-    <HandlingSurchargeContainer max_height="440px" max_width="948px ">
+    <HandlingSurchargeContainer max_height="440px" max_width="1000px ">
       <HandlingTitle>{t("Quote bid screen/ADDITIONAL SURCHARGES")}</HandlingTitle>
       <TableContainer className={classes.container} component={Paper}>
         <Table className={classes.table} aria-label="simple table">
@@ -106,7 +106,7 @@ const Additional: React.FC<PropsType> = ({
                 {t("Bookings/CONDITIONS")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
-                {t("Surcharges/UPDATE BY")}
+                {t("Surcharges/UPDATED BY")}
               </TableCell>
               <TableCell className={classes.cell} align="left">
                 {t("Surcharges/ON")}

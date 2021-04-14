@@ -33,7 +33,7 @@
     "Add User": "Add User",
     "Cancel": "Skip",
     "Are you sure you want to cancel": "Are you sure you want to cancel",
-    "Fulfill the form at the left": "Fulfill the form at the left"
+    "Fulfill the form at the left": "Complete the form on the left"
   },
   "Add bank account": {
     "Add bank account": "Add bank account",
@@ -67,7 +67,6 @@
     "New Requests": "New Requests",
     "Request": "Request",
     "Requests": "Requests",
-    "Chats": "Chats",
     "Quotes": "Quotes",
     "Volume": "Volume",
     "Departure Date": "Departure Date",
@@ -88,8 +87,8 @@
     "Status": "Status",
     "LATEST TRACKING UPDATES": "LATEST TRACKING UPDATES",
     "LATEST TRACKING STATUS UPDATES": "LATEST SHIPMENT UPDATES",
-    "latest quotes received": "latest quotes received",
-    "latest tracking Status update": "latest tracking Status update",
+    "latest quotes received": "LATEST QUOTES RECEIVED",
+    "latest tracking Status update": "LATEST TRACKING UPDATES",
     "Please enter the details of your cargo": "Please enter the details of your cargo",
     "Packaging type": "Packaging type",
     "ULD type": "ULD type",
@@ -114,11 +113,11 @@
     "**Will be displayed after booking confirmation": "**Will be displayed after booking confirmation",
     "***Will be displayed after payment is completed": "***Will be displayed after payment is completed",
     "There are no operations pending of booking fee payment.": "There are no operations pending of booking fee payment.",
-    "Map is not available": "Map is not available.",
+    "Map is not available": "Map is not available at this time.",
     "There are no operations in progress.": "There are no operations in progress.",
     "There are no completed operations.": "There are no completed operations.",
     "There are no new messages": " There are no new messages",
-    "Today Exchange Rate": "Today Exchange Rate",
+    "Today Exchange Rate": "Today's Exchange Rate",
     "There are no notifications yet": "There are no notifications yet",
     "On service since": "On service since",
     "Operations done": "Operations done"
@@ -207,14 +206,13 @@
     "Currency": "Currency",
     "COST": "COST",
     "SUBTOTAL": "SUBTOTAL",
-    "SUBTOTAL IN": "SUBTOTAL IN",
-    "post_quote_question": "Are you sure you want to post a quote?",
+    "post_quote_question": "Do you want to post this quote?",
     "your_search_": "Your search did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy is protected, the agents won’t know who posted the quote until you book the offer",
     "NO.": "NO",
-    "BOOKING WITH CARRIER": "BOOKING WITH CARRIER",
+    "BOOKING WITH CARRIER": "CARRIER BOOKING NUMBER",
     "UPDATE": "UPDATE",
-    "CONFIRM CHARGES": "CONFIRM CHARGES",
-    "TAKE OVER": "TAKE OVER",
+    "CONFIRM CHARGES": "CONFIRM CHANGES",
+    "TAKE OVER": "TAKE OVER OPERATION",
     "REQUEST CHANGE": "REQUEST CHANGE",
     "COMPLETE": "COMPLETE",
     "TRIP": "TRIP",
@@ -226,32 +224,32 @@
     "CONTAINER FREE TIME": "CONTAINER FREE TIME",
     "Message": "Message...",
     "GET ASSISTANCE": "GET ASSISTANCE",
-    "to Book": "to Book",
+    "to Book": "To Book",
     "Booking Fee": "Booking Fee",
     "BOOKING FEE IN": "BOOKING FEE IN",
-    "Choose month": "Choose month",
-    "Do you want to reject the booking?": "Do you want to reject the booking?",
-    "Please, confirm_booking": "Please, confirm that the company is rejecting the booking request.",
+    "Choose month": "Select month",
+    "Do you want to reject the booking?": "Do you want to reject the booking request?",
+    "Please, confirm_booking": "Please, confirm that your company is rejecting the booking request.",
     "Comments": "Comments",
     "Rejection reason":"Rejection reason",
-    "The request will be moved to the operations.": "The request will be moved to the operations.",
-    "You can find it in mine section.": "You can find it in mine section.",
+    "The request will be moved to the operations.": "The request will be moved to the Operations section.",
+    "You can find it in mine section.": "You can find it in your MINE list.",
     "WEEK": "WEEK",
-    "There are no requests at the moment": "There are no requests at the moment. When a client send a booking request they will appear in this section.",
+    "There are no requests at the moment": "There are no requests at the moment. When a client sends a booking request they will appear in this section.",
     "CONTINUE": "CONTINUE",
     "ACEMAVEN SERVICE FEE: IN": "ACEMAVEN SERVICE FEE IN",
     "You can choose partner or specify a new one.": "You can choose partner or specify a new one.",
     "Documentation": "Documentation",
-    "TOTALS IN": "TOTALS IN",
     "CONDITIONS": "CONDITIONS",
-    "Rate will be register as 0. Are you sure?": "Rate will be register as 0. Are you sure?",
+    "Rate will be register as 0. Are you sure?": "This freight rate will be registered with 0 value. Do you confirm this?",
     "MODE": "MODE",
     "TO BOOK IN": "TO BOOK IN",
     "PAID TO BOOK IN": "PAID TO BOOK IN",
     "TRAVEL": "TRAVEL",
     "ETA": "ETA",
     "ETD":"ETD",
-    "TOTAL CHARGES IN": "TOTAL CHARGES IN"
+    "TOTAL CHARGES IN": "TOTAL CHARGES IN",
+    "Remaining amount to be paid to the agent": "Remaining amount to be paid to the agent"
   },
   "Quotes": {
     "Quotes": "Quotes",
@@ -293,8 +291,8 @@
     "RATE PER W/M":"RATE PER W/M",
     "Open": "Open",
     "Offer submitted": "Offer submitted",
-    "Carrier company name": "Carrier company name",
-    "I want to disclose the carrier info to the customers": "I want to disclose the carrier info to the customers",
+    "Carrier company name": "Carrier",
+    "I want to disclose the carrier info to the customers": "Disclose carrier info to the clients in search results",
     "Total Today": "Total Today",
     "Today’s": "Today’s",
     "EXCHANGE RATE": "EXCHANGE RATE",
@@ -328,13 +326,13 @@
     "Cargo Pick Up Location": "Cargo Pick Up Location",
     "Confirm": "Confirm",
     "Cancel": "Cancel",
-    "This action_recalculate": "This action should recalculate the charges shown in the operation based on the new changes.",
+    "This action_recalculate": "This action will recalculate the costs of the operation based on the new changes.",
     "Documents": "Documents",
     "Loading...": "Loading...",
     "Actual Time of Departure": "Actual Time of Departure",
     "Actual Time of Arrival": "Actual Time of Arrival",
-    "Are you sure you want to take over this booking?": "Are you sure you want to take over this booking?confirm",
-    "Are you sure you want to cancel users adding?": "Are you sure you want to cancel users adding?",
+    "Are you sure you want to take over this booking?": "Are you sure you want to take over this operation?",
+    "Are you sure you want to cancel users adding?": "Are you sure you want to quit user registration?",
     "Are you sure you want to cancel bank accounts adding?": "Are you sure you want to cancel bank accounts adding?"
   },
   "Operations": {
@@ -361,7 +359,7 @@
     "COMPLETE OPERATION": "SET AS COMPLETE",
     "All": "All",
     "My": "My",
-    "FLIGHT": "FLIGHT",
+    "FLIGHT": "FLIGHT NUMBER",
     "location": "location",
     "Location": "Location",
     "Update information in the Operation": "Update information in the Operation",
@@ -375,7 +373,7 @@
     "Cancellation reason": "Cancellation reason",
     "Your comments": "Your comments",
     "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ": "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ",
-    "Select status": "Select status",
+    "Select status": "Select milestone",
     "Add comment...": "Add comment..."
   },
   "Change Request": {
@@ -427,8 +425,9 @@
     "CANCEL BOOKING": "CANCEL BOOKING",
     "Payment process": "Payment process",
     "days": "days",
+    "day": "day",
     "Mesaage_Bil_Allow":"Allow a few moments after making the payment while we process it. If this doesn’t happen right away, you can still close this window and we will confirm the transaction and send the booking request to the agent once it’s completed.",
-    "Are you sure you want to cancel booking": "Are you sure you want to cancel booking"
+    "Are you sure you want to cancel booking": "Are you sure that you want to cancel this shipment?"
   },
   "Surcharges": {
     "Surcharges": "Surcharges",
@@ -470,9 +469,9 @@
     "LOCATION": "LOCATION",
     "DIRECTION": "DIRECTION",
     "Direction": "Direction",
-    "Rate_15symbols": "Rate has to be equal or grater than zero and includes maximum 15 symbols",
-    "Please_fields": "Please, complete the parameters of the freight rate for the value fields to appear",
-    "Charge_15numbers": "Charge has to be equal or grater than 0 and includes max 15 numbers."
+    "Rate_15symbols": "Rate has to be equal or greater than 0 and have a maximum of 5 digits and 2 decimals",
+    "Please_fields": "Please, complete the freight parameters to display the corresponding fields of the rates.",
+    "Charge_15numbers": "Charge has to be equal or grater than zero and includes maximum 15 symbols"
   },
   "Freight rates": {
     "Freight rates": "Freight rates",
@@ -510,16 +509,15 @@
     "DETAILS": "DETAILS",
     "TOTAL W/M": "TOTAL W/M",
     "BEFORE REQUEST": "BEFORE REQUEST",
-    "AFTER REQUEST": "BEFORE REQUEST",
-    "Will your company be the shipper?": "Will your company be the shipper?",
+    "AFTER REQUEST": "AFTER REQUEST",
+    "Will your company be the shipper?": "Is your company be the shipper?",
     "The booking request will be sent to the agent.": "The booking request will be sent to the agent.",
-    "": "Your booking request is still pending of payment, the person in charge for processing payments in your company will be notified to process it so it can be sent to the agent."
+    "Your_Booking": "Your booking request is still pending of payment, the person in charge for processing payments in your company will be notified to process it so it can be sent to the agent."
   },
   "Company profile": {
     "Company profile": "Company profile",
     "Rating": "Rating",
-    "Reviews": "Reviews",
-    "Agent Rating": "Agent Rating"
+    "Reviews": "Reviews"
   },
   "Reviews": {
     "Reviews": "Reviews",
@@ -529,7 +527,7 @@
     "SUBMIT": "SUBMIT"
   },
   "Partners table": {
-    "Partners table": "Partners Table",
+    "Partners table": "Shipment partners table",
     "Partner companies for shipments": "Partner companies for shipments",
     "Partners": "Partners"
   },
@@ -553,7 +551,7 @@
     "Payment due by": "Payment due",
     "Operation Complete": "Operation Complete",
     "Operation Canceled by Agent": "Operation Canceled by Agent",
-    "Operation Canceled by the System": "Operation Canceled by the System",
+    "Operation Canceled by the System": "Shipment Canceled by the Platform",
     "Awaiting Payment": "Awaiting Payment"
   },
   "Role": {
@@ -569,7 +567,7 @@
   "Email notifications": {
     "Email notifications": "Email Notifications",
     "Sea Import Shipment Arrival Alert": "Sea Import Shipment Arrival Alert",
-    "Will alert_Sea": "Will alert you a specific number of days before the Estimated Time of Arrival of an import shipment.",
+    "Will alert_Sea": "Will send you a notification a specific number of days before the Estimated Time of Arrival date of an import shipment (0 will be no notification).",
     "Export Shipment Arrival Alert": "Export Shipment Arrival Alert",
     "Will alert_Export": "Will alert you when an export shipment arrives to its destination.",
     "Operation Details Change": "Shipment Details Change",
@@ -579,7 +577,7 @@
     "Number of days_Surcharge": "Number of days to notify before a surcharge expires",
     "Number of days_Freight": "Number of days to notify before a freight rate expires",
     "Import Shipment Departure Alert": "Import Shipment Departure Alert",
-    "Will alert_Import": "Will alert when the departure date of and import shipment of you is set.",
+    "Will alert_Import": "Will notify you when the departure date of an import shipment is set.",
     "YES": "YES",
     "NO": "NO",
     "OK": "OK",

@@ -69,8 +69,8 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
     const {t} = useTranslation();
     return (
         <div style={{width:"100%", borderBottom:"1px solid #BDBDBD"}}>
-        <HandlingSurchargeContainer style={{maxWidth: '834px'}}>
-            <HandlingTitle>{t("Surcharges/HANDLING")} ({("Surcharges/Surcharges")})</HandlingTitle>
+        <HandlingSurchargeContainer style={{maxWidth: '1000px'}}>
+            <HandlingTitle>{t("Surcharges/HANDLING")} ({t("Surcharges/Surcharges")})</HandlingTitle>
             {/*<ScrollbarStyled {...{style: { height: 300 }}}>*/}
                 <TableContainer className={classes.container} component={Paper}>
                     <Table stickyHeader className={classes.table} aria-label="simple table">
@@ -79,7 +79,7 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
                                 <TableCell className={classes.cell}>{t("Surcharges/CONTAINER TYPE")}</TableCell>
                                 <TableCell className={classes.cell} align="left">{t("Bookings/CURRENCY")}</TableCell>
                                 <TableCell className={classes.cell} align="left">{t("Bookings/CHARGE")}</TableCell>
-                                <TableCell className={classes.cell} align="left">{t("Surcharges/UPDATE BY")}</TableCell>
+                                <TableCell className={classes.cell} align="left">{t("Surcharges/UPDATED BY")}</TableCell>
                                 <TableCell className={classes.cell} align="left">{t("Surcharges/ON")}</TableCell>
                             </TableRow>
                         </TableHead>

@@ -135,7 +135,7 @@ const BookingCard: React.FC<PropsType> = ({
             (key) =>
               !!search_result?.total_freight_rate[key] && (
                 <CalculationLine>
-                  <CalcName>{t("Dashboard/Total Freight")} in:</CalcName>
+                  <CalcName>{t("Dashboard/Total Freight")}:</CalcName>
                   <CalcValue>
                     {key} {search_result?.total_freight_rate[key]}
                   </CalcValue>

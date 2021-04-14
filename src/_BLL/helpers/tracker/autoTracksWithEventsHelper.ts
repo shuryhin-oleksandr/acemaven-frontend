@@ -31,7 +31,6 @@ export const autoTrackWithEventsHelper = (operations_list: any) => {
 
 export const manualTrackWithEventsHelper = (operations_list: any) => {
     let operations_with_tracking = operations_list.filter((o: any) => o.tracking?.length > 0 && !o.automatic_tracking)
-    console.log("operations_with_tracking",operations_with_tracking);
     return operations_with_tracking.map((o:OperationType) => ({
         ...o.tracking_initial,
         aceid: o.aceid,

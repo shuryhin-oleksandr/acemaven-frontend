@@ -39,7 +39,8 @@ import {
 //icons
 import close from "../../../assets/icons/close-icon.svg";
 import { useTranslation } from "react-i18next";
-import { Container, Message } from "./payment/payment-styles";
+import { Container, Message, QRWrapper } from "./payment/payment-styles";
+import QRCode from "qrcode.react";
 
 const useStyles = makeStyles({
   container: {
@@ -171,37 +172,55 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
         )}
         {bookingStep === "fee-table" && (
           <HiddenWrapper>
-            {!new_total?.charges?.service_fee && (
+            {!new_total?.charges?.service_fee ? (
               <Message>
                 {t(
                   "Booking process/The booking request will be sent to the agent."
                 )}
               </Message>
+            ) : !new_total.is_paid && currentUser?.roles?.includes("client") ? (
+              <Message>{t("Booking process/Your_Booking")}</Message>
+            ) : (
+              <>
+                <Message>{t("Billing/Mesaage_Bil_Allow")}</Message>
+                <QRWrapper>
+                  <QRCode
+                    renderAs="svg"
+                    value={
+                      new_total.transactions &&
+                      new_total.transactions.length > 0
+                        ? new_total.transactions[0].qr_code
+                        : ""
+                    }
+                  />
+                </QRWrapper>
+              </>
             )}
+
             <div style={{ display: "flex" }}>
               <HiddenTitle>{t("Bookings/CHARGES")}</HiddenTitle>
-              {!!new_total?.charges?.service_fee ? (
-                <BaseButton
-                  onClick={() => {
-                    dispatch(bookingActions.changeBookingStep("payment"));
-                  }}
-                  type="button"
-                >
-                  {t("Billing/PAY")}
-                </BaseButton>
-              ) : (
-                <BaseButton
-                  onClick={() => {
-                    setBookingPopupVisible(false);
-                    setWidgetsVisible && setWidgetsVisible(true);
-                    newSearch && newSearch();
-                    props.close_totals && props.close_totals();
-                  }}
-                  type="button"
-                >
-                  {t("Complete Profile/COMPLETE ACCOUNT")}
-                </BaseButton>
-              )}
+              {/*{!!new_total?.charges?.service_fee ? (*/}
+              {/*  <BaseButton*/}
+              {/*    onClick={() => {*/}
+              {/*      dispatch(bookingActions.changeBookingStep("payment"));*/}
+              {/*    }}*/}
+              {/*    type="button"*/}
+              {/*  >*/}
+              {/*    {t("Billing/PAY")}*/}
+              {/*  </BaseButton>*/}
+              {/*) : (*/}
+              <BaseButton
+                onClick={() => {
+                  setBookingPopupVisible(false);
+                  setWidgetsVisible && setWidgetsVisible(true);
+                  newSearch && newSearch();
+                  props.close_totals && props.close_totals();
+                }}
+                type="button"
+              >
+                {t("Complete Profile/COMPLETE ACCOUNT")}
+              </BaseButton>
+              {/*)}*/}
             </div>
             <HiddenTable>
               <TableContainer className={classes.container} component={Paper}>
@@ -392,23 +411,23 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             </TableTotal>
           </HiddenWrapper>
         )}
-        {bookingStep === "payment" && (
-          <PaymentContainer
-            setBookingPopupVisible={setBookingPopupVisible}
-            setWidgetsVisible={setWidgetsVisible}
-            newSearch={newSearch}
-            close_totals={props.close_totals}
-            current_user={currentUser}
-            new_total_paid={new_total.is_paid}
-            quotes_mode={props.quotes_mode}
-            transactions={new_total.transactions}
-            service_fee={
-              new_total?.charges?.service_fee
-                ? new_total?.charges?.service_fee
-                : null
-            }
-          />
-        )}
+        {/*{bookingStep === "payment" && (*/}
+        {/*  <PaymentContainer*/}
+        {/*    setBookingPopupVisible={setBookingPopupVisible}*/}
+        {/*    setWidgetsVisible={setWidgetsVisible}*/}
+        {/*    newSearch={newSearch}*/}
+        {/*    close_totals={props.close_totals}*/}
+        {/*    current_user={currentUser}*/}
+        {/*    new_total_paid={new_total.is_paid}*/}
+        {/*    quotes_mode={props.quotes_mode}*/}
+        {/*    transactions={new_total.transactions}*/}
+        {/*    service_fee={*/}
+        {/*      new_total?.charges?.service_fee*/}
+        {/*        ? new_total?.charges?.service_fee*/}
+        {/*        : null*/}
+        {/*    }*/}
+        {/*  />*/}
+        {/*)}*/}
       </PopupContent>
     </PopupContainer>
   );

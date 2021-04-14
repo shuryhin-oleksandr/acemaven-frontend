@@ -496,7 +496,7 @@
     "AFTER REQUEST": "BEFORE REQUEST",
     "Will your company be the shipper?": "Will your company be the shipper?",
     "The booking request will be sent to the agent.": "The booking request will be sent to the agent.",
-    "": "Your booking request is still pending of payment, the person in charge for processing payments in your company will be notified to process it so it can be sent to the agent."
+    "Your_Booking": "Your booking request is still pending of payment, the person in charge for processing payments in your company will be notified to process it so it can be sent to the agent."
   },
   "Company profile": {
     "Company profile": "Company profile",

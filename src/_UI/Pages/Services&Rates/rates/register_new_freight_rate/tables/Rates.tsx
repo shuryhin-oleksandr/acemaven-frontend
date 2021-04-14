@@ -235,7 +235,7 @@ const Rates: React.FC<PropsType> = ({
                                                         defaultValue={currency[0].id}
                                                         as={
                                                             <SurchargeRateSelect options={currency}
-                                                                                 max_width='70px'
+                                                                                 max_width='80px'
                                                             />
                                                         }
                                             />

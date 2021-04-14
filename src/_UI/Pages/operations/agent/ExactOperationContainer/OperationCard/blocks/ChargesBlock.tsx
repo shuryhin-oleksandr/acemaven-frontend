@@ -19,7 +19,7 @@ import {
   TotalName,
   TotalValue,
 } from "../../../../../dashboard/search/search_rate_card/search-card-styles";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { AppOperationBookingStatusesType } from "../../../../../../../_BLL/types/operations/operationsTypes";
 
 const useStyles = makeStyles({
@@ -62,10 +62,7 @@ type PropsType = {
         total_today: number;
         "EUR exchange rate"?: number;
         "USD exchange rate"?: number;
-        today_exchange_rate: {
-          currency: string;
-          exchange_rate: number;
-        };
+        today_exchange_rate: any;
       }
     | null
     | undefined;
@@ -80,7 +77,7 @@ const ChargesBlock: React.FC<PropsType> = ({
 }) => {
   const classes = useStyles();
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const column_object = [
     { name: t("Bookings/VOLUME"), align: "left" },
@@ -175,11 +172,14 @@ const ChargesBlock: React.FC<PropsType> = ({
       </HiddenTable>
       <TableTotal>
         {operation_charges?.totals &&
+          operation_charges.service_fee &&
           Object.keys(operation_charges?.totals).map(
             (key: any) =>
               !!operation_charges?.totals[key] && (
                 <TotalLine>
-                  <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
+                  <TotalName>
+                    {t("Bookings/CHARGES IN")} {key}:
+                  </TotalName>
                   <TotalValue>{operation_charges?.totals[key]}</TotalValue>
                 </TotalLine>
               )
@@ -188,19 +188,28 @@ const ChargesBlock: React.FC<PropsType> = ({
         {operation_charges?.booking_fee &&
           Object.keys(operation_charges?.booking_fee).map((key: any) => (
             <TotalLine>
-              <TotalName>{t("Bookings/BOOKING FEE IN")}{" "}{key}:</TotalName>
+              <TotalName>{t("Bookings/BOOKING FEE IN")} {key}:</TotalName>
               <TotalValue>{operation_charges?.booking_fee[key]}</TotalValue>
             </TotalLine>
           ))}
         {operation_charges?.service_fee && (
           <TotalLine>
             <TotalName>
-              {t("Bookings/ACEMAVEN SERVICE FEE: IN")}{" "}{operation_charges?.service_fee?.currency}
+              {t("Bookings/ACEMAVEN SERVICE FEE: IN")} {operation_charges?.service_fee?.currency}
               :
             </TotalName>
             <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>
           </TotalLine>
         )}
+
+        {operation_charges?.exchange_rates &&
+          Object.keys(operation_charges?.exchange_rates).length > 0 &&
+          Object.keys(operation_charges?.exchange_rates).map((key: any) => (
+            <TotalLine>
+              <TotalName>ACEMAVEN {key} EXCHANGE RATE:</TotalName>
+              <TotalValue>{operation_charges?.exchange_rates[key]}</TotalValue>
+            </TotalLine>
+          ))}
 
         {operation_charges?.pay_to_book && (
           <TotalLine>
@@ -230,7 +239,7 @@ const ChargesBlock: React.FC<PropsType> = ({
               (key) =>
                 !!operation_charges?.totals_pure[key] && (
                   <TotalLine>
-                    <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
+                    <TotalName>{t("Bookings/CHARGES IN")} {key}:</TotalName>
                     <TotalValue>
                       {operation_charges?.totals_pure[key]}
                     </TotalValue>
@@ -245,18 +254,16 @@ const ChargesBlock: React.FC<PropsType> = ({
           Object.keys(charges_today_exchange).length > 0 &&
           charges_today_exchange?.total_today && (
             <>
-              {charges_today_exchange.today_exchange_rate.exchange_rate !==
-                1 && (
-                <TotalLine>
-                  <TotalName>
-                    {t("Quote bid screen/Today’s")}{" "}
-                    {charges_today_exchange.today_exchange_rate.currency}{" "}
-                    {t("Billing/Exchange Rate")}:
-                  </TotalName>
-                  <TotalValue>
-                    {charges_today_exchange.today_exchange_rate.exchange_rate}
-                  </TotalValue>
-                </TotalLine>
+              {Object.keys(charges_today_exchange.today_exchange_rate).map(
+                (key: any) =>
+                  charges_today_exchange.today_exchange_rate[key] !== 1 && (
+                    <TotalLine>
+                      <TotalName>{t("Quote bid screen/Today’s")} {key} {t("Billing/Exchange Rate")}:</TotalName>
+                      <TotalValue>
+                        {charges_today_exchange.today_exchange_rate[key]}
+                      </TotalValue>
+                    </TotalLine>
+                  )
               )}
               <TotalLine>
                 <TotalName font_family="Helvetica Bold, sans-serif">

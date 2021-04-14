@@ -31,7 +31,7 @@ import {
 //icons
 import ship from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import plane from "../../../../assets/icons/rates&services/plane-surcharge.svg";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 type PropsType = {
   button_display: boolean;
@@ -56,7 +56,7 @@ const BookingCard: React.FC<PropsType> = ({
   ...props
 }) => {
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <UpperWrapper
       onClick={() =>
@@ -84,7 +84,7 @@ const BookingCard: React.FC<PropsType> = ({
                 {search_result?.freight_rate.destination.display_name}
               </Direction>
               {search_result?.freight_rate.carrier !== "disclosed" && (
-                <Carrier>*{search_result?.freight_rate.carrier}</Carrier>
+                <Carrier>{search_result?.freight_rate.carrier}</Carrier>
               )}
             </DirectionWrap>
           </GeneralWrap>
@@ -122,7 +122,9 @@ const BookingCard: React.FC<PropsType> = ({
                   : "5px"
               }
             >
-              <CalcName>{t("Dashboard/Freight")} x {c.cargo_type} in:</CalcName>
+              <CalcName>
+                {t("Dashboard/Freight")} x {c.cargo_type} in:
+              </CalcName>
               <CalcValue>
                 {c.freight.currency} {c.freight.subtotal}
               </CalcValue>

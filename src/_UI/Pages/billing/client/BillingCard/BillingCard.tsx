@@ -31,7 +31,12 @@ import {
 import plane_surcharge from "../../../../assets/icons/rates&services/plane-surcharge.svg";
 import ship_surcharge from "../../../../assets/icons/rates&services/ship-surcharge.svg";
 import IconLocation from "../../../../assets/icons/location_blue.svg";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
+import {
+  TotalLine,
+  TotalName,
+  TotalValue,
+} from "../../../dashboard/search/search_rate_card/search-card-styles";
 
 type PropTypes = {
   billing: BillingOperationType;
@@ -55,7 +60,7 @@ const BillingCard: React.FC<PropTypes> = ({
   let current_user_role = useSelector(
     (state: AppStateType) => state.profile.authUserInfo?.roles
   );
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <CardContainer>
       {hasOriginCoordinates && hasDestinationCoordinates ? (
@@ -130,24 +135,20 @@ const BillingCard: React.FC<PropTypes> = ({
         {billing.status !== "Operation Complete" && (
           <ChargesBlock>
             <div style={{ width: "45%" }}>
-              {!!billing.charges.totals.USD && (
-                <ChargeRow>
-                  <ChargeTitle>{t("Bookings/CHARGES IN")}{" "} USD</ChargeTitle>
-                  <ChargeValue>{billing.charges.totals.USD}</ChargeValue>
-                </ChargeRow>
-              )}
-              {!!billing.charges.totals.BRL && (
-                <ChargeRow>
-                  <ChargeTitle>{t("Bookings/CHARGES IN")}{" "}BRL</ChargeTitle>
-                  <ChargeValue>{billing.charges.totals.BRL}</ChargeValue>
-                </ChargeRow>
-              )}
-              {!!billing.charges.totals.EUR && (
-                <ChargeRow>
-                  <ChargeTitle>{t("Bookings/CHARGES IN")}{" "}EUR</ChargeTitle>
-                  <ChargeValue>{billing.charges.totals.EUR}</ChargeValue>
-                </ChargeRow>
-              )}
+              {billing.charges?.totals &&
+                Object.keys(billing.charges?.totals).map(
+                  (key: any) =>
+                    !!billing.charges?.totals[key] && (
+                      <ChargeRow>
+                        <ChargeTitle>
+                          {t("Bookings/CHARGES IN")} {key}:
+                        </ChargeTitle>
+                        <ChargeValue>
+                          {billing.charges?.totals[key]}
+                        </ChargeValue>
+                      </ChargeRow>
+                    )
+                )}
             </div>
             <div style={{ width: "45%", position: "relative" }}>
               <ToBookText>{t("Bookings/to Book")}:</ToBookText>

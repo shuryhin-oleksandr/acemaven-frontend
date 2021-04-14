@@ -212,9 +212,8 @@ export const TotalName = styled.div<{font_family?: string}>`
   font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Reg, sans-serif'} ;
   font-size: 14px;
   line-height: 16.5px;
-  margin-right: 120px;
+  margin-right: 10px;
   text-align: right;
-  //width: 90%;
   display: flex;
   justify-content: flex-end;
 `;

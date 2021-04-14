@@ -47,7 +47,7 @@ const NoSearchResultCard: React.FC<PropsType> = ({
           </>
         ) : (
           <NoSearchText>
-            {t("Bookings/your_search_")}
+            {t("Bookings/your_search_")}?
           </NoSearchText>
         )}
 

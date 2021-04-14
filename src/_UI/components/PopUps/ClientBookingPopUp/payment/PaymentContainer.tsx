@@ -4,7 +4,6 @@ import { VoidFunctionType } from "src/_BLL/types/commonTypes";
 import { IAuthUserInfo } from "../../../../../_BLL/types/authTypes";
 import ActiveQRPayment from "./ActiveQRPayment";
 import { TransactionType } from "../../../../../_BLL/types/bookingTypes";
-import WithoutServiceFeePayment from "./WithoutServiceFeePayment";
 
 type PropsType = {
   setBookingPopupVisible: (value: boolean) => void;
@@ -26,16 +25,6 @@ const PaymentContainer: React.FC<PropsType> = ({
   service_fee,
   ...props
 }) => {
-  if (!service_fee) {
-    return (
-      <WithoutServiceFeePayment
-        setBookingPopupVisible={setBookingPopupVisible}
-        setWidgetsVisible={setWidgetsVisible}
-        newSearch={newSearch}
-        close_totals={props.close_totals}
-      />
-    );
-  }
 
   return !props.new_total_paid &&
     props.current_user?.roles?.includes("client") ? (

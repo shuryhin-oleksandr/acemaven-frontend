@@ -20,14 +20,19 @@ import air_type from "../../../../assets/icons/rates&services/plane-surcharge.sv
 import { BillingOperationType } from "../../../../../_BLL/types/billing/billingTypes";
 import moment from "moment";
 import { ShippingTypesEnum } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
+import {
+  TotalLine,
+  TotalName,
+  TotalValue,
+} from "../../../dashboard/search/search_rate_card/search-card-styles";
 
 type PropsType = {
   billing: BillingOperationType;
 };
 
 const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
-  const {t} =useTranslation();
+  const { t } = useTranslation();
   return (
     <BillingCardContainer>
       <Route>
@@ -69,24 +74,18 @@ const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
               "DD-MM-YYYY"
             ).format("MMMM Do  YYYY")} :`}</DueToText>
           )}
-          {!!billing.charges.totals.USD && (
-            <ChargeRow>
-              <ChargeTitle>{t("Bookings/CHARGES IN")} USD</ChargeTitle>
-              <ChargeValue>{billing.charges.totals.USD.toFixed(2)}</ChargeValue>
-            </ChargeRow>
-          )}
-          {!!billing.charges.totals.BRL && (
-            <ChargeRow>
-              <ChargeTitle>{t("Bookings/CHARGES IN")} BRL</ChargeTitle>
-              <ChargeValue>{billing.charges.totals.BRL.toFixed(2)}</ChargeValue>
-            </ChargeRow>
-          )}
-          {!!billing.charges.totals.EUR && (
-            <ChargeRow>
-              <ChargeTitle>{t("Bookings/CHARGES IN")} EUR</ChargeTitle>
-              <ChargeValue>{billing.charges.totals.EUR.toFixed(2)}</ChargeValue>
-            </ChargeRow>
-          )}
+          {billing.charges?.totals &&
+            Object.keys(billing.charges?.totals).map(
+              (key: any) =>
+                !!billing.charges?.totals[key] && (
+                  <TotalLine>
+                    <TotalName>
+                      {t("Bookings/CHARGES IN")} {key}:
+                    </TotalName>
+                    <TotalValue>{billing.charges?.totals[key]}</TotalValue>
+                  </TotalLine>
+                )
+            )}
         </div>
       </ChargesBlock>
     </BillingCardContainer>

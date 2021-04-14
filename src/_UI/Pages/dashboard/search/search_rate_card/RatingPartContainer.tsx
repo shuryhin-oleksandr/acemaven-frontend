@@ -31,7 +31,7 @@ const RatingPartContainer: React.FC<PropsType> = ({
   };
   return (
     <RatingPart>
-      <CompanyName>**{company?.name}</CompanyName>
+      <CompanyName>{company?.name}</CompanyName>
       {company.rating && (
         <StarsWrapper
           onClick={() => ratingHandler()}

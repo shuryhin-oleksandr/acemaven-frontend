@@ -279,6 +279,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                                 name="comment"
                                                 error={errors?.comment}
                                                 max_width={"100%"}
+                                                marginBottom={"12px"}
                                             />
                                             : <ManualTrackingCalendarChoice control={control}
                                                                             date_name_first='date'

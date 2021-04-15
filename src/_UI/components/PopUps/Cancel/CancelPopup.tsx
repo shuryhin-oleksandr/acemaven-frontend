@@ -5,6 +5,7 @@ import {
   CancelTitle,
   PopupContainer,
   PopupContent,
+  ContinueButton
 } from "./cancel-popup-styles";
 import close from "../../../../_UI/assets/icons/close-icon.svg";
 import {IconButton} from "@material-ui/core";
@@ -30,9 +31,9 @@ const CancelPopup: React.FC<PropsTypes> = ({ setIsOpen, things}) => {
           <a style={{ textDecoration: "none", marginRight:'15px', width: '165px' }} href="/">
             <CancelButton>{t("Bookings/CANCEL")}</CancelButton>
           </a>
-          <CancelButton onClick={() => setIsOpen(false)}>
-            {t("CONTINUE/CONTINUE")}
-          </CancelButton>
+          <ContinueButton onClick={() => setIsOpen(false)}>
+            {t("Bookings/CONTINUE")}
+          </ContinueButton>
         </ButtonsWrap>
       </PopupContent>
     </PopupContainer>

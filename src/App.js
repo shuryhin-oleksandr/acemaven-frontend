@@ -61,11 +61,11 @@ function App() {
       )}
     >
       <div className="App">{route}</div>
-      <div style={{ position: "fixed", left:0, bottom:0, right:0, backgroundColor:"lightgrey", zIndex:100 }}>
-        <button onClick={() => i18next.changeLanguage("en")}>EN</button>
-        <button onClick={() => i18next.changeLanguage("por")}>POR</button>
-        <button onClick={() => i18next.changeLanguage("spa")}>SPA</button>
-      </div>
+      {/*<div style={{ position: "fixed", left:0, bottom:0, right:0, backgroundColor:"lightgrey", zIndex:100 }}>*/}
+      {/*  <button onClick={() => i18next.changeLanguage("en")}>EN</button>*/}
+      {/*  <button onClick={() => i18next.changeLanguage("por")}>POR</button>*/}
+      {/*  <button onClick={() => i18next.changeLanguage("spa")}>SPA</button>*/}
+      {/*</div>*/}
     </Scrollbars>
   ) : (
     <Spinner />

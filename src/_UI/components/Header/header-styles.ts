@@ -143,3 +143,47 @@ export const SumSpan = styled.div`
   color: #000000;
   font-size: 14px;
 `;
+
+export const LanguageWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Helvetica Reg", sans-serif;
+  color: #1b1b25;
+  font-size: 16px;
+  line-height: 1;
+  padding-top: 2px;
+  text-transform: capitalize;
+`;
+export const LanguageText = styled.div`
+  font-family: "Helvetica Neue", sans-serif;
+  color: #1b1b25;
+  font-size: 16px;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+export const LanguageSectionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 400px;
+  min-width: 100px;
+  overflow: auto;
+  border-radius: 4px;
+  padding: 25px;
+`;
+
+export const LanguageTitle = styled.div`
+  font-size: 18px;
+  font-family: "Helvetica Bold", sans-serif;
+  color: #000000;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 13px;
+`;

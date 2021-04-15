@@ -20,11 +20,11 @@ export const Message = styled.div`
   text-align: center;
   font-family: "Helvetica Light", sans-serif;
   font-size: 14px;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 `;
 
 export const QRWrapper = styled.div`
-  margin-top: 30px;
+  margin-bottom: 35px;
   display: flex;
   justify-content: center;
 `;

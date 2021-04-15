@@ -25,6 +25,10 @@ import {
   ButtonWrap,
   HeaderContainer,
   Info,
+  LanguageSectionWrapper,
+  LanguageText,
+  LanguageTitle,
+  LanguageWrapper,
   LogoWrap,
   PhotoWrap,
   StyledTooltipItem,
@@ -42,7 +46,8 @@ import no_message_icon from "../../assets/icons/no-email-icon.svg";
 import message_icon from "../../assets/icons/email-icon.svg";
 import card from "../../../_UI/assets/icons/card.svg";
 import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 const useStyles = makeStyles({
   customTooltip: {
@@ -133,13 +138,51 @@ const Header: React.FC = () => {
   const goToExchangePage = () => {
     history.push("/billing_exchange");
   };
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <HeaderContainer>
       <LogoWrap onClick={() => history.push("/")}>
         <img src={logotype} alt="" />
       </LogoWrap>
       <Info>
+        <Tooltip
+          arrow
+          interactive
+          classes={{ tooltip: classes.customNotificationTooltip }}
+          title={
+            <LanguageSectionWrapper>
+              <LanguageTitle>Language</LanguageTitle>
+              <LanguageWrapper>
+                <LanguageText onClick={() => i18next.changeLanguage("en")}>
+                  En
+                </LanguageText>
+                <LanguageText
+                  onClick={() => i18next.changeLanguage("por")}
+                  style={{ margin: "0 4px" }}
+                >
+                  Por
+                </LanguageText>
+                <LanguageText onClick={() => i18next.changeLanguage("spa")}>
+                  Spa
+                </LanguageText>
+              </LanguageWrapper>
+            </LanguageSectionWrapper>
+          }
+        >
+          <ButtonWrap margin_left={"21px"}>
+            {chat_notifications_list.length > 0 ? (
+              <img
+                style={{
+                  marginBottom: "3px",
+                }}
+                src={message_icon}
+                alt=""
+              />
+            ) : (
+              <LanguageWrapper>{i18next.language}</LanguageWrapper>
+            )}
+          </ButtonWrap>
+        </Tooltip>
         {company_type === AppCompaniesTypes.AGENT &&
           (user_roles?.includes("billing") ||
             user_roles?.includes("master")) && (
@@ -156,7 +199,7 @@ const Header: React.FC = () => {
                 />
               }
             >
-              <ButtonWrap>
+              <ButtonWrap margin_left={"21px"}>
                 <img src={card} alt="" />
               </ButtonWrap>
             </Tooltip>
@@ -233,13 +276,19 @@ const Header: React.FC = () => {
                 to="/settings/profile"
                 style={{ textDecoration: "none" }}
               >
-                <StyledTooltipItem>{t("My Profile/My Profile")}</StyledTooltipItem>
+                <StyledTooltipItem>
+                  {t("My Profile/My Profile")}
+                </StyledTooltipItem>
               </NavLink>
             </StyledUl>
           }
         >
           <PhotoWrap>
-            <img style={{objectFit: "cover"}} src={profilePhoto ? profilePhoto : user} alt="" />
+            <img
+              style={{ objectFit: "cover" }}
+              src={profilePhoto ? profilePhoto : user}
+              alt=""
+            />
           </PhotoWrap>
         </Tooltip>
       </Info>

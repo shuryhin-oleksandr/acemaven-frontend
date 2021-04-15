@@ -23,7 +23,7 @@ import { useStyles } from "../WidgetTableStyles";
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 import moment from "moment";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const OperationsInProgressWidget: React.FC = () => {
   //hooks
@@ -54,7 +54,7 @@ const OperationsInProgressWidget: React.FC = () => {
                     {t("Dashboard/Reservation No.")}
                   </TableCell>
                   <TableCell className={classes.cell} align="left">
-                     {t("Dashboard/Route")}
+                    {t("Dashboard/Route")}
                   </TableCell>
                   <TableCell className={classes.cell} align="left">
                     {t("Dashboard/Date")}
@@ -91,10 +91,11 @@ const OperationsInProgressWidget: React.FC = () => {
                       </div>
                     </TableCell>
                     <TableCell className={classes.boldCell} align="left">
-                      {operation?.shipment_details &&
-                      operation?.shipment_details.length > 0
-                        ? operation?.shipment_details[0].booking_number
-                        : "-"}
+                      {/*{operation?.shipment_details &&*/}
+                      {/*operation?.shipment_details.length > 0*/}
+                      {/*  ? operation?.shipment_details[0].booking_number*/}
+                      {/*  : "-"}*/}
+                      {operation?.aceid}
                     </TableCell>
                     <TableCell className={classes.innerCell} align="left">
                       {operation?.freight_rate.origin.code} -{" "}

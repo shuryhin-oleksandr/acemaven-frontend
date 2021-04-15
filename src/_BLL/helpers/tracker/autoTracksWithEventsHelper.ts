@@ -12,7 +12,8 @@ export const autoTrackWithEventsHelper = (operations_list: any) => {
     return operations_for_drawing_on_map.map((o: any) => ({
         ...o.tracking_initial,
         aceid: o.aceid,
-        booking_number: o.booking_number,
+        // booking_number: o.shipment_details && o.shipment_details[o.shipment_details.length-1].booking_number,
+        //check here when will be auto tracking operation
         origin_code:o.freight_rate.origin.code,
         destination_code:o.freight_rate.destination.code,
         locations: o.shipping_type === ShippingTypesEnum.AIR
@@ -33,7 +34,7 @@ export const manualTrackWithEventsHelper = (operations_list: any) => {
     return operations_with_tracking.map((o:OperationType) => ({
         ...o.tracking_initial,
         aceid: o.aceid,
-        booking_number:o.booking_number,
+        booking_number: o.shipment_details && o.shipment_details[o.shipment_details.length-1].booking_number,
         origin_code:o.freight_rate.origin.code,
         destination_code:o.freight_rate.destination.code,
         date_of_departure: o.shipment_details && o.shipment_details[0].date_of_departure,

@@ -21,6 +21,7 @@ import air_type from "../../../../assets/icons/long-plane-icon-for-tables.svg";
 import blue_sea_type from '../../../../assets/icons/blue-long-ship-icon-for-tables.svg';
 import blue_air_type from '../../../../assets/icons/blue-long-plane-icon-for-tables.svg';
 import {useTranslation} from "react-i18next";
+import styled from "styled-components";
 
 
 const useStyles = makeStyles({
@@ -136,7 +137,16 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                         : <ModeIcon src={operation.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
                     }
 
-                    <div style={{fontSize:18, fontFamily: 'Helvetica Bold, sans-serif'}}>{operation.aceid}</div>
+                    <AceidNumber>
+                        {operation.aceid}
+                    </AceidNumber>
+                    {operation.shipment_details && operation.shipment_details.length>0 &&
+                        <>
+                            <BookingTitle>BOOKING ID:</BookingTitle>
+                            <BookingNumber>{operation.shipment_details[operation.shipment_details?.length-1].booking_number}</BookingNumber>
+                        </>
+                    }
+
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <div style={{ fontSize:"24px", marginTop:"-5px", lineHeight:1.3}}>
@@ -180,3 +190,26 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
 }
 
 export default OperationsRow
+
+const AceidNumber = styled.div`
+  font-size:18px; 
+  font-family: Helvetica Bold, sans-serif;
+  line-height:1;
+  margin-bottom: 5px;
+`
+
+const BookingTitle = styled.div`
+  font-family: "Helvetica Thin", sans-serif;
+  text-transform: uppercase;
+  color: #828282;
+  font-size: 14px;
+  line-height: 1;
+`
+const BookingNumber = styled.div`
+  font-family: "Helvetica Light", sans-serif;
+  text-transform: uppercase;
+  color: #000000;
+  font-size: 14px;
+  line-height: 1;
+`
+

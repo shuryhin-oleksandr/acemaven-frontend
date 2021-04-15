@@ -222,7 +222,7 @@ export const TotalValue = styled.div<{font_family?: string}>`
   font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Reg, sans-serif'} ;
   font-size: 14px;
   line-height: 16.5px;
-  width: 10%;
+  width: 25%;
   display: flex;
   justify-content: flex-end;
 `;

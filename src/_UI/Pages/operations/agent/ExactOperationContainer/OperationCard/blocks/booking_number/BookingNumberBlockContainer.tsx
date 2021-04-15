@@ -14,7 +14,7 @@ const BookingNumberBlockContainer: React.FC<PropsType> = ({shipment}) => {
     return (
         <div style={{display: "flex"}}>
             <BookingTitle>{t("Bookings/Booking")}</BookingTitle>
-            <NumberOfBooking>{t("Quote bid screen/NO")} {shipment?.booking_number}</NumberOfBooking>
+            <NumberOfBooking>{shipment?.booking_number}</NumberOfBooking>
         </div>
     )
 }

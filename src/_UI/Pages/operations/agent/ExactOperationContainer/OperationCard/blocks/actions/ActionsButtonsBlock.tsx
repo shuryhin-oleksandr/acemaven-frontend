@@ -88,7 +88,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                             (!operation_info.can_be_patched && operation_info.has_change_request)
                                 ?
                                 <BaseTooltip
-                                    title={"You already have change request."}
+                                    title={t("Freight rates/You already have change request")}
                                 >
                                     <span>
                                         <ConfirmButton disabled={true}

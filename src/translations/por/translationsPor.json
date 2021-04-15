@@ -120,7 +120,10 @@
     "There are no new messages": "Não há novas mensagens",
     "There are no notifications yet": "Ainda não há notificações.",
     "On service since": "",
-    "Operations done": ""
+    "Operations done": "",
+    "Red": "",
+    "Green": "",
+    "Blue": ""
   },
   "Dashboard Menu": {
     "REQUESTS": "SOLICITAÇÕES",
@@ -374,7 +377,8 @@
     "Your comments": "Por favor, comente",
     "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ": "Por favor, mantenha as tarifas da sua empresa em dia para evitar críticas negativas com cancelamentos. Cabe agora ao cliente deixar uma nota baixa para sua empresa nesta operação.",
     "Select status": "Selecione o status",
-    "Add comment...": "Adicionar comentário..."
+    "Add comment...": "Adicionar comentário...",
+    "Add description...": "..."
   },
   "Change Request": {
     "The client has requested the following changes": "O cliente solicitou as seguintes alterações na reserva",
@@ -477,11 +481,23 @@
     "ACTIONS": "AÇÕES",
     "Rates can be paused or reactivated using this button": "As tarifas podem ser pausadas ou reativadas com esse botão",
     "Use this registry as a template for a new rate": "Use este registro como um modelo para uma nova tarifa",
+    "Use this registry as a template for a new rate, with the same values and parameters": "",
     "FREIGHT RATE": "TARIFA",
     "Do you want to save the changes?": "Deseja guardar as alterações?",
     "There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ": "Não existem taxas que correspondam a essa tarifa e ela não será publicada até que uma seja cadastrada.",
     "REGISTER NEW SURCHARGE": "CADASTRAR TAXA ASSOCIADA",
-    "New Surcharge": "Nova Taxa"
+    "New Surcharge": "Nova Taxa",
+    "After confirmation the tracking updates will be sent to the client": "",
+    "Log in": "Log in",
+    "Quotes can be paused or reactivated using this button": "",
+    "Quotes can be cancelled using this button": "",
+    "You already have change request": "",
+    "Change cargo group": "",
+    "Language": "",
+    "This option will indicate that the charge will be calculated by the chargeable weight (chargable_weight/m) of the cargo.":"",
+    "Will be calculated by the weight of the cargo.": "",
+    "As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search_client_thunks.": "",
+    "This means that the value indicated will be considered once in the shipment.": ""
   },
   "Help and Support": {
     "Help and Support": "Ajuda e Suporte",

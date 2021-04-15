@@ -325,7 +325,7 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
                   >
                     {row.expiration_date}
                     <Tooltip
-                      title="Use this registry as a template for a new rate, with the same values and parameters."
+                      title={`${t("Freight rates/Use this registry as a template for a new rate, with the same values and parameters")}`}
                       arrow
                       classes={{ tooltip: classes.customTooltip }}
                     >

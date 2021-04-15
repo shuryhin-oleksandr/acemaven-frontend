@@ -278,7 +278,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   <div style={{ display: "flex" }}>
                     <Tooltip
                       arrow
-                      title="Rates can be paused or reactivated using this button."
+                      title={`${t("Freight rates/Rates can be paused or reactivated using this button")}`}
                       classes={{ tooltip: classes.customTooltip }}
                     >
                       <TemplateIcon>
@@ -296,7 +296,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                     </Tooltip>
                     <Tooltip
                       arrow
-                      title="Use this registry as a template for a new rate, with the same values and parameters."
+                      title={`${t("Freight rates/Use this registry as a template for a new rate, with the same values and parameters")}.`}
                       classes={{ tooltip: classes.customTooltip }}
                     >
                       <TemplateIcon

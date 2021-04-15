@@ -30,8 +30,6 @@ export const NoPopupMessage = styled.div`
 `
 
 export const NoPopupButton = styled.button`
-  height: 40px;
-  width: 240px;
   background-color: black;
   color: white;
   font-family: "Helvetica Reg", sans-serif;
@@ -42,6 +40,7 @@ export const NoPopupButton = styled.button`
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
+  padding: 15px 30px;
   &:hover {
     cursor: pointer;
   }

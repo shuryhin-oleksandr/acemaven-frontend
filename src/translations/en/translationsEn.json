@@ -120,7 +120,10 @@
     "Today Exchange Rate": "Today's {{parameter}} Exchange Rate",
     "There are no notifications yet": "There are no notifications yet",
     "On service since": "On service since",
-    "Operations done": "Operations done"
+    "Operations done": "Operations done",
+    "Red": "Red",
+    "Green": "Green",
+    "Blue": "Blue"
   },
   "Dashboard Menu": {
     "REQUESTS": "REQUESTS",
@@ -374,7 +377,8 @@
     "Your comments": "Your comments",
     "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ": "Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ",
     "Select status": "Select milestone",
-    "Add comment...": "Add comment..."
+    "Add comment...": "Add comment...",
+    "Add description...": "Add description..."
   },
   "Change Request": {
     "The client has requested the following changes": "The client has requested the following changes",
@@ -477,11 +481,23 @@
     "ACTIONS": "ACTIONS",
     "Rates can be paused or reactivated using this button": "Rates can be paused or reactivated using this button",
     "Use this registry as a template for a new rate": "Use this registry as a template for a new rate",
+    "Use this registry as a template for a new rate, with the same values and parameters": "Use this registry as a template for a new rate, with the same values and parameters",
     "FREIGHT RATE": "FREIGHT RATE",
     "Do you want to save the changes?": "Do you want to save these changes?",
     "There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ": "There are no surcharges that match this rate and it won't be live until one is registered.",
     "REGISTER NEW SURCHARGE": "REGISTER MATCHING SURCHARGE",
-    "New Surcharge": "New Surcharge"
+    "New Surcharge": "New Surcharge",
+    "After confirmation the tracking updates will be sent to the client": "After confirmation the tracking updates will be sent to the client",
+    "Log in": "Log in",
+    "Quotes can be paused or reactivated using this button": "Quotes can be paused or reactivated using this button",
+    "Quotes can be cancelled using this button": "Quotes can be cancelled using this button",
+    "You already have change request": "You already have change request",
+    "Change cargo group": "Change cargo group",
+    "Language": "Language",
+    "This option will indicate that the charge will be calculated by the chargeable weight (chargable_weight/m) of the cargo.": "This option will indicate that the charge will be calculated by the chargeable weight (chargable_weight/m) of the cargo.",
+    "Will be calculated by the weight of the cargo.": "Will be calculated by the weight of the cargo",
+    "As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search_client_thunks.": "As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search_client_thunks",
+    "This means that the value indicated will be considered once in the shipment.": "This means that the value indicated will be considered once in the shipment"
   },
   "Help and Support": {
     "Help and Support": "Help and Support",

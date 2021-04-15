@@ -4,6 +4,7 @@ import { Tooltip } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Arrow from "../../assets/icons/selectArrow.svg";
 import ArrowOpened from "../../assets/icons/selectArrowOpened.svg";
+import {useTranslation} from "react-i18next";
 const useStyles = makeStyles({
   customTooltip: {
     "& .MuiTooltip-arrow::before": {
@@ -36,6 +37,7 @@ const ConditionSelect = ({ options, name, setValue, defaultV, setFormMode, right
       document.removeEventListener("click", Listener);
     };
   }, []);
+  const {t} = useTranslation();
   return (
     <Wrapper
       onClick={(e) => {
@@ -54,7 +56,7 @@ const ConditionSelect = ({ options, name, setValue, defaultV, setFormMode, right
               arrow={true}
               placement={"bottom-start"}
               key={o.id}
-              title={o.tooltip}
+              title={t(`Freight rates/${o.tooltip}`)}
             >
               <StyledOption
                 onClick={() => {

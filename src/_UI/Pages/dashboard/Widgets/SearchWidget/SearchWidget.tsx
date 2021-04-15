@@ -15,6 +15,7 @@ import BaseButton from "../../../../components/base/BaseButton";
 import AddIcon from "../../../../assets/icons/widgets/add-icon.svg";
 import RemoveIcon from "../../../../assets/icons/widgets/remove-icon.svg";
 import BaseTooltip from "../../../../components/_commonComponents/baseTooltip/BaseTooltip";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     right?: string,
@@ -23,10 +24,11 @@ type PropsType = {
 
 const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
   const [mode, setMode] = useState("sea");
+  const {t} = useTranslation();
   return (
     <RelativeWrapper >
       <Container >
-        <Heading>Search Rates</Heading>
+        <Heading>{t("Register/searchTitle")}</Heading>
         <Formik
           initialValues={{
             shipping_mode: "",
@@ -64,10 +66,10 @@ const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
                     searchWidget={true}
                     width="19%"
                   >
-                    <option value="">Shipping mode</option>
-                    <option value="red">Red</option>
-                    <option value="green">Green</option>
-                    <option value="blue">Blue</option>
+                    <option value="">{t("Dashboard/Shipping Mode")}</option>
+                    <option value="red">{t("Dashboard/Red")}</option>
+                    <option value="green">{t("Dashboard/Green")}</option>
+                    <option value="blue">{t("Dashboard/Blue")}</option>
                   </BaseFormikInput>
                   <BaseFormikInput
                     width="19%"
@@ -111,9 +113,9 @@ const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
                               component="select"
                               searchWidget={true}
                             >
-                              <option value="">Container Type</option>
-                              <option value="green">Green</option>
-                              <option value="blue">Blue</option>
+                              <option value="">{t("Dashboard/Container Type")}</option>
+                              <option value="green">{t("Dashboard/Green")}</option>
+                              <option value="blue">{t("Dashboard/Blue")}</option>
                             </BaseFormikInput>
                           </FieldWrapper>
                           <FieldWrapper>
@@ -147,7 +149,7 @@ const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
                       ))}
                       <ButtonGroup bottom={bottom} right={right}>
                         <BaseTooltip
-                          title={"Add more cargo groups by clicking on plus"}
+                          title={t("Dashboard/Add more cargo groups by clicking on plus")}
                         >
                           <AddImg
                             src={AddIcon}
@@ -161,7 +163,7 @@ const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
                             }
                           />
                         </BaseTooltip>
-                        <BaseButton type="submit">Search</BaseButton>
+                        <BaseButton type="submit">{t("Dashboard/SEARCH")}</BaseButton>
                       </ButtonGroup>
                     </>
                   )}

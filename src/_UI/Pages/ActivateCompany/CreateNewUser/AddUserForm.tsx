@@ -57,7 +57,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
   const {t} = useTranslation();
     return (
         <FormContainer>
-            <Title>Create New User</Title>
+            <Title>{t("Create New User/Create New User")}</Title>
             <FormWrap onSubmit={handleSubmit(onSubmit)}>
                 <Wrapper>
                     <InputWrap w='47%'>

@@ -60,18 +60,18 @@ const AdditionalWithConditionsSurcharges:React.FC<PropsType> = ({additionals, ..
 
     const classes = useStyles();
 
-
+    const {t} = useTranslation();
     let rows = (additionals && additionals?.length > 0)
         ?  additionals?.map((a) => createDataConditions(
             {id: a.id, title: a?.title},
-            [{id: 1, title: 'chargable_weight/m', tooltip: 'This option will indicate that the charge will be calculated by the chargeable weight (chargable_weight/m) of the cargo.'},
-                {id: 2, title: 'per_weight', tooltip: 'Will be calculated by the weight of the cargo.'},
-                {id: 3, title: 'per_no_of_packs', tooltip: 'As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search_client_thunks.'},
-                {id: 4, title: 'fixed', tooltip: 'This means that the value indicated will be considered once in the shipment.'}],
+            [{id: 1, title: 'chargable_weight/m', tooltip: `${t("Freight rates/This option will indicate that the charge will be calculated by the chargeable weight (chargable_weight/m) of the cargo.")}`},
+                {id: 2, title: 'per_weight', tooltip: `${t("Freight rates/Will be calculated by the weight of the cargo.")}`},
+                {id: 3, title: 'per_no_of_packs', tooltip: `${t("Freight rates/As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search_client_thunks.")}`},
+                {id: 4, title: 'fixed', tooltip: `${t("Freight rates/This means that the value indicated will be considered once in the shipment.")}`}],
             [{id: 37, code: 'BRL'}, {id: 43, code: 'USD'}, {id: 98, code: 'EUR'}],
             0))
         : null
-    const {t} = useTranslation();
+
     return (
         <HandlingSurchargeContainer>
             <HandlingTitle>{t("Quote bid screen/ADDITIONAL SURCHARGES")}</HandlingTitle>

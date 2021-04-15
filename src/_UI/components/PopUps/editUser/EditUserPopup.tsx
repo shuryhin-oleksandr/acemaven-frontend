@@ -3,6 +3,7 @@ import {ButtonWrap, Container, TextWrap} from "./edit-popup-styles";
 import styled from "styled-components";
 import { DeepMap, FieldError } from "react-hook-form";
 import {UserFromDataType} from "../../../../_BLL/types/addNewUserTypes";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -17,13 +18,13 @@ const EditUserPopup:React.FC<PropsType> = ({callback, errors}) => {
             callback(false)
         }
     }, [errors])
-
+  const {t} = useTranslation();
     return (
         <Container>
-            <TextWrap>Are you sure you want to edit user info?</TextWrap>
+            <TextWrap>{t("User Management/Are you sure you want to edit user info?")}</TextWrap>
             <div style={{display: 'flex', maxWidth: '300px', width: '100%', justifyContent: 'space-between'}}>
-                <ButtonWrap type='submit'>CONFIRM</ButtonWrap>
-                <CancelButtonWrap onClick={() => callback(false)} type='button'>CANCEL</CancelButtonWrap>
+                <ButtonWrap type='submit'>{t("Bookings/CONFIRM")}</ButtonWrap>
+                <CancelButtonWrap onClick={() => callback(false)} type='button'>{t("Bookings/CANCEL")}</CancelButtonWrap>
             </div>
         </Container>
     )

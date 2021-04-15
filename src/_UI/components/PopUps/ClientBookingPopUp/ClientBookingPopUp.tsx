@@ -407,7 +407,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                       marginBottom: 5,
                     }}
                   >
-                    Remaining amount to be paid to the agent
+                    {t("Bookings/Remaining amount to be paid to the agent")}
                   </div>
                   {Object.keys(new_total?.charges?.totals_pure).map(
                     (key) =>

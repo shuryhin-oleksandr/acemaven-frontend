@@ -564,7 +564,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                             {c.description}
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
-                            <BaseTooltip title={"Change cargo group"}>
+                            <BaseTooltip title={t("Freight rates/Change cargo group")}>
                               <div
                                 style={{
                                   cursor: "pointer",

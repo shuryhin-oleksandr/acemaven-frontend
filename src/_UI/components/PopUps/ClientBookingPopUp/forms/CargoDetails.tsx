@@ -149,7 +149,7 @@ const CargoDetails: React.FC<PropsType> = ({
               <Controller
                 name={`cargo_descriptions.${item.id}`}
                 control={control}
-                as={<Field placeholder="Add desription..." />}
+                as={<Field placeholder={t("Confirm Operation/Add description...")} />}
                 rules={{ required: "Field is required" }}
                 defaultValue=""
               />

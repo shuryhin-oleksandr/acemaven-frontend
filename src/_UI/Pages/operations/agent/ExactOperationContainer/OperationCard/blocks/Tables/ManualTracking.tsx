@@ -307,7 +307,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                             <img src={close_icon} alt=""/>
                                         </FormOperationButton>
                                         <BaseTooltip
-                                            title="After confirmation the tracking updates will be sent to the client.">
+                                            title={`${t("Freight rates/After confirmation the tracking updates will be sent to the client")}.`}>
                                             <FormOperationButton
                                                 type="submit"
                                                 style={{padding: "5px"}}

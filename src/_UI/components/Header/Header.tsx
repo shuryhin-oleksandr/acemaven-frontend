@@ -151,7 +151,7 @@ const Header: React.FC = () => {
           classes={{ tooltip: classes.customNotificationTooltip }}
           title={
             <LanguageSectionWrapper>
-              <LanguageTitle>Language</LanguageTitle>
+              <LanguageTitle>{t("Freight rates/Language")}</LanguageTitle>
               <LanguageWrapper>
                 <LanguageText onClick={() => i18next.changeLanguage("en")}>
                   En

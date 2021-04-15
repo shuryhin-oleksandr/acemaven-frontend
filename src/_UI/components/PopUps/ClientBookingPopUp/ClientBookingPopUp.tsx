@@ -332,7 +332,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               {new_total?.charges?.booking_fee &&
                 Object.keys(new_total?.charges?.booking_fee).map((key: any) => (
                   <TotalLine>
-                    <TotalName>{t("Bookings/BOOKING  FEE IN")} {key}:</TotalName>
+                    <TotalName>{t("Bookings/BOOKING FEE IN")} {key}:</TotalName>
                     <TotalValue>
                       {new_total?.charges?.booking_fee[key]}
                     </TotalValue>
@@ -351,7 +351,7 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               {new_total?.charges?.service_fee && (
                 <TotalLine>
                   <TotalName>
-                    {t("Bookings/ACEMAVEN SERVICE FEE: IN")}{" "}
+                    {t("Bookings/ACEMAVEN SERVICE FEE IN")}{" "}
                     {new_total?.charges?.service_fee?.currency}:
                   </TotalName>
                   <TotalValue>

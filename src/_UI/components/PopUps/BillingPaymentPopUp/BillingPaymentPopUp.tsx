@@ -258,7 +258,7 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                 {booking?.charges?.service_fee && (
                   <TotalLine>
                     <TotalName>
-                      {t("Bookings/ACEMAVEN SERVICE FEE: IN")}{" "}
+                      {t("Bookings/ACEMAVEN SERVICE FEE IN")}{" "}
                       {booking?.charges?.service_fee?.currency}:
                     </TotalName>
                     <TotalValue>

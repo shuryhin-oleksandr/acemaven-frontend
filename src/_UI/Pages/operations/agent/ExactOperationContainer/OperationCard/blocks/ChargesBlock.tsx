@@ -195,7 +195,7 @@ const ChargesBlock: React.FC<PropsType> = ({
         {operation_charges?.service_fee && (
           <TotalLine>
             <TotalName>
-              {t("Bookings/ACEMAVEN SERVICE FEE: IN")} {operation_charges?.service_fee?.currency}
+              {t("Bookings/ACEMAVEN SERVICE FEE IN")} {operation_charges?.service_fee?.currency}
               :
             </TotalName>
             <TotalValue>{operation_charges?.service_fee?.subtotal}</TotalValue>

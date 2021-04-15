@@ -159,7 +159,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
               />
             </TableCell>
             <TableCell className={classes.cell} align="left">
-              {t("Bookings/MODE")}
+              {t("Bookings/SHIPPING MODE")}
             </TableCell>
             <TableCell className={classes.cell} align="left">
               {t("Bookings/CHARGES")} (BRL)

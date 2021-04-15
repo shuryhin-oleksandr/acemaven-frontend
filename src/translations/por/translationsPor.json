@@ -116,7 +116,7 @@
     "Map is not available": "Mapa não disponível no momento.",
     "There are no operations in progress.": "Nao há operações em progresso.",
     "There are no completed operations.": "Nao há operações concuídas.",
-    "Today Exchange Rate": "Taxa de Cambio Hoje",
+    "Today Exchange Rate": "Taxa {{parameter}} de Cambio Hoje",
     "There are no new messages": "Não há novas mensagens",
     "There are no notifications yet": "Ainda não há notificações.",
     "On service since": "",
@@ -243,7 +243,6 @@
     "Documentation": "Documentação",
     "CONDITIONS": "CONDIÇÕES",
     "Rate will be register as 0. Are you sure?": "Esta taxa de frete será registrada com valor 0. Você confirma isso?",
-    "MODE": "",
     "TO BOOK IN": "",
     "PAID TO BOOK IN": "",
     "TRAVEL": "",
@@ -298,7 +297,8 @@
     "Today’s": "",
     "EXCHANGE RATE": "TAXA DE CAMBIO",
     "COLD": "",
-    "DANGEROUS": "PERIGOSA"
+    "DANGEROUS": "PERIGOSA",
+    "ACEMAVEN EXCHANGE RATE":"ACEMAVEN {{parameter}} TAXA DE CAMBIO"
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Confirmação de Reserva",
@@ -465,7 +465,6 @@
     "this means that the value indicated will be considered once in the shipment": "a taxa será de valor único e cobrada uma vez só no embarque",
     "TOTAL FREIGHT IN": "",
     "There_freight": "",
-    "SHIPPING TYPE": "",
     "LOCATION": "",
     "DIRECTION": "DIREÇÃO",
     "Direction": "Direção",

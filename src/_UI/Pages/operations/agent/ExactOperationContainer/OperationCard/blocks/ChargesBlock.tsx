@@ -206,7 +206,7 @@ const ChargesBlock: React.FC<PropsType> = ({
           Object.keys(operation_charges?.exchange_rates).length > 0 &&
           Object.keys(operation_charges?.exchange_rates).map((key: any) => (
             <TotalLine>
-              <TotalName>ACEMAVEN {key} {t("Quote bid screen/EXCHANGE RATE")}:</TotalName>
+              <TotalName>{t("Quote bid screen/ACEMAVEN EXCHANGE RATE", {parameter: key})}:</TotalName>
               <TotalValue>{operation_charges?.exchange_rates[key]}</TotalValue>
             </TotalLine>
           ))}
@@ -258,7 +258,7 @@ const ChargesBlock: React.FC<PropsType> = ({
                 (key: any) =>
                   charges_today_exchange.today_exchange_rate[key] !== 1 && (
                     <TotalLine>
-                      <TotalName>{t("Quote bid screen/Today’s")} {key} {t("Billing/Exchange Rate")}:</TotalName>
+                      <TotalName>{t("Dashboard/Today Exchange Rate", {parameter: key})}:</TotalName>
                       <TotalValue>
                         {charges_today_exchange.today_exchange_rate[key]}
                       </TotalValue>

@@ -46,7 +46,6 @@ const ConfirmedDatesContainerBlock: React.FC<PropsType> = ({shipment, operation_
                     <InfoRow margin_right="50px" margin_bottom="0px">
                         <InfoRowLabel>{t("Quotes/SHIPMENT DATE")}</InfoRowLabel>
                         <span style={{
-                            width: "150px",
                             fontSize: "24px",
                             color: "black",
                             fontFamily: "Helvetica Light",

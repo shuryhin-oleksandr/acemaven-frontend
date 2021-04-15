@@ -199,7 +199,7 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
                   column_name="shipping_mode"
                   searchValue={props.searchValue}
                   isSearchMode={isSearchMode}
-                  title={t("Surcharges/SHIPPING TYPE")}
+                  title={t("Bookings/SHIPPING MODE")}
                   searchColumn={props.searchColumn}
                   setSearchColumn={props.setSearchColumn}
                 />

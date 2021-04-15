@@ -189,7 +189,7 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
                 (key: any) =>
                   charges_today_exchange.today_exchange_rate[key] !== 1 && (
                     <TotalLine>
-                      <TotalName>{t("Quote bid screen/Today's")} {key} {t("Billing/Exchange Rate")}:</TotalName>
+                      <TotalName>{t("Dashboard/Today Exchange Rate", {parameter: key})}:</TotalName>
                       <TotalValue>
                         {charges_today_exchange.today_exchange_rate[key]}
                       </TotalValue>

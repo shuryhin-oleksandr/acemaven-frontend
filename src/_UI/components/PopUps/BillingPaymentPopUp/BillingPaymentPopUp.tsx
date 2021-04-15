@@ -272,7 +272,7 @@ const BillingPaymentPopUp: React.FC<PropsType> = ({
                   Object.keys(booking?.charges?.exchange_rates).map(
                     (key: any) => (
                       <TotalLine>
-                        <TotalName>ACEMAVEN {key} {t("Quote bid screen/EXCHANGE RATE")}:</TotalName>
+                        <TotalName>{t("Quote bid screen/ACEMAVEN EXCHANGE RATE", {parameter: key})}:</TotalName>
                         <TotalValue>
                           {booking?.charges?.exchange_rates[key]}
                         </TotalValue>

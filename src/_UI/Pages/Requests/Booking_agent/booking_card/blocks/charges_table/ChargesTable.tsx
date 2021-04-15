@@ -169,7 +169,7 @@ const ChargesTable: React.FC<PropsType> = ({
             (key: any) =>
               !!charges_cost?.totals_pure[key] && (
                 <TotalLine>
-                  <TotalName>{t("Bookings/CHARGES IN")}{' '}{key}:</TotalName>
+                  <TotalName>{t("Bookings/CHARGES IN")} {key}:</TotalName>
                   <TotalValue>{charges_cost?.totals_pure[key]}</TotalValue>
                 </TotalLine>
               )

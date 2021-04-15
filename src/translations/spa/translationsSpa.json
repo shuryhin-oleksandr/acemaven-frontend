@@ -76,6 +76,7 @@
     "Shipping Mode": "Tipo de Embarque",
     "Origin": "Origen",
     "Local port": "Puerto local",
+    "Destination": "Destino",
     "Shipment Date": "Fecha de Embarque",
     "Container Type": "Tipo de Contenedor",
     "Calculate w/m": "Calcular w/m",
@@ -115,7 +116,7 @@
     "Map is not available": "Mapa no disponible por el momento.",
     "There are no operations in progress.": "No hay operaciones en proceso. ",
     "There are no completed operations.": "No hay operaciones completadas.",
-    "Today Exchange Rate": "Tasa de Cambio Hoy",
+    "Today Exchange Rate": "Tasa {{parameter}} de Cambio Hoy",
     "There are no new messages": "No hay mensajes nuevos.",
     "There are no notifications yet": "Aún no hay notificaciones.",
     "On service since": "",
@@ -242,7 +243,6 @@
     "Documentation": "Documentación",
     "CONDITIONS": "CONDICIONES",
     "Rate will be register as 0. Are you sure?": "Esta tarifa de flete se registrará con valor 0. ¿Confirmas esto?",
-    "MODE": "",
     "TO BOOK IN": "",
     "PAID TO BOOK IN": "",
     "TRAVEL": "",
@@ -297,7 +297,8 @@
     "Today’s": "",
     "EXCHANGE RATE": "TASA DE CAMBIO",
     "COLD": "",
-    "DANGEROUS": "PELIGROSA"
+    "DANGEROUS": "PELIGROSA",
+    "ACEMAVEN EXCHANGE RATE": "ACEMAVEN {{parameter}} TASA DE CAMBIO"
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Confirmación de Reserva",
@@ -464,7 +465,6 @@
     "this means that the value indicated will be considered once in the shipment": "la tasa será única y cobrada una sola vez por embarque",
     "TOTAL FREIGHT IN": "",
     "There_freight": "",
-    "SHIPPING TYPE": "",
     "LOCATION": "",
     "DIRECTION": "DIRECCIÓN",
     "Direction": "Dirección",

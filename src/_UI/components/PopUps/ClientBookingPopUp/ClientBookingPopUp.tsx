@@ -227,7 +227,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell className={classes.cell}>{t("Bookings/VOLUME")}</TableCell>
+                      <TableCell className={classes.cell}>
+                        {t("Bookings/VOLUME")}
+                      </TableCell>
                       <TableCell className={classes.cell} align="left">
                         {t("Bookings/TYPE")}
                       </TableCell>
@@ -259,7 +261,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                             <div>{t("Quote bid screen/FREIGHT")}</div>
                             <div>{t("Quote bid screen/HANDLING")}</div>
                             {s.cold && <div>{t("Quote bid screen/COLD")}</div>}
-                            {s.dangerous && <div>{t("Quote bid screen/DANGEROUS")}</div>}
+                            {s.dangerous && (
+                              <div>{t("Quote bid screen/DANGEROUS")}</div>
+                            )}
                             <div>{t("Quote bid screen/OTHERS")}</div>
                           </TableCell>
                           <TableCell className={classes.innerCell} align="left">
@@ -321,7 +325,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                   (key: any) =>
                     !!new_total?.charges.totals[key] && (
                       <TotalLine>
-                        <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
+                        <TotalName>
+                          {t("Bookings/CHARGES IN")} {key}:
+                        </TotalName>
                         <TotalValue>
                           {new_total?.charges.totals[key]}
                         </TotalValue>
@@ -332,7 +338,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               {new_total?.charges?.booking_fee &&
                 Object.keys(new_total?.charges?.booking_fee).map((key: any) => (
                   <TotalLine>
-                    <TotalName>{t("Bookings/BOOKING FEE IN")} {key}:</TotalName>
+                    <TotalName>
+                      {t("Bookings/BOOKING FEE IN")} {key}:
+                    </TotalName>
                     <TotalValue>
                       {new_total?.charges?.booking_fee[key]}
                     </TotalValue>
@@ -365,7 +373,12 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                 Object.keys(new_total?.charges?.exchange_rates).map(
                   (key: any) => (
                     <TotalLine>
-                      <TotalName>{t("Quote bid screen/ACEMAVEN EXCHANGE RATE", {parameter: key})}:</TotalName>
+                      <TotalName>
+                        {t("Quote bid screen/ACEMAVEN EXCHANGE RATE", {
+                          parameter: key,
+                        })}
+                        :
+                      </TotalName>
                       <TotalValue>
                         {new_total?.charges?.exchange_rates[key]}
                       </TotalValue>
@@ -376,7 +389,8 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
               {new_total?.charges?.pay_to_book && (
                 <TotalLine>
                   <TotalName>
-                    {t("Bookings/TO BOOK IN")}{" "}{new_total?.charges?.pay_to_book?.currency}:
+                    {t("Bookings/TO BOOK IN")}{" "}
+                    {new_total?.charges?.pay_to_book?.currency}:
                   </TotalName>
                   <TotalValue>
                     {new_total?.charges?.pay_to_book?.pay_to_book}
@@ -399,7 +413,9 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                     (key) =>
                       !!new_total?.charges?.totals_pure[key] && (
                         <TotalLine>
-                          <TotalName>{t("Bookings/CHARGES IN")}{" "}{key}:</TotalName>
+                          <TotalName>
+                            {t("Bookings/CHARGES IN")} {key}:
+                          </TotalName>
                           <TotalValue>
                             {new_total?.charges?.totals_pure[key]}
                           </TotalValue>

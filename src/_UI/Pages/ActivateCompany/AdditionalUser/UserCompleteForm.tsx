@@ -92,7 +92,7 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
                     <FormField
                         label={t("Register/Name")}
                         inputRef={register({
-                            required: "Field is required",
+                            required: `${t("Error message/Field is required")}`,
                         })}
                         placeholder={t("Register/Name")}
                         name="first_name"
@@ -103,7 +103,7 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
                     <FormField
                         label={t("Register/Last Name")}
                         inputRef={register({
-                            required: "Field is required",
+                            required: `${t("Error message/Field is required")}`,
                         })}
                         placeholder={t("Register/Last Name")}
                         name="last_name"
@@ -115,7 +115,7 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
             <FormField
                 label={t("Register/Phone Number")}
                 inputRef={register({
-                    required: "Field is required",
+                    required: `${t("Error message/Field is required")}`,
                     maxLength: 13,
                     minLength: 10,
                     pattern: /^(\+)?([0-9]){10,13}$/
@@ -125,12 +125,12 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
                 error={errors?.phone}
                 max='13'
                 min='10'
-                pattern_message='Phone number has to include only + and numbers'
+                pattern_message={t('Error message/Phone number has to include only + and numbers')}
             />
             <FormField
                 label={t("Register/Position in the Company")}
                 inputRef={register({
-                    required: "Field is required",
+                    required: `${t("Error message/Field is required")}`,
                 })}
                 placeholder={t("Register/Position in the Company")}
                 name="position"
@@ -149,7 +149,7 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
             {passwordError && <ErrorServerMessage>{passwordError}</ErrorServerMessage>}
             <FormField
                 inputRef={register({
-                    required: "Field is required",
+                    required: `${t("Error message/Field is required")}`,
                 })}
                 placeholder={t("My Profile/Confirm Password")}
                 name="confirm_password"
@@ -157,7 +157,7 @@ const UserCompleteForm: React.FC<PropsType> = ({token, email_error}) => {
                 type="password"
                 onBlur={matchPasswords}
             />
-            {errorMatch && <ErrorServerMessage>{errorMatch}</ErrorServerMessage>}
+            {errorMatch && <ErrorServerMessage>{t(`Error message/${errorMatch}`)}</ErrorServerMessage>}
             {img ? (
                 <div
                     style={{

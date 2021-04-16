@@ -13,6 +13,7 @@ import SurchargeRateSelect from "../../../../../components/_commonComponents/sel
 import DatesCells from "./DatesCells";
 //styles
 import {Field, HelperText} from "../../../../../components/_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -44,7 +45,7 @@ const FCLField: React.FC<PropsType> = ({
 
     const classes = useStyles()
     const [invalidDate, setInvalidDate] = useState('')
-
+  const {t} = useTranslation();
     return (
         <>
             <Controller control={control}
@@ -67,7 +68,7 @@ const FCLField: React.FC<PropsType> = ({
                             as={
                                 <SurchargeRateSelect options={currency}
                                                      max_width='80px'
-                                                     placeholder='Currency'
+                                                     placeholder={t('Bookings/Currency')}
                                 />
                             }
                 />

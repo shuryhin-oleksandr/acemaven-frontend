@@ -10,6 +10,7 @@ import {
     SettingsTitle,
 } from "../../../Pages/Profile&Settings/GeneralSettings/general-settings-styles";
 import {Outer} from "./settings-notification-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -28,7 +29,7 @@ const SettingsNotificationCard: React.FC<PropsType> = ({title, subtitle, name, s
 
     let input_obj = {}
     input_obj[`${name}`] = inputValue
-
+  const {t} = useTranslation();
     return (
         <Outer>
             <SettingsTitle>{title}</SettingsTitle>
@@ -44,7 +45,7 @@ const SettingsNotificationCard: React.FC<PropsType> = ({title, subtitle, name, s
                                autoComplete="off"
                                step='1'
                                defaultValue={notification?.days ? notification.days : '0'}
-                               placeholder='No. of days '
+                               placeholder={t('Dashboard/No. of days')}
                                onChange={(e) => setInputValue(e.currentTarget.value)}
                                onBlur={() => props.submitThunk(input_obj)}
                 />

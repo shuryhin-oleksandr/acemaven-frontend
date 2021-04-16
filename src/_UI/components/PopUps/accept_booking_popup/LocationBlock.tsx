@@ -2,6 +2,7 @@ import React from 'react'
 //components
 import FormField from "../../_commonComponents/Input/FormField";
 import GoogleInput from "../../_commonComponents/Input/google_autocomplete_input/GoogleInput";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -21,14 +22,15 @@ type PropsType = {
 }
 
 export const LocationBlock:React.FC<PropsType> = ({register, errors, label, field_name, google_field_name, google_label, margin_bottom, color_label, ...props}) => {
-    return (
+  const [t] = useTranslation();
+  return (
         <>
             <FormField error={errors?.field_name}
                        label={label ? label : ''}
                        name={field_name}
-                       placeholder='Placeholder'
+                       // placeholder='Placeholder'
                        max_width='100%'
-                       inputRef={register({required: 'Field is required'})}
+                       inputRef={register({required: `${t("Error message/Field is required")}`})}
                        marginBottom={margin_bottom}
                        color_label={color_label}
                        font_weight={props.font_weight}

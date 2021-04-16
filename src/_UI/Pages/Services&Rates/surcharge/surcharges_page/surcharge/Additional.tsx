@@ -142,7 +142,7 @@ const Additional: React.FC<PropsType> = ({
                     as={
                       <SurchargeRateSelect
                         options={currency}
-                        placeholder="Currency"
+                        placeholder={t("Bookings/Currency")}
                         max_width="80px"
                       />
                     }

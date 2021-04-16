@@ -84,7 +84,7 @@ const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup, id }) => {
           control={control}
           defaultValue=""
           rules={{
-            required: "Field is required",
+            required: `${t("Error message/Field is required")}`,
           }}
           as={
             <div style={{ width: "100%", padding: "0 70px" }}>
@@ -93,7 +93,7 @@ const ClientReviewPopup: React.FC<PropsType> = ({ setReviewPopup, id }) => {
                 placeholder={t("Bookings/Comments")}
               />
               {!!errors?.comment && (
-                <ErrorMessage>Field is required</ErrorMessage>
+                <ErrorMessage>`${t("Error message/Field is required")}`</ErrorMessage>
               )}
             </div>
           }

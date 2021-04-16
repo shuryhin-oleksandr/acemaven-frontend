@@ -76,7 +76,7 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
                 defaultValue=""
                 name={"category"}
                 control={control}
-                rules={{ required: "Field is required" }}
+                rules={{ required: `${t("Error message/Field is required")}` }}
                 as={
                   <SurchargeRateSelect
                     label={t("Support/Category")}
@@ -92,7 +92,7 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
                   name={"aceid"}
                   error={errors?.aceid}
                   inputRef={register({
-                    required: "Field is required",
+                    required: `${t("Error message/Field is required")}`,
                     minLength:3,
                     validate: { trapSpacesForRequiredFields },
                   })}
@@ -105,7 +105,7 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
                 name={"topic"}
                 error={errors?.topic}
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                   minLength:3,
                   validate: { trapSpacesForRequiredFields },
                 })}
@@ -118,7 +118,7 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
               control={control}
               defaultValue=""
               rules={{
-                required: "Field is required",
+                required: `${t("Error message/Field is required")}`,
                 validate: { trapSpacesForRequiredFields },
               }}
               as={
@@ -130,7 +130,7 @@ const TopicForm: React.FC<PropsType> = ({ setNewTopic }) => {
                   />
                   {errors?.description && (
                     <HelperText messagePaddingTop="4px">
-                      Field is required
+                      {t("Error message/Field is required")}
                     </HelperText>
                   )}
                 </div>

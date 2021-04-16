@@ -119,7 +119,7 @@ const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChang
                     <InputWrap w='47%'>
                         <FormField label={t("Register/Name")}
                                    inputRef={register({
-                                       required: 'Field is required'
+                                       required: `${t("Error message/Field is required")}`
                                    })}
                                    placeholder= {t("Register/Name")}
                                    name='first_name'
@@ -129,7 +129,7 @@ const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChang
                     <InputWrap w='47%'>
                         <FormField label={t("Register/Last Name")}
                                    inputRef={register({
-                                       required: 'Field is required'
+                                       required: `${t("Error message/Field is required")}`
                                    })}
                                    placeholder={t("Register/Last Name")}
                                    name='last_name'
@@ -139,7 +139,7 @@ const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChang
                 </FullfilledWrap>
                 <FormField label={t("Register/Phone Number")}
                            inputRef={register({
-                               required: 'Field is required',
+                               required: `${t("Error message/Field is required")}`,
                                maxLength: 13,
                                pattern: /^(\+)?([0-9]){10,13}$/
                            })}
@@ -147,11 +147,11 @@ const EditProfileForm: React.FC<PropsType> = ({setIsEdit, isChangeMode, setChang
                            name='phone'
                            error={errors?.phone}
                            max='13'
-                           pattern_message='Phone number has to include only + and numbers'
+                           pattern_message={t('Error message/Phone number has to include only + and numbers')}
                 />
                 <FormField label={t("Register/Position in the Company")}
                            inputRef={register({
-                               required: 'Field is required'
+                               required: `${t("Error message/Field is required")}`
                            })}
                            placeholder={t("Register/Position in the Company")}
                            name='position'

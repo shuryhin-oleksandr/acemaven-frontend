@@ -168,61 +168,61 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                         }}>
                             {operation_info?.shipping_type === ShippingTypesEnum.SEA
                                 ? <>
-                                    <FormField inputRef={register({required: 'Field is required'})}
+                                    <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                                error={errors?.vessel}
                                                name='vessel'
                                                max_width='290px'
                                                color_label='#115B86'
                                                label={t("VESSEL/SHIP")}
-                                               placeholder='Placeholder'
+                                               placeholder={t("VESSEL/SHIP")}
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.vessel}
                                                disabled={disabled_condition_1}
                                     />
-                                    <FormField inputRef={register({required: 'Field is required'})}
+                                    <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                                error={errors?.voyage}
                                                name='voyage'
                                                max_width='290px'
                                                color_label='#115B86'
                                                label={t("Bookings/TRIP")}
-                                               placeholder='Placeholder'
+                                               placeholder={t("Bookings/TRIP")}
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.voyage}
                                                disabled={disabled_condition_1}
                                     />
                                 </>
                                 : <>
-                                    <FormField inputRef={register({required: 'Field is required'})}
+                                    <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                                error={errors?.mawb}
                                                name='mawb'
                                                max_width='290px'
                                                color_label='#115B86'
                                                label={t("Booking Confirmation/MAWB")}
-                                               placeholder='Placeholder'
+                                               placeholder={t("Booking Confirmation/MAWB")}
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.mawb}
                                                disabled={disabled_condition_1}
                                     />
-                                    <FormField inputRef={register({required: 'Field is required'})}
+                                    <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                                error={errors?.flight_number}
                                                name='flight_number'
                                                max_width='290px'
                                                color_label='#115B86'
                                                label={t("Booking Confirmation/FLIGHT NUMBER")}
-                                               placeholder='Placeholder'
+                                               placeholder={t("Booking Confirmation/FLIGHT NUMBER")}
                                                font_weight='Helvetica Bold'
                                                defaultValue={shipment?.flight_number}
                                                disabled={disabled_condition_1}
                                     />
                                 </>
                             }
-                            <FormField inputRef={register({required: 'Field is required'})}
+                            <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                        error={errors?.booking_number}
                                        name='booking_number'
                                        max_width='290px'
                                        color_label='#115B86'
                                        label={t("Booking Confirmation/BOOKING NUMBER")}
-                                       placeholder='Placeholder'
+                                       placeholder={t("Booking Confirmation/BOOKING NUMBER")}
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.booking_number}
                                        disabled={disabled_condition_1}
@@ -238,24 +238,24 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                             paddingBottom: '25px',
                             marginBottom: '25px'
                         }}>
-                            <FormField inputRef={register({required: 'Field is required'})}
+                            <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                        error={errors?.booking_number_with_carrier}
                                        name='booking_number_with_carrier'
                                        max_width='290px'
                                        color_label='#115B86'
                                        label={t("Booking Confirmation/BOOKING NUMBER WITH CARRIER")}
-                                       placeholder='Placeholder'
+                                       placeholder={t("Booking Confirmation/BOOKING NUMBER WITH CARRIER")}
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.booking_number_with_carrier}
                                        disabled={disabled_condition_1}
                             />
-                            <FormField inputRef={register({required: 'Field is required'})}
+                            <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                        error={errors?.container_number}
                                        name='container_number'
                                        max_width='290px'
                                        color_label='#115B86'
                                        label={t("Booking Confirmation/CONTAINER NUMBER")}
-                                       placeholder='Placeholder'
+                                       placeholder={t("Booking Confirmation/CONTAINER NUMBER")}
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.container_number}
                                        disabled={disabled_condition_1}
@@ -378,13 +378,13 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
                             paddingBottom: '25px',
                             marginBottom: '25px'
                         }}>
-                            <FormField inputRef={register({required: 'Field is required'})}
+                            <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                        error={errors?.container_free_time}
                                        name='container_free_time'
                                        max_width='290px'
                                        color_label='#115B86'
                                        label={t('Bookings/CONTAINER FREE TIME')}
-                                       placeholder='0 days'
+                                       placeholder={`0 ${t("Billing/days")}`}
                                        font_weight='Helvetica Bold'
                                        defaultValue={shipment?.container_free_time ? shipment?.container_free_time : ''}
                             />

@@ -21,18 +21,19 @@ type PropsType = {
 }
 
 const PasswordFormField:React.FC<PropsType> = ({errors, label, name, register, ...props}) => {
+  const {t} = useTranslation();
     return (
         <PasswordWrapper>
             <FormField label={label}
                        inputRef={register({
-                           required: 'Field is required'
+                           required: `${t("Error message/Field is required")}`
                        })}
                        placeholder={props.placeholder}
                        name={name}
                        error={errors?.password}
                        type={props.showPassword ? 'text' : 'password'}
                        onChange={(e) => props.onChange && props.onChange(e.currentTarget)}
-                       pattern_message='Password must contain only alphanumeric characters. Min 8, Max 25 symbols'
+                       pattern_message={t('Error message/Password must contain only alphanumeric characters. Min 8, Max 25 symbols')}
             />
             <EyeButton type='button' onClick={() =>!props.showPassword ? props.setShowPassword(true) : props.setShowPassword(false)}>
                 <img src={props.showPassword ? eye : closeIcon} alt=""/>

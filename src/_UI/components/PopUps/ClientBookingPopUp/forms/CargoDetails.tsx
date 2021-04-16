@@ -150,7 +150,7 @@ const CargoDetails: React.FC<PropsType> = ({
                 name={`cargo_descriptions.${item.id}`}
                 control={control}
                 as={<Field placeholder={t("Confirm Operation/Add description...")} />}
-                rules={{ required: "Field is required" }}
+                rules={{ required: `${t("Error message/Field is required")}` }}
                 defaultValue=""
               />
             </div>
@@ -170,7 +170,7 @@ const CargoDetails: React.FC<PropsType> = ({
                   control={control}
                   defaultValue=""
                   rules={{
-                    required: "Field is required",
+                    required: `${t("Error message/Field is required")}`,
                   }}
                   as={
                     <SurchargeRateSelect
@@ -186,7 +186,7 @@ const CargoDetails: React.FC<PropsType> = ({
                 <FormField
                   label={t("Operations/No. of Documents")}
                   inputRef={register({
-                    required: "Field is required",
+                    required: `${t("Error message/Field is required")}`,
                   })}
                   placeholder={t("Operations/No. of Documents")}
                   name="number_of_documents"

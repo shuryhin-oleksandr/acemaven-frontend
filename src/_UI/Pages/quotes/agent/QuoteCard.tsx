@@ -192,7 +192,7 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                 ? <ActionsAgentWrap>
                                     <QuoteOpenStatus>{t("Quote bid screen/Open")}</QuoteOpenStatus>
                                     <Tooltip arrow
-                                             title='To send an offer for this quote, you must select a carrier and have a rate and surcharge for it'
+                                             title={`${t('Freight rates/To send an offer for this quote, you must select a carrier and have a rate and surcharge for it')}`}
                                              classes={{tooltip: classes.customTooltip}}
                                     >
                                         <SubmitQuoteButton type={'submit'}>
@@ -200,7 +200,7 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                         </SubmitQuoteButton>
                                     </Tooltip>
                                     <Tooltip arrow
-                                             title='By clicking reject you will delete this quote from your list.'
+                                             title={`${t("Freight rates/By clicking reject you will delete this quote from your list")}.`}
                                              classes={{tooltip: classes.customTooltip}}
                                     >
                                         <RejectButton onClick={props.rejectQuoteHandler}
@@ -210,7 +210,7 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                 : <ActionsAgentWrap>
                                     <QuoteOpenStatus style={{textTransform:"uppercase"}}>{t("Quote bid screen/Offer submitted")}</QuoteOpenStatus>
                                     <Tooltip arrow
-                                             title='By clicking withdraw offer you will delete your offer for this quote.'
+                                             title={`${t('Freight rates/By clicking withdraw offer you will delete your offer for this quote')}.`}
                                              classes={{tooltip: classes.customTooltip}}
                                     >
                                         <RejectButton type={'button'} onClick={props.withdrawOfferHandler}>{t("Quotes/WITHDRAW OFFER")}</RejectButton>
@@ -287,7 +287,7 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                                             />
                                                         }
                                                         rules={{
-                                                            required: 'Field is required'
+                                                            required: `${t("Error message/Field is required")}`
                                                         }}
                                             />
                                         </CarrierWrap>

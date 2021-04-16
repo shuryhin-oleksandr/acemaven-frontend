@@ -166,12 +166,12 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                               control={control}
                                               defaultValue=''
                                               rules={{
-                                                  required: 'Field is required'
+                                                  required:`${t("Error message/Field is required")}`
                                               }}
                                               as={
                                                   <FormSelect error={errors?.container_type?.message}
                                                               label={t('Dashboard/ULD type')}
-                                                              placeholder='Placeholder'
+                                                              placeholder={t('Dashboard/ULD type')}
                                                               maxW='140px'
                                                               options={container_types}
                                                   />
@@ -181,12 +181,12 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                               control={control}
                                               defaultValue=''
                                               rules={{
-                                                  required: 'Field is required'
+                                                  required: `${t("Error message/Field is required")}`
                                               }}
                                               as={
                                                   <FormSelect error={errors?.packaging_type?.message}
                                                               label={t('Dashboard/Packaging type')}
-                                                              placeholder='Placeholder'
+                                                              placeholder={t('Dashboard/Packaging type')}
                                                               maxW='140px'
                                                               options={packaging_types}
                                                   />
@@ -206,7 +206,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                         control={control}
                                         defaultValue={''}
                                         rules={{
-                                            required: 'Field is required'
+                                            required: `${t("Error message/Field is required")}`
                                         }}
                                         as={
                                             <WeightWrapper>
@@ -260,7 +260,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                         control={control}
                                         defaultValue=''
                                         rules={{
-                                            required: 'Field is required'
+                                            required: `${t("Error message/Field is required")}`
                                         }}
                                         as={
                                             <WeightWrapper>
@@ -279,7 +279,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                         control={control}
                                         defaultValue=''
                                         rules={{
-                                            required: 'Field is required'
+                                            required: `${t("Error message/Field is required")}`
                                         }}
                                         as={
                                             <WeightWrapper>
@@ -299,7 +299,7 @@ const ChargeableWeightPopup: React.FC<PropsType> = ({
                                         control={control}
                                         defaultValue=''
                                         rules={{
-                                            required: 'Field is required'
+                                            required: `${t("Error message/Field is required")}`
                                         }}
                                         as={
                                             <WeightWrapper>

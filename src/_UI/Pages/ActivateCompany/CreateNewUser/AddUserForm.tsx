@@ -63,7 +63,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                     <InputWrap w='47%'>
                         <FormField label={t('Register/Name')}
                                    inputRef={register({
-                                       required: 'Field is required'
+                                       required: `${t("Error message/Field is required")}`
                                    })}
                                    error={errors?.first_name}
                                    placeholder={t('Register/Name')}
@@ -76,7 +76,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                    placeholder='Last Name'
                                    name={t('Register/Last Name')}
                                    inputRef={register({
-                                       required: 'Field is required'
+                                       required: `${t("Error message/Field is required")}`
                                    })}
                                    error={errors?.last_name}
                                    server_error={errorEmployee?.last_name ? errorEmployee.last_name[0] : ''}
@@ -85,7 +85,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                 </Wrapper>
                     <FormField label={t('Register/Email')}
                                inputRef={register({
-                                   required: 'Field is required',
+                                   required:`${t("Error message/Field is required")}`,
                                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                                })}
                                placeholder={t('Register/Email')}
@@ -98,7 +98,7 @@ const AddUserForm:React.FC<IProps> = ({errorEmployee}) => {
                                name='position'
                                error={errors?.position}
                                inputRef={register({
-                                   required: 'Field is required'
+                                   required: `${t("Error message/Field is required")}`
                                })}
                                server_error={errorEmployee?.position ? errorEmployee.position[0] : ''}
                     />

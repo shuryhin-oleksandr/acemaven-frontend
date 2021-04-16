@@ -46,7 +46,7 @@ const SurchargeForm: React.FC<PropsType> = (
                         control={control}
                         defaultValue=""
                         rules={{
-                            required: 'Field is required',
+                            required: `${t("Error message/Field is required")}`,
                         }}
                         as={
                             <SurchargeRateSelect label={t("Quote bid screen/Carrier")}
@@ -61,7 +61,7 @@ const SurchargeForm: React.FC<PropsType> = (
                         control={control}
                         defaultValue=""
                         rules={{
-                            required: 'Field is required',
+                            required: `${t("Error message/Field is required")}`,
                         }}
                         as={
                             <SurchargeRateSelect label={t("Surcharges/Direction")}
@@ -76,7 +76,7 @@ const SurchargeForm: React.FC<PropsType> = (
                         control={control}
                         defaultValue=""
                         rules={{
-                            required: 'Field is required',
+                            required: `${t("Error message/Field is required")}`,
                         }}
                         as={
                             <SurchargeRateSelect
@@ -100,7 +100,7 @@ const SurchargeForm: React.FC<PropsType> = (
                     >
                     <FormField
                         inputRef={register({
-                            required: "Field is required",
+                            required: `${t("Error message/Field is required")}`,
                         })}
                         name="location"
                         placeholder={t("Dashboard/Local port")}

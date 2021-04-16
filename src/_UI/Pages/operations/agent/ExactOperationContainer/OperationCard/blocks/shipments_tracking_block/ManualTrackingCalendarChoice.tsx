@@ -12,6 +12,7 @@ import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleU
 //styles
 import { CalendarWrapper } from 'src/_UI/components/_commonComponents/calendar/calendar-styles';
 import {HelperText} from "../../../../../../../components/_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -62,7 +63,7 @@ const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, reg
 
 
     const toInput = useRef<DayPickerInput>(null)
-
+    const {t} = useTranslation();
 
     return (
         <AcceptDatesFilter flex_direction={props.flex_direction} max_width={props.max_width}>
@@ -79,7 +80,7 @@ const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, reg
                                 name={props.date_name_first}
                                 control={control}
                                 rules={{
-                                    required: 'Field is required'
+                                    required: `${t("Error message/Field is required")}`
                                 }}
                                 defaultValue=""
                                 as={
@@ -103,7 +104,7 @@ const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, reg
                                 }
                             />
                             {!!errors.from && (
-                                <HelperText>Field is required</HelperText>
+                                <HelperText>{t("Error message/Field is required")}</HelperText>
                             )}
                         </>
                         <Controller name={props.time_name_first}

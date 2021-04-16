@@ -54,7 +54,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                                    placeholder={t("Register/City")}
                                    label={t("Register/City")}
                                    inputRef={register({
-                                       required: 'Field is required'
+                                       required: `${t("Error message/Field is required")}`
                                    })}
                         />
                     </InputWrap>
@@ -64,7 +64,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                                    error={errors?.state}
                                    label={t("Register/State")}
                                    inputRef={register({
-                                       required: 'Field is required'
+                                       required: `${t("Error message/Field is required")}`
                                    })}
                         />
                     </InputWrap>
@@ -76,7 +76,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                                    placeholder='str. 27'
                                    label={t("Register/Address")}
                                    inputRef={register({
-                                       required: 'Field is required'
+                                       required:`${t("Error message/Field is required")}`
                                    })}
                         />
                         <FormField name='address_line_second'
@@ -90,13 +90,13 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                                    error={errors?.zip_code}
                                    label={t("Register/Zip Code")}
                                    inputRef={register({
-                                       required: 'Field is required',
+                                       required: `${t("Error message/Field is required")}`,
                                        pattern: {
                                            value: /^[a-zA-Z0-9](.){3,10}[a-zA-Z0-9]$/,
-                                           message: 'Invalid format'
+                                           message: t("Error message/Invalid format")
                                        }
                                    })}
-                                   pattern_message="Invalid format"
+                                   pattern_message={t("Error message/Invalid format")}
                         />
                     </InputWrap>
                 </Wrapper>
@@ -106,13 +106,13 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                                placeholder='+375296665544'
                                label={t("Register/Phone Number")}
                                inputRef={register({
-                                   required: 'Field is required',
+                                   required: `${t("Error message/Field is required")}`,
                                    pattern: {
                                        value: /^(\+)([0-9]){10,13}$/,
-                                       message: "Invalid number"
+                                       message: t("Error message/Invalid number")
 
                                    }})}
-                               pattern_message="Invalid number"
+                               pattern_message={t("Error message/Invalid number")}
 
                     />
                     {company_type !== 'client' && <FormField name='website'
@@ -120,7 +120,7 @@ const EditCompanyInfoForm: React.FC<PropsType> = ({setEdit, companyInfo, company
                                                              placeholder='www.company.com'
                                                              error={errors?.website}
                                                              inputRef={register({
-                                                                 required: 'Field is required'
+                                                                 required: `${t("Error message/Field is required")}`
                                                              })}
                     />}
                 </InputWrap>

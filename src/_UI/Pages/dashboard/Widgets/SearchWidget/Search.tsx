@@ -414,14 +414,14 @@ const Search: React.FC<PropsType> = ({
               control={control}
               defaultValue=""
               rules={{
-                required: "Field is required",
+                required: `${t("Error message/Field is required")}`,
               }}
               as={
                 <SurchargeRateSelect
                   options={shippingModeOptions}
                   callback={setShippingValue}
                   error={errors?.shipping_mode?.message}
-                  label={"Shipping mode"}
+                  label={t("Dashboard/Shipping mode")}
                   hideLabel={true}
                   margin_bottom={"0px"}
                   disabled={disabled}
@@ -441,7 +441,7 @@ const Search: React.FC<PropsType> = ({
             >
               <FormField
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                   //validate: () => sessionStorage.getItem("origin_id") ? true : "Choose from the list"
                 })}
                 name="origin"
@@ -500,7 +500,7 @@ const Search: React.FC<PropsType> = ({
             >
               <FormField
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                   //validate: () => sessionStorage.getItem("destination_id") ? true : "Choose from the list"
                 })}
                 name="destination"

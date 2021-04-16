@@ -9,6 +9,7 @@ import {
 import SearchCheckbox from "../../../../_commonComponents/customCheckbox/searchCheckbox";
 import FormField from "../../../../_commonComponents/Input/FormField";
 import close_icon from "../../../../../assets/icons/close-icon.svg";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
     register?: any;
@@ -26,7 +27,7 @@ const BankAccountForm: React.FC<PropsType> = ({
                                               }) => {
     const [saveCheck, setSaveCheck] = useState(false);
     const [selectValue, setSelectValue] = useState(0);
-
+    const {t} = useTranslation();
     return (
         <>
             <ActionSelectWrapper>
@@ -37,11 +38,11 @@ const BankAccountForm: React.FC<PropsType> = ({
                     as={
                         <SurchargeRateSelect
                             options={[
-                                {title: "Add Bank account", id: 1},
-                                {title: "Credit card #1", id: 2},
+                                {title: t("Add bank account/Add bank account"), id: 1},
+                                {title: t("Add bank account/Credit card #1"), id: 2},
                             ]}
                             max_width="300px"
-                            label="Select Bank account"
+                            label={t("Add bank account/Select Bank account")}
                             callback={setSelectValue}
                         />
                     }
@@ -63,7 +64,7 @@ const BankAccountForm: React.FC<PropsType> = ({
                         setIsCheck={setSaveCheck}
                         inputref={register}
                         name="save"
-                        labelText="Save Bank information"
+                        labelText={t("Add bank account/Save Bank information")}
                         color="#000000"
                     />
                     <div style={{marginTop: "22px"}}>
@@ -78,14 +79,14 @@ const BankAccountForm: React.FC<PropsType> = ({
                                         {title: "Belagro", id: 2},
                                     ]}
                                     max_width="300px"
-                                    label="Bank Name"
+                                    label={t("Add bank account/Bank Name")}
                                 />
                             }
                         />
                         <FormField
-                            label="Branch No."
+                            label={t("Add bank account/Branch No.")}
                             inputRef={register({
-                                required: "Field is required",
+                                required: `${t("Error message/Field is required")}`,
                             })}
                             placeholder="0000-0"
                             name="branch_number"
@@ -93,11 +94,11 @@ const BankAccountForm: React.FC<PropsType> = ({
                             max_width="300px"
                         />
                         <FormField
-                            label="Account No."
+                            label={t("Add bank account/Account No.")}
                             inputRef={register({
-                                required: "Field is required",
+                                required: `${t("Error message/Field is required")}`,
                             })}
-                            placeholder="Account No."
+                            placeholder={t("Add bank account/Account No.")}
                             name="account_number"
                             //error={errors?.first_name}
                             max_width="300px"
@@ -109,11 +110,11 @@ const BankAccountForm: React.FC<PropsType> = ({
                             as={
                                 <SurchargeRateSelect
                                     options={[
-                                        {title: "Type 1", id: 1},
-                                        {title: "Type 2", id: 2},
+                                        {title: `${t("Bookings/Type")} 1`, id: 1},
+                                        {title: `${t("Bookings/Type")} 2`, id: 2},
                                     ]}
                                     max_width="300px"
-                                    label="Account type"
+                                    label={t("Add bank account/Account Type")}
                                 />
                             }
                         />

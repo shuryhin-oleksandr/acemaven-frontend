@@ -82,27 +82,27 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                     <AcceptFormOuter onSubmit={handleSubmit(onSubmit)}>
                         <FormField error={errors?.booking_number}
                                    label={t('Booking Confirmation/Booking number')}
-                                   placeholder='Placeholder'
+                                   placeholder={t('Booking Confirmation/Booking number')}
                                    max_width='100%'
                                    name='booking_number'
                                    defaultValue=''
-                                   inputRef={register({required: 'Field is required'})}
+                                   inputRef={register({required: `${t("Error message/Field is required")}`})}
                         />
                         {shipping_mode === 'LCL'
                         && <>
                             <FormField error={errors?.booking_number_with_carrier}
                                        label={t('Booking Confirmation/Booking Number With Carrier')}
-                                       placeholder='Placeholder'
+                                       placeholder={t('Booking Confirmation/Booking Number With Carrier')}
                                        max_width='100%'
                                        name='booking_number_with_carrier'
-                                       inputRef={register({required: 'Field is required'})}
+                                       inputRef={register({required: `${t("Error message/Field is required")}`})}
                                        booking_process={true}
                             />
                             <FormField error={errors?.container_number}
                                        label={t("Booking Confirmation/Container Number")}
-                                       placeholder='Placeholder'
+                                       placeholder={t("Booking Confirmation/Container Number")}
                                        max_width='100%'
-                                       inputRef={register({required: 'Field is required'})}
+                                       inputRef={register({required: `${t("Error message/Field is required")}`})}
                                        name='container_number'
                                        booking_process={true}
                             />
@@ -113,34 +113,34 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                         <FormField error={errors?.mawb}
                                    name='mawb'
                                    label={t('Booking Confirmation/MAWB')}
-                                   placeholder='Placeholder'
+                                   placeholder={t('Booking Confirmation/MAWB')}
                                    max_width='100%'
-                                   inputRef={register({required: 'Field is required'})}
+                                   inputRef={register({required: `${t("Error message/Field is required")}`})}
                                    booking_process={true}
                         />
                         }
                         {shipping_type === 'air'
                             ? <FormField error={errors?.flight_number}
                                          name='flight_number'
-                                         inputRef={register({required: 'Field is required'})}
+                                         inputRef={register({required: `${t("Error message/Field is required")}`})}
                                          label={t('Booking Confirmation/Flight Number')}
-                                         placeholder='Placeholder'
+                                         placeholder={t('Booking Confirmation/Flight Number')}
                                          max_width='100%'
                             />
                             : <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
                                 <FormField error={errors?.vessel}
                                            name='vessel'
-                                           inputRef={register({required: 'Field is required'})}
+                                           inputRef={register({required: `${t("Error message/Field is required")}`})}
                                            label={t('Booking Confirmation/Vessel')}
-                                           placeholder='Placeholder'
+                                           placeholder={t('Booking Confirmation/Vessel')}
                                            max_width='310px'
                                 />
 
                                 <FormField error={errors?.voyage}
                                            name='voyage'
-                                           inputRef={register({required: 'Field is required'})}
+                                           inputRef={register({required: `${t("Error message/Field is required")}`})}
                                            label={t('Booking Confirmation/Voyage')}
-                                           placeholder='Placeholder'
+                                           placeholder={t('Booking Confirmation/Voyage')}
                                            max_width='310px'
                                 />
                             </div>
@@ -198,7 +198,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                         {shipping_mode === 'FCL'
                         && <FormField error={errors?.container_free_time}
                                       name='container_free_time'
-                                      inputRef={register({required: 'Field is required'})}
+                                      inputRef={register({required: `${t("Error message/Field is required")}`})}
                                       label={t('Booking Confirmation/Container Free Time')}
                                       placeholder={t('Email notifications/Number of days')}
                                       max_width='310px'
@@ -208,7 +208,7 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                                     control={control}
                                     defaultValue=''
                                     rules={{
-                                        required: 'Field is required'
+                                        required: `${t("Error message/Field is required")}`
                                     }}
                                     as={
                                         <div style={{width: '100%'}}>

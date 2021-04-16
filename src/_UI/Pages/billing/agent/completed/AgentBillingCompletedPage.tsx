@@ -53,7 +53,7 @@ const AgentBillingCompletedPage:React.FC<PropsType> = ({...props}) => {
                                     setDates={props.setDates}
                                     dates={props.dates}
                                     width="240px"
-                                    placeholder="Choose month"
+                                    placeholder={t("Bookings/Choose month")}
                                 />
                             </div>
                             <OptionsDeliveryButtons directory=''

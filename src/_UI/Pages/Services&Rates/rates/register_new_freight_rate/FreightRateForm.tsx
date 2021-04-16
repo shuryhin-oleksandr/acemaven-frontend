@@ -52,7 +52,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                         control={control}
                         defaultValue=""
                         rules={{
-                            required: 'Field is required'
+                            required: `${t("Error message/Field is required")}`
                         }}
                         as={
                             <SurchargeRateSelect label={t("Quote bid screen/Carrier")}
@@ -66,7 +66,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                         control={control}
                         defaultValue=""
                         rules={{
-                            required: 'Field is required'
+                            required: `${t("Error message/Field is required")}`
                         }}
                         as={
                             <SurchargeRateSelect
@@ -90,7 +90,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                     >
                         <FormField
                             inputRef={register({
-                                required: "Field is required",
+                                required: `${t("Error message/Field is required")}`,
                             })}
                             name="origin"
                             placeholder={t("Dashboard/Local port")}
@@ -134,7 +134,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                     >
                         <FormField
                             inputRef={register({
-                                required: "Field is required",
+                                required: `${t("Error message/Field is required")}`,
                             })}
                             name="destination"
                             placeholder={t("Dashboard/Local port")}
@@ -174,7 +174,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                         label={t("Dashboard/Transit Time")}
                         placeholder={t("Billing/days")}
                         inputRef={register({
-                            required: "Field is required",
+                            required: `${t("Error message/Field is required")}`,
                         })}
                         name="transit_time"
                         error={errors?.transit_time}
@@ -182,7 +182,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                     />
                     {rate_transit_error && rate_transit_error.length > 0 &&
                     <HelperText style={{paddingTop: 0}}>
-                        Value is not valid
+                      {t("Error message/Value is not valid")}
                     </HelperText>}
 
                 </GroupWrap>

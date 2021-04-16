@@ -50,7 +50,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
             )
             && (my_name === props.agent_contact_name)
             &&
-            <AcceptButton style={{width: '146px'}} onClick={() => props.setEdit(true)}>
+            <AcceptButton style={{width: '146px', textTransform:'uppercase'}} onClick={() => props.setEdit(true)}>
                 {t("Bookings/UPDATE")}
             </AcceptButton>
             }

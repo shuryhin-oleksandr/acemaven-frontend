@@ -66,12 +66,12 @@ const CancelOperationByAgentPopup:React.FC<PropsType> = ({setIsCancelByAgent, ca
                     <Controller name='reason'
                                 control={control}
                                 rules={{
-                                    required: 'Field is required'
+                                    required: `${t("Error message/Field is required")}`
                                 }}
                                 defaultValue=''
                                 as={
                                     <FormSelect label={t('Confirm Operation/Cancellation reason')}
-                                                         placeholder='Placeholder'
+                                                         placeholder={t('Confirm Operation/Cancellation reason')}
                                                          error={errors?.reason?.message}
                                                          options={choices}
                                     />
@@ -95,7 +95,7 @@ const CancelOperationByAgentPopup:React.FC<PropsType> = ({setIsCancelByAgent, ca
                                         <FormTextarea error={!!errors?.comment}
                                                       placeholder={t('Bookings/Comments')}
                                         />
-                                        {errors?.comment && <HelperText messagePaddingTop='4px'>Field is required</HelperText>}
+                                        {errors?.comment && <HelperText messagePaddingTop='4px'>{t("Error message/Field is required")}</HelperText>}
                                     </div>
                                 }
                     />

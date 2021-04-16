@@ -419,7 +419,7 @@ const ClientOperationChangeRequestPopUp: React.FC<PropsTypes> = ({
                   <div style={{ paddingTop: "9px" }}>
                     <FormField
                       inputRef={register({
-                        required: "Field is required",
+                        required: `${t("Error message/Field is required")}`,
                         min: 1,
                       })}
                       placeholder={t("Operations/No. of Documents")}

@@ -191,7 +191,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                 <TableCell className={classes.innerCell} align="center">
                     <Tooltip
                         arrow
-                        title={`${t('Freight rates/Quotes can be paused or reactivated using this button')}`}
+                        title={`${t('Freight rates/Quotes can be paused or reactivated using this button')}.`}
                         classes={{ tooltip: classes.customTooltip }}
                     >
                         <IconButton style={{padding:0, marginRight:10}} onClick={() => activeInactiveQuote(Number(quote.id), !quote.is_active)}>
@@ -200,7 +200,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                     </Tooltip>
                     <Tooltip
                         arrow
-                        title={`${t("Freight rates/Quotes can be cancelled using this button")}`}
+                        title={`${t("Freight rates/Quotes can be cancelled using this button")}.`}
                         classes={{ tooltip: classes.customTooltip }}
                     >
                         <IconButton style={{padding:0}} onClick={() => deleteQuoteByClient(Number(quote.id))}>

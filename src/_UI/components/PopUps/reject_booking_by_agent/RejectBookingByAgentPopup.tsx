@@ -57,7 +57,7 @@ const RejectBookingByAgentPopup:React.FC<PropsType> = ({setRejectPopupOpen}) => 
                         <RejectLabel>{t("Bookings/Rejection reason")}</RejectLabel>
                         <Controller name='reason'
                                     control={control}
-                                    rules={{required: 'Field is required'}}
+                                    rules={{required: `${t("Error message/Field is required")}`}}
                                     as={
                                         <RejectTextarea placeholder={t("Bookings/Comments")}
                                                         error={!!errors?.reason}

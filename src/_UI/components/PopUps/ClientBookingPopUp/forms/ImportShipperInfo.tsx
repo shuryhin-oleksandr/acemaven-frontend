@@ -125,7 +125,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Company Name")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/Company Name")}
             name="name"
@@ -135,7 +135,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/City")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/City")}
             name="city"
@@ -145,7 +145,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Contact Name")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/Contact Name")}
             name="contact_name"
@@ -157,7 +157,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Phone Number") + ' 1'}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/Phone Number")}
             name="phone"
@@ -174,7 +174,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Email")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
             placeholder={t("Register/Email")}

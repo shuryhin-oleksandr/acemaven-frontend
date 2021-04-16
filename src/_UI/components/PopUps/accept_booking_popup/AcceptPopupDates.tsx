@@ -13,6 +13,7 @@ import {Controller} from "react-hook-form";
 import {AcceptDatesFilter, Wrapper} from "./accept-popup-styles";
 import {CalendarWrapper} from "../../_commonComponents/calendar/calendar-styles";
 import {HelperText} from "../../_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -106,7 +107,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
     }, [props.departure_date,props.arrival_date, props.second_time, props.first_time])
 
 
-
+    const {t} = useTranslation();
     // @ts-ignore
     return (
         <AcceptDatesFilter flex_direction={props.flex_direction} >
@@ -152,7 +153,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                             }
                         />
                         {!!errors.from && (
-                            <HelperText>Field is required</HelperText>
+                            <HelperText>{t("Error message/Field is required")}</HelperText>
                         )}
                     </>
                         <Controller name={props.time_name_first}
@@ -217,7 +218,7 @@ const AcceptPopupDates: React.FC<PropsType> = ({control, setValue, errors, regis
                                 }
                             />
                             {!!errors.to && (
-                                <HelperText>Field is required</HelperText>
+                                <HelperText>{t("Error message/Field is required")}</HelperText>
                             )}
                         </>
                         <Controller control={control}

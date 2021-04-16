@@ -108,7 +108,7 @@ const ChangePasswordPage: React.FC<PropsType> = ({setChangeMode}) => {
                 error={errors?.new_password2?.message}
                 type="password"
                 onBlur={matchPasswords}
-                pattern_message='Password must contain only alphanumeric characters. Min 8, Max 25 symbols'
+                pattern_message={t('Error message/Password must contain only alphanumeric characters. Min 8, Max 25 symbols')}
             />
             {error?.new_password2 && (
                 <ErrorServerMessage style={{padding: "0", marginBottom: "5px"}}>
@@ -117,7 +117,7 @@ const ChangePasswordPage: React.FC<PropsType> = ({setChangeMode}) => {
             )}
             {errorMatch && (
                 <ErrorServerMessage style={{padding: "0", marginBottom: "5px"}}>
-                    {errorMatch}
+                  {t(`Error message/${errorMatch}`)}
                 </ErrorServerMessage>
             )}
             {success && <SuccessMessage>Password was changed!</SuccessMessage>}

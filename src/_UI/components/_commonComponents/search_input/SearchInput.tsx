@@ -13,6 +13,7 @@ import { getAgentsOperationsThunk } from "../../../../_BLL/thunks/operations/age
 import { getClientOperationsThunk } from "../../../../_BLL/thunks/operations/client/OperationsClientThunk";
 import {getBillingOperationsListThunk} from "../../../../_BLL/thunks/billing/agent/AgentBillingThunks";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setSearchMode: (value: boolean) => void;
@@ -163,12 +164,12 @@ const SearchInput: React.FC<PropsType> = ({
   let onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
   };
-
+  const {t} = useTranslation();
   return (
     <SearchWrap>
       <SearchField
         //onBlur={() => setSearchMode(false)}
-        placeholder="Type..."
+        placeholder={`${t("Bookings/Type")}...`}
         onKeyPress={(event) => handleKeyPress(event, event.currentTarget)}
         onFocus={() => setSearchColumn(props.column_name)}
         name={`search_input.${props.searchColumn}`}

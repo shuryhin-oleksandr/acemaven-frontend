@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addBank, companyActions} from "../../../../_BLL/reducers/employeesAndBanksReducer";
 import {AppStateType} from "../../../../_BLL/store";
 import {ErrorServerMessage} from "../../SignInPage";
+import {useTranslation} from "react-i18next";
 
 const AddBankForm: React.FC = () => {
   const { register, handleSubmit, errors, control, reset } = useForm<
@@ -32,38 +33,38 @@ const AddBankForm: React.FC = () => {
            reset()
         }
     }, [success_bank])
-
+  const {t} = useTranslation();
   return (
     <FormWrap onSubmit={handleSubmit(onSubmit)}>
       <FormField
-        label="Bank Name"
+        label={t("Add bank account/Bank Name")}
         name="bank_name"
-        placeholder="Bank Name"
+        placeholder={t("Add bank account/Bank Name")}
         error={errors?.bank_name}
         inputRef={register({
-          required: "Field is required",
+          required: `${t("Error message/Field is required")}`,
           minLength: 1,
           maxLength: 100,
         })}
         max="100"
       />
         <FormField
-            label="Bank Number"
+            label={t("Add bank account/Bank No.")}
             name="bank_number"
             placeholder="000"
             error={errors?.bank_number}
             inputRef={register({
-                required: "Field is required",
+                required: `${t("Error message/Field is required")}`,
                 minLength: 1,
                 maxLength: 3,
             })}
             max="3"
         />
       <FormField
-        label="Branch No."
-        placeholder="Branch No."
+        label={t("Add bank account/Branch No.")}
+        placeholder={t("Add bank account/Branch No.")}
         inputRef={register({
-          required: "Field is required",
+          required: `${t("Error message/Field is required")}`,
           pattern: /^\d{4}-\d{1}$/,
           maxLength: 6,
           minLength: 1,
@@ -71,13 +72,13 @@ const AddBankForm: React.FC = () => {
         name="branch"
         error={errors?.branch}
         max="6"
-        pattern_message='Branch No. has to be in 0000-0 format'
+        pattern_message={t('Error message/Branch No. has to be in 0000-0 format')}
       />
       <FormField
-        label="Account No."
-        placeholder="Account No."
+        label={t("Add bank account/Account No.")}
+        placeholder={t("Add bank account/Account No.")}
         inputRef={register({
-          required: "Field is required",
+          required: `${t("Error message/Field is required")}`,
           pattern: /^\d+$/,
           minLength: 1,
           maxLength: 50,
@@ -86,7 +87,7 @@ const AddBankForm: React.FC = () => {
         error={errors?.number}
         max="50"
         type='number'
-        pattern_message='Account No. must contain only numbers'
+        pattern_message={t('Error message/Account No. must contain only numbers')}
       />
         {errorBank && <ErrorServerMessage>{errorBank}</ErrorServerMessage>}
       <Controller
@@ -95,15 +96,15 @@ const AddBankForm: React.FC = () => {
         defaultValue=""
         as={
           <FormSelect
-            label="Account Type"
+            label={t("Add bank account/Account Type")}
             options={options2}
             error={errors?.account_type?.message}
           />
         }
-        rules={{ required: "Field is required" }}
+        rules={{ required: `${t("Error message/Field is required")}` }}
       />
 
-      <SubmitButton type="submit">ADD BANK ACCOUNT</SubmitButton>
+      <SubmitButton type="submit">{t("Add bank account/Add bank account")}</SubmitButton>
     </FormWrap>
   );
 };

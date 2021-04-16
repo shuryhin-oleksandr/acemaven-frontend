@@ -9,6 +9,7 @@ import {
 import SearchCheckbox from "../../../../_commonComponents/customCheckbox/searchCheckbox";
 import FormField from "../../../../_commonComponents/Input/FormField";
 import close_icon from "../../../../../assets/icons/close-icon.svg";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   register?: any;
@@ -26,7 +27,7 @@ const CreditCardForm: React.FC<PropsType> = ({
 }) => {
   const [saveCheck, setSaveCheck] = useState(false);
   const [selectValue, setSelectValue] = useState(0);
-
+  const {t} = useTranslation();
   return (
     <>
       <ActionSelectWrapper>
@@ -37,11 +38,11 @@ const CreditCardForm: React.FC<PropsType> = ({
           as={
             <SurchargeRateSelect
               options={[
-                { title: "Add Credit card", id: 1 },
-                { title: "Credit card #1", id: 2 },
+                { title: t("Billing/Add Credit card"), id: 1 },
+                { title: t("Add bank account/Credit card #1"), id: 2 },
               ]}
               max_width="300px"
-              label="Select Credit Card"
+              label={t("Billing/Select Credit Card")}
               callback={setSelectValue}
             />
           }
@@ -63,7 +64,7 @@ const CreditCardForm: React.FC<PropsType> = ({
             setIsCheck={setSaveCheck}
             inputref={register}
             name="save"
-            labelText="Save card information"
+            labelText={t("Add bank account/Save card information")}
             color="#000000"
           />
           <div
@@ -76,11 +77,11 @@ const CreditCardForm: React.FC<PropsType> = ({
           >
             <div style={{ width: "48%" }}>
               <FormField
-                label="Name on Card"
+                label={t("Add bank account/Name on Card")}
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
-                placeholder="Name on Card"
+                placeholder={t("Add bank account/Name on Card")}
                 name="branch_number"
                 // error={errors?.first_name}
                 max_width="300px"
@@ -88,7 +89,7 @@ const CreditCardForm: React.FC<PropsType> = ({
               <FormField
                 label="CPF/CNPJ"
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
                 placeholder="CPF/CNPJ"
                 name="branch_number"
@@ -96,11 +97,11 @@ const CreditCardForm: React.FC<PropsType> = ({
                 max_width="300px"
               />
               <FormField
-                label="Card Number "
+                label={t("Add bank account/Card Number")}
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
-                placeholder="Card Number "
+                placeholder={t("Add bank account/Card Number")}
                 name="branch_number"
                 // error={errors?.first_name}
                 max_width="300px"
@@ -108,7 +109,7 @@ const CreditCardForm: React.FC<PropsType> = ({
               <FormField
                 label="CVV"
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
                 placeholder="CVV"
                 name="branch_number"
@@ -116,11 +117,11 @@ const CreditCardForm: React.FC<PropsType> = ({
                 max_width="300px"
               />
               <FormField
-                label="Card Expiration"
+                label={t("Add bank account/Card Expiration")}
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
-                placeholder="Card Expiration"
+                placeholder={t("Add bank account/Card Expiration")}
                 name="branch_number"
                 // error={errors?.first_name}
                 max_width="300px"
@@ -135,11 +136,11 @@ const CreditCardForm: React.FC<PropsType> = ({
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div style={{ width: "48%" }}>
                   <FormField
-                    label="Address"
+                    label={t("Register/Address")}
                     inputRef={register({
-                      required: "Field is required",
+                      required: `${t("Error message/Field is required")}`,
                     })}
-                    placeholder="Address"
+                    placeholder={t("Register/Address")}
                     name="branch_number"
                     // error={errors?.first_name}
                     max_width="300px"
@@ -155,7 +156,7 @@ const CreditCardForm: React.FC<PropsType> = ({
                   <FormField
                     label=""
                     inputRef={register({
-                      required: "Field is required",
+                      required: `${t("Error message/Field is required")}`,
                     })}
                     placeholder="0000-0"
                     name="branch_number"
@@ -165,41 +166,41 @@ const CreditCardForm: React.FC<PropsType> = ({
                 </div>
               </div>
               <FormField
-                label="City"
+                label={t("Register/City")}
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
-                placeholder="City"
+                placeholder={t("Register/City")}
                 name="branch_number"
                 // error={errors?.first_name}
                 max_width="300px"
               />
               <FormField
-                label="State"
+                label={t("Register/State")}
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
-                placeholder="State"
+                placeholder={t("Register/State")}
                 name="branch_number"
                 // error={errors?.first_name}
                 max_width="300px"
               />
               <FormField
-                label="Zip Code"
+                label={t("Register/Zip Code")}
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
-                placeholder="Zip Code"
+                placeholder={t("Register/Zip Code")}
                 name="branch_number"
                 // error={errors?.first_name}
                 max_width="300px"
               />
               <FormField
-                label="Country"
+                label={t("Register/Country")}
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
-                placeholder="Country"
+                placeholder={t("Register/Country")}
                 name="branch_number"
                 // error={errors?.first_name}
                 max_width="300px"

@@ -75,19 +75,19 @@ const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
                     width="19%"
                     searchWidget={true}
                     name="origin"
-                    placeholder="Origin"
+                    placeholder={t("Dashboard/Origin")}
                   />
                   <BaseFormikInput
                     width="19%"
                     searchWidget={true}
                     name="destination"
-                    placeholder="Destination"
+                    placeholder={t("Dashboard/Destination")}
                   />
                   <BaseFormikInput
                     width="19%"
                     searchWidget={true}
                     name="date"
-                    placeholder="Shipment date"
+                    placeholder={t("Dashboard/Shipment Date")}
                   />
                 </div>
                 {/*FieldArray*/}
@@ -122,7 +122,7 @@ const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
                             <BaseFormikInput
                               name={`cargo_groups.${index}.volume`}
                               searchWidget={true}
-                              placeholder="Volume"
+                              placeholder={t("Dashboard/Volume")}
                             />
                           </FieldWrapper>
                           <FieldWrapper>
@@ -131,9 +131,9 @@ const SearchWidget: React.FC<PropsType> = ({bottom, right}) => {
                               component="select"
                               searchWidget={true}
                             >
-                              <option value="">Frozen</option>
-                              <option value="green">Green</option>
-                              <option value="blue">Blue</option>
+                              <option value="">{t("Booking Columns/Frozen")}</option>
+                              <option value="green">{t("Dashboard/Green")}</option>
+                              <option value="blue">{t("Dashboard/Blue")}</option>
                             </BaseFormikInput>
                           </FieldWrapper>
                           {values.cargo_groups.length > 1 && (

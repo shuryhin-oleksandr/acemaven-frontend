@@ -122,7 +122,7 @@ const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, se
                                                 as={
                                                     <SurchargeRateSelect
                                                         options={currency}
-                                                        placeholder="Currency"
+                                                        placeholder={t("Bookings/Currency")}
                                                         max_width="80px"
                                                     />
                                                 }

@@ -258,7 +258,7 @@ const Rate: React.FC<PropsType> = ({
                 />
               </FieldOuter>
               <FieldOuter>
-                <Label>Sh{t("Quotes/SHIPPING MODE")}</Label>
+                <Label>{t("Quotes/SHIPPING MODE")}</Label>
                 <Controller
                   name="shipping_mode"
                   control={control}

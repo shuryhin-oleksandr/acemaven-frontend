@@ -57,7 +57,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                            placeholder={t("Register/Name")}
                            label={t("Register/Name")}
                            inputRef={register({
-                               required: 'Field is required'
+                               required: `${t("Error message/Field is required")}`
                            })}
                            error={errors?.first_name}
                            server_error={server_error?.first_name ? server_error.first_name[0] : ''}
@@ -66,7 +66,7 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                            placeholder={t("Register/Last Name")}
                            label={t("Register/Last Name")}
                            inputRef={register({
-                               required:'Field is required'
+                               required: `${t("Error message/Field is required")}`
                            })}
                            error={errors?.last_name}
                            server_error={server_error?.last_name ? server_error.last_name[0] : ''}
@@ -108,12 +108,12 @@ const AddUserForm:React.FC<PropsType> = ({setIsAdd, dispatch, server_error}) => 
                            placeholder={t("Register/Email")}
                            label={t("Register/Email")}
                            inputRef={register({
-                               required: 'Field is required',
+                               required: `${t("Error message/Field is required")}`,
                                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
                            })}
                            error={errors?.email}
                            server_error={server_error?.email ? server_error.email[0] : ''}
-                           pattern_message="Email is not valid"
+                           pattern_message={t("Error message/Email is not valid")}
                 />
             </FormWrap>
         </FormContainer>

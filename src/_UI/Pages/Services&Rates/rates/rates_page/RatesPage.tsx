@@ -278,7 +278,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   <div style={{ display: "flex" }}>
                     <Tooltip
                       arrow
-                      title={`${t("Freight rates/Rates can be paused or reactivated using this button")}`}
+                      title={`${t("Freight rates/Rates can be paused or reactivated using this button")}.`}
                       classes={{ tooltip: classes.customTooltip }}
                     >
                       <TemplateIcon>

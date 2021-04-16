@@ -112,7 +112,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Company Name")}
             inputRef={register({
-              required: "Field is required",
+              required:`${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/Company Name")}
             name="name"
@@ -121,7 +121,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Address")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/Address")}
             name="address_line_first"
@@ -137,7 +137,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/State")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/State")}
             name="state"
@@ -146,7 +146,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/City")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/City")}
             name="city"
@@ -155,7 +155,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Zip Code")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/Zip Code")}
             name="zip_code"
@@ -166,7 +166,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Contact Name")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/Contact Name")}
             name="contact_name"
@@ -175,7 +175,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Phone Number")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/Phone Number")}
             name="phone"
@@ -184,7 +184,7 @@ const ExportShipperInfo: React.FC<PropsType> = ({
           <FormField
             label={t("Register/Email")}
             inputRef={register({
-              required: "Field is required",
+              required: `${t("Error message/Field is required")}`,
             })}
             placeholder={t("Register/Email")}
             name="email"

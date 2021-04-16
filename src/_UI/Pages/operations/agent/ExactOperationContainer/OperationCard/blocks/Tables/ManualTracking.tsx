@@ -232,8 +232,8 @@ const ManualTracking: React.FC<PropsType> = ({
             <Notification>
                 <img src={IconLocation} alt="" style={{marginRight: "7px"}}/>
                 {company_type?.type === AppCompaniesTypes.AGENT
-                    ? "Automatic statuses for this shipment are not available, please keep the client up to date with the shipment milestones below."
-                    : "Automatic statuses for this shipment are not available, agent updates shipment milestones manually."}
+                    ? t("Operations/Automatic statuses for this shipment are not available, please keep the client up to date with the shipment milestones below.")
+                    : t("Operations/Automatic statuses for this shipment are not available, agent updates shipment milestones manually.")}
             </Notification>
             <TableWrapper>
                 <TableContainer className={classes.container} component={Paper}>
@@ -257,7 +257,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                             name={`status`}
                                             defaultValue=""
                                             rules={{
-                                                required: "Field is required",
+                                                required: `${t("Error message/Field is required")}`,
                                             }}
                                             as={
                                                 <SurchargeRateSelect
@@ -273,7 +273,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                         {!finded_status
                                             ? <FormField
                                                 inputRef={register({
-                                                    required: "Field is required",
+                                                    required: `${t("Error message/Field is required")}`,
                                                 })}
                                                 placeholder={t("Confirm Operation/Add comment...")}
                                                 name="comment"

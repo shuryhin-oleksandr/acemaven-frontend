@@ -53,7 +53,7 @@ const FCLField: React.FC<PropsType> = ({
           name={`cargo_groups[${index}].container_type`}
           defaultValue={item.container_type}
           rules={{
-            required: "Field is required",
+            required: `${t("Error message/Field is required")}`,
           }}
           as={
             <SurchargeRateSelect
@@ -76,7 +76,7 @@ const FCLField: React.FC<PropsType> = ({
         control={control}
         name={`cargo_groups[${index}].volume`}
         rules={{
-          required: "Field is required",
+          required: `${t("Error message/Field is required")}`,
         }}
         as={
           <div
@@ -109,7 +109,7 @@ const FCLField: React.FC<PropsType> = ({
               background="#ECECEC"
               options={frozen_choices}
               disabled={disabled}
-              placeholder="Frozen"
+              placeholder={t("Booking Columns/Frozen")}
               margin_bottom={"0px"}
               hideLabel={true}
               small_size="true"

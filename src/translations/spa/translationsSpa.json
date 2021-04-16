@@ -23,7 +23,8 @@
     "BACK": "ATRÁS",
     "Create new account": "Criar novos Conta",
     "Roles": "Roles",
-    "Contact Name": ""
+    "Contact Name": "",
+    "Country": ""
   },
   "Create Master Account": {
     "Create Master Account": "Crear Conta Master"
@@ -38,15 +39,23 @@
   "Add bank account": {
     "Add bank account": "Adicionar datos bancarios",
     "Bank Name": "Nombre del Banco",
-    "Bank No.": "",
+    "Bank No.": "Código del banco",
     "Branch No.": "Número de la Sucursal",
     "Account No.": "Número de Cuenta",
-    "Account Type": "",
+    "Account Type": "Tipo de Cuent",
     "Tax ID No.": "VAT",
     "Full fill the form at the right": "Digite las informaciones a la izquierda",
     "Set as default": "Seleccionar como principal",
     "You have completed all the fields.": "Usted há completado todos los pasos. Gracias!",
-    "Got it!": "Comprendido!"
+    "Got it!": "Comprendido!",
+    "Checking": "Poupança",
+    "Credit card #1": "",
+    "Select Bank account": "",
+    "Save Bank information": "",
+    "Save card information": "",
+    "Name on Card": "",
+    "Card Number": "",
+    "Card Expiration": ""
   },
   "Complete Profile": {
     "Complete Profile": "Complete su perfil",
@@ -75,7 +84,7 @@
     "Search rates": "Búsqueda de fletes",
     "Shipping Mode": "Tipo de Embarque",
     "Origin": "Origen",
-    "Local port": "Puerto local",
+    "Local port": "Puerto",
     "Destination": "Destino",
     "Shipment Date": "Fecha de Embarque",
     "Container Type": "Tipo de Contenedor",
@@ -93,6 +102,7 @@
     "Packaging type": "Tipo de Embalaje",
     "ULD type": "Tipo de ULD",
     "No. of packs": "No. de volumenes",
+    "No. of days": "",
     "Weight": "Peso",
     "Height": "Alto",
     "Length": "Largo",
@@ -120,10 +130,7 @@
     "There are no new messages": "No hay mensajes nuevos.",
     "There are no notifications yet": "Aún no hay notificaciones.",
     "On service since": "",
-    "Operations done": "",
-    "Red": "",
-    "Green": "",
-    "Blue": ""
+    "Operations done": ""
   },
   "Dashboard Menu": {
     "REQUESTS": "SOLICITUDES",
@@ -163,7 +170,8 @@
     "ROUTE": "RUTA",
     "CLIENT": "CLIENTE",
     "SHIPMENT DATE": "FECHA DE EMBARQUE",
-    "STATUS": "ESTADO"
+    "STATUS": "ESTADO",
+    "Frozen": ""
   },
   "Bookings": {
     "Booking": "Reserva",
@@ -205,6 +213,7 @@
     "CHARGES": "COSTOS",
     "CHARGES IN": "CARGOS EN",
     "TYPE": "TIPO",
+    "Type": "Tipo",
     "CHARGE": "DESCRIPCION DE LA CARGA",
     "CURRENCY": "MONEDA",
     "Currency": "Moneda",
@@ -214,7 +223,7 @@
     "your_search_": "",
     "NO.": "NUMERO",
     "BOOKING WITH CARRIER": "NO. DE RESERVA DEL TRANSPORTADOR",
-    "UPDATE": "",
+    "UPDATE": "Actualizar",
     "CONFIRM CHARGES": "CONFIRMAR CAMBIOS",
     "TAKE OVER": "ASUMIR GESTION",
     "REQUEST CHANGE": "SOLICITAR CAMBIO",
@@ -226,7 +235,7 @@
     "CARGO CUT OFF": "FECHA DE CORTE DE CARGA",
     "ACTUAL TIME OF ARRIVAL": "DATA DE LLEGADA REAL",
     "CONTAINER FREE TIME": "DIAS DE CORTESIA DE LOS VACIOS",
-    "Message": "...",
+    "Message": "Escriba su mensaje",
     "GET ASSISTANCE": "SOLICITAR SOPORTE",
     "to Book": "Para solicitar reserva",
     "Booking Fee": "Tasa de Solicitud",
@@ -337,7 +346,7 @@
     "Actual Time of Arrival": "Data de Llegada Real",
     "Are you sure you want to take over this booking?": "Seguro que quiere hacerse cargo de esta operación?",
     "Are you sure you want to cancel users adding?": "Está seguro de que desea salir del registro de usuarios?",
-    "Are you sure you want to cancel bank accounts adding?": ""
+    "Are you sure you want to cancel bank accounts adding?": "Estás seguro de que desea cancelar la adición de cuentas bancarias?"
   },
   "Operations": {
     "Operations": "Operaciones",
@@ -350,6 +359,7 @@
     "NOTES": "NOTAS",
     "Automatic statuses for this shipment are not available, please keep the client up to date with the shipment milestones below.": "El rastreo online no está disponible para este embarque, por favor mantenga al cliente actualizado con los eventos a continuación.",
     "Automatic statuses for this shipment are not available yet. Statuses will be updated soon.": "",
+    "Automatic statuses for this shipment are not available, agent updates shipment milestones manually.": "",
     "Your comments to the client": "Sus comentarios sobre la reserva",
     "DOCUMENTS": "DOCUMENTOS",
     "NO. OF DOCUMENTS": "NO. DE DOCUMENTOS",
@@ -365,7 +375,7 @@
     "FLIGHT": "NUMERO DE VUELO",
     "location": "localización",
     "Location": "Localización",
-    "Update information in the Operation": "",
+    "Update information in the Operation": "Actualización de los detalles del embarque",
     "You don't have permissions to write": ""
   },
   "Confirm Operation": {
@@ -427,11 +437,13 @@
     "PAY": "PAGAR",
     "PAY TO": "PAGARA",
     "CANCEL BOOKING": "CANCELAR SOLICITUD",
-    "Payment process": "Proceso de pago",
+    "Payment process": "Detalles para el pago ",
     "days": "días",
     "day": "día",
     "Mesaage_Bil_Allow": "Aguarde algunos instantes después de haber efectuado el pago com las informaciones en esta pantalla. Si no acontece inmediatamente, puede cerrar la misma y estaremos enviando su reserva una vez sea recibido.",
-    "Are you sure you want to cancel booking": "Está seguro de que desea cancelar este embarque?"
+    "Are you sure you want to cancel booking": "Está seguro de que desea cancelar este embarque?",
+    "Select Credit Card": "",
+    "Add Credit card": ""
   },
   "Surcharges": {
     "Surcharges": "Tasas",
@@ -494,16 +506,20 @@
     "You already have change request": "",
     "Change cargo group": "",
     "Language": "",
-    "This option will indicate that the charge will be calculated by the chargeable weight (chargable_weight/m) of the cargo.":"",
+    "This option will indicate that the charge will be calculated by the chargeable weight of the cargo.":"",
     "Will be calculated by the weight of the cargo.": "",
-    "As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search_client_thunks.": "",
-    "This means that the value indicated will be considered once in the shipment.": ""
+    "As opposed to the previous option, it will consider the charge by the number of packs in the shipment/client’s search.": "",
+    "This means that the value indicated will be considered once in the shipment.": "",
+    "You can use automatic address search": "",
+    "By clicking withdraw offer you will delete your offer for this quote": "",
+    "By clicking reject you will delete this quote from your list": "",
+    "To send an offer for this quote, you must select a carrier and have a rate and surcharge for it": ""
   },
   "Help and Support": {
     "Help and Support": "Ayuda y Soporte",
     "Topic": "Asunto",
     "POST": "ENVIAR",
-    "Operation No.": "",
+    "Operation No.": "ACEID",
     "Unread messages": "Mensajes no leidas"
   },
   "Booking process": {
@@ -523,8 +539,8 @@
     "CONFIRM AND SEND": "CONFIRMAR Y ENVIAR",
     "DETAILS": "DETALLHES",
     "TOTAL W/M": "TOTAL W/M",
-    "BEFORE REQUEST": "",
-    "AFTER REQUEST": "",
+    "BEFORE REQUEST": "Cargos actuales",
+    "AFTER REQUEST": "Después del cambio",
     "Will your company be the shipper?": "Es su empresa el embarcador?",
     "The booking request will be sent to the agent.": "La solicitud de reserva se enviará al agente.",
     "Your_Booking": "Su solicitud de reserva está pendiente de pago, se notificará al encargado en su empresa para que lo procese y pueda ser enviada al agente."
@@ -638,6 +654,46 @@
     "Fri": "Vie",
     "Sat": "Sab",
     "Sun": "Dom"
+  },
+  "Error message": {
+    "Please, enter your company name": "",
+    "Please, enter your phone number": "",
+    "Please, enter your address": "",
+    "Please, enter your state": "",
+    "Please, enter your city": "",
+    "Please, enter your zip code": "",
+    "Please, enter your tax id number": "",
+    "Phone number is not valid": "",
+    "Zip code has invalid format": "",
+    "Tax id number must be in format ": "",
+    "Please, enter your name": "",
+    "Please, enter your last name": "",
+    "Please, enter your email": "",
+    "Please, enter your position": "",
+    "Invalid email": "",
+    "Please, enter your password": "",
+    "Unable to log in with provided credentials": "",
+    "Please, enter your employees number": "",
+    "Please, enter your website": "",
+    "Field is required": "",
+    "Passwords don't match!": "",
+    "Invalid password": "",
+    "Phone number has to include only + and numbers": "",
+    "Invalid number": "",
+    "Wrong format. Ex.": "",
+    "Maximum length is 6 symbols": "",
+    "Email is not valid": "",
+    "Employees number must be more then 0": "",
+    "Employees number must be no more than 1000000": "",
+    "Password must contain at least 8 characters": "",
+    "Password must contain maximum 25 characters": "",
+    "Passwords must match": "",
+    "Please, confirm your password": "",
+    "Invalid format": "",
+    "Value is not valid": "",
+    "Branch No. has to be in 0000-0 format": "",
+    "Account No. must contain only numbers": "",
+    "Password must contain only alphanumeric characters. Min 8, Max 25 symbols": ""
   }
 }
 

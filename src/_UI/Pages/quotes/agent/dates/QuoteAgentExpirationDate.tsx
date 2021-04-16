@@ -10,6 +10,7 @@ import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleU
 //styles
 import {CalendarWrapper} from "../../../../components/_commonComponents/calendar/calendar-styles";
 import {HelperText} from "../../../../components/_commonComponents/Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -37,7 +38,7 @@ const QuoteAgentExpirationDate: React.FC<PropsType> = ({control, error, setValue
 
     let a = moment(date_to, 'DD/MM/YYYY').add(1, 'days').calendar();
     let disabled_before = moment(a).toDate()
-
+    const {t} = useTranslation();
     return (
         <CalendarWrapper max_width='300px' margin_top='0px'
                          input_height='40px' margin_right='0px' margin_bottom='25px'>
@@ -45,7 +46,7 @@ const QuoteAgentExpirationDate: React.FC<PropsType> = ({control, error, setValue
                 name='date_to'
                 control={control}
                 rules={{
-                    required: 'Field is required'
+                    required: `${t("Error message/Field is required")}`
                 }}
                 defaultValue=""
                 as={
@@ -72,7 +73,7 @@ const QuoteAgentExpirationDate: React.FC<PropsType> = ({control, error, setValue
                 }
             />
             {error && (
-                <HelperText>Field is required</HelperText>
+                <HelperText>{t("Error message/Field is required")}</HelperText>
             )}
         </CalendarWrapper>
     )

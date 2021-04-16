@@ -93,80 +93,80 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
             <div style={{display: 'flex', width: '100%', justifyContent: 'space-between', borderBottom: '1px solid #7C7C89', paddingBottom: '25px', marginBottom: '25px'}}>
                 {operation_info?.shipping_type === ShippingTypesEnum.SEA
                     ? <>
-                        <FormField inputRef={register({required: 'Field is required'})}
+                        <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                    error={errors?.vessel}
                                    name='vessel'
                                    max_width='290px'
                                    color_label='#115B86'
                                    label={t('Billing/SHIP')}
-                                   placeholder='Placeholder'
+                                   placeholder={t('Billing/SHIP')}
                                    font_weight='Helvetica Bold'
                                    defaultValue={shipment?.vessel}
                         />
-                        <FormField inputRef={register({required: 'Field is required'})}
+                        <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                    error={errors?.voyage}
                                    name='voyage'
                                    max_width='290px'
                                    color_label='#115B86'
                                    label={t('Bookings/TRIP')}
-                                   placeholder='Placeholder'
+                                   placeholder={t('Bookings/TRIP')}
                                    font_weight='Helvetica Bold'
                                    defaultValue={shipment?.voyage}
                         />
                     </>
                     : <>
-                        <FormField inputRef={register({required: 'Field is required'})}
+                        <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                    error={errors?.mawb}
                                    name='mawb'
                                    max_width='290px'
                                    color_label='#115B86'
                                    label={t('Booking Confirmation/MAWB')}
-                                   placeholder='Placeholder'
+                                   placeholder={t('Booking Confirmation/MAWB')}
                                    font_weight='Helvetica Bold'
                                    defaultValue={shipment?.mawb}
                         />
-                        <FormField inputRef={register({required: 'Field is required'})}
+                        <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                                    error={errors?.flight_number}
                                    name='flight_number'
                                    max_width='290px'
                                    color_label='#115B86'
                                    label={t("Booking Confirmation/FLIGHT NUMBER")}
-                                   placeholder='Placeholder'
+                                   placeholder={t("Booking Confirmation/FLIGHT NUMBER")}
                                    font_weight='Helvetica Bold'
                                    defaultValue={shipment?.flight_number}
                         />
                     </>
                 }
-                <FormField inputRef={register({required: 'Field is required'})}
+                <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                            error={errors?.booking_number}
                            name='booking_number'
                            max_width='290px'
                            color_label='#115B86'
                            label={t("Booking Confirmation/BOOKING NUMBER")}
-                           placeholder='Placeholder'
+                           placeholder={t("Booking Confirmation/BOOKING NUMBER")}
                            font_weight='Helvetica Bold'
                            defaultValue={shipment?.booking_number}
                 />
             </div>
             {(operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.LCL) &&
             <div style={{display: 'flex',  width: '100%', maxWidth: '603px', justifyContent: 'space-between', borderBottom: '1px solid #7C7C89', paddingBottom: '25px', marginBottom: '25px'}}>
-                <FormField inputRef={register({required: 'Field is required'})}
+                <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                            error={errors?.booking_number_with_carrier}
                            name='booking_number_with_carrier'
                            max_width='290px'
                            color_label='#115B86'
                            label={t("Booking Confirmation/BOOKING NUMBER WITH CARRIER")}
-                           placeholder='Placeholder'
+                           placeholder={t("Booking Confirmation/BOOKING NUMBER WITH CARRIER")}
                            font_weight='Helvetica Bold'
                            defaultValue={shipment?.booking_number_with_carrier}
                 />
-                <FormField inputRef={register({required: 'Field is required'})}
+                <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                            error={errors?.container_number}
                            name='container_number'
                            max_width='290px'
                            color_label='#115B86'
                            label={t("Booking Confirmation/CONTAINER NUMBER")}
-                           placeholder='Placeholder'
+                           placeholder={t("Booking Confirmation/CONTAINER NUMBER")}
                            font_weight='Helvetica Bold'
                            defaultValue={shipment?.container_number}
                 />
@@ -188,8 +188,8 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                               setValue={setValue}
                               required_dates={true}
                               required_time={true}
-                              label1={'Estimated Time of Departure'}
-                              label2={'Estimated Time of Arrival'}
+                              label1={t('Booking Confirmation/Estimated Time of Departure')}
+                              label2={t('Booking Confirmation/Estimated Time of Arrival')}
                               time_name_first={'estimated_time.departure_time'}
                               time_name_second={'estimated_time.arrival_time'}
                               date_name_first={'estimated_time.from'}
@@ -211,8 +211,8 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
                                  setValue={setValue}
                                  required_dates={true}
                                  required_time={true}
-                                 label1={'Documents Cut Off Date'}
-                                 label2={'Cargo Cut Off Date'}
+                                 label1={t('Booking Confirmation/Documents Cut Off Date')}
+                                 label2={t('Booking Confirmation/Cargo Cut Off Date')}
                                  time_name_first={'documents_cut_off.cut_off_time'}
                                  time_name_second={'cargo_cut_off.cut_off_time'}
                                  date_name_first={'documents_cut_off.from'}
@@ -233,13 +233,13 @@ const ChangeRequestForm:React.FC<PropsType> = ({operation_info}) => {
             </div>
             {(operation_info?.freight_rate.shipping_mode.id === ShippingModeEnum.FCL) &&
             <div style={{display: 'flex', width: '100%', justifyContent: 'space-between', borderBottom: '1px solid #7C7C89', paddingBottom: '25px', marginBottom: '25px'}}>
-                <FormField inputRef={register({required: 'Field is required'})}
+                <FormField inputRef={register({required: `${t("Error message/Field is required")}`})}
                            error={errors?.container_free_time}
                            name='container_free_time'
                            max_width='290px'
                            color_label='#115B86'
                            label={t('Bookings/CONTAINER FREE TIME')}
-                           placeholder='0 days'
+                           placeholder={`0 ${t("Billing/days")}`}
                            font_weight='Helvetica Bold'
                            defaultValue={shipment?.container_free_time ? shipment?.container_free_time : ''}
                 />

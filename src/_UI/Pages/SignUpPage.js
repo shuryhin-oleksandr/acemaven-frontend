@@ -18,62 +18,64 @@ const phoneRegex = /^(\+)([0-9]){10,13}$/;
 const taxIdRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
 const zipCodeRegex = /^[a-zA-Z0-9](.){3,10}[a-zA-Z0-9]$/;
 
-const AgentValidationSchema = Yup.object().shape({
-  name: Yup.string().trim().required("Please, enter your company name"),
-  phone: Yup.string()
-    .matches(phoneRegex, "Phone number is not valid")
-    .required("Please, enter your phone number"),
-  employees_number: Yup.number()
-    .min(1, "Employees number must be more then 0")
-    .max(1000000, "Employees number must be no more than 1000000")
-    .required("Please, enter your employees number"),
-  website: Yup.string().required("Please, enter your website"),
-  address_line_first: Yup.string().trim().required("Please, enter your address"),
-  state: Yup.string().trim().required("Please, enter your state"),
-  city: Yup.string().trim().required("Please, enter your city"),
-  zip_code: Yup.string()
-    .matches(zipCodeRegex, "Zip code has invalid format.")
-    .required("Please, enter your zip code"),
-  tax_id: Yup.string()
-    .matches(taxIdRegex, "Tax id number must be in format 00.000.000/0000-00")
-    .required("Please, enter your tax id number"),
-  first_name: Yup.string().trim().required("Please, enter your name"),
-  last_name: Yup.string().trim().required("Please, enter your last name"),
-  master_phone: Yup.string()
-    .matches(phoneRegex, "Phone number is not valid")
-    .required("Please, enter your phone number"),
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Please, enter your email"),
-  position: Yup.string().trim().required("Please, enter your position"),
-});
-
-const ClientValidationSchema = Yup.object().shape({
-  name: Yup.string().trim().required("Please, enter your company name"),
-  phone: Yup.string()
-    .matches(phoneRegex, "Phone number is not valid")
-    .required("Please, enter your phone number"),
-  address_line_first: Yup.string().trim().required("Please, enter your address"),
-  state: Yup.string().trim().required("Please, enter your state"),
-  city: Yup.string().trim().required("Please, enter your city"),
-  zip_code: Yup.string()
-    .matches(zipCodeRegex, "Zip code has invalid format.")
-    .required("Please, enter your zip code"),
-  tax_id: Yup.string()
-    .matches(taxIdRegex, "Tax id number must be in format 00.000.000/0000-00")
-    .required("Please, enter your tax id number"),
-  first_name: Yup.string().trim().required("Please, enter your name"),
-  last_name: Yup.string().trim().required("Please, enter your last name"),
-  master_phone: Yup.string()
-    .matches(phoneRegex, "Phone number is not valid")
-    .required("Please, enter your phone number"),
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Please, enter your email"),
-  position: Yup.string().trim().required("Please, enter your position"),
-});
 
 const SignUpPage = () => {
+  const {t} = useTranslation();
+  const AgentValidationSchema = Yup.object().shape({
+    name: Yup.string().trim().required(`${t("Error message/Please, enter your company name")}`),
+    phone: Yup.string()
+      .matches(phoneRegex, t("Error message/Phone number is not valid"))
+      .required(`${t("Error message/Please, enter your phone number")}`),
+    employees_number: Yup.number()
+      .min(1, t("Error message/Employees number must be more then 0"))
+      .max(1000000, t("Error message/Employees number must be no more than 1000000"))
+      .required(`${t("Error message/Please, enter your employees number")}`),
+    website: Yup.string().required(`${t("Error message/Please, enter your website")}`),
+    address_line_first: Yup.string().trim().required(`${t("Error message/Please, enter your address")}`),
+    state: Yup.string().trim().required(`${t("Error message/Please, enter your state")}`),
+    city: Yup.string().trim().required(`${t("Error message/Please, enter your city")}`),
+    zip_code: Yup.string()
+      .matches(zipCodeRegex, t("Error message/Zip code has invalid format"))
+      .required(`${t("Error message/Please, enter your zip code")}`),
+    tax_id: Yup.string()
+      .matches(taxIdRegex, t("Error message/Tax id number must be in format"))
+      .required(`${t("Error message/Please, enter your tax id number")}`),
+    first_name: Yup.string().trim().required(`${t("Error message/Please, enter your name")}`),
+    last_name: Yup.string().trim().required(`${t("Error message/Please, enter your last name")}`),
+    master_phone: Yup.string()
+      .matches(phoneRegex, t("Error message/Phone number is not valid"))
+      .required(`${t("Error message/Please, enter your phone number")}`),
+    email: Yup.string()
+      .email(`${t("Error message/Invalid email")}`)
+      .required(`${t("Error message/Please, enter your email")}`),
+    position: Yup.string().trim().required(`${t("Error message/Please, enter your position")}`),
+  });
+
+  const ClientValidationSchema = Yup.object().shape({
+    name: Yup.string().trim().required(`${t("Error message/Please, enter your company name")}`),
+    phone: Yup.string()
+      .matches(phoneRegex, t("Error message/Phone number is not valid"))
+      .required(`${t("Error message/Please, enter your phone number")}`),
+    address_line_first: Yup.string().trim().required(`${t("Error message/Please, enter your address")}`),
+    state: Yup.string().trim().required(`${t("Error message/Please, enter your state")}`),
+    city: Yup.string().trim().required(`${t("Error message/Please, enter your city")}`),
+    zip_code: Yup.string()
+      .matches(zipCodeRegex, t("Error message/Zip code has invalid format"))
+      .required(`${t("Error message/Please, enter your zip code")}`),
+    tax_id: Yup.string()
+      .matches(taxIdRegex, t("Error message/Tax id number must be in format"))
+      .required(`${t("Error message/Please, enter your tax id number")}`),
+    first_name: Yup.string().trim().required(`${t("Error message/Please, enter your name")}`),
+    last_name: Yup.string().trim().required(`${t("Error message/Please, enter your last name")}`),
+    master_phone: Yup.string()
+      .matches(phoneRegex,  t("Error message/Phone number is not valid"))
+      .required(`${t("Error message/Please, enter your phone number")}`),
+    email: Yup.string()
+      .email(`${t("Error message/Invalid email")}`)
+      .required(`${t("Error message/Please, enter your email")}`),
+    position: Yup.string().trim().required(`${t("Error message/Please, enter your position")}`),
+  });
+
   const dispatch = useDispatch();
   let error = useSelector((state) => state.auth.companySignUpError);
   let finishPopup = useSelector((state) => state.auth.finishPopup);
@@ -86,7 +88,7 @@ const SignUpPage = () => {
   const [firstPage, changePage] = useState(true);
 
   let start_as_agent = useSelector((state) => state.auth.signUpAsAgent);
-  const { t } = useTranslation();
+
   return (
     <ModalWindow isOpen={isSignUp && !finishPopup}>
       <RegisterFormTemplate

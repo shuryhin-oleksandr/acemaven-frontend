@@ -17,15 +17,18 @@ import {authActions} from "../../_BLL/reducers/authReducer";
 import Spinner from "../components/_commonComponents/spinner/Spinner";
 import ModalWindow from "../components/_commonComponents/ModalWindow/ModalWindow";
 import {signIn} from "../../_BLL/thunks/auth/authThunks";
+import {useTranslation} from "react-i18next";
 
-const ValidationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Please, enter your email"),
-  password: Yup.string().required("Please, enter your password"),
-});
+
 
 const SignInPage = ({history}) => {
+  const {t} = useTranslation();
+  const ValidationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email(`${t("Error message/Invalid email")}`)
+      .required(`${t("Error message/Please, enter your email")}`),
+    password: Yup.string().required(`${t("Error message/Please, enter your password")}`),
+  });
     const dispatch = useDispatch()
     const loginFail = useSelector(state => state.auth.loginError)
     const isFetching = useSelector(state => state.auth.isFetching)

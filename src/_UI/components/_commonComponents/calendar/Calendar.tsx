@@ -10,6 +10,7 @@ import { Controller } from 'react-hook-form'
 // @ts-ignore
 import {formatDate, parseDate} from 'react-day-picker/build/addons/MomentLocaleUtils'
 import {HelperText} from "../Input/input-styles";
+import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
@@ -46,7 +47,7 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
 
     const { from, to } = selectedDay
     const modifiers = {start: selectedDay.from, end: selectedDay.to};
-
+    const [t] = useTranslation();
     return (
         <CalendarWrapper margin_bottom={props.margin_bottom} error={error} max_width={props.max_width}
                          input_height={props.input_height} margin_right={props.margin_right} margin_top={props.margin_top}>
@@ -88,7 +89,7 @@ const Calendar = forwardRef<DayPickerInput, PropsType>(
                 }
             />
             {error && (
-                <HelperText>Field is required</HelperText>
+                <HelperText>{t("Error message/Field is required")}</HelperText>
             )}
         </CalendarWrapper>
     )

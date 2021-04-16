@@ -102,7 +102,7 @@ const EditUserCardForm: React.FC<PropsType> = ({setEditMode, dispatch, worker}) 
                            placeholder={t("Register/Name")}
                            label={t("Register/Name")}
                            inputRef={register({
-                               required: 'Field is required'
+                               required: `${t("Error message/Field is required")}`
                            })}
                            error={errors?.first_name}
                 />
@@ -110,7 +110,7 @@ const EditUserCardForm: React.FC<PropsType> = ({setEditMode, dispatch, worker}) 
                            placeholder={t("Register/Last Name")}
                            label={t("Register/Last Name")}
                            inputRef={register({
-                               required: 'Field is required'
+                               required: `${t("Error message/Field is required")}`
                            })}
                            error={errors?.last_name}
                 />
@@ -151,11 +151,11 @@ const EditUserCardForm: React.FC<PropsType> = ({setEditMode, dispatch, worker}) 
                            placeholder={t("Register/Email")}
                            label={t("Register/Email")}
                            inputRef={register({
-                               required: 'Field is required',
+                               required: `${t("Error message/Field is required")}`,
                                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                            })}
                            error={errors?.email}
-                           pattern_message="Email is not valid"
+                           pattern_message={t("Error message/Email is not valid")}
                 />
             </FormContainer>
         </EditCardContainer>

@@ -279,9 +279,9 @@ const RegisterNewRateFromQuotePopup: React.FC<PropsType> = ({openCreatePopup, ca
                                 <GeneralTitle margin_bottom='15px'>{t("Bookings/TRANSIT TIME")}</GeneralTitle>
                                 <FormField name='transit_time'
                                            error={errors?.transit_time}
-                                           inputRef={register({required: 'Field is required'})}
+                                           inputRef={register({required: `${t("Error message/Field is required")}`})}
                                            marginBottom='25px'
-                                           placeholder='0 days'
+                                           placeholder={`0 ${t("Billing/days")}`}
                                 />
                             </div>
                         </div>

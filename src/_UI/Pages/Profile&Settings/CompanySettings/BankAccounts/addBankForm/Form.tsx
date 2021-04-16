@@ -46,7 +46,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        placeholder={t('Add bank account/Bank Name')}
                        error={errors?.bank_name}
                        inputRef={register({
-                           required: 'Field is required',
+                           required: `${t("Error message/Field is required")}`,
                            minLength: 1,
                            maxLength: 100,
                        })}
@@ -59,7 +59,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        placeholder='000'
                        error={errors?.bank_number}
                        inputRef={register({
-                           required: 'Field is required',
+                           required: `${t("Error message/Field is required")}`,
                            minLength: 1,
                            maxLength: 3,
                        })}
@@ -73,14 +73,14 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        label={t('Add bank account/Branch No.')}
                        error={errors?.branch}
                        inputRef={register({
-                           required: 'Field is required',
+                           required: `${t("Error message/Field is required")}`,
                            maxLength: 6,
                            minLength: 1,
                            pattern: /^\d{4}-\d{1}$/,
                        })}
                        max='6'
                        max_width='447px'
-                       pattern_message='Wrong format. Ex.: 0000-0'
+                       pattern_message={t("Error message/Wrong format. Ex.")}
                       min_height='70px'
             />
             <FormField name='number'
@@ -89,7 +89,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        error={errors?.number}
                        type='number'
                        inputRef={register({
-                           required: 'Field is required',
+                           required: `${t("Error message/Field is required")}`,
                            pattern: /^\d+$/,
                            maxLength: 50,
                            minLength: 1,
@@ -103,12 +103,12 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                         control={control}
                         defaultValue='savings'
                         rules={{
-                            required: 'Field is required'
+                            required: `${t("Error message/Field is required")}`
                         }}
                         as={
                             <FormSelect label={t('Add bank account/Account Type')}
                                         options={options2}
-                                        placeholder='Savings'
+                                        placeholder={t('Add bank account/Savings')}
                                         error={errors?.account_type?.message}
                             />
                         }

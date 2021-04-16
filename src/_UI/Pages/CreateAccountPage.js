@@ -20,28 +20,31 @@ import CheckedTokenPopup from "../components/PopUps/checked_token/checkedTokenPo
 import { getFilesFormData } from "../../_BLL/helpers/MultipartFormDataHelper";
 import { ErrorServerMessage } from "./SignInPage";
 import {checkToken} from "../../_BLL/thunks/auth/authThunks";
+import {useTranslation} from "react-i18next";
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
 
-const ValidationSchema = Yup.object().shape({
-  first_name: Yup.string().trim().required("Please, enter your name"),
-  last_name: Yup.string().trim().required("Please, enter your last name"),
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Please, enter your email"),
-  password: Yup.string()
-    .min(8, "Password must contain at least 8 characters")
-    .max(25, "Password must contain maximum 25 characters")
-    .required("Please, enter your password"),
-  confirm_password: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("Please, confirm your password"),
-  phone: Yup.string()
-    .matches(phoneRegex, "Phone number is not valid")
-    .required("Please, enter your phone number"),
-  position: Yup.string().trim().required("Please, enter your position"),
-});
+
 
 const CreateAccountPage = ({ history }) => {
+  const {t} = useTranslation();
+  const ValidationSchema = Yup.object().shape({
+    first_name: Yup.string().trim().required(`${t("Error message/Please, enter your name")}`),
+    last_name: Yup.string().trim().required(`${t("Error message/Please, enter your last name")}`),
+    email: Yup.string()
+      .email(`${t("Error message/Invalid email")}`)
+      .required(`${t("Error message/Please, enter your email")}`),
+    password: Yup.string()
+      .min(8, t("Error message/Password must contain at least 8 characters"))
+      .max(25, t("Error message/Password must contain maximum 25 characters"))
+      .required(`${t("Error message/Please, enter your password")}`),
+    confirm_password: Yup.string()
+      .oneOf([Yup.ref("password"), null], t("Error message/Passwords must match"))
+      .required(`${t("Error message/Please, confirm your password")}`),
+    phone: Yup.string()
+      .matches(phoneRegex, t("Error message/Phone number is not valid"))
+      .required(`${t("Error message/Please, enter your phone number")}`),
+    position: Yup.string().trim().required(`${t("Error message/Please, enter your position")}`),
+  });
   const [img, setImg] = useState("");
   const [file, setFile] = useState(null);
   const checkedTokenError = useSelector((state) => state.auth.checkTokenError);

@@ -168,13 +168,13 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 control={control}
                 defaultValue={group ? group.container_type?.id : ""}
                 rules={{
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 }}
                 as={
                   <FormSelect
                     error={errors?.container_type?.message}
                     label={t("Dashboard/ULD type")}
-                    placeholder="Placeholder"
+                    placeholder={t("Dashboard/ULD type")}
                     maxW="140px"
                     options={container_types_air}
                     disabled={true}
@@ -187,13 +187,13 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 control={control}
                 defaultValue={group ? group?.packaging_type?.id : ""}
                 rules={{
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 }}
                 as={
                   <FormSelect
                     error={errors?.packaging_type?.message}
                     label={t("Dashboard/Packaging type")}
-                    placeholder="Placeholder"
+                    placeholder={t("Dashboard/Packaging type")}
                     maxW="140px"
                     options={packaging_types}
                   />
@@ -203,10 +203,10 @@ const AddingGroupsForm: React.FC<PropsType> = ({
             <FormField
               name="volume"
               inputRef={register({
-                required: "Field is required",
+                required: `${t("Error message/Field is required")}`,
               })}
               error={errors?.volume}
-              label={"No. of packs"}
+              label={t("Dashboard/No. of packs")}
               max_width={"135px"}
               disabled={shipping_mode == 2}
               type="number"
@@ -218,7 +218,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
               <FormField
                 name="weight"
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
                 error={errors?.weight}
                 label={
@@ -271,7 +271,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
               <FormField
                 name="height"
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
                 error={errors?.height}
                 label={
@@ -289,7 +289,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
               <FormField
                 name="length"
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
                 error={errors?.length}
                 label={
@@ -307,7 +307,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
               <FormField
                 name="width"
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
                 error={errors?.width}
                 label={selectedValueLength === "cm" ? "Width, cm" : "Width, m"}
@@ -368,7 +368,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 error={errors?.description}
                 max_width="100%"
                 inputRef={register({
-                  required: "Field is required",
+                  required: `${t("Error message/Field is required")}`,
                 })}
                 defaultValue={""}
                 name="description"

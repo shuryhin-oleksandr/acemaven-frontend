@@ -87,19 +87,19 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, g
                                 })}
                                 name={google_field_name}
                                 ref={register({
-                                    required: 'Field is required'
+                                    required: `${t("Error message/Field is required")}`
                                 })
                                 }
                                 style={{backgroundColor: props.disabled ? "#ECECEC" : 'white'}}
                             />
-                            <Tooltip title='You can use automatic address search'
+                            <Tooltip title={`${t('Freight rates/You can use automatic address search')}`}
                                      arrow
                                      classes={{ tooltip: classes.customTooltip }}
                             >
                                 <img src={location_icon} alt=""/>
                             </Tooltip>
                         </GoogleInputWrapper>
-                        {errors?.google_field_name && <HelperText>Field is required</HelperText>}
+                        {errors?.google_field_name && <HelperText>{t("Error message/Field is required")}</HelperText>}
                     </GoogleInputOuter>
                     <div style={{marginTop: '-15px'}}>
                         {loading && <div>{t("Booking Confirmation/Loading...")}</div>}

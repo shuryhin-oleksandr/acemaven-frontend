@@ -13,6 +13,7 @@ import {commonActions} from "../../../_BLL/reducers/commonReducer";
 import {AppUserRolesType} from "../../../_BLL/types/commonTypes";
 //styles
 import {LinkWrap, IconWrap, Name, Outer, NestedWrap, NestedName, NestedOuter} from './nav-styles'
+import {useTranslation} from "react-i18next";
 
 
 type IProps = {
@@ -25,12 +26,13 @@ type IProps = {
     checkedLink?: string,
     current_user_role?: string[],
     disabled?: boolean,
-    setSmallBar?: (value: boolean) => void
+    setSmallBar?: (value: boolean) => void,
+    isSmallBar:boolean
 }
 
 const MenuLink: React.FC<IProps> = ({
                                         name, icon, activeIcon, nestedLinks, setSmallBar,
-                                        setChecked, checkedLink, path, current_user_role, disabled
+                                        setChecked, checkedLink, path, current_user_role, disabled,isSmallBar
                                     }) => {
 
     let currentPath = useSelector((state: AppStateType) => state.common.currentNavPath)
@@ -51,14 +53,16 @@ const MenuLink: React.FC<IProps> = ({
         if(disabled) e.preventDefault()
         dispatch(commonActions.setCurrentNavPath(path))
     }
-
+    const {t} = useTranslation();
     return (
         <LinkWrap >
             <Outer onClick={clickHandler}>
                 <IconWrap onMouseEnter={() => setSmallBar && setSmallBar(false)}>
                     <img src={(checkedLink !== name) ? icon : activeIcon} alt=""/>
                 </IconWrap>
-                <Name checked={checkedLink === name}>{name}</Name>
+                {!isSmallBar && <Name checked={checkedLink === name}>{t(`Dashboard Menu/${name}`)}</Name>}
+                {/*<Name checked={checkedLink === name}>{t(`Dashboard Menu/${name}`)}</Name>*/}
+
             </Outer>
             {fullMenu && <NestedOuter>
                 {nestedLinks && nestedLinks.map(l => {

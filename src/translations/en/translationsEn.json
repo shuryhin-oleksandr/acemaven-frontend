@@ -160,7 +160,9 @@
     "Company Settings": "Company Settings",
     "HELP & SUPPORT": "HELP & SUPPORT",
     "USER MANAGEMENT": "USER MANAGEMENT",
-    "SETTINGS": "SETTINGS"
+    "SETTINGS": "SETTINGS",
+    "PROFILE": "PROFILE",
+    "HELP": "HELP"
   },
   "Booking Columns": {
     "SHIPPING MODE": "SHIPPING MODE",
@@ -262,7 +264,8 @@
     "ETA": "ETA",
     "ETD":"ETD",
     "TOTAL CHARGES IN": "TOTAL CHARGES IN",
-    "Remaining amount to be paid to the agent": "Remaining amount to be paid to the agent"
+    "Remaining amount to be paid to the agent": "Remaining amount to be paid to the agent",
+    "BOOKING ID": "BOOKING ID"
   },
   "Quotes": {
     "Quotes": "Quotes",
@@ -311,7 +314,8 @@
     "EXCHANGE RATE": "EXCHANGE RATE",
     "COLD": "COLD",
     "DANGEROUS": "DANGEROUS",
-    "ACEMAVEN EXCHANGE RATE": "ACEMAVEN {{parameter}} EXCHANGE RATE"
+    "ACEMAVEN EXCHANGE RATE": "ACEMAVEN {{parameter}} EXCHANGE RATE",
+    "USAGE FEE": "USAGE FEE"
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Booking Confirmation",
@@ -696,6 +700,11 @@
     "Value is not valid": "Value is not valid",
     "Branch No. has to be in 0000-0 format": "Branch No. has to be in 0000-0 format",
     "Account No. must contain only numbers": "Account No. must contain only numbers",
-    "Password must contain only alphanumeric characters. Min 8, Max 25 symbols": "Password must contain only alphanumeric characters. Min 8, Max 25 symbols"
+    "Password must contain only alphanumeric characters. Min 8, Max 25 symbols": "Password must contain only alphanumeric characters. Min 8, Max 25 symbols",
+    "There is no account corresponding to this link.": "There is no account corresponding to this link.",
+    "We will call your contact person soon.": "We will call your contact person soon.",
+    "There is no surcharge for these dates.": "There is no surcharge for these dates.",
+    "Do you want co create new or change existed?": "Do you want co create new or change existed?",
+    "Password was changed!": "Password was changed!"
   }
 }

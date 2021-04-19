@@ -74,7 +74,8 @@ const {t} = useTranslation();
                                       setChecked={setChecked}
                                       checkedLink={checkedLink}
                                       setSmallBar={props.setSmallBar}
-                                      name={t("Dashboard Menu/QUOTES")}
+                                      name="QUOTES"
+                                      isSmallBar={props.isSmallBar}
                             />
                             : ((billing_and_agent_option || agent_option || master_option)
                                 &&
@@ -83,7 +84,8 @@ const {t} = useTranslation();
                                           setChecked={setChecked}
                                           checkedLink={checkedLink}
                                           setSmallBar={props.setSmallBar}
-                                          name={t("Dashboard Menu/REQUESTS")}
+                                          name="REQUESTS"
+                                          isSmallBar={props.isSmallBar}
                                 />
                             )
                     }
@@ -94,7 +96,8 @@ const {t} = useTranslation();
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name={t("Dashboard Menu/OPERATIONS")}
+                              name="OPERATIONS"
+                              isSmallBar={props.isSmallBar}
                     />
                     }
                     {
@@ -107,7 +110,8 @@ const {t} = useTranslation();
                                   setChecked={setChecked}
                                   checkedLink={checkedLink}
                                   setSmallBar={props.setSmallBar}
-                                  name={t("Dashboard Menu/RATES & SERVICES")}
+                                  name="RATES & SERVICES"
+                                  isSmallBar={props.isSmallBar}
 
                         />
                     }
@@ -117,7 +121,8 @@ const {t} = useTranslation();
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name={t("Dashboard Menu/BILLING")}
+                              name="BILLING"
+                              isSmallBar={props.isSmallBar}
                     />
                     }
                     {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT) &&
@@ -127,7 +132,8 @@ const {t} = useTranslation();
                               activeIcon={active_billing}
                               path='#'
                               setSmallBar={props.setSmallBar}
-                              name={t("Dashboard Menu/BILLING")}
+                              name="BILLING"
+                              isSmallBar={props.isSmallBar}
                     />
                     }
                     <MenuLink icon={settings}
@@ -135,7 +141,8 @@ const {t} = useTranslation();
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name={t('Complete Profile/PROFILE')}
+                              name="PROFILE & SETTINGS"
+                              isSmallBar={props.isSmallBar}
 
                     />
                     <MenuLink icon={support}
@@ -143,7 +150,8 @@ const {t} = useTranslation();
                               setChecked={setChecked}
                               checkedLink={checkedLink}
                               setSmallBar={props.setSmallBar}
-                              name={t('Complete Profile/HELP')}
+                              name="HELP & SUPPORT"
+                              isSmallBar={props.isSmallBar}
 
                     />
                 </NavSmallContainer>

@@ -275,7 +275,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 })}
                 error={errors?.height}
                 label={
-                  selectedValueLength === "cm" ? "Height, cm" : "Height, m"
+                  selectedValueLength === "cm" ? `${t("Dashboard/Height")}, cm`: `${t("Dashboard/Height")}, m`
                 }
                 max_width="90px"
                 placeholder={selectedValueLength === "cm" ? "0, cm" : "0, m"}
@@ -293,7 +293,7 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                 })}
                 error={errors?.length}
                 label={
-                  selectedValueLength === "cm" ? "Length, cm" : "Length, m"
+                  selectedValueLength === "cm" ? `${t("Dashboard/Length")}, cm`: `${t("Dashboard/Length")}, m`
                 }
                 max_width="90px"
                 placeholder={selectedValueLength === "cm" ? "0, cm" : "0, m"}
@@ -310,7 +310,8 @@ const AddingGroupsForm: React.FC<PropsType> = ({
                   required: `${t("Error message/Field is required")}`,
                 })}
                 error={errors?.width}
-                label={selectedValueLength === "cm" ? "Width, cm" : "Width, m"}
+                label={selectedValueLength === "cm" ? `${t("Dashboard/Width")}, cm`: `${t("Dashboard/Width")}, m`
+                }
                 max_width="90px"
                 placeholder={selectedValueLength === "cm" ? "0, cm" : "0, m"}
                 type="number"

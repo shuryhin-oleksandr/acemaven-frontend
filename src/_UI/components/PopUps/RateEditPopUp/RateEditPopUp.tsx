@@ -7,19 +7,21 @@ import {
   ButtonGroup,
 } from "./rate-edit-styles";
 import CancelButton from "../../_commonComponents/buttons/navFormButtons/CancelButton";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   setRateEditPopUpVisible: (value: boolean) => void;
 };
 
 const RateEditPopUp: React.FC<PropsType> = ({ setRateEditPopUpVisible }) => {
+  const {t} = useTranslation();
   return (
     <PopupOuter>
       <Content>
-        <Question>Do you want to save the changes?</Question>
+        <Question>{t("Freight rates/Do you want to save the changes?")}</Question>
         <ButtonGroup>
-          <RegisterButton type="submit">Yes</RegisterButton>
-          <CancelButton text="NO" setIsOpen={setRateEditPopUpVisible} />
+          <RegisterButton type="submit">{t("Surcharges/YES")}</RegisterButton>
+          <CancelButton text={t("Surcharges/NO")} setIsOpen={setRateEditPopUpVisible} />
         </ButtonGroup>
       </Content>
     </PopupOuter>

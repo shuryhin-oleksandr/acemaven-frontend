@@ -158,7 +158,9 @@
     "Company Settings": "Configuraciones de la Organización",
     "HELP & SUPPORT": "AYUDA Y SOPORTE",
     "USER MANAGEMENT": "GESTIÓN DE USUARIOS",
-    "SETTINGS": "CONFIGURACIONES"
+    "SETTINGS": "CONFIGURACIONES",
+    "PROFILE": "",
+    "HELP": "HELP"
   },
   "Booking Columns": {
     "SHIPPING MODE": "TIPO DE EMBARQUE",
@@ -261,7 +263,8 @@
     "ETA": "",
     "ETD": "",
     "TOTAL CHARGES IN": "",
-    "Remaining amount to be paid to the agent": ""
+    "Remaining amount to be paid to the agent": "",
+    "BOOKING ID": ""
   },
   "Quotes": {
     "Quotes": "Cotizaciones",
@@ -310,7 +313,8 @@
     "EXCHANGE RATE": "TASA DE CAMBIO",
     "COLD": "",
     "DANGEROUS": "PELIGROSA",
-    "ACEMAVEN EXCHANGE RATE": "ACEMAVEN {{parameter}} TASA DE CAMBIO"
+    "ACEMAVEN EXCHANGE RATE": "ACEMAVEN {{parameter}} TASA DE CAMBIO",
+    "USAGE FEE": ""
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Confirmación de Reserva",
@@ -693,7 +697,12 @@
     "Value is not valid": "",
     "Branch No. has to be in 0000-0 format": "",
     "Account No. must contain only numbers": "",
-    "Password must contain only alphanumeric characters. Min 8, Max 25 symbols": ""
+    "Password must contain only alphanumeric characters. Min 8, Max 25 symbols": "",
+    "There is no account corresponding to this link.": "",
+    "We will call your contact person soon.": "",
+    "There is no surcharge for these dates.": "",
+    "Do you want co create new or change existed?": "",
+    "Password was changed!": ""
   }
 }
 

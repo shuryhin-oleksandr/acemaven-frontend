@@ -108,19 +108,21 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                         ? <MenuLink icon={requests}
                                     activeIcon={active_requests}
                                     path='/quotes'
-                                    name={t("Dashboard Menu/QUOTES")}
+                                    name="QUOTES"
                                     setChecked={setChecked}
                                     checkedLink={checkedLink}
+                                    isSmallBar={props.isSmallBar}
 
                         />
                         : ((billing_and_agent_option || agent_option || master_option)
                             &&
                             <MenuLink icon={requests}
                                       activeIcon={active_requests}
-                                      name={t("Dashboard Menu/REQUESTS")}
+                                      name="REQUESTS"
                                       setChecked={setChecked}
                                       checkedLink={checkedLink}
                                       nestedLinks={menuLinks.requestLinks}
+                                      isSmallBar={props.isSmallBar}
 
                             />
                         )
@@ -129,12 +131,13 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                 &&
                 <MenuLink icon={operations}
                           activeIcon={active_operations}
-                          name={t("Dashboard Menu/OPERATIONS")}
+                          name="OPERATIONS"
                           nestedLinks={menuLinks.operationsLinks}
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           path='#'
                           disabled={operationsFetching}
+                          isSmallBar={props.isSmallBar}
 
                 />
                 }
@@ -144,15 +147,16 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                     (billing_and_agent_option || master_option || agent_option)
                     && <MenuLink icon={rates}
                                  nestedLinks={ratesLinks}
-                                 name={t("Dashboard Menu/RATES & SERVICES")}
+                                 name="RATES & SERVICES"
                                  setChecked={setChecked}
                                  checkedLink={checkedLink}
                                  activeIcon={activeRates}
+                                 isSmallBar={props.isSmallBar}
                     />
                 }
                 {(company_type && company_type[0].type === AppCompaniesTypes.AGENT) &&
                 <MenuLink icon={billing}
-                          name={t("Dashboard Menu/BILLING")}
+                          name="BILLING"
                           nestedLinks={
                               (billing_and_agent_option || billing_option || master_option)
                                   ? menuLinks.billingLinks
@@ -161,32 +165,36 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           activeIcon={active_billing}
+                          isSmallBar={props.isSmallBar}
                 />
                 }
                 {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT)
                 &&
                 <MenuLink icon={billing}
-                          name={t("Dashboard Menu/BILLING")}
+                          name="BILLING"
                           nestedLinks={menuLinks.clientBillingLinks}
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           activeIcon={active_billing}
+                          isSmallBar={props.isSmallBar}
                 />
                 }
                 <MenuLink icon={settings}
                           activeIcon={activeSettings}
                           nestedLinks={menuLinks.profileLinks}
                           current_user_role={current_user_role}
-                          name={t("Dashboard Menu/PROFILE & SETTINGS")}
+                          name="PROFILE & SETTINGS"
                           setChecked={setChecked}
                           checkedLink={checkedLink}
+                          isSmallBar={props.isSmallBar}
                 />
                 <MenuLink icon={support}
                           path='/support'
-                          name={t("Dashboard Menu/HELP & SUPPORT")}
+                          name="HELP & SUPPORT"
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           activeIcon={active_support}
+                          isSmallBar={props.isSmallBar}
                 />
             </NavContainer>
         </ScrollbarStyled>

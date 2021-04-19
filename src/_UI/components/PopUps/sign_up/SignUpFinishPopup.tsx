@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "../../../../_BLL/reducers/authReducer";
 import {AppStateType} from "../../../../_BLL/store";
 import ModalWindow from "../../_commonComponents/ModalWindow/ModalWindow";
+import {useTranslation} from "react-i18next";
 
 const SignUpFinishPopup = () => {
     let dispatch = useDispatch()
@@ -13,13 +14,13 @@ const SignUpFinishPopup = () => {
         dispatch(authActions.setOpenSignUp(false))
         dispatch(authActions.openFinishSignUpPopup(false))
     }, [dispatch])
-
+    const {t} = useTranslation();
     return (
         <ModalWindow isOpen={finishPopup}>
             <Container>
                 <Inner>
-                    <TextWrap>We will call your contact person soon.</TextWrap>
-                    <ButtonWrap onClick={() => closeFinishPopup()}>GOT IT!</ButtonWrap>
+                    <TextWrap>{t("Error message/We will call your contact person soon.")}</TextWrap>
+                    <ButtonWrap style={{textTransform: "uppercase"}} onClick={() => closeFinishPopup()}>{t("Add bank account/Got it!")}</ButtonWrap>
                 </Inner>
             </Container>
         </ModalWindow>

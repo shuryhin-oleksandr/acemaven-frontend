@@ -112,7 +112,7 @@ const BookingCard: React.FC<PropsType> = ({
                     {t("Bookings/ASSIGN")}
                   </AssignButton>
                 )}
-                <AcceptButton onClick={acceptBookingOnMe}>ACCEPT</AcceptButton>
+                <AcceptButton onClick={acceptBookingOnMe}>{t("Bookings/ACCEPT")}</AcceptButton>
                 <RejectButton onClick={() => setRejectPopupOpen(true)}>
                   {t("Bookings/REJECT")}
                 </RejectButton>

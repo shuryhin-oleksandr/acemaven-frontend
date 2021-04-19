@@ -120,7 +120,7 @@ const ChangePasswordPage: React.FC<PropsType> = ({setChangeMode}) => {
                   {t(`Error message/${errorMatch}`)}
                 </ErrorServerMessage>
             )}
-            {success && <SuccessMessage>Password was changed!</SuccessMessage>}
+            {success && <SuccessMessage>{t("Error message/Password was changed!")}</SuccessMessage>}
             <ActionsButtons>
                 <ChangePasswordButton type="submit">
                   {t("My Profile/CHANGE PASSWORD")}

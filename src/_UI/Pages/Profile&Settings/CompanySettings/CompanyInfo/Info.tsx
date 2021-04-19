@@ -43,7 +43,7 @@ const Info:React.FC<PropsType> = ({setEdit, companyInfo, company_type, current_u
                     <TextWrap>{companyInfo?.zip_code}</TextWrap>
                 </Field>
                 {company_type !== 'client' && <Field>
-                    <Label>Website</Label>
+                    <Label>{t("Register/Website")}</Label>
                     <TextWrap>{companyInfo?.website}</TextWrap>
                 </Field>}
             </FieldsContent>

@@ -9,6 +9,7 @@ import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
 import { polylineIcons } from "../../../../_BLL/helpers/tracker/GetIconsForPolylineGoogleMap";
 import { manualPolyline } from "../../../../_BLL/helpers/tracker/manualPolyline";
 import styled from "styled-components";
+import {useTranslation} from "react-i18next";
 
 interface Interface {
   isMarkerShown?: boolean;
@@ -20,7 +21,7 @@ interface Interface {
 
 const MapComponent: React.FC<Interface> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const {t} = useTranslation();
   return (
     <GoogleMap
       options={{
@@ -68,10 +69,10 @@ const MapComponent: React.FC<Interface> = (props) => {
                     </InfoBoxLabel>
                     {ev.booking_number && (
                       <InfoBoxLabel style={{ marginBottom: 5 }}>
-                        BOOKING ID:
+                        {t("Bookings/BOOKING ID")}:
                       </InfoBoxLabel>
                     )}
-                    <InfoBoxLabel>ROUTE:</InfoBoxLabel>
+                    <InfoBoxLabel>{t("Bookings/ROUTE")}:</InfoBoxLabel>
                   </LabelsWrapper>
                   <div>
                     <InfoBoxValue style={{ marginBottom: 5 }}>

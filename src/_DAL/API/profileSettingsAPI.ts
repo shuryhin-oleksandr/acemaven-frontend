@@ -33,6 +33,9 @@ export const profileSettingsAPI = {
     editWorker (workerId: number, workerInfo: IAddNewUserData) {
         return instance.patch(`/core/user/${workerId}/`, workerInfo)
     },
+    changeLanguageAtBackEnd (workerId: number, language: string) {
+      return instance.patch(`/core/user/${workerId}/`, {language: language})
+    },
     deleteWorker (workerId: number) {
         return instance.delete(`/core/user/${workerId}/`)
     },

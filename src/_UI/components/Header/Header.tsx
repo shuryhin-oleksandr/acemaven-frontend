@@ -48,6 +48,7 @@ import card from "../../../_UI/assets/icons/card.svg";
 import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import {changeLanguageAtBackEnd} from "../../../_BLL/thunks/profile/profileThunks";
 
 const useStyles = makeStyles({
   customTooltip: {
@@ -113,6 +114,7 @@ const Header: React.FC = () => {
   );
   const auth_user_info = useSelector(getMyInfoSelector);
 
+
   // company_type
 
   //local state
@@ -153,16 +155,26 @@ const Header: React.FC = () => {
             <LanguageSectionWrapper>
               <LanguageTitle>{t("Freight rates/Language")}</LanguageTitle>
               <LanguageWrapper>
-                <LanguageText onClick={() => i18next.changeLanguage("en")}>
+                <LanguageText onClick={() => {
+                  i18next.changeLanguage("en");
+                  dispatch(changeLanguageAtBackEnd(Number(auth_user_info?.id), 'en'))
+                }
+                }>
                   En
                 </LanguageText>
                 <LanguageText
-                  onClick={() => i18next.changeLanguage("por")}
+                  onClick={() => {
+                    i18next.changeLanguage("por");
+                    dispatch(changeLanguageAtBackEnd(Number(auth_user_info?.id), 'pt'))
+                  }}
                   style={{ margin: "0 4px" }}
                 >
                   Por
                 </LanguageText>
-                <LanguageText onClick={() => i18next.changeLanguage("spa")}>
+                <LanguageText onClick={() => {
+                  i18next.changeLanguage("spa");
+                  dispatch(changeLanguageAtBackEnd(Number(auth_user_info?.id), 'es'))
+                }}>
                   Spa
                 </LanguageText>
               </LanguageWrapper>

@@ -29,7 +29,8 @@ const initialState = {
     addedBankSuccess: '',
     addingBankError: '',
     openBankForm: false,
-    my_settings: null as settingsType | null
+    my_settings: null as settingsType | null,
+    // language: ''
 };
 
 type InitialStateType = typeof initialState;
@@ -107,6 +108,11 @@ export const profileReducer = (state = initialState, action: commonProfileAction
                         }
                     }),
             };
+        // case "CHANGE_LANGUAGE_AT_BACK_END":
+        //     return {
+        //         ...state,
+        //         language: action.language
+        //     }
         case "SET_WORKERS_LIST_AFTER_DELETE":
             return {
                 ...state,
@@ -159,6 +165,7 @@ export const profileActions = {
     setAddingUserSuccess: (value: boolean) => ({type: 'SET_ADDING_USER_SUCCESS', value} as const),
     setAddingUserError: (error: AddUserError | null) => ({type: 'SET_ADDING_USER_ERROR', error} as const),
     setEditedToWorkersList: (id: number, worker: IAddNewUserData) => ({type: "SET_EDITED_WORKER", id, worker} as const),
+    changeLanguageAtBackEnd: (id: number, language: string) => ({type: "CHANGE_LANGUAGE_AT_BACK_END", id, language} as const),
     deleteWorker: (workerId: number) => ({type: "SET_WORKERS_LIST_AFTER_DELETE", workerId} as const),
     setBanksAfterDefault: (bankId: number, default_bank: IAddNewBank) => ({
         type: "SET_BANKS_AFTER_DEFAULT",

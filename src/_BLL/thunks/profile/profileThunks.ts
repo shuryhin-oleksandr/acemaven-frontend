@@ -162,6 +162,19 @@ export const editWorker = (workerId: number, workerData: IAddNewUserData) => {
         }
     };
 };
+
+export const changeLanguageAtBackEnd = (workerId: number, language: string) => {
+    return async (dispatch: Dispatch<commonProfileActions>) => {
+        try {
+            let res = await profileSettingsAPI.changeLanguageAtBackEnd(workerId, language);
+            res && dispatch(profileActions.changeLanguageAtBackEnd(workerId,language));
+
+        } catch (e) {
+            console.log("error", e.response);
+        }
+    };
+};
+
 export const deleteWorker = (workerId: number) => {
     return async (dispatch: Dispatch<commonProfileActions>) => {
         try {

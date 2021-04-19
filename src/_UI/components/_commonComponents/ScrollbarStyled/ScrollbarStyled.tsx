@@ -41,7 +41,7 @@ export const useStyles = makeStyles(() => ({
     borderRadius: "3px"
   },
   thumbVerticalNav: {
-    backgroundColor: `#FFFFFF`,
+    // backgroundColor: `#FFFFFF`,
     position: "relative",
     display: "block",
     width: "100%",
@@ -56,7 +56,7 @@ export const useStyles = makeStyles(() => ({
     borderRadius: "3px"
   },
   thumbHorizontalNav: {
-    backgroundColor: `#FFFFFF`,
+    // backgroundColor: `#FFFFFF`,
     position: "relative",
     display: "block",
     width: "100%",

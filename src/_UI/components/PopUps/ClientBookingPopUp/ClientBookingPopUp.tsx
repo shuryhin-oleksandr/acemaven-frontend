@@ -41,6 +41,7 @@ import close from "../../../assets/icons/close-icon.svg";
 import { useTranslation } from "react-i18next";
 import { Container, Message, QRWrapper } from "./payment/payment-styles";
 import QRCode from "qrcode.react";
+import { getClientQuotesThunk } from "../../../../_BLL/thunks/quotes/clientQuotesThunk";
 
 const useStyles = makeStyles({
   container: {
@@ -199,22 +200,16 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
 
             <div style={{ display: "flex" }}>
               <HiddenTitle>{t("Bookings/CHARGES")}</HiddenTitle>
-              {/*{!!new_total?.charges?.service_fee ? (*/}
-              {/*  <BaseButton*/}
-              {/*    onClick={() => {*/}
-              {/*      dispatch(bookingActions.changeBookingStep("payment"));*/}
-              {/*    }}*/}
-              {/*    type="button"*/}
-              {/*  >*/}
-              {/*    {t("Billing/PAY")}*/}
-              {/*  </BaseButton>*/}
-              {/*) : (*/}
               <BaseButton
                 onClick={() => {
                   setBookingPopupVisible(false);
                   setWidgetsVisible && setWidgetsVisible(true);
                   newSearch && newSearch();
                   props.close_totals && props.close_totals();
+                  if (props.quotes_mode) {
+                    dispatch(quotesClientActions.setFutureArchiveQuoteId(0));
+                    dispatch(getClientQuotesThunk("sea", "", "", ""));
+                  }
                 }}
                 type="button"
               >
@@ -346,16 +341,6 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
                     </TotalValue>
                   </TotalLine>
                 ))}
-              {/*{new_total?.charges?.pay_to_book && (*/}
-              {/*  <TotalLine>*/}
-              {/*    <TotalName>*/}
-              {/*      BOOKING FEE IN {new_total?.charges?.pay_to_book?.currency}:*/}
-              {/*    </TotalName>*/}
-              {/*    <TotalValue>*/}
-              {/*      {new_total?.charges?.pay_to_book?.booking_fee}*/}
-              {/*    </TotalValue>*/}
-              {/*  </TotalLine>*/}
-              {/*)}*/}
               {new_total?.charges?.service_fee && (
                 <TotalLine>
                   <TotalName>
@@ -427,23 +412,6 @@ const ClientBookingPopUp: React.FC<PropsType> = ({
             </TableTotal>
           </HiddenWrapper>
         )}
-        {/*{bookingStep === "payment" && (*/}
-        {/*  <PaymentContainer*/}
-        {/*    setBookingPopupVisible={setBookingPopupVisible}*/}
-        {/*    setWidgetsVisible={setWidgetsVisible}*/}
-        {/*    newSearch={newSearch}*/}
-        {/*    close_totals={props.close_totals}*/}
-        {/*    current_user={currentUser}*/}
-        {/*    new_total_paid={new_total.is_paid}*/}
-        {/*    quotes_mode={props.quotes_mode}*/}
-        {/*    transactions={new_total.transactions}*/}
-        {/*    service_fee={*/}
-        {/*      new_total?.charges?.service_fee*/}
-        {/*        ? new_total?.charges?.service_fee*/}
-        {/*        : null*/}
-        {/*    }*/}
-        {/*  />*/}
-        {/*)}*/}
       </PopupContent>
     </PopupContainer>
   );

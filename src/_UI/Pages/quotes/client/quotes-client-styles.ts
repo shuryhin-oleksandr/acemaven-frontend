@@ -73,7 +73,6 @@ export const CargosOuter = styled.div`
   //max-height: 80px;
   height: 100%;
   overflow-y: auto;
-  padding-top: 5px;
 `
 
 

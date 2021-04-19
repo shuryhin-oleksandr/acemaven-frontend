@@ -27,7 +27,7 @@ import RatingInfoPopup from "../../../../components/PopUps/rating_info_popup/Rat
 //styles
 import { BookLittleButton } from "../quotes-client-styles";
 import { CardsAbsoluteWrapper } from "../../../dashboard/search/search_rate_card/search-card-styles";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 type PropsType = {
   isOpen?: boolean;
@@ -113,7 +113,8 @@ const OfferDescription: React.FC<PropsType> = ({
   const currentBookingRate = useSelector(
     (state: AppStateType) => state.booking.current_booking_freight_rate
   );
-  const {t} = useTranslation();
+  console.log("!!currentBookingRate", !!currentBookingRate);
+  const { t } = useTranslation();
   return (
     <TableRow>
       <TableCell
@@ -141,10 +142,13 @@ const OfferDescription: React.FC<PropsType> = ({
                     {t("Bookings/TRANSIT TIME")}
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    {t("Dashboard/TOTAL")}{" "}USD
+                    {t("Dashboard/TOTAL")} USD
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell}>
-                    {t("Dashboard/TOTAL")}{" "}BRL
+                    {t("Dashboard/TOTAL")} EUR
+                  </TableCell>
+                  <TableCell align="left" className={classes.collapseCell}>
+                    {t("Dashboard/TOTAL")} BRL
                   </TableCell>
                   <TableCell align="left" className={classes.collapseCell} />
                 </TableRow>
@@ -188,15 +192,19 @@ const OfferDescription: React.FC<PropsType> = ({
                       align="left"
                       className={classes.collapseInnerCell}
                     >
-                      {o.charges.totals.USD ? `$ ${o.charges.totals.USD}` : "-"}
+                      {o.charges.totals.USD ? `${o.charges.totals.USD}` : "-"}
                     </TableCell>
                     <TableCell
                       align="left"
                       className={classes.collapseInnerCell}
                     >
-                      {o.charges.totals.BRL
-                        ? `BRL ${o.charges.totals.BRL}`
-                        : "-"}
+                      {o.charges.totals.EUR ? `${o.charges.totals.EUR}` : "-"}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      className={classes.collapseInnerCell}
+                    >
+                      {o.charges.totals.BRL ? `${o.charges.totals.BRL}` : "-"}
                     </TableCell>
                     <TableCell
                       align="left"

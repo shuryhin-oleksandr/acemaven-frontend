@@ -63,7 +63,7 @@ const SaveTemporaryQuotePopup:React.FC<PropsType> = ({closePopup, freight, saveR
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <TemporaryContent>
-                    <Question>{("Quote bid screen/Do you want to save this rate  and  surcharge in your Rates?")}</Question>
+                    <Question>{t("Quote bid screen/Do you want to save this rate  and  surcharge in your Rates?")}</Question>
                     <ButtonsContainer>
                         <SaveButton onClick={saveHandler}>{t("Surcharges/YES")}</SaveButton>
                         <CancelButton onClick={cancelHandler}>{t("Surcharges/NO")}</CancelButton>

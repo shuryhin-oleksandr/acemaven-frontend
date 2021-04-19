@@ -103,8 +103,11 @@ export const registerRateAndSurchargeToOfferThunk = (surcharge_data: any, freigh
     return async (dispatch: Dispatch<any>) => {
         try {
             //we are waiting for surcharge registration
-            let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
-            dispatch(quotesAgentActions.setExistingSurchargeForQuote(res.data))
+            if(!!surcharge_data){
+                let res = await surchargeAPI.registerNewSurcharge(surcharge_data)
+                dispatch(quotesAgentActions.setExistingSurchargeForQuote(res.data))
+            }
+
             //then add new rate
             let {data} = await rateAPI.registerNewSurcharge(freight_data);
             dispatch(quotesAgentActions.setExistingRateForQuote(data))

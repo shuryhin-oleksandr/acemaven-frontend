@@ -32,25 +32,21 @@ const useStyles = makeStyles({
         borderBottom: '1px solid #BDBDBD',
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
-        // width: '220px',
         color: '#1B1B25',
-        position: 'relative',
         paddingLeft: '0',
-        height: '72px',
         paddingTop: "13px",
         paddingBottom: 13,
-        // verticalAlign: "top !important",
+        verticalAlign: "top !important",
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
         color: '#1B1B25',
-        height: '72px',
         padding: '0',
         paddingTop: "13px",
         paddingBottom: 13,
-        // verticalAlign: "top !important",
+        verticalAlign: "top !important",
     },
     innerRow: {
         transition: '.3s',
@@ -109,9 +105,11 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
                 component="th"
                 scope="row"
             />
-            <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
+            <TableCell className={classes.innerMainCell} align="left">
+                <div style={{display:"flex"}}>
                 <img src={quote.shipping_type === 'sea' ? sea_type : air_type} alt=""/>
-                <RouteName style={{display:"inline-block", marginLeft:20}}>{quote.origin.code}</RouteName>
+                <RouteName style={{marginLeft:20}}>{quote.origin.code}</RouteName>
+                </div>
             </TableCell>
             <TableCell className={classes.innerCell} align="left"><RouteName>{quote.destination.code}</RouteName></TableCell>
             <TableCell className={classes.innerCell} align="left">{quote.shipping_mode.title}</TableCell>

@@ -59,7 +59,6 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Light',
         fontSize: '16px',
         color: '#1B1B25',
-        height: '72px',
         padding: '0 ',
         paddingTop: "13px",
         paddingBottom: 13,
@@ -209,17 +208,17 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                     </Tooltip>
                 </TableCell>
             </TableRow>
-           <OfferDescription isOpen={isOpen}
-                             offers={quote.statuses ? quote.statuses : []}
-                             setShowRating={setShowRating}
-                             offerViewedHandler={offerViewedHandler}
-                             quote={quote}
-                             setClickedReview={setClickedReview}
-                             clickedReview={Number(clickedReview)}
-                             closeReviewPopupHandler={closeReviewPopupHandler}
-                             showRating={showRating}
-           />
-
+            {quote.statuses && quote.statuses.length>0 &&
+                <OfferDescription isOpen={isOpen}
+                   offers={quote.statuses ? quote.statuses : []}
+                   setShowRating={setShowRating}
+                   offerViewedHandler={offerViewedHandler}
+                   quote={quote}
+                   setClickedReview={setClickedReview}
+                   clickedReview={Number(clickedReview)}
+                   closeReviewPopupHandler={closeReviewPopupHandler}
+                   showRating={showRating}
+                />}
         </React.Fragment>
 
     )

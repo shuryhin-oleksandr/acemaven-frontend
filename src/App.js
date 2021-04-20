@@ -24,6 +24,7 @@ function App() {
   const route = useRoute(isAuth);
   const dispatch = useDispatch();
   let token = localStorage.getItem("access_token");
+  let language = localStorage.getItem('language');
 
   useEffect(() => {
     if (token) {
@@ -48,6 +49,14 @@ function App() {
       dispatch(authActions.setInit(true));
     }
   }, [dispatch, token]);
+
+  useEffect(()=> {
+    if (language) {
+      i18next.changeLanguage(language);
+    } else {
+      i18next.changeLanguage('por');
+    }
+  })
 
   return isInit ? (
     <Scrollbars

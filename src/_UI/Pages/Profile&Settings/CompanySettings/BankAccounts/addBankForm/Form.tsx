@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 //react-hook-form
 import {Controller, useForm} from "react-hook-form";
 //react-redux
@@ -17,21 +17,27 @@ import FinishFormButtons
 //styles
 import { FormContainer} from "./bank-form-styles";
 import {useTranslation} from "react-i18next";
+import {profileActions} from "../../../../../../_BLL/reducers/profileReducer";
 
 
 
 type PropsType = {
     setIsAdd?: any,
     dispatch?: any
+  errorMessage?: string
 }
 
-const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
+const Form:React.FC<PropsType> = ({setIsAdd, dispatch, errorMessage}) => {
     const {register, errors, handleSubmit, control} = useForm<IAddNewBank>()
     const onSubmit = (values:IAddNewBank) => {
             dispatch && dispatch(addBankAccount( values))
     }
 
-    const errorBank = useSelector((state: AppStateType) => state.profile.addingBankError)
+    // const errorBank = useSelector((state: AppStateType) => state.profile.addingBankError)
+    //
+    // useEffect(() => {
+    //   return () => {dispatch(profileActions.setAddedBankSuccess(''))}
+    // })
 
     let options2 = [
         {name: 'Savings', id: 1, value: 'savings'},
@@ -98,7 +104,7 @@ const Form:React.FC<PropsType> = ({setIsAdd, dispatch}) => {
                        max_width='447px'
                        min_height='70px'
             />
-            {errorBank && <ErrorServerMessage>{errorBank}</ErrorServerMessage>}
+            {errorMessage && <ErrorServerMessage>{errorMessage}</ErrorServerMessage>}
             <Controller name='account_type'
                         control={control}
                         defaultValue='savings'

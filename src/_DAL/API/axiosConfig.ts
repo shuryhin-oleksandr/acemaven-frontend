@@ -29,7 +29,7 @@ instance.interceptors.response.use(
   },
   (err) => {
     if (err.response.status === 401) {
-      localStorage.clear();
+      localStorage.removeItem("access_token")
       window.location.href = "/acemaven";
       return Promise.reject(err);
     }

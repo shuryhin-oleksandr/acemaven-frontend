@@ -4,6 +4,7 @@ import {profileSettingsAPI} from "../../../_DAL/API/profileSettingsAPI";
 import {CompanyInfoType} from "../../types/profileSettingsType";
 import {IAddNewBank, IAddNewUserData} from "../../types/addNewUserTypes";
 import {commonProfileActions, profileActions} from "../../reducers/profileReducer";
+import i18next from "i18next";
 
 
 //profile
@@ -163,12 +164,13 @@ export const editWorker = (workerId: number, workerData: IAddNewUserData) => {
     };
 };
 
-export const changeLanguageAtBackEnd = (workerId: number, language: string) => {
+export const changeLanguageAtBackEnd = (workerId: number, languageBackEnd: string, languageFrontEnd: string) => {
     return async (dispatch: Dispatch<commonProfileActions>) => {
         try {
-            let res = await profileSettingsAPI.changeLanguageAtBackEnd(workerId, language);
-            res && dispatch(profileActions.changeLanguageAtBackEnd(workerId,language));
-
+            let res = await profileSettingsAPI.changeLanguageAtBackEnd(workerId, languageBackEnd);
+            // res && dispatch(profileActions.changeLanguageAtBackEnd(workerId,language));
+            await i18next.changeLanguage(languageFrontEnd);
+            localStorage.setItem("language", languageFrontEnd);
         } catch (e) {
             console.log("error", e.response);
         }

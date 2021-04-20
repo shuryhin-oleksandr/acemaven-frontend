@@ -55,6 +55,12 @@ const BankAccountsContainer: React.FC<PropsType> = ({current_user_role, isFetchi
         }
     }, [addedBankSuccess])
 
+    const errorBank = useSelector((state: AppStateType) => state.profile.addingBankError)
+
+    useEffect(() => {
+        return () => {dispatch(profileActions.setAddingBankError(''))}
+    }, [isAdd])
+
     return (
         <>
             {isFetching
@@ -65,7 +71,7 @@ const BankAccountsContainer: React.FC<PropsType> = ({current_user_role, isFetchi
                             {(current_user_role?.includes('master') || current_user_role?.includes('billing')) &&
                             (!isAdd
                                     ? <AddNewButton setIsAdd={setIsAdd}/>
-                                    : <Form dispatch={dispatchHandler} setIsAdd={setIsAdd}/>
+                                    : <Form dispatch={dispatchHandler} setIsAdd={setIsAdd} errorMessage={errorBank}/>
                             )
                             }
                             {banksList?.map(b => <BankCard b={b}

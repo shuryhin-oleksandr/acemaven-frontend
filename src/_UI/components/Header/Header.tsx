@@ -140,6 +140,9 @@ const Header: React.FC = () => {
   const goToExchangePage = () => {
     history.push("/billing_exchange");
   };
+  const changeLanguage = (languageBackEnd: string, languageFrontEnd: string) => {
+    dispatch(changeLanguageAtBackEnd(Number(auth_user_info?.id), languageBackEnd, languageFrontEnd))
+  }
   const { t } = useTranslation();
   return (
     <HeaderContainer>
@@ -155,26 +158,15 @@ const Header: React.FC = () => {
             <LanguageSectionWrapper>
               <LanguageTitle>{t("Freight rates/Language")}</LanguageTitle>
               <LanguageWrapper>
-                <LanguageText onClick={() => {
-                  i18next.changeLanguage("en");
-                  dispatch(changeLanguageAtBackEnd(Number(auth_user_info?.id), 'en'))
-                }
-                }>
+                <LanguageText onClick={() => changeLanguage('en', 'en')}>
                   En
                 </LanguageText>
-                <LanguageText
-                  onClick={() => {
-                    i18next.changeLanguage("por");
-                    dispatch(changeLanguageAtBackEnd(Number(auth_user_info?.id), 'pt'))
-                  }}
+                <LanguageText onClick={() => changeLanguage('pt', 'por')}
                   style={{ margin: "0 4px" }}
                 >
                   Por
                 </LanguageText>
-                <LanguageText onClick={() => {
-                  i18next.changeLanguage("spa");
-                  dispatch(changeLanguageAtBackEnd(Number(auth_user_info?.id), 'es'))
-                }}>
+                <LanguageText onClick={() => changeLanguage('es', 'spa')}>
                   Spa
                 </LanguageText>
               </LanguageWrapper>

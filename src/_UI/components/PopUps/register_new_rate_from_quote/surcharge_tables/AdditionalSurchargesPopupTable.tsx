@@ -73,7 +73,7 @@ const AdditionalSurchargesPopupTable:React.FC<PropsType> = ({charges, quote_ship
     const {t} = useTranslation();
     return (
         <HandlingSurchargeContainer max_height='440px' max_width={!noConditions ? '730px' : '600px'} margin_left={noConditions ? '30px' : '0x'}>
-            <HandlingTitle margin_bottom='0px'>{t("Quote bid screen/Additional surcharges")}</HandlingTitle>
+            <HandlingTitle margin_bottom='0px'>{t("Quote bid screen/ADDITIONAL SURCHARGES")}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>

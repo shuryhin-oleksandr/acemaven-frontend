@@ -1,5 +1,5 @@
 //Core
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import {withRouter} from "react-router";
 
@@ -30,15 +30,23 @@ const SignInPage = ({history}) => {
     password: Yup.string().required(`${t("Error message/Please, enter your password")}`),
   });
     const dispatch = useDispatch()
-    const loginFail = useSelector(state => state.auth.loginError)
     const isFetching = useSelector(state => state.auth.isFetching)
-
-    let popupCallback = () => {
+    const loginFail = useSelector(state => state.auth.loginError)
+    const popupCallback = () => {
         dispatch(authActions.setOpenSignUp(true))
         dispatch(authActions.setOpenSignIn(false))
     }
 
-    let isSignIn = useSelector(state => state.auth.isSignIn)
+  let isSignIn = useSelector(state => state.auth.isSignIn)
+
+    useEffect(() => {
+      return (() => {
+        dispatch(authActions.setLoginError(''));
+      })
+    }, [isSignIn])
+
+
+
 
   return (
     <ModalWindow isOpen={isSignIn}>
@@ -48,7 +56,6 @@ const SignInPage = ({history}) => {
           title="Log in"
           buttonText="Register"
           popupCallback={() => popupCallback()}
-
         />
         <FormWrapper>
           <Formik

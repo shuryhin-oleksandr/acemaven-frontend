@@ -199,7 +199,7 @@ export const CargoShippingModeWrap = styled.div`
 export const CargoContentWrapper = styled.div`
   display: flex;
   max-height: 220px;
-  overflow-y: scroll;
+  overflow: auto;
 `
 
 export const CarrierInfo = styled.div<{ min_height?: string }>`

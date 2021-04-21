@@ -41,7 +41,8 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: '1px solid #115B86',
-        padding: '16px 0'
+        padding: '16px 0',
+        backgroundColor: "white"
     },
     innerCell: {
         borderBottom: 'none',
@@ -67,9 +68,9 @@ const HandlingTable:React.FC<PropsType> = ({containers, ...props}) => {
     return (
         <HandlingSurchargeContainer max_height={'380px'} style={{maxWidth: '450px', marginRight: '20px'}}>
             <HandlingTitle margin_bottom='0px'>{props.table_name}</HandlingTitle>
-            <ScrollbarStyled {...{style: {height: "calc(100% - 28px)"}}}>
+            {/*<ScrollbarStyled {...{style: {height: "calc(100% - 28px)"}}}>*/}
                 <TableContainer className={classes.container} component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
+                    <Table stickyHeader className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell className={classes.cell} align="left">{props.package_type}</TableCell>
@@ -112,7 +113,7 @@ const HandlingTable:React.FC<PropsType> = ({containers, ...props}) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </ScrollbarStyled>
+            {/*</ScrollbarStyled>*/}
         </HandlingSurchargeContainer>
     )
 }

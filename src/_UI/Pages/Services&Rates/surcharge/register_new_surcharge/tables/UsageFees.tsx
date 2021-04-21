@@ -42,7 +42,8 @@ const useStyles = makeStyles({
         fontFamily: "Helvetica Bold",
         fontSize: "16px",
         borderBottom: '1px solid #115B86',
-        padding: '14px 0'
+        padding: '14px 0',
+        backgroundColor: 'white'
     },
     innerCell: {
         borderBottom: "none",
@@ -80,9 +81,9 @@ const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, se
     return (
         <HandlingSurchargeContainer max_height='400px'>
             <HandlingTitle>{tableName}</HandlingTitle>
-            <ScrollbarStyled {...{style: {width: "100%", height: 270}}}>
+            {/*<ScrollbarStyled {...{style: {width: "100%", height: 270}}}>*/}
                 <TableContainer className={classes.container}>
-                    <Table>
+                    <Table stickyHeader>
                         <TableHead>
                             <TableRow>
                                 <TableCell className={classes.cell}>
@@ -159,7 +160,7 @@ const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, se
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </ScrollbarStyled>
+            {/*</ScrollbarStyled>*/}
         </HandlingSurchargeContainer>
     )
 };

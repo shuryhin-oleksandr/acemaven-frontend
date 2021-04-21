@@ -20,14 +20,17 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        paddingRight: 12
+        paddingRight: 12,
+        maxWidth: "500px",
+        maxHeight: '280px'
     },
     cell: {
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: '1px solid #115B86',
-        padding: '14px 0'
+        padding: '14px 0',
+        backgroundColor: "white"
     },
     innerMainCell: {
         borderBottom: '1px solid #E0E0E0;',
@@ -49,9 +52,9 @@ const AgentSurchargeHandling:React.FC<PropsType> = ({usage_fees}) => {
     const classes = useStyles();
     const {t} = useTranslation();
     return (
-      <ScrollbarStyled {...{style: {width: 500, height: 280}}}>
+      // <ScrollbarStyled {...{style: {width: 500, height: 280}}}>
         <TableContainer className={classes.container} component={Paper}>
-            <Table aria-label="simple table">
+            <Table stickyHeader aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell className={classes.cell} align="left">{t("Quote bid screen/CONTAINER TYPE")}</TableCell>
@@ -75,7 +78,7 @@ const AgentSurchargeHandling:React.FC<PropsType> = ({usage_fees}) => {
                 </TableBody>
             </Table>
         </TableContainer>
-      </ScrollbarStyled>
+      // </ScrollbarStyled>
     )
 }
 

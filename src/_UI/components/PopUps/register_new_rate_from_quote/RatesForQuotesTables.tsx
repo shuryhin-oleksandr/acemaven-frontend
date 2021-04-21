@@ -26,8 +26,9 @@ import {useTranslation} from "react-i18next";
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
-        paddingRight: 12
-
+        paddingRight: 12,
+        maxWidth: '440px',
+        maxHeight: '270px'
     },
     row: {
         width: '100%',
@@ -39,7 +40,8 @@ const useStyles = makeStyles({
         fontFamily: "Helvetica Bold",
         fontSize: "16px",
         borderBottom: "1px solid #115B86",
-        padding: '16px 0'
+        padding: '16px 0',
+        backgroundColor: "white",
     },
     innerMainCell: {
         borderBottom: "1px solid #E0E0E0;",
@@ -74,15 +76,15 @@ const RatesForQuotesTable: React.FC<PropsType> = ({usageFees, quote_shipping_mod
     return (
         <div style={{width: '100%', paddingBottom: '40px', borderBottom: '1px solid #bdbdbd', marginBottom: '20px'}}>
             <HandlingTitle margin_bottom='0px'>{t("Freight rates/FREIGHT RATE")}</HandlingTitle>
-            <ScrollbarStyled {...{
-                style: {width: 440},
-                autoHeight: true,
-                autoHeightMin: 120,
-                autoHeightMax: 270
-            }}
-            >
+            {/*<ScrollbarStyled {...{*/}
+            {/*    style: {width: 440},*/}
+            {/*    autoHeight: true,*/}
+            {/*    autoHeightMin: 120,*/}
+            {/*    autoHeightMax: 270*/}
+            {/*}}*/}
+            {/*>*/}
                 <TableContainer className={classes.container} component={Paper}>
-                    <Table aria-label="simple table">
+                    <Table stickyHeader aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 {usageFees?.length > 0 && quote_shipping_mode_id !== ShippingModeEnum.ULD
@@ -173,7 +175,7 @@ const RatesForQuotesTable: React.FC<PropsType> = ({usageFees, quote_shipping_mod
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </ScrollbarStyled>
+            {/*</ScrollbarStyled>*/}
         </div>
     )
 }

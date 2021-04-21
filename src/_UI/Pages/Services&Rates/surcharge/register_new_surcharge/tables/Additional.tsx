@@ -44,6 +44,7 @@ const useStyles = makeStyles({
         color: "#115B86",
         fontFamily: "Helvetica Bold",
         fontSize: "16px",
+        backgroundColor: 'white'
     },
     innerMainCell: {
         fontFamily: "Helvetica Bold",
@@ -82,7 +83,7 @@ const Additional: React.FC<PropsType> = ({
         <HandlingSurchargeContainer max_width="662px" max_height="490px">
             <HandlingTitle>{t("Surcharges/ADDITIONAL SURCHARGES")}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table stickyHeader className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.cell}/>

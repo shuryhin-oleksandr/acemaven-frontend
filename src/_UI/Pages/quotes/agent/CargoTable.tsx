@@ -30,11 +30,7 @@ const useStyles = makeStyles({
         fontSize: '14px',
         borderBottom: '0',
         padding: '0 0 5px',
-        top: '0',
-        left: '0',
-        zIndex: 2,
-        position: 'sticky',
-        backgroundColor: 'white'
+        backgroundColor: "white"
     },
     innerCell: {
         borderBottom: '0',
@@ -49,8 +45,8 @@ const CargoTable:React.FC<PropsType> = ({cargos}) => {
     const classes = useStyles();
     const {t} = useTranslation();
     return (
-        // <TableContainer className={classes.container} component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+        <TableContainer className={classes.container} component={Paper}>
+            <Table stickyHeader className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell className={classes.cell} align="left">{t("Bookings/VOLUME")}</TableCell>
@@ -72,7 +68,7 @@ const CargoTable:React.FC<PropsType> = ({cargos}) => {
                     }
                 </TableBody>
             </Table>
-        // </TableContainer>
+         </TableContainer>
     )
 }
 

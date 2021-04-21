@@ -57,7 +57,7 @@ const AgentSurchargeAdditional:React.FC<PropsType> = ({charges}) => {
     const {t} = useTranslation();
     return (
       <ScrollbarStyled {...{style: { width: 800, height: 620}}}>
-        <TableContainer className={classes.container} component={Paper}>
+        <TableContainer className={classes.container} component={Paper} style={{marginLeft: '20px'}}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>

@@ -28,7 +28,7 @@ const AgentCancellationBadReviewPopup:React.FC<PropsType> = ({setBadReviewHandle
                 </IconButton>
                 <CancelOperationByAgentContent content_padding='118px 120px 60px'>
                         <CancelOperationSubtitle>
-                            {("Confirm Operation/Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ")}
+                            {t("Confirm Operation/Please, keep your company rates up to date to avoid bad reviews with cancellations. It's now up to the client to leave a low rating to your company for this operation. ")}
                         </CancelOperationSubtitle>
                     <CompleteButtonsWrapper>
                         <CompleteConfirmButton onClick={setBadReviewHandler}>{t("Add bank account/Got it!")}</CompleteConfirmButton>

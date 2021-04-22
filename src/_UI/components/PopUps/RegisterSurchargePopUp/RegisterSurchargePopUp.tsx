@@ -206,8 +206,8 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
         </ErrorServerMessage>
         }
         {usageFees.length > 0 && <UsageFees control={control} setValue={setValue}
-                   tableName={mode === 'sea' ? `${('Quote bid screen/HANDLING')}` : `${('Quote bid screen/USAGE FEE')}`}
-                   type={mode === 'sea' ? `${('Quote bid screen/CONTAINER TYPE')}`  : `${t('Dashboard/ULD type')}`}
+                   tableName={mode === 'sea' ? `${t('Quote bid screen/HANDLING')}` : `${t('Quote bid screen/USAGE FEE')}`}
+                   type={mode === 'sea' ? `${t('Quote bid screen/CONTAINER TYPE')}`  : `${t('Dashboard/ULD type')}`}
                    usageFees={usageFees}
         />}
         <Additional control={control}

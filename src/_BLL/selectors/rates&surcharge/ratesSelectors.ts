@@ -19,6 +19,7 @@ export const getEditSuccess = ((state: AppStateType) => state.rate.edit_success)
 export const getAddingError = (state: AppStateType) => state.rate.adding_popup_error
 export const getAddingRateError = (state: AppStateType) => state.rate.adding_rate_error
 export const getRateTransitError = (state: AppStateType) => state.rate.rate_transit_error
+export const getErrorMessageForNewRate = (state: AppStateType) => state.rate.error_message_for_new_rate
 
 export const getRateBookedDatesSelector = (state: AppStateType)
     :Array<{container_type: number | null, disabledDates: Array<{from: Date, to: Date}>}> | undefined  => {

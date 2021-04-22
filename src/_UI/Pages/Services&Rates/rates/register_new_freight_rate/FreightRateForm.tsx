@@ -34,12 +34,13 @@ type PropsType = {
     closePortsHandler: any;
     rate_info: RateInfoType | null,
     watchResultArr: number[],
-    rate_transit_error: any
+    rate_transit_error: any,
+  error_message_for_new_rate: boolean
 }
 
 const FreightRateForm: React.FC<PropsType> = ({
                                                   control, errors, register, carrierOptions, shippingModeOptions, getBookedRatesDates,
-                                                  setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, rate_transit_error,
+                                                  setShippingValue, origin_ports, destination_ports, onOriginChangeHandler, rate_transit_error, error_message_for_new_rate,
                                                   onDestinationChangeHandler, closePortsHandler, watchResultArr
                                               }) => {
   const {t} = useTranslation();
@@ -184,7 +185,11 @@ const FreightRateForm: React.FC<PropsType> = ({
                     <HelperText style={{paddingTop: 0}}>
                       {t("Error message/Value is not valid")}
                     </HelperText>}
-
+                  {
+                    error_message_for_new_rate &&
+                    <HelperText style={{paddingTop: 0}}>
+                      {t("Error message/Enter correct origin and destination")}
+                    </HelperText>}
                 </GroupWrap>
             </div>
         </FormWrap>

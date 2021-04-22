@@ -11,7 +11,7 @@ import {
 import {
     getAddingError,
     getAddingRateError,
-    getCurrentShippingTypeSelector, getRateTransitError
+    getCurrentShippingTypeSelector, getErrorMessageForNewRate, getRateTransitError
 } from "../../../../../_BLL/selectors/rates&surcharge/ratesSelectors";
 import {
     getCarriers,
@@ -95,6 +95,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({setNewRateMode}) 
     const adding_surcharge_error = useSelector(getAddingError)
     const adding_rate_error = useSelector(getAddingRateError)
     const rate_transit_error = useSelector(getRateTransitError)
+    const error_message_for_new_rate = useSelector(getErrorMessageForNewRate)
 
 
     //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
@@ -160,6 +161,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({setNewRateMode}) 
 
     //посимвольный поиск портов
     let onOriginChangeHandler = (value: any) => {
+        dispatch(rateActions.setErrorMessageForNewRate(false))
         clearTimeout(timerOrigin);
         timerOrigin = setTimeout(() => {
             if (value.value.length >= 3) {
@@ -168,6 +170,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({setNewRateMode}) 
         }, 500);
     };
     let onDestinationChangeHandler = (value: any) => {
+        dispatch(rateActions.setErrorMessageForNewRate(false))
         clearTimeout(timerDestination);
         timerDestination = setTimeout(() => {
             if (value.value.length >= 3) {
@@ -280,6 +283,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({setNewRateMode}) 
                 destination_port_value={destination_port_value}
                 adding_rate_error={adding_rate_error}
                 rate_transit_error={rate_transit_error}
+                error_message_for_new_rate={error_message_for_new_rate}
             />
         </RatesWrapper>
     );

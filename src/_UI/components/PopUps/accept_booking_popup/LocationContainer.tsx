@@ -28,7 +28,7 @@ const LocationContainer:React.FC<PropsType> = ({ register, errors, direction, sh
                     {shipping_mode === 'FCL'
                     && <LocationBlock register={register}
                                       errors={errors}
-                                      label={t('Booking Confirmation/Empty PickUp Location')}
+                                      label={t('Booking Confirmation/Empty Pickup Location')}
                                       field_name={'empty_pickup_location'}
                                       google_field_name={'empty_pickup_location_address'}
                                       google_label={true}

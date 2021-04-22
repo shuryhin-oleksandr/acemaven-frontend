@@ -85,6 +85,7 @@ export const getSurchargeForExactRateThunk = (rate_data: any) => {
             }
         } catch (e) {
             console.log(e.response);
+            (e.response?.status === 400) && dispatch(rateActions.setErrorMessageForNewRate(true))
         }
     };
 };

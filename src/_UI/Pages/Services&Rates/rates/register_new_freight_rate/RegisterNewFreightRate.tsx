@@ -71,13 +71,14 @@ type PropsType = {
     destination_port_value: PortType | null
     //booked_dates: Array<{from: Date, to: Date}>
     adding_rate_error: any
-    rate_transit_error: any
+    rate_transit_error: any,
+    error_message_for_new_rate: boolean
 };
 
 const RegisterNewFreightRate: React.FC<PropsType> = ({
                                                          handleSubmit, control, register, errors,
                                                          getValues, setValue, closeRateRegistration, setMode,
-                                                         mode, carrierOptions, shippingModeOptions, shippingValue, adding_rate_error, rate_transit_error,
+                                                         mode, carrierOptions, shippingModeOptions, shippingValue, adding_rate_error, rate_transit_error, error_message_for_new_rate,
                                                          setShippingValue, origin_ports, destination_ports, onOriginChangeHandler,
                                                          onDestinationChangeHandler, closePortsHandler, getBookedRatesDates, usageFees, origin_port_value, destination_port_value,
                                                          setNewSurchargePopUpVisible, existing_surcharge, rate_data_for_surcharge, surcharge, registration_success, rate_info, watchResultArr
@@ -183,6 +184,7 @@ const RegisterNewFreightRate: React.FC<PropsType> = ({
                              setValue={setValue}
                              watchResultArr={watchResultArr}
                              rate_transit_error={rate_transit_error}
+                             error_message_for_new_rate={error_message_for_new_rate}
             />
             {
                 (adding_rate_error && adding_rate_error.length > 0)

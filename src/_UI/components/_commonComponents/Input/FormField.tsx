@@ -2,6 +2,7 @@ import React from "react";
 //styles
 import { Field, HelperText, InputOuter, Label } from "./input-styles";
 import {AgentComment} from "../../PopUps/accept_booking_popup/accept-popup-styles";
+import {useTranslation} from "react-i18next";
 
 type PropsType = {
   placeholder?: string;
@@ -35,6 +36,7 @@ type PropsType = {
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
+  const {t} = useTranslation();
   return (
     <InputOuter max_width={props.max_width} min_width={props.min_width} marginBottom={props.marginBottom} min_height={props.min_height}>
       {!!label &&
@@ -63,19 +65,19 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         step='0.01'
         without_border={props.without_border && props.without_border}
       />
-        {props.booking_process && <AgentComment>For shipment tracking purposes, won’t be shown to the client.</AgentComment>}
+        {props.booking_process && <AgentComment>{t("Billing/For shipment tracking purposes, won’t be shown to the client.")}</AgentComment>}
         {error?.type === "required" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}
         {error?.type === "validate" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}
       {error?.type === "pattern" && (
         <HelperText>
-          {props.pattern_message ? props.pattern_message : "Value is not valid"}
+          {props.pattern_message ? props.pattern_message : t("Error message/Value is not valid")}
         </HelperText>
       )}
       {error?.type === "maxLength" && (
-        <HelperText>Maximum length is {props.max} symbols</HelperText>
+        <HelperText>{t("Maximum length is", {parameter: props.max})}</HelperText>
       )}
       {error?.type === "minLength" && (
-        <HelperText>Minimum length is {props.min} symbols</HelperText>
+        <HelperText>{t("Minimum length is", {parameter: props.min})}</HelperText>
       )}
       {props.server_error && <HelperText>{props.server_error}</HelperText>}
     </InputOuter>

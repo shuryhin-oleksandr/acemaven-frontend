@@ -131,11 +131,11 @@ const Rates: React.FC<PropsType> = ({
             destination: Number(JSON.parse(
                 // @ts-ignore
                 sessionStorage.getItem("destination_id")
-            ).id),
+            )?.id),
             origin: Number(JSON.parse(
                 // @ts-ignore
                 sessionStorage.getItem("origin_id")
-            ).id),
+            )?.id),
             transit_time: Number(getValues('transit_time'))
         }
         dispatch(rateActions.setRateDataForSurcharge(surcharge_to_rate))

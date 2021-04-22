@@ -35,7 +35,8 @@ const initialState = {
   adding_rate_error: null,
   adding_popup_error: null,
   rate_transit_error: null,
-  rate_id: 0
+  rate_id: 0,
+  error_message_for_new_rate: false
 };
 
 type InitialStateType = typeof initialState;
@@ -206,6 +207,11 @@ export const rateReducer = (
               }
           )}
       }
+    case "SET_ERROR_MESSAGE_FOR_NEW_RATE":
+      return {
+        ...state,
+        error_message_for_new_rate: action.answer
+      }
     default:
       return state;
   }
@@ -257,5 +263,6 @@ export const rateActions = {
   setTransitError: (error: any) => ({type: 'SET_TRANSIT_ERROR', error} as const),
   setEditedRateInfo: (value: any) => ({type: 'SET_EDITED_RATE_INFO', value} as const),
   setExactRateId: (id: number) => ({type: 'SET_EXACT_RATE_ID', id} as const),
-  setSurchargeToRate: (id: number, data: any, dates: {start_date: string, expiration_date: string}) => ({type: 'SET_SURCHARGE_TO_RATE', id, data, dates} as const)
+  setSurchargeToRate: (id: number, data: any, dates: {start_date: string, expiration_date: string}) => ({type: 'SET_SURCHARGE_TO_RATE', id, data, dates} as const),
+  setErrorMessageForNewRate: (answer: boolean) => ({type: 'SET_ERROR_MESSAGE_FOR_NEW_RATE', answer} as const)
 };

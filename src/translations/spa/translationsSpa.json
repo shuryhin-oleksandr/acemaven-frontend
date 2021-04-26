@@ -496,6 +496,8 @@
   "Freight rates": {
     "Freight rates": "Tarifas de fletes",
     "ACTIONS": "ACCIONES",
+    "ACTIVE": "ACTIVO",
+    "INACTIVE": "EN PAUSA",
     "Rates can be paused or reactivated using this button": "Las tarifas pueden ser pausadas o reactivadas con este botón",
     "Use this registry as a template for a new rate": "Utilice este registro como plantilla para una nueva tarifa",
     "Use this registry as a template for a new rate, with the same values and parameters": "",
@@ -707,6 +709,37 @@
     "Do you want co create new or change existed?": "",
     "Password was changed!": "",
     "Enter correct origin and destination": ""
+  },
+  "Landing Page": {
+    "Acemaven_title1": "Nuestra solución optimiza el proceso de registro de tarifas de los agentes y la reserva de embarques a los clientes, soportando múltiples modalidades. Importaciones y Exportaciones: FCL, LCL, Carga General Aérea y Marítima y ULD. .",
+    "Acemaven_title2": "La plataforma Acemaven es la conexión digital de servicios de transporte de carga entre exportadores e importadores con los mejores transitarios del país.",
+    "Acemaven_title3": "Cuente con nuestras herramientas para reservar y administrar sus operaciones: solicitar cambios, rastrear embarques o publicar cotizaciones si no puede ubicar una tarifa.",
+    "SIGN UP" : "Solicitar acceso",
+    "Air and Sea shipmens": "Flete aéreo y marítimo",
+    "Search for the best rates": "Encuentre las mejores condiciones de embarque",
+    "Track your shipment": "",
+    "GET STARTED": "Comenzar",
+    "Select freight forwarder": "Encuentre la oferta ideal",
+    "CBM calculator": "Herramientas de gestión de carga",
+    "Track transfer": "Cualquier dirección",
+    "START AS CLIENT": "",
+    "START AS AGENT": "",
+    "Search and compare freight from local agents": "Interfaz de usuario de vanguardia",
+    "FCL, LCL, Loose Cargo/RORO, Air Cargo modes supported.": "Cualquier proceso toma menos de 3 pasos con una apariencia moderna, vistas detalladas de costos y operaciones e incluso más funcionalidades próximamente.",
+    "Book and track your shipments": "Seguimiento de embarques al alcance",
+    "See their position on the map and review their milestones.": "Acompañe los eventos de los embarques y su geolocalización aproximada en nuestro mapa después del embarque.",
+    "Stay in touch with the agent or request help from our team": "Soporte basado en chat",
+    "With a chat based support feature.": "Manténgase en contacto con el agente o solicite ayuda de nuestro equipo.",
+    "Marine shipping mode": "A DONDE VAMOS",
+    "Air shipping mode": "LO QUE NOS UNE",
+    "Ernesto Contacts": "",
+    "Login": "Ingresar",
+    "Compare the available offers based on costs, transit time or prefered carrier.": "Compare las ofertas basado en costos, tiempo de tránsito o transportador de su preferencia.",
+    "description_freight_forwarder": "Compare las ofertas basado en costos, tiempo de tránsito o el transportador de su preferencia. Modos FCL, LCL, Carga General, Carga Aerea y ULD disponibles.",
+    "description_CBM_calculator": "Agregue múltiples grupos de carga por tipo de empaque o contenedores, calcule w/m con precisión, realice cambios en los embarques y más.",
+    "description_Track_transfer": "Embarques de Importación o Exportación soportados.",
+    "description_Air_shipping_mode": "El propósito de Acemaven es modernizar el mercado de transporte de cargas. Disponibilizando digitalmente el servicio de agentes elite con una destacada trayectoria bajo demanda, eliminando visitas comerciales, intercambios de mensajes de ida y vuelta, cotizaciones lentas y permitiendo que cada parte se concentre en la esencia de lo que nos une: mover cargas de manera eficiente.",
+    "description_Marine_shipping_mode": "Con mucho más que cubrir, espere más funcionalidades en el futuro cercano. Regístrese para ponerse en contacto con nuestro equipo y conocer más sobre nuestra plataforma y lo que puede hacer por usted."
   }
 }
 

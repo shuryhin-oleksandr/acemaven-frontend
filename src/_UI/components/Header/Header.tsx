@@ -49,6 +49,7 @@ import user from "../../../_UI/assets/icons/profile/defaultUserPhoto.svg";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import {changeLanguageAtBackEnd} from "../../../_BLL/thunks/profile/profileThunks";
+import show_more from "./../../../_UI/assets/icons/landing/show_more.svg"
 
 const useStyles = makeStyles({
   customTooltip: {
@@ -161,30 +162,29 @@ const Header: React.FC = () => {
                 <LanguageText onClick={() => changeLanguage('en', 'en')}>
                   En
                 </LanguageText>
-                <LanguageText onClick={() => changeLanguage('pt', 'por')}
+                <LanguageText onClick={() => changeLanguage('pt', 'pt')}
                   style={{ margin: "0 4px" }}
                 >
-                  Por
+                  Pt
                 </LanguageText>
-                <LanguageText onClick={() => changeLanguage('es', 'spa')}>
-                  Spa
+                <LanguageText onClick={() => changeLanguage('es', 'sp')}>
+                  Sp
                 </LanguageText>
               </LanguageWrapper>
             </LanguageSectionWrapper>
           }
         >
-          <ButtonWrap margin_left={"21px"}>
-            {chat_notifications_list.length > 0 ? (
-              <img
-                style={{
-                  marginBottom: "3px",
-                }}
-                src={message_icon}
-                alt=""
-              />
-            ) : (
+          <ButtonWrap style={{display: 'flex', alignItems: 'center', marginLeft: '21px'}}>
               <LanguageWrapper>{i18next.language}</LanguageWrapper>
-            )}
+              <img
+              style={{
+                marginBottom: "3px",
+                width: "10px"
+            }}
+              src={show_more}
+              alt=""
+              />
+
           </ButtonWrap>
         </Tooltip>
         {company_type === AppCompaniesTypes.AGENT &&

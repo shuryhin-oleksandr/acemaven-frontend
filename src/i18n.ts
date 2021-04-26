@@ -1,18 +1,18 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import en from "./translations/en/translationsEn.json";
-import por from "./translations/por/translationsPor.json";
-import spa from "./translations/spa/translationsSpa.json";
+import pt from "./translations/por/translationsPor.json";
+import sp from "./translations/spa/translationsSpa.json";
 
 const resources = {
   en: {
     translation: en,
   },
-  por: {
-    translation: por,
+  pt: {
+    translation: pt,
   },
-  spa: {
-    translation: spa,
+  sp: {
+    translation: sp,
   },
 };
 

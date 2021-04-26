@@ -45,16 +45,13 @@ const SignInPage = ({history}) => {
       })
     }, [isSignIn])
 
-
-
-
   return (
     <ModalWindow isOpen={isSignIn}>
       <RegisterFormTemplate openFlow={() => dispatch(authActions.setOpenSignIn(false))}>
           {isFetching && <Spinner />}
         <RegisterHead
-          title="Log in"
-          buttonText="Register"
+          title={t("Freight rates/Log in")}
+          buttonText={t("Register/Register")}
           popupCallback={() => popupCallback()}
         />
         <FormWrapper>
@@ -72,18 +69,18 @@ const SignInPage = ({history}) => {
                 <Form>
                   <BaseInputGroup
                     name="email"
-                    placeholder="Email"
+                    placeholder={t("Register/Email")}
                     values={values}
-                    labelText="Email"
+                    labelText={t("Register/Email")}
                     marginBot={46}
                     valid={touched.email && !errors.email}
                     error={touched.email && errors.email}
                   />
                   <BaseInputGroup
                     name="password"
-                    placeholder="Password"
+                    placeholder={t("Complete Profile/Password")}
                     values={values}
-                    labelText="Password"
+                    labelText={t("Complete Profile/Password")}
                     type="password"
                     valid={touched.password && !errors.password}
                     error={touched.password && errors.password}
@@ -94,7 +91,7 @@ const SignInPage = ({history}) => {
                       type="submit"
                       disabled={!values.password || !values.email || hasErrors}
                     >
-                      LOG IN
+                      {t("Freight rates/Log in")}
                     </BaseButton>
                   </ButtonWrapper>
                 </Form>

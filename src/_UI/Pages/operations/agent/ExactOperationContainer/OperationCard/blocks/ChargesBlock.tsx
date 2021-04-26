@@ -51,6 +51,7 @@ const useStyles = makeStyles({
     fontSize: "16px",
     color: "#1B1B25",
     padding: "8px 0 0",
+    verticalAlign: "top"
   },
 });
 

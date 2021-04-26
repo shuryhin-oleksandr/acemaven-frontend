@@ -222,14 +222,6 @@ const Rate: React.FC<PropsType> = ({
         <RateTitle>{t("Freight rates/Freight rates")}</RateTitle>
         <ButtonsWrap>
           {formMode && <SaveButton type="submit">{t("My Profile/SAVE CHANGES")}</SaveButton>}
-          <PauseButton
-            type="button"
-            onClick={() =>
-              activateRateHandler(rate?.id, !rate?.is_active, history)
-            }
-          >
-            <PauseImg src={is_active ? pause : play} alt="" />
-          </PauseButton>
         </ButtonsWrap>
       </Wrap>
       {rate && (
@@ -268,16 +260,28 @@ const Rate: React.FC<PropsType> = ({
               </FieldOuter>
             </FieldsWrap>
             <FieldsWrap>
-              <FieldOuter>
+              <FieldOuter style={{flexDirection: 'row', alignItems: 'center'}}>
+                <div>
                 <Label>{t("Bookings/STATUS")}</Label>
                 <Controller
                   name="carrier"
                   control={control}
                   defaultValue={rate?.is_active}
                   as={
-                    <Content>{rate?.is_active ? t("Dashboard Menu/ACTIVE") : t("Dashboard Menu/INACTIVE")}</Content>
+                    <Content>{rate?.is_active ? t("Freight rates/ACTIVE") : t("Freight rates/INACTIVE")}</Content>
                   }
                 />
+                </div>
+                <ButtonsWrap>
+                  <PauseButton
+                    type="button"
+                    onClick={() =>
+                      activateRateHandler(rate?.id, !rate?.is_active, history)
+                    }
+                  >
+                    <PauseImg src={is_active ? pause : play} alt="" />
+                  </PauseButton>
+                </ButtonsWrap>
               </FieldOuter>
               <FieldOuter>
                 <Label>{t("Bookings/TRANSIT TIME")}</Label>
@@ -303,7 +307,7 @@ const Rate: React.FC<PropsType> = ({
             />
           )}
           {existing_surcharge && (
-            <SurchargesToRate existing_surcharge={existing_surcharge} />
+            <SurchargesToRate shipping_mode={rate?.shipping_mode.title} existing_surcharge={existing_surcharge} />
           )}
         </>
       )}

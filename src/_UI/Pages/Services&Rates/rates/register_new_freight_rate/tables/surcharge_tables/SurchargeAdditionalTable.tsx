@@ -14,7 +14,8 @@ import TableBody from "@material-ui/core/TableBody";
 import {useTranslation} from "react-i18next";
 
 type PropsType = {
-    charges: any
+    charges: any,
+    shipping_mode?: string
 }
 
 const useStyles = makeStyles({
@@ -51,12 +52,14 @@ const useStyles = makeStyles({
     }
 });
 
-const SurchargeAdditionalTable:React.FC<PropsType> = ({charges}) => {
+     const arrShippingMode = ['Loose Cargo/RORO', 'LCL', 'Air Loose Cargo'];
+
+const SurchargeAdditionalTable:React.FC<PropsType> = ({charges, shipping_mode}) => {
     const classes = useStyles();
     const {t} = useTranslation();
     return (
         <HandlingSurchargeContainer max_height='440px' max_width='948px '>
-            <HandlingTitle>{t("Surcharges/ADDITIONAL SURCHARGES")}</HandlingTitle>
+            <HandlingTitle>{!arrShippingMode.includes(`${shipping_mode}`) && t("Surcharges/ADDITIONAL SURCHARGES") }</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>

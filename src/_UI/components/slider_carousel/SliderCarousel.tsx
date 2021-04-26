@@ -8,6 +8,7 @@ import './flickity.css'
 import SliderHeaderComponent from "../../Pages/landing/components/header/SliderHeaderComponent";
 import {useDispatch} from "react-redux";
 import {authActions} from "../../../_BLL/reducers/authReducer";
+import {useTranslation} from "react-i18next";
 
 const SliderCarousel = () => {
 
@@ -19,7 +20,7 @@ const SliderCarousel = () => {
     }
     const dispatch = useDispatch();
 
-
+    const {t} = useTranslation();
     return (
            <Flickity
                className={'carousel'} // default ''
@@ -31,15 +32,15 @@ const SliderCarousel = () => {
            >
                <SliderHeaderComponent background_img={lan1}
                                       background_size='cover'
-                                      title_text={['AIR', 'AND SEA', 'SHIPMENTS']}
-                                      subtitle_text='Acemaven supports imports and exports and various types of air and sea shipments.'
+                                      title_text={t("Landing Page/Air and Sea shipmens")}
+                                      subtitle_text={t('Landing Page/Acemaven_title1')}
                                       callback={()=>{dispatch(authActions.setOpenSignIn(true))}}
                />
                <SliderHeaderComponent background_img={lan2}
                                       background_repeat='no-repeat'
                                       background_size='cover'
-                                      title_text={['SEARCH', 'FOR THE', 'BEST RATES']}
-                                      subtitle_text='Compare freight rates from various agents and book the best conditions for your shipment.'
+                                      title_text={t("Landing Page/Search for the best rates")}
+                                      subtitle_text={t('Landing Page/Acemaven_title2')}
                                       callback={()=>{dispatch(authActions.setOpenSignIn(true))}}
                />
                <SliderHeaderComponent background_img={lan3}
@@ -48,8 +49,8 @@ const SliderCarousel = () => {
                                       button_background='#115b86'
                                       login_color='#1b1b25'
                                       borderColor='transparent'
-                                      title_text={['TRACK', 'YOUR', 'SHIPMENT']}
-                                      subtitle_text='Once you shipment has departed, track its position in real time.'
+                                      title_text={t("Landing Page/Track your shipment")}
+                                      subtitle_text={t('Landing Page/Acemaven_title3')}
                                       subtitle_max_width='326px'
                                       callback={()=>{dispatch(authActions.setOpenSignIn(true))}}
                />

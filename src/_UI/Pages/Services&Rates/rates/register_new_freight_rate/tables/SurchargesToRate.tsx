@@ -19,11 +19,13 @@ import {useTranslation} from "react-i18next";
 
 
 type PropsType = {
-    existing_surcharge: SurchargeInfoType | null
+    existing_surcharge: SurchargeInfoType | null,
+    shipping_mode?: string,
+
 }
 
 
-const SurchargesToRate:React.FC<PropsType> = ({ existing_surcharge}) => {
+const SurchargesToRate:React.FC<PropsType> = ({ existing_surcharge, shipping_mode}) => {
     const [isFullView, setFullView] = useState(true)
     const {t} = useTranslation();
     return (
@@ -40,7 +42,11 @@ const SurchargesToRate:React.FC<PropsType> = ({ existing_surcharge}) => {
                 <TableWrapper>
                     {existing_surcharge?.usage_fees && existing_surcharge.usage_fees.length > 0
                     && <HandlingSurchargeTable containers={existing_surcharge?.usage_fees}/>}
-                    {existing_surcharge && <SurchargeAdditionalTable charges={existing_surcharge?.charges}/>}
+                    {existing_surcharge &&
+                    <SurchargeAdditionalTable
+                      charges={existing_surcharge?.charges}
+                      shipping_mode= {shipping_mode}
+                    />}
                 </TableWrapper>
                 }
             </SurchargeToRateInner>

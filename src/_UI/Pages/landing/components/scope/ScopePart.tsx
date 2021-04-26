@@ -14,8 +14,10 @@ import tracker from "../../../../../_UI/assets/icons/landing/track1.svg";
 import RouteButton from "src/_UI/components/_commonComponents/buttons/route_button/RouteButton";
 import { authActions } from "../../../../../_BLL/reducers/authReducer";
 import { useDispatch } from "react-redux";
+import {useTranslation} from "react-i18next";
 
 const ScopePart = () => {
+  const {t} = useTranslation();
   let dispatch = useDispatch();
   return (
     <ScopeOuter>
@@ -24,27 +26,27 @@ const ScopePart = () => {
           <ScopeIcon>
             <img src={loop} alt="" />
           </ScopeIcon>
-          <ScopeTitle>Select freight forwarder</ScopeTitle>
+          <ScopeTitle>{t("Landing Page/Select freight forwarder")}</ScopeTitle>
           <ScopeSubtitle>
-            There would be a description of the feature.
+            {t("Landing Page/description_freight_forwarder")}
           </ScopeSubtitle>
         </ScopeContent>
         <ScopeContent>
           <ScopeIcon>
             <img src={weight} alt="" />
           </ScopeIcon>
-          <ScopeTitle>CBM calculator</ScopeTitle>
+          <ScopeTitle>{t("Landing Page/CBM calculator")}</ScopeTitle>
           <ScopeSubtitle>
-            There would be a description of the feature.
+            {t("Landing Page/description_CBM_calculator")}
           </ScopeSubtitle>
         </ScopeContent>
         <ScopeContent>
           <ScopeIcon>
             <img src={tracker} alt="" />
           </ScopeIcon>
-          <ScopeTitle>Track transfer</ScopeTitle>
+          <ScopeTitle>{t("Landing Page/Track transfer")}</ScopeTitle>
           <ScopeSubtitle>
-            There would be a description of the feature.
+            {t("Landing Page/description_Track_transfer")}
           </ScopeSubtitle>
         </ScopeContent>
       </ScopeInner>
@@ -54,7 +56,7 @@ const ScopePart = () => {
             dispatch(authActions.setSignUpAsAgent(false));
             dispatch(authActions.setOpenSignUp(true));
           }}
-          text="START AS CLIENT"
+          text={t("Landing Page/START AS CLIENT")}
           back="#1B1B25"
           textColor="white"
           w="235px"
@@ -65,7 +67,7 @@ const ScopePart = () => {
             dispatch(authActions.setOpenSignUp(true));
           }}
           border="1px solid #1B1B25"
-          text="START AS AGENT"
+          text={t("Landing Page/START AS AGENT")}
           textColor="#1B1B25"
           back="transparent"
           w="235px"

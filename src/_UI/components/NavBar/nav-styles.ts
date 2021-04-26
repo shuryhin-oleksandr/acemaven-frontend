@@ -133,6 +133,7 @@ export const Outer = styled.div`
   text-decoration: none;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 export const Name = styled.div<PropsStyles>`
@@ -144,6 +145,8 @@ export const Name = styled.div<PropsStyles>`
   display: flex;
   align-items: center;
   text-align: left;
+  padding: 0;
+  margin: 0;
 `;
 export const IconWrap = styled.div`
   width: 50px;

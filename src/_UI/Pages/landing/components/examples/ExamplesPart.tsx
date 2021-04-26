@@ -20,10 +20,12 @@ import under_arrow from '../../../../assets/icons/landing/under_arrow.svg'
 import first_example_img from '../../../../assets/icons/landing/first_landing.svg'
 import middle_example_img from '../../../../assets/icons/landing/middle_landing.svg'
 import final_example_img from '../../../../assets/icons/landing/final_landing.svg'
+import {useTranslation} from "react-i18next";
 
 
 
 const ExamplesPart: React.FC = () => {
+    const {t} = useTranslation();
     return (
         <ExamplesOuter>
             <ExamplesInner>
@@ -39,10 +41,10 @@ const ExamplesPart: React.FC = () => {
                 <BlocksWrapper>
                     <SearchBlock>
                         <BlockTitle>
-                            Search and compare <br/> freight from local agents
+                            {t("Landing Page/Search and compare freight from local agents")}
                         </BlockTitle>
                         <BlockSubTitle>
-                            FCL, LCL, Loose Cargo/RORO, Air Cargo modes supported.
+                            {t("Landing Page/FCL, LCL, Loose Cargo/RORO, Air Cargo modes supported.")}
                         </BlockSubTitle>
                         <ImageWrap>
                             <img src={first_example_img} alt=""/>
@@ -57,11 +59,10 @@ const ExamplesPart: React.FC = () => {
                         </UnderArrow>
                         <BookBlock>
                             <BlockTitle>
-                                Book and track <br/> your shipments
+                                {t("Landing Page/Book and track your shipments")}
                             </BlockTitle>
                             <BlockSubTitle>
-                                See their position on the map and review <br/>
-                                their milestones.
+                                {t("Landing Page/See their position on the map and review their milestones.")}
                             </BlockSubTitle>
                             <ImageWrap>
                                 <img src={middle_example_img} alt=""/>
@@ -69,10 +70,10 @@ const ExamplesPart: React.FC = () => {
                         </BookBlock>
                         <SupportBlock>
                             <BlockTitle>
-                                Stay in touch with the <br/> agent or request help <br/> from our team
+                                {t("Landing Page/Stay in touch with the agent or request help from our team")}
                             </BlockTitle>
                             <BlockSubTitle>
-                                With a chat based support feature.
+                                {t("Landing Page/With a chat based support feature.")}
                             </BlockSubTitle>
                             <ImageWrap height='230px' width='414px'>
                                 <img src={final_example_img} alt=""/>

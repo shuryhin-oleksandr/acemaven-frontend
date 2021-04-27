@@ -36,6 +36,7 @@ export const LogoWrap = styled.div`
 `
 export const ActionsWrapper = styled.div`
 display: flex;
+align-items: center;
 `
 export const LoginButton = styled.div<PropsStyle>`
   outline: none;

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./_BLL/reducers/authReducer";
 import Spinner from "./_UI/components/_commonComponents/spinner/Spinner";
 import { Scrollbars } from "react-custom-scrollbars";
-import { getAuthUserInfo } from "./_BLL/thunks/profile/profileThunks";
+import {changeLanguageAtBackEnd, getAuthUserInfo} from "./_BLL/thunks/profile/profileThunks";
 import { wsChatHelper } from "./_BLL/helpers/wsChatHelper";
 import {
   startReceiveNotifications,
@@ -16,11 +16,12 @@ import {
 } from "./_BLL/thunks/chat_notifications_thunk/chat_notifications_thunk";
 import { profileActions } from "./_BLL/reducers/profileReducer";
 import i18next from "i18next";
+import {getMyInfoSelector} from "./_BLL/selectors/profile/profileSelectors";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const isInit = useSelector((state) => state.auth.isInit);
-
+  const auth_user_info = useSelector(getMyInfoSelector);
   const route = useRoute(isAuth);
   const dispatch = useDispatch();
   let token = localStorage.getItem("access_token");
@@ -31,7 +32,7 @@ function App() {
       dispatch(getAuthUserInfo());
       startReceiveNotifications(dispatch);
       startReceiveChatNotifications(dispatch);
-      dispatch(profileActions.setAuthUserInfo(null));
+
       return () => {
         stopReceiveNotifications(dispatch);
         stopReceiveChatNotifications(dispatch);
@@ -50,13 +51,13 @@ function App() {
     }
   }, [dispatch, token]);
 
+
   useEffect(()=> {
-    if (language) {
+    if (language && token && auth_user_info?.id) {
       i18next.changeLanguage(language);
-    } else {
-      i18next.changeLanguage('por');
+     dispatch(changeLanguageAtBackEnd(Number(auth_user_info?.id), language === 'sp' ? 'es' : language, language))
     }
-  })
+  },[language, token, auth_user_info?.id])
 
   return isInit ? (
     <Scrollbars

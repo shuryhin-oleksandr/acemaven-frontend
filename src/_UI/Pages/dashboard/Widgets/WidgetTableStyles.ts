@@ -11,7 +11,8 @@ export const useStyles = makeStyles({
       cursor: 'pointer',
       transition: '.2s',
       backgroundColor: '#E8F7FC'
-    }
+    },
+    verticalAlign: "top"
   },
   iconOuterCell: {
 

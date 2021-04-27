@@ -97,11 +97,11 @@ const SliderHeaderComponent:React.FC<PropsType> = ({background_img,background_si
                           </LanguageSectionWrapper>
                       }
                     >
-                        <ButtonWrap style={{display: 'flex', alignItems: 'center', marginLeft: '21px', marginRight: '25px'}}>
+                        <ButtonWrap style={{display: 'flex', alignItems: 'baseline', marginLeft: '21px', marginRight: '25px'}}>
                             <LanguageWrapper style={{color: '#ffffff'}}>{i18next.language}</LanguageWrapper>
                             <img
                               style={{
-                                marginBottom: "3px",
+                                marginLeft: "3px",
                                 width: "10px", fill: "#ffffff"
                             }} src={show_more}
                               alt=""/>

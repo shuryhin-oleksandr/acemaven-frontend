@@ -174,11 +174,11 @@ const Header: React.FC = () => {
             </LanguageSectionWrapper>
           }
         >
-          <ButtonWrap style={{display: 'flex', alignItems: 'center', marginLeft: '21px'}}>
+          <ButtonWrap style={{display: 'flex', alignItems: 'baseline', marginLeft: '21px'}}>
               <LanguageWrapper>{i18next.language}</LanguageWrapper>
               <img
               style={{
-                marginBottom: "3px",
+                marginLeft: "3px",
                 width: "10px"
             }}
               src={show_more}

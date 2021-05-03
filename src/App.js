@@ -26,6 +26,8 @@ function App() {
   const dispatch = useDispatch();
   let token = localStorage.getItem("access_token");
   let language = localStorage.getItem('language');
+  // let languageFromBack = useSelector((state) => state.profile.authUserInfo.language);
+  // console.log("languageFromBack ", languageFromBack)
 
   useEffect(() => {
     if (token) {
@@ -56,6 +58,8 @@ function App() {
     if (language && token && auth_user_info?.id) {
       i18next.changeLanguage(language);
      dispatch(changeLanguageAtBackEnd(Number(auth_user_info?.id), language === 'sp' ? 'es' : language, language))
+    } else if (token && auth_user_info?.id) {
+
     }
   },[language, token, auth_user_info?.id])
 

@@ -47,7 +47,7 @@ const AssignConfirmationPopup:React.FC<PropsType> = ({setAssignAgent, setAssignC
                     <img src={close_icon} alt=""/>
                 </IconButton>
                 <PopupContent>
-                    <PopupTitle>{t("Bookings/Are you sure you want to assign this Booking to")} {'this'}<span style={{textTransform: 'capitalize'}}>{agent_full_name}</span> ?
+                    <PopupTitle>{t("Bookings/Are you sure you want to assign this Booking to")} {'this '}<span style={{textTransform: 'capitalize'}}>{agent_full_name}</span> ?
                     </PopupTitle>
                     <AssignActions>
                         <AssignConfirm onClick={assign_thunk}>{t("Bookings/CONFIRM")}</AssignConfirm>

@@ -272,7 +272,6 @@ const Search: React.FC<PropsType> = ({
   //HOOKS
   const dispatch = useDispatch();
   const history = useHistory();
-
   useEffect(() => {
     dispatch(getShippingTypes(""));
   }, [dispatch]);

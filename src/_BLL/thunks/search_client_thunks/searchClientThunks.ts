@@ -23,7 +23,10 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
                     weight_measurement: data.weight_measurement,
                     volume: data.volume}
             )
+            console.log('mode', mode);
+            console.log('res', res)
             if(!mode) {
+                console.log('!mode')
                 let id_cargo = getState().search.cargo_groups?.length + 1
                 let data_cargo = {
                     ...data,
@@ -32,8 +35,11 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
                     id: id_cargo,
                     description: ''
                 }
+                console.log('id_cargo', id_cargo);
+                console.log(data_cargo)
                 dispatch(searchActions.setCargoGroupData(data_cargo))
             } else {
+                console.log('mode')
                 dispatch(searchActions.editChosenCargoGroup({...data, total_per_pack: res.data.total_per_pack, total_wm: res.data.total}))
             }
             dispatch(searchActions.setSuccessCalculate(true))

@@ -42,6 +42,7 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
                 console.log('mode')
                 dispatch(searchActions.editChosenCargoGroup({...data, total_per_pack: res.data.total_per_pack, total_wm: res.data.total}))
             }
+            console.log('after if')
             dispatch(searchActions.setSuccessCalculate(true))
         } catch (e) {
             console.log(e.response);

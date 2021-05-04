@@ -37,7 +37,7 @@ export const getWMCalculationThunk = (data: CargoGroupType) => {
                 }
                 console.log('id_cargo', id_cargo);
                 console.log(data_cargo)
-                // dispatch(searchActions.setCargoGroupData(data_cargo))
+                dispatch(searchActions.setCargoGroupData(data_cargo))
             } else {
                 console.log('mode')
                 dispatch(searchActions.editChosenCargoGroup({...data, total_per_pack: res.data.total_per_pack, total_wm: res.data.total}))

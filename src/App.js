@@ -14,7 +14,6 @@ import {
   startReceiveChatNotifications,
   stopReceiveChatNotifications,
 } from "./_BLL/thunks/chat_notifications_thunk/chat_notifications_thunk";
-import { profileActions } from "./_BLL/reducers/profileReducer";
 import i18next from "i18next";
 import {getMyInfoSelector} from "./_BLL/selectors/profile/profileSelectors";
 
@@ -26,8 +25,6 @@ function App() {
   const dispatch = useDispatch();
   let token = localStorage.getItem("access_token");
   let language = localStorage.getItem('language');
-  // let languageFromBack = useSelector((state) => state.profile.authUserInfo.language);
-  // console.log("languageFromBack ", languageFromBack)
 
   useEffect(() => {
     if (token) {
@@ -73,11 +70,6 @@ function App() {
       )}
     >
       <div className="App">{route}</div>
-      {/*<div style={{ position: "fixed", left:0, bottom:0, right:0, backgroundColor:"lightgrey", zIndex:100 }}>*/}
-      {/*  <button onClick={() => i18next.changeLanguage("en")}>EN</button>*/}
-      {/*  <button onClick={() => i18next.changeLanguage("por")}>POR</button>*/}
-      {/*  <button onClick={() => i18next.changeLanguage("spa")}>SPA</button>*/}
-      {/*</div>*/}
     </Scrollbars>
   ) : (
     <Spinner />

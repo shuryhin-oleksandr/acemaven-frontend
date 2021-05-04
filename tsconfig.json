@@ -29,7 +29,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "downlevelIteration": true,
-    "allowUnusedLabels": true
+    "allowUnusedLabels": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": [
     "./node_modules",

@@ -7,7 +7,7 @@ export const authAPI = {
         return instance.post('/core/sign-in/', loginData)
     },
     getAuthUser () {
-        return instance.get(`/core/me/`) // is company activated, photo, email & etc.
+        return instance.get(`/core/me/`)
     },
     signUpCompany (formData: ICompanySignUpData) {
         return instance.post('/core/company-sign-up/', formData )

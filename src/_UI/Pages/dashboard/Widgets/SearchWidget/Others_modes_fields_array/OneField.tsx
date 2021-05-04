@@ -62,10 +62,10 @@ const OneField: React.FC<PropsType> = ({
       >
         Total: {cargo ? cargo.total_wm : ""}w/m
       </TotalPart>
-      <TotalDescriptions>
-        = {cargo ? cargo.volume : ""} x {a ? a.description : b?.code} of{" "}
-        {cargo ? cargo.total_per_pack : ""}w/m
-      </TotalDescriptions>
+      {/*<TotalDescriptions>*/}
+      {/*  = {cargo ? cargo.volume : ""} x {a ? a.description : b?.code} of{" "}*/}
+      {/*  {cargo ? cargo.total_per_pack : ""}w/m*/}
+      {/*</TotalDescriptions>*/}
       {!search_success && (
         <IconButton
           style={{

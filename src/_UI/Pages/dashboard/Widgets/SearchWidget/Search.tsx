@@ -580,7 +580,21 @@ const Search: React.FC<PropsType> = ({
                 errors={errors}
                 disabled={disabled}
               />
-            ) : <div>1231231231</div>}
+            ) : (
+              cargo_groups_list &&
+              cargo_groups_list.length > 0 && (
+                <OtherModesFieldArray
+                  cargo_groups={cargo_groups_list}
+                  packaging_types={packaging_types}
+                  deleteCargoGroup={deleteCargoGroup}
+                  setEditableCargoGroupToState={setEditableCargoGroupToState}
+                  editCargoGroup={editCargoGroup}
+                  setOpenCalcPopup={setOpenCalcPopup}
+                  search_success={search_success}
+                  container_types={props.container_types}
+                />
+              )
+            )}
           </div>
           <ButtonGroup
             shipping_value={shippingValue}

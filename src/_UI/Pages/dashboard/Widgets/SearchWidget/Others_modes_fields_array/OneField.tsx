@@ -56,27 +56,28 @@ const OneField: React.FC<PropsType> = ({
     // <OneFieldWrapper>
     //     <OneFieldContent >
     <>
-      <TotalPart
-        style={{ gridColumnStart: 1, gridColumnEnd:3 }}
-        onClick={() => !search_success && setEditMode(Number(cargo.id))}
-      >
-        Total: {cargo ? cargo.total_wm : ""}w/m
-      </TotalPart>
+      <div>234234234324</div>
+      {/*<TotalPart*/}
+      {/*  style={{ gridColumnStart: 1, gridColumnEnd:3 }}*/}
+      {/*  onClick={() => !search_success && setEditMode(Number(cargo.id))}*/}
+      {/*>*/}
+      {/*  Total: {cargo ? cargo.total_wm : ""}w/m*/}
+      {/*</TotalPart>*/}
       {/*<TotalDescriptions>*/}
       {/*  = {cargo ? cargo.volume : ""} x {a ? a.description : b?.code} of{" "}*/}
       {/*  {cargo ? cargo.total_per_pack : ""}w/m*/}
       {/*</TotalDescriptions>*/}
-      {!search_success && (
-        <IconButton
-          style={{
-            justifySelf: "flex-start",
-            alignSelf: "center",
-          }}
-          onClick={() => deleteCargoGroup(Number(cargo.id))}
-        >
-          <img src={close_icon} alt="" />
-        </IconButton>
-      )}
+      {/*{!search_success && (*/}
+      {/*  <IconButton*/}
+      {/*    style={{*/}
+      {/*      justifySelf: "flex-start",*/}
+      {/*      alignSelf: "center",*/}
+      {/*    }}*/}
+      {/*    onClick={() => deleteCargoGroup(Number(cargo.id))}*/}
+      {/*  >*/}
+      {/*    <img src={close_icon} alt="" />*/}
+      {/*  </IconButton>*/}
+      {/*)}*/}
     </>
     //     </OneFieldContent>
     // </OneFieldWrapper>

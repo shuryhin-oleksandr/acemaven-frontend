@@ -33,13 +33,15 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
     margin-top: ${({margin_top}) => margin_top ? margin_top : '9px'};
     max-width: ${({max_width}) => max_width ? max_width : '420px'};
     height:${({input_height}) => input_height ? input_height : '40px'};
+    position: relative;
   }
 
   
   .DayPickerInput-OverlayWrapper {
     z-index: 2300;
     position: absolute;
-    left: auto;
+    top: -120px;
+    right: 25px;
   }
    
    .DayPickerInput-Overlay {

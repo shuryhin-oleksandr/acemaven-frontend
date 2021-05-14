@@ -47,7 +47,7 @@ export const NavContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 0;
+  padding-left: 5px;
   padding-top: 30px;
   animation: ${shown} ease-in-out 0.5s;
 `;

@@ -9,7 +9,9 @@ type PropsType = {
 }
 
 const AddNewButton:React.FC<PropsType> = ({setIsAdd, disabled}) => {
+    // debugger
     const {t} = useTranslation();
+    console.log("o/")
     return (
         <AddButton onClick={() => setIsAdd(true)} disabled={!!disabled}>
             + {t("User Management/Add new")}

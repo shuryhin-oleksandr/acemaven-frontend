@@ -24,7 +24,7 @@ const useStyles = makeStyles({
         paddingRight: 12,
     },
     shipping_cell: {
-        width: '220px',
+        width: '120px',
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
@@ -45,7 +45,7 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: '1px solid #828282',
-        width: '150px',
+        width: '250px',
         padding: "0",
         paddingRight:"15px",
         backgroundColor:"white"

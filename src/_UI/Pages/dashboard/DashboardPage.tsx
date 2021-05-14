@@ -140,7 +140,7 @@ const DashboardPage: React.FC<PropsType> = ({
             cargo_groups: [
                 {
                     container_type: "",
-                    volume: 0,
+                    volume: 1,
                     frozen: "",
                     dangerous: false,
                 },

@@ -1,7 +1,7 @@
 {
   "Register": {
     "searchTitle": "Pesquisa de fretes",
-    "Register":  "Solicitude de Cadastro",
+    "Register":  "Solicitação de Cadastro",
     "Client":"Cliente",
     "Agent": "Agente",
     "Company Name":"Nome da Empresa",
@@ -578,7 +578,7 @@
   },
   "Statuses": {
     "Booking Fee Pending": "Taxa de Resera Pendente",
-    "Booking Request Received": "Solicitude de Reserva Recevida",
+    "Booking Request Received": "Solicitação de Reserva Recevida",
     "Booking Request in Progress": "Solicitação de reserva em andamento",
     "Booking Request Rejected": "Pedido de reserva rejeitado",
     "Booking Confirmed": "Reserva confirmada",

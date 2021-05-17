@@ -125,7 +125,7 @@ export const GeneralTitle = styled.div<{margin_bottom?: string}>`
   color: #1ab8e5;
   font-size: 20px;
   line-height: 23px;
-  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '29px'};
+  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '17px'};
 `
 export const GeneralInfoContent = styled.div`
   display: flex;
@@ -184,9 +184,8 @@ export const CargoInfo = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 28px;
-  padding-bottom: 30px;
+  padding-bottom: 28px;
   border-bottom: 1px solid #bdbdbd;
-  min-height: 250px;
   
 `
 export const CargoShippingModeWrap = styled.div`
@@ -219,7 +218,7 @@ export const CarrierWrap = styled.div`
 
 export const SurchargesInfo = styled.div<PropsStyle>`
   display: flex;
-  padding-top: ${({no_rates}) => no_rates ? '30px' : '0'};
+  padding-top: ${({no_rates}) => no_rates ? '28px' : '0'};
   justify-content: ${({no_rates}) => no_rates ? 'center' : 'space-between'};
 `
 export const AgentSurchargesTableWrapper = styled.div`

@@ -87,7 +87,7 @@ const ChargesBlockAgent: React.FC<PropsType> = ({
   ];
 
   return (
-    <HiddenWrapper margin_top={"30px"}>
+    <HiddenWrapper margin_top={"28px"}>
       <HiddenTable>
         <TableContainer className={classes.container} component={Paper}>
           <Table aria-label="simple table">

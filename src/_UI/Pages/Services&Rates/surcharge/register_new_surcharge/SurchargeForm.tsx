@@ -53,6 +53,7 @@ const SurchargeForm: React.FC<PropsType> = (
                                                  options={carrierOptions}
                                                  error={errors?.carrier?.message}
                                                  placeholder={t("Quote bid screen/Carrier")}
+                                                 width="80%"
                             />
                         }
                     />
@@ -68,6 +69,7 @@ const SurchargeForm: React.FC<PropsType> = (
                                                  options={directions}
                                                  error={errors?.direction?.message}
                                                  placeholder={t("Surcharges/Direction")}
+                                                 width="80%"
                             />
                         }
                     />
@@ -85,6 +87,7 @@ const SurchargeForm: React.FC<PropsType> = (
                                 callback={setShippingValue}
                                 error={errors?.shipping_mode?.message}
                                 placeholder={t("Dashboard/Shipping Mode")}
+                                width="80%"
                             />
                         }
                     />
@@ -108,6 +111,7 @@ const SurchargeForm: React.FC<PropsType> = (
                         error={errors?.location}
                         onChange={locationChangeHandler}
                         disabled={watchResultArr.length !== 3}
+                        width="80%"
                     />
                     {ports && ports?.length > 0 && (
                         <Scrollbars
@@ -138,6 +142,7 @@ const SurchargeForm: React.FC<PropsType> = (
                     required_dates={required_dates}
                     watchResultArrForDates={watchResultArrForDates}
                     disabled={location_id === 0}
+                    width="80%"
                 />
                     {invalidDate && <HelperText messagePaddingTop='0'>{invalidDate}</HelperText>}
                 </GroupWrap>

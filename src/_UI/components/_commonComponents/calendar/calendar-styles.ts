@@ -19,11 +19,12 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
     margin_right?: string,
     margin_top?: string,
     picker_right?: string,
-    max_width_wrapper?: string
+    max_width_wrapper?: string,
+    width?: string,
 }>`
   flex: none;
   margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '10px'};
-  width: 100%;
+  width: ${({width}) => width ? width : '100%'};
   max-width: ${({max_width_wrapper}) => max_width_wrapper ? max_width_wrapper : '100%'};
   margin-right: ${({margin_right}) => margin_right ? margin_right : '0px'};
   

@@ -45,7 +45,17 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: '1px solid #828282',
-        width: '250px',
+        width: '200px',
+        padding: "0",
+        paddingRight:"15px",
+        backgroundColor:"white"
+    },
+    cellData: {
+        color: '#115B86',
+        fontFamily: 'Helvetica Bold',
+        fontSize: '16px',
+        borderBottom: '1px solid #828282',
+        width: '150px',
         padding: "0",
         paddingRight:"15px",
         backgroundColor:"white"
@@ -138,26 +148,25 @@ const {t} = useTranslation();
                                                   operation_status={props.operation_status}
                                 />
                             </TableCell>
-                            <TableCell className={classes.cell} align="left">
+                            <TableCell className={classes.cellData} align="left">
                                 {t("Bookings/VOLUME")}
                             </TableCell>
-                            <TableCell className={classes.cell} align="left">
-                                {/*<TableCellContent setSearchValue={props.setSearchValue}
+                            <TableCell className={classes.cellData}  align="left">
+                               <TableCellContent setSearchValue={props.setSearchValue}
                                                   setSearchMode={props.setSearchMode}
                                                   direction={''}
                                                   type={props.mode}
                                                   column_name='date_from'
                                                   searchValue={props.searchValue}
                                                   isSearchMode={props.isSearchMode}
-                                                  title='DATES'
+                                                  title={t("Bookings/DATES")}
                                                   searchColumn={props.search_column}
                                                   setSearchColumn={props.setSearchColumn}
                                                   thunkName='operations'
                                                   my_operations={props.my_operations}
                                                   //search should be done at backend later
                                                   withoutSearch={true}
-                                />*/}
-                                {t("Bookings/DATES")}
+                                />
                             </TableCell>
                             <TableCell className={classes.cell} align="left">
                                 <TableCellContent setSearchValue={props.setSearchValue}
@@ -195,7 +204,7 @@ const {t} = useTranslation();
                             {/*<TableCell className={classes.cell} align="left">*/}
                             {/*    STATUS*/}
                             {/*</TableCell>*/}
-                            <TableCell className={classes.cell} align="right">
+                            <TableCell className={classes.cellData} align="right">
                             <TableCellContent setSearchValue={props.setSearchValue}
                                               setSearchMode={props.setSearchMode}
                                               direction={''}

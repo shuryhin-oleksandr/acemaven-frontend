@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SelectContainer = styled.div<PropsStyle>`
-  width: 100%;
+  width: ${({ width }) => (width ? width : "100%")};
   max-width: ${({ maxW }) => (maxW ? maxW : "100%")};
   margin-right: ${({ marginRight }) => (marginRight ? marginRight : "0px")};
 `;
@@ -11,6 +11,7 @@ type PropsStyle = {
   error?: string;
   maxW?: string;
   marginRight?: string;
+  width?: string;
 };
 
 export const Select = styled.select<PropsStyle>`

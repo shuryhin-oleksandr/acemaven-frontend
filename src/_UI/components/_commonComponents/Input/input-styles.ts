@@ -36,7 +36,7 @@ export const Field = styled.input<PropsStyle>`
   line-height: 17px;
   transition: 0.5s;
   max-width: ${({ max_width }) => (max_width ? max_width : "420px")};
-  width: 100%;
+  width:  ${({width }) => (width ? width : "100%")};
   height: ${({ height }) => (height ? height : "40px")};
   border: ${({ error, without_border }) =>
     without_border ? "0" : error ? "1px solid #7C7C89" : "1px solid #BDBDBD"};

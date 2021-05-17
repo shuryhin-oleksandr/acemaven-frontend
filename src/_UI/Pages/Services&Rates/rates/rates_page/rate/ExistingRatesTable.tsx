@@ -51,7 +51,7 @@ const useStyles = makeStyles({
     container: {
         boxShadow: "none",
         paddingRight: "12px", height: '100%',
-        maxHeight:320,
+        maxHeight:420,
         maxWidth:1100
     },
     table: {

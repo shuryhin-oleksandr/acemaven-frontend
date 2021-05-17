@@ -60,6 +60,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                                                  options={carrierOptions}
                                                  error={errors?.carrier?.message}
                                                  placeholder={t("Quote bid screen/Carrier")}
+                                                 width='80%'
                             />}
                     />
                     <Controller
@@ -76,6 +77,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                                 callback={setShippingValue}
                                 error={errors?.shipping_mode?.message}
                                 placeholder={t("Dashboard/Shipping Mode")}
+                                width='80%'
                             />
                         }
                     />
@@ -98,6 +100,8 @@ const FreightRateForm: React.FC<PropsType> = ({
                             label={t("Dashboard/Origin")}
                             error={errors?.origin}
                             onChange={onOriginChangeHandler}
+                            width='80%'
+
                         />
                         {origin_ports && origin_ports?.length > 0 && (
                             <Scrollbars
@@ -143,6 +147,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                             error={errors?.destination}
                             onChange={onDestinationChangeHandler}
                             disabled={watchResultArr.length < 3}
+                            width='80%'
                         />
                         {destination_ports && destination_ports?.length > 0 && (
                             <Scrollbars
@@ -180,6 +185,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                         name="transit_time"
                         error={errors?.transit_time}
                         disabled={watchResultArr.length < 3}
+                        width='80%'
                     />
                     {rate_transit_error && rate_transit_error.length > 0 &&
                     <HelperText style={{paddingTop: 0}}>

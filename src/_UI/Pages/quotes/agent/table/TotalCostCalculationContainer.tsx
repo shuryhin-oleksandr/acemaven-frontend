@@ -61,7 +61,7 @@ const TotalCostCalculationContainer: React.FC<PropsType> = ({
   const classes = useStyles();
   const { t } = useTranslation();
   return (
-    <HiddenWrapper margin_top={"30px"}>
+    <HiddenWrapper margin_top={"28px"}>
       <HiddenTitle>{t("Bookings/CHARGES")}</HiddenTitle>
       <HiddenTable>
         <TableContainer className={classes.container} component={Paper}>

@@ -33,6 +33,7 @@ type PropsType = {
   min_height?: string,
   min_width?: string,
   without_border?:number,
+  width?: string,
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
@@ -64,6 +65,7 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         background={props.background}
         step='0.01'
         without_border={props.without_border && props.without_border}
+        width={props.width}
       />
         {props.booking_process && <AgentComment>{t("Billing/For shipment tracking purposes, won’t be shown to the client.")}</AgentComment>}
         {error?.type === "required" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}

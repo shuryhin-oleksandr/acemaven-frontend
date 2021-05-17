@@ -43,7 +43,7 @@ export const HandlingTitle = styled.div<{margin_bottom?: string, margin_right?: 
   font-size: 20px;
   font-family: "Helvetica Bold", sans-serif;
   color: #1AB8E5;
-  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '24px'};
+  margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '0'};
   margin-right: ${({margin_right}) => margin_right ? margin_right : '0px'}
 `
 

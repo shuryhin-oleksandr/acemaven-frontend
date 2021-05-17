@@ -33,7 +33,7 @@ export const SectionWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 18px 0 40px;
+  padding: 28px 0 28px;
   border-bottom: 1px solid #bdbdbd;
   position: relative;
 `;
@@ -44,7 +44,7 @@ export const SectionTitle = styled.div<{ margin_bottom?: string }>`
   font-size: 20px;
   line-height: 23px;
   margin-bottom: ${({ margin_bottom }) =>
-    margin_bottom ? margin_bottom : "29px"};
+    margin_bottom ? margin_bottom : "17px"};
 `;
 
 export const ShipmentPartsRow = styled.div`

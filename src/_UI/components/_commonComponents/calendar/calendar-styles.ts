@@ -19,11 +19,12 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
     margin_right?: string,
     margin_top?: string,
     picker_right?: string,
-    max_width_wrapper?: string
+    max_width_wrapper?: string,
+    width?: string,
 }>`
   flex: none;
   margin-bottom: ${({margin_bottom}) => margin_bottom ? margin_bottom : '10px'};
-  width: 100%;
+  width: ${({width}) => width ? width : '100%'};
   max-width: ${({max_width_wrapper}) => max_width_wrapper ? max_width_wrapper : '100%'};
   margin-right: ${({margin_right}) => margin_right ? margin_right : '0px'};
   
@@ -33,13 +34,15 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
     margin-top: ${({margin_top}) => margin_top ? margin_top : '9px'};
     max-width: ${({max_width}) => max_width ? max_width : '420px'};
     height:${({input_height}) => input_height ? input_height : '40px'};
+    position: relative;
   }
 
   
   .DayPickerInput-OverlayWrapper {
     z-index: 2300;
     position: absolute;
-    left: auto;
+    top: -120px;
+    right: 25px;
   }
    
    .DayPickerInput-Overlay {

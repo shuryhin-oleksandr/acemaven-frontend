@@ -31,7 +31,8 @@ type PropsType = {
     watchResultArrForDates?: number[],
     disabled?: boolean,
     label_margin_bottom?: string,
-    margin_top?:string
+    margin_top?:string,
+    width?:string
 }
 
 const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, required_dates, watchResultArrForDates, disabled, ...props}) => {
@@ -116,6 +117,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
                 watchResultArrForDates={watchResultArrForDates}
                 label_margin_bottom={props.label_margin_bottom}
                 margin_top={props.margin_top}
+                width={props.width}
             />
             <Calendar
                 label={t("Surcharges/EXPIRATION DATE")}
@@ -140,6 +142,7 @@ const SurchargesDates: React.FC<PropsType> = ({control, setValue, errors, requir
                 watchResultArrForDates={watchResultArrForDates}
                 label_margin_bottom={props.label_margin_bottom}
                 margin_top={props.margin_top}
+                width={props.width}
             />
         </SurchargesDatesFilter>
     )

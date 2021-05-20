@@ -42,7 +42,7 @@ const useStyles = makeStyles({
         fontFamily: "Helvetica Bold",
         fontSize: "16px",
         borderBottom: '1px solid #115B86',
-        padding: '14px 0',
+        padding: '5px 0',
         backgroundColor: 'white'
     },
     innerCell: {
@@ -125,6 +125,7 @@ const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, se
                                                         options={currency}
                                                         placeholder={t("Bookings/Currency")}
                                                         max_width="80px"
+                                                        margin_bottom="0"
                                                     />
                                                 }
                                             />

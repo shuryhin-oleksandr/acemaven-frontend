@@ -33,12 +33,13 @@ type PropsType = {
   min_height?: string,
   min_width?: string,
   without_border?:number,
+  width?: string,
 };
 
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
   const {t} = useTranslation();
   return (
-    <InputOuter max_width={props.max_width} min_width={props.min_width} marginBottom={props.marginBottom} min_height={props.min_height}>
+    <InputOuter max_width={props.max_width} min_width={props.min_width} marginBottom={props.marginBottom} min_height={props.min_height} width={props.width}>
       {!!label &&
       <Label font_weight={props.font_weight}
              color_label={props.color_label}
@@ -74,10 +75,10 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         </HelperText>
       )}
       {error?.type === "maxLength" && (
-        <HelperText>{t("Maximum length is", {parameter: props.max})}</HelperText>
+        <HelperText>{t("Error message/Maximum length is", {parameter: props.max})}</HelperText>
       )}
       {error?.type === "minLength" && (
-        <HelperText>{t("Minimum length is", {parameter: props.min})}</HelperText>
+        <HelperText>{t("Error message/Minimum length is", {parameter: props.min})}</HelperText>
       )}
       {props.server_error && <HelperText>{props.server_error}</HelperText>}
     </InputOuter>

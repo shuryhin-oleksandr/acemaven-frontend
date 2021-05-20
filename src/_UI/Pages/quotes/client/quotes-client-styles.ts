@@ -49,8 +49,7 @@ export const OfferInner = styled.div`
 export const BookLittleButton = styled.div`
   background-color: #115b86;
   color: white;
-  height: 22px;
-  width: 58px;
+  padding: 5px 10px;
   outline: none;
   border: none;
   font-family: "Helvetica Reg", sans-serif;

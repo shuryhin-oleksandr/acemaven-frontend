@@ -74,14 +74,14 @@ const ChargesToPay: React.FC<PropsType> = ({charges, payment_due_by}) => {
 
     return (
         <>
-            <SectionTitle margin_bottom='17px'>{t("Bookings/CHARGES")}</SectionTitle>
+            <SectionTitle margin_bottom='17px' style={{marginTop: '28px'}}>{t("Bookings/CHARGES")}</SectionTitle>
             {payment_due_by &&
             <div style={{display: 'flex'}}>
                 <InfoRowLabel style={{marginRight: '10px'}}>{t("Operations/PAYMENT DUE BY:")}</InfoRowLabel>
                 <InfoRowValue>{payment_due_by}</InfoRowValue>
             </div>
             }
-            <HiddenWrapper margin_top={'30px'}>
+            <HiddenWrapper margin_top={'0'}>
                 <HiddenTable>
                     <TableContainer className={classes.container} component={Paper}>
                         <Table className={classes.table} aria-label="simple table">

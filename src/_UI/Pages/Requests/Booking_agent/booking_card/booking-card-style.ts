@@ -131,7 +131,7 @@ export const GeneralBookingInfo = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 18px 0 40px;
+  padding: 28px 0 28px;
   border-bottom: 1px solid #bdbdbd;
 `
 export const GeneralBookingContent = styled.div`
@@ -187,6 +187,7 @@ export const InfoRowValue = styled.div<{font_size?: string}>`
   font-family: "Helvetica Light", sans-serif;
   color: #1b1b25;
   font-size: ${({font_size}) => font_size ? font_size : '14px'};
+  line-height: 16.49px;
 `
 export const ValuesShipmentWrapper = styled.div`
   width: 100%;
@@ -198,7 +199,7 @@ export const ShipmentInfo = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 38px 0 40px;
+  padding: 28px 0 28px;
   border-bottom: 1px solid #bdbdbd;
 `
 export const CalendarIcon = styled(GeneralShipType)`

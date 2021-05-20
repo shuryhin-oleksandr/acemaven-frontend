@@ -80,7 +80,7 @@ const DocsAndNotesBlock: React.FC<PropsType> = ({notes, docs}) => {
                 <SectionTitle>{t("Operations/NOTES")}</SectionTitle>
                 {!isHidden && (
                     <InfoRow>
-                        <InfoRowLabel>{t("Operations/Your comment to the client")}</InfoRowLabel>
+                        <InfoRowLabel>{t("Operations/Your comments to the client")}</InfoRowLabel>
                         <InfoRowValue>
                             {notes[0].booking_notes}
                         </InfoRowValue>

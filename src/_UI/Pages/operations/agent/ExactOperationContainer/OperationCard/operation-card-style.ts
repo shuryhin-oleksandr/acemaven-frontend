@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const OperationNumber = styled.div`
-  margin-bottom: 17px;
+  margin-bottom: 8px;
   font-family: "Helvetica Bold", sans-serif;
   color: black;
   font-size: 48px;
@@ -13,7 +13,7 @@ export const BookingTitle = styled.span`
   text-transform: uppercase;
   color: #828282;
   font-size: 24px;
-  margin-bottom: 13px;
+  margin-bottom: 8px;
   margin-right: 7px;
 `;
 
@@ -33,7 +33,7 @@ export const SectionWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 18px 0 40px;
+  padding: 28px 0 28px;
   border-bottom: 1px solid #bdbdbd;
   position: relative;
 `;
@@ -44,7 +44,7 @@ export const SectionTitle = styled.div<{ margin_bottom?: string }>`
   font-size: 20px;
   line-height: 23px;
   margin-bottom: ${({ margin_bottom }) =>
-    margin_bottom ? margin_bottom : "29px"};
+    margin_bottom ? margin_bottom : "17px"};
 `;
 
 export const ShipmentPartsRow = styled.div`

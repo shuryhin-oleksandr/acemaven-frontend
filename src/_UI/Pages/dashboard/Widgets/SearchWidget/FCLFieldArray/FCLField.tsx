@@ -84,9 +84,15 @@ const FCLField: React.FC<PropsType> = ({
               // marginRight: "16px",
               // maxWidth: "18%",
               display: "flex",
+              flexDirection: "column"
             }}
           >
             <FormField
+              name="volume"
+              inputRef={register({
+                required: true,
+                validate: (value:number) => (value > 0),
+              })}
               background="#ECECEC"
               marginBottom="5px"
               type="number"
@@ -96,6 +102,7 @@ const FCLField: React.FC<PropsType> = ({
               without_border={+true}
 
             />
+            {(errors?.volume?.type === 'validate') && (<p style={{color: "#e76767", fontSize: "12px", fontFamily: "Helvetica Reg, sans-serif", textAlign: "end", }}>{t("Error message/Value is not valid")}</p>)}
           </div>
         }
       />

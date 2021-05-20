@@ -11,7 +11,6 @@ let show_skeleton = keyframes`
 
 export const BillingProgressWrapper = styled.div`
    width: 100%;
-   height: 100%;
    animation: ${show_skeleton} ease-in-out .4s;
 `
 export const BillingProgressInner = styled.div`

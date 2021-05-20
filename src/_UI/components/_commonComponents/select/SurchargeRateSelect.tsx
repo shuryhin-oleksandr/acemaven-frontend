@@ -25,6 +25,7 @@ type IProps = {
   value?: any;
   small_size?: string;
   without_border?: number;
+  width?: string;
 };
 
 const useStyles = makeStyles(() => ({
@@ -115,7 +116,7 @@ const SurchargeRateSelect: React.FC<IProps> = ({
   });
 
   return (
-    <SelectContainer maxW={props.max_width} marginRight={props.margin_right}>
+    <SelectContainer maxW={props.max_width} marginRight={props.margin_right} width={props.width}>
       <FormControl className={classes.formControl}>
         {hideLabel ? null : <Label>{label}</Label>}
         <Select
@@ -160,7 +161,7 @@ const SurchargeRateSelect: React.FC<IProps> = ({
               </Tooltip>
             ) : (
               <MenuItem onClick={() => callback(o.id)} key={o.id} value={o.id}>
-                {o.title ? o.title : o.code}
+                {(o.title  && o.title !== "Shipment Details have changed") ? o.title : o.code}
               </MenuItem>
             )
           )}

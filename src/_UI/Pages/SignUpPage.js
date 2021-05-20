@@ -17,6 +17,8 @@ import {useTranslation} from "react-i18next";
 const phoneRegex = /^(\+)([0-9]){10,13}$/;
 const taxIdRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
 const zipCodeRegex = /^[a-zA-Z0-9](.){3,10}[a-zA-Z0-9]$/;
+const websiteRegex = /^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/;
+
 
 
 const SignUpPage = () => {
@@ -30,7 +32,9 @@ const SignUpPage = () => {
       .min(1, t("Error message/Employees number must be more then 0"))
       .max(1000000, t("Error message/Employees number must be no more than 1000000"))
       .required(`${t("Error message/Please, enter your employees number")}`),
-    website: Yup.string().required(`${t("Error message/Please, enter your website")}`),
+    website: Yup.string()
+      .matches(websiteRegex, t("Error message/Invalid format"))
+      .required(`${t("Error message/Please, enter your website")}`),
     address_line_first: Yup.string().trim().required(`${t("Error message/Please, enter your address")}`),
     state: Yup.string().trim().required(`${t("Error message/Please, enter your state")}`),
     city: Yup.string().trim().required(`${t("Error message/Please, enter your city")}`),

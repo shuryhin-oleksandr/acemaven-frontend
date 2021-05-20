@@ -266,7 +266,7 @@ const OperationCard: React.FC<PropsType> = ({
           )}
         </SectionWrapper>
         {(operation_info?.shipment_details &&
-          operation_info?.shipment_details.length > 0) ||
+          operation_info?.shipment_details.length > 0) &&
           (operation_info?.release_type && (
             <DocsAndNotesBlock
               notes={

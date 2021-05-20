@@ -15,13 +15,14 @@ type PropsStyle = {
   min_height?: string;
   min_width?: string;
   without_border?: number;
+  width?: string;
 };
 
 export const InputOuter = styled.div<PropsStyle>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width:  ${({width }) => (width ? width : "100%")};
   min-width: ${({ min_width }) => (min_width ? min_width : "unset")};
   max-width: ${({ max_width }) => (max_width ? max_width : "100%")};
   margin-bottom: ${({ marginBottom }) =>

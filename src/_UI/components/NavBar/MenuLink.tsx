@@ -57,7 +57,7 @@ const MenuLink: React.FC<IProps> = ({
     return (
         <LinkWrap >
             <Outer onClick={clickHandler}>
-                <IconWrap onMouseEnter={() => setSmallBar && setSmallBar(false)}>
+                <IconWrap style={{padding: "5px 20px 5px 10px"}} onMouseEnter={() => setSmallBar && setSmallBar(false)}>
                     <img src={(checkedLink !== name) ? icon : activeIcon} alt=""/>
                 </IconWrap>
                 {!isSmallBar && <Name checked={checkedLink === name}>{t(`Dashboard Menu/${name}`)}</Name>}

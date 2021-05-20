@@ -53,6 +53,7 @@ const BillingDetailsPage: React.FC<PropsType> = ({billing_details, goBackHandler
                     </BookingNumberWrapper>
                     <BookingNumberWrapper border_bottom='1px solid #bdbdbd'
                                           padding_bottom='27px'
+                                          style={{marginBottom: '0'}}
                     >
                         <StatusSpan>{t("Bookings/STATUS")}</StatusSpan>
                         <StatusDescriptionSpan>

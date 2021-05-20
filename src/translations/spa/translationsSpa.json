@@ -21,7 +21,7 @@
     "Password": "Contraseña",
     "NEXT": "SEGUINTE",
     "BACK": "ATRÁS",
-    "Create new account": "Criar novos Conta",
+    "Create new account": "Adicionar novos cuenta",
     "Roles": "Roles",
     "Contact Name": "Nombre de contacto",
     "Country": "País"
@@ -69,7 +69,9 @@
   },
   "Dashboard": {
     "Dashboard": "Painel",
+    "Chats": "Chats",
     "Operations in progress": "Ultimas actualizaciones",
+    "Operations": "Operaciones",
     "Booking No.": "No. De Reserva",
     "Route": "Ruta",
     "Date": "Fecha",
@@ -112,9 +114,11 @@
     "Total": "Total",
     "Transit Time": "Tiempo de Tránsito",
     "Rate Expiration Date": "Fecha de Vencimiento del Flete",
+    "Freight Rates": "Tarifas de Fletes",
     "Freight": "Flete",
     "Total Freight": "Flete total en",
     "Surcharges in": "Tasas en",
+    "Surcharges": "Gastos Locales",
     "Acemaven Service Fee": "Tasa de Servicio de Acemaven",
     "BOOK": "RESERVAR",
     "Your rate did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy will be protected, the agents won't know who posted the quote until you book the offer.": "Su búsqueda no ha obtenido ningún resultado; puede publicarla en línea como una cotización para que los transitarios envíen sus tarifas o ajuste sus filtros y busque nuevamente. Su privacidad estará protegida, los agentes no sabrán quién publicó la cotización hasta que reserve la oferta.",
@@ -222,14 +226,14 @@
     "COST": "VALOR",
     "SUBTOTAL": "SUBTOTAL",
     "post_quote_question": "Desea publicar esa cotización?",
-    "your_search_": "Su búsqueda no obtuvo ningún resultado; puede publicarla como una cotización para que los agentes envien sus ofertas o ajustar sus filtros y buscar nuevamente. Si decide publicar la cotización, su privacidad estará protegida, los agentes no podran ver su ",
+    "your_search_": "Su búsqueda no obtuvo ningún resultado; puede publicarla como una cotización para que los agentes envien sus ofertas o ajustar sus filtros y buscar nuevamente. Si decide publicar la cotización, su privacidad estará protegida, los agentes no podran ver su.",
     "NO.": "NUMERO",
     "BOOKING WITH CARRIER": "NO. DE RESERVA DEL TRANSPORTADOR",
     "UPDATE": "Actualizar",
     "CONFIRM CHARGES": "CONFIRMAR CAMBIOS",
     "TAKE OVER": "ASUMIR GESTION",
     "REQUEST CHANGE": "SOLICITAR CAMBIO",
-    "COMPLETE": "",
+    "COMPLETE": "FINALIZAR",
     "TRIP": "Nombre de contacto",
     "ESTIMATED TIME OF DEPARTURE": "FECHA ESTIMADA DE PARTIDA",
     "ESTIMATED TIME OF ARRIVAL": "FECHA ESTIMADA DE LLEGADA",
@@ -252,7 +256,7 @@
     "You can find it in mine section.": "Puede encontrarla en su lista MINE.",
     "WEEK": "SEMANA",
     "There are no requests at the moment": "No hay solicitudes por el momento. Cuando un cliente envíe una solicitud de reserva, aparecerá en esta sección.",
-    "CONTINUE": "",
+    "CONTINUE": "CONTINUAR",
     "ACEMAVEN SERVICE FEE IN": "TASA DE SERVICIO ACEMAVEN",
     "You can choose partner or specify a new one.": "Puede elegir um contato o especificar uno nuevo.",
     "Documentation": "Documentación",
@@ -260,7 +264,7 @@
     "Rate will be register as 0. Are you sure?": "Esta tarifa de flete se registrará con valor 0. ¿Confirmas esto?",
     "TO BOOK IN": "PARA RESERVAR EN",
     "PAID TO BOOK IN": "TASA DE RESERVA PAGADA EN",
-    "TRAVEL": "",
+    "TRAVEL": "VIAJE",
     "ETA": "ETA",
     "ETD": "ETD",
     "TOTAL CHARGES IN": "CARGOS TOTALES EN",
@@ -314,7 +318,7 @@
     "COLD": "RESFRIADO",
     "DANGEROUS": "PELIGROSA",
     "ACEMAVEN EXCHANGE RATE": "ACEMAVEN {{parameter}} TASA DE CAMBIO",
-    "USAGE FEE": ""
+    "USAGE FEE": "TARIFA DE USO POR UNIDAD"
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Confirmación de Reserva",
@@ -380,7 +384,7 @@
     "location": "localización",
     "Location": "Localización",
     "Update information in the Operation": "Actualización de los detalles del embarque",
-    "You don't have permissions to write": ""
+    "You don't have permissions to write": "No tiene permiso para escribir"
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirmar conclusión del embarque",
@@ -448,7 +452,7 @@
     "Are you sure you want to cancel booking": "Está seguro de que desea cancelar este embarque?",
     "Select Credit Card": "Seleccionar tarjeta de crédito",
     "Add Credit card": "Agregar tarjeta de crédito",
-    "For shipment tracking purposes, won’t be shown to the client.": ""
+    "For shipment tracking purposes, won’t be shown to the client.": "Se utilizará para el tracking del embarque, no se mostrará al cliente."
   },
   "Surcharges": {
     "Surcharges": "Tasas",
@@ -490,8 +494,8 @@
     "Direction": "Dirección",
     "Rate_15symbols": "La tasa debe ser igual o superior a 0 y tener un máximo de 5 dígitos y 2 decimales",
     "Please_fields": "Por favor, complete los parámetros del flete para visualizar los campos correspondientes a las tarifas.",
-    "Charge_15numbers": "",
-    "There_freight": ""
+    "Charge_15numbers": "El valor debe ser igual o mayor que cero, máximo 6 dígitos y dos decimales.",
+    "There_freight": "No hay fletes ni recargos para estas fechas de envío. La oferta no se creará hasta que se cree una oferta coincidentes."
   },
   "Freight rates": {
     "Freight rates": "Tarifas de fletes",
@@ -500,7 +504,7 @@
     "INACTIVE": "EN PAUSA",
     "Rates can be paused or reactivated using this button": "Las tarifas pueden ser pausadas o reactivadas con este botón",
     "Use this registry as a template for a new rate": "Utilice este registro como plantilla para una nueva tarifa",
-    "Use this registry as a template for a new rate, with the same values and parameters": "",
+    "Use this registry as a template for a new rate, with the same values and parameters": "Crear um nuevo registro usando este como plantilla. Serán copiados los mismos valores y condiciones que podrán ser modificados antes de guardar.",
     "FREIGHT RATE": "TARIFA",
     "Do you want to save the changes?": "Desea guardas los cambios?",
     "There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ": "No existen tasas que coincidan con esa tarifa y la misma no será publicada hasta que alguna no sea registrada.",
@@ -703,12 +707,12 @@
     "Branch No. has to be in 0000-0 format": "El número de sucursal debe estar en formato 0000-0",
     "Account No. must contain only numbers": "El número de cuenta debe contener solo números",
     "Password must contain only alphanumeric characters. Min 8, Max 25 symbols": "La contraseña debe contener solo caracteres alfanuméricos. Mínimo 8, Máximo 25",
-    "There is no account corresponding to this link.": "",
-    "We will call your contact person soon.": "",
-    "There is no surcharge for these dates.": "",
-    "Do you want co create new or change existed?": "",
-    "Password was changed!": "",
-    "Enter correct origin and destination": ""
+    "There is no account corresponding to this link.": "No hay ninguna cuenta correspondiente a este enlace.",
+    "We will call your contact person soon.": "Alguien se pondrá en contacto contigo pronto.",
+    "There is no surcharge for these dates.": "No existen recargos para estas fechas.",
+    "Do you want co create new or change existed?": "¿Quieres crear uno nuevo o modificar el existente?",
+    "Password was changed!": "¡Se cambió la contraseña!",
+    "Enter correct origin and destination": "Ingrese el origen y el destino correctos"
   },
   "Landing Page": {
     "Acemaven_title1": "Nuestra solución optimiza el proceso de registro de tarifas de los agentes y la reserva de embarques a los clientes, soportando múltiples modalidades. Importaciones y Exportaciones: FCL, LCL, Carga General Aérea y Marítima y ULD. .",
@@ -717,13 +721,13 @@
     "SIGN UP" : "Solicitar acceso",
     "Air and Sea shipmens": "Flete aéreo y marítimo",
     "Search for the best rates": "Encuentre las mejores condiciones de embarque",
-    "Track your shipment": "",
+    "Track your shipment": "Rastree su embarque",
     "GET STARTED": "Comenzar",
     "Select freight forwarder": "Encuentre la oferta ideal",
     "CBM calculator": "Herramientas de gestión de carga",
     "Track transfer": "Cualquier dirección",
-    "START AS CLIENT": "",
-    "START AS AGENT": "",
+    "START AS CLIENT": "APLICAR COMO CLIENTE",
+    "START AS AGENT": "APLICAR COMO AGENTE",
     "Search and compare freight from local agents": "Interfaz de usuario de vanguardia",
     "FCL, LCL, Loose Cargo/RORO, Air Cargo modes supported.": "Cualquier proceso toma menos de 3 pasos con una apariencia moderna, vistas detalladas de costos y operaciones e incluso más funcionalidades próximamente.",
     "Book and track your shipments": "Seguimiento de embarques al alcance",
@@ -732,7 +736,7 @@
     "With a chat based support feature.": "Manténgase en contacto con el agente o solicite ayuda de nuestro equipo.",
     "Marine shipping mode": "A DONDE VAMOS",
     "Air shipping mode": "LO QUE NOS UNE",
-    "Ernesto Contacts": "",
+    "Ernesto Contacts": "Acemaven LDTA info@acemaven.com",
     "Login": "Ingresar",
     "Compare the available offers based on costs, transit time or prefered carrier.": "Compare las ofertas basado en costos, tiempo de tránsito o transportador de su preferencia.",
     "description_freight_forwarder": "Compare las ofertas basado en costos, tiempo de tránsito o el transportador de su preferencia. Modos FCL, LCL, Carga General, Carga Aerea y ULD disponibles.",

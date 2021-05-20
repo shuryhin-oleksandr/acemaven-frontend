@@ -22,8 +22,8 @@ type PropsType = {
 const ShipmentInfo: React.FC<PropsType> = ({billing_details}) => {
     const {t} = useTranslation();
     return (
-        <SectionWrapper style={{marginBottom: '33px'}}>
-            <SectionTitle>{t("Bookings/SHIPMENT INFO")}</SectionTitle>
+        <SectionWrapper>
+            <SectionTitle style={{marginBottom: '17px'}}>{t("Bookings/SHIPMENT INFO")}</SectionTitle>
             <ShipmentPartsRow style={{marginBottom: 0, borderBottom: "none"}}>
                 <InfoRow margin_right="35px">
                     <InfoRowLabel>{t("Bookings/CLIENT")}</InfoRowLabel>

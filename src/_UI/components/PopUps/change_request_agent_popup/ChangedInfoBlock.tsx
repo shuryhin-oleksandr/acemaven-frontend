@@ -28,7 +28,7 @@ const ChangedInfoBlock: React.FC<PropsType> = ({operation_info}) => {
         number: operation_info?.change_requests && operation_info?.change_requests[0].number_of_documents,
         type: operation_info?.change_requests && operation_info?.change_requests[0].release_type?.title
     }
-    const [t] = useTranslation();
+    const {t} = useTranslation();
     return (
         <ChangedInfoBlockWrapper>
             {operation_info?.number_of_documents &&
@@ -43,7 +43,7 @@ const ChangedInfoBlock: React.FC<PropsType> = ({operation_info}) => {
                             <InfoBlockValue>{operation_info?.release_type?.title}</InfoBlockValue>
                         </ValuesWrapper>
                         <ValuesWrapper>
-                            <InfoBlockLabel>{t("Bookings/NO.OF DOCUMENTS")}</InfoBlockLabel>
+                            <InfoBlockLabel>{t("Bookings/NO. OF DOCUMENTS")}</InfoBlockLabel>
                             <InfoBlockValue>{operation_info?.number_of_documents}</InfoBlockValue>
                         </ValuesWrapper>
                         <div style={{

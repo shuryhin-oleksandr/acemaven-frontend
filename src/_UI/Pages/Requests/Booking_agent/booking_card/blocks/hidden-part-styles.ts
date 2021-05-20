@@ -10,7 +10,7 @@ export const DocumentsWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 18px 0 40px;
+  padding: 28px 0 28px;
   border-bottom: 1px solid #bdbdbd;
 `
 export const DocumentsContent = styled.div`

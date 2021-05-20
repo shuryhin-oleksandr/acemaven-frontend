@@ -71,7 +71,7 @@ const HiddenInfoPart:React.FC<PropsType> = ({cargo_groups, number_of_documents, 
                 </DocumentsContent>
             </DocumentsWrapper>}
             <CargoWrapper>
-                <DocumentsContent>
+                <DocumentsContent style={{paddingTop: '0'}}>
                     <GeneralTitle>{t("Bookings/CARGO")}</GeneralTitle>
                     <ShippingModeTable cargo_groups={cargo_groups}
                                        booking_shipping_mode={booking_shipping_mode}

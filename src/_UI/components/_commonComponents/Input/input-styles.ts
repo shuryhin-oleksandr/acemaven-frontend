@@ -15,13 +15,14 @@ type PropsStyle = {
   min_height?: string;
   min_width?: string;
   without_border?: number;
+  width?: string;
 };
 
 export const InputOuter = styled.div<PropsStyle>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width:  ${({width }) => (width ? width : "100%")};
   min-width: ${({ min_width }) => (min_width ? min_width : "unset")};
   max-width: ${({ max_width }) => (max_width ? max_width : "100%")};
   margin-bottom: ${({ marginBottom }) =>
@@ -36,7 +37,7 @@ export const Field = styled.input<PropsStyle>`
   line-height: 17px;
   transition: 0.5s;
   max-width: ${({ max_width }) => (max_width ? max_width : "420px")};
-  width:  ${({width }) => (width ? width : "100%")};
+  width: 100%;
   height: ${({ height }) => (height ? height : "40px")};
   border: ${({ error, without_border }) =>
     without_border ? "0" : error ? "1px solid #7C7C89" : "1px solid #BDBDBD"};

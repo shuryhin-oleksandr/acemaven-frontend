@@ -106,7 +106,12 @@ const NotificationCard: React.FC<PropsType> = ({
         <img src={chooseIcon(notification.section)} alt="" />
       </IconWrapper>
       <BlockWrapper>
-        <NotificationsBlock>{t(`Dashboard/${notification.section}`)}</NotificationsBlock>
+        {console.log('notification.section', notification.section)}
+        <NotificationsBlock>
+          {(notification.section === 'Operations (Imports)' || notification.section === 'Operations (Exports)')
+            ? t(`Dashboard/Operations`)
+            : t(`Dashboard/${notification.section}`)}
+        </NotificationsBlock>
         <NotificationsDate>
           {moment(notification.date_created).format("YYYY-MM-DD hh:mm A")}
         </NotificationsDate>

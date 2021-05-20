@@ -264,8 +264,6 @@ const OperationCard: React.FC<PropsType> = ({
               status={operation_info?.status}
             />
           )}
-          {console.log('hahah', (operation_info?.shipment_details &&
-            operation_info?.shipment_details.length > 0))}
         </SectionWrapper>
         {(operation_info?.shipment_details &&
           operation_info?.shipment_details.length > 0) &&

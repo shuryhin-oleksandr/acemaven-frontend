@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const OperationNumber = styled.div`
-  margin-bottom: 17px;
+  margin-bottom: 8px;
   font-family: "Helvetica Bold", sans-serif;
   color: black;
   font-size: 48px;
@@ -13,7 +13,7 @@ export const BookingTitle = styled.span`
   text-transform: uppercase;
   color: #828282;
   font-size: 24px;
-  margin-bottom: 13px;
+  margin-bottom: 8px;
   margin-right: 7px;
 `;
 

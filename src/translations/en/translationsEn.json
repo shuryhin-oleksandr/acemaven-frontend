@@ -71,7 +71,9 @@
   },
   "Dashboard": {
     "Dashboard": "Dashboard",
+    "Chats": "Chats",
     "Operations in progress": "Latest Updates",
+    "Operations": "Operations",
     "Booking No.": "Booking No.",
     "Route": "Route",
     "Date": "Date",
@@ -114,9 +116,11 @@
     "Total": "Total",
     "Transit Time": "Transit Time",
     "Rate Expiration Date": "Rate Expiration Date",
+    "Freight Rates": "Freight Rates",
     "Freight": "Freight",
     "Total Freight": "Total Freight in",
     "Surcharges in": "Surcharges in",
+    "Surcharges": "Surcharges",
     "Acemaven Service Fee": "Acemaven Service Fee",
     "BOOK": "BOOK",
     "Your rate did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy will be protected, the agents won't know who posted the quote until you book the offer.": "Your rate did not return any results; you can post it online as a quote for freight forwarders to submit their rates or adjust your filters and search again. Your privacy will be protected, the agents won't know who posted the quote until you book the offer.",
@@ -261,7 +265,7 @@
     "Rate will be register as 0. Are you sure?": "This freight rate will be registered with 0 value. Do you confirm this?",
     "TO BOOK IN": "TO BOOK IN",
     "PAID TO BOOK IN": "PAID TO BOOK IN",
-    "TRAVEL": "TRAVEL",
+    "TRAVEL": "VOYAGE",
     "ETA": "ETA",
     "ETD":"ETD",
     "TOTAL CHARGES IN": "TOTAL CHARGES IN",
@@ -315,7 +319,7 @@
     "COLD": "CHILLED",
     "DANGEROUS": "DANGEROUS",
     "ACEMAVEN EXCHANGE RATE": "ACEMAVEN {{parameter}} EXCHANGE RATE",
-    "USAGE FEE": "USAGE FEE"
+    "USAGE FEE": "USAGE FEES"
   },
   "Booking Confirmation": {
     "Booking Confirmation": "Booking Confirmation",
@@ -382,7 +386,7 @@
     "location": "location",
     "Location": "Location",
     "Update information in the Operation": "Shipment details update",
-    "You don't have permissions to write": "You don't have permissions to write"
+    "You don't have permissions to write": "You don't permission to write"
   },
   "Confirm Operation": {
     "Confirm Operation Completion": "Confirm Shipment Completion",
@@ -450,7 +454,7 @@
     "Are you sure you want to cancel booking": "Are you sure that you want to cancel this shipment?",
     "Select Credit Card": "Select Credit Card",
     "Add Credit card": "Add Credit card",
-    "For shipment tracking purposes, won’t be shown to the client.": "For shipment tracking purposes, won’t be shown to the client."
+    "For shipment tracking purposes, won’t be shown to the client.": "Will be used for shipment tracking purposes, won’t be displayed to the client."
   },
   "Surcharges": {
     "Surcharges": "Surcharges",
@@ -492,8 +496,8 @@
     "Direction": "Direction",
     "Rate_15symbols": "Rate has to be equal or greater than 0 and have a maximum of 5 digits and 2 decimals",
     "Please_fields": "Please, complete the freight parameters to display the corresponding fields of the rates.",
-    "Charge_15numbers": "Charge has to be equal or grater than zero and includes maximum 15 symbols",
-    "There_freight": "There are no freight rate and surcharges for these shipment dates. The offer won't be created until a matching freight rate and surcharges agreement is created."
+    "Charge_15numbers": "Value has to be equal or grater than zero, maximum 6 digits and two decimals.",
+    "There_freight": "There are no freights and surcharges for these shipment dates. The offer won't be created until a matching offer is created. "
   },
   "Freight rates": {
     "Freight rates": "Freight rates",
@@ -502,7 +506,7 @@
     "INACTIVE": "PAUSED",
     "Rates can be paused or reactivated using this button": "Rates can be paused or reactivated using this button",
     "Use this registry as a template for a new rate": "Use this registry as a template for a new rate",
-    "Use this registry as a template for a new rate, with the same values and parameters": "Use this registry as a template for a new rate, with the same values and parameters",
+    "Use this registry as a template for a new rate, with the same values and parameters": "Create new record using this one as a template. The same values and conditions will be copied and can be modified before saving.",
     "FREIGHT RATE": "FREIGHT RATE",
     "Do you want to save the changes?": "Do you want to save these changes?",
     "There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ": "There are no surcharges that match this rate and it won't be live until one is registered.",
@@ -707,9 +711,9 @@
     "Account No. must contain only numbers": "Account No. must contain only numbers",
     "Password must contain only alphanumeric characters. Min 8, Max 25 symbols": "Password must contain only alphanumeric characters. Min 8, Max 25",
     "There is no account corresponding to this link.": "There is no account corresponding to this link.",
-    "We will call your contact person soon.": "We will call your contact person soon.",
-    "There is no surcharge for these dates.": "There is no surcharge for these dates.",
-    "Do you want co create new or change existed?": "Do you want co create new or change existed?",
+    "We will call your contact person soon.": "Someone will be in touch with you soon.",
+    "There is no surcharge for these dates.": "There are no surcharges for these dates.",
+    "Do you want co create new or change existed?": "Do you want create new or change the existing one?",
     "Password was changed!": "Password was changed!",
     "Enter correct origin and destination": "Enter correct origin and destination"
   },
@@ -725,8 +729,8 @@
     "Select freight forwarder": "Search for the ideal offer",
     "CBM calculator": "Cargo Management tools",
     "Track transfer": "Any direction",
-    "START AS CLIENT": "START AS CLIENT",
-    "START AS AGENT": "START AS AGENT",
+    "START AS CLIENT": "APPLY AS A CLIENT",
+    "START AS AGENT": "APPLY AS NA AGENT",
     "Search and compare freight from local agents": "State of the art user interface",
     "FCL, LCL, Loose Cargo/RORO, Air Cargo modes supported.": "Any process takes less than 3 steps with a modern look and feel, detailed views of costs and operations and even more features coming soon.",
     "Book and track your shipments": "Shipment tracking within reach",
@@ -735,7 +739,7 @@
     "With a chat based support feature.": "Stay in touch with the agent or request help from out team.",
     "Marine shipping mode": "WHERE ARE WE GOING",
     "Air shipping mode": "WHAT BRINGS US TOGETHER",
-    "Ernesto Contacts": "Ernesto Contacts",
+    "Ernesto Contacts": "Acemaven LDTA info@acemaven.com",
     "Login": "Login",
     "Compare the available offers based on costs, transit time or prefered carrier.": "Compare the available offers based on costs, transit time or prefered carrier.",
     "description_freight_forwarder": "Compare the available offers based on costs, transit time or prefered carrier. FCL, LCL, General Cargo, Air Freight and ULD modes available.",

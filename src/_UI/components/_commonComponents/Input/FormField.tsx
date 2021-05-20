@@ -39,7 +39,7 @@ type PropsType = {
 const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
   const {t} = useTranslation();
   return (
-    <InputOuter max_width={props.max_width} min_width={props.min_width} marginBottom={props.marginBottom} min_height={props.min_height}>
+    <InputOuter max_width={props.max_width} min_width={props.min_width} marginBottom={props.marginBottom} min_height={props.min_height} width={props.width}>
       {!!label &&
       <Label font_weight={props.font_weight}
              color_label={props.color_label}
@@ -65,7 +65,6 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         background={props.background}
         step='0.01'
         without_border={props.without_border && props.without_border}
-        width={props.width}
       />
         {props.booking_process && <AgentComment>{t("Billing/For shipment tracking purposes, won’t be shown to the client.")}</AgentComment>}
         {error?.type === "required" && <HelperText messagePaddingTop={props.messagePaddingTop}>{error?.message}</HelperText>}
@@ -76,10 +75,10 @@ const FormField: React.FC<PropsType> = ({ error, label, ...props }) => {
         </HelperText>
       )}
       {error?.type === "maxLength" && (
-        <HelperText>{t("Maximum length is", {parameter: props.max})}</HelperText>
+        <HelperText>{t("Error message/Maximum length is", {parameter: props.max})}</HelperText>
       )}
       {error?.type === "minLength" && (
-        <HelperText>{t("Minimum length is", {parameter: props.min})}</HelperText>
+        <HelperText>{t("Error message/Minimum length is", {parameter: props.min})}</HelperText>
       )}
       {props.server_error && <HelperText>{props.server_error}</HelperText>}
     </InputOuter>

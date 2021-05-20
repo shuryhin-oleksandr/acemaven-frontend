@@ -143,6 +143,8 @@ const SurchargeForm: React.FC<PropsType> = (
                     watchResultArrForDates={watchResultArrForDates}
                     disabled={location_id === 0}
                     width="80%"
+                    label_margin_bottom="0"
+                    margin_bottom="15px"
                 />
                     {invalidDate && <HelperText messagePaddingTop='0'>{invalidDate}</HelperText>}
                 </GroupWrap>

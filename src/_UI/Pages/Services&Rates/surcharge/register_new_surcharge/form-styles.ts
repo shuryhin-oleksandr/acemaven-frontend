@@ -141,9 +141,8 @@ export const OptionButtonPlane = styled.div<PropsStyle>`
 export const FormWrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
   border-bottom: 1px solid #115b86;
-  padding-bottom: 35px;
+  padding-bottom: 20px;
 `;
 
 export const FormContent = styled.div`

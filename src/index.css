@@ -2,137 +2,34 @@
 
 
 
-/*@font-face {*/
-/*  font-family: "Helvetica Thin";*/
-/*  src: url("_UI/assets/fonts/helvetica/HelveticaNeue Thin.ttf") format("truetype");*/
-/*}*/
-
-/*@font-face {*/
-/*  font-family: "Helvetica Light";*/
-/*  src: url("_UI/assets/fonts/helvetica/HelveticaNeue Light.ttf") format("truetype");*/
-/*  font-weight: 300;*/
-/*}*/
-
-/*@font-face {*/
-/*    font-family: "Helvetica Reg";*/
-/*  src: url("_UI/assets/fonts/helvetica/HelveticaNeue Medium.ttf") format("truetype");*/
-/*  font-weight: 400;*/
-/*}*/
-
-/*@font-face {*/
-/*  font-family: "Helvetica Bold";*/
-/*  src: url("_UI/assets/fonts/helvetica/Helvetica Neu Bold.ttf") format("truetype");*/
-/*  font-weight: 600;*/
-/*}*/
-
-/*@font-face {*/
-/*  font-family: "Helvetica Bolder";*/
-/*  src: url("_UI/assets/fonts/helvetica/HelveticaNeueBd.ttf") format("truetype");*/
-/*  font-weight: 900;*/
-/*}*/
-
-
 @font-face {
   font-family: "Helvetica Thin";
-  font-style: normal;
-  src:
-    url("_UI/assets/fonts/aileron/Aileron-Thin.woff2") format("woff2"),
-    url("_UI/assets/fonts/aileron/Aileron-Thin.woff") format("woff"),
-    url("_UI/assets/fonts/aileron/Aileron-Thin.otf") format("otf");
-  font-weight: 100;
+  src: url("_UI/assets/fonts/helvetica/HelveticaNeue Thin.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Helvetica Light";
-  font-style: normal;
-  src:
-    url("_UI/assets/fonts/aileron/Aileron-Light.woff2") format("woff2"),
-    url("_UI/assets/fonts/aileron/Aileron-Light.woff") format("woff"),
-    url("_UI/assets/fonts/aileron/Aileron-Light.otf") format("otf");
+  src: url("_UI/assets/fonts/helvetica/HelveticaNeue Light.ttf") format("truetype");
   font-weight: 300;
 }
 
 @font-face {
-  font-family: "Helvetica Reg";
-  font-style: normal;
-  src:
-    url("_UI/assets/fonts/aileron/Aileron-Regular.woff2") format("woff2"),
-    url("_UI/assets/fonts/aileron/Aileron-Regular.woff") format("woff"),
-    url("_UI/assets/fonts/aileron/Aileron-Regular.otf") format("otf");
+    font-family: "Helvetica Reg";
+  src: url("_UI/assets/fonts/helvetica/HelveticaNeue Medium.ttf") format("truetype");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Helvetica Bold";
-  font-style: normal;
-  src:
-    url("_UI/assets/fonts/aileron/Aileron-Bold.woff2") format("woff2"),
-    url("_UI/assets/fonts/aileron/Aileron-Bold.woff") format("woff"),
-    url("_UI/assets/fonts/aileron/Aileron-Bold.otf") format("otf");
+  src: url("_UI/assets/fonts/helvetica/Helvetica Neu Bold.ttf") format("truetype");
   font-weight: 600;
 }
 
 @font-face {
   font-family: "Helvetica Bolder";
-  font-style: normal;
-  src:
-    url("_UI/assets/fonts/aileron/Aileron-Black.woff2") format("woff2"),
-    url("_UI/assets/fonts/aileron/Aileron-Black.woff") format("woff"),
-    url("_UI/assets/fonts/aileron/Aileron-Black.otf") format("otf");
+  src: url("_UI/assets/fonts/helvetica/HelveticaNeueBd.ttf") format("truetype");
   font-weight: 900;
 }
-
-
-
-/*@font-face {*/
-/*  font-family: "Helvetica Thin";*/
-/*  font-style: normal;*/
-/*  src:*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-ExtraLight.woff2") format("woff2"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-ExtraLight.woff") format("woff"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-ExtraLight.ttf") format("ttf");*/
-/*  font-weight: 100;*/
-/*}*/
-
-/*@font-face {*/
-/*  font-family: "Helvetica Light";*/
-/*  font-style: normal;*/
-/*  src:*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Light.woff2") format("woff2"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Light.woff") format("woff"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Light.ttf") format("ttf");*/
-/*  font-weight: 300;*/
-/*}*/
-
-/*@font-face {*/
-/*  font-family: "Helvetica Reg";*/
-/*  font-style: normal;*/
-/*  src:*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Regular.woff2") format("woff2"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Regular.woff") format("woff"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Regular.ttf") format("ttf");*/
-/*  font-weight: 400;*/
-/*}*/
-
-/*@font-face {*/
-/*  font-family: "Helvetica Bold";*/
-/*  font-style: normal;*/
-/*  src:*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Bold.woff2") format("woff2"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Bold.woff") format("woff"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Bold.ttf") format("ttf");*/
-/*  font-weight: 600;*/
-/*}*/
-
-/*@font-face {*/
-/*  font-family: "Helvetica Bolder";*/
-/*  font-style: normal;*/
-/*  src:*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Black.woff2") format("woff2"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Black.woff") format("woff"),*/
-/*    url("_UI/assets/fonts/source_sans_pro/SourceSansPro-Black.ttf") format("ttf");*/
-/*  font-weight: 900;*/
-/*}*/
 
 * {
   box-sizing: border-box;

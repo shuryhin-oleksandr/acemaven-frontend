@@ -25,16 +25,16 @@ const ShippingModePart = () => {
                     <ShipModeImage/>
                     <Block>
                         <Description>
-                            {t("Landing Page/Marine shipping mode")}
+                            {t("Landing Page/description_Marine_shipping_mode")}
                         </Description>
-                        <MarineTitle>{t("Landing Page/description_Marine_shipping_mode")}</MarineTitle>
+                        <MarineTitle>{t("Landing Page/Marine shipping mode")}</MarineTitle>
                     </Block>
 
                 </Mode>
                 <Mode direction='row-reverse'>
                     <AirModeImage/>
-                    <Block back='#115B86'>
-                        <Description>
+                    <Block back='#115B86' style={{paddingTop: '38px'}}>
+                        <Description style={{marginBottom: '40px'}}>
                             {t("Landing Page/description_Air_shipping_mode")}
                         </Description>
                         <AirTitle>{t("Landing Page/Air shipping mode")}</AirTitle>

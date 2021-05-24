@@ -151,7 +151,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
     const {t} = useTranslation();
     return (
         <React.Fragment>
-            <TableRow className={classes.root}>
+            <TableRow className={classes.root} onClick={getCargoGroupsFromQuote}>
                 <TableCell
                     className={classes.empty}
                     align="left"
@@ -181,7 +181,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                     }
                     <br/> <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>{day_from}{'-'}{date_to}</span>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left" onClick={getCargoGroupsFromQuote}>
+                <TableCell className={classes.innerCell} align="left" >
                     <OffersSpan new_offer={!!quote.unchecked_offers}>{quote.offers}</OffersSpan>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

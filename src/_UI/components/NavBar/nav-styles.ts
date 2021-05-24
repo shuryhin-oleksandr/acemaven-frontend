@@ -190,7 +190,7 @@ export const NestedName = styled.div<PropsStyles>`
   width: 100%;
   padding: 0 10px 0 55px;
   color: ${({ active }) => (active ? "#00C5FF" : "white")};
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 15px;
   transition: 0.2s;
 

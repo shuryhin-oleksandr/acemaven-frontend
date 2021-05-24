@@ -78,53 +78,58 @@ const {t} = useTranslation() ;
                         </TableHead>
                         <TableBody>
                             {latest_list.map((quote, idx) => (
+                              !quote.is_submitted && (
                                 <TableRow key={idx}
-                                          className={ classes.row}
-                                          onClick={() => company_type?.type === AppCompaniesTypes.AGENT ?
-                                              setCardOpen(Number(quote.id))
-                                          :
-                                              goToClientsQuotes()
-                                          }
+                                className={classes.row}
+                                onClick={() => company_type?.type === AppCompaniesTypes.AGENT ?
+                              setCardOpen(Number(quote.id))
+                              :
+                              goToClientsQuotes()
+                            }
                                 >
-                                    <TableCell className={classes.innerCell}>
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                paddingRight: 10,
-                                            }}
-                                        >
-                                            <img src={quote?.shipping_type === ShippingTypesEnum.SEA ? ShipIcon : PlaneIcon}
-                                                 alt=""/>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className={classes.boldCell} align="left">
-                                        {quote?.origin.code} - {quote?.destination.code}
-                                    </TableCell>
-                                    <TableCell className={classes.innerCell} align="left">
-                                        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left'}}>
-                                            {quote?.cargo_groups.map((c: any) =>
-                                                <span key={c?.id}>
+                                <TableCell className={classes.innerCell}>
+                                <div
+                                style={{
+                                display: "flex",
+                                alignItems: "center",
+                                paddingRight: 10,
+                            }}
+                                >
+                                <img src={quote?.shipping_type === ShippingTypesEnum.SEA ? ShipIcon : PlaneIcon}
+                                alt=""/>
+                                </div>
+                                </TableCell>
+                                <TableCell className={classes.boldCell} align="left">
+                                {quote?.origin.code} - {quote?.destination.code}
+                                </TableCell>
+                                <TableCell className={classes.innerCell} align="left">
+                                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left'}}>
+                                {quote?.cargo_groups.map((c: any) =>
+                                  <span key={c?.id}>
                                           {c.volume}{'x'}{' '}{c.container_type ? c.container_type.code : c.packaging_type?.description}
                                         </span>)
-                                            }
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className={classes.innerCell} align="left">
-                                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                            {quote?.date_from}
-                                            {company_type?.type === AppCompaniesTypes.AGENT
-                                            && (!quote.is_submitted
-                                                ? <BookLittleButton
-                                                        onClick={() => setCardOpen(Number(quote?.id))}>{t("Quotes/OFFER")}</BookLittleButton>
-                                                : <span style={{color: '#115b86', fontFamily: 'Helvetica Bold, sans-serif', fontSize: '12px'}}>
+                                }
+                                </div>
+                                </TableCell>
+                                <TableCell className={classes.innerCell} align="left">
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                {quote?.date_from}
+                                {company_type?.type === AppCompaniesTypes.AGENT
+                                && (!quote.is_submitted
+                                    ? <BookLittleButton
+                                      onClick={() => setCardOpen(Number(quote?.id))}>{t("Quotes/OFFER")}</BookLittleButton>
+                                    : <span style={{
+                                        color: '#115b86',
+                                        fontFamily: 'Helvetica Bold, sans-serif',
+                                        fontSize: '12px'
+                                    }}>
                                                         {t("Quotes/SUBMITTED")}
                                                 </span>
-                                            )}
-                                        </div>
-                                    </TableCell>
+                                )}
+                                </div>
+                                </TableCell>
                                 </TableRow>
-                            ))}
+                                )))}
                         </TableBody>
                     </Table>
                 </BaseWidget>

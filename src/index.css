@@ -55,12 +55,21 @@
 }
 
 @font-face {
+  font-family: "Helvetica ExtraReg";
+  src:
+    url("_UI/assets/fonts/helvetica_neue/HelveticaNowDisplay-Bold.woff2") format("woff2"),
+    url("_UI/assets/fonts/helvetica_neue/HelveticaNowDisplay-Bold.woff") format("woff"),
+    url("_UI/assets/fonts/helvetica_neue/HelveticaNowDisplay-Bold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
   font-family: "Helvetica Bold";
   src:
           url("_UI/assets/fonts/helvetica_neue/HelveticaNowDisplay-ExtraBold.woff2") format("woff2"),
           url("_UI/assets/fonts/helvetica_neue/HelveticaNowDisplay-ExtraBold.woff") format("woff"),
           url("_UI/assets/fonts/helvetica_neue/HelveticaNowDisplay-ExtraBold.ttf") format("truetype");
-  font-weight: 600;
+  font-weight: 800;
 }
 
 @font-face {

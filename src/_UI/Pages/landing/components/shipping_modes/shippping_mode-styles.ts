@@ -66,8 +66,6 @@ width: 100%;
 margin-right: 340px;
 `
 export const AirTitle = styled(MarineTitle)`
-max-width: 396px;
-min-width: 396px;
 width: 100%;
 text-align: start;
 margin-left: 340px;

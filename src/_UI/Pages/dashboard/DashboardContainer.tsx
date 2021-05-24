@@ -43,7 +43,7 @@ import {getAgentQuotesListThunk} from "../../../_BLL/thunks/quotes/agentQuotesTh
 
 
 
-const DashboardContainer:React.FC = () => {
+const  DashboardContainer:React.FC = () => {
     //const search_result = false
     const [widgetsVisible, setWidgetsVisible] = useState(true);
 

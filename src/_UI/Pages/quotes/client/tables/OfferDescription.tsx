@@ -60,12 +60,7 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #E0E0E0",
     fontFamily: "Helvetica Reg",
     fontSize: "14px",
-    padding: "0 7px",
-  },
-  collapseInnerCell: {
-    borderBottom: "1px solid #E0E0E0",
-    fontFamily: "Helvetica Light",
-    fontSize: "14px",
+    padding: "7px 10px",
   },
   empty: {
     width: "30px",
@@ -172,7 +167,7 @@ const OfferDescription: React.FC<PropsType> = ({
                       {index + 1}
                     </TableCell>
                     <TableCell
-                      className={classes.collapseInnerCell}
+                      className={classes.collapseMainInnerCell}
                       align="left"
                     >
                       {o.freight_rate?.carrier_disclosure
@@ -181,7 +176,7 @@ const OfferDescription: React.FC<PropsType> = ({
                     </TableCell>
                     <TableCell
                       align="left"
-                      className={classes.collapseInnerCell}
+                      className={classes.collapseMainInnerCell}
                     >
                       {o.charges.freight_rate?.transit_time
                         ? o.charges.freight_rate?.transit_time
@@ -190,25 +185,25 @@ const OfferDescription: React.FC<PropsType> = ({
                     </TableCell>
                     <TableCell
                       align="left"
-                      className={classes.collapseInnerCell}
+                      className={classes.collapseMainInnerCell}
                     >
                       {o.charges.totals.USD ? `${o.charges.totals.USD}` : "-"}
                     </TableCell>
                     <TableCell
                       align="left"
-                      className={classes.collapseInnerCell}
+                      className={classes.collapseMainInnerCell}
                     >
                       {o.charges.totals.EUR ? `${o.charges.totals.EUR}` : "-"}
                     </TableCell>
                     <TableCell
                       align="left"
-                      className={classes.collapseInnerCell}
+                      className={classes.collapseMainInnerCell}
                     >
                       {o.charges.totals.BRL ? `${o.charges.totals.BRL}` : "-"}
                     </TableCell>
                     <TableCell
                       align="left"
-                      className={classes.collapseInnerCell}
+                      className={classes.collapseMainInnerCell}
                     >
                       <BookLittleButton
                         onClick={() => totalsHandler(o.id, quote?.id as number)}

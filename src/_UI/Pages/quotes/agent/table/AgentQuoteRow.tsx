@@ -48,6 +48,16 @@ const useStyles = makeStyles({
         paddingBottom: 13,
         verticalAlign: "top !important",
     },
+    innerCellLast: {
+        borderBottom: '1px solid #BDBDBD',
+        fontFamily: 'Helvetica Light',
+        fontSize: '16px',
+        color: '#1B1B25',
+        padding: '0',
+        paddingTop: "13px",
+        paddingBottom: 13,
+        position: "relative",
+    },
     innerRow: {
         transition: '.3s',
         '&:hover': {
@@ -125,13 +135,13 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
                 <div style={{fontFamily: 'Helvetica Light', fontSize: '15px', textAlign: 'start'}}>{day_from} - {date_to}</div>
                 <div style={{textAlign: 'start'}}>{t("Bookings/WEEK")} {quote.week_range.week_from}{quote.week_range.week_from !== quote.week_range.week_to && ` - ${quote.week_range.week_to}`}</div>
             </TableCell>
-            <TableCell className={classes.innerCell} align="center">
+            <TableCell className={classes.innerCellLast} align="center">
                 {quote.is_submitted
-                    ? <SubmittedWrapper>
+                    ? <SubmittedWrapper >
                         <DoneIcon />
                         <StatusSpan>{t("Quotes/SUBMITTED")}</StatusSpan>
                     </SubmittedWrapper>
-                    :  <SubmitQuoteButton>{t("Quotes/SUBMIT QUOTE")}</SubmitQuoteButton>
+                    :  <SubmitQuoteButton style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>{t("Quotes/SUBMIT QUOTE")}</SubmitQuoteButton>
                 }
             </TableCell>
         </TableRow>

@@ -226,7 +226,7 @@
     "COST": "VALOR",
     "SUBTOTAL": "SUBTOTAL",
     "post_quote_question": "Desea publicar esa cotización?",
-    "your_search_": "Su búsqueda no obtuvo ningún resultado; puede publicarla como una cotización para que los agentes envien sus ofertas o ajustar sus filtros y buscar nuevamente. Si decide publicar la cotización, su privacidad estará protegida, los agentes no podran ver su.",
+    "your_search_": "Su búsqueda no devolvió ningún resultado, puede publicarla como una cotización para que los agentes envíen sus ofertas o ajustar sus filtros y buscar nuevamente. Si decide publicar la cotización, su privacidad estará protegida y los agentes no verán su información hasta que reserve una oferta.",
     "NO.": "NUMERO",
     "BOOKING WITH CARRIER": "NO. DE RESERVA DEL TRANSPORTADOR",
     "UPDATE": "Actualizar",

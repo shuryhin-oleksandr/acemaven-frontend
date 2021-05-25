@@ -52,7 +52,6 @@ const useStyles = makeStyles({
   container: {
     boxShadow: "none",
     paddingRight: "12px",
-    maxHeight: 600,
   },
   root: {
     "&:hover": {

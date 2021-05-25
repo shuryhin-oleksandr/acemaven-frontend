@@ -16,6 +16,14 @@ import TableCellContent from "../../../../components/_commonComponents/tables/Ta
 import OperationsRow from "./OperationsRow";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import {useTranslation} from "react-i18next";
+import {useSelector} from "react-redux";
+import {
+    getExactClientOperationSelector,
+    getExactOperationSelector
+} from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
+import {AppStateType} from "../../../../../_BLL/store";
+import ShipmentTrackingBlock
+    from "../ExactOperationContainer/OperationCard/blocks/shipments_tracking_block/ShipmentTrackingBlock";
 
 
 const useStyles = makeStyles({
@@ -106,6 +114,7 @@ type PropsType = {
 }
 
 const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
+    let operation_info = useSelector(getExactOperationSelector);
 
     const classes = useStyles();
 const {t} = useTranslation();
@@ -224,10 +233,14 @@ const {t} = useTranslation();
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.operations_list.map((operation, index) => <OperationsRow key={index}
-                                                                                        operation={operation}
-                                                                                        operation_status={props.operation_status}
-                        />)}
+                        {props.operations_list.map((operation, index) =>
+                          <OperationsRow
+                            trackingAut={operation_info?.tracking}
+                            automatic_tracking={operation_info?.automatic_tracking}
+                            key={index}
+                            operation={operation}
+                            operation_status={props.operation_status}
+                          />)}
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -10,7 +10,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 //BLL
 import {AppStateType} from "../../../../../_BLL/store";
 //types
-import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
+import {OperationType, TrackingBackendType} from "../../../../../_BLL/types/operations/operationsTypes";
 import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 //styles
 import {ModeIcon, ModeIconBlue, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
@@ -104,10 +104,12 @@ const useStyles = makeStyles({
 
 type PropsType = {
     operation: OperationType,
-    operation_status?: string
+    operation_status?: string,
+    automatic_tracking?: boolean,
+    trackingAut?: TrackingBackendType[],
 }
 
-const OperationsRow: React.FC<PropsType> = ({operation}) => {
+const OperationsRow: React.FC<PropsType> = ({operation, automatic_tracking, trackingAut}) => {
     const classes = useStyles();
 
     const history = useHistory()
@@ -178,7 +180,9 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <span style={{fontFamily: 'Helvetica Reg', textTransform: 'uppercase'}}>
-                        {operation.tracking[0]?.status ? t(`Statuses/${operation.tracking[0]?.status}`):  t(`Statuses/${operation.status}`)}
+                        {  automatic_tracking
+                          ? ((trackingAut && trackingAut[0].status && trackingAut[0].date_created ) ? `${trackingAut[0].date_created.slice(0, -5)} ${trackingAut[0].status}` : `-`)
+                          : (operation.tracking[0]?.status ? `${operation.tracking[0]?.date_created.slice(0, -5)} ${t(`Statuses /${operation.tracking[0]?.status}`)} `:  t(`Statuses/${operation.status}`))}
                     </span>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

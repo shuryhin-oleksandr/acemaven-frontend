@@ -16,6 +16,14 @@ import OperationsRow from "../../agent/table/OperationsRow";
 import { CurrentShippingType } from "../../../../../_BLL/types/rates&surcharges/newSurchargesTypes";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import {useTranslation} from "react-i18next";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../../../_BLL/store";
+import {
+  getExactClientOperationSelector,
+  getExactOperationSelector
+} from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
+import ShipmentTrackingBlock
+  from "../../agent/ExactOperationContainer/OperationCard/blocks/shipments_tracking_block/ShipmentTrackingBlock";
 
 const useStyles = makeStyles({
   container: {
@@ -104,6 +112,7 @@ type PropsType = {
 };
 
 const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
+  let operation_info = useSelector(getExactClientOperationSelector);
   const classes = useStyles();
 const {t} = useTranslation();
   return (
@@ -244,6 +253,8 @@ const {t} = useTranslation();
           <TableBody>
             {props.operations_list.map((operation, index) => (
               <OperationsRow
+                trackingAut={operation_info?.tracking}
+                automatic_tracking={operation_info?.automatic_tracking}
                 key={index}
                 operation={operation}
                 operation_status={props.operation_status}

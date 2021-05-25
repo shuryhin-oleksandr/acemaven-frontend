@@ -65,7 +65,7 @@ const ClientOperationsListContainer: React.FC<PropsType> = ({
         >
           <img src={hide_map_icon} alt="" />
         </HideButton>}
-        <OperationsContent isHide={isHide} style={{padding:"10px 80px 50px 0"}} status={props.operation_status}>
+        <OperationsContent isHide={isHide} status={props.operation_status}>
           <OperationHeader>
             <OperationTitle>{t("Operations/Operations")}</OperationTitle>
             <div

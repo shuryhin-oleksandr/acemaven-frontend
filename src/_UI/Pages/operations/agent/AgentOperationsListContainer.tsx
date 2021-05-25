@@ -71,7 +71,7 @@ const {t} = useTranslation();
                 <HideButton isHide={isHide} onClick={() => isHide ? setIsHide((false)) : setIsHide(true)}>
                     <img src={hide_map_icon} alt=""/>
                 </HideButton>}
-                <OperationsContent style={{padding:"0 80px 50px 0"}} isHide={isHide} status={props.operation_status}>
+                <OperationsContent isHide={isHide} status={props.operation_status}>
                     <OperationHeader>
                         <OperationTitle>
                             {t("Operations/Operations")}

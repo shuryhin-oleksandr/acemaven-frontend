@@ -150,10 +150,11 @@ const MapComponent: React.FC<Interface> = (props) => {
 export default withGoogleMap(MapComponent);
 
 const InfoBoxLabel = styled.div`
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 12px;
   color: #000000;
   line-height: 1;
+  letter-spacing: -0.5px;
   white-space: nowrap;
 `;
 const InfoBoxValue = styled.div`

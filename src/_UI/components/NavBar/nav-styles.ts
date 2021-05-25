@@ -137,7 +137,7 @@ export const Outer = styled.div`
 `;
 
 export const Name = styled.div<PropsStyles>`
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 15px;
   color: ${({ checked }) => (checked ? "#00C5FF" : "white")};
   text-decoration: none;

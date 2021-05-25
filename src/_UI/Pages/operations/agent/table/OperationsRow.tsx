@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         width: '220px',
         color: '#1B1B25',
@@ -58,7 +58,7 @@ const useStyles = makeStyles({
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         color: '#1B1B25',
         padding: '0',
@@ -87,7 +87,7 @@ const useStyles = makeStyles({
     },
     collapseInnerCell: {
         borderBottom: 0,
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '14px'
     },
     customTooltip: {
@@ -167,7 +167,7 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     { (shipment && shipment?.date_of_departure && shipment?.date_of_arrival)
-                        ? <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>
+                        ? <span style={{fontFamily: 'Helvetica Reg', fontSize: '14px'}}>
                             {t("Bookings/ETD")}: {shipment?.date_of_departure} <br/> {t("Bookings/ETA")}: {shipment?.date_of_arrival}
                           </span>
                         : '-'
@@ -177,8 +177,8 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                     {!operation.freight_rate.carrier_disclosure ? operation.freight_rate.carrier.title : 'Carrier is disclosed'}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    <span style={{fontFamily: 'Helvetica Light', textTransform: 'uppercase'}}>
-                        {t(`Statuses/${operation.status}`)}
+                    <span style={{fontFamily: 'Helvetica Reg', textTransform: 'uppercase'}}>
+                        {operation.tracking[0]?.status ? t(`Statuses/${operation.tracking[0]?.status}`):  t(`Statuses/${operation.status}`)}
                     </span>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">

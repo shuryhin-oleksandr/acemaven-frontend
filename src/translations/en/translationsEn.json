@@ -141,6 +141,7 @@
   "Dashboard Menu": {
     "REQUESTS": "REQUESTS",
     "BOOKINGS": "BOOKINGS",
+    "Bookings": "Bookings",
     "QUOTES": "QUOTES",
     "OPERATIONS": "OPERATIONS",
     "ACTIVE": "IN PROGRESS",

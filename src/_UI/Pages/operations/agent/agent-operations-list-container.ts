@@ -18,7 +18,7 @@ export const OperationsInner = styled.div`
 export const OperationsContent = styled.div<{isHide?: boolean, status?: string}>`
   width: 100%;
   height: ${({isHide}) => !isHide ? '530px' : '100%'};
-  padding: ${({status}) => (status === 'canceled' || status === "completed") ? '50px 80px 50px 30px' : '20px 80px 50px 30px'};
+  padding: ${({status}) => (status === 'canceled' || status === "completed") ? '50px 80px 50px 30px' : '0 80px 50px 30px'};
    display: flex;
   flex-direction: column;
 `

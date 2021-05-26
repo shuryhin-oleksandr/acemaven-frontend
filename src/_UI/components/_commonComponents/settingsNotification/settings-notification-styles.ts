@@ -3,10 +3,10 @@ import styled from 'styled-components'
 export const Outer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 `
 export const ActionsWrapRadio = styled.div`
-  padding-top: 25px;
+  padding-bottom: 15px;
 `
 export const CommonWrap = styled.div`
   display: flex;

@@ -129,7 +129,7 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
 `
 
 export const CalendarLabel = styled.div<PropsStyle>`
-  font-family: ${({textFont}) => textFont ? textFont : 'Helvetica Reg, sans-serif'};
+  font-family: ${({textFont}) => textFont ? textFont : 'Helvetica ExtraReg, sans-serif'};
   font-size: 14px;
   line-height: 17px;
   color: ${({textColor}) => textColor ? textColor : '#1B1B25'};

@@ -38,7 +38,7 @@ const BillingCompletePage: React.FC<PropsType> = ({
             marginBottom: "30px",
           }}
         >
-          <Heading without_margin>{t("Dashboard Menu/Completed")}</Heading>
+          <Heading without_margin>{t("Billing/Billing Completed")}</Heading>
           <div
             style={{
               display: "flex",
@@ -69,7 +69,7 @@ const BillingCompletePage: React.FC<PropsType> = ({
         {billing_list.length > 0 ? (
           billing_list.map((i) => <BillingCard billing={i} key={i.id} />)
         ) : (
-          <NoQuotesCard text={t("Dashboard/There are no completed operations.")} />
+          <NoQuotesCard margin="0" text={t("Dashboard/There are no completed operations.")} />
         )}
       </Content>
     </Wrapper>

@@ -7,7 +7,7 @@ export const useStyles = makeStyles(() => ({
     backgroundColor: "#ECECEC",
     top: "2px",
     bottom: "2px",
-    right: "2px",
+    right: "0",
     borderRadius: "3px"
   },
   thumbVertical: {

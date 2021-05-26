@@ -25,6 +25,7 @@ import {MapWrapper} from "../../dashboard/dashboard-styles";
 //icons
 import hide_map_icon from '../../../assets/icons/operations/hide_map.svg'
 import {useTranslation} from "react-i18next";
+import useRoute from "../../../../routes/useRoute";
 
 
 
@@ -53,7 +54,6 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
 
     //AIR
     let air_events = [...autoTrackWithEventsHelper(props.operations_list), ...manualTrackWithEventsHelper(props.operations_list)]
-
 
 const {t} = useTranslation();
     return (

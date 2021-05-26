@@ -25,6 +25,7 @@ import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 import { useHistory } from "react-router-dom";
 import { AppUserRolesType } from "../../../../../_BLL/types/commonTypes";
 import {useTranslation} from "react-i18next";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const FeePaymentWidget: React.FC = () => {
   //hooks
@@ -53,7 +54,8 @@ const FeePaymentWidget: React.FC = () => {
 
   return billing_list.length > 0 ? (
     <BaseWidget heading={t("Dashboard/PENDING OF BOOKING FEE PAYMENT")}>
-      <div style={{ maxHeight: "300px", overflow: "auto" }}>
+      <div style={{ height: "200px", overflow: "auto" }}>
+        <ScrollbarStyled>
         <Table stickyHeader className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -116,6 +118,7 @@ const FeePaymentWidget: React.FC = () => {
             ))}
           </TableBody>
         </Table>
+        </ScrollbarStyled>
       </div>
     </BaseWidget>
   ) : null;

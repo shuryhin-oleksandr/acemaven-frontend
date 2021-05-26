@@ -50,14 +50,13 @@ type PropsType = {
 
 const useStyles = makeStyles({
   container: {
-    boxShadow: "none",
-    paddingRight: "12px",
+    boxShadow: 'none',
+    paddingRight: 12,
+    height: '600px',
+    overflowY: "auto",
   },
-  root: {
-    "&:hover": {
-      transition: ".3s",
-      backgroundColor: "#E0E0E0",
-    },
+  table: {
+    "& .MuiTableHead-root": {},
   },
   shipping_cell: {
     // width: '220px',
@@ -155,7 +154,8 @@ const {t} = useTranslation();
         <NoQuotesCard text={props.text} />
       ) : (
         <TableContainer className={classes.container} component={Paper}>
-          <Table stickyHeader aria-label="collapsible table">
+          <ScrollbarStyled>
+          <Table stickyHeader className={classes.table}  aria-label="collapsible table">
             <TableHead>
               <TableRow>
                 <TableCell className={classes.emptyHeader} align="left" />
@@ -242,6 +242,7 @@ const {t} = useTranslation();
               ))}
             </TableBody>
           </Table>
+          </ScrollbarStyled>
         </TableContainer>
       )}
     </QuotesTableContainer>

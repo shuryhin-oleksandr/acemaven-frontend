@@ -28,7 +28,12 @@ import ShipmentTrackingBlock
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
-    overflowY: "scroll",
+    paddingRight: 12,
+    height: "100%",
+    overflowY: "auto",
+  },
+  table: {
+    "& .MuiTableHead-root": {},
   },
   empty: {
     width: "30px",
@@ -45,7 +50,7 @@ const useStyles = makeStyles({
     paddingLeft: "63px",
     padding: "0",
     paddingRight: "15px",
-    backgroundColor:"white"
+    backgroundColor:"white",
   },
   data_cell: {
     color: '#115B86',
@@ -55,7 +60,7 @@ const useStyles = makeStyles({
     width: '150px',
     padding: "0",
     paddingRight:"15px",
-    backgroundColor:"white"
+    backgroundColor:"white",
   },
   cell: {
     color: "#115B86",
@@ -65,7 +70,7 @@ const useStyles = makeStyles({
     width: "200px",
     padding: "0",
     paddingRight: "15px",
-    backgroundColor:"white"
+    backgroundColor:"white",
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -117,7 +122,8 @@ const ClientOperationTable: React.FC<PropsType> = ({ ...props }) => {
 const {t} = useTranslation();
   return (
       <TableContainer className={classes.container} component={Paper}>
-        <Table stickyHeader aria-label="collapsible table">
+        <ScrollbarStyled>
+        <Table stickyHeader className={classes.table} aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell className={classes.empty} align="left" />
@@ -262,6 +268,7 @@ const {t} = useTranslation();
             ))}
           </TableBody>
         </Table>
+        </ScrollbarStyled>
       </TableContainer>
   );
 };

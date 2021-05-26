@@ -28,6 +28,8 @@ const useStyles = makeStyles({
   container: {
     boxShadow: "none",
     paddingRight: "12px",
+    height: "600px",
+    overflowY: "auto",
   },
   shipping_cell: {
     width: "220px",
@@ -120,6 +122,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
   const {t} = useTranslation();
   return (
     <TableContainer className={classes.container} component={Paper}>
+      <ScrollbarStyled>
       <Table stickyHeader aria-label="collapsible table">
         <TableHead>
           <TableRow>
@@ -307,6 +310,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
           )}
         </TableBody>
       </Table>
+      </ScrollbarStyled>
     </TableContainer>
   );
 };

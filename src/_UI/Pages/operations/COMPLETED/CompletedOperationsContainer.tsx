@@ -18,7 +18,7 @@ import ClientOperationsListContainer from "../client/ClientOperationsListContain
 
 
 
-const CompletedOperationsContainer:React.FC = () => {
+const  CompletedOperationsContainer:React.FC = () => {
 
     //local state
     const [isSearchMode, setSearchMode] = useState(false);

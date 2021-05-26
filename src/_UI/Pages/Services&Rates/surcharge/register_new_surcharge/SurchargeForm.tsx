@@ -73,6 +73,8 @@ const SurchargeForm: React.FC<PropsType> = (
                             />
                         }
                     />
+                </GroupWrap>
+                <GroupWrap>
                     <Controller
                         name="shipping_mode"
                         control={control}
@@ -91,8 +93,6 @@ const SurchargeForm: React.FC<PropsType> = (
                             />
                         }
                     />
-                </GroupWrap>
-                <GroupWrap>
                     <div
                         style={{
                             width: "100%",
@@ -135,6 +135,8 @@ const SurchargeForm: React.FC<PropsType> = (
                         </Scrollbars>
                     )}
                     </div>
+                </GroupWrap>
+                <GroupWrap>
                 <SurchargesDates
                     errors={{ from: errors.from, to: errors.to }}
                     control={control}

@@ -14,7 +14,7 @@ const AddNewButton:React.FC<PropsType> = ({setIsAdd, disabled}) => {
     console.log("o/")
     return (
         <AddButton onClick={() => setIsAdd(true)} disabled={!!disabled}>
-            + {t("User Management/Add new")}
+            <span>+ {t("User Management/Add new")}</span>
         </AddButton>
     )
 }
@@ -23,7 +23,7 @@ export default AddNewButton
 
 const AddButton = styled.button`
   width: 100%;
-  height: 94px;
+  height: 60px;
   border: 1px dashed #828282;
   background: none;
   outline: none;

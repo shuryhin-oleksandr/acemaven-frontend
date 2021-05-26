@@ -120,7 +120,6 @@ const OperationsRow: React.FC<PropsType> = ({operation, automatic_tracking, trac
     let shipment = operation?.shipment_details && operation?.shipment_details[0]
 
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo?.companies[0]);
-
     const {t} = useTranslation();
     return (
         <React.Fragment>
@@ -179,11 +178,24 @@ const OperationsRow: React.FC<PropsType> = ({operation, automatic_tracking, trac
                     {!operation.freight_rate.carrier_disclosure ? operation.freight_rate.carrier.title : 'Carrier is disclosed'}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    <span style={{fontFamily: 'Helvetica Reg', textTransform: 'uppercase'}}>
+                    <div style={{fontFamily: 'Helvetica Reg', textTransform: 'uppercase'}}>
                         {  automatic_tracking
-                          ? ((trackingAut && trackingAut[0].status && trackingAut[0].date_created ) ? `${trackingAut[0].date_created.slice(0, -5)} ${trackingAut[0].status}` : `-`)
-                          : (operation.tracking[0]?.status ? `${operation.tracking[0]?.date_created.slice(0, -5)} ${t(`Statuses /${operation.tracking[0]?.status}`)} `:  t(`Statuses/${operation.status}`))}
-                    </span>
+                          ? ((trackingAut && trackingAut[0].status && trackingAut[0].date_created )
+                            ?
+                                <div>
+                                    <span>{trackingAut[0].date_created.slice(0, -5)}</span>
+                                    <br />
+                                    <span>${trackingAut[0].status}</span>
+                                </div>
+                            : `-`)
+                          : (operation.tracking[0]?.status
+                            ?
+                                <div>
+                                    <span>{operation.tracking[0]?.date_created.slice(0, -5)}</span>
+                                    <br />
+                                    <span>{t(`Statuses/${operation.tracking[0]?.status}`)}</span>
+                                </div> : (t(`Statuses/${operation.status}`)))}
+                    </div>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     {operation.agent_contact_person?operation.agent_contact_person:"-"}

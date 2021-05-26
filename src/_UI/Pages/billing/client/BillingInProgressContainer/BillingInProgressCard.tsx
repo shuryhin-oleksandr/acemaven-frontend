@@ -26,6 +26,8 @@ import {
   TotalName,
   TotalValue,
 } from "../../../dashboard/search/search_rate_card/search-card-styles";
+import {useSelector} from "react-redux";
+import {getExactOperationSelector} from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
 
 type PropsType = {
   billing: BillingOperationType;
@@ -33,6 +35,7 @@ type PropsType = {
 
 const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
   const { t } = useTranslation();
+  let operation_info = useSelector(getExactOperationSelector);
   return (
     <BillingCardContainer>
       <Route>
@@ -46,14 +49,30 @@ const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
         />
         <div style={{ marginLeft: "9px" }}>
           <RouteText>{`${billing.origin.code} - ${billing.destination.code}`}</RouteText>
-          <InfoTitle>ACID</InfoTitle>
+          <InfoTitle>ACEID</InfoTitle>
           <InfoText>{billing.aceid}</InfoText>
         </div>
       </Route>
       <MainInfo>
         <Row>
           <InfoTitle>{t("Bookings/STATUS")}</InfoTitle>
-          <InfoText>{billing.status}</InfoText>
+          <InfoText>
+            {/*{billing.status}*/}
+            <div style={{fontFamily: 'Helvetica Reg', textTransform: 'uppercase'}}>
+              {  operation_info?.automatic_tracking
+                ? ((operation_info?.tracking && operation_info?.tracking[0].status && operation_info?.tracking[0].date_created )
+                  ?
+                  <div>
+                    <span>${operation_info?.tracking[0].status}</span>
+                  </div>
+                  : `-`)
+                : (billing.tracking[0]?.status
+                  ?
+                  <div>
+                    <span>{t(`Statuses/${billing.tracking[0]?.status}`)}</span>
+                  </div> : (t(`Statuses/${billing.status}`)))}
+            </div>
+          </InfoText>
         </Row>
         <Row>
           <InfoTitle>{t("Bookings/SHIPPING MODE")}</InfoTitle>
@@ -80,7 +99,7 @@ const BillingInProgressCard: React.FC<PropsType> = ({ billing }) => {
                 !!billing.charges?.totals[key] && (
                   <TotalLine>
                     <TotalName>
-                      {t("Bookings/CHARGES IN")} {key}:
+                      {t("Bookings/Charges in")} {key}:
                     </TotalName>
                     <TotalValue>{billing.charges?.totals[key]}</TotalValue>
                   </TotalLine>

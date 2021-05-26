@@ -27,6 +27,7 @@ import {BookLittleButton} from "../../../quotes/client/quotes-client-styles";
 import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 import {useTranslation} from "react-i18next";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 

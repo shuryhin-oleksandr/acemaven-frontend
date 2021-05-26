@@ -21,30 +21,30 @@ const Info:React.FC<PropsType> = ({setEdit, companyInfo, company_type, current_u
             <FieldsContent>
                 <Field >
                     <Label>{t("Register/City")}</Label>
-                    <TextWrap>{companyInfo?.city}</TextWrap>
+                    <TextWrap>{companyInfo?.city ? companyInfo?.city : '-'}</TextWrap>
                 </Field>
                 <Field>
                     <Label>{t("Register/State")}</Label>
-                    <TextWrap>{companyInfo?.state}</TextWrap>
+                    <TextWrap>{companyInfo?.state ? companyInfo?.state : '-'}</TextWrap>
                 </Field>
                 <Field>
                     <Label>{t("Register/Phone Number")}</Label>
-                    <TextWrap>{companyInfo?.phone}</TextWrap>
+                    <TextWrap>{companyInfo?.phone ? companyInfo?.phone : '-'}</TextWrap>
                 </Field>
                 <Field>
                     <Label>{t("Register/Address")}</Label>
                     <TextWrap>
-                        {companyInfo?.address_line_first}
-                        {companyInfo?.address_line_second && (","+" "+ companyInfo?.address_line_second)}
+                        {companyInfo?.address_line_first ? companyInfo?.address_line_first : '-'}
+                        {companyInfo?.address_line_second ? companyInfo?.address_line_second : '-' && (","+" "+ companyInfo?.address_line_second ? companyInfo?.address_line_second : '-')}
                     </TextWrap>
                 </Field>
                 <Field>
                     <Label>{t("Register/Zip Code")}</Label>
-                    <TextWrap>{companyInfo?.zip_code}</TextWrap>
+                    <TextWrap>{companyInfo?.zip_code ? companyInfo?.zip_code : '-'}</TextWrap>
                 </Field>
                 {company_type !== 'client' && <Field>
                     <Label>{t("Register/Website")}</Label>
-                    <TextWrap>{companyInfo?.website}</TextWrap>
+                    <TextWrap>{companyInfo?.website ? companyInfo?.website : '-'}</TextWrap>
                 </Field>}
             </FieldsContent>
             {current_user_role.includes('master') && <EditIcon onClick={() => setEdit(true)}><img src={editIcon} alt=""/></EditIcon>}

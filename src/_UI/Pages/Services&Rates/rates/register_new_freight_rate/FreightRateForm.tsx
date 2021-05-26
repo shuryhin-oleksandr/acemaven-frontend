@@ -174,7 +174,8 @@ const FreightRateForm: React.FC<PropsType> = ({
                             </Scrollbars>
                         )}
                     </div>
-
+                </GroupWrap>
+              <GroupWrap>
                     <FormField
                         type='number'
                         label={t("Dashboard/Transit Time")}

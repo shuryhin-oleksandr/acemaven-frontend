@@ -20,7 +20,7 @@ const BillingPendingPage: React.FC<PropsType> = ({
   return (
     <Wrapper>
       <Content>
-        <Heading>{t("Dashboard/PENDING OF BOOKING FEE PAYMENT")}</Heading>
+        <Heading>{t("Dashboard/Pending of Booking Fee Payment")}</Heading>
         {billing_list.length > 0 ? (
           billing_list.map((i) => (
             <BillingCard

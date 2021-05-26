@@ -25,8 +25,9 @@ import {useTranslation} from "react-i18next";
 const useStyles = makeStyles({
   container: {
     boxShadow: "none",
-    paddingRight: "12px",
-    maxHeight: "600px",
+    paddingRight: 12,
+    height: "600px",
+    overflowY: "auto",
   },
   table: {
     "& .MuiTableHead-root": {},
@@ -47,6 +48,7 @@ const useStyles = makeStyles({
     paddingLeft: "63px",
     paddingRight: "30px",
     backgroundColor: "white",
+    paddingBottom: '15px'
   },
   cell: {
     color: "#115B86",
@@ -57,6 +59,7 @@ const useStyles = makeStyles({
     padding: "0",
     paddingRight: "30px",
     backgroundColor: "white",
+    paddingBottom: '15px'
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -186,6 +189,7 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
   return (
     <Outer>
       <TableContainer className={classes.container} component={Paper}>
+        <ScrollbarStyled>
         <Table stickyHeader className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -343,6 +347,7 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
             ))}
           </TableBody>
         </Table>
+        </ScrollbarStyled>
       </TableContainer>
     </Outer>
   );

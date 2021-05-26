@@ -17,25 +17,25 @@ const ProfileInfoField:React.FC<PropsType> = () => {
                 <Wrapper>
                     <FieldWrap>
                         <Label>{t("Register/Name")}</Label>
-                        <TextWrap style={{textTransform: 'capitalize'}}>{profileInfo?.first_name}</TextWrap>
+                        <TextWrap style={{textTransform: 'capitalize'}}>{profileInfo?.first_name ? profileInfo?.first_name : '-'}</TextWrap>
                     </FieldWrap>
                     <FieldWrap>
                         <Label>{t("Register/Last Name")}</Label>
-                        <TextWrap style={{textTransform: 'capitalize'}}>{profileInfo?.last_name}</TextWrap>
+                        <TextWrap style={{textTransform: 'capitalize'}}>{profileInfo?.last_name ? profileInfo?.last_name : '-'}</TextWrap>
                     </FieldWrap>
                     <FieldWrap>
                         <Label>{t("Register/Position in the Company")}</Label>
-                        <TextWrap>{profileInfo?.position}</TextWrap>
+                        <TextWrap>{profileInfo?.position ? profileInfo?.position : '-'}</TextWrap>
                     </FieldWrap>
                 </Wrapper>
                <Wrapper>
                    <FieldWrap>
                        <Label>{t("Register/Phone Number")}</Label>
-                       <TextWrap>{profileInfo?.phone}</TextWrap>
+                       <TextWrap>{profileInfo?.phone ? profileInfo?.phone : '-'}</TextWrap>
                    </FieldWrap>
                    <FieldWrap>
                        <Label>{t("Register/Email")}</Label>
-                       <TextWrap>{profileInfo?.email}</TextWrap>
+                       <TextWrap>{profileInfo?.email ? profileInfo?.email : '-'}</TextWrap>
                    </FieldWrap>
                    <FieldWrap>
                        <Label>{t("Register/Roles")}</Label>

@@ -2,12 +2,13 @@ import React from 'react'
 import {NoQuotesContent, NoQuotesOuter} from "./client/quotes-client-styles";
 
 type PropsType = {
-    text: string
+    text: string,
+    margin?: string
 }
 
-const NoQuotesCard:React.FC<PropsType> = ({text}) => {
+const NoQuotesCard:React.FC<PropsType> = ({text, margin}) => {
     return (
-        <NoQuotesOuter>
+        <NoQuotesOuter style={{margin: margin}}>
             <NoQuotesContent>
                 {text}
             </NoQuotesContent>

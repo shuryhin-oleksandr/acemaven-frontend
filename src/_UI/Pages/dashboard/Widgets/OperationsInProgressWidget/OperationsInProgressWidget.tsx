@@ -24,6 +24,7 @@ import ShipIcon from "../../../../assets/icons/widgets/widget-ship-icon.svg";
 import PlaneIcon from "../../../../assets/icons/widgets/widget-plane-icon.svg";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 const OperationsInProgressWidget: React.FC = () => {
   //hooks
@@ -45,7 +46,8 @@ const OperationsInProgressWidget: React.FC = () => {
     <>
       {operations_list.length > 0 ? (
         <BaseWidget heading={t("Dashboard/Operations in progress")}>
-          <div style={{ maxHeight: 210, overflowY: "auto" }}>
+          <div style={{ height: 210, overflowY: "auto" }}>
+            <ScrollbarStyled>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -118,7 +120,8 @@ const OperationsInProgressWidget: React.FC = () => {
                   </TableRow>
                 ))}
               </TableBody>
-            </Table>
+              </Table>
+            </ScrollbarStyled>
           </div>
         </BaseWidget>
       ) : null}

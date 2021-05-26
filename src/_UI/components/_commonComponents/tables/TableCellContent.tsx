@@ -25,7 +25,7 @@ type PropsType = {
 
 const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...props}) => {
     return (
-        <>
+        <div style={{margin: props.isSearchMode ? '0' : '11px 0'}}>
             {props.isSearchMode && !props.withoutSearch
                 ? <SearchInput setSearchValue={setSearchValue}
                                setSearchMode={props.setSearchMode}
@@ -68,7 +68,7 @@ const TableCellContent:React.FC<PropsType> = ({setSearchValue,thunkName, ...prop
                     }
                 </div>
             }
-        </>
+        </div>
 
     )
 }

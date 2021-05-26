@@ -25,7 +25,7 @@ export const OptionButtonImport = styled.div<PropsStyle>`
   background-color: ${({directory}) => directory ===  'import' ? '#1AB8E5' : 'transparent'};
   border-radius: 2px;
   color: ${({directory}) => directory === 'import' ? 'white' : 'black'};
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 14px;
   box-shadow: ${({directory}) => directory ===  'import' && '1px 1px 4px rgba(0, 0, 0, 0.25)'};
   transition: .3s;
@@ -43,7 +43,7 @@ export const OptionButtonExport = styled.div<PropsStyle>`
   background-color: ${({directory}) => directory === 'export' ?  '#1AB8E5' : 'transparent'};
   border-radius: 2px;
    color: ${({directory}) => directory === 'export' ? 'white' : 'black'};
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 14px;
   box-shadow: ${({directory}) => (directory === 'export') && '1px 1px 4px rgba(0, 0, 0, 0.25)'};
   transition: .3s;

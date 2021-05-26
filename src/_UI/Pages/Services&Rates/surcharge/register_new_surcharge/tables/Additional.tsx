@@ -28,12 +28,15 @@ import {
 } from "../../surcharges_page/surcharge/sea-conteneraized-cargo-styles";
 import {Field} from "../../../../../components/_commonComponents/Input/input-styles";
 import {useTranslation} from "react-i18next";
+import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
-        width: 662,
+        width: 660,
+        height: "400px",
+        overflowY: "auto",
     },
     table: {
         "& .MuiTableHead-root": {
@@ -84,6 +87,7 @@ const Additional: React.FC<PropsType> = ({
         <HandlingSurchargeContainer max_width="662px" max_height="490px">
             <HandlingTitle>{t("Surcharges/ADDITIONAL SURCHARGES")}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
+                <ScrollbarStyled>
                 <Table stickyHeader className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -182,6 +186,7 @@ const Additional: React.FC<PropsType> = ({
                         ))}
                     </TableBody>
                 </Table>
+                </ScrollbarStyled>
             </TableContainer>
         </HandlingSurchargeContainer>
     );

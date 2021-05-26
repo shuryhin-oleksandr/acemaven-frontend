@@ -73,13 +73,12 @@ export const ChargeRow = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #ececec;
-  padding: 7px 0;
+  padding: 8px 0;
 `;
 export const ChargeTitle = styled.span`
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 14px;
   line-height: 16px;
-  text-transform: capitalize;
   color: #1b1b25;
 `;
 export const ChargeValue = styled.span`
@@ -107,7 +106,7 @@ export const ConfirmButton = styled.button`
   border: none;
   background-color: black;
   color: white;
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 14px;
   display: flex;
   justify-content: center;
@@ -131,7 +130,7 @@ export const RejectButton = styled.button`
   border: 1px solid #3b3b41;
   background: none;
   color: #3b3b41;
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 14px;
   display: flex;
   justify-content: center;

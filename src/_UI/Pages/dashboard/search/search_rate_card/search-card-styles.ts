@@ -209,7 +209,7 @@ export const TotalLine = styled.div`
 `;
 export const TotalName = styled.div<{font_family?: string}>`
   color: #333333;
-  font-family: ${({font_family}) => font_family ? font_family : 'Helvetica Reg, sans-serif'} ;
+  font-family: ${({font_family}) => font_family ? font_family : 'Helvetica ExtraReg, sans-serif'} ;
   font-size: 14px;
   line-height: 16.5px;
   margin-right: 10px;

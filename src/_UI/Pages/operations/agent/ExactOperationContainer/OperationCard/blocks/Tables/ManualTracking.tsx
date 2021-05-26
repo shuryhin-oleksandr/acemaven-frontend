@@ -226,7 +226,6 @@ const ManualTracking: React.FC<PropsType> = ({
         }
     };
     const {t} = useTranslation();
-
     return (
         <Wrap onSubmit={handleSubmit(onSubmit)}>
             <Notification>

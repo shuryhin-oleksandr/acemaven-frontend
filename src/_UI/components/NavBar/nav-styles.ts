@@ -103,6 +103,7 @@ export const ChatLinkWrap = styled.div`
 `;
 
 export const NavButton = styled.button<{ add_color?: boolean }>`
+font-family: "Helvetica ExtraReg", sans-serif;
   outline: none;
   border: none;
   background: none;

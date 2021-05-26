@@ -29,10 +29,11 @@ import {useTranslation} from "react-i18next";
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
-        paddingRight: 12
+        paddingRight: 12,
+        height: "400px",
+        overflowY: "auto",
     },
     table: {
-        minWidth: 495,
         "& .MuiTableHead-root": {
             borderBottom: "2px solid #115B86",
         },
@@ -81,8 +82,8 @@ const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, se
     return (
         <HandlingSurchargeContainer max_height='400px'>
             <HandlingTitle>{tableName}</HandlingTitle>
-            {/*<ScrollbarStyled {...{style: {width: "100%", height: 270}}}>*/}
                 <TableContainer className={classes.container}>
+                    <ScrollbarStyled>
                     <Table stickyHeader>
                         <TableHead>
                             <TableRow>
@@ -160,8 +161,8 @@ const UsageFees: React.FC<PropsType> = ({control, usageFees, tableName, type, se
                             }
                         </TableBody>
                     </Table>
+                        </ScrollbarStyled>
                 </TableContainer>
-            {/*</ScrollbarStyled>*/}
         </HandlingSurchargeContainer>
     )
 };

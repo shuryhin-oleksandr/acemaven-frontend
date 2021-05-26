@@ -64,13 +64,13 @@ export const HeaderContent = styled.div`
   padding-right: 120px;
 `
 export const Title = styled.div`
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 64px;
   line-height: 75px;
   color: white;
   margin-top: 60px;
   margin-bottom: 20px;
-  width: 395px;
+  width: 440px;
   text-align: end;
   display: flex;
   flex-direction: column;

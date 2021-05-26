@@ -33,7 +33,8 @@ const useStyles = makeStyles({
   container: {
     boxShadow: "none",
     paddingRight: "12px",
-    maxHeight: "600px",
+    height: "600px",
+    overflowY: "auto",
   },
   table: {
     "& .MuiTableHead-root": {},
@@ -141,6 +142,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
   return (
     <Outer>
       <TableContainer className={classes.container} component={Paper}>
+        <ScrollbarStyled>
         <Table stickyHeader className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -311,6 +313,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
             ))}
           </TableBody>
         </Table>
+        </ScrollbarStyled>
       </TableContainer>
     </Outer>
   );

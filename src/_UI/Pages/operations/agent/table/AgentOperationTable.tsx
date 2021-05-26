@@ -16,12 +16,25 @@ import TableCellContent from "../../../../components/_commonComponents/tables/Ta
 import OperationsRow from "./OperationsRow";
 import ScrollbarStyled from "../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 import {useTranslation} from "react-i18next";
+import {useSelector} from "react-redux";
+import {
+    getExactClientOperationSelector,
+    getExactOperationSelector
+} from "../../../../../_BLL/selectors/operations/agentOperationsSelector";
+import {AppStateType} from "../../../../../_BLL/store";
+import ShipmentTrackingBlock
+    from "../ExactOperationContainer/OperationCard/blocks/shipments_tracking_block/ShipmentTrackingBlock";
 
 
 const useStyles = makeStyles({
     container: {
-        boxShadow: 'none',
+        boxShadow: "none",
         paddingRight: 12,
+        height: "100%",
+        overflowY: "auto",
+    },
+    table: {
+        "& .MuiTableHead-root": {},
     },
     shipping_cell: {
         width: '120px',
@@ -32,9 +45,9 @@ const useStyles = makeStyles({
         paddingLeft: '63px',
         padding: '0',
         paddingRight:"15px",
-        backgroundColor:"white"
+        backgroundColor:"white",
     },
-    empty: {
+    empty:  {
         width: "30px",
         padding:0,
         borderBottom:"none",
@@ -48,7 +61,7 @@ const useStyles = makeStyles({
         width: '200px',
         padding: "0",
         paddingRight:"15px",
-        backgroundColor:"white"
+        backgroundColor:"white",
     },
     cellData: {
         color: '#115B86',
@@ -58,11 +71,11 @@ const useStyles = makeStyles({
         width: '150px',
         padding: "0",
         paddingRight:"15px",
-        backgroundColor:"white"
+        backgroundColor:"white",
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         width: '220px',
         color: '#1B1B25',
@@ -72,7 +85,7 @@ const useStyles = makeStyles({
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         color: '#1B1B25',
         height: '72px',
@@ -106,12 +119,14 @@ type PropsType = {
 }
 
 const AgentOperationTable:React.FC<PropsType> = ({...props}) => {
+    let operation_info = useSelector(getExactOperationSelector);
 
     const classes = useStyles();
 const {t} = useTranslation();
     return (
             <TableContainer className={classes.container} component={Paper}>
-                <Table stickyHeader aria-label="collapsible table">
+                <ScrollbarStyled>
+                <Table stickyHeader className={classes.table} aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.empty} align="left" />
@@ -224,12 +239,17 @@ const {t} = useTranslation();
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.operations_list.map((operation, index) => <OperationsRow key={index}
-                                                                                        operation={operation}
-                                                                                        operation_status={props.operation_status}
-                        />)}
+                        {props.operations_list.map((operation, index) =>
+                          <OperationsRow
+                            trackingAut={operation_info?.tracking}
+                            automatic_tracking={operation_info?.automatic_tracking}
+                            key={index}
+                            operation={operation}
+                            operation_status={props.operation_status}
+                          />)}
                     </TableBody>
                 </Table>
+                </ScrollbarStyled>
             </TableContainer>
     )
 }

@@ -52,8 +52,9 @@ const FrateRatesTable:React.FC<PropsType> = ({rate}) => {
     const {t} = useTranslation();
 
     return (
-        <ScrollbarStyled {...{style: {width: "100%", height: 280}}}>
+
             <TableContainer className={classes.container} component={Paper}>
+                <ScrollbarStyled {...{style: {width: "100%", height: 280}}}>
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -82,8 +83,9 @@ const FrateRatesTable:React.FC<PropsType> = ({rate}) => {
 
                     </TableBody>
                 </Table>
+                </ScrollbarStyled>
             </TableContainer>
-        </ScrollbarStyled>
+
     )
 }
 

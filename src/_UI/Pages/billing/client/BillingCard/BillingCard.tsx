@@ -114,7 +114,7 @@ const BillingCard: React.FC<PropTypes> = ({
         </Row>
         <MainInfo>
           <Row>
-            <InfoTitle>ACID</InfoTitle>
+            <InfoTitle>ACEID</InfoTitle>
             <InfoText>{billing.aceid}</InfoText>
           </Row>
           <Row>
@@ -141,7 +141,7 @@ const BillingCard: React.FC<PropTypes> = ({
                     !!billing.charges?.totals[key] && (
                       <ChargeRow>
                         <ChargeTitle>
-                          {t("Bookings/CHARGES IN")} {key}:
+                          {t("Bookings/Charges in")} {key}:
                         </ChargeTitle>
                         <ChargeValue>
                           {billing.charges?.totals[key]}

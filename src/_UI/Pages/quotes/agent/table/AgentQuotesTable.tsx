@@ -41,7 +41,11 @@ const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
         paddingRight: 12,
-        maxHeight:600
+        height: '600px',
+        overflowY: "auto",
+    },
+    table: {
+        "& .MuiTableHead-root": {},
     },
     shipping_cell: {
         color: '#115B86',
@@ -126,7 +130,8 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                 ? <NoQuotesCard text={t("Quotes/There are no active quotes at the moment.")}/>
                 :
                     <TableContainer className={classes.container} component={Paper}>
-                        <Table stickyHeader aria-label="collapsible table">
+                        <ScrollbarStyled>
+                        <Table stickyHeader className={classes.table}  aria-label="collapsible table">
                             <TableHead>
                                 <TableRow>
                                     <TableCell className={classes.emptyHeader} align="left" />
@@ -189,6 +194,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                             </TableBody>
 
                         </Table>
+                        </ScrollbarStyled>
                     </TableContainer>
 
             }

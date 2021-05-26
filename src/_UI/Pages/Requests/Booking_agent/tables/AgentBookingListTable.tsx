@@ -186,6 +186,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
   const {t} = useTranslation();
   return (
     <TableContainer className={classes.container} component={Paper}>
+      <ScrollbarStyled>
       <Table stickyHeader className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -360,6 +361,7 @@ const AgentBookingListTable: React.FC<PropsType> = ({
           ))}
         </TableBody>
       </Table>
+        </ScrollbarStyled>
     </TableContainer>
   );
 };

@@ -23,13 +23,13 @@ display: flex;
 flex-direction: column;
 width: 100%;
 height: 45px;
-margin-bottom: 27px;
+margin-bottom: 20px;
 `
 export const Label = styled.div`
   font-family: "Helvetica Bold", sans-serif;
   font-size: 14px;
   color: black;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 `
 
 export const TextWrap = styled.div`

@@ -99,7 +99,6 @@ const ShipmentTrackingBlock: React.FC<PropsType> = ({
           {t("Dashboard/Map is not available")}
         </Notification>
       )}
-
       {automatic_tracking ? (
         shipping_type === ShippingTypesEnum.AIR ? (
           <StatusTable tracking={tracking} shipping_type={shipping_type} />

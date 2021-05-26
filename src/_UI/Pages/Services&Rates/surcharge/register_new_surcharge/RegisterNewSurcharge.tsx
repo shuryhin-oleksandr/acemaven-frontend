@@ -191,7 +191,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
             }
             {
                 !!shippingValue
-                    ? <>
+                    ? <div>
                         {
                             usageFees.length > 0 && <UsageFees
                                 control={control}
@@ -212,7 +212,7 @@ const RegisterNewSurcharge: React.FC<PropsType> = (props) => {
                             />
 
                         }
-                    </>
+                    </div>
                     : <UnderTitle>
                       {t("Surcharges/Please, complete the parameter of the surcharge for the value fields to appear")}
                     </UnderTitle>

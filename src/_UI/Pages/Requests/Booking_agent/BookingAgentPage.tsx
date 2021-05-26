@@ -39,7 +39,7 @@ const BookingAgentPage: React.FC<PropsType> = ({bookingList, ...props}) => {
     <BookingWrapper>
       <BookingContent style={{padding: "50px 80px 50px 0"}}>
         <ContentHeader>
-          <ContentTitle>{t("Dashboard Menu/BOOKINGS")}</ContentTitle>
+          <ContentTitle>{t("Dashboard Menu/Bookings")}</ContentTitle>
           <OptionsDeliveryButtons
             directory={props.directory}
             mode={props.mode}

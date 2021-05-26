@@ -41,6 +41,7 @@ import close_icon from '../../../../../assets/icons/close-icon.svg'
 import show_arrow from "../../../../../assets/icons/rates&services/show_arrow.svg";
 import hide_arrow from "../../../../../assets/icons/rates&services/hide_arrow.svg";
 import {useTranslation} from "react-i18next";
+import ScrollbarStyled from "../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 
 
@@ -49,7 +50,9 @@ const useStyles = makeStyles({
         boxShadow: "none",
         paddingRight: 12,
         overflowX: 'unset',
-        width: '900px'
+        overflowY: 'auto',
+        width: '900px',
+        height: '400px'
     },
     table: {
         "& .MuiTableHead-root": {},
@@ -64,7 +67,8 @@ const useStyles = makeStyles({
         fontFamily: "Helvetica Bold",
         fontSize: "16px",
         borderBottom: "1px solid #115B86",
-        padding: '16px 0 5px 0'
+        padding: '16px 0 5px 0',
+        backgroundColor: '#fff'
     },
     innerMainCell: {
         borderBottom: "1px solid #E0E0E0;",
@@ -180,7 +184,8 @@ const Rates: React.FC<PropsType> = ({
             {isFullView
                 &&
             <TableContainer className={classes.container} component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <ScrollbarStyled>
+                <Table stickyHeader className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             {usageFees.length > 0 && shipping_value !== ShippingModeEnum.ULD &&
@@ -278,6 +283,7 @@ const Rates: React.FC<PropsType> = ({
                         }
                     </TableBody>
                 </Table>
+                </ScrollbarStyled>
             </TableContainer>
             }
 

@@ -41,11 +41,11 @@ const {t} = useTranslation();
                         <InfoHeader>
                             <InfoBlock>
                                 <InfoLabel>{t("Register/Company Name")}</InfoLabel>
-                                <InfoText>{companyInfo?.name}</InfoText>
+                                <InfoText>{companyInfo?.name ? companyInfo?.name : '-'}</InfoText>
                             </InfoBlock>
                             <InfoBlock>
                                 <InfoLabel>{t("Register/Tax ID No.")}</InfoLabel>
-                                <InfoText>{companyInfo?.tax_id}</InfoText>
+                                <InfoText>{companyInfo?.tax_id ? companyInfo?.tax_id : '-'}</InfoText>
                             </InfoBlock>
                         </InfoHeader>
                         <LineWrap/>

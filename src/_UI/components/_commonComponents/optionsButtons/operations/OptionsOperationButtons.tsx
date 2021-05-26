@@ -93,7 +93,7 @@ const OptionMineButton = styled.div<{belong_to?: string}>`
   box-shadow: ${({ belong_to }) =>
     belong_to === "mine" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
   transition: 0.3s;
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   color: ${({ belong_to }) => belong_to === "mine" ? "white" : "black"};
   
 
@@ -114,7 +114,7 @@ export const OptionAllButton = styled.div<{belong_to?: string}>`
   box-shadow: ${({ belong_to }) =>
     belong_to === "all" && "1px 1px 4px rgba(0, 0, 0, 0.25)"};
   transition: 0.3s;
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   color: ${({ belong_to }) => belong_to === "all" ? "white" : "black"};
 
   &:hover {

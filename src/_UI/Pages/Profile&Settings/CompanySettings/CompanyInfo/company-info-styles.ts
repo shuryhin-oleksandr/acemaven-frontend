@@ -28,13 +28,13 @@ export const InfoBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right:30px;
+  margin-right: 20px;
 `
 export const InfoLabel = styled.div`
   font-family: "Helvetica Bold", sans-serif;
   color: #115B86;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 `
 export const InfoText = styled.div`
   font-family: "Helvetica Reg", sans-serif;
@@ -74,13 +74,13 @@ display: flex;
 flex-direction: column;
 min-width: 205px;
 width: 33.3%;
-margin-bottom: 15px;
+margin-bottom: 10px;
 `
 export const Label = styled.div`
  color: #115B86;
  font-family: "Helvetica Bold", sans-serif;
  font-size: 18px;
- margin-bottom: 10px;
+ margin-bottom: 8px;
 `
 export const TextWrap = styled.div`
   font-family: "Helvetica Light", sans-serif;

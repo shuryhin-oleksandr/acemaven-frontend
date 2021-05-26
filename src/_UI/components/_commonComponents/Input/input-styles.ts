@@ -76,7 +76,7 @@ export const Field = styled.input<PropsStyle>`
 
 export const Label = styled.div<PropsStyle>`
   font-family: ${({ font_weight }) =>
-    font_weight ? "Helvetica Bold, sans-serif" : "Helvetica Reg, sans-serif"};
+    font_weight ? "Helvetica Bold, sans-serif" : "Helvetica ExtraReg, sans-serif"};
   font-size: 14px;
   color: ${({ color_label }) => (color_label ? color_label : "black")};
   margin-bottom: 9px;

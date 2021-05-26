@@ -10,7 +10,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 //BLL
 import {AppStateType} from "../../../../../_BLL/store";
 //types
-import {OperationType} from "../../../../../_BLL/types/operations/operationsTypes";
+import {OperationType, TrackingBackendType} from "../../../../../_BLL/types/operations/operationsTypes";
 import {AppCompaniesTypes} from "../../../../../_BLL/types/commonTypes";
 //styles
 import {ModeIcon, ModeIconBlue, SpanMode} from "../../../Services&Rates/surcharge/surcharges_page/surcharges-style";
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         width: '220px',
         color: '#1B1B25',
@@ -58,7 +58,7 @@ const useStyles = makeStyles({
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         color: '#1B1B25',
         padding: '0',
@@ -87,7 +87,7 @@ const useStyles = makeStyles({
     },
     collapseInnerCell: {
         borderBottom: 0,
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '14px'
     },
     customTooltip: {
@@ -104,10 +104,12 @@ const useStyles = makeStyles({
 
 type PropsType = {
     operation: OperationType,
-    operation_status?: string
+    operation_status?: string,
+    automatic_tracking?: boolean,
+    trackingAut?: TrackingBackendType[],
 }
 
-const OperationsRow: React.FC<PropsType> = ({operation}) => {
+const OperationsRow: React.FC<PropsType> = ({operation, automatic_tracking, trackingAut}) => {
     const classes = useStyles();
 
     const history = useHistory()
@@ -118,7 +120,6 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
     let shipment = operation?.shipment_details && operation?.shipment_details[0]
 
     let company_type = useSelector((state: AppStateType) => state.profile.authUserInfo?.companies && state.profile.authUserInfo?.companies[0]);
-
     const {t} = useTranslation();
     return (
         <React.Fragment>
@@ -167,7 +168,7 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     { (shipment && shipment?.date_of_departure && shipment?.date_of_arrival)
-                        ? <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>
+                        ? <span style={{fontFamily: 'Helvetica Reg', fontSize: '14px'}}>
                             {t("Bookings/ETD")}: {shipment?.date_of_departure} <br/> {t("Bookings/ETA")}: {shipment?.date_of_arrival}
                           </span>
                         : '-'
@@ -177,9 +178,24 @@ const OperationsRow: React.FC<PropsType> = ({operation}) => {
                     {!operation.freight_rate.carrier_disclosure ? operation.freight_rate.carrier.title : 'Carrier is disclosed'}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    <span style={{fontFamily: 'Helvetica Light', textTransform: 'uppercase'}}>
-                        {t(`Statuses/${operation.status}`)}
-                    </span>
+                    <div style={{fontFamily: 'Helvetica Reg', textTransform: 'uppercase'}}>
+                        {  automatic_tracking
+                          ? ((trackingAut && trackingAut[0].status && trackingAut[0].date_created )
+                            ?
+                                <div>
+                                    <span>{trackingAut[0].date_created.slice(0, -5)}</span>
+                                    <br />
+                                    <span>${trackingAut[0].status}</span>
+                                </div>
+                            : `-`)
+                          : (operation.tracking[0]?.status
+                            ?
+                                <div>
+                                    <span>{operation.tracking[0]?.date_created.slice(0, -5)}</span>
+                                    <br />
+                                    <span>{t(`Statuses/${operation.tracking[0]?.status}`)}</span>
+                                </div> : (t(`Statuses/${operation.status}`)))}
+                    </div>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     {operation.agent_contact_person?operation.agent_contact_person:"-"}

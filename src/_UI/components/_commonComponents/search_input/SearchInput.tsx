@@ -177,12 +177,13 @@ const SearchInput: React.FC<PropsType> = ({
         onChange={onChangeHandler}
       />
       <IconButton
-        onClick={backToBasisHandler}
+        onClick={() => setSearchMode(false)}
         style={{ position: "absolute", right: "22px", top: "3px" }}
       >
         <img src={close_icon} alt="" style={{ width: "9px" }} />
       </IconButton>
-      <SearchIcon>
+      <SearchIcon
+        onClick={backToBasisHandler}>
         <img src={search_icon} alt="" />
       </SearchIcon>
     </SearchWrap>

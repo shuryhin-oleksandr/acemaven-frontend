@@ -175,7 +175,7 @@ const ExchangeTable: React.FC<PropsType> = ({exchange_list, setProceed, setRepea
                         <TableRow className={classes.root}>
                             <TableCell className={classes.innerMainCell} align="left" component="th" scope="row">
                             <span style={{fontFamily: 'Helvetica Reg', fontSize: '14px', color: '#1b1b25'}}>
-                                BRZ
+                                BRL
                             </span>
                             </TableCell>
                             <TableCell className={classes.innerCell} align="left">

@@ -88,7 +88,7 @@ const {t} = useTranslation() ;
                               goToClientsQuotes()
                             }
                                 >
-                                <TableCell className={classes.innerCell}>
+                                <TableCell className={classes.quoteCell}>
                                 <div
                                 style={{
                                 display: "flex",
@@ -100,10 +100,10 @@ const {t} = useTranslation() ;
                                 alt=""/>
                                 </div>
                                 </TableCell>
-                                <TableCell className={classes.boldCell} align="left">
+                                <TableCell className={classes.pageCell} align="left">
                                 {quote?.origin.code} - {quote?.destination.code}
                                 </TableCell>
-                                <TableCell className={classes.innerCell} align="left">
+                                <TableCell className={classes.pageCell} align="left">
                                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left'}}>
                                 {quote?.cargo_groups.map((c: any) =>
                                   <span key={c?.id}>
@@ -113,7 +113,7 @@ const {t} = useTranslation() ;
                                 </div>
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left">
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                                 {quote?.date_from}
                                 {company_type?.type === AppCompaniesTypes.AGENT
                                 && (!quote.is_submitted

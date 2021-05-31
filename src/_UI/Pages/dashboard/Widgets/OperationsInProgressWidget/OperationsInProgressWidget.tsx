@@ -74,7 +74,7 @@ const OperationsInProgressWidget: React.FC = () => {
                     className={classes.row}
                     onClick={() => goToPage(operation?.id)}
                   >
-                    <TableCell className={classes.innerCell}>
+                    <TableCell className={classes.pageCell}>
                       <div
                         style={{
                           display: "flex",

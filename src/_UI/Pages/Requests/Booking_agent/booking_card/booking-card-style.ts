@@ -184,7 +184,7 @@ export const InfoRowLabel = styled.div<{font_size?: string, font_color?: string,
   text-transform: uppercase;
 `
 export const InfoRowValue = styled.div<{font_size?: string}>`
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   color: #1b1b25;
   font-size: ${({font_size}) => font_size ? font_size : '14px'};
   line-height: 16.49px;

@@ -139,9 +139,11 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
                 {quote.is_submitted
                     ? <SubmittedWrapper >
                         <DoneIcon />
-                        <StatusSpan>{t("Quotes/SUBMITTED")}</StatusSpan>
+                        <StatusSpan>
+                            {t("Quotes/SUBMITTED")}
+                        </StatusSpan>
                     </SubmittedWrapper>
-                    :  <SubmitQuoteButton style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>{t("Quotes/SUBMIT QUOTE")}</SubmitQuoteButton>
+                    :  <SubmitQuoteButton style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', whiteSpace: 'nowrap'}}>{t("Quotes/SUBMIT QUOTE")}</SubmitQuoteButton>
                 }
             </TableCell>
         </TableRow>

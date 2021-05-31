@@ -84,7 +84,7 @@ const FeePaymentWidget: React.FC = () => {
                   billing_admin_role && history.push(`/billing_pending/`);
                 }}
               >
-                <TableCell className={classes.innerCell}>
+                <TableCell className={classes.pageCell}>
                   <div
                     style={{
                       display: "flex",

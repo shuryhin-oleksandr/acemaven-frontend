@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 type PropsStyles = {
   checked?: any;
   active?: any;
+  padding?: string;
 };
 
 let shown = keyframes`
@@ -148,11 +149,12 @@ export const Name = styled.div<PropsStyles>`
   text-align: left;
   padding: 0;
   margin: 0;
+  letter-spacing: 0.7px;
 `;
-export const IconWrap = styled.div`
+export const IconWrap = styled.div<PropsStyles>`
   width: 50px;
   display: flex;
-  padding: 0 20px 0 10px;
+  padding: ${({ padding }) => (padding ? padding : "0 20px 0 10px")};
   align-items: center;
   justify-content: flex-start;
 `;
@@ -194,6 +196,7 @@ export const NestedName = styled.div<PropsStyles>`
   font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 15px;
   transition: 0.2s;
+    letter-spacing: 0.7px;
 
   &:hover {
     color: #00c5ff;

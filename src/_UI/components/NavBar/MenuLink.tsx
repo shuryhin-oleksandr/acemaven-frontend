@@ -27,12 +27,13 @@ type IProps = {
     current_user_role?: string[],
     disabled?: boolean,
     setSmallBar?: (value: boolean) => void,
-    isSmallBar:boolean
+    isSmallBar:boolean,
+    padding?: string
 }
 
 const MenuLink: React.FC<IProps> = ({
                                         name, icon, activeIcon, nestedLinks, setSmallBar,
-                                        setChecked, checkedLink, path, current_user_role, disabled,isSmallBar
+                                        setChecked, checkedLink, path, current_user_role, disabled,isSmallBar, padding
                                     }) => {
 
     let currentPath = useSelector((state: AppStateType) => state.common.currentNavPath)
@@ -57,7 +58,9 @@ const MenuLink: React.FC<IProps> = ({
     return (
         <LinkWrap >
             <Outer onClick={clickHandler}>
-                <IconWrap style={{padding: "5px 20px 5px 10px"}} onMouseEnter={() => setSmallBar && setSmallBar(false)}>
+                <IconWrap padding={padding}
+                          onMouseEnter={() => setSmallBar && setSmallBar(false)}
+                >
                     <img src={(checkedLink !== name) ? icon : activeIcon} alt=""/>
                 </IconWrap>
                 {!isSmallBar && <Name checked={checkedLink === name}>{t(`Dashboard Menu/${name}`)}</Name>}

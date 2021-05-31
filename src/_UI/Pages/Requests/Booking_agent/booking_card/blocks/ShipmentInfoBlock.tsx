@@ -36,7 +36,7 @@ const ShipmentInfoBlock:React.FC<PropsType> = ({shipper, client, client_contact,
                         <InfoRow margin_right='50px' margin_bottom='0px'>
                             <span style={{
                                 width: '100px', fontSize: '24px', color: 'black',
-                                fontFamily: 'Helvetica Light', marginTop: '15px', marginBottom: '13px'
+                                fontFamily: 'Helvetica Light', marginTop: '0', marginBottom: '13px'
                             }}>
                                 {exact_booking_info?.week_range?.week_from === exact_booking_info?.week_range?.week_to
                                     ? `${t("Bookings/WEEK")} ${exact_booking_info?.week_range?.week_from}`

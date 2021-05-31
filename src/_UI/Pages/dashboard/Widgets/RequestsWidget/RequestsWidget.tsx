@@ -60,7 +60,7 @@ const {t} = useTranslation();
                 <TableBody>
                     {latest_list.map((req) => (
                         <TableRow key={req?.id} className={classes.row} onClick={() => goToPage(req?.id)}>
-                            <TableCell className={classes.innerCell}>
+                            <TableCell className={classes.pageCell}>
                                 <div
                                     style={{
                                         display: "flex",

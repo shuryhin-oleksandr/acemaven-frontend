@@ -102,7 +102,9 @@ const NavBar: React.FC<IProps> = ({...props}) => {
             autoHeight: true,
             navBar: true
         }}>
-            <NavContainer onMouseLeave={() => props.setSmallBar(true)}>
+            <NavContainer
+              onMouseLeave={() => props.setSmallBar(true)}
+            >
                 {
                     company_type && company_type[0].type !== AppCompaniesTypes.AGENT
                         ? <MenuLink icon={requests}
@@ -112,6 +114,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                                     setChecked={setChecked}
                                     checkedLink={checkedLink}
                                     isSmallBar={props.isSmallBar}
+                                    padding="5px 15px 5px 9px"
 
                         />
                         : ((billing_and_agent_option || agent_option || master_option)
@@ -123,6 +126,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                                       checkedLink={checkedLink}
                                       nestedLinks={menuLinks.requestLinks}
                                       isSmallBar={props.isSmallBar}
+                                      padding="5px 15px 5px 9px"
 
                             />
                         )
@@ -138,6 +142,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                           path='#'
                           disabled={operationsFetching}
                           isSmallBar={props.isSmallBar}
+                          padding="5px 15px 5px 9px"
 
                 />
                 }
@@ -152,6 +157,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                                  checkedLink={checkedLink}
                                  activeIcon={activeRates}
                                  isSmallBar={props.isSmallBar}
+                                 padding="5px 15px 5px 9px"
                     />
                 }
                 {(company_type && company_type[0].type === AppCompaniesTypes.AGENT) &&
@@ -166,6 +172,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                           checkedLink={checkedLink}
                           activeIcon={active_billing}
                           isSmallBar={props.isSmallBar}
+                          padding="5px 15px 5px 9px"
                 />
                 }
                 {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT)
@@ -177,6 +184,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                           checkedLink={checkedLink}
                           activeIcon={active_billing}
                           isSmallBar={props.isSmallBar}
+                          padding="5px 15px 5px 9px"
                 />
                 }
                 <MenuLink icon={settings}
@@ -187,6 +195,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                           setChecked={setChecked}
                           checkedLink={checkedLink}
                           isSmallBar={props.isSmallBar}
+                          padding="5px 15px 5px 9px"
                 />
                 <MenuLink icon={support}
                           path='/support'
@@ -195,6 +204,7 @@ const NavBar: React.FC<IProps> = ({...props}) => {
                           checkedLink={checkedLink}
                           activeIcon={active_support}
                           isSmallBar={props.isSmallBar}
+                          padding="5px 15px 5px 9px"
                 />
             </NavContainer>
         </ScrollbarStyled>

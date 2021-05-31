@@ -16,6 +16,7 @@ type PropsType = {
 const Layout: React.FC<PropsType> = ({ children, ...props}) => {
     const match = useRouteMatch('/operations/:id');
     const [isSmallBar, setSmallBar] = useState(!!match);
+  // const [isSmallBar, setSmallBar] = useState(true);
 
   return (
     <LayoutContainer>

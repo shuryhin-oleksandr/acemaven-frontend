@@ -56,7 +56,7 @@ const RackingStatusWidget: React.FC = () => {
                   history.push(`/operations/${item.booking}`);
                 }}
               >
-                <TableCell className={classes.innerCell}>
+                <TableCell className={classes.pageCell}>
                   <div
                     style={{
                       display: "flex",

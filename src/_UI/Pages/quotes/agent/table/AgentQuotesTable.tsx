@@ -48,6 +48,7 @@ const useStyles = makeStyles({
         "& .MuiTableHead-root": {},
     },
     shipping_cell: {
+        width: '300px',
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
@@ -56,26 +57,33 @@ const useStyles = makeStyles({
         padding: '0',
         paddingBottom: 15,
         backgroundColor: "white",
+        whiteSpace: 'nowrap',
+
+        '@media (max-width: 1360px)' : {
+            width: '185px',
+        },
     },
     cell: {
+        maxWidth: '120px',
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',
         borderBottom: "1px solid #115B86",
         padding: '0',
-        paddingRight: "10px",
         paddingBottom: 15,
         backgroundColor: "white",
+        whiteSpace: 'nowrap'
     },
     innerMainCell: {
-        borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        maxWidth: '100px',
+        color: '#115B86',
+        fontFamily: 'Helvetica Bold',
         fontSize: '16px',
-        width: '220px',
-        color: '#1B1B25',
-        position: 'relative',
-        paddingLeft: '63px',
-        height: '72px'
+        borderBottom: "1px solid #115B86",
+        padding: '0',
+        paddingBottom: 15,
+        backgroundColor: "white",
+        whiteSpace: 'nowrap'
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
@@ -149,7 +157,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                                           thunkName='quotes_agent'
                                         />
                                     </TableCell>
-                                    <TableCell className={classes.cell} align="left">
+                                    <TableCell className={classes.innerMainCell} align="left">
                                         <TableCellContent setSearchValue={setSearchValue}
                                                           setSearchMode={setSearchMode}
                                                           direction={''}
@@ -180,7 +188,7 @@ const AgentQuotesTable:React.FC<PropsType> = ({setCardOpen, searchValue,setSearc
                                     <TableCell className={classes.cell} align="left">
                                         {t("Quotes/VOLUME")}
                                     </TableCell>
-                                    <TableCell className={classes.cell} align="left">
+                                    <TableCell className={classes.innerMainCell} align="left">
                                         {t("Quotes/SHIPMENT DATE")}
                                     </TableCell>
                                     <TableCell className={classes.cell} align="right"/>

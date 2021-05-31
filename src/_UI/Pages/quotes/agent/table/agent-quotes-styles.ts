@@ -27,8 +27,6 @@ export const DoneIcon = styled.div`
   width: 19px;
 `
 export const SubmitQuoteButton = styled.button<{disabled?: boolean}>`
-  width: 187px;
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,9 +34,9 @@ export const SubmitQuoteButton = styled.button<{disabled?: boolean}>`
   background-color: ${({disabled}) => disabled ? 'rgba(0, 0, 0, .6)' : 'black'};
   border: none;
   color: white;
-  font-family: "Helvetica Reg", sans-serif;
+  padding: 10px 40px;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 14px;
-  margin-left: 20px;
   
   &:hover {
     cursor: ${({disabled}) => disabled ? 'not-allowed' : 'pointer'};
@@ -156,7 +154,7 @@ export const RowTitle = styled.div`
   margin-bottom: 4.2px;
 `
 export const RowValue = styled.div`
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   line-height: 16.72px;
   color: #1b1b25;

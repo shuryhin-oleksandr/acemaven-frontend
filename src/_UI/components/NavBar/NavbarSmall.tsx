@@ -76,6 +76,7 @@ const {t} = useTranslation();
                                       setSmallBar={props.setSmallBar}
                                       name="QUOTES"
                                       isSmallBar={props.isSmallBar}
+                                      padding="5px 20px 5px 11px"
                             />
                             : ((billing_and_agent_option || agent_option || master_option)
                                 &&
@@ -86,6 +87,7 @@ const {t} = useTranslation();
                                           setSmallBar={props.setSmallBar}
                                           name="REQUESTS"
                                           isSmallBar={props.isSmallBar}
+                                          padding="5px 20px 5px 11px"
                                 />
                             )
                     }
@@ -98,6 +100,7 @@ const {t} = useTranslation();
                               setSmallBar={props.setSmallBar}
                               name="OPERATIONS"
                               isSmallBar={props.isSmallBar}
+                              padding="5px 20px 5px 11px"
                     />
                     }
                     {
@@ -112,6 +115,7 @@ const {t} = useTranslation();
                                   setSmallBar={props.setSmallBar}
                                   name="RATES & SERVICES"
                                   isSmallBar={props.isSmallBar}
+                                  padding="5px 20px 5px 11px"
 
                         />
                     }
@@ -123,6 +127,7 @@ const {t} = useTranslation();
                               setSmallBar={props.setSmallBar}
                               name="BILLING"
                               isSmallBar={props.isSmallBar}
+                              padding="5px 20px 5px 10px"
                     />
                     }
                     {(company_type && company_type[0].type === AppCompaniesTypes.CLIENT) &&
@@ -134,6 +139,7 @@ const {t} = useTranslation();
                               setSmallBar={props.setSmallBar}
                               name="BILLING"
                               isSmallBar={props.isSmallBar}
+                              padding="5px 20px 5px 11px"
                     />
                     }
                     <MenuLink icon={settings}
@@ -143,6 +149,7 @@ const {t} = useTranslation();
                               setSmallBar={props.setSmallBar}
                               name="PROFILE & SETTINGS"
                               isSmallBar={props.isSmallBar}
+                              padding="5px 20px 5px 11px"
 
                     />
                     <MenuLink icon={support}
@@ -152,6 +159,7 @@ const {t} = useTranslation();
                               setSmallBar={props.setSmallBar}
                               name="HELP & SUPPORT"
                               isSmallBar={props.isSmallBar}
+                              padding="5px 20px 5px 11px"
 
                     />
                 </NavSmallContainer>

@@ -28,7 +28,7 @@ export const HeaderTitle = styled.div`
 export const StatusSpan = styled.div<PropsStyle>`
   color: #115b86;
   font-family: "Helvetica Bold", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
 `
 export const OffersSpan = styled.div<{new_offer?: boolean}>`
    font-family: ${({new_offer}) => new_offer ? "Helvetica Bold" : "Helvetica Light"};

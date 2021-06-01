@@ -41,8 +41,8 @@ export const CalendarWrapper = styled.div<{error?: boolean, max_width?: string, 
   .DayPickerInput-OverlayWrapper {
     z-index: 2300;
     position: absolute;
-    top: -120px;
-    right: 25px;
+    top: 20px;
+    left: -130px;
   }
    
    .DayPickerInput-Overlay {

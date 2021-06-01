@@ -39,10 +39,11 @@ export const getExistingSurchargesForQuoteThunk = (quote_data: QuoteForRateType)
         try {
             let res = await quotesAgentAPI.getExistingRateForQuote(quote_data)
             dispatch(quotesAgentActions.setFindedFirst(false))
-            if(JSON.stringify(res.data) === '{}') {
+            if(Object.keys(res.data).length === 0 ) {
                 dispatch(quotesAgentActions.setExistingSurchargeForQuote(null))
                 dispatch(quotesAgentActions.setCheckedIsSurchargeExist('success'))
             } else {
+                console.log('haha', res.data)
                 dispatch(quotesAgentActions.setFindedFirst(true))
                 dispatch(quotesAgentActions.setExistingSurchargeForQuote(res.data))
                 dispatch(quotesAgentActions.setCheckedIsSurchargeExist('success'))

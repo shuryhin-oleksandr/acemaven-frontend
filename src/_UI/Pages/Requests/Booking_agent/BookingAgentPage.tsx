@@ -37,7 +37,7 @@ const BookingAgentPage: React.FC<PropsType> = ({bookingList, ...props}) => {
   const {t} = useTranslation();
   return (
     <BookingWrapper>
-      <BookingContent style={{padding: "50px 80px 50px 0"}}>
+      <BookingContent style={{padding: "50px 55px 50px 0"}}>
         <ContentHeader>
           <ContentTitle>{t("Dashboard Menu/Bookings")}</ContentTitle>
           <OptionsDeliveryButtons

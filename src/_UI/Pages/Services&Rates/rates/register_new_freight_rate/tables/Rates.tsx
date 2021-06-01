@@ -274,7 +274,7 @@ const Rates: React.FC<PropsType> = ({
                                             required_dates={required_dates}
                                             invalidDate={invalidDate}
                                             setInvalidDate={setInvalidDate}
-                                            margin_top='0px'
+                                            margin_top='0'
                                         />
                                     </>
                                     {invalidDate && <HelperText messagePaddingTop='25px'>{invalidDate}</HelperText>}

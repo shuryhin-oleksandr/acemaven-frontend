@@ -46,7 +46,7 @@ export const SubmitQuoteButton = styled.button<{disabled?: boolean}>`
 export const QuoteCardWrapperForm= styled.form`
   width: 100%;
   height: 100%;
-  padding: 50px 80px 50px 30px;
+  padding: 50px 55px 50px 30px;
   animation: ${skelet_appear} ease-in-out .2s;
   position: relative;
 `

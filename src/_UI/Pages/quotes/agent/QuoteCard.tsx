@@ -308,9 +308,9 @@ const QuoteCard: React.FC<PropsType> = ({...props}) => {
                                     </CarrierWrap>}
                                 </CarrierInfo>
                                 <SurchargesInfo no_rates={props.existing_rate_for_quote}>
-                                    {props.checked_surcharge_result && !props.existing_rate_for_quote &&
+                                    {props.checked_surcharge_result && !props.existing_surcharge_for_quote &&
                                     <NoRateSurchargeCard openCreatePopup={props.openCreatePopup}/>}
-                                    {props.existing_rate_for_quote && props.existing_surcharge_for_quote
+                                    {props.existing_surcharge_for_quote
                                     && <AgentSurchargesTable
                                         surcharges={props.existing_surcharge_for_quote ? props.existing_surcharge_for_quote : null}
                                     />

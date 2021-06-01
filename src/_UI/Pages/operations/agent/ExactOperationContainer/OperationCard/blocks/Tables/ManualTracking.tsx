@@ -269,8 +269,9 @@ const ManualTracking: React.FC<PropsType> = ({
                                         />
                                     </TableCell>
                                     <TableCell className={classes.innerCommentCell} align="left">
-                                        {!finded_status
-                                            ? <FormField
+                                        {/*{!finded_status*/}
+                                        {/*    ? */}
+                                          <FormField
                                                 inputRef={register({
                                                     required: `${t("Error message/Field is required")}`,
                                                 })}
@@ -280,20 +281,19 @@ const ManualTracking: React.FC<PropsType> = ({
                                                 max_width={"100%"}
                                                 marginBottom={"12px"}
                                             />
-                                            : <ManualTrackingCalendarChoice control={control}
-                                                                            date_name_first='date'
-                                                                            time_name_first='time'
-                                                                            setValue={setValue}
-                                                                            errors={{
-                                                                                from: errors.date,
-                                                                                departure_time: errors.time
-                                                                            }}
-                                                                            required_dates={false}
-                                                                            label1=''
-                                                                            justify_content='flex-start'
-                                            />
-                                        }
-
+                                        {/*    : <ManualTrackingCalendarChoice control={control}*/}
+                                        {/*                                    date_name_first='date'*/}
+                                        {/*                                    time_name_first='time'*/}
+                                        {/*                                    setValue={setValue}*/}
+                                        {/*                                    errors={{*/}
+                                        {/*                                        from: errors.date,*/}
+                                        {/*                                        departure_time: errors.time*/}
+                                        {/*                                    }}*/}
+                                        {/*                                    required_dates={false}*/}
+                                        {/*                                    label1=''*/}
+                                        {/*                                    justify_content='flex-start'*/}
+                                        {/*    />*/}
+                                        {/*}*/}
                                     </TableCell>
                                     <TableCell className={classes.buttonCell} align="left">
                                         <FormOperationButton
@@ -329,7 +329,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                         <span
                                             style={{
                                                 marginLeft: "15px",
-                                                fontFamily: "Helvetica Reg, sans-serif",
+                                                fontFamily: "Helvetica ExtraReg, sans-serif",
                                             }}
                                         >
                       {moment(row?.date_created).format('HH:mm')}
@@ -340,7 +340,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                         className={classes.innerCell}
                                         align="left"
                                     >
-                                        <div style={{fontFamily: "Helvetica Reg, sans-serif"}}>
+                                        <div style={{fontFamily: "Helvetica ExtraReg, sans-serif"}}>
                                             {row?.status}
                                         </div>
                                     </TableCell>

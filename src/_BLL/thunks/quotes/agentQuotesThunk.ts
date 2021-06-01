@@ -43,7 +43,6 @@ export const getExistingSurchargesForQuoteThunk = (quote_data: QuoteForRateType)
                 dispatch(quotesAgentActions.setExistingSurchargeForQuote(null))
                 dispatch(quotesAgentActions.setCheckedIsSurchargeExist('success'))
             } else {
-                console.log('haha', res.data)
                 dispatch(quotesAgentActions.setFindedFirst(true))
                 dispatch(quotesAgentActions.setExistingSurchargeForQuote(res.data))
                 dispatch(quotesAgentActions.setCheckedIsSurchargeExist('success'))

@@ -146,7 +146,7 @@ const {t} = useTranslation();
                                                   operation_status={props.operation_status}
                                 />
                             </TableCell>
-                            <TableCell className={classes.cell} align="left">
+                            <TableCell className={classes.cellData} align="left">
                                 <TableCellContent setSearchValue={props.setSearchValue}
                                                   setSearchMode={props.setSearchMode}
                                                   direction={''}
@@ -183,7 +183,7 @@ const {t} = useTranslation();
                                                   withoutSearch={true}
                                 />
                             </TableCell>
-                            <TableCell className={classes.cell} align="left">
+                            <TableCell className={classes.cellData} align="left">
                                 <TableCellContent setSearchValue={props.setSearchValue}
                                                   setSearchMode={props.setSearchMode}
                                                   direction={''}

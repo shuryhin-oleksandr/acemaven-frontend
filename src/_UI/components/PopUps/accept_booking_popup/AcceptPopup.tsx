@@ -52,11 +52,13 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
             cargo_cut_off_date: moment(values.cargo_cut_off?.to).format('DD/MM/YYYY') + ' ' + values.cargo_cut_off?.cut_off_time,
             date_of_departure: moment(values.estimated_time?.from).format('DD/MM/YYYY') + ' ' + values.estimated_time?.departure_time,
             date_of_arrival: moment(values.estimated_time?.to).format('DD/MM/YYYY') + ' ' + values.estimated_time?.arrival_time,
-
         }
         delete obj_data.estimated_time
         delete obj_data.documents_cut_off
         delete obj_data.cargo_cut_off
+        if(!values.booking_notes) {
+            delete obj_data.booking_notes
+        }
         !values.documents_cut_off?.cut_off_time && !values.cargo_cut_off?.cut_off_time && delete obj_data.cargo_cut_off_date && delete obj_data.document_cut_off_date
         !values.container_free_time && delete obj_data.container_free_time
 
@@ -207,14 +209,14 @@ const AcceptPopup: React.FC<PropsType> = ({openAcceptPopup, exact_operation_info
                         <Controller name='booking_notes'
                                     control={control}
                                     defaultValue=''
-                                    rules={{
-                                        required: `${t("Error message/Field is required")}`
-                                    }}
+                                    // rules={{
+                                    //     required: `${t("Error message/Field is required")}`
+                                    // }}
                                     as={
                                         <div style={{width: '100%'}}>
                                             <TextareaLabel>{t('Booking Confirmation/Booking Notes')}</TextareaLabel>
                                             <FormTextarea error={!!errors?.booking_notes}
-                                                          placeholder={('Bookings/Comments')}
+                                                          placeholder={t('Bookings/Comments')}
                                             />
                                         </div>
                                     }

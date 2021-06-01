@@ -48,23 +48,23 @@ export const polylineIcons = (props: InterfaceFuncIcons) => {
         offset: offset,
       }] : []
   return [
-    {
-      icon: {
-        path: "M 0,-1.2 0,1.2",
-        strokeOpacity: 1,
-        strokeWeight: 9,
-        strokeColor: "rgba(0,0,0,0.07)",
-        scale: 5,
-      },
-      offset: "0",
-      repeat: "30px",
-    },
+    // {
+    //   icon: {
+    //     path: "M 0,-1.2 0,1.2",
+    //     strokeOpacity: 1,
+    //     strokeWeight: 9,
+    //     strokeColor: "rgba(0,0,0,0.07)",
+    //     scale: 5,
+    //   },
+    //   offset: "0",
+    //   repeat: "30px",
+    // },
     {
       icon: {
         path: "M 0,-1 0,1",
         strokeOpacity: 1,
         strokeColor: "white",
-        scale: 3,
+        scale: 6,
       },
       offset: "0",
       repeat: "30px",

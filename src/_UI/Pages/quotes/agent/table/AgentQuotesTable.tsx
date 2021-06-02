@@ -58,6 +58,7 @@ const useStyles = makeStyles({
         paddingBottom: 15,
         backgroundColor: "white",
         whiteSpace: 'nowrap',
+        letterSpacing: '0.8px',
 
         '@media (max-width: 1360px)' : {
             width: '185px',
@@ -83,7 +84,8 @@ const useStyles = makeStyles({
         padding: '0',
         paddingBottom: 15,
         backgroundColor: "white",
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        letterSpacing: '0.8px'
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',

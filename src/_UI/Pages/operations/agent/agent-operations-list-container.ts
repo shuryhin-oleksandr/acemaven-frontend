@@ -26,7 +26,7 @@ export const OperationHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 36px;
+  margin-bottom: 10px;
 `
 export const OperationTitle = styled.div`
   font-family: "Helvetica Bold", sans-serif;

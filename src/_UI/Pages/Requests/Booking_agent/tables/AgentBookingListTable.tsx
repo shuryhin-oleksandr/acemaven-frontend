@@ -61,7 +61,8 @@ const useStyles = makeStyles({
     padding: "0",
     paddingBottom: "15px",
     backgroundColor: "white",
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    letterSpacing: '0.8px'
   },
   cell: {
     color: "#115B86",
@@ -72,7 +73,8 @@ const useStyles = makeStyles({
     paddingBottom: "15px",
     paddingRight: "30px",
     backgroundColor: "white",
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    letterSpacing: '0.8px'
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",

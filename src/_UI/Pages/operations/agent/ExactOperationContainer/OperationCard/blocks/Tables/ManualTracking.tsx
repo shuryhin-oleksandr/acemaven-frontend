@@ -51,6 +51,7 @@ import {useTranslation} from "react-i18next";
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
+        overflow: 'visible'
     },
     shipping_cell: {
         color: "#115B86",
@@ -269,8 +270,8 @@ const ManualTracking: React.FC<PropsType> = ({
                                         />
                                     </TableCell>
                                     <TableCell className={classes.innerCommentCell} align="left">
-                                        {/*{!finded_status*/}
-                                        {/*    ? */}
+                                        {!finded_status
+                                            ?
                                           <FormField
                                                 inputRef={register({
                                                     required: `${t("Error message/Field is required")}`,
@@ -281,19 +282,19 @@ const ManualTracking: React.FC<PropsType> = ({
                                                 max_width={"100%"}
                                                 marginBottom={"12px"}
                                             />
-                                        {/*    : <ManualTrackingCalendarChoice control={control}*/}
-                                        {/*                                    date_name_first='date'*/}
-                                        {/*                                    time_name_first='time'*/}
-                                        {/*                                    setValue={setValue}*/}
-                                        {/*                                    errors={{*/}
-                                        {/*                                        from: errors.date,*/}
-                                        {/*                                        departure_time: errors.time*/}
-                                        {/*                                    }}*/}
-                                        {/*                                    required_dates={false}*/}
-                                        {/*                                    label1=''*/}
-                                        {/*                                    justify_content='flex-start'*/}
-                                        {/*    />*/}
-                                        {/*}*/}
+                                            : <ManualTrackingCalendarChoice control={control}
+                                                                            date_name_first='date'
+                                                                            time_name_first='time'
+                                                                            setValue={setValue}
+                                                                            errors={{
+                                                                                from: errors.date,
+                                                                                departure_time: errors.time
+                                                                            }}
+                                                                            required_dates={false}
+                                                                            label1=''
+                                                                            justify_content='flex-start'
+                                            />
+                                        }
                                     </TableCell>
                                     <TableCell className={classes.buttonCell} align="left">
                                         <FormOperationButton
@@ -393,7 +394,6 @@ export default ManualTracking;
 
 const TableWrapper = styled.div`
   max-height: 350px;
-  overflow: auto;
 `;
 
 const Notification = styled.div`

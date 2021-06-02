@@ -12,7 +12,7 @@ const BaseButton = styled.button`
   outline: none;
   border: none;
   text-transform: uppercase;
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 14px;
 `;
 

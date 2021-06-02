@@ -51,18 +51,33 @@ const useStyles = makeStyles({
     fontSize: "16px",
     borderBottom: "1px solid #828282",
     padding: "0",
-    paddingBottom: "15px",
     backgroundColor: "white",
+    whiteSpace: "nowrap",
+    letterSpacing: "0.8px"
   },
   cell: {
     color: "#115B86",
+    width: "120px",
     fontFamily: "Helvetica Bold",
     fontSize: "16px",
     borderBottom: "1px solid #828282",
     padding: "0",
-    paddingBottom: "15px",
     paddingRight: "30px",
     backgroundColor: "white",
+    whiteSpace: "nowrap",
+    letterSpacing: "0.8px"
+  },
+  cellData: {
+    color: "#115B86",
+    width: "210px",
+    fontFamily: "Helvetica Bold",
+    fontSize: "16px",
+    borderBottom: "1px solid #828282",
+    padding: "0",
+    paddingRight: "30px",
+    backgroundColor: "white",
+    whiteSpace: "nowrap",
+    letterSpacing: "0.8px"
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -148,7 +163,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
             <TableRow>
               <TableCell className={classes.emptyHeader} align="left" />
               <TableCell className={classes.shipping_cell} align="left" />
-              <TableCell className={classes.cell} align="left">
+              <TableCell className={classes.cellData} align="left">
                 <TableCellContent
                   setSearchValue={props.setSearchValue}
                   setSearchMode={setSearchMode}
@@ -193,7 +208,7 @@ const RatesPage: React.FC<PropsType> = ({ freight_rates_list, ...props }) => {
                   thunkName="rates"
                 />
               </TableCell>
-              <TableCell className={classes.cell} align="left">
+              <TableCell className={classes.cellData} align="left">
                 <TableCellContent
                   setSearchValue={props.setSearchValue}
                   setSearchMode={setSearchMode}

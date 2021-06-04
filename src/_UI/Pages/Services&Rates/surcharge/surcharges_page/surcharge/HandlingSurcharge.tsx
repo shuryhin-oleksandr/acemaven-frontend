@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
         paddingRight: "12px",
-        maxHeight:300
+        height:300
     },
     table: {
         minWidth: 479,
@@ -71,8 +71,8 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
         <div style={{width:"100%", borderBottom:"1px solid #BDBDBD"}}>
         <HandlingSurchargeContainer style={{maxWidth: '1000px'}}>
             <HandlingTitle>{t("Surcharges/HANDLING")} ({t("Surcharges/Surcharges")})</HandlingTitle>
-            {/*<ScrollbarStyled {...{style: { height: 300 }}}>*/}
                 <TableContainer className={classes.container} component={Paper}>
+                    <ScrollbarStyled>
                     <Table stickyHeader className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -138,8 +138,8 @@ const HandlingSurcharge:React.FC<PropsType> = ({setFormMode, containers,...props
                             ))}
                         </TableBody>
                     </Table>
+                    </ScrollbarStyled>
                 </TableContainer>
-            {/*</ScrollbarStyled>*/}
         </HandlingSurchargeContainer>
         </div>
     )

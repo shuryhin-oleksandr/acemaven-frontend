@@ -509,7 +509,7 @@
     "INACTIVE": "PAUSED",
     "Rates can be paused or reactivated using this button": "Rates can be paused or reactivated using this button",
     "Use this registry as a template for a new rate": "Use this registry as a template for a new rate",
-    "Use this registry as a template for a new rate, with the same values and parameters": "Create new record using this one as a template. The same values and conditions will be copied and can be modified before saving.",
+    "Use this registry as a template for a new rate, with the same values and parameters": "Create new record using this one as a template. The same values and conditions will be copied and can be modified before saving",
     "FREIGHT RATE": "FREIGHT RATE",
     "Do you want to save the changes?": "Do you want to save these changes?",
     "There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ": "There are no surcharges that match this rate and it won't be live until one is registered.",

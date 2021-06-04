@@ -61,6 +61,7 @@ const FreightRateForm: React.FC<PropsType> = ({
                                                  error={errors?.carrier?.message}
                                                  placeholder={t("Quote bid screen/Carrier")}
                                                  width='80%'
+                                                 height="250px"
                             />}
                     />
                     <Controller

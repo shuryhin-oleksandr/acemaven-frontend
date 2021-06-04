@@ -54,6 +54,7 @@ const SurchargeForm: React.FC<PropsType> = (
                                                  error={errors?.carrier?.message}
                                                  placeholder={t("Quote bid screen/Carrier")}
                                                  width="80%"
+                                                 height="250px"
                             />
                         }
                     />
@@ -70,6 +71,7 @@ const SurchargeForm: React.FC<PropsType> = (
                                                  error={errors?.direction?.message}
                                                  placeholder={t("Surcharges/Direction")}
                                                  width="80%"
+                                                 height="80px"
                             />
                         }
                     />

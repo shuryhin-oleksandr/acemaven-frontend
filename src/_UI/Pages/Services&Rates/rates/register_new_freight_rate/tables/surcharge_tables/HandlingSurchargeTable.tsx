@@ -12,6 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import {useTranslation} from "react-i18next";
+import ScrollbarStyled from "../../../../../../components/_commonComponents/ScrollbarStyled/ScrollbarStyled";
 
 type PropsType = {
     containers: any
@@ -20,10 +21,11 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: 'none',
-        height: 320
+        height: 320,
+        width: 450
     },
     table: {
-        minWidth: 430,
+        // minWidth: 430,
 
     },
     body: {
@@ -53,6 +55,7 @@ const HandlingSurchargeTable:React.FC<PropsType> = ({containers}) => {
         <HandlingSurchargeContainer style={{maxWidth: '834px', marginRight: '50px'}}>
             <HandlingTitle>{t("Quote bid screen/HANDLING")}</HandlingTitle>
             <TableContainer className={classes.container} component={Paper}>
+                <ScrollbarStyled>
                 <Table stickyHeader className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -77,6 +80,7 @@ const HandlingSurchargeTable:React.FC<PropsType> = ({containers}) => {
                         ))}
                     </TableBody>
                 </Table>
+                </ScrollbarStyled>
             </TableContainer>
         </HandlingSurchargeContainer>
     )

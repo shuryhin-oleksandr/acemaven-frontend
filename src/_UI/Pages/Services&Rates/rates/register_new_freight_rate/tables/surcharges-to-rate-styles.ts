@@ -47,6 +47,6 @@ export const Arrow = styled.button`
 export const TableWrapper = styled.div`
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  max-width: 1300px;
   animation: ${openTable} ease-in-out .3s;
 `

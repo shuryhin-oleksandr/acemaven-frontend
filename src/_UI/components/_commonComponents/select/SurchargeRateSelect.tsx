@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { Tooltip } from "@material-ui/core";
+import ScrollbarStyled from "../ScrollbarStyled/ScrollbarStyled";
 
 type IProps = {
   label?: string;
@@ -26,6 +27,7 @@ type IProps = {
   small_size?: string;
   without_border?: number;
   width?: string;
+  height?: string;
 };
 
 const useStyles = makeStyles(() => ({
@@ -126,7 +128,7 @@ const SurchargeRateSelect: React.FC<IProps> = ({
           className={classes.selectEmpty}
           {...props}
           MenuProps={{
-            style: { zIndex: 999999 },
+            style: { zIndex: 999999},
             anchorOrigin: {
               vertical: "bottom",
               horizontal: "left",
@@ -144,6 +146,8 @@ const SurchargeRateSelect: React.FC<IProps> = ({
           <MenuItem value="" disabled>
             {props.placeholder}
           </MenuItem>
+          {/*<div style={{height: props.height ? props.height : "110px"}}>*/}
+          {/*<ScrollbarStyled>*/}
           {props.options?.map((o: any) =>
             o.tooltip ? (
               <Tooltip
@@ -165,6 +169,8 @@ const SurchargeRateSelect: React.FC<IProps> = ({
               </MenuItem>
             )
           )}
+          {/*</ScrollbarStyled>*/}
+          {/*</div>*/}
         </Select>
         <FormHelperText className={classes.helperText} error={!!error}>
           {error}

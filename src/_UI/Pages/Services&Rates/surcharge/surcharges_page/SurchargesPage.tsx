@@ -48,7 +48,8 @@ const useStyles = makeStyles({
     paddingLeft: "63px",
     paddingRight: "30px",
     backgroundColor: "white",
-    paddingBottom: '15px'
+    paddingBottom: '15px',
+    letterSpacing: '0.8px'
   },
   cell: {
     color: "#115B86",
@@ -59,7 +60,8 @@ const useStyles = makeStyles({
     padding: "0",
     paddingRight: "30px",
     backgroundColor: "white",
-    paddingBottom: '15px'
+    paddingBottom: '15px',
+    letterSpacing: '0.8px'
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -267,6 +269,9 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
                   setSearchColumn={props.setSearchColumn}
                 />
               </TableCell>
+              <TableCell className={classes.cell} align="left">
+                <div style={{ display: "flex" }}>{t("Freight rates/ACTIONS")}</div>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -328,20 +333,22 @@ const SurchargesPage: React.FC<PropsType> = ({ surcharges_list, ...props }) => {
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     {row.expiration_date}
-                    <Tooltip
-                      title={`${t("Freight rates/Use this registry as a template for a new rate, with the same values and parameters")}.`}
-                      arrow
-                      classes={{ tooltip: classes.customTooltip }}
-                    >
-                      <TemplateIcon
-                        onClick={() =>
-                          templateDataHandler(row.id, row.shipping_type)
-                        }
-                      >
-                        <img src={template_icon} alt="" />
-                      </TemplateIcon>
-                    </Tooltip>
                   </div>
+                </TableCell>
+                <TableCell className={classes.innerCell} align="left">
+                  <Tooltip
+                    title={`${t("Freight rates/Use this registry as a template for a new rate, with the same values and parameters")}.`}
+                    arrow
+                    classes={{ tooltip: classes.customTooltip }}
+                  >
+                    <TemplateIcon
+                      onClick={() =>
+                        templateDataHandler(row.id, row.shipping_type)
+                      }
+                    >
+                      <img src={template_icon} alt="" />
+                    </TemplateIcon>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}

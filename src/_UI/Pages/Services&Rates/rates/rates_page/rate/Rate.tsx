@@ -136,7 +136,7 @@ const Rate: React.FC<PropsType> = ({
 
   const onSubmit = (values: any) => {
     let rates: any[] = [];
-
+      // debugger
     values.rates &&
       Object.keys(values.rates).forEach(
         (key: any) =>

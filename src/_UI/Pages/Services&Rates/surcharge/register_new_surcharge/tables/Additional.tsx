@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     container: {
         boxShadow: "none",
         width: 660,
-        height: "400px",
+        height: "300px",
         overflowY: "auto",
     },
     table: {

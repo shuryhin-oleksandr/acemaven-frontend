@@ -96,7 +96,7 @@ export const InfoWrap = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #4f4f4f;
 `;
 

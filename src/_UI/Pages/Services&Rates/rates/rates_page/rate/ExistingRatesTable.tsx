@@ -50,9 +50,9 @@ type PropsType = {
 const useStyles = makeStyles({
     container: {
         boxShadow: "none",
-        paddingRight: "12px", height: '100%',
-        maxHeight:420,
-        maxWidth:1100
+        paddingRight: "12px",
+        height: 420,
+        maxWidth: 1100,
     },
     table: {
         "& .MuiTableHead-root": {},
@@ -131,6 +131,7 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
             {isFullView
             &&
             <TableContainer className={classes.container} component={Paper}>
+                <ScrollbarStyled>
                 <Table stickyHeader  className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -273,6 +274,7 @@ const ExistingRatesTable: React.FC<PropsType> = ({rate, control, getValues, setV
                         }
                     </TableBody>
                 </Table>
+                </ScrollbarStyled>
             </TableContainer>
             }
         </div>

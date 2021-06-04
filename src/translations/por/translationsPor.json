@@ -508,7 +508,7 @@
     "INACTIVE": "PAUSADO",
     "Rates can be paused or reactivated using this button": "As tarifas podem ser pausadas ou reativadas com esse botão",
     "Use this registry as a template for a new rate": "Use este registro como um modelo para uma nova tarifa",
-    "Use this registry as a template for a new rate, with the same values and parameters": "Crie um novo registro usando este como modelo. Os mesmos valores e condições serão copiados e poderão ser modificados antes de salvar.",
+    "Use this registry as a template for a new rate, with the same values and parameters": "Crie um novo registro usando este como modelo. Os mesmos valores e condições serão copiados e poderão ser modificados antes de salvar",
     "FREIGHT RATE": "TARIFA",
     "Do you want to save the changes?": "Deseja guardar as alterações?",
     "There are no surcharges. The rate won´t be posted until a matching surcharge agreement is created. ": "Não existem taxas que correspondam a essa tarifa e ela não será publicada até que uma seja cadastrada.",

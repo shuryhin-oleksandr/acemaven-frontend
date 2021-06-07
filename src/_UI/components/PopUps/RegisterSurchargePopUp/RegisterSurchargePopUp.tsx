@@ -214,6 +214,7 @@ const RegisterSurchargePopUp: React.FC<PropsType> = ({
                     charges={additional}
                     shippingMode={shippingValue}
                     setValue={setValue}
+                    shipping_mode_add={existing_surcharge?.shipping_mode?.title}
         />
       </PopupContent>
     </PopupOuter>

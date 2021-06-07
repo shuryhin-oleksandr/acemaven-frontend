@@ -67,11 +67,13 @@ type PropsType = {
   control: any;
   errors: any;
   setValue: (name: string, value: any) => void;
+  shipping_mode_add?: string;
 };
 
 const Additional: React.FC<PropsType> = ({
   setFormMode,
   setValue,
+  shipping_mode_add,
   ...props
 }) => {
   const classes = useStyles();
@@ -126,7 +128,7 @@ const Additional: React.FC<PropsType> = ({
                       component="th"
                       scope="row"
                     >
-                      {charge.additional_surcharge.title}
+                      {shipping_mode_add === 'FCL' &&  charge.additional_surcharge.title === 'OTHER SURCHARGES' ? `${charge.additional_surcharge.title} (PER CONTAINER)` : `${charge.additional_surcharge.title}`}
                     </TableCell>
                   }
                 />

@@ -165,8 +165,8 @@ const OperationCard: React.FC<PropsType> = ({
         />
         {(operation_info?.status ===
           AppOperationBookingStatusesType.CONFIRMED ||
-          operation_info?.status ===
-            AppOperationBookingStatusesType.CHANGE_REQUEST ||
+          // operation_info?.status ===
+          //   AppOperationBookingStatusesType.CHANGE_REQUEST ||
           operation_info?.status ===
             AppOperationBookingStatusesType.CONFIRMED_CHANGE_REQUEST ||
           operation_info?.status ===

@@ -187,6 +187,7 @@ const Surcharge: React.FC<PropsType> = ({handleSubmit, setValue, formMode, setFo
                             control={control}
                             errors={errors}
                             setValue={setValue}
+                            shipping_mode_add={surcharge?.shipping_mode.title}
                 />
             </SurchargeContent>
         </SurchargeContainer>

@@ -46,6 +46,7 @@ const SurchargesToRate:React.FC<PropsType> = ({ existing_surcharge, shipping_mod
                     <SurchargeAdditionalTable
                       charges={existing_surcharge?.charges}
                       shipping_mode= {shipping_mode}
+                      shipping_mode_add={existing_surcharge?.shipping_mode.title}
                     />}
                 </TableWrapper>
                 }

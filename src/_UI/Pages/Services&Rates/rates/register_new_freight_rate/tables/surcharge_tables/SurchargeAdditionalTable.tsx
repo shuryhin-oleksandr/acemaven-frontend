@@ -15,7 +15,8 @@ import {useTranslation} from "react-i18next";
 
 type PropsType = {
     charges: any,
-    shipping_mode?: string
+    shipping_mode?: string,
+    shipping_mode_add?: string
 }
 
 const useStyles = makeStyles({
@@ -54,7 +55,7 @@ const useStyles = makeStyles({
 
      const arrShippingMode = ['Loose Cargo/RORO', 'LCL', 'Air Loose Cargo'];
 
-const SurchargeAdditionalTable:React.FC<PropsType> = ({charges, shipping_mode}) => {
+const SurchargeAdditionalTable:React.FC<PropsType> = ({charges, shipping_mode, shipping_mode_add}) => {
     const classes = useStyles();
     const {t} = useTranslation();
     return (
@@ -74,7 +75,7 @@ const SurchargeAdditionalTable:React.FC<PropsType> = ({charges, shipping_mode}) 
                         {charges?.map((c: any) => (
                             <TableRow key={c.id}>
                                 <TableCell className={classes.innerMainCell}  component="th" scope="row">
-                                    {c.additional_surcharge.title}
+                                    {shipping_mode_add === 'FCL' && c.additional_surcharge.title === 'OTHER SURCHARGES' ?  `${c.additional_surcharge?.title} (PER CONTAINER)` : `${c.additional_surcharge?.title}`}
                                 </TableCell>
                                 <TableCell className={classes.innerCell} align="left" >
                                     {c.currency.code}

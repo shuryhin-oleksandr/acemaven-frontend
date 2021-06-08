@@ -48,7 +48,7 @@ export const HeadingFormWrapper = styled.div`
 `;
 
 export const HeadingFormText = styled.div`
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   color: #000000;
 `;
@@ -100,7 +100,7 @@ export const BackButton = styled.button`
   background: #7c7c89;
   font-size: 14px;
   text-transform: uppercase;
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   color: #ffffff;
   border: none;
   outline: none;

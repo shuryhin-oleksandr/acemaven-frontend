@@ -37,7 +37,7 @@ export const OffersSpan = styled.div<{new_offer?: boolean}>`
 `
 
 export const RouteName = styled.div`
-  font-family: "Helvetica Thin", sans-serif;
+  font-family: "Helvetica Light", sans-serif;
   font-size: 24px;
   color: #000000;
   line-height: 1;

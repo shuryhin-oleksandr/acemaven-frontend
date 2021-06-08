@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         color: '#1B1B25',
         paddingLeft: '0',
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         color: '#1B1B25',
         padding: '0',
@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     },
     innerCellLast: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         color: '#1B1B25',
         padding: '0',
@@ -132,7 +132,7 @@ const AgentQuoteRow:React.FC<PropsType> = ({ setCardOpen, quote}) => {
                 </CargosOuter>
             </TableCell>
             <TableCell className={classes.innerCell} align="center">
-                <div style={{fontFamily: 'Helvetica Light', fontSize: '15px', textAlign: 'start'}}>{day_from} - {date_to}</div>
+                <div style={{fontFamily: 'Helvetica Reg', fontSize: '15px', textAlign: 'start'}}>{day_from} - {date_to}</div>
                 <div style={{textAlign: 'start'}}>{t("Bookings/WEEK")} {quote.week_range.week_from}{quote.week_range.week_from !== quote.week_range.week_to && ` - ${quote.week_range.week_to}`}</div>
             </TableCell>
             <TableCell className={classes.innerCellLast} align="center">

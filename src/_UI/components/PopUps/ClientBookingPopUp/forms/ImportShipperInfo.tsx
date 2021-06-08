@@ -85,7 +85,7 @@ const ImportShipperInfo: React.FC<PropsType> = ({
     <>
       <HeadingFormWrapper>
         <HeadingFormText>
-          {t("Booking process/Please fill overseas shipper company info")}:
+          {t("Booking process/Please, fill overseas shipper company info")}:
         </HeadingFormText>
         <div>
           <BackButton onClick={() => setFormStep(formStep - 1)} type="button">

@@ -43,7 +43,7 @@ const useStyles = makeStyles({
     },
     innerMainCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         // width: '220px',
         color: '#1B1B25',
@@ -56,7 +56,7 @@ const useStyles = makeStyles({
     },
     innerCell: {
         borderBottom: '1px solid #BDBDBD',
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '16px',
         color: '#1B1B25',
         padding: '0 ',
@@ -84,7 +84,7 @@ const useStyles = makeStyles({
     },
     collapseInnerCell: {
         borderBottom: 0,
-        fontFamily: 'Helvetica Light',
+        fontFamily: 'Helvetica Reg',
         fontSize: '14px'
     },
     customTooltip: {
@@ -179,7 +179,7 @@ const QuoteRow: React.FC<PropsType> = ({quote, activeInactiveQuote, deleteQuoteB
                         ? `${t("Bookings/WEEK")} ${quote.week_range.week_from} - ${quote.week_range.week_to}`
                         : `${t("Bookings/WEEK")} ${quote.week_range.week_from}`
                     }
-                    <br/> <span style={{fontFamily: 'Helvetica Light', fontSize: '14px'}}>{day_from}{'-'}{date_to}</span>
+                    <br/> <span style={{fontFamily: 'Helvetica Reg', fontSize: '14px'}}>{day_from}{'-'}{date_to}</span>
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left" >
                     <OffersSpan new_offer={!!quote.unchecked_offers}>{quote.offers}</OffersSpan>

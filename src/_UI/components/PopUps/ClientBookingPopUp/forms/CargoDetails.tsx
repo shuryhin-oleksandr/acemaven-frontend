@@ -169,9 +169,9 @@ const CargoDetails: React.FC<PropsType> = ({
                   name="release_type"
                   control={control}
                   defaultValue=""
-                  rules={{
-                    required: `${t("Error message/Field is required")}`,
-                  }}
+                  // rules={{
+                  //   required: `${t("Error message/Field is required")}`,
+                  // }}
                   as={
                     <SurchargeRateSelect
                       label={t("Bookings/Release type")}
@@ -185,9 +185,9 @@ const CargoDetails: React.FC<PropsType> = ({
               <DocumentationCol>
                 <FormField
                   label={t("Operations/No. of Documents")}
-                  inputRef={register({
-                    required: `${t("Error message/Field is required")}`,
-                  })}
+                  // inputRef={register({
+                  //   required: `${t("Error message/Field is required")}`,
+                  // })}
                   placeholder={t("Operations/No. of Documents")}
                   name="number_of_documents"
                   defaultValue={1}

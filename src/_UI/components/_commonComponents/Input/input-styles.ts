@@ -33,7 +33,7 @@ export const Field = styled.input<PropsStyle>`
   padding: 10px;
   color: rgba(0, 0, 0, 0.8);
   font-size: 14px;
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   line-height: 17px;
   transition: 0.5s;
   max-width: ${({ max_width }) => (max_width ? max_width : "420px")};

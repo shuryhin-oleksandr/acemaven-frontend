@@ -81,7 +81,7 @@ const useStyles = makeStyles({
   },
   innerMainCell: {
     borderBottom: "1px solid #BDBDBD",
-    fontFamily: "Helvetica Light",
+    fontFamily: "Helvetica Reg",
     fontSize: "16px",
     color: "#1B1B25",
     position: "relative",
@@ -94,7 +94,7 @@ const useStyles = makeStyles({
   },
   innerCell: {
     borderBottom: "1px solid #BDBDBD",
-    fontFamily: "Helvetica Light",
+    fontFamily: "Helvetica Reg",
     fontSize: "16px",
     color: "#1B1B25",
     height: "72px",

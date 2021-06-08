@@ -59,38 +59,45 @@ const useStyles = makeStyles({
     "& .MuiTableHead-root": {},
   },
   shipping_cell: {
-    // width: '220px',
-    maxWidth: '200px',
+    paddingLeft: "63px",
+    padding: "0",
+    paddingRight: "10px",
     color: "#115B86",
     fontFamily: "Helvetica Bold",
     fontSize: "16px",
     borderBottom: "1px solid #115B86",
-    paddingLeft: "63px",
-    padding: "0",
-    paddingRight: "25px",
+    width: '200px',
     paddingBottom: 15,
     backgroundColor: "white",
+    letterSpacing: '0.7px',
+    whiteSpace: 'nowrap'
+
   },
   cell: {
     color: "#115B86",
     fontFamily: "Helvetica Bold",
     fontSize: "16px",
     borderBottom: "1px solid #115B86",
-    // width: '150px',
+    width: '130px',
     padding: "0",
     paddingBottom: 15,
     paddingRight: "10px",
     backgroundColor: "white",
+    letterSpacing: '0.7px',
+    whiteSpace: 'nowrap'
   },
   innerMainCell: {
-    borderBottom: "1px solid #BDBDBD",
-    fontFamily: "Helvetica Light",
+    color: "#115B86",
+    fontFamily: "Helvetica Bold",
     fontSize: "16px",
-    width: "220px",
-    color: "#1B1B25",
-    position: "relative",
-    paddingLeft: "63px",
-    height: "72px",
+    borderBottom: "1px solid #115B86",
+    width: '200px',
+    padding: "0",
+    paddingBottom: 15,
+    paddingRight: "10px",
+    backgroundColor: "white",
+    letterSpacing: '0.7px',
+    whiteSpace: 'nowrap'
   },
   innerCell: {
     borderBottom: "1px solid #BDBDBD",
@@ -192,7 +199,7 @@ const {t} = useTranslation();
                 <TableCell className={classes.cell} align="left">
                   {t("Quotes/VOLUME")}
                 </TableCell>
-                <TableCell className={classes.cell} align="left">
+                <TableCell className={classes.innerMainCell} align="left">
                   <TableCellContent
                     setSearchValue={props.setSearchValue}
                     setSearchMode={props.setSearchMode}

@@ -44,7 +44,7 @@ export const SettingsTitle = styled.div`
   margin-bottom: 10px;
 `
 export const SettingsSubtitle = styled.div`
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   color: #3B3B41;
   margin-bottom: 15px;

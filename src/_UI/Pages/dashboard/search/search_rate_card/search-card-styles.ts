@@ -172,7 +172,7 @@ export const BookButton = styled.div<PropsStyle>`
   border: none;
   background-color: black;
   color: white;
-  font-family: "Helvetica Reg", sans-serif;
+  font-family: "Helvetica ExtraReg", sans-serif;
   font-size: 14px;
   &:hover {
     cursor: pointer;

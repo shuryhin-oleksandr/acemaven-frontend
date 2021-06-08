@@ -160,12 +160,13 @@ const Rate: React.FC<PropsType> = ({
     }));
 
     //check surcharges
-    let ifNotAllContainersHaveSurcharges = to_submit?.some((r) => {
-      const checkedRate = rate?.rates?.find((sr) => sr.id === r.id);
-      return checkedRate?.surcharges.length === 0;
-    });
+    // let ifNotAllContainersHaveSurcharges = to_submit?.some((r) => {
+    //   const checkedRate = rate?.rates?.find((sr) => sr.id === r.id);
+    //   return checkedRate?.surcharges.length === 0;
+    // });
 
-    !ifNotAllContainersHaveSurcharges &&
+    // !ifNotAllContainersHaveSurcharges &&
+    existing_surcharge &&
       to_submit &&
       to_submit.length > 0 &&
       dispatch(editRates(Number(rate?.id), to_submit, history));

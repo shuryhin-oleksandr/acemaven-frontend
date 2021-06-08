@@ -13,7 +13,7 @@ export const CommonWrap = styled.div`
   align-items: center;
 `
 export const RadioLabel = styled.div`
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 16px;
   color: #3B3B41;
   margin-left: 5px;

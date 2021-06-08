@@ -55,7 +55,7 @@ const BillingInProgressPage: React.FC<PropsType> = ({ billing_list }) => {
           <img src={hide_map_icon} alt="" />
         </HideButton>
         <Content isHide={isHide}>
-          <Heading>{t("Dashboard/Operations in progress")}</Heading>
+          <Heading>{t("Dashboard Menu/Billing In Progress")}</Heading>
           <ScrollbarStyled {...{ style: { height: "100%" } }}>
             {billing_list.length > 0 ? (
               billing_list.map((i) => (

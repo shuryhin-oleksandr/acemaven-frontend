@@ -53,7 +53,7 @@ export const InfoTitle = styled.span`
 `;
 
 export const InfoText = styled.span`
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   line-height: 16px;
   text-transform: uppercase;

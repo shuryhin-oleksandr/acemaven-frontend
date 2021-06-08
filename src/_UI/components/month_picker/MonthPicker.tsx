@@ -84,7 +84,7 @@ const StyledPicker = styled(DateRangePicker)<DateRangePickerProps>`
   & .rs-picker-toggle-placeholder {
     color: #7c7c89;
     font-size: 14px;
-    font-family: "Helvetica Light", sans-serif;
+    font-family: "Helvetica Reg", sans-serif;
   }
   & .rs-picker-toggle-value {
     color: #7c7c89;

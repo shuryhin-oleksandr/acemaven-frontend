@@ -23,23 +23,23 @@ display: flex;
 flex-direction: column;
 width: 100%;
 height: 45px;
-margin-bottom: 20px;
+margin-bottom: 12px;
 `
 export const Label = styled.div`
   font-family: "Helvetica Bold", sans-serif;
   font-size: 14px;
   color: black;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 `
 
 export const TextWrap = styled.div`
   color: #1B1B25;
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 16px;
 `
 export const SpanName = styled.div`
    color: #1B1B25;
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 16px;
   text-transform: capitalize;
 `

@@ -67,7 +67,7 @@ export const CargosOuter = styled.div`
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
-  font-family: "Helvetica Light", sans-serif;
+  font-family: "Helvetica Reg", sans-serif;
   font-size: 14px;
   height: 100%;
   overflow-y: auto;

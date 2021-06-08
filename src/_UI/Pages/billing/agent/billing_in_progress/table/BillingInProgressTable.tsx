@@ -80,7 +80,7 @@ const useStyles = makeStyles({
   },
   innerCell: {
     borderBottom: "1px solid #BDBDBD",
-    fontFamily: "Helvetica Light",
+    fontFamily: "Helvetica Reg",
     fontSize: "16px",
     color: "#1B1B25",
     height: "72px",
@@ -252,7 +252,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
                   <div
                     style={{
                       color: "black",
-                      fontFamily: "Helvetica Light, sans-serif",
+                      fontFamily: "Helvetica Reg, sans-serif",
                       fontSize: "23px",
                       marginTop: "-4px",
                     }}
@@ -265,7 +265,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
                   <div
                     style={{
                       color: "black",
-                      fontFamily: "Helvetica Light, sans-serif",
+                      fontFamily: "Helvetica Reg, sans-serif",
                       fontSize: "23px",
                       marginTop: "-4px",
                     }}
@@ -287,7 +287,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
                   <div
                     style={{
                       color: "black",
-                      fontFamily: "Helvetica, sans-serif",
+                      fontFamily: "Helvetica Reg, sans-serif",
                       fontSize: "16px",
                     }}
                   >
@@ -298,7 +298,7 @@ const BillingInProgressTable: React.FC<PropsType> = ({ ...props }) => {
                   <div
                     style={{
                       color: "black",
-                      fontFamily: "Helvetica Light, sans-serif",
+                      fontFamily: "Helvetica Reg, sans-serif",
                       fontSize: "14px",
                     }}
                   >

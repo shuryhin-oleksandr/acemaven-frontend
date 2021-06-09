@@ -48,7 +48,6 @@ const AgentOperationsListContainer: React.FC<PropsType> = ({setSearchMode, ...pr
 
     //local state
     const [isHide, setIsHide] = useState(false);
-
     // SEA
     let events = [...autoTrackWithEventsHelper(props.operations_list), ...manualTrackWithEventsHelper(props.operations_list)]
 

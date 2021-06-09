@@ -273,9 +273,9 @@ const ManualTracking: React.FC<PropsType> = ({
                                         {!finded_status
                                             ?
                                           <FormField
-                                                inputRef={register({
-                                                    required: `${t("Error message/Field is required")}`,
-                                                })}
+                                                // inputRef={register({
+                                                //     required: `${t("Error message/Field is required")}`,
+                                                // })}
                                                 placeholder={t("Confirm Operation/Add comment...")}
                                                 name="comment"
                                                 error={errors?.comment}
@@ -293,6 +293,7 @@ const ManualTracking: React.FC<PropsType> = ({
                                                                             required_dates={false}
                                                                             label1=''
                                                                             justify_content='flex-start'
+                                                                            tracking_time={tracking[0]?.date_created}
                                             />
                                         }
                                     </TableCell>

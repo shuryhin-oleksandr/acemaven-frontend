@@ -157,7 +157,7 @@ const SearchInput: React.FC<PropsType> = ({
   };
 
   let backToBasisHandler = () => {
-    searchHandler("");
+    searchHandler(input_value);
     setSearchMode(false);
   };
 
@@ -183,7 +183,7 @@ const SearchInput: React.FC<PropsType> = ({
         <img src={close_icon} alt="" style={{ width: "9px" }} />
       </IconButton>
       <SearchIcon
-        onClick={backToBasisHandler}>
+        onClick={() => backToBasisHandler()}>
         <img src={search_icon} alt="" />
       </SearchIcon>
     </SearchWrap>

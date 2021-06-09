@@ -42,6 +42,7 @@ type PropsType = {
     arrival_date?: string,
     first_time?: string,
     register?: any,
+    tracking_time?: string
 }
 
 const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, register, required_dates, ...props}) => {
@@ -51,7 +52,6 @@ const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, reg
         to:  ''
     })
 
-
     const handleFromChange = (from: string) => {
         props.setFormMode && props.setFormMode(true)
         setSelectedDay({
@@ -60,7 +60,6 @@ const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, reg
         })
         props.setValue(props.date_name_first, from)
     }
-
 
     const toInput = useRef<DayPickerInput>(null)
     const {t} = useTranslation();
@@ -98,7 +97,7 @@ const ManualTrackingCalendarChoice: React.FC<PropsType> = ({control, errors, reg
                                         onDayChange={handleFromChange}
                                         ref={toInput}
                                         dayPickerProps={{
-                                            disabledDays: [{before: new Date()}, {after: props.after}],
+                                            disabledDays: [{before: new Date(props.tracking_time ? props.tracking_time : '')}, {after: props.after}],
                                         }}
                                     />
                                 }

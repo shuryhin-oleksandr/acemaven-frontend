@@ -21,7 +21,7 @@ type PropsType = {
     thunkName?: string;
     my_operations: string,
     setMyOperations: (value: string) => void,
-    operation_status?: string
+    operation_status?: string,
 }
 
 const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) => {
@@ -58,7 +58,6 @@ const OptionsOperationButtons:React.FC<PropsType> = ({setMode, mode, ...props}) 
             dispatchOperationsAgentHandler(
         'mine'
                      )
-
                 }}
                 belong_to={props.my_operations}
             >

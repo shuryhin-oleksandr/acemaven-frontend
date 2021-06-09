@@ -46,6 +46,7 @@ const FreightRateForm: React.FC<PropsType> = ({
   const {t} = useTranslation();
     return (
         <FormWrap>
+          {/*{console.log('control', control)}*/}
             <div style={{display: "flex", width: "100%", borderBottom: '1px solid #115B86', paddingBottom: '20px'}}>
                 <GroupWrap>
                     <Controller

@@ -222,23 +222,23 @@ const {t} = useTranslation();
                             {/*<TableCell className={classes.cell} align="left">*/}
                             {/*    STATUS*/}
                             {/*</TableCell>*/}
-                            <TableCell className={classes.cellData} align="right">
-                            <TableCellContent setSearchValue={props.setSearchValue}
-                                              setSearchMode={props.setSearchMode}
-                                              direction={''}
-                                              type={props.mode}
-                                              column_name='agent'
-                                              searchValue={props.searchValue}
-                                              isSearchMode={props.isSearchMode}
-                                              title={t("Role/AGENT")}
-                                              searchColumn={props.search_column}
-                                              setSearchColumn={props.setSearchColumn}
-                                              withoutSearch={true}
-                                              thunkName='operations'
-                                              my_operations={props.my_operations}
-                                              operation_status={props.operation_status}
-                            />
-                            </TableCell>
+                            {props.my_operations === 'all' && <TableCell className={classes.cellData} align="right">
+                                <TableCellContent setSearchValue={props.setSearchValue}
+                                                   setSearchMode={props.setSearchMode}
+                                                   direction={''}
+                                                   type={props.mode}
+                                                   column_name='agent'
+                                                   searchValue={props.searchValue}
+                                                   isSearchMode={props.isSearchMode}
+                                                   title={t("Role/AGENT")}
+                                                   searchColumn={props.search_column}
+                                                   setSearchColumn={props.setSearchColumn}
+                                                   withoutSearch={true}
+                                                   thunkName='operations'
+                                                   my_operations={props.my_operations}
+                                                   operation_status={props.operation_status}
+                                />
+                            </TableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -249,6 +249,7 @@ const {t} = useTranslation();
                             key={index}
                             operation={operation}
                             operation_status={props.operation_status}
+                            my_operations={props.my_operations}
                           />)}
                     </TableBody>
                 </Table>

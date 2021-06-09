@@ -240,7 +240,7 @@ const {t} = useTranslation();
               {/*<TableCell className={classes.cell} align="left">*/}
               {/*    STATUS*/}
               {/*</TableCell>*/}
-              <TableCell className={classes.data_cell} align="right">
+              {props.my_operations === 'all' && <TableCell className={classes.data_cell} align="right">
                 <TableCellContent
                   setSearchValue={props.setSearchValue}
                   setSearchMode={props.setSearchMode}
@@ -257,7 +257,7 @@ const {t} = useTranslation();
                   my_operations={props.my_operations}
                   operation_status={props.operation_status}
                 />
-              </TableCell>
+              </TableCell>}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -268,6 +268,7 @@ const {t} = useTranslation();
                 key={index}
                 operation={operation}
                 operation_status={props.operation_status}
+                my_operations={props.my_operations}
               />
             ))}
           </TableBody>

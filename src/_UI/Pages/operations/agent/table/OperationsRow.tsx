@@ -107,9 +107,10 @@ type PropsType = {
     operation_status?: string,
     automatic_tracking?: boolean,
     trackingAut?: TrackingBackendType[],
+    my_operations?: string,
 }
 
-const OperationsRow: React.FC<PropsType> = ({operation, automatic_tracking, trackingAut}) => {
+const OperationsRow: React.FC<PropsType> = ({operation, automatic_tracking, trackingAut, my_operations}) => {
     const classes = useStyles();
 
     const history = useHistory()
@@ -175,17 +176,17 @@ const OperationsRow: React.FC<PropsType> = ({operation, automatic_tracking, trac
                     }
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
-                    {!operation.freight_rate.carrier_disclosure ? operation.freight_rate.carrier.title : 'Carrier is disclosed'}
+                    {operation.freight_rate.carrier.title ? operation.freight_rate.carrier.title : 'Carrier is disclosed'}
                 </TableCell>
                 <TableCell className={classes.innerCell} align="left">
                     <div style={{fontFamily: 'Helvetica Reg', textTransform: 'uppercase'}}>
                         {  automatic_tracking
-                          ? ((trackingAut && trackingAut[0].status && trackingAut[0].date_created )
+                          ? ((trackingAut && trackingAut[0]?.status && trackingAut[0]?.date_created )
                             ?
                                 <div>
-                                    <span>{trackingAut[0].date_created.slice(0, -5)}</span>
+                                    <span>{trackingAut[0]?.date_created.slice(0, -5)}</span>
                                     <br />
-                                    <span>${trackingAut[0].status}</span>
+                                    <span>${trackingAut[0]?.status}</span>
                                 </div>
                             : `-`)
                           : (operation.tracking[0]?.status
@@ -197,9 +198,9 @@ const OperationsRow: React.FC<PropsType> = ({operation, automatic_tracking, trac
                                 </div> : (t(`Statuses/${operation.status}`)))}
                     </div>
                 </TableCell>
-                <TableCell className={classes.innerCell} align="left">
-                    {operation.agent_contact_person?operation.agent_contact_person:"-"}
-                </TableCell>
+                {my_operations==='all' &&  <TableCell className={classes.innerCell} align="left">
+                    {operation.agent_contact_person ? operation.agent_contact_person : "-"}
+                </TableCell>}
             </TableRow>
         </React.Fragment>
     )

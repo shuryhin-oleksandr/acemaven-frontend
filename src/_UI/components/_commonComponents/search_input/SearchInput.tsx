@@ -50,6 +50,7 @@ const SearchInput: React.FC<PropsType> = ({
       //event.currentTarget.blur()
       searchHandler(value.value);
       setInputValue(value.value);
+      setSearchMode(false);
     }
   };
 

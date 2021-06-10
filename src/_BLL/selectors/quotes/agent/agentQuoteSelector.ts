@@ -8,3 +8,4 @@ export const getCheckSurchargeResult = (state: AppStateType) => state.agent_quot
 export const saveRateResultSelector = (state: AppStateType) => state.agent_quotes.saveRateResult
 export const getBadSavingMessageSelector = (state: AppStateType) => state.agent_quotes.badSavingMessage
 export const getFindedFirst = (state: AppStateType) => state.agent_quotes.finded_first
+export const getAgentQuotesIsFetching = (state: AppStateType) => state.agent_quotes.isFetching

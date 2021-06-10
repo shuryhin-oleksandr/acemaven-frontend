@@ -150,6 +150,7 @@ const OperationCard: React.FC<PropsType> = ({
                 setReviewPopup={setReviewPopup}
                 ATD={props.ATD}
                 setCompleteOperationPopup={props.setCompleteOperationPopup}
+                shipment={shipment}
               />
             )
           )}

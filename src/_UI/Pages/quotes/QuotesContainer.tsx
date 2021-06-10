@@ -8,9 +8,15 @@ import {
   deleteQuoteFromClientListThunk,
   getClientQuotesThunk,
 } from "../../../_BLL/thunks/quotes/clientQuotesThunk";
-import { getClientQuotesListSelector } from "../../../_BLL/selectors/quotes/client/quotesClientSelector";
+import {
+  getClientQuotesIsFetching,
+  getClientQuotesListSelector
+} from "../../../_BLL/selectors/quotes/client/quotesClientSelector";
 import { getAgentQuotesListThunk } from "../../../_BLL/thunks/quotes/agentQuotesThunk";
-import { getAgentQuotesLIstSelector } from "../../../_BLL/selectors/quotes/agent/agentQuoteSelector";
+import {
+  getAgentQuotesIsFetching,
+  getAgentQuotesLIstSelector
+} from "../../../_BLL/selectors/quotes/agent/agentQuoteSelector";
 //components
 import Layout from "../../components/BaseLayout/Layout";
 import QuotesPage from "./client/QuotesPage";
@@ -18,6 +24,7 @@ import AgentQuotesPage from "./agent/AgentQuotesPage";
 import { getShippingTypes } from "../../../_BLL/thunks/rates&surcharge/surchargeThunks";
 import { AppCompaniesTypes } from "../../../_BLL/types/commonTypes";
 import SpinnerForAuthorizedPages from "../../components/_commonComponents/spinner/SpinnerForAuthorizedPages";
+import {getAgentOperationsIsFetching} from "../../../_BLL/selectors/operations/agentOperationsSelector";
 
 const QuotesContainer: React.FC = () => {
   //data from store
@@ -26,9 +33,10 @@ const QuotesContainer: React.FC = () => {
       state.profile.authUserInfo?.companies &&
       state.profile.authUserInfo?.companies[0]
   );
+  let isFetchingClient = useSelector(getClientQuotesIsFetching);
   const my_quotes_list = useSelector(getClientQuotesListSelector); //client
+  let isFetchingAgent = useSelector(getAgentQuotesIsFetching);
   const agent_quotes_list = useSelector(getAgentQuotesLIstSelector); //agent
-
 
   //get quotes after mounting
   const dispatch = useDispatch();
@@ -74,35 +82,40 @@ const QuotesContainer: React.FC = () => {
 
   return (
     <Layout>
-      {company_type?.type === "client" ? (
-        <QuotesPage
-          my_quotes_list={my_quotes_list}
-          activeInactiveQuote={activeInactiveQuote}
-          deleteQuoteByClient={deleteQuoteByClient}
-          getQuotesByFilters={getQuotesByFilters}
-          setSearchMode={setSearchMode}
-          isSearchMode={isSearchMode}
-          mode={mode}
-          setMode={setMode}
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          search_column={search_column}
-          setSearchColumn={setSearchColumn}
-        />
-      ) : (
-        <AgentQuotesPage
-          setSearchMode={setSearchMode}
-          isSearchMode={isSearchMode}
-          mode={mode}
-          setMode={setMode}
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          search_column={search_column}
-          setSearchColumn={setSearchColumn}
-          getQuotesByFilters={getQuotesByFilters}
-          agent_quotes_list={agent_quotes_list}
-        />
-      )}
+      {(isFetchingAgent || isFetchingClient)
+        ? <SpinnerForAuthorizedPages/>
+        : <>
+          {company_type?.type === "client" ? (
+            <QuotesPage
+              my_quotes_list={my_quotes_list}
+              activeInactiveQuote={activeInactiveQuote}
+              deleteQuoteByClient={deleteQuoteByClient}
+              getQuotesByFilters={getQuotesByFilters}
+              setSearchMode={setSearchMode}
+              isSearchMode={isSearchMode}
+              mode={mode}
+              setMode={setMode}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              search_column={search_column}
+              setSearchColumn={setSearchColumn}
+            />
+          ) : (
+            <AgentQuotesPage
+              setSearchMode={setSearchMode}
+              isSearchMode={isSearchMode}
+              mode={mode}
+              setMode={setMode}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              search_column={search_column}
+              setSearchColumn={setSearchColumn}
+              getQuotesByFilters={getQuotesByFilters}
+              agent_quotes_list={agent_quotes_list}
+            />
+          )}
+        </>
+      }
     </Layout>
   );
 };

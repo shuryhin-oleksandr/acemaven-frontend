@@ -34,6 +34,7 @@ type PropsType = {
     ATD: boolean | undefined,
     setCompleteOperationPopup: (value: boolean) => void
     setReviewPopup: (value: boolean) => void,
+    shipment?: any
 }
 
 const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, company_type, setReviewPopup, ...props}) => {
@@ -82,7 +83,7 @@ const ActionsButtonsBlock: React.FC<PropsType> = ({operation_info, my_name, comp
                           {t("Bookings/TAKE OVER")}
                             </AcceptButton>
                     )
-                    : (company_type?.type === AppCompaniesTypes.CLIENT && departedStatus ? null :
+                    : (company_type?.type === AppCompaniesTypes.CLIENT && departedStatus && props.shipment?.actual_date_of_departure ? null :
                             my_name === props.client_contact_name
                             &&
                             (!operation_info.can_be_patched && operation_info.has_change_request)

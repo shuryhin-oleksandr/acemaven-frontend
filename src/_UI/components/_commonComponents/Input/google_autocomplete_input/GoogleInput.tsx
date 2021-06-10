@@ -10,6 +10,9 @@ import {HelperText} from "../input-styles";
 //icons
 import location_icon  from '../../../../../_UI/assets/icons/booking/location_icon.svg';
 import {useTranslation} from "react-i18next";
+import {Scrollbars} from "react-custom-scrollbars";
+import {Port, PortsList} from "../../../../Pages/Services&Rates/surcharge/register_new_surcharge/form-styles";
+import {PortType} from "../../../../../_BLL/types/rates&surcharges/ratesTypes";
 
 
 
@@ -101,8 +104,20 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, g
                         </GoogleInputWrapper>
                         {errors?.google_field_name && <HelperText>{t("Error message/Field is required")}</HelperText>}
                     </GoogleInputOuter>
-                    <div style={{marginTop: '-15px'}}>
-                        {loading && <div>{t("Booking Confirmation/Loading...")}</div>}
+                    <div style={{marginTop: '-15px', position: 'relative'}}>
+                        {/*{loading && <div>{t("Booking Confirmation/Loading...")}</div>}*/}
+                        {suggestions?.length > 0 &&
+                        <Scrollbars
+                          style={{
+                              position: "absolute",
+                              zIndex: 10,
+                              borderRadius: 5,
+                              border: "1px solid rgba(0,0,0,0.5)",
+                          }}
+                          autoHeight={true}
+                          autoHeightMax={160}
+                        >
+                            <PortsList>
                         {suggestions.map((suggestion, index) => {
                             const className = suggestion.active
                                 ? 'suggestion-item--active'
@@ -119,10 +134,14 @@ const GoogleInput:React.FC<PropsType> = ({register, google_field_name, errors, g
                                     })}
                                     key={index}
                                 >
-                                    <span>{suggestion.description}</span>
+                                    <Port>
+                                        {suggestion.description}
+                                    </Port>
                                 </div>
                             );
                         })}
+                            </PortsList>
+                        </Scrollbars> }
                     </div>
                 </div>
             )}

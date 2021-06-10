@@ -67,7 +67,6 @@ const useStyles = makeStyles({
     fontSize: "16px",
     borderBottom: "1px solid #115B86",
     width: '200px',
-    paddingBottom: 15,
     backgroundColor: "white",
     letterSpacing: '0.7px',
     whiteSpace: 'nowrap'
@@ -80,7 +79,6 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #115B86",
     width: '130px',
     padding: "0",
-    paddingBottom: 15,
     paddingRight: "10px",
     backgroundColor: "white",
     letterSpacing: '0.7px',
@@ -93,7 +91,6 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #115B86",
     width: '200px',
     padding: "0",
-    paddingBottom: 15,
     paddingRight: "10px",
     backgroundColor: "white",
     letterSpacing: '0.7px',
@@ -232,7 +229,7 @@ const {t} = useTranslation();
                     thunkName="quotes"
                   />
                 </TableCell>
-                <TableCell className={classes.cell} align="right">
+                <TableCell className={classes.cell} align="center">
                   {t("Freight rates/ACTIONS")}
                 </TableCell>
               </TableRow>

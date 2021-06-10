@@ -55,7 +55,6 @@ const useStyles = makeStyles({
         borderBottom: "1px solid #115B86",
         paddingLeft: '63px',
         padding: '0',
-        paddingBottom: 15,
         backgroundColor: "white",
         whiteSpace: 'nowrap',
         letterSpacing: '0.8px',
@@ -71,7 +70,6 @@ const useStyles = makeStyles({
         fontSize: '16px',
         borderBottom: "1px solid #115B86",
         padding: '0',
-        paddingBottom: 15,
         backgroundColor: "white",
         whiteSpace: 'nowrap'
     },
@@ -82,7 +80,6 @@ const useStyles = makeStyles({
         fontSize: '16px',
         borderBottom: "1px solid #115B86",
         padding: '0',
-        paddingBottom: 15,
         backgroundColor: "white",
         whiteSpace: 'nowrap',
         letterSpacing: '0.8px'

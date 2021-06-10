@@ -120,12 +120,15 @@ const RegisterNewSurchargeContainer: React.FC<PropsType> = ({setNewSurchargeMode
         }
     }, [dispatch])
 
+
     useEffect(() => {
         if(surcharge) {
             setShippingValue(surcharge.shipping_mode.id)
             setValue('carrier', surcharge.carrier.id)
             setValue('direction', surcharge.direction)
-            setValue('shipping_mode', surcharge.shipping_mode.id)
+            setValue('location', surcharge.location.code)
+            setValue('from', surcharge.start_date)
+            setValue('to', surcharge.expiration_date)
         }
     }, [surcharge, setValue])
 

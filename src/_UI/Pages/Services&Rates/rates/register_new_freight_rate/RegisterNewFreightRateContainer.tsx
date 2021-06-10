@@ -98,6 +98,7 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({setNewRateMode}) 
     const error_message_for_new_rate = useSelector(getErrorMessageForNewRate)
 
 
+
     //Локальный стейт для условной отрисовки таблиц в зависимости от выбранного шиппинг мода
     const [shippingValue, setShippingValue] = useState(0);
 
@@ -214,7 +215,9 @@ const RegisterNewFreightRateContainer: React.FC<PropsType> = ({setNewRateMode}) 
             setShippingValue(rate_info.shipping_mode.id)
             setValue('carrier', rate_info.carrier.id)
             setValue('shipping_mode', rate_info.shipping_mode.id)
-            //setValue('transit_time', rate_info.transit_time)
+            setValue('origin', rate_info.origin.code)
+            setValue('destination', rate_info.destination.code)
+            setValue('transit_time', rate_info.transit_time)
             rate_info?.rates?.map((r: any) => setValue(`rates.${r?.id}.rate`, r.rate))
         }
     }, [rate_info, setValue])

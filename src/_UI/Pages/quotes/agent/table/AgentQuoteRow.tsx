@@ -51,6 +51,7 @@ const useStyles = makeStyles({
     innerCellLast: {
         borderBottom: '1px solid #BDBDBD',
         fontFamily: 'Helvetica Reg',
+        width: '200px',
         fontSize: '16px',
         color: '#1B1B25',
         padding: '0',

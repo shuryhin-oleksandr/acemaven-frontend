@@ -48,7 +48,7 @@ const useStyles = makeStyles({
         "& .MuiTableHead-root": {},
     },
     shipping_cell: {
-        width: '300px',
+        width: '230px',
         color: '#115B86',
         fontFamily: 'Helvetica Bold',
         fontSize: '16px',

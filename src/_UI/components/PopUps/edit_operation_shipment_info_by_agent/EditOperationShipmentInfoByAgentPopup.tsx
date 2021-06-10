@@ -83,7 +83,9 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
             document_cut_off_date,
             cargo_cut_off_date,
             actual_time_of_departure,
-            actual_time_of_arrival
+            actual_time_of_arrival,
+            // empty_pickup_location_address,
+            // empty_pickup_location
         } = datesFormatHelper(values)
 
         let final_data = {
@@ -93,7 +95,9 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
             document_cut_off_date: document_cut_off_date ?? null,
             cargo_cut_off_date: cargo_cut_off_date ?? null,
             actual_date_of_departure: actual_time_of_departure ? actual_time_of_departure : null,
-            actual_date_of_arrival: actual_time_of_arrival ? actual_time_of_arrival : null
+            actual_date_of_arrival: actual_time_of_arrival ? actual_time_of_arrival : null,
+            empty_pick_up_location_address: values.empty_pickup_location_address ? values.empty_pickup_location_address : null,
+            empty_pick_up_location: values.empty_pickup_location ? values.empty_pickup_location : null,
         }
         delete final_data.estimated_time
         delete final_data.documents_cut_off
@@ -101,6 +105,8 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
         delete final_data.actual_time_arrival
         delete final_data.actual_time_departure
         delete final_data.payment_due_by
+        delete final_data.empty_pickup_location
+        delete final_data.empty_pickup_location_address
 
         let changed_fields = {};
 
@@ -115,7 +121,7 @@ const EditOperationShipmentInfoByAgentPopup: React.FC<PropsType> = ({operation_i
         }))
 
         //send updated fields
-        Object.keys(changed_fields).length > 0 && dispatch(editOperationByAgentThunk(changed_fields, Number(shipment?.id)))
+        Object.keys(changed_fields).length > 0 ? dispatch(editOperationByAgentThunk(changed_fields, Number(shipment?.id))) : setEdit(false);
 
         {
             values.payment_due_by && (moment(values.payment_due_by).format('DD/MM/YYYY') !== operation_info?.payment_due_by)

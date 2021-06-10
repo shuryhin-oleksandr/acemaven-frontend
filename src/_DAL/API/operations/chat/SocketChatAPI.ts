@@ -8,7 +8,7 @@ type SubscriberType = (messages: MessageType[]) => void;
 let subscribers = [] as SubscriberType[]
 
 let ws: WebSocket | null = null;
-let interval: number;
+let interval: any;
 
 // const closeHandler = () => {
 //     setTimeout(createChannel, 2000)

@@ -3,7 +3,7 @@ import { wsChatHelper } from "../../helpers/wsChatHelper";
 import { operationChatActions } from "../../reducers/chat_operation_reducer/chatOperationReducer";
 
 let ws: WebSocket;
-let interval: number;
+let interval: any;
 
 export const startReceiveNotifications = (dispatch: Dispatch) => {
   let token = localStorage.getItem("access_token");

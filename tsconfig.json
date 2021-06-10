@@ -24,7 +24,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "strict": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -39,7 +39,6 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts"
   ],
   "include": [
     "src"
